@@ -1,7 +1,7 @@
 ---
 id:
 title: A reference outside the repository's chosen vault is never read
-status: backlog
+status: ideation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -33,7 +33,7 @@ gates:
                 reason: 'Captain 2026-10-20: 「准。」 — accepts this release r1 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
               application:
                 target-stage: ideation
-                state: pending
+                state: consumed
 ---
 
 ADR 0001 rules that the plugin refuses a reference outside the chosen vault. Today any `op://` reference is read, including one typed by hand or imported.
