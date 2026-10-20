@@ -23,6 +23,17 @@ gates:
                 id: briefing:project-env-plain-failure-reason:backlog:attempt-1:revision-1
                 digest: sha256:b607313c88f936da18906ca22d51c066f1f869ebeb6309344428235a9949d76a
                 room-ref: ./project-env-plain-failure-reason/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-plain-failure-reason:backlog:1
+                briefing: briefing:project-env-plain-failure-reason:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T14:16:57.473175Z"
+                decision: approve
+                reason: 'Captain 2026-10-20: 「准。」 — accepts this release r1 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 ADR 0002 rules that an unresolved variable is shown with the reason it failed. Today the first line of raw `op` stderr reaches the daemon log and the settings Test row.
