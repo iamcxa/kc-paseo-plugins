@@ -1,0 +1,73 @@
+design_review:
+  preview: project-env-plain-failure-reason/design/preview.html
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-mixed-desktop-light.png, preview-mixed-desktop-dark.png
+      seen: Variable rows use the same bold title, divider and inset as the action rows "Resolve every variable now" and "Save this project", so results read as more actions inside one card.
+      fix: Give result rows a visibly different treatment, for example a sub-heading such as "Results", a smaller name, or a monospace name.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-before-test-light.png and the mixed pictures
+      seen: The row help line ("Shows set or failed per variable, with the reason; never the value") and the footnote ("the plugin names the cause only. It never shows what 1Password or the Keychain printed") both say the output never shows the raw value or tool output.
+      fix: Keep one of the two statements and drop the other.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-mixed-desktop-light.png
+      seen: Test and Save are the same filled black button at the same size, so neither reads as the main action. Both sit in one card with only a "Check" row between them.
+      fix: Make Test a secondary (outlined) button, or make a deliberate choice that Save is the primary action.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-mixed-desktop-light.png and preview-before-test-light.png
+      seen: The Save row moves down by about 190px (3 rows) once results appear, so the Save button changes position after Test is pressed.
+      fix: Move the results out of the middle of the card, or place Save so it does not shift (for example above the results).
+    - severity: MINOR
+      dimension: states
+      where: all six pictures
+      seen: No picture shows the loading state while Test runs, the Test button's busy or disabled state, an all-set result, or a project with zero variables.
+      fix: Add previews for running, all set and no variables, and say what Test does when there is nothing to resolve.
+    - severity: MINOR
+      dimension: states
+      where: preview-before-test-light.png
+      seen: Before Test, the card shows no result rows, and nothing shows that earlier results become stale after the config changes.
+      fix: Show the stale or "run Test again" state, or state that results are cleared on edit.
+    - severity: MINOR
+      dimension: states
+      where: preview-everycause-desktop-light.png, preview-everycause-phone-dark.png
+      seen: Seven rows push Save to the bottom, and the pictures are cropped there (the desktop Save is cut off; the phone footnote is missing). The page shows no collapse, scroll or summary for a long variable list.
+      fix: Show a many-items state with its end, and consider a count line such as "N failed" or a max-height with scroll.
+    - severity: MINOR
+      dimension: states
+      where: preview-longname-phone-light.png
+      seen: The long variable name breaks mid-word ("BUIL / D_AGENT") onto the next line.
+      fix: Break at underscores or truncate with a full-name tooltip or expander.
+    - severity: MINOR
+      dimension: flow
+      where: preview-mixed-desktop-light.png
+      seen: Save sits directly under failed rows with no cue whether saving is still allowed or what "this project" covers.
+      fix: Say in the Save row whether failures block saving, and what is saved (for example "Saves the vault and variable settings for this project").
+    - severity: MINOR
+      dimension: flow
+      where: preview-everycause-desktop-light.png
+      seen: Failure rows give only a cause and no next step (no token stored, the field is empty, outside the chosen vault), and none has an action or link to fix it.
+      fix: Add a short fix hint or a link to the relevant setting on the rows where the user can act.
+    - severity: MINOR
+      dimension: platform
+      where: preview-everycause-phone-dark.png, preview-longname-phone-light.png
+      seen: The Test and Save buttons are about 36px tall on the phone, under the usual 44px touch target.
+      fix: Raise the phone button height to at least 44px.
+    - severity: MINOR
+      dimension: theme-size
+      where: set of six pictures
+      seen: Several combinations are missing, including before-test in dark and on phone, mixed results on phone (light and dark), every cause on desktop dark, and the long name in dark or on desktop.
+      fix: Add the missing combinations or confirm they come from the same tokens.
+    - severity: MINOR
+      dimension: theme-size
+      where: all pictures
+      seen: The "set" line and the help text are small grey text at about 11-12px, and the red "failed" text is also small. On the light desktop picture these have low contrast against the pale card.
+      fix: Raise the size or contrast of the secondary text and the red, and check it against WCAG AA.
+  limitations:
+    - I saw only static pictures. I could not check hover, focus, pressed, disabled or loading behaviour, or keyboard order.
+    - I did not open preview.html, so I could not see real wrapping at other widths or any behaviour beyond the six pictures.
+    - The two every-cause pictures are cropped at the bottom, so I could not see the footnote on those or the full Save row on desktop.
+    - Colour contrast was judged by eye, not measured. Touch-target sizes are estimated from the pictures.
