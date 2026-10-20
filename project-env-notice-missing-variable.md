@@ -1,7 +1,7 @@
 ---
 id:
 title: An agent's timeline shows each variable it started without
-status: backlog
+status: ideation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -33,7 +33,7 @@ gates:
                 reason: 'Captain 2026-10-20: 「准。」 — accepts this release r1 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
               application:
                 target-stage: ideation
-                state: pending
+                state: consumed
 ---
 
 ADR 0002 rules that an unresolved variable is shown on the agent's timeline. Today the failure goes only to the daemon log, and the plugin registers no timeline renderer.
