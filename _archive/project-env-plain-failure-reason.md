@@ -1,7 +1,7 @@
 ---
 id:
 title: A failed variable names its cause class, never raw tool output
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -71,8 +71,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「准」 — approves delivery of PR iamcxa/kc-paseo-plugins#9 at head f53d485f1e963388e8a8b513f483bdb24d65f6e5, including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-20T14:19:44Z
+verdict: PASSED
+completed: 2026-10-20T16:01:24Z
+archived: 2026-10-20T16:01:24Z
 ---
 
 ADR 0002 rules that an unresolved variable is shown with the reason it failed. Today the first line of raw `op` stderr reaches the daemon log and the settings Test row.
