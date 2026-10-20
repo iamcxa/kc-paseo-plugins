@@ -238,3 +238,39 @@ The merge fix is small: every mapped name is always written, `""` when failed, e
 ### Summary
 
 Every mapped, non-reserved name is now written into the hook's env: its value, or "" when it failed, was empty or missed the shared 20 s deadline; reserved names are skipped and reported failed with stage `reserved` (ADR 0004). The cache key is service account plus reference and empty values are not cached. `createSecrets(tools)`, executable fakes, `makeWorld`/`calls()` and `npm test` (Node's runner) are in place for the four sibling tasks. Limits: AC-1 and the live AC-2 clause are owed on Kent's daemon; the 20 s budget is a choice, not measured; fake failure text is scenario-chosen, not real `op` output.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 6244ff6ffa5fcd4300a94f2ff9b2e4c3fd1e06a9 (PR iamcxa/kc-paseo-plugins#7) against AC-1 to AC-5 and the approved design, including that each test actually fails when the behaviour it guards is removed; give a verdict.
+  Verdict: PASSED, recommended (AC-1 and the live AC-2 clause still owed, see below). PR head is 6244ff6, Draft, worktree clean. Read `server/secrets.ts`, `session-open.ts`, `tools.ts`, `shared/config.ts`, `index.server.ts`, all tests and fakes. `npm test` 17/17, `npm run typecheck` clean; `index.server.ts` bundles with Paseo.app's esbuild 0.25.12 (generic flags, not `compiler.js`). Design matches (factory, deadline 20 s, `""` blank, cache key account+ref, reserved skip per ADR 0004); the only deviation is a fifth `stage` value `reserved`, which ADR 0004 requires.
+  Mutation runs in a throwaway copy (worktree untouched). AC-2: failed names omitted from env fails 7 tests; empty cached or empty-check removed fails "empty value is a failed variable"; dropping blanks from the returned env fails 8. AC-3: key = ref only fails "never serves one service account's value to another". AC-4: removing the deadline race fails the deadline test (stage `read`, not `deadline`); also dropping the `op` timeout fails (30 s wait / "child killed" assertion, rerun alone and repeatable); removing the catch in `openSession` fails "does not throw". Reserved check removed fails the reserved test. Token check removed fails the no-token test.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  adr_lint exit 0 ("4 ADR file(s) checked, 0 legacy"; also exit 0 with `--require 0004`). Also at the candidate: number_guards PASS, comment_ratio 1.7% (11/656) exit 0 and all 11 added comments read (none narrate or cite lines), doc_impact lists only ADR 0004 `updated`, design_surfaces presentable, dispatch_records 3 complete. Script below ran as written in a clean-env shell: all steps matched.
+- DONE: Record every unverified obligation, including AC-1's and AC-2's live proof on Kent's daemon, without running them against the live `paseo-project-env` install.
+  Listed under Unverified; nothing was run against the live install, no secret value fetched or printed.
+
+### Acceptance script (no user-visible surface; the smallest observable commands)
+
+Run in a fresh shell on Kent's Mac. `WT` is the candidate checkout; its `project-env/node_modules` must exist (`cd "$WT/project-env" && npm ci` otherwise). Total about 1 minute.
+
+1. `WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-new-agent-env; cd "$WT" && git rev-parse HEAD` — prints `6244ff6ffa5fcd4300a94f2ff9b2e4c3fd1e06a9`.
+2. `cd "$WT/project-env" && npm test 2>&1 | grep -E '^ℹ (tests|pass|fail)'` — `tests 17`, `pass 17`, `fail 0` (about 15 s).
+3. `SB=$(mktemp -d); ln -s "$(command -v node)" "$SB/node"; ln -s "$(command -v npm)" "$SB/npm"; ln -s /bin/sh "$SB/sh"; (cd "$WT/project-env" && PATH="$SB" "$SB/npm" test 2>&1 | grep -E '^ℹ (tests|pass|fail)'); PATH="$SB" /bin/sh -c 'command -v op security git || echo none-on-PATH'` — same `17 / 17 / 0`, then `none-on-PATH` (AC-5).
+4. `cd "$WT/project-env" && npm run typecheck >/dev/null 2>&1; echo typecheck-exit=$?` — `typecheck-exit=0`.
+5. `cd "$WT" && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo adr_lint-exit=$?` — `4 ADR file(s) checked, 0 legacy`, `adr_lint-exit=0`.
+
+Does not cover: a real `op`, Keychain, git or Paseo daemon (AC-1, live AC-2), the real 30 s hook limit, real `op` error text.
+
+### Unverified obligations
+
+- AC-1 live: a new agent on Kent's daemon reporting set or missing per variable. Needs a throwaway probe install (own plugin id, never `paseo-project-env`) and a test vault. Not run.
+- AC-2 live clause: map a daemon-held name such as `LANG` to a nonexistent field; the agent must print `empty`. Same probe install. Not run. The mechanism (`""` overrides `process.env`; only `undefined` is deleted) is read from Paseo.app source and mirrored by `paseoLaunchEnv`, not observed.
+- AC-4 limit: 20 s budget and Paseo's 30 s `REQUEST_TIMEOUT_MS` are read, not measured; real `op` latency unmeasured.
+- Deferred risk: the deadline test uses a 4 s budget with real process spawns; on a heavily loaded host (load average about 22 with parallel runs) the fast variable was once blanked and the test failed. It passed alone. Becomes material if CI or the sibling tasks run it on a busy runner.
+- Deferred risk: the deadline starts after `projectFor` (settings read, git), so the PRFAQ line "20 s from hook entry" is looser than the code; a hung git before it is unbounded (already a stated Known limit, owned by worktree-real-paths).
+- Deferred risk: cache key is service-account name plus reference; a token replaced under the same name serves old values up to 15 min (stated rejected design, r3 owns staleness).
+- Fake failure texts are scenario-chosen, not real `op` or `security` output; `stage` is stripped from the Test button until plain-failure-reason lands.
+
+### Summary
+
+Candidate 6244ff6 does what AC-1 to AC-5 and the design say, at the proof level the fakes can give; every decisive test failed when its guarded behaviour was removed. No Material finding. The live daemon proofs for AC-1 and AC-2 are the open obligations and need the Captain's probe install.
