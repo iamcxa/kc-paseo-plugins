@@ -42,6 +42,17 @@ gates:
                 id: briefing:project-env-plain-failure-reason:ideation:attempt-1:revision-1
                 digest: sha256:6430188c1aa688787591e213a1d2a2ed40e92e602f3e91d321a7b4859efb8942
                 room-ref: ./project-env-plain-failure-reason/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-plain-failure-reason:ideation:1
+                briefing: briefing:project-env-plain-failure-reason:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T14:57:07.256963Z"
+                decision: approve
+                reason: 'Captain 2026-10-20: 「准」 — accepts this ideation design and its acceptance criteria into implementation, including the presented additions (the one-line run fix in project-env-plain-failure-reason; AC-2 in project-env-vault-boundary).'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-20T14:19:44Z
 ---
 
