@@ -12,6 +12,17 @@ journey-release: r1
 journey-story: worktree-env
 journey-required-tasks: '["project-env-worktree-real-paths"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-worktree-real-paths:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-worktree-real-paths-backlog-1
+              briefing:
+                id: briefing:project-env-worktree-real-paths:backlog:attempt-1:revision-1
+                digest: sha256:75435fc7e1863041ba99d922828a55084a4e5e532882ae23e045ed8a7266ca00
+                room-ref: ./project-env-worktree-real-paths/review/backlog/briefing-1
 ---
 
 Kent uses worktrees daily. Worktree membership already resolves real paths, but the stored repository root is compared with git's common-dir parent as written, so a symlinked path fails to match.
