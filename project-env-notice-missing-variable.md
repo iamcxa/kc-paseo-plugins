@@ -23,6 +23,17 @@ gates:
                 id: briefing:project-env-notice-missing-variable:backlog:attempt-1:revision-1
                 digest: sha256:d10200920463a8f1d2ab5a24fbfc9bd205274498f7b8ab1d665960667213a1bb
                 room-ref: ./project-env-notice-missing-variable/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-notice-missing-variable:backlog:1
+                briefing: briefing:project-env-notice-missing-variable:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T14:17:08.80465Z"
+                decision: approve
+                reason: 'Captain 2026-10-20: 「准。」 — accepts this release r1 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 ADR 0002 rules that an unresolved variable is shown on the agent's timeline. Today the failure goes only to the daemon log, and the plugin registers no timeline renderer.
