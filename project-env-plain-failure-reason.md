@@ -61,6 +61,17 @@ gates:
                 id: briefing:project-env-plain-failure-reason:validation:attempt-1:revision-1
                 digest: sha256:243617482cbbed16ae3cd1d69a965307a07627528ea603fe4dfcb83903e50446
                 room-ref: ./project-env-plain-failure-reason/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-plain-failure-reason:validation:1
+                briefing: briefing:project-env-plain-failure-reason:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T16:00:53.614416Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「准」 — approves delivery of PR iamcxa/kc-paseo-plugins#9 at head f53d485f1e963388e8a8b513f483bdb24d65f6e5, including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-20T14:19:44Z
 ---
 
