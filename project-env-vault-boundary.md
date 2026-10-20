@@ -166,3 +166,48 @@ The check is one pure comparison in `resolveProject`, using the already-saved va
 ### Summary
 
 One pure comparison now runs first in the per-variable step, so an outside reference never reaches the cache or the 1Password tool; the Test button and every session open inherit it. Base was #9 head f53d485 (ff-merged, unchanged during the work). Not run: a live-daemon check (local string logic over a faked seam; the daemon run is owed by project-env-new-agent-env); Kent's live install `paseo-project-env` was not touched. Limits unchanged from the design: vault rename and id-based identity are not detected.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate a30ad6357ae0fb3f2d02f5e990c0d9a28dea7022 (PR iamcxa/kc-paseo-plugins#10, stacked on #9) against AC-1, AC-2 and the approved design, including that each decisive test fails when the vault check is removed or loosened; give a verdict.
+  Verdict: PASSED, with one Polish finding (below). Delta f53d485..a30ad63 is 4 files; `npm test` 57 pass 0 fail, `npm run typecheck` exit 0 (both run by me). Code read: `isOutsideVault` runs first in `readVariable`, before token, cache and `op`; exact `!==` on the saved `vault`; empty saved vault makes every well-formed reference outside; matches the design.
+  Mutations run in a throwaway copy (candidate untouched): check removed -> 10 fail (8 in `vault-boundary.test.ts`, plus the cause-coverage tests); case-insensitive compare -> fails "a different letter case"; empty vault accepted -> fails "no vault saved"; check moved below the cache read -> fails "is refused before the cache". AC-1 is shown by the `reads().length === 0` assertions on the call-recording fake `op`.
+  Minimal necessity: every added line maps to AC-1/AC-2 (check + call site, the `failure-reason` coverage expectation, the new test file); nothing else retained.
+- DONE: Polish finding (not blocking): the AC-2 table does not catch a prefix loosening.
+  Mutation `vault !== "" && parsed.vault.startsWith(vault)` left 57 pass 0 fail, so a reference such as `op://Development/i/x` with saved `Dev` is not covered by any row. The product code is exact, so no current harm: Polish. A row with a longer vault name sharing the saved prefix (and one with trailing whitespace) would close it; FO may return it or accept it.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  adr_lint exit 0 ("4 ADR file(s) checked, 0 legacy"). Also: comment_ratio exit 0 (101 code lines, 1 comment line, 1.0%, max 5%); doc_impact exit 0 (0 documents listed); design_surfaces exit 0; dispatch_records exit 0 (3 complete); no Number guards section. The script below ran unchanged under `env -i` with only HOME and PATH, about 40 s, with the observed output shown.
+- DONE: Record every unverified obligation, including the malformed-reference limit, without running anything against the live `paseo-project-env` install.
+  Listed under Unverified obligations; nothing was run against the live install, no secret was fetched.
+
+### Acceptance script (about 1 minute, no secret, touches no install)
+
+```bash
+W=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-vault-boundary
+P=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0
+T="node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/vault-boundary.test.ts"
+echo "1 candidate:"; git -C $W rev-parse HEAD
+echo "2 boundary test:"; cd $W/project-env && $T 2>&1 | grep -E '^ℹ (pass|fail)'
+echo "3 mutation (check removed, in a temp copy):"
+M=$(mktemp -d) && cp -R server shared test package.json tsconfig.json $M/ && ln -s $W/project-env/node_modules $M/node_modules
+sed -i '' 's|^    if (isOutsideVault(ref, vault)) return .*$||' $M/server/secrets.ts
+(cd $M && $T 2>&1 | grep -E '^ℹ (pass|fail)')
+echo "4 full suite:"; cd $W/project-env && npm test 2>&1 | grep -E '^ℹ (pass|fail)'
+echo "5 typecheck:"; npm run typecheck >/dev/null 2>&1; echo "exit $?"
+echo "6 ADR lint:"; cd $W && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9; echo "exit $?"
+```
+
+Expected: 1 prints `a30ad6357ae0fb3f2d02f5e990c0d9a28dea7022`; 2 prints `pass 10` `fail 0`; 3 prints `pass 2` `fail 8` (the mutated copy reads outside references, so 8 rows fail); 4 prints `pass 57` `fail 0`; 5 prints `exit 0`; 6 prints `4 ADR file(s) checked, 0 legacy` then `exit 0`. Uses macOS `sed -i ''`.
+Does not cover: a real daemon session, real 1Password or Keychain, the settings-screen Test row as rendered, or any machine other than this one.
+
+### Unverified obligations
+
+- Malformed-reference limit: a reference with fewer than three non-empty `/` parts (`op://Prod`, `op://Prod/item`, an empty segment) is blanked as `missing-field`, not `outside-vault`, even if it names another vault; `op` is not called (table row "a bare op://name"; `parseRef` check precedes the read). Only the cause class is less specific; no read happens.
+- Real `op` parsing is not exercised: the check compares the text before the first `/`. How real `op` treats a well-formed-looking reference that differs from that text (percent-encoding, `..` segments, vault names containing `/`, case-insensitive vault lookup) is unverified; the plugin fails closed on text mismatch, and the service account's one-vault scope (ADR 0001) is the real bound.
+- No live-daemon or settings-screen Test row run (owed by project-env-new-agent-env AC-1); no screenshot, as this candidate changes no screen markup.
+- Accepted design limits unchanged: a vault rename, and an id-based identity, are not detected. Kent's own configuration had 0 of 1 references outside its vault on 2026-10-20 (from ideation; not re-measured here, no host settings read).
+- Stacked on unmerged #9 (f53d485): the `outside-vault` cause class and `readVariable` shape come from it; this verdict holds only on that base.
+
+### Summary
+
+PASSED: the vault check is one exact comparison placed before the token, cache and `op`, and both the AC-1 and AC-2 tests fail when it is removed, made case-insensitive, accepts an empty saved vault, or moves behind the cache. One Polish gap: no table row catches a prefix loosening. Real `op` reference parsing, the live daemon and the rendered Test row remain unverified.
