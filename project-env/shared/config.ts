@@ -6,6 +6,31 @@ const variable = z.object({
   ref: z.string().startsWith("op://"),
 });
 
+// Names Paseo sets or deletes after the plugin hooks, plus names that would break the agent or
+// the plugin itself; ADR 0004.
+const RESERVED_NAMES: ReadonlySet<string> = new Set([
+  "PATH",
+  "HOME",
+  "NODE_OPTIONS",
+  "OP_SERVICE_ACCOUNT_TOKEN",
+  "PASEO_AGENT_ID",
+  "PASEO_AGENT_CWD",
+  "PASEO_NODE_ENV",
+  "PASEO_DESKTOP_MANAGED",
+  "PASEO_SUPERVISED",
+  "ELECTRON_RUN_AS_NODE",
+  "ELECTRON_NO_ATTACH_CONSOLE",
+  "ESBUILD_BINARY_PATH",
+  "CLAUDECODE",
+  "CLAUDE_CODE_ENTRYPOINT",
+  "CLAUDE_CODE_SSE_PORT",
+  "CLAUDE_AGENT_SDK_VERSION",
+]);
+
+export function isReservedName(name: string): boolean {
+  return RESERVED_NAMES.has(name);
+}
+
 export const project = z.object({
   root: z.string().min(1),
   serviceAccount: z.string().default(""),

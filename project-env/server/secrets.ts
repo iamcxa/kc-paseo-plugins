@@ -1,70 +1,30 @@
 import { execFile } from "node:child_process";
-import { existsSync } from "node:fs";
 import { realpath } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { Project } from "../shared/config";
+import { isReservedName, type Project } from "../shared/config.ts";
 
 const KEYCHAIN_ACCOUNT = "op-service-account-token";
 const CACHE_MS = 15 * 60 * 1000;
-// The daemon is launched by the desktop app, so its PATH may lack Homebrew.
-const OP = ["/opt/homebrew/bin/op", "/usr/local/bin/op"].find((p) => existsSync(p)) ?? "op";
+const CALL_TIMEOUT_MS = 30_000;
 
-function run(
-  file: string,
-  args: string[],
-  env?: NodeJS.ProcessEnv,
-  input?: string,
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const child = execFile(
-      file,
-      args,
-      { env: env ?? process.env, timeout: 30_000, maxBuffer: 4 * 1024 * 1024 },
-      (error, stdout, stderr) => {
-        if (error) reject(new Error(String(stderr || error.message).trim().split("\n")[0]));
-        else resolve(stdout);
-      },
-    );
-    if (input !== undefined) child.stdin?.end(input);
-  });
+export interface Tools {
+  op: string;
+  security: string;
+  git: string;
 }
 
-export async function mainCheckout(cwd: string): Promise<string | null> {
-  try {
-    const git = (args: string[]) => run("/usr/bin/git", args).then((out) => out.trim());
-    const root = dirname(
-      await git(["-C", cwd, "rev-parse", "--path-format=absolute", "--git-common-dir"]),
-    );
-    const top = await realpath(await git(["-C", cwd, "rev-parse", "--show-toplevel"]));
-    // A stray .git file can name any repository's git dir; trust only worktrees that repo registered.
-    const registered = (await git(["-C", root, "worktree", "list", "--porcelain"]))
-      .split("\n")
-      .filter((line) => line.startsWith("worktree "))
-      .map((line) => line.slice("worktree ".length));
-    const known = await Promise.all(registered.map((p) => realpath(p).catch(() => p)));
-    return known.includes(top) ? root : null;
-  } catch {
-    return null;
-  }
+export type FailStage = "token" | "read" | "empty" | "deadline" | "reserved";
+
+export interface VariableResult {
+  name: string;
+  ok: boolean;
+  error?: string;
+  stage?: FailStage;
 }
 
-async function readToken(serviceAccount: string): Promise<string | null> {
-  try {
-    const token = (
-      await run("/usr/bin/security", [
-        "find-generic-password",
-        "-a",
-        KEYCHAIN_ACCOUNT,
-        "-s",
-        serviceAccount,
-        "-w",
-      ])
-    ).trim();
-    return token || null;
-  } catch {
-    return null;
-  }
-}
+type Outcome = { ok: true; value: string } | { ok: false; stage: FailStage; error: string };
+
+const LATE: Outcome = { ok: false, stage: "deadline", error: "not answered in time" };
 
 function opEnv(token: string): NodeJS.ProcessEnv {
   return { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
@@ -72,91 +32,194 @@ function opEnv(token: string): NodeJS.ProcessEnv {
 
 export type TokenState = "missing" | "truncated" | "invalid" | "ok";
 
-export async function tokenStatus(
-  serviceAccount: string,
-): Promise<{ state: TokenState; vaults: string[] }> {
-  const token = await readToken(serviceAccount);
-  if (!token) return { state: "missing", vaults: [] };
-  // ADR 0027: the interactive Keychain prompt truncates tokens to exactly 128 characters.
-  if (token.length === 128) return { state: "truncated", vaults: [] };
-  try {
-    const out = await run(OP, ["vault", "list", "--format", "json"], opEnv(token));
-    const vaults = (JSON.parse(out) as { name: string }[]).map((v) => v.name);
-    return { state: "ok", vaults };
-  } catch {
-    return { state: "invalid", vaults: [] };
-  }
-}
+export function createSecrets(tools: Tools) {
+  const cache = new Map<string, { value: string; at: number }>();
 
-export async function storeToken(serviceAccount: string, raw: string) {
-  const token = raw.trim();
-  if (!token.startsWith("ops_")) {
-    throw new Error("Not a 1Password service account token (expected ops_…)");
+  function run(
+    file: string,
+    args: string[],
+    options: { env?: NodeJS.ProcessEnv; timeout?: number } = {},
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      execFile(
+        file,
+        args,
+        {
+          env: options.env ?? process.env,
+          timeout: options.timeout ?? CALL_TIMEOUT_MS,
+          maxBuffer: 4 * 1024 * 1024,
+        },
+        (error, stdout, stderr) => {
+          if (error) reject(new Error(String(stderr || error.message).trim().split("\n")[0]));
+          else resolve(stdout);
+        },
+      );
+    });
   }
-  if (token.length === 128) {
-    throw new Error("Token is exactly 128 characters, likely truncated; copy it again");
-  }
-  await run("/usr/bin/security", [
-    "add-generic-password",
-    "-U",
-    "-a",
-    KEYCHAIN_ACCOUNT,
-    "-s",
-    serviceAccount,
-    "-w",
-    token,
-  ]);
-  cache.clear();
-  return tokenStatus(serviceAccount);
-}
 
-export async function listRefs(serviceAccount: string, vault: string): Promise<string[]> {
-  const token = await readToken(serviceAccount);
-  if (!token) throw new Error(`No token stored for ${serviceAccount}`);
-  const env = opEnv(token);
-  const items = JSON.parse(
-    await run(OP, ["item", "list", "--vault", vault, "--format", "json"], env),
-  ) as { id: string; title: string }[];
-  const refs: string[] = [];
-  for (const item of items) {
-    const detail = JSON.parse(
-      await run(OP, ["item", "get", item.id, "--vault", vault, "--format", "json"], env),
-    ) as { fields?: { label?: string; type?: string; purpose?: string }[] };
-    for (const field of detail.fields ?? []) {
-      if (!field.label || field.purpose === "NOTES") continue;
-      refs.push(`op://${vault}/${item.title}/${field.label}`);
+  async function mainCheckout(cwd: string): Promise<string | null> {
+    try {
+      const git = (args: string[]) => run(tools.git, args).then((out) => out.trim());
+      const root = dirname(
+        await git(["-C", cwd, "rev-parse", "--path-format=absolute", "--git-common-dir"]),
+      );
+      const top = await realpath(await git(["-C", cwd, "rev-parse", "--show-toplevel"]));
+      // A stray .git file can name any repository's git dir; trust only worktrees that repo registered.
+      const registered = (await git(["-C", root, "worktree", "list", "--porcelain"]))
+        .split("\n")
+        .filter((line) => line.startsWith("worktree "))
+        .map((line) => line.slice("worktree ".length));
+      const known = await Promise.all(registered.map((p) => realpath(p).catch(() => p)));
+      return known.includes(top) ? root : null;
+    } catch {
+      return null;
     }
   }
-  return refs;
-}
 
-const cache = new Map<string, { value: string; at: number }>();
+  async function readToken(serviceAccount: string, timeout?: number): Promise<string | null> {
+    try {
+      const token = (
+        await run(
+          tools.security,
+          ["find-generic-password", "-a", KEYCHAIN_ACCOUNT, "-s", serviceAccount, "-w"],
+          { timeout },
+        )
+      ).trim();
+      return token || null;
+    } catch {
+      return null;
+    }
+  }
 
-async function readRef(ref: string, token: string): Promise<string> {
-  const hit = cache.get(ref);
-  if (hit && Date.now() - hit.at < CACHE_MS) return hit.value;
-  const value = await run(OP, ["read", "--no-newline", ref], opEnv(token));
-  cache.set(ref, { value, at: Date.now() });
-  return value;
-}
+  async function tokenStatus(
+    serviceAccount: string,
+  ): Promise<{ state: TokenState; vaults: string[] }> {
+    const token = await readToken(serviceAccount);
+    if (!token) return { state: "missing", vaults: [] };
+    // ADR 0027: the interactive Keychain prompt truncates tokens to exactly 128 characters.
+    if (token.length === 128) return { state: "truncated", vaults: [] };
+    try {
+      const out = await run(tools.op, ["vault", "list", "--format", "json"], {
+        env: opEnv(token),
+      });
+      const vaults = (JSON.parse(out) as { name: string }[]).map((v) => v.name);
+      return { state: "ok", vaults };
+    } catch {
+      return { state: "invalid", vaults: [] };
+    }
+  }
 
-export async function resolveProject(project: Project) {
-  const token = project.serviceAccount ? await readToken(project.serviceAccount) : null;
-  const env: Record<string, string> = {};
-  const results = await Promise.all(
-    project.variables.map(async ({ name, ref }) => {
-      if (!token) return { name, ok: false, error: "no service account token" };
-      try {
-        env[name] = await readRef(ref, token);
-        return { name, ok: true };
-      } catch (error) {
-        return { name, ok: false, error: (error as Error).message };
+  async function storeToken(serviceAccount: string, raw: string) {
+    const token = raw.trim();
+    if (!token.startsWith("ops_")) {
+      throw new Error("Not a 1Password service account token (expected ops_…)");
+    }
+    if (token.length === 128) {
+      throw new Error("Token is exactly 128 characters, likely truncated; copy it again");
+    }
+    await run(tools.security, [
+      "add-generic-password",
+      "-U",
+      "-a",
+      KEYCHAIN_ACCOUNT,
+      "-s",
+      serviceAccount,
+      "-w",
+      token,
+    ]);
+    cache.clear();
+    return tokenStatus(serviceAccount);
+  }
+
+  async function listRefs(serviceAccount: string, vault: string): Promise<string[]> {
+    const token = await readToken(serviceAccount);
+    if (!token) throw new Error(`No token stored for ${serviceAccount}`);
+    const env = opEnv(token);
+    const items = JSON.parse(
+      await run(tools.op, ["item", "list", "--vault", vault, "--format", "json"], { env }),
+    ) as { id: string; title: string }[];
+    const refs: string[] = [];
+    for (const item of items) {
+      const detail = JSON.parse(
+        await run(tools.op, ["item", "get", item.id, "--vault", vault, "--format", "json"], {
+          env,
+        }),
+      ) as { fields?: { label?: string; type?: string; purpose?: string }[] };
+      for (const field of detail.fields ?? []) {
+        if (!field.label || field.purpose === "NOTES") continue;
+        refs.push(`op://${vault}/${item.title}/${field.label}`);
       }
-    }),
-  );
-  return { env, results };
+    }
+    return refs;
+  }
+
+  async function readVariable(
+    serviceAccount: string,
+    ref: string,
+    token: Promise<string | null>,
+    timeout: () => number,
+  ): Promise<Outcome> {
+    try {
+      const secret = await token;
+      if (!secret) return { ok: false, stage: "token", error: "no service account token" };
+      const key = `${serviceAccount}\0${ref}`;
+      const hit = cache.get(key);
+      if (hit && Date.now() - hit.at < CACHE_MS) return { ok: true, value: hit.value };
+      const value = await run(tools.op, ["read", "--no-newline", ref], {
+        env: opEnv(secret),
+        timeout: timeout(),
+      });
+      if (value === "") return { ok: false, stage: "empty", error: "empty value" };
+      cache.set(key, { value, at: Date.now() });
+      return { ok: true, value };
+    } catch (error) {
+      return { ok: false, stage: "read", error: (error as Error).message };
+    }
+  }
+
+  function untilDeadline(work: Promise<Outcome>, deadline?: number): Promise<Outcome> {
+    if (deadline === undefined) return work;
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(LATE), Math.max(0, deadline - Date.now()));
+      void work.then((outcome) => {
+        clearTimeout(timer);
+        resolve(outcome);
+      });
+    });
+  }
+
+  // `deadline` is epoch ms; without it each call keeps its own 30 s limit (the Test button).
+  async function resolveProject(project: Project, options: { deadline?: number } = {}) {
+    const { deadline } = options;
+    const remaining = () =>
+      deadline === undefined ? CALL_TIMEOUT_MS : Math.max(1, deadline - Date.now());
+    const token = project.serviceAccount
+      ? readToken(project.serviceAccount, remaining())
+      : Promise.resolve(null);
+    const outcomes = await Promise.all(
+      project.variables.map(({ name, ref }) =>
+        isReservedName(name)
+          ? null
+          : untilDeadline(readVariable(project.serviceAccount, ref, token, remaining), deadline),
+      ),
+    );
+    const env: Record<string, string> = {};
+    const results: VariableResult[] = project.variables.map(({ name }, i) => {
+      const outcome = outcomes[i];
+      if (!outcome) return { name, ok: false, error: "reserved name", stage: "reserved" };
+      env[name] = outcome.ok ? outcome.value : "";
+      return outcome.ok
+        ? { name, ok: true }
+        : { name, ok: false, error: outcome.error, stage: outcome.stage };
+    });
+    return { env, results };
+  }
+
+  function clearCache() {
+    cache.clear();
+  }
+
+  return { mainCheckout, tokenStatus, storeToken, listRefs, resolveProject, clearCache };
 }
 
-export function clearCache() {
-  cache.clear();
-}
+export type Secrets = ReturnType<typeof createSecrets>;
