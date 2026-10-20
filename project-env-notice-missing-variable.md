@@ -12,6 +12,17 @@ journey-release: r1
 journey-story: notice-missing-variable
 journey-required-tasks: '["project-env-notice-missing-variable"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-notice-missing-variable:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-notice-missing-variable-backlog-1
+              briefing:
+                id: briefing:project-env-notice-missing-variable:backlog:attempt-1:revision-1
+                digest: sha256:d10200920463a8f1d2ab5a24fbfc9bd205274498f7b8ab1d665960667213a1bb
+                room-ref: ./project-env-notice-missing-variable/review/backlog/briefing-1
 ---
 
 ADR 0002 rules that an unresolved variable is shown on the agent's timeline. Today the failure goes only to the daemon log, and the plugin registers no timeline renderer.
