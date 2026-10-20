@@ -34,6 +34,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-20T14:19:44Z
 ---
 
 ADR 0002 rules that an unresolved variable is shown with the reason it failed. Today the first line of raw `op` stderr reaches the daemon log and the settings Test row.
