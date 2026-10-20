@@ -34,6 +34,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-20T14:19:51Z
 ---
 
 ADR 0002 rules that an unresolved variable is shown on the agent's timeline. Today the failure goes only to the daemon log, and the plugin registers no timeline renderer.
