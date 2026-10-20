@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-new-agent-env
-pr: iamcxa/kc-paseo-plugins#7
+pr: pr-merge:iamcxa/kc-paseo-plugins#7
 journey: paseo-project-env
 journey-release: r1
 journey-story: new-agent-env
