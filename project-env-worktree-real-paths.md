@@ -283,3 +283,94 @@ Expected: step 0 line; "ℹ pass 24" and "ℹ fail 0"; "typecheck clean"; four "
 ### Summary
 
 The merge changed only where `projectFor` lives; the design and the seven cases are unchanged. The AC-1 daemon clause is still owed.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Independently check the reconciled candidate 5ff307de6df4af4c1804d640ad8d31a068fe2e62 (PR iamcxa/kc-paseo-plugins#8, base main dac8940) against AC-1 and the approved design, including the conflict resolution in `server/secrets.ts` and the one-line `projectFor` change in `server/contribute.ts`, and that each of the seven cases still fails when the behaviour it guards is removed; give a verdict.
+  Verdict PASSED for the full delta dac8940..5ff307d (3 files, +166/-6; PR #8 base main, MERGEABLE, worktree clean), on the unit, real-git and hook clauses of AC-1; the daemon clause stays owed. `npm test` 53/53, typecheck clean. `secrets.ts` resolution keeps main's `Cause`/`RunFailure` and adds only `realOrSelf`, the two call sites and `projectForCwd` (no main behaviour changed). `contribute.ts` `projectFor` now returns `secrets.projectForCwd(projects, cwd)`; the read-settings guard is intact.
+  Mutations rerun on a throwaway copy (candidate untouched), test file `project-for-cwd.test.ts`: stored side raw fails 4 tests (cases 1,3,4,6); git root raw fails 2 (2,3); registered list raw fails 1 (4); non-catching fallback fails 2 (5,6); `projectFor` returning null fails 2 (hook tests). A basename-suffix match mutation fails 0, so the design's "basename fails 7" falsifier does not hold (case 7's other repository also differs in basename); a prefix-match is equally uncaught, as validation-1 noted. Polish, no harm: case 7 is a control against matching everything, which match-first still kills.
+  Gap closed by probe: reverting the `projectFor` line to the old `p.root === root` comparison fails no repository test, because nothing calls `contribute` with a symlinked stored root. A throwaway probe driving `contribute` with a fake server and real git/symlink/worktree finds the project for the candidate (3 of 3) and for 0 of 3 with the old comparison. The probe is step 3 of the script below; it is not a repository test. Adding such a test is optional, not required for AC-1.
+  Other checks, exit 0 each: comment_ratio "code lines 151, comment lines 0, 0.0%"; doc_impact "0 document(s)"; design_surfaces "presentable"; dispatch_records "5 dispatch record(s) complete". Minimal necessity: every added line maps to a design falsifier; no comments, no ADR owed.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Script below, run as written under `env -i` in a fresh bash: every step printed its expected line. adr_lint from the candidate worktree: "4 ADR file(s) checked, 0 legacy", exit 0.
+- DONE: Record every unverified obligation, including AC-1's daemon worktree check, without running it against the live `paseo-project-env` install.
+  Listed under "Unverified obligations" below; nothing was run against the live install, no secret was read.
+
+### Summary
+
+The reconciled candidate keeps the approved design and the seven cases, and the merge conflict resolution adds nothing beyond relocating the comparison into `projectForCwd`. The one-line `projectFor` change is correct but has no repository test; the script's hook probe covers it. The AC-1 daemon clause is still open.
+
+### Unverified obligations
+
+- AC-1 daemon clause not run: one agent in a registered worktree of the connected repository on Kent's daemon, reporting set or missing per variable by length test, via a probe install with its own id (never the live `paseo-project-env`), with the chosen variable absent from the daemon environment; also record, shape only, whether Kent's stored root differs from its realpath (if it does not, that run guards worktrees but cannot tell the fix from the old code).
+- The hook probe uses a fake server object, not Paseo's real server: which path form Paseo hands the hook as `cwd`, and how it stores project paths, is not read. The hook-level behaviour has no repository test (probe only).
+- Only macOS was exercised. The per-`agent.create` cost of one `realpath` per stored project is not measured.
+- Accepted limits, unchanged: an unmatched or vanished stored root is silent; two stored entries for one real repository both match and list order wins; bare, submodule and `--separate-git-dir` layouts, and resumed agents (r2), are out of scope.
+- Polish, no harm: the seven cases do not catch a basename or prefix match; case 6's second assertion is satisfied by `realpath(toplevel)` throwing.
+
+### Acceptance script
+
+Does not cover: Kent's daemon, Paseo's real server hook runner, a live agent, or any secret. Needs the candidate worktree below (with `project-env/node_modules` installed), `git`, `node` 24, `python3`; about one minute.
+
+```bash
+set -e
+WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-worktree-real-paths
+PKG=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0
+test "$(git -C $WT rev-parse HEAD)" = 5ff307de6df4af4c1804d640ad8d31a068fe2e62 && echo "step 0 ok: candidate 5ff307d"
+# 1. full suite: expect "pass 53" and "fail 0"
+(cd $WT/project-env && npm test 2>&1 | grep -E '^ℹ (pass|fail)')
+# 2. typecheck: expect "typecheck clean"
+(cd $WT/project-env && npm run typecheck 2>&1 | grep -E 'error' || echo "typecheck clean")
+# 3. real git, real symlink, real worktree, through createSecrets and through the agent.create hook:
+#    expect five "ok" lines from createSecrets (four project found, one no project) then three "ok" hook lines
+S=$(mktemp -d); cat > $S/probe.mjs <<'JS'
+import { realpathSync, mkdirSync, symlinkSync, mkdtempSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+const wt = process.argv[2];
+const { createSecrets } = await import(join(wt, "project-env/server/secrets.ts"));
+const { contribute } = await import(join(wt, "project-env/server/contribute.ts"));
+const base = realpathSync(mkdtempSync(join(tmpdir(), "probe-paths-")));
+const git = (...a) => execFileSync("/usr/bin/git", a, { stdio: "pipe" });
+mkdirSync(join(base, "real"));
+git("init", "-q", join(base, "real/repo"));
+git("-C", join(base, "real/repo"), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "x");
+git("-C", join(base, "real/repo"), "worktree", "add", "-q", join(base, "real/wt"));
+git("init", "-q", join(base, "real/other"));
+symlinkSync(join(base, "real"), join(base, "link"));
+const tools = { op: "/nonexistent", security: "/nonexistent", git: "/usr/bin/git" };
+const stored = [{ root: join(base, "link/repo"), serviceAccount: "", vault: "", prompt: "PROJECT PROMPT", variables: [] }];
+const secrets = createSecrets(tools);
+for (const [label, cwd, want] of [
+  ["main checkout via symlink", join(base, "link/repo"), true],
+  ["main checkout real path", join(base, "real/repo"), true],
+  ["worktree via symlink", join(base, "link/wt"), true],
+  ["worktree real path", join(base, "real/wt"), true],
+  ["unconnected repository", join(base, "real/other"), false],
+]) {
+  const got = (await secrets.projectForCwd(stored, cwd)) !== null;
+  console.log(`${got === want ? "ok  " : "FAIL"} ${label}: ${got ? "project found" : "no project"}`);
+}
+const hooks = {};
+contribute({
+  registerSettings: () => ({ read: async () => ({ status: "ready", values: { projects: stored } }), subscribe: () => () => {} }),
+  before: (name, fn) => { hooks[name] = fn; },
+  handle: () => {},
+}, tools);
+for (const [label, cwd, want] of [
+  ["hook, worktree via symlink", join(base, "link/wt"), true],
+  ["hook, main checkout real path", join(base, "real/repo"), true],
+  ["hook, unconnected repository", join(base, "real/other"), false],
+]) {
+  const out = await hooks["agent.create"]({ request: { config: { cwd, systemPrompt: "" } } });
+  const got = Boolean(out?.config?.systemPrompt?.includes("PROJECT PROMPT"));
+  console.log(`${got === want ? "ok  " : "FAIL"} ${label}: ${got ? "prompt applied" : "no project"}`);
+}
+JS
+(cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON $S/probe.mjs $WT)
+# 4. decision records: expect "4 ADR file(s) checked, 0 legacy" and "adr_lint exit 0"
+(cd $WT && python3 $PKG/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr_lint exit $?")
+```
+
+Expected: step 0 line; "ℹ pass 53" and "ℹ fail 0"; "typecheck clean"; five "ok" createSecrets lines (four "project found", one "no project"); three "ok" hook lines (two "prompt applied", one "no project"); "4 ADR file(s) checked, 0 legacy" and "adr_lint exit 0".
