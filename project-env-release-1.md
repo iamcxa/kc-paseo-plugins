@@ -9,6 +9,17 @@ worktree:
 pr:
 journey: docs/journey/project-env/give-agents-their-project-setup.yaml
 journey-release: r1
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-release-1:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-release-1-backlog-1
+              briefing:
+                id: briefing:project-env-release-1:backlog:attempt-1:revision-1
+                digest: sha256:c8c5fba406b27a654fc1d6594ca0fc9ce2aee2dc6f372773be468c10a9a1ed4a
+                room-ref: ./project-env-release-1/review/backlog/briefing-1
 ---
 
 Kent wants the recce team using the project-env Paseo plugin soon (2026-10-20,
