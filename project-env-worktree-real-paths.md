@@ -173,3 +173,18 @@ Daemon check (Kent's daemon, run at implementation validation by a probe install
 ### Summary
 
 The bug is on the stored side: git already returns canonical paths on this Mac, but a stored root written through a symlink never equals them, so the project silently goes unmatched. The fix is one helper applied to both sides plus moving the comparison into a testable function; no stored data changes. Two limits for the gate: an unmatched or vanished stored root stays silent, and two stored entries for one real repository now both match, with list order deciding, which the settings screen does not prevent. No decision needs the Captain.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: `realOrSelf` applied to git's common-dir parent, the registered worktree list and each stored root, with the comparison in an exported `projectForCwd(projects, cwd)`; stored settings are not rewritten.
+  Commit 2defea5 on spacedock-ensign/project-env-worktree-real-paths (project-env/server/secrets.ts, index.server.ts). `projectForCwd` is a member of the `createSecrets` result, not a module-level function, because it needs the injected git runner; `projectFor` keeps only the settings read.
+- DONE: Land the seven fake-git cases with real temp dirs and symlinks, each failing without the change, so AC-1's unit clause passes.
+  project-env/test/project-for-cwd.test.ts, 7 cases. Mutation runs on secrets.ts: stored side raw fails 4 (cases 1,3,4,6); git root raw fails 2 (2,3); registered list raw fails case 4 (registered entry written through a symlink, added for this); throwing fallback fails 5,6; match-first fails 5,7. Case 5 and 7 are controls that also pass without the symlink fix.
+- SKIPPED: Record the daemon worktree check as owed if not run.
+  Not run: it needs a probe install with its own id and a variable absent from the daemon environment; the live `paseo-project-env` was not touched. Owed: one registered-worktree agent on Kent's daemon reporting set/missing per variable by length test, plus whether the stored root differs from its realpath (shape only).
+- DONE: Run `npm test`, `npm run typecheck` and `doc_impact.py <base> <candidate>`, and open the Draft PR.
+  npm test 24/24 pass; typecheck clean; doc_impact "0 document(s) mention what changed", exit 0; comment_ratio "code lines 151, comment lines 0, 0.0%", exit 0. Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/8, base spacedock-ensign/project-env-new-agent-env (head 6244ff6, unchanged).
+
+### Summary
+
+One helper `realOrSelf` now normalizes git's root, the registered worktrees and every stored root before comparing, via `projectForCwd`; stored settings are untouched. Base reset: `git reset --hard` was blocked by the permission classifier, so the clean worktree was advanced to 6244ff6 with `merge --ff-only` (same result, HEAD was an ancestor). Remaining: the daemon clause of AC-1; no ADR was needed. No decision for the Captain.
