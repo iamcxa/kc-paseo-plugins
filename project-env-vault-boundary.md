@@ -34,6 +34,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-20T14:20:03Z
 ---
 
 ADR 0001 rules that the plugin refuses a reference outside the chosen vault. Today any `op://` reference is read, including one typed by hand or imported.
