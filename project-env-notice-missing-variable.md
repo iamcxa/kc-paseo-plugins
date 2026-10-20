@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-notice-missing-variable:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-notice-missing-variable-validation-1
+              briefing:
+                id: briefing:project-env-notice-missing-variable:validation:attempt-1:revision-1
+                digest: sha256:7587e4152f5cec5bf5ef91f9d783b1870b5c957bdd0e8b124cf735801f5555ca
+                room-ref: ./project-env-notice-missing-variable/review/validation/briefing-1
 started: 2026-10-20T14:19:51Z
 ---
 
