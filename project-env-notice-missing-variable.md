@@ -228,3 +228,18 @@ None. Past rulings checked: ADRs 0001 to 0003 and the `Override:` lines in the s
 ### Summary
 
 The plugin cannot append from `agent.session_open` because Paseo registers the agent after the hook; the design carries the failed `{name, cause}` pairs by agent id and appends from `agent.created`, which a real client rendered. No decision is needed from the Captain. One limit to know: the row lives in the daemon's memory and is gone after a daemon restart, and resumed agents get no row until r2. Needs from siblings: `openSession(...).results` (new-agent-env) and cause identifiers plus a label function in `shared/` (plain-failure-reason).
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: the session-open hook records failed `{name, cause}` pairs per `agentId` only on `reason === "create"` with at least one failure and returns early on `purpose === "history"`; the `agent.created` handler appends one row with a fixed per-agent id inside try/catch and never throws; pending entries drop on `agent.closed` or after 10 minutes; the client registers one read-only `missing-variables` renderer.
+  Commit 90074f6 on `spacedock-ensign/project-env-notice-missing-variable`: `server/missing-variables-notice.ts`, `server/contribute.ts`, `client/missing-variables-row.tsx`, `index.client.tsx`, row contract in `shared/config.ts`, words in `shared/cause.ts`.
+- DONE: Land unit tests so AC-1's row-content clause and AC-2 each fail when their behaviour is removed.
+  `test/missing-variables.test.ts` via `contribute(server, tools)`. Mutations checked: history guard removed fails the history test; `reason === "create"` removed fails resume/refresh/import; prune removed fails prune; `agent.closed` drop removed fails the drop test; rethrowing in `flush` fails "failed append is swallowed" and "never throw"; row built from raw failures fails "row holds only name and cause" (also asserts fake value and stderr sentinels absent).
+- DONE: Record Kent's on-daemon sighting as owed if not run.
+  Owed, not run: AC-1(b), Kent seeing the row on a throwaway install under its own plugin id. I skipped my own live probe: the isolated daemon would need project settings and real `security`/`op` tools, and the sighting is Kent's acceptance anyway. The unit harness fakes the Paseo server, so shipped wiring against a real daemon is unproven here; the ideation spike proved the append-from-`agent.created` path and the real client drawing.
+- DONE: Run `npm test`, `npm run typecheck`, `design_surfaces.py check` and `doc_impact.py <base> <candidate>`, and open the Draft PR.
+  `npm test` 62 pass, 0 fail; typecheck clean; `design_surfaces.py check`: "design surfaces presentable"; `doc_impact.py f53d485 90074f6`: one hit, ADR 0004 via `shared/config.ts`, verdict unaffected (only row constants added). Draft PR iamcxa/kc-paseo-plugins#11, base `spacedock-ensign/project-env-plain-failure-reason`.
+
+### Summary
+
+The row is implemented as designed: failed `{name, cause}` pairs are remembered at session open and appended once from `agent.created`; every failure path is swallowed and logged. Base note: #7 merged into main (e061a0f) while I worked and #9 is now based on main with head unchanged at f53d485; my branch already contains 6244ff6, so no rebase was needed, and #11 stays stacked on #9. I also added `on: () => () => {}` to the fake server in `test/failure-reason.test.ts` because `contribute` now registers `server.on`.
