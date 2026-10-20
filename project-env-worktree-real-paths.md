@@ -34,6 +34,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-20T14:19:57Z
 ---
 
 Kent uses worktrees daily. Worktree membership already resolves real paths, but the stored repository root is compared with git's common-dir parent as written, so a symlinked path fails to match.
