@@ -272,3 +272,14 @@ JS
 ```
 
 Expected: step 0 line; "ℹ pass 24" and "ℹ fail 0"; "typecheck clean"; four "ok   ... project found" lines and "ok   unconnected repository: no project"; "4 ADR file(s) checked, 0 legacy" and "adr_lint exit 0".
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Merge origin/main dac8940 into the branch with a merge commit and resolve the conflicts so the approved design is unchanged.
+  Merge commit 5ff307d (no rebase, ordinary push). `index.server.ts` took main's version; `secrets.ts` kept `realOrSelf` beside main's `Cause`/`RunFailure`; `projectFor` in `server/contribute.ts` now calls `secrets.projectForCwd`.
+- DONE: Rerun `npm test`, `npm run typecheck` and the seven cases' mutation checks; push the new head to PR #8.
+  npm test 53/53 pass, typecheck clean. Same mutation outcomes as cycle 1: stored raw fails 4, git root raw fails 2, registered raw fails 1, throwing fallback fails 2, match-first fails 2. doc_impact: 0 documents; comment_ratio: 0 of 151 code lines. Head 5ff307de6df4af4c1804d640ad8d31a068fe2e62 pushed; PR #8 base is main, mergeable state still UNKNOWN right after the push.
+
+### Summary
+
+The merge changed only where `projectFor` lives; the design and the seven cases are unchanged. The AC-1 daemon clause is still owed.
