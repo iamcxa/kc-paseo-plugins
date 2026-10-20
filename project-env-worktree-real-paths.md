@@ -42,6 +42,17 @@ gates:
                 id: briefing:project-env-worktree-real-paths:ideation:attempt-1:revision-1
                 digest: sha256:08c3e2330c983eb8d7cfa5ed7ae79461f6530d6f3312ba10e7a503bf881becc2
                 room-ref: ./project-env-worktree-real-paths/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-worktree-real-paths:ideation:1
+                briefing: briefing:project-env-worktree-real-paths:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T14:57:18.738041Z"
+                decision: approve
+                reason: 'Captain 2026-10-20: 「准」 — accepts this ideation design and its acceptance criteria into implementation, including the presented additions (the one-line run fix in project-env-plain-failure-reason; AC-2 in project-env-vault-boundary).'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-20T14:19:57Z
 ---
 
