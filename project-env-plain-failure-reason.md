@@ -1,12 +1,12 @@
 ---
 id:
 title: A failed variable names its cause class, never raw tool output
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-plain-failure-reason
-pr:
+pr: iamcxa/kc-paseo-plugins#9
 journey: paseo-project-env
 journey-release: r1
 journey-story: plain-failure-reason
