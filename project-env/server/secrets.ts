@@ -3,7 +3,7 @@ import { realpath } from "node:fs/promises";
 import { basename, dirname } from "node:path";
 import type { Cause } from "../shared/cause.ts";
 import { isReservedName, type Project } from "../shared/config.ts";
-import { classifyOpFailure, parseRef, type OpExit } from "./cause.ts";
+import { classifyOpFailure, isOutsideVault, parseRef, type OpExit } from "./cause.ts";
 
 const KEYCHAIN_ACCOUNT = "op-service-account-token";
 const CACHE_MS = 15 * 60 * 1000;
@@ -165,10 +165,12 @@ export function createSecrets(tools: Tools) {
 
   async function readVariable(
     serviceAccount: string,
+    vault: string,
     ref: string,
     token: Promise<string | null>,
     timeout: () => number,
   ): Promise<Outcome> {
+    if (isOutsideVault(ref, vault)) return { ok: false, cause: "outside-vault" };
     try {
       const secret = await token;
       if (!secret) return { ok: false, cause: "no-token" };
@@ -214,7 +216,7 @@ export function createSecrets(tools: Tools) {
       project.variables.map(({ name, ref }) =>
         isReservedName(name)
           ? null
-          : untilDeadline(readVariable(project.serviceAccount, ref, token, remaining), deadline),
+          : untilDeadline(readVariable(project.serviceAccount, project.vault, ref, token, remaining), deadline),
       ),
     );
     const env: Record<string, string> = {};

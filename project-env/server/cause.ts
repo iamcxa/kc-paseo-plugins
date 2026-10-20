@@ -37,6 +37,11 @@ export function parseRef(ref: string): ParsedRef | null {
   return { vault: parts[0], item: parts[1], field: parts[parts.length - 1] };
 }
 
+export function isOutsideVault(ref: string, vault: string): boolean {
+  const parsed = parseRef(ref);
+  return parsed !== null && parsed.vault !== vault;
+}
+
 export function failureLine(root: string, name: string, cause: Cause): string {
   return `[project-env] ${root} ${name}: ${cause}`;
 }
