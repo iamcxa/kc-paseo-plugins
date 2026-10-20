@@ -1,7 +1,7 @@
 ---
 id:
 title: A failed variable names its cause class, never raw tool output
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -52,7 +52,7 @@ gates:
                 reason: 'Captain 2026-10-20: 「准」 — accepts this ideation design and its acceptance criteria into implementation, including the presented additions (the one-line run fix in project-env-plain-failure-reason; AC-2 in project-env-vault-boundary).'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-20T14:19:44Z
 ---
 
