@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-vault-boundary:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-vault-boundary-ideation-1
+              briefing:
+                id: briefing:project-env-vault-boundary:ideation:attempt-1:revision-1
+                digest: sha256:4f639d1159cd167ee08e792ef8ed346adaedf2874a4e31c0df1fb031268db44a
+                room-ref: ./project-env-vault-boundary/review/ideation/briefing-1
 started: 2026-10-20T14:20:03Z
 ---
 
