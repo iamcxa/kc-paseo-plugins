@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-vault-boundary:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-vault-boundary-validation-1
+              briefing:
+                id: briefing:project-env-vault-boundary:validation:attempt-1:revision-1
+                digest: sha256:438e2d82abc20fc58c9eb0748f9d91fd2fb164c1b2d6457fd509d1a25cf141c4
+                room-ref: ./project-env-vault-boundary/review/validation/briefing-1
 started: 2026-10-20T14:20:03Z
 ---
 

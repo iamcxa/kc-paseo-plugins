@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-boundary:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#10 at head a30ad63?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-boundary:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/fcde8c65b089a096db880c96a25ab342ed62b016/project-env-vault-boundary.md",
+      "rev": "sha256:0a72709fe6ad066fdabf126f8d42acbc7d025ad5d3e0a710c98c62a03f8924fd",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED for candidate a30ad63. FO declines the Polish finding (no AC-2 row for a vault name that shares the saved vault as a prefix): isOutsideVault in server/cause.ts compares exactly, so no current behaviour is at risk."
+    }
+  ]
+}
