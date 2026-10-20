@@ -5,8 +5,8 @@ Model: sonnet (resumed implementation worker spacedock-ensign-project-env-worktr
 
 ## Checklist
 
-Rebase your branch `spacedock-ensign/project-env-worktree-real-paths` (candidate 2defea5) onto origin/main dac8940ca4ef5598cdcd9288fb9bc53681dde9a2, which now holds project-env-new-agent-env (#7) and project-env-plain-failure-reason (#9); resolve the conflicts in `project-env/index.server.ts` and `project-env/server/secrets.ts` so the approved design is unchanged (`projectFor` moved into `server/contribute.ts` with #9).
-Rerun `npm test` and `npm run typecheck` and the seven fake-git cases' mutation checks; push the rebased head to PR #8 (a non-fast-forward push of your own branch is authorized for this rebase) and report the new head SHA.
+Merge origin/main dac8940ca4ef5598cdcd9288fb9bc53681dde9a2 (which now holds project-env-new-agent-env #7 and project-env-plain-failure-reason #9) into your branch `spacedock-ensign/project-env-worktree-real-paths` (candidate 2defea5) with a merge commit; resolve the conflicts in `project-env/index.server.ts` and `project-env/server/secrets.ts` so the approved design is unchanged (`projectFor` moved into `server/contribute.ts` with #9). Do not rebase and do not force-push.
+Rerun `npm test` and `npm run typecheck` and the seven fake-git cases' mutation checks; push the new head to PR #8 with an ordinary push and report its SHA.
 Append the result to your implementation stage report; do not change AC text or scope.
 
 ## Scope notes
