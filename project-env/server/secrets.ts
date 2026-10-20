@@ -24,6 +24,8 @@ export interface VariableResult {
 
 type Outcome = { ok: true; value: string } | { ok: false; stage: FailStage; error: string };
 
+const realOrSelf = (path: string) => realpath(path).catch(() => path);
+
 const LATE: Outcome = { ok: false, stage: "deadline", error: "not answered in time" };
 
 function opEnv(token: string): NodeJS.ProcessEnv {
@@ -60,8 +62,8 @@ export function createSecrets(tools: Tools) {
   async function mainCheckout(cwd: string): Promise<string | null> {
     try {
       const git = (args: string[]) => run(tools.git, args).then((out) => out.trim());
-      const root = dirname(
-        await git(["-C", cwd, "rev-parse", "--path-format=absolute", "--git-common-dir"]),
+      const root = await realOrSelf(
+        dirname(await git(["-C", cwd, "rev-parse", "--path-format=absolute", "--git-common-dir"])),
       );
       const top = await realpath(await git(["-C", cwd, "rev-parse", "--show-toplevel"]));
       // A stray .git file can name any repository's git dir; trust only worktrees that repo registered.
@@ -69,11 +71,18 @@ export function createSecrets(tools: Tools) {
         .split("\n")
         .filter((line) => line.startsWith("worktree "))
         .map((line) => line.slice("worktree ".length));
-      const known = await Promise.all(registered.map((p) => realpath(p).catch(() => p)));
+      const known = await Promise.all(registered.map(realOrSelf));
       return known.includes(top) ? root : null;
     } catch {
       return null;
     }
+  }
+
+  async function projectForCwd(projects: Project[], cwd: string): Promise<Project | null> {
+    const root = await mainCheckout(cwd);
+    if (root === null) return null;
+    const roots = await Promise.all(projects.map((p) => realOrSelf(p.root)));
+    return projects[roots.indexOf(root)] ?? null;
   }
 
   async function readToken(serviceAccount: string, timeout?: number): Promise<string | null> {
@@ -219,7 +228,7 @@ export function createSecrets(tools: Tools) {
     cache.clear();
   }
 
-  return { mainCheckout, tokenStatus, storeToken, listRefs, resolveProject, clearCache };
+  return { mainCheckout, projectForCwd, tokenStatus, storeToken, listRefs, resolveProject, clearCache };
 }
 
 export type Secrets = ReturnType<typeof createSecrets>;
