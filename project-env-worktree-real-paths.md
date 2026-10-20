@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-worktree-real-paths:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-worktree-real-paths-validation-1
+              briefing:
+                id: briefing:project-env-worktree-real-paths:validation:attempt-1:revision-1
+                digest: sha256:f8d15188de590e116a91ef19f4f640466ed6e1a8fef5cad2de221fc3e7001fc3
+                room-ref: ./project-env-worktree-real-paths/review/validation/briefing-1
 started: 2026-10-20T14:19:57Z
 ---
 
