@@ -1,7 +1,7 @@
 ---
 id:
 title: New agents start with each resolved variable, and a failed or empty one arrives empty
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -52,7 +52,7 @@ gates:
                 reason: 'Captain 2026-10-20: 「准」 — accepts this ideation design and its acceptance criteria into implementation, including the presented additions (the one-line run fix in project-env-plain-failure-reason; AC-2 in project-env-vault-boundary).'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-20T14:19:32Z
 ---
 
@@ -85,6 +85,10 @@ Surfaces: none
 Visible change: none
 Direction alignment with the Captain: not needed — the outcome follows rulings already recorded (docs/adr/0001, docs/adr/0002, and the Captain's 2026-10-20 rulings in the journey map); release r1 was marked changed by signal 2 (the Captain narrowed r1 on 2026-10-20: 「可以改成兩段，不用第一時間給隊友，要先我用到覺得可以」, 「就五個，剩下做 r1.5」). kc-journey-map review-release ran on r1 at 60799d9; after the rulings, a fresh audit, the map split and an interrogation of the changed stories, this task split was re-derived from the map at 760bfaa (branch docs/project-env-r1-split, PR #6).
 Release review: paseo-project-env/r1 at 760bfaa
+
+## Number guards
+
+ADR: 0004
 
 ## PRFAQ
 
