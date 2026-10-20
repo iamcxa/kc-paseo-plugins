@@ -246,3 +246,40 @@ A failed variable carries one of seven cause ids from a closed list; the log, th
 ### Summary
 
 A failed variable now carries one `Cause` id; the log, the `project.test` result and the Test row (`rowHint`) render from it, and `run` no longer exposes `error.message` arguments. Seam added: the `index.server.ts` body moved to `server/contribute.ts` so the real hook is testable. Limits: `op` error wording is a hypothesis (no captured fixtures; a miss shows as `unexpected`); a timeout kill reaches `unreachable` at the classifier and through the deadline race, not a 30 s `run` kill; a locked Keychain reads as `no-token`; the live daemon check is owed.
+
+
+## Stage Report: validation
+
+- DONE: Independently check candidate f53d485f1e963388e8a8b513f483bdb24d65f6e5 (PR iamcxa/kc-paseo-plugins#9, stacked on #7) against AC-1, AC-2 and the approved design, including the Captain-approved `run` fix and that each decisive test fails when its behaviour is removed; give a verdict.
+  Verdict: PASSED. HEAD f53d485 confirmed; delta read against 6244ff6 (11 files, +384/-88). `npm test` 46/46 and `npm run typecheck` clean, rerun by me. Mutations in a throwaway copy under /tmp (deleted; worktree `git status` clean): (M1) AUTH regex removed -> the classifier table, the `rejected-token` case, the "every id produced" case and the authentication-wording AC-2 case fail (pass 25 of 29); (M2) `run` fallback restored to `error.message` -> only "does not put its arguments, a token included, in the error" fails; (M3) raw `error.message` logged on the read path -> both AC-2 cases fail; (M4) the hook's failure log line removed -> both AC-2 cases fail (presence check). AC-1: one case per id through `resolveProject` (no-token x2, rejected-token, missing-field, unreachable, empty, unexpected x2, malformed ref, reserved-name); `outside-vault` is the only id no case produces, asserted, and its row and log text are asserted in `test/cause.test.ts`. AC-2: real `agent.session_open` hook and `project.test` handler via `contribute()`, two sentinels, captured console, RPC JSON and rows. Minimal necessity: every added surface maps to AC-1, AC-2, the approved `run` fix or the ruled `reserved-name`; `server/contribute.ts` is the seam that lets the real hook be tested. `reserved-name` (eighth id, text "reserved name") matches ADR 0004's Decision ("reported as a failed variable with a reserved-name cause") and the Captain's 「做法一」; the ideation UI proposal and preview list seven phrases, so the row text for this eighth id was never in a picture.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, including the settings Test row text the `ui` surface owes, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  `adr_lint.py docs/adr --since 60799d9` run in the worktree: "4 ADR file(s) checked, 0 legacy", exit 0. Also run: `comment_ratio.py 6244ff6 f53d485` exit 0 (349 code lines, 2 comment lines, 0.6%; both read: each states a fact the code cannot); `dispatch_records.py` exit 0 (3 records complete); `design_surfaces.py check` exit 0; `doc_impact.py` lists only ADR 0004, which the implementation report marks unaffected with a reason I agree with. Script below.
+- DONE: Record every unverified obligation, including real `op` error wording and the live Test row, without running anything against the live `paseo-project-env` install.
+  See "Unverified" below; nothing was run against Kent's install, no secret read.
+
+### Acceptance script (about 2 minutes, no secret, no network)
+
+Needs: the worktree below, with `node` 22+ and its installed `project-env/node_modules`.
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-plain-failure-reason && git rev-parse HEAD` -> prints `f53d485f1e963388e8a8b513f483bdb24d65f6e5`.
+2. `cd project-env && npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"` -> `tests 46`, `pass 46`, `fail 0`.
+3. `npm run typecheck` -> exits 0, no error lines.
+4. The settings Test row text, one line per cause (the exact string `rowHint` gives the settings screen):
+   `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON -e 'import("./shared/cause.ts").then(m=>{for(const c of m.CAUSES)console.log(c.padEnd(15),"|",m.rowHint({ok:false,cause:c}));console.log("(ok)".padEnd(15),"|",m.rowHint({ok:true}))})'`
+   -> nine lines: `no-token | failed: no token stored for this service account`; `rejected-token | failed: 1Password rejected the token`; `missing-field | failed: field not found in the vault`; `unreachable | failed: 1Password could not be reached`; `empty | failed: the field is empty`; `outside-vault | failed: reference points outside the chosen vault`; `reserved-name | failed: reserved name`; `unexpected | failed: 1Password returned an error the plugin does not recognise`; `(ok) | set`.
+5. `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/failure-reason.test.ts 2>&1 | grep -E "sentinel|✔|✖|^ℹ (pass|fail)"` -> the AC-1 cases, both "failed variable logs its id only" cases and "does not put its arguments, a token included, in the error" show `✔`, `fail 0`.
+6. `cd .. && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo EXIT=$?` -> `4 ADR file(s) checked, 0 legacy` and `EXIT=0`.
+
+Does not cover: the real settings screen drawing these rows inside Paseo, real `op` or `security` error wording, a live daemon, the Save-token and Browse-vault errors (still a tool's first line, a stated non-goal).
+
+### Unverified
+
+- Real `op` wording for rejected, missing and unreachable: the patterns in `server/cause.ts` are a hypothesis (two community threads); no captured fixtures exist. A miss reads as `unexpected` (visible). Deferred risk, confirmed by probe: the order missing, network, then auth means a rejected-token stderr that echoes a reference whose item name contains a network word (probe: `could not read secret "op://V/offline db/f": authentication: invalid token`) reads as `unreachable`. It becomes Material only if real `op` echoes the reference on auth failures.
+- The live Test row on the real settings screen (Kent's daemon check: wrong field, throwaway account, rejected `ops_` token) and a screenshot of the changed screen at the candidate: not run; only ideation's disposable preview pictures exist, and the client change is three lines (`rowHint(r)`), exercised by typecheck, not rendered.
+- A real 30 s `run` kill reaching `unreachable` is covered at the classifier (killed/signal) and the deadline race, not by a real kill.
+- A locked Keychain reads as `no-token` (known limit, r1.5).
+- `outside-vault` detection belongs to project-env-vault-boundary.
+
+### Summary
+
+PASSED: the candidate meets AC-1 and AC-2 and the approved design, each decisive test fails when its behaviour is removed, and the `run` fix and the ruled `reserved-name` id are justified. The gate owes Kent the live Test row and the real `op` wording, neither checked here.
