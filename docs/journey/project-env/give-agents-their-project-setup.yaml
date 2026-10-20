@@ -8,9 +8,21 @@ steps:
     card: "Installs the plugin"
     activity: "Get the plugin"
     stories:
-      - {id: install-one-command, card: "Install it with one command from GitHub", release: r1}
-      - {id: enable-plugins, card: "Turn on plugins in Paseo when they are off", release: r1}
-      - {id: find-settings, card: "Find where the plugin is configured", release: r1}
+      - id: install-one-command
+        card: "Install it with one command from GitHub"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Which prerequisites must installation state or check: the 1Password CLI, macOS and the Paseo version?", status: "answered", answer: "Gap: nothing states them; release 1 names the op CLI, macOS and Paseo >=0.12.0 in the overview and the setup steps, and the screen says when op is missing."}
+      - id: enable-plugins
+        card: "Turn on plugins in Paseo when they are off"
+        release: r1
+        questions:
+          - {id: "q1", ask: "How does a user turn plugins on before this plugin can show anything?", status: "answered", answer: "The plugin cannot help while plugins are off; the repository README and the overview state Settings → Plugins → Enable plugins."}
+      - id: find-settings
+        card: "Find where the plugin is configured"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Which machine's Keychain and agents does the settings screen change when the client runs elsewhere?", status: "answered", answer: "The Mac running Paseo; release 1 supports only Paseo on the user's own Mac and says so on screen.", doc: "docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
 
   - id: prepare-1password
     card: "Prepares 1Password for a repository"
@@ -18,49 +30,110 @@ steps:
     stories:
       - {id: create-vault, card: "Create a vault for the repository", release: r1}
       - {id: add-secrets, card: "Put each secret the agents need in the vault", release: r1}
-      - {id: create-service-account, card: "Create a read-only service account for that vault", release: r1}
-      - {id: setup-guide, card: "Follow in-app steps for what to create and how to name it", release: r1}
+      - id: create-service-account
+        card: "Create a read-only service account for that vault"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Is read-only verified, or only asked of the user?", status: "answered", answer: "Asked in the setup steps and not verified by the plugin.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+      - id: setup-guide
+        card: "Follow in-app steps for what to create and how to name it"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Which access and naming must the in-app steps explain for the vault, the secrets and the service account?", status: "answered", answer: "Gap: the form starts at the account name; release 1 adds steps covering vault creation, one item per variable, a read-only account limited to that vault with an expiry, and narrow agent-specific keys."}
 
   - id: connect
     card: "Connects a repository to 1Password"
     activity: "Connect a repository"
     stories:
-      - {id: pick-repository, card: "Pick the repository from Paseo's project list", release: r1}
-      - {id: paste-token, card: "Paste the service account token once", release: r1}
-      - {id: token-works, card: "See that the token works and which vaults it can read", release: r1}
-      - {id: pick-vault, card: "Choose the vault", release: r1}
+      - id: pick-repository
+        card: "Pick the repository from Paseo's project list"
+        release: r1
+        questions:
+          - {id: "q1", ask: "What does a user do when the repository is missing from Paseo's list or the list fails to load?", status: "answered", answer: "Gap: a failed load and an empty list both hide the picker without a word; release 1 shows the load error and how to add the project in Paseo."}
+      - id: paste-token
+        card: "Paste the service account token once"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1 validates before writing and warns on an existing name."}
+          - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; qnow ADR 0027 recorded the interactive Keychain prompt truncating one to exactly 128, so the check stays as a guard."}
+      - id: token-works
+        card: "See that the token works and which vaults it can read"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: a locked Keychain, a missing op, an outage and a rejection all read as missing or rejected; release 1 names each cause."}
+      - id: pick-vault
+        card: "Choose the vault"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
   - id: choose-secrets
     card: "Chooses which secrets agents receive"
     activity: "Choose the secrets"
     stories:
-      - {id: pick-field, card: "Pick a vault field for each variable", release: r1}
-      - {id: add-remove-variable, card: "Add or remove a variable next to its field", release: r1}
+      - id: pick-field
+        card: "Pick a vault field for each variable"
+        release: r1
+        questions:
+          - {id: "q1", ask: "What happens with duplicate item titles, a slash in a title or label, renamed fields, or non-text fields?", status: "answered", answer: "Gap: references are built from titles and labels and any field type is offered; release 1 builds references from item and field IDs and offers text fields only."}
+          - {id: "q2", ask: "How does browsing behave on a large vault and under 1Password's rate limits?", status: "answered", answer: "Gap: one item read per item, in series; release 1 bounds the browse and reports a slow or limited vault."}
+      - id: add-remove-variable
+        card: "Add or remove a variable next to its field"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1 puts each remove beside its field."}
+          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "Gap: PATH, HOME, NODE_OPTIONS and OP_SERVICE_ACCOUNT_TOKEN pass the name check; release 1 refuses names that would override the agent's own environment."}
+          - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "answered", answer: "Gap: the save is refused with no recovery path; release 1 shows the conflict and reloads without losing the draft."}
       - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2}
 
   - id: standing-instructions
     card: "Sets standing instructions for new agents"
     activity: "Set standing instructions"
     stories:
-      - {id: write-prompt, card: "Write the instructions every new agent follows", release: r2}
+      - id: write-prompt
+        card: "Write the instructions every new agent follows"
+        release: r2
+        questions:
+          - {id: "q1", ask: "Release 2 features already exist in code; does release 1 hide them?", status: "answered", answer: "No: they stay for Kent's own use and are outside release 1 acceptance."}
       - {id: import-conductor-prompt, card: "Bring the instructions over from Conductor", release: r2}
 
   - id: check
     card: "Checks it works before relying on it"
     activity: "Check before relying on it"
     stories:
-      - {id: test-each-variable, card: "See set or failed for each variable, never the value", release: r1}
-      - {id: plain-failure-reason, card: "Get a plain reason when a variable fails", release: r1}
+      - id: test-each-variable
+        card: "See set or failed for each variable, never the value"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1 treats empty as failed, clears results on edit, and says set does not prove the service accepts the key."}
+      - id: plain-failure-reason
+        card: "Get a plain reason when a variable fails"
+        release: r1
+        questions:
+          - {id: "q1", ask: "What may a failure message contain?", status: "answered", answer: "A cause class and the variable name only, never raw tool output or a value.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
       - {id: unsaved-warning, card: "Be warned before leaving with unsaved changes", release: r3}
 
   - id: work
     card: "Works with agents as usual"
     activity: "Work with agents"
     stories:
-      - {id: new-agent-env, card: "A new agent starts with the variables", release: r1}
-      - {id: worktree-env, card: "Agents in any worktree of the repository get them too", release: r1}
+      - id: new-agent-env
+        card: "A new agent starts with the variables"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Should an agent start when a variable fails to resolve?", status: "answered", answer: "Yes: the variable is blanked and a line naming it and the cause is added to the agent's timeline.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q2", ask: "Is the plugin's no-secret rule also about what an agent prints after receiving a value?", status: "answered", answer: "No: the plugin never shows, logs or sends a value; an agent can read what it received.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q3", ask: "Can one service account receive a value another account fetched?", status: "answered", answer: "Gap: the cache is keyed by reference only; release 1 keys it by account and reference."}
+          - {id: "q4", ask: "How long does a changed secret take to reach new agents?", status: "deferred", because: "Up to 15 minutes, cleared by Test and Save; release r3 owns secret-change-picked-up."}
+          - {id: "q5", ask: "How is release 1 proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls and one acceptance run on a teammate's Mac."}
+      - id: worktree-env
+        card: "Agents in any worktree of the repository get them too"
+        release: r1
+        questions:
+          - {id: "q1", ask: "Which path forms must match, such as symlinked checkouts?", status: "answered", answer: "Gap: the stored root is compared to git's path as written; release 1 compares real paths on both sides."}
       - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2}
       - {id: new-agent-instructions, card: "A new agent follows the standing instructions", release: r2}
+      - {id: broker-call, status: gap, card: "Agents call a service through the plugin without seeing its key"}
 
   - id: maintain
     card: "Keeps it working over time"
