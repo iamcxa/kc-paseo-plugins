@@ -129,7 +129,7 @@ steps:
         status: gap
         evidence: testProject
         questions:
-          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1.5 clears results on edit and says set does not prove the service accepts the key. Whether empty counts as failed is asked at new-agent-env/q7; Test shares that answer."}
+          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1.5 clears results on edit and says set does not prove the service accepts the key. Empty counts as failed (new-agent-env/q7, release 1); Test shares that answer."}
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
@@ -155,7 +155,7 @@ steps:
           - {id: "q4", ask: "How long does a changed secret take to reach new agents?", status: "deferred", because: "Up to 15 minutes, cleared by Test and Save; release r3 owns secret-change-picked-up."}
           - {id: "q5", ask: "How is the release proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls covering its fixes; releases 1 and 1.5 are accepted by Kent's own use, release 1b by one run on a teammate's Mac."}
           - {id: "q6", ask: "What happens at session open to a variable named like one the agent relies on, such as PATH?", status: "open", answer: "Open for ideation. Fact: the name check in shared/config.ts admits PATH, and the session_open hook spreads resolved values over request.env, so a mapped PATH replaces the agent's own; Paseo sets PASEO_AGENT_ID and PASEO_AGENT_CWD after the hooks. No ruling names which names are reserved, or whether a reserved name is skipped or blanked; blanking PATH as ADR 0002 blanks a failed variable would break the agent."}
-          - {id: "q7", ask: "Does an empty value count as a failed variable at session open?", status: "open", answer: "Needs Kent. Fact: resolveProject marks an empty value from readRef as ok, caches it and passes it as set. ADR 0002 names four failure causes and empty is not one, so counting it as failed, with a line on the timeline, changes what ADR 0002 calls unresolved.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q7", ask: "Does an empty value count as a failed variable at session open?", status: "answered", answer: "Ruling, Captain 2026-10-20: 「算失敗」 — an empty value is a failed variable, blanked and shown like ADR 0002's other causes. Gap: resolveProject marks an empty value from readRef as ok, caches it and passes it as set; release 1 counts it as failed.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
       - id: worktree-env
         card: "Agents in any worktree of the repository get them too"
         release: r1
