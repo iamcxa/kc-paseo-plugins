@@ -1,7 +1,7 @@
 ---
 id:
 title: New agents start with each resolved variable, and a failed or empty one arrives empty
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -71,8 +71,11 @@ gates:
                 reason: 'Captain 2026-10-20: 「准」 — approves delivery of PR iamcxa/kc-paseo-plugins#7 at head 6244ff6ffa5fcd4300a94f2ff9b2e4c3fd1e06a9, including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-20T14:19:32Z
+verdict: PASSED
+completed: 2026-10-20T15:31:39Z
+archived: 2026-10-20T15:31:39Z
 ---
 
 Release r1 of the paseo-project-env journey: Kent, on his own Mac, connects one repository to 1Password, and new agents there start with its secrets safely. ADR 0002 rules that a variable that cannot be resolved is blanked; the Captain ruled on 2026-10-20 that an empty value is a failed variable (「算失敗」). Today a failed variable is left out of the merge, so a value the daemon inherited under that name survives, and an empty value passes as set.
