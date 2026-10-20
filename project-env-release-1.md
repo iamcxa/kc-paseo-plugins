@@ -20,6 +20,14 @@ gates:
                 id: briefing:project-env-release-1:backlog:attempt-1:revision-1
                 digest: sha256:c8c5fba406b27a654fc1d6594ca0fc9ce2aee2dc6f372773be468c10a9a1ed4a
                 room-ref: ./project-env-release-1/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-release-1:backlog:1
+                briefing: briefing:project-env-release-1:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T14:17:42.572183Z"
+                decision: hold
+                reason: 'Captain 2026-10-20: 「准。」 — seed task superseded by the five release r1 tasks (project-env-new-agent-env, -plain-failure-reason, -notice-missing-variable, -worktree-real-paths, -vault-boundary); held, not advanced.'
 ---
 
 Kent wants the recce team using the project-env Paseo plugin soon (2026-10-20,
