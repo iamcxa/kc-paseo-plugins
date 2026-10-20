@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-plain-failure-reason:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-plain-failure-reason-ideation-1
+              briefing:
+                id: briefing:project-env-plain-failure-reason:ideation:attempt-1:revision-1
+                digest: sha256:6430188c1aa688787591e213a1d2a2ed40e92e602f3e91d321a7b4859efb8942
+                room-ref: ./project-env-plain-failure-reason/review/ideation/briefing-1
 started: 2026-10-20T14:19:44Z
 ---
 
