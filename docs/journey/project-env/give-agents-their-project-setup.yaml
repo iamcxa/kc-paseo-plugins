@@ -1,0 +1,91 @@
+journey: paseo-project-env
+title: "Paseo project-env — give every agent its project setup"
+persona: "A recce engineer who runs Claude agents in Paseo across several repositories."
+one_journey: "Connect a repository to 1Password once, so every agent there starts with the right secrets and standing instructions, without pasting a secret anywhere."
+
+steps:
+  - id: get-plugin
+    card: "Installs the plugin"
+    activity: "Get the plugin"
+    stories:
+      - {id: install-one-command, card: "Install it with one command from GitHub", release: r1}
+      - {id: enable-plugins, card: "Turn on plugins in Paseo when they are off", release: r1}
+      - {id: find-settings, card: "Find where the plugin is configured", release: r1}
+
+  - id: prepare-1password
+    card: "Prepares 1Password for a repository"
+    activity: "Prepare 1Password"
+    stories:
+      - {id: create-vault, card: "Create a vault for the repository", release: r1}
+      - {id: add-secrets, card: "Put each secret the agents need in the vault", release: r1}
+      - {id: create-service-account, card: "Create a read-only service account for that vault", release: r1}
+      - {id: setup-guide, card: "Follow in-app steps for what to create and how to name it", release: r1}
+
+  - id: connect
+    card: "Connects a repository to 1Password"
+    activity: "Connect a repository"
+    stories:
+      - {id: pick-repository, card: "Pick the repository from Paseo's project list", release: r1}
+      - {id: paste-token, card: "Paste the service account token once", release: r1}
+      - {id: token-works, card: "See that the token works and which vaults it can read", release: r1}
+      - {id: pick-vault, card: "Choose the vault", release: r1}
+
+  - id: choose-secrets
+    card: "Chooses which secrets agents receive"
+    activity: "Choose the secrets"
+    stories:
+      - {id: pick-field, card: "Pick a vault field for each variable", release: r1}
+      - {id: add-remove-variable, card: "Add or remove a variable next to its field", release: r1}
+      - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2}
+
+  - id: standing-instructions
+    card: "Sets standing instructions for new agents"
+    activity: "Set standing instructions"
+    stories:
+      - {id: write-prompt, card: "Write the instructions every new agent follows", release: r2}
+      - {id: import-conductor-prompt, card: "Bring the instructions over from Conductor", release: r2}
+
+  - id: check
+    card: "Checks it works before relying on it"
+    activity: "Check before relying on it"
+    stories:
+      - {id: test-each-variable, card: "See set or failed for each variable, never the value", release: r1}
+      - {id: plain-failure-reason, card: "Get a plain reason when a variable fails", release: r1}
+      - {id: unsaved-warning, card: "Be warned before leaving with unsaved changes", release: r3}
+
+  - id: work
+    card: "Works with agents as usual"
+    activity: "Work with agents"
+    stories:
+      - {id: new-agent-env, card: "A new agent starts with the variables", release: r1}
+      - {id: worktree-env, card: "Agents in any worktree of the repository get them too", release: r1}
+      - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2}
+      - {id: new-agent-instructions, card: "A new agent follows the standing instructions", release: r2}
+
+  - id: maintain
+    card: "Keeps it working over time"
+    activity: "Keep it working"
+    stories:
+      - {id: rotate-token, card: "Replace an expired or rotated token", release: r3}
+      - {id: secret-change-picked-up, card: "Change a secret in 1Password and agents pick it up", release: r3}
+      - {id: notice-missing-variable, card: "Notice when an agent started without a variable", release: r3}
+      - {id: teammate-same-setup, card: "A teammate sets up the same repository quickly", release: r3}
+
+releases:
+  - id: r1
+    name: "RELEASE 1 — A teammate connects one repository"
+    goal: "A recce teammate installs the plugin, connects one repository to 1Password, and new agents there, worktrees included, start with its secrets."
+    slice_because: "Any split leaves the teammate unable to finish the path from install to an agent holding the secret."
+  - {id: r2, name: "RELEASE 2 — Standing instructions and Conductor carry-over", goal: "New agents follow the repository's standing instructions, and a Conductor user brings names and instructions over."}
+  - {id: r3, name: "RELEASE 3 — Keep it working", goal: "A teammate rotates tokens, sees missing variables, and shares the setup without asking Kent."}
+
+rules:
+  - {id: no-secret-in-chat, text: "No secret value passes through a chat, a log, or the app's display."}
+  - {id: read-only-account, text: "Agents read secrets only through a read-only service account."}
+  - {id: registered-worktrees-only, text: "Secrets go only to the repository's main checkout and its registered worktrees."}
+
+status:
+  unproven: "Map mode: intent only. A local proof of concept exists; nothing is proven for a teammate."
+  unmerged: "The proof of concept lives in a local repository, not yet pushed to GitHub."
+  undeployed: "Installed only on Kent's Paseo daemon; no recce teammate has installed it."
+  irreversible: "Storing a token writes the macOS login Keychain on the daemon host."
