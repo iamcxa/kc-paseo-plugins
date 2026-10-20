@@ -65,6 +65,11 @@ gates:
                 by: agent:first-officer
                 at: "2026-10-20T16:01:56.002685Z"
                 reason: 'Candidate 2defea5 conflicts with main after PR #9 merged (dac8940); a rebased candidate replaces it.'
+            - id: gate-attempt:project-env-worktree-real-paths-validation-2
+              briefing:
+                id: briefing:project-env-worktree-real-paths:validation:attempt-2:revision-1
+                digest: sha256:dc1d6d0f26340c0607fc8366fafcbd254e306273534b0d556377e158d7d7865a
+                room-ref: ./project-env-worktree-real-paths/review/validation/briefing-2
 started: 2026-10-20T14:19:57Z
 ---
 

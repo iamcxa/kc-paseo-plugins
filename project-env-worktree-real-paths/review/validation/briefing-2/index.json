@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-worktree-real-paths:validation:attempt-2:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#8 at head 5ff307d?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-worktree-real-paths:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/f96ccaa8aa708972a3edc6eace4e3ba3c3faa37f/project-env-worktree-real-paths.md",
+      "rev": "sha256:8cff2756de775ac8abf2291192691fd96da26d667bb08162aae374d31ca63979",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED for reconciled candidate 5ff307d. FO declines two Polish findings: no repository test drives contribute with a symlinked stored root (acceptance step 3 proves the wiring 3 of 3 against 0 of 3 for the old comparison), and a basename or prefix match mutation fails no test (projectForCwd compares realpaths exactly)."
+    }
+  ]
+}
