@@ -149,3 +149,20 @@ None blocks implementation. One limit for the gate to accept: an id-based identi
 ### Summary
 
 The check is one pure comparison in `resolveProject`, using the already-saved vault string with no schema change and no extra 1Password call; Kent's own configuration has 0 of 1 references outside its vault. Needs from siblings: a call-recording fake `op` (new-agent-env) and an outside-vault cause class (plain-failure-reason). For the gate: AC-2 is a proposed addition, and an id-based vault identity is deferred (a rename that frees a name for another readable vault is undetected; bounded by the service account's scope).
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: at the top of the per-variable step in `resolveProject`, before the cache and `op`, refuse a reference whose vault part (via `parseRef`) is not exactly the saved `vault` string, blanking it with cause `outside-vault`; with no vault saved every reference is outside.
+  Commit a30ad63 on spacedock-ensign/project-env-vault-boundary: `isOutsideVault` in `server/cause.ts`, called first in `readVariable` (`server/secrets.ts`); a malformed reference (parseRef null) stays `missing-field`, op not called either way.
+- DONE: Land the fake-op tests for AC-1 (op not called for that reference) and AC-2 (the matching-rule table), each failing when the check is removed.
+  `test/vault-boundary.test.ts`: table rows (exact name; other vault; id while name saved; name while id saved; other case; `$VAULT`; bare `op://name`; no vault saved) assert the fake records zero reads for every row but the exact one (one read). Mutations run: check removed fails 10 tests; case-insensitive compare fails "a different letter case"; empty vault accepted fails "no vault saved". `test/failure-reason.test.ts` now also produces `outside-vault`, so its coverage test expects no unproduced cause.
+- DONE: Run `npm test`, `npm run typecheck` and `doc_impact.py <base> <candidate>`, and open the Draft PR.
+  npm test 57 pass 0 fail; typecheck clean; doc_impact f53d485..a30ad63: "0 document(s) mention what changed"; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/10, base spacedock-ensign/project-env-plain-failure-reason.
+- DONE: Affected documents.
+  No document listed by doc_impact; nothing to mark updated or unaffected.
+- DONE: Comment ratio and design surfaces.
+  comment_ratio.py: 101 code lines, 1 comment line, 1.0%, maximum 5% met; design_surfaces.py check exit 0. No ADR added (design: ADR 0001 already rules it); no Number guards section.
+
+### Summary
+
+One pure comparison now runs first in the per-variable step, so an outside reference never reaches the cache or the 1Password tool; the Test button and every session open inherit it. Base was #9 head f53d485 (ff-merged, unchanged during the work). Not run: a live-daemon check (local string logic over a faked seam; the daemon run is owed by project-env-new-agent-env); Kent's live install `paseo-project-env` was not touched. Limits unchanged from the design: vault rename and id-based identity are not detected.
