@@ -26,6 +26,7 @@ import {
   testProject,
   tokenStatus,
 } from "../shared/config";
+import { rowHint } from "../shared/cause";
 
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
@@ -261,7 +262,7 @@ function ProjectEditor({
             onPress={() => test.mutate()}
           />
           {(test.data?.results ?? []).map((r) => (
-            <SettingsRow key={r.name} label={r.name} hint={r.ok ? "set" : `failed: ${r.error}`} />
+            <SettingsRow key={r.name} label={r.name} hint={rowHint(r)} />
           ))}
           <SettingsAction
             label="Save this project"

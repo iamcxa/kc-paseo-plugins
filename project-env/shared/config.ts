@@ -1,5 +1,6 @@
 import { defineRpc, defineSettings } from "@getpaseo/plugin";
 import { z } from "zod";
+import { cause } from "./cause.ts";
 
 const variable = z.object({
   name: z.string().regex(/^[A-Za-z_][A-Za-z0-9_]*$/),
@@ -72,7 +73,7 @@ export const testProject = defineRpc({
   name: "project.test",
   input: z.object({ project }),
   output: z.object({
-    results: z.array(z.object({ name: z.string(), ok: z.boolean(), error: z.string().optional() })),
+    results: z.array(z.object({ name: z.string(), ok: z.boolean(), cause: cause.optional() })),
   }),
 });
 
