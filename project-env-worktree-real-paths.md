@@ -1,12 +1,12 @@
 ---
 id:
 title: Agents in a worktree or symlinked checkout get the repository's variables
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-worktree-real-paths
-pr:
+pr: iamcxa/kc-paseo-plugins#8
 journey: paseo-project-env
 journey-release: r1
 journey-story: worktree-env
