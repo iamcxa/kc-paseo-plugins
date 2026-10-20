@@ -1,12 +1,12 @@
 ---
 id:
 title: An agent's timeline shows each variable it started without
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-notice-missing-variable
-pr:
+pr: iamcxa/kc-paseo-plugins#11
 journey: paseo-project-env
 journey-release: r1
 journey-story: notice-missing-variable
