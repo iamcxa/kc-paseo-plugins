@@ -12,6 +12,17 @@ journey-release: r1
 journey-story: pick-vault
 journey-required-tasks: '["project-env-vault-boundary"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-vault-boundary:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-vault-boundary-backlog-1
+              briefing:
+                id: briefing:project-env-vault-boundary:backlog:attempt-1:revision-1
+                digest: sha256:c8c7d3f7c4976bc56e5b36d0760d8f69994825ac094cbe4971b11901b351294a
+                room-ref: ./project-env-vault-boundary/review/backlog/briefing-1
 ---
 
 ADR 0001 rules that the plugin refuses a reference outside the chosen vault. Today any `op://` reference is read, including one typed by hand or imported.
