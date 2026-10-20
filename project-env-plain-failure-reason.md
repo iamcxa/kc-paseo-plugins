@@ -1,7 +1,7 @@
 ---
 id:
 title: A failed variable names its cause class, never raw tool output
-status: backlog
+status: ideation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -33,7 +33,7 @@ gates:
                 reason: 'Captain 2026-10-20: 「准。」 — accepts this release r1 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
               application:
                 target-stage: ideation
-                state: pending
+                state: consumed
 ---
 
 ADR 0002 rules that an unresolved variable is shown with the reason it failed. Today the first line of raw `op` stderr reaches the daemon log and the settings Test row.
