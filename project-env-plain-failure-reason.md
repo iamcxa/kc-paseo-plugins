@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-plain-failure-reason:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-plain-failure-reason-validation-1
+              briefing:
+                id: briefing:project-env-plain-failure-reason:validation:attempt-1:revision-1
+                digest: sha256:243617482cbbed16ae3cd1d69a965307a07627528ea603fe4dfcb83903e50446
+                room-ref: ./project-env-plain-failure-reason/review/validation/briefing-1
 started: 2026-10-20T14:19:44Z
 ---
 
