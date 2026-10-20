@@ -61,6 +61,10 @@ gates:
                 id: briefing:project-env-worktree-real-paths:validation:attempt-1:revision-1
                 digest: sha256:f8d15188de590e116a91ef19f4f640466ed6e1a8fef5cad2de221fc3e7001fc3
                 room-ref: ./project-env-worktree-real-paths/review/validation/briefing-1
+              withdrawal:
+                by: agent:first-officer
+                at: "2026-10-20T16:01:56.002685Z"
+                reason: 'Candidate 2defea5 conflicts with main after PR #9 merged (dac8940); a rebased candidate replaces it.'
 started: 2026-10-20T14:19:57Z
 ---
 
