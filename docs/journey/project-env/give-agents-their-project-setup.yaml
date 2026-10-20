@@ -13,7 +13,7 @@ steps:
         release: r1b
         status: unverified
         questions:
-          - {id: "q1", ask: "Which prerequisites must installation state or check: the 1Password CLI, macOS and the Paseo version?", status: "answered", answer: "Gap: only the manifest states Paseo >=0.12.0; release 1b names the op CLI, macOS and Paseo >=0.12.0 in the overview and the setup steps. Release 1 names a missing op on screen (token-works)."}
+          - {id: "q1", ask: "Which prerequisites must installation state or check: the 1Password CLI, macOS and the Paseo version?", status: "answered", answer: "Gap: only the manifest states Paseo >=0.12.0; release 1b names the op CLI, macOS and Paseo >=0.12.0 in the overview and the setup steps. Release 1.5 names a missing op on screen (token-works)."}
       - id: enable-plugins
         card: "Turn on plugins in Paseo when they are off"
         release: r1b
@@ -62,26 +62,26 @@ steps:
           - {id: "q1", ask: "What does a user do when the repository is missing from Paseo's list or the list fails to load?", status: "answered", answer: "Gap: a failed load and an empty list both hide the picker without a word; release 1b shows the load error and how to add the project in Paseo."}
       - id: paste-token
         card: "Paste the service account token once"
-        release: r1
+        release: r1.5
         status: gap
         evidence: storeToken
         questions:
-          - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1 validates before writing and warns on an existing name, still letting a repository replace its own token."}
+          - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1.5 validates before writing and warns on an existing name, still letting a repository replace its own token."}
           - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; an interactive Keychain prompt has been seen truncating one to exactly 128, so the check stays as a guard."}
       - id: token-works
         card: "See that the token works and which vaults it can read"
-        release: r1
+        release: r1.5
         status: gap
         evidence: tokenStatus
         questions:
-          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: a locked Keychain, a missing op, an outage and a rejection all read as missing or rejected; release 1 names each cause."}
+          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: a locked Keychain, a missing op, an outage and a rejection all read as missing or rejected; release 1.5 names each cause on screen."}
       - id: pick-vault
         card: "Choose the vault"
         release: r1
         status: gap
         evidence: vaultOptions
         questions:
-          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault. Gap: any op:// reference is saved and resolved, whatever its vault; release 1 refuses a reference to any other vault.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault. Gap: any op:// reference is saved and resolved, whatever its vault; release 1 refuses a reference to any other vault when an agent session opens.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
   - id: choose-secrets
     card: "Chooses which secrets agents receive"
@@ -97,12 +97,12 @@ steps:
           - {id: "q2", ask: "How does browsing behave on a large vault and under 1Password's rate limits?", status: "answered", answer: "Gap: one item read per item, in series; release 1b bounds the browse and reports a slow or limited vault."}
       - id: add-remove-variable
         card: "Add or remove a variable next to its field"
-        release: r1
+        release: r1.5
         status: gap
         evidence: newName
         questions:
-          - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1 puts each remove beside its field."}
-          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "Gap: PATH, HOME, NODE_OPTIONS and OP_SERVICE_ACCOUNT_TOKEN pass the name check; release 1 refuses names that would override the agent's own environment."}
+          - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1.5 puts each remove beside its field."}
+          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "Gap: PATH, HOME, NODE_OPTIONS and OP_SERVICE_ACCOUNT_TOKEN pass the name check; release 1.5 refuses them when added. Refusing them at session open is release 1 (new-agent-env/q6)."}
           - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "deferred", because: "Gap: the save is refused with no recovery path; release 1b shows the conflict and reloads without losing the draft. Only a second editor meets it; release 1 has one user."}
       - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2, status: exists, evidence: importConductor}
 
@@ -125,11 +125,11 @@ steps:
     stories:
       - id: test-each-variable
         card: "See set or failed for each variable, never the value"
-        release: r1
+        release: r1.5
         status: gap
         evidence: testProject
         questions:
-          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1 treats empty as failed, clears results on edit, and says set does not prove the service accepts the key."}
+          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1.5 clears results on edit and says set does not prove the service accepts the key. Empty as failed is release 1 (new-agent-env/q6), which Test shares."}
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
@@ -153,7 +153,8 @@ steps:
           - {id: "q2", ask: "Is the plugin's no-secret rule also about what an agent prints after receiving a value?", status: "answered", answer: "No: the plugin never shows, logs or sends a value; an agent can read what it received.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
           - {id: "q3", ask: "Can one service account receive a value another account fetched?", status: "answered", answer: "Gap: the cache is keyed by reference only; release 1 keys it by account and reference."}
           - {id: "q4", ask: "How long does a changed secret take to reach new agents?", status: "deferred", because: "Up to 15 minutes, cleared by Test and Save; release r3 owns secret-change-picked-up."}
-          - {id: "q5", ask: "How is the release proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls covering its fixes and is accepted by Kent's own use; release 1b is accepted by one run on a teammate's Mac."}
+          - {id: "q5", ask: "How is the release proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls covering its fixes; releases 1 and 1.5 are accepted by Kent's own use, release 1b by one run on a teammate's Mac."}
+          - {id: "q6", ask: "What happens at session open to a reserved variable name or an empty value?", status: "answered", answer: "Gap: a name such as PATH overrides the agent's own environment and an empty value is passed as set; release 1 refuses the name and treats the empty value as failed."}
       - id: worktree-env
         card: "Agents in any worktree of the repository get them too"
         release: r1
@@ -191,8 +192,13 @@ releases:
     goal: "Kent, on his own Mac, connects one repository to 1Password, and new agents there, worktrees included, start with its secrets safely; Kent's own use and judgment accept it."
     ruling:
       - "「可以改成兩段，不用第一時間給隊友，要先我用到覺得可以」 — Captain, 2026-10-20"
+      - "「就五個，剩下做 r1.5」 — Captain, 2026-10-20"
+  - id: r1.5
+    name: "RELEASE 1.5 — Kent's settings screen tells him the truth"
+    goal: "On his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; Kent's own use and judgment accept it."
+    ruling:
+      - "「就五個，剩下做 r1.5」 — Captain, 2026-10-20"
       - "「我覺得UI不夠直覺」 — Captain"
-    slice_because: "Each story carries a safety or correctness fix that ADR 0001, ADR 0002 or Kent's daily worktree use needs; Kent's own vault, account and repository list serve the r1b stories on his path."
   - id: r1b
     name: "RELEASE 1b — A teammate connects one repository"
     goal: "A recce teammate installs the plugin from GitHub and reaches a working connection for one repository by following the in-app steps; one run on a teammate's Mac accepts it."
