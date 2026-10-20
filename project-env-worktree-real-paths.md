@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-worktree-real-paths:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-worktree-real-paths-ideation-1
+              briefing:
+                id: briefing:project-env-worktree-real-paths:ideation:attempt-1:revision-1
+                digest: sha256:08c3e2330c983eb8d7cfa5ed7ae79461f6530d6f3312ba10e7a503bf881becc2
+                room-ref: ./project-env-worktree-real-paths/review/ideation/briefing-1
 started: 2026-10-20T14:19:57Z
 ---
 
