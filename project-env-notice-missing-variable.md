@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-notice-missing-variable:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-notice-missing-variable-ideation-1
+              briefing:
+                id: briefing:project-env-notice-missing-variable:ideation:attempt-1:revision-1
+                digest: sha256:5d730f13a2da52c7c3250973f3b1a10d93c111aba03f4f23ee4b025a0bca8cc4
+                room-ref: ./project-env-notice-missing-variable/review/ideation/briefing-1
 started: 2026-10-20T14:19:51Z
 ---
 
