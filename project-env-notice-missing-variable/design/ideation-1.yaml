@@ -1,0 +1,43 @@
+design_review:
+  preview: project-env-notice-missing-variable/design/preview-desktop-dark-3-variables.png
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-3-variables.png, preview-desktop-dark-12-variables.png
+      seen: The bright white monospace variable names are at least as strong as the 13px title, and the amber 14px icon is dim. The block is plain text with no container, so it reads like part of the reply rather than a warning.
+      fix: Give the notice a subtle tinted background or left rule, and make the title semibold, so the title reads first and the names read second.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-12-variables.png, preview-compact-dark-12-variables.png
+      seen: At 12 variables the list is a flat 12-line block of about 220px on a 800px desktop panel and about 560px on the 1688px phone, with no grouping or cap. It pushes "mock reply" down by that amount.
+      fix: Cap the visible rows (for example 5) with an inline "and N more" line, or group variables that share a cause.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-compact-dark-12-variables.png, preview-compact-light-12-variables.png
+      seen: Long names such as PROJECT_SERVICE_00_AUTHORIZATION_BEARER_TOKEN_VALUE hard-break mid-word ("TO" / "KEN_VALUE"), so one variable looks like two items. Only the variable name wraps here, and no picture shows a long cause wrapping.
+      fix: Put the cause on its own line under a long name, or break only at underscores, and add a preview where a long name and a long cause both wrap.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-unknown-cause.png
+      seen: The fallback cause "could not be set" is the only cause text with no cause class behind it. It is the least informative line, and the notice offers no next step for any cause (for example where to fix the mapping).
+      fix: Use a fallback that names what to check ("reason not reported - check the project's variable mapping"), and make the other causes say what to change.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-12-variables.png
+      seen: Cause phrasing varies in form ("the field is empty", "field not found in the vault", "no token stored for this repository", "1Password rejected the token"). Some have articles and some do not, and one mixes a tool name with a noun.
+      fix: Write all causes in one pattern, for example "<noun> <state>", and keep it as one string table.
+    - severity: MINOR
+      dimension: states
+      where: set of previews
+      seen: No picture shows a notice scrolled out of view in a long timeline, a notice on a resumed or reloaded agent, or a 12-variable list with one very long cause line. The set has no variant for a partial cause class mix beyond the 12-variable one.
+      fix: Add previews for a long timeline with the notice scrolled away, and for a resumed or reloaded agent that shows the notice or not.
+    - severity: MINOR
+      dimension: theme-size
+      where: set of previews
+      seen: Desktop is shown only in dark, and phone light only with 12 variables. There is no desktop light, no phone light with 1 variable and no tablet width. In the phone light picture the amber icon turns brown and the muted cause text is lighter grey, and contrast was not shown for the 1-variable case.
+      fix: Add desktop light and phone light with 1 variable, and check the contrast of the muted cause text and the amber icon in light.
+  limitations:
+    - Static pictures only. I could not check the real contrast ratios, text selection or copy of the names, hover, or how the notice behaves when scrolled.
+    - The sidebar, agent tabs and "mock reply" belong to the host app and were not reviewed, but they are used as the baseline for spacing and size.
+    - The notice has no controls by design. The only control inventory is host-owned: on desktop, two small icon buttons and a "..." menu in the header and tab bar plus a "+" tab button. On phone, the header has a menu icon, a "1" box icon, a "..." menu and a panel icon (about 24px glyphs).
+    - Whether the notice is dismissible, or persists across reload and resume, cannot be told from the pictures.

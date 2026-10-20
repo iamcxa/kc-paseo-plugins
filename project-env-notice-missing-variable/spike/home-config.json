@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:6799",
+    "mcp": {
+      "injectIntoAgents": false
+    },
+    "browserTools": {
+      "enabled": false
+    },
+    "enableTerminalAgentHooks": false,
+    "relay": {
+      "enabled": false
+    }
+  },
+  "pluginsEnabled": true,
+  "plugins": {
+    "notice-spike": {
+      "source": "directory",
+      "path": "/tmp/notice-line-spike-r1/plugin",
+      "enabled": true
+    }
+  },
+  "features": {
+    "dictation": {
+      "enabled": false
+    },
+    "voiceMode": {
+      "enabled": false
+    }
+  }
+}
