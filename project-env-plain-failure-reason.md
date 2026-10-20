@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-plain-failure-reason
-pr: iamcxa/kc-paseo-plugins#9
+pr: pr-merge:9
 journey: paseo-project-env
 journey-release: r1
 journey-story: plain-failure-reason
