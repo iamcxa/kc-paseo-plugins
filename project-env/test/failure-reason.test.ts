@@ -115,6 +115,7 @@ describe("no tool output and no value reaches the log, the RPC result or the Tes
           subscribe: () => () => {},
         }),
         before: (name: string, fn: never) => void before.set(name, fn),
+        on: () => () => {},
         handle: (contract: { name: string }, fn: never) => void handlers.set(contract.name, fn),
       } as unknown as PluginServerContext;
       contribute(server, world.tools);

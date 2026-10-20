@@ -28,3 +28,11 @@ export const causeText: Record<Cause, string> = {
 export function rowHint(result: { ok: boolean; cause?: Cause }): string {
   return result.ok ? "set" : `failed: ${causeText[result.cause ?? "unexpected"]}`;
 }
+
+export function causeWords(id: string): string {
+  return Object.hasOwn(causeText, id) ? causeText[id as Cause] : "reason not available";
+}
+
+export function missingVariablesTitle(count: number): string {
+  return count === 1 ? "Started without 1 project variable" : `Started without ${count} project variables`;
+}
