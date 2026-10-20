@@ -12,6 +12,17 @@ journey-release: r1
 journey-story: plain-failure-reason
 journey-required-tasks: '["project-env-plain-failure-reason"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-plain-failure-reason:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-plain-failure-reason-backlog-1
+              briefing:
+                id: briefing:project-env-plain-failure-reason:backlog:attempt-1:revision-1
+                digest: sha256:b607313c88f936da18906ca22d51c066f1f869ebeb6309344428235a9949d76a
+                room-ref: ./project-env-plain-failure-reason/review/backlog/briefing-1
 ---
 
 ADR 0002 rules that an unresolved variable is shown with the reason it failed. Today the first line of raw `op` stderr reaches the daemon log and the settings Test row.
