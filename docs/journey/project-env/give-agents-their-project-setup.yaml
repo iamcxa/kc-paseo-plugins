@@ -10,36 +10,44 @@ steps:
     stories:
       - id: install-one-command
         card: "Install it with one command from GitHub"
-        release: r1
+        release: r1b
+        status: unverified
         questions:
-          - {id: "q1", ask: "Which prerequisites must installation state or check: the 1Password CLI, macOS and the Paseo version?", status: "answered", answer: "Gap: nothing states them; release 1 names the op CLI, macOS and Paseo >=0.12.0 in the overview and the setup steps, and the screen says when op is missing."}
+          - {id: "q1", ask: "Which prerequisites must installation state or check: the 1Password CLI, macOS and the Paseo version?", status: "answered", answer: "Gap: only the manifest states Paseo >=0.12.0; release 1b names the op CLI, macOS and Paseo >=0.12.0 in the overview and the setup steps. Release 1 names a missing op on screen (token-works)."}
       - id: enable-plugins
         card: "Turn on plugins in Paseo when they are off"
-        release: r1
+        release: r1b
+        status: gap
         questions:
-          - {id: "q1", ask: "How does a user turn plugins on before this plugin can show anything?", status: "answered", answer: "The plugin cannot help while plugins are off; the repository README and the overview state Settings → Plugins → Enable plugins."}
+          - {id: "q1", ask: "How does a user turn plugins on before this plugin can show anything?", status: "answered", answer: "The plugin cannot help while plugins are off; the repository README and the overview state Settings → Plugins → Enable plugins. Gap: neither says it, and OVERVIEW.md is still the template; release 1b adds the step to both."}
       - id: find-settings
         card: "Find where the plugin is configured"
-        release: r1
+        release: r1b
+        status: gap
+        evidence: ProjectEnvSettings
         questions:
-          - {id: "q1", ask: "Which machine's Keychain and agents does the settings screen change when the client runs elsewhere?", status: "answered", answer: "The Mac running Paseo; release 1 supports only Paseo on the user's own Mac and says so on screen.", doc: "docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
+          - {id: "q1", ask: "Which machine's Keychain and agents does the settings screen change when the client runs elsewhere?", status: "answered", answer: "The Mac running Paseo; only Paseo on the user's own Mac is supported, and the screen says the token is stored on the Mac running Paseo. Gap: the token hint says \"this Mac's Keychain\", which names the client's machine; release 1b says the Mac running Paseo.", doc: "docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
 
   - id: prepare-1password
     card: "Prepares 1Password for a repository"
     activity: "Prepare 1Password"
     stories:
-      - {id: create-vault, card: "Create a vault for the repository", release: r1}
-      - {id: add-secrets, card: "Put each secret the agents need in the vault", release: r1}
+      - {id: create-vault, card: "Create a vault for the repository", release: r1b, status: unverified}
+      - {id: add-secrets, card: "Put each secret the agents need in the vault", release: r1b, status: unverified}
       - id: create-service-account
         card: "Create a read-only service account for that vault"
-        release: r1
+        release: r1b
+        status: unverified
         questions:
-          - {id: "q1", ask: "Is read-only verified, or only asked of the user?", status: "answered", answer: "Asked in the setup steps and not verified by the plugin.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q1", ask: "Is read-only verified, or only asked of the user?", status: "answered", answer: "Asked in the setup steps and not verified by the plugin. Gap: no setup steps exist yet; release 1b's steps ask for it (setup-guide).", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q2", ask: "Can a non-admin teammate create a vault and a service account in the team 1Password account?", status: "open"}
       - id: setup-guide
         card: "Follow in-app steps for what to create and how to name it"
-        release: r1
+        release: r1b
+        status: gap
         questions:
-          - {id: "q1", ask: "Which access and naming must the in-app steps explain for the vault, the secrets and the service account?", status: "answered", answer: "Gap: the form starts at the account name; release 1 adds steps covering vault creation, one item per variable, a read-only account limited to that vault with an expiry, and narrow agent-specific keys."}
+          - {id: "q1", ask: "Which access and naming must the in-app steps explain for the vault, the secrets and the service account?", status: "answered", answer: "Gap: the form starts at the account name; release 1b adds steps covering vault creation, one item per variable, a read-only account limited to that vault with an expiry, and narrow agent-specific keys."}
+          - {id: "q2", ask: "Where are the two weaknesses ADR 0001 accepted stated for the user?", status: "answered", answer: "The settings screen and the plugin overview state both weaknesses in plain words. Gap: the screen states only that an agent can read its values, and OVERVIEW.md is still the template; release 1b adds the Keychain weakness to the screen and both to the overview.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
   - id: connect
     card: "Connects a repository to 1Password"
@@ -47,25 +55,33 @@ steps:
     stories:
       - id: pick-repository
         card: "Pick the repository from Paseo's project list"
-        release: r1
+        release: r1b
+        status: gap
+        evidence: candidates
         questions:
-          - {id: "q1", ask: "What does a user do when the repository is missing from Paseo's list or the list fails to load?", status: "answered", answer: "Gap: a failed load and an empty list both hide the picker without a word; release 1 shows the load error and how to add the project in Paseo."}
+          - {id: "q1", ask: "What does a user do when the repository is missing from Paseo's list or the list fails to load?", status: "answered", answer: "Gap: a failed load and an empty list both hide the picker without a word; release 1b shows the load error and how to add the project in Paseo."}
       - id: paste-token
         card: "Paste the service account token once"
         release: r1
+        status: gap
+        evidence: storeToken
         questions:
-          - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1 validates before writing and warns on an existing name."}
-          - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; qnow ADR 0027 recorded the interactive Keychain prompt truncating one to exactly 128, so the check stays as a guard."}
+          - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1 validates before writing and warns on an existing name, still letting a repository replace its own token."}
+          - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; an interactive Keychain prompt has been seen truncating one to exactly 128, so the check stays as a guard."}
       - id: token-works
         card: "See that the token works and which vaults it can read"
         release: r1
+        status: gap
+        evidence: tokenStatus
         questions:
           - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: a locked Keychain, a missing op, an outage and a rejection all read as missing or rejected; release 1 names each cause."}
       - id: pick-vault
         card: "Choose the vault"
         release: r1
+        status: gap
+        evidence: vaultOptions
         questions:
-          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault. Gap: any op:// reference is saved and resolved, whatever its vault; release 1 refuses a reference to any other vault.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
   - id: choose-secrets
     card: "Chooses which secrets agents receive"
@@ -73,18 +89,22 @@ steps:
     stories:
       - id: pick-field
         card: "Pick a vault field for each variable"
-        release: r1
+        release: r1b
+        status: gap
+        evidence: listRefs
         questions:
-          - {id: "q1", ask: "What happens with duplicate item titles, a slash in a title or label, renamed fields, or non-text fields?", status: "answered", answer: "Gap: references are built from titles and labels and any field type is offered; release 1 builds references from item and field IDs and offers text fields only."}
-          - {id: "q2", ask: "How does browsing behave on a large vault and under 1Password's rate limits?", status: "answered", answer: "Gap: one item read per item, in series; release 1 bounds the browse and reports a slow or limited vault."}
+          - {id: "q1", ask: "What happens with duplicate item titles, a slash in a title or label, renamed fields, or non-text fields?", status: "answered", answer: "Gap: references are built from titles and labels and any field type is offered; release 1b builds references from item and field IDs and offers text fields only."}
+          - {id: "q2", ask: "How does browsing behave on a large vault and under 1Password's rate limits?", status: "answered", answer: "Gap: one item read per item, in series; release 1b bounds the browse and reports a slow or limited vault."}
       - id: add-remove-variable
         card: "Add or remove a variable next to its field"
         release: r1
+        status: gap
+        evidence: newName
         questions:
           - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1 puts each remove beside its field."}
           - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "Gap: PATH, HOME, NODE_OPTIONS and OP_SERVICE_ACCOUNT_TOKEN pass the name check; release 1 refuses names that would override the agent's own environment."}
-          - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "answered", answer: "Gap: the save is refused with no recovery path; release 1 shows the conflict and reloads without losing the draft."}
-      - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2}
+          - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "deferred", because: "Gap: the save is refused with no recovery path; release 1b shows the conflict and reloads without losing the draft. Only a second editor meets it; release 1 has one user."}
+      - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2, status: exists, evidence: importConductor}
 
   - id: standing-instructions
     card: "Sets standing instructions for new agents"
@@ -93,9 +113,11 @@ steps:
       - id: write-prompt
         card: "Write the instructions every new agent follows"
         release: r2
+        status: exists
+        evidence: promptStyle
         questions:
           - {id: "q1", ask: "Release 2 features already exist in code; does release 1 hide them?", status: "answered", answer: "No: they stay for Kent's own use and are outside release 1 acceptance."}
-      - {id: import-conductor-prompt, card: "Bring the instructions over from Conductor", release: r2}
+      - {id: import-conductor-prompt, card: "Bring the instructions over from Conductor", release: r2, status: exists, evidence: importConductor}
 
   - id: check
     card: "Checks it works before relying on it"
@@ -104,14 +126,18 @@ steps:
       - id: test-each-variable
         card: "See set or failed for each variable, never the value"
         release: r1
+        status: gap
+        evidence: testProject
         questions:
           - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1 treats empty as failed, clears results on edit, and says set does not prove the service accepts the key."}
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
+        status: gap
+        evidence: resolveProject
         questions:
-          - {id: "q1", ask: "What may a failure message contain?", status: "answered", answer: "A cause class and the variable name only, never raw tool output or a value.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
-      - {id: unsaved-warning, card: "Be warned before leaving with unsaved changes", release: r3}
+          - {id: "q1", ask: "What may a failure message contain?", status: "answered", answer: "The reason shown names the cause class (no token, rejected token, missing field, 1Password unreachable) and never contains a value. Gap: the first line of op's or security's error output is shown; release 1 shows the cause class instead.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+      - {id: unsaved-warning, card: "Be warned before leaving with unsaved changes", release: r3, status: gap}
 
   - id: work
     card: "Works with agents as usual"
@@ -120,45 +146,69 @@ steps:
       - id: new-agent-env
         card: "A new agent starts with the variables"
         release: r1
+        status: gap
+        evidence: resolveProject
         questions:
-          - {id: "q1", ask: "Should an agent start when a variable fails to resolve?", status: "answered", answer: "Yes: the variable is blanked and a line naming it and the cause is added to the agent's timeline.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q1", ask: "Should an agent start when a variable fails to resolve?", status: "answered", answer: "Yes: the variable is blanked and a line naming it and the cause is added to the agent's timeline. Gap: a failed variable is left out of the merge and logged only to the daemon, so a same-named value already present stays; release 1 blanks it, and notice-missing-variable adds the line.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
           - {id: "q2", ask: "Is the plugin's no-secret rule also about what an agent prints after receiving a value?", status: "answered", answer: "No: the plugin never shows, logs or sends a value; an agent can read what it received.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
           - {id: "q3", ask: "Can one service account receive a value another account fetched?", status: "answered", answer: "Gap: the cache is keyed by reference only; release 1 keys it by account and reference."}
           - {id: "q4", ask: "How long does a changed secret take to reach new agents?", status: "deferred", because: "Up to 15 minutes, cleared by Test and Save; release r3 owns secret-change-picked-up."}
-          - {id: "q5", ask: "How is release 1 proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls and one acceptance run on a teammate's Mac."}
+          - {id: "q5", ask: "How is the release proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls covering its fixes and is accepted by Kent's own use; release 1b is accepted by one run on a teammate's Mac."}
       - id: worktree-env
         card: "Agents in any worktree of the repository get them too"
         release: r1
+        status: gap
+        evidence: mainCheckout
         questions:
-          - {id: "q1", ask: "Which path forms must match, such as symlinked checkouts?", status: "answered", answer: "Gap: the stored root is compared to git's path as written; release 1 compares real paths on both sides."}
-      - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2}
-      - {id: new-agent-instructions, card: "A new agent follows the standing instructions", release: r2}
+          - {id: "q1", ask: "Which path forms must match, such as symlinked checkouts?", status: "answered", answer: "Gap: worktree membership compares real paths, but the stored root is compared with git's main-checkout path as written; release 1 compares real paths on both sides."}
+      - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2, status: unverified}
+      - {id: new-agent-instructions, card: "A new agent follows the standing instructions", release: r2, status: exists, evidence: systemPrompt}
       - {id: broker-call, status: gap, card: "Agents call a service through the plugin without seeing its key"}
 
   - id: maintain
     card: "Keeps it working over time"
     activity: "Keep it working"
     stories:
-      - {id: rotate-token, card: "Replace an expired or rotated token", release: r3}
-      - {id: secret-change-picked-up, card: "Change a secret in 1Password and agents pick it up", release: r3}
-      - {id: notice-missing-variable, card: "Notice when an agent started without a variable", release: r3}
-      - {id: teammate-same-setup, card: "A teammate sets up the same repository quickly", release: r3}
+      - id: rotate-token
+        card: "Replace an expired or rotated token"
+        release: r1b
+        status: unverified
+        evidence: storeToken
+        questions:
+          - {id: "q1", ask: "How does a teammate replace a token that expired?", status: "answered", answer: "Gap: storing a token for the same account overwrites it, but nothing says a rejection may be an expiry; release 1b's setup steps state the expiry and how to store a new token."}
+      - {id: secret-change-picked-up, card: "Change a secret in 1Password and agents pick it up", release: r3, status: unverified, evidence: CACHE_MS}
+      - id: notice-missing-variable
+        card: "Notice when an agent started without a variable"
+        release: r1
+        status: gap
+        questions:
+          - {id: "q1", ask: "How does a user notice that an agent started without a variable?", status: "answered", answer: "A visible line naming the variable and the reason is appended to the agent's timeline. Gap: the failure is logged only to the daemon; release 1 adds the line.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+      - {id: teammate-same-setup, card: "A teammate sets up the same repository quickly", release: r3, status: gap}
 
 releases:
   - id: r1
-    name: "RELEASE 1 — A teammate connects one repository"
-    goal: "A recce teammate installs the plugin, connects one repository to 1Password, and new agents there, worktrees included, start with its secrets."
-    slice_because: "Any split leaves the teammate unable to finish the path from install to an agent holding the secret."
+    name: "RELEASE 1 — Kent connects one repository on his own Mac"
+    goal: "Kent, on his own Mac, connects one repository to 1Password, and new agents there, worktrees included, start with its secrets safely; Kent's own use and judgment accept it."
+    ruling:
+      - "「可以改成兩段，不用第一時間給隊友，要先我用到覺得可以」 — Captain, 2026-10-20"
+      - "「我覺得UI不夠直覺」 — Captain"
+    slice_because: "Each story carries a safety or correctness fix that ADR 0001, ADR 0002 or Kent's daily worktree use needs; Kent's own vault, account and repository list serve the r1b stories on his path."
+  - id: r1b
+    name: "RELEASE 1b — A teammate connects one repository"
+    goal: "A recce teammate installs the plugin from GitHub and reaches a working connection for one repository by following the in-app steps; one run on a teammate's Mac accepts it."
+    ruling:
+      - "「我短期要的是讓 recce team 也可用」 — Captain"
+    slice_because: "Each story is a step a teammate new to the plugin meets and Kent's own setup already covers, and one teammate-Mac run accepts them together; the three 1Password stories carry no plugin code."
   - {id: r2, name: "RELEASE 2 — Standing instructions and Conductor carry-over", goal: "New agents follow the repository's standing instructions, and a Conductor user brings names and instructions over."}
-  - {id: r3, name: "RELEASE 3 — Keep it working", goal: "A teammate rotates tokens, sees missing variables, and shares the setup without asking Kent."}
+  - {id: r3, name: "RELEASE 3 — Keep it working", goal: "Changed secrets reach agents promptly, unsaved edits are warned, and a teammate shares the setup without asking Kent."}
 
 rules:
   - {id: no-secret-in-chat, text: "No secret value passes through a chat, a log, or the app's display."}
-  - {id: read-only-account, text: "Agents read secrets only through a read-only service account."}
+  - {id: read-only-account, text: "The service account is asked to be read-only; the plugin does not verify it."}
   - {id: registered-worktrees-only, text: "Secrets go only to the repository's main checkout and its registered worktrees."}
 
 status:
-  unproven: "Map mode: intent only. A local proof of concept exists; nothing is proven for a teammate."
-  unmerged: "The proof of concept lives in a local repository, not yet pushed to GitHub."
-  undeployed: "Installed only on Kent's Paseo daemon; no recce teammate has installed it."
-  irreversible: "Storing a token writes the macOS login Keychain on the daemon host."
+  unproven: "Only a typecheck exists; no story has run end to end on any Mac."
+  unmerged: "The proof of concept is on GitHub main; no version is tagged; release PR #3 is open."
+  undeployed: "Recorded as installed only on Kent's Paseo daemon; no teammate has installed it."
+  irreversible: "Storing a token writes, and overwrites, a login Keychain entry on the Paseo Mac."
