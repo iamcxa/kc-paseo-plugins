@@ -1,7 +1,9 @@
-import { execFile } from "node:child_process";
+import { execFile, type ExecFileException } from "node:child_process";
 import { realpath } from "node:fs/promises";
-import { dirname } from "node:path";
+import { basename, dirname } from "node:path";
+import type { Cause } from "../shared/cause.ts";
 import { isReservedName, type Project } from "../shared/config.ts";
+import { classifyOpFailure, parseRef, type OpExit } from "./cause.ts";
 
 const KEYCHAIN_ACCOUNT = "op-service-account-token";
 const CACHE_MS = 15 * 60 * 1000;
@@ -13,20 +15,25 @@ export interface Tools {
   git: string;
 }
 
-export type FailStage = "token" | "read" | "empty" | "deadline" | "reserved";
-
 export interface VariableResult {
   name: string;
   ok: boolean;
-  error?: string;
-  stage?: FailStage;
+  cause?: Cause;
 }
 
-type Outcome = { ok: true; value: string } | { ok: false; stage: FailStage; error: string };
+type Outcome = { ok: true; value: string } | { ok: false; cause: Cause };
 
 const realOrSelf = (path: string) => realpath(path).catch(() => path);
 
-const LATE: Outcome = { ok: false, stage: "deadline", error: "not answered in time" };
+const LATE: Outcome = { ok: false, cause: "unreachable" };
+
+export class RunFailure extends Error {
+  exit: OpExit;
+  constructor(message: string, exit: OpExit) {
+    super(message);
+    this.exit = exit;
+  }
+}
 
 function opEnv(token: string): NodeJS.ProcessEnv {
   return { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
@@ -52,8 +59,11 @@ export function createSecrets(tools: Tools) {
           maxBuffer: 4 * 1024 * 1024,
         },
         (error, stdout, stderr) => {
-          if (error) reject(new Error(String(stderr || error.message).trim().split("\n")[0]));
-          else resolve(stdout);
+          if (!error) return resolve(stdout);
+          // error.message is "Command failed: <file> <args>", which can carry a token.
+          const first = String(stderr).trim().split("\n")[0] || `${basename(file)} failed`;
+          const { code, killed, signal } = error as ExecFileException;
+          reject(new RunFailure(first, { code, killed, signal, stderr: String(stderr) }));
         },
       );
     });
@@ -170,7 +180,8 @@ export function createSecrets(tools: Tools) {
   ): Promise<Outcome> {
     try {
       const secret = await token;
-      if (!secret) return { ok: false, stage: "token", error: "no service account token" };
+      if (!secret) return { ok: false, cause: "no-token" };
+      if (!parseRef(ref)) return { ok: false, cause: "missing-field" };
       const key = `${serviceAccount}\0${ref}`;
       const hit = cache.get(key);
       if (hit && Date.now() - hit.at < CACHE_MS) return { ok: true, value: hit.value };
@@ -178,11 +189,14 @@ export function createSecrets(tools: Tools) {
         env: opEnv(secret),
         timeout: timeout(),
       });
-      if (value === "") return { ok: false, stage: "empty", error: "empty value" };
+      if (value === "") return { ok: false, cause: "empty" };
       cache.set(key, { value, at: Date.now() });
       return { ok: true, value };
     } catch (error) {
-      return { ok: false, stage: "read", error: (error as Error).message };
+      return {
+        ok: false,
+        cause: classifyOpFailure(error instanceof RunFailure ? error.exit : {}),
+      };
     }
   }
 
@@ -215,11 +229,9 @@ export function createSecrets(tools: Tools) {
     const env: Record<string, string> = {};
     const results: VariableResult[] = project.variables.map(({ name }, i) => {
       const outcome = outcomes[i];
-      if (!outcome) return { name, ok: false, error: "reserved name", stage: "reserved" };
+      if (!outcome) return { name, ok: false, cause: "reserved-name" };
       env[name] = outcome.ok ? outcome.value : "";
-      return outcome.ok
-        ? { name, ok: true }
-        : { name, ok: false, error: outcome.error, stage: outcome.stage };
+      return outcome.ok ? { name, ok: true } : { name, ok: false, cause: outcome.cause };
     });
     return { env, results };
   }

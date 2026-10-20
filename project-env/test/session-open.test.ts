@@ -68,7 +68,7 @@ describe("session open", () => {
     const launched = paseoLaunchEnv({ STALE_NAME: "daemon", GOOD: "daemon" }, opened.request.env);
     assert.equal(launched.STALE_NAME, "");
     assert.equal(launched.GOOD, "ok");
-    assert.equal(opened.results[0].stage, "read");
+    assert.equal(opened.results[0].cause, "missing-field");
   });
 
   it("an empty value is a failed variable and is not cached", async () => {
@@ -80,7 +80,7 @@ describe("session open", () => {
     const first = await openSession(secrets, p, request);
     assert.equal(paseoLaunchEnv({ BLANK: "daemon" }, first.request.env).BLANK, "");
     assert.deepEqual(first.results, [
-      { name: "BLANK", ok: false, error: "empty value", stage: "empty" },
+      { name: "BLANK", ok: false, cause: "empty" },
     ]);
     await openSession(secrets, p, request);
     assert.equal(reads(world).length, 2);
@@ -95,17 +95,17 @@ describe("session open", () => {
     assert.equal(opened.request.env.SP, " ");
   });
 
-  for (const [label, scenario, stage] of [
-    ["no token in the Keychain", { op: { accounts: { a: { refs: { "op://V/i/x": "v" } } } } }, "token"],
+  for (const [label, scenario, cause] of [
+    ["no token in the Keychain", { op: { accounts: { a: { refs: { "op://V/i/x": "v" } } } } }, "no-token"],
     [
       "a rejected token",
       { keychain: { "sa-a": "gone" }, op: { accounts: { a: { refs: { "op://V/i/x": "v" } } } } },
-      "read",
+      "rejected-token",
     ],
     [
       "a missing field",
       { keychain: { "sa-a": "a" }, op: { accounts: { a: { refs: {} } } } },
-      "read",
+      "missing-field",
     ],
   ] as [string, Scenario, string][]) {
     it(`blanks every variable on ${label}`, async () => {
@@ -117,7 +117,7 @@ describe("session open", () => {
       );
       const launched = paseoLaunchEnv({ X: "daemon", Y: "daemon" }, opened.request.env);
       assert.deepEqual([launched.X, launched.Y], ["", ""]);
-      assert.deepEqual(opened.results.map((r) => r.stage), [stage, stage]);
+      assert.deepEqual(opened.results.map((r) => r.cause), [cause, cause]);
     });
   }
 
@@ -165,7 +165,7 @@ describe("session open", () => {
     const launched = paseoLaunchEnv({ SLOW: "daemon" }, opened.request.env);
     assert.equal(launched.FAST, "quick");
     assert.equal(launched.SLOW, "");
-    assert.equal(opened.results[1].stage, "deadline");
+    assert.equal(opened.results[1].cause, "unreachable");
 
     const slow = reads(world).find((c) => c.argv.includes("op://V/i/slow"));
     assert.ok(slow);
@@ -199,7 +199,7 @@ describe("session open", () => {
       request,
     );
     assert.deepEqual(opened.request.env, { KEEP: "request", X: "" });
-    assert.deepEqual(opened.results.map((r) => r.stage), ["read", "reserved"]);
+    assert.deepEqual(opened.results.map((r) => r.cause), ["unexpected", "reserved-name"]);
   });
 
   it("neither applies nor blanks a reserved name, and reports it failed", async () => {
@@ -213,9 +213,9 @@ describe("session open", () => {
       { ...request, env: { PATH: "/usr/bin" } },
     );
     assert.deepEqual(opened.request.env, { PATH: "/usr/bin", OK: "fine" });
-    assert.deepEqual(opened.results.map((r) => [r.name, r.ok, r.stage]), [
-      ["PATH", false, "reserved"],
-      ["PASEO_AGENT_ID", false, "reserved"],
+    assert.deepEqual(opened.results.map((r) => [r.name, r.ok, r.cause]), [
+      ["PATH", false, "reserved-name"],
+      ["PASEO_AGENT_ID", false, "reserved-name"],
       ["OK", true, undefined],
     ]);
     assert.equal(reads(world).length, 1);

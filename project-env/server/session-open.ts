@@ -19,16 +19,13 @@ export async function openSession(
     ({ env, results } = await secrets.resolveProject(project, {
       deadline: Date.now() + budgetMs,
     }));
-  } catch (error) {
+  } catch {
     // A throwing before-hook would fail the agent's opening, so blank everything instead.
-    const message = (error as Error).message;
     env = {};
     results = project.variables.map(({ name }) => {
-      if (isReservedName(name)) {
-        return { name, ok: false, error: "reserved name", stage: "reserved" };
-      }
+      if (isReservedName(name)) return { name, ok: false, cause: "reserved-name" };
       env[name] = "";
-      return { name, ok: false, error: message, stage: "read" };
+      return { name, ok: false, cause: "unexpected" };
     });
   }
   return { request: { ...request, env: { ...request.env, ...env } }, results };
