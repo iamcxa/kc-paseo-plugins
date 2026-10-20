@@ -226,3 +226,23 @@ Design finding 13: fixed: the failure hint is redrawn in the muted hint style, n
 ### Summary
 
 A failed variable carries one of seven cause ids from a closed list; the log, the Test row and the sibling timeline line render from that id, so no tool text can reach them. Needs decision: include a one-line fix in `run`, where an empty-stderr failure puts the whole command line, including the token in `storeToken`, into the Save-token error row (observed with a harmless fake argument). Real `op` error wording is unverified (probes refused, docs silent); misses degrade visibly to `unexpected`.
+
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: the seven cause classes in `shared/cause.ts` and `server/cause.ts` (`classifyOpFailure`, `parseRef`, `causeText`), mapping A's `stage` values including `reserved`, the log line and the settings Test row, so AC-1 and AC-2 pass with the evidence their clauses name (two sentinels, captured console, RPC JSON and row text, and a presence check).
+  Commit f53d485 on spacedock-ensign/project-env-plain-failure-reason (base 6244ff6, #7 head unchanged at push). Deviation: eight ids, not seven; `reserved-name` is added because the checklist says "including `reserved`" and ADR 0004 requires a reserved-name cause; row text is the ADR's words "reserved name". `stage`/`error` are replaced by `cause`: token->no-token, empty->empty, deadline->unreachable, reserved->reserved-name, read->classified, resolve throw->unexpected.
+  AC-1 (`test/failure-reason.test.ts`, "each failure names exactly one cause class"): one case per id through `resolveProject` with the fakes; fails if `AUTH` wording is removed from `server/cause.ts` (rejected-token cases return unexpected). `outside-vault` is rendered (`rowHint`, `failureLine` in `test/cause.test.ts`) but detected by project-env-vault-boundary; a test asserts it is the only id no case here produces.
+  AC-2 (same file, "no tool output and no value reaches..."): drives the real `agent.session_open` hook and `project.test` handler via `contribute(server, tools)`, fake `op` failing with STDERR-SENTINEL-7f3a and VALUE-SENTINEL-9c1d on stderr plus a second variable resolving to VALUE-SENTINEL-9c1d; asserts neither sentinel in captured console, RPC JSON parsed by the contract output schema, or row text, and that the log line `[project-env] <root> BAD: <id>` is present. Fails if the read path logs `error.message` (mutation checked: both variants fail).
+- DONE: Include the Captain-approved one-line fix in `run` so a failure with empty stderr never echoes the command's arguments (the `storeToken` token case), with a test that fails without it.
+  `run` falls back to `<tool> failed`, not `error.message`; test "does not put its arguments, a token included, in the error" (fake `security` crash, empty stderr) fails when the fallback is restored (mutation checked).
+- DONE: Run `npm test`, `npm run typecheck`, `design_surfaces.py check` and `doc_impact.py <base> <candidate>`, and open the Draft PR.
+  `npm test` 46/46 and `npm run typecheck` clean at f53d485 (only `PATH` of the dev machine; fakes need no real `op`/`security`). `design_surfaces.py check`: "design surfaces presentable", exit 0. `comment_ratio.py 6244ff6 HEAD`: "code lines 349, comment lines 2, 0.6%, maximum 5% met". Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/9, base `spacedock-ensign/project-env-new-agent-env`.
+  doc_impact 6244ff6 f53d485 lists one document: `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md` -> unaffected: it records the skip-not-blank decision and `isReservedName`, both unchanged; its "fifth class" count is a historical count and the class id is now `reserved-name`.
+  number_guards: not applicable (Surfaces `ui`, no ADR landed, no `## Number guards` section).
+- DONE: AC-1 and AC-2 current evidence
+  Automated, with fakes, as above. NOT run: the daemon check from the Evidence plan (Kent's Test row for a wrong field, a throwaway account and a rejected `ops_` token) and any live probe; Kent's `paseo-project-env` install was not touched.
+
+### Summary
+
+A failed variable now carries one `Cause` id; the log, the `project.test` result and the Test row (`rowHint`) render from it, and `run` no longer exposes `error.message` arguments. Seam added: the `index.server.ts` body moved to `server/contribute.ts` so the real hook is testable. Limits: `op` error wording is a hypothesis (no captured fixtures; a miss shows as `unexpected`); a timeout kill reaches `unreachable` at the classifier and through the deadline race, not a 30 s `run` kill; a locked Keychain reads as `no-token`; the live daemon check is owed.
