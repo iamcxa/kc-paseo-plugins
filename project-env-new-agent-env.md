@@ -34,6 +34,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-20T14:19:32Z
 ---
 
 Release r1 of the paseo-project-env journey: Kent, on his own Mac, connects one repository to 1Password, and new agents there start with its secrets safely. ADR 0002 rules that a variable that cannot be resolved is blanked; the Captain ruled on 2026-10-20 that an empty value is a failed variable (「算失敗」). Today a failed variable is left out of the merge, so a value the daemon inherited under that name survives, and an empty value passes as set.
