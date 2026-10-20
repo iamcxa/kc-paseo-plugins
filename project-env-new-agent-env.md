@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-new-agent-env:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-new-agent-env-validation-1
+              briefing:
+                id: briefing:project-env-new-agent-env:validation:attempt-1:revision-1
+                digest: sha256:a8fabe6b3c8f3132b659110ba8972fafb62863ae58e486d9a822e060914e93f2
+                room-ref: ./project-env-new-agent-env/review/validation/briefing-1
 started: 2026-10-20T14:19:32Z
 ---
 
