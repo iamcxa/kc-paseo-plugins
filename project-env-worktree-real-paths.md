@@ -23,6 +23,17 @@ gates:
                 id: briefing:project-env-worktree-real-paths:backlog:attempt-1:revision-1
                 digest: sha256:75435fc7e1863041ba99d922828a55084a4e5e532882ae23e045ed8a7266ca00
                 room-ref: ./project-env-worktree-real-paths/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-worktree-real-paths:backlog:1
+                briefing: briefing:project-env-worktree-real-paths:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-20T14:17:20.202767Z"
+                decision: approve
+                reason: 'Captain 2026-10-20: 「准。」 — accepts this release r1 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Kent uses worktrees daily. Worktree membership already resolves real paths, but the stored repository root is compared with git's common-dir parent as written, so a symlinked path fails to match.
