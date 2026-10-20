@@ -188,3 +188,75 @@ The bug is on the stored side: git already returns canonical paths on this Mac, 
 ### Summary
 
 One helper `realOrSelf` now normalizes git's root, the registered worktrees and every stored root before comparing, via `projectForCwd`; stored settings are untouched. Base reset: `git reset --hard` was blocked by the permission classifier, so the clean worktree was advanced to 6244ff6 with `merge --ff-only` (same result, HEAD was an ancestor). Remaining: the daemon clause of AC-1; no ADR was needed. No decision for the Captain.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 2defea5e13c58735ee736f3d77dd4597f092ed00 (PR iamcxa/kc-paseo-plugins#8, stacked on #7) against AC-1 and the approved design, including that each of the seven cases fails when the behaviour it guards is removed; give a verdict.
+  Verdict PASSED for the delta 6244ff6..2defea5 (3 files, +166/-6), judged on the unit and real-git clauses of AC-1 only. `npm test` 24/24 and `npm run typecheck` clean at HEAD 2defea5. Diff matches the design: `realOrSelf` on git's root, the registered list and each stored root; `projectForCwd` in `createSecrets`; `projectFor` keeps the settings read. comment_ratio "code lines 151, comment lines 0, 0.0%" exit 0; doc_impact "0 document(s)" exit 0; design_surfaces "presentable" exit 0; dispatch_records "3 dispatch record(s) complete" exit 0.
+  Mutations I reran on a throwaway copy of `server/secrets.ts` (candidate untouched), test file `project-for-cwd.test.ts`: stored side raw fails cases 1,3,4,6; git root raw fails 2,3; registered list raw fails 4; non-catching fallback fails 5,6; match-first fails 5,7. Every case is killed by at least one mutation; 5 and 7 are controls that stay green under the symlink mutations, as the implementation report said. Separately, a real-git probe (real `git`, real symlink, real worktree, stored root through the symlink) finds the project for 4 of 4 connected cwds on 2defea5 and for 0 of 4 on base 6244ff6, and returns no project for an unconnected repository on both.
+  Minimal necessity: every added line maps to a design falsifier; no comment lines; no ADR owed (adr_lint covers the 4 records already on the stack).
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Script below, run as written under `env -i` in a fresh bash: all steps printed their expected line. adr_lint from the candidate worktree: "4 ADR file(s) checked, 0 legacy", exit 0 (from the repo root on main it checks 3 files, exit 0).
+- DONE: Record every unverified obligation, including AC-1's daemon worktree check, without running it against the live `paseo-project-env` install.
+  Listed under "Unverified obligations" below; nothing was run against the live install, no secret was read.
+
+### Summary
+
+Candidate 2defea5 does what AC-1 and the design say and each of the seven cases guards something real. The one open part of AC-1 is the daemon clause, which needs a probe install on Kent's daemon. This verdict is only as good as its base: it was judged as a delta on PR #7 (head 6244ff6, itself in validation), so a change to #7 means rebase and rerun the script.
+
+### Unverified obligations
+
+- AC-1 daemon clause not run: one agent in a registered worktree of the connected repository on Kent's daemon, reporting set or missing per variable by length test, via a probe install with its own id (never the live `paseo-project-env`), with the chosen variable absent from the daemon environment; also record, shape only, whether Kent's stored root differs from its realpath (if it does not, that run guards worktrees but cannot tell the fix from the old code).
+- The hook wiring (`projectFor` called from `agent.create` and `agent.session_open` with Paseo's real `cwd`) was typechecked and read, not run inside a Paseo server; the probe covers `createSecrets` with real git, not the hook.
+- Which path form Paseo hands the hook as `cwd`, and how Paseo stores or shows project paths, is not read (design's own unknown).
+- Only macOS was exercised. The per-`agent.create` cost of one `realpath` per stored project is not measured.
+- Accepted limits, unchanged from the design: an unmatched or vanished stored root is silent; two stored entries for one real repository both match and list order wins; bare, submodule and `--separate-git-dir` layouts, and resumed agents (r2), are out of scope.
+- Case 7 uses a sibling directory, so it does not catch a prefix-match mutation; case 6's second assertion is satisfied by `realpath(toplevel)` throwing rather than by the fallback. Polish, no harm.
+
+### Acceptance script
+
+Does not cover: Kent's daemon, the Paseo hook, a live agent, or any secret. Needs the candidate worktree below (with `project-env/node_modules` installed), `git`, `node` 24, `python3`; about one minute.
+
+```bash
+set -e
+WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-worktree-real-paths
+PKG=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0
+test "$(git -C $WT rev-parse HEAD)" = 2defea5e13c58735ee736f3d77dd4597f092ed00 && echo "step 0 ok: candidate 2defea5"
+# 1. full suite: expect "pass 24" and "fail 0"
+(cd $WT/project-env && npm test 2>&1 | grep -E '^ℹ (pass|fail)')
+# 2. typecheck: expect no error output
+(cd $WT/project-env && npm run typecheck 2>&1 | grep -E 'error' || echo "typecheck clean")
+# 3. real git, real symlink, real worktree: expect four "ok" project-found lines and one "ok" no-project line
+S=$(mktemp -d); cat > $S/probe.mjs <<'JS'
+import { realpathSync, mkdirSync, symlinkSync, mkdtempSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+const { createSecrets } = await import(process.argv[2]);
+const base = realpathSync(mkdtempSync(join(tmpdir(), "probe-paths-")));
+const git = (...a) => execFileSync("/usr/bin/git", a, { stdio: "pipe" });
+mkdirSync(join(base, "real"));
+git("init", "-q", join(base, "real/repo"));
+git("-C", join(base, "real/repo"), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "x");
+git("-C", join(base, "real/repo"), "worktree", "add", "-q", join(base, "real/wt"));
+git("init", "-q", join(base, "real/other"));
+symlinkSync(join(base, "real"), join(base, "link"));
+const secrets = createSecrets({ op: "/nonexistent", security: "/nonexistent", git: "/usr/bin/git" });
+const stored = [{ root: join(base, "link/repo"), serviceAccount: "", vault: "", prompt: "", variables: [] }];
+for (const [label, cwd, want] of [
+  ["main checkout via symlink", join(base, "link/repo"), true],
+  ["main checkout real path", join(base, "real/repo"), true],
+  ["worktree via symlink", join(base, "link/wt"), true],
+  ["worktree real path", join(base, "real/wt"), true],
+  ["unconnected repository", join(base, "real/other"), false],
+]) {
+  const got = (await secrets.projectForCwd(stored, cwd)) !== null;
+  console.log(`${got === want ? "ok  " : "FAIL"} ${label}: ${got ? "project found" : "no project"}`);
+}
+JS
+(cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON $S/probe.mjs $WT/project-env/server/secrets.ts)
+# 4. decision records: expect "4 ADR file(s) checked, 0 legacy" and exit 0
+(cd $WT && python3 $PKG/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr_lint exit $?")
+```
+
+Expected: step 0 line; "ℹ pass 24" and "ℹ fail 0"; "typecheck clean"; four "ok   ... project found" lines and "ok   unconnected repository: no project"; "4 ADR file(s) checked, 0 legacy" and "adr_lint exit 0".
