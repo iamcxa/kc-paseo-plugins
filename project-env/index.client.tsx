@@ -1,4 +1,6 @@
 import type { PluginClientContext } from "@getpaseo/plugin/client";
+import { MissingVariablesRow } from "./client/missing-variables-row";
+import * as rpc from "./shared/config";
 import { ProjectEnvSettings } from "./client/settings-screen";
 
 export default function contribute(client: PluginClientContext) {
@@ -7,6 +9,12 @@ export default function contribute(client: PluginClientContext) {
     title: "Project environment",
     icon: "KeyRound",
     Component: ProjectEnvSettings,
+  });
+  client.addTimelineRenderer({
+    kind: rpc.missingVariablesKind,
+    version: rpc.missingVariablesVersion,
+    schema: rpc.missingVariablesData,
+    Component: MissingVariablesRow,
   });
   client.addCommandCenterItem({
     id: "open-settings",
