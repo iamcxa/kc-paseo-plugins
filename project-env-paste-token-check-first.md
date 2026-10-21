@@ -74,6 +74,17 @@ gates:
                 id: briefing:project-env-paste-token-check-first:validation:attempt-2:revision-1
                 digest: sha256:da09f06700862b8e0c5a058c1c770347490524b565f295edd669992ab51e6924
                 room-ref: ./project-env-paste-token-check-first/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-paste-token-check-first:validation:2
+                briefing: briefing:project-env-paste-token-check-first:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-21T17:00:20.423634Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — approves delivery of PR iamcxa/kc-paseo-plugins#21 at head 130389257448ea1387f93ce6d8bc87e88df5d81e by squash after the clean Codex round (summary:6321533700), and accepts the stated recommendations: the surviving mutant is a Deferred risk and writeToken''s unused keychain argument is left for a later cleanup.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-21T08:41:52Z
 ---
 
