@@ -138,3 +138,16 @@ Known limits (not decisions): the qnow-adopt-dev2 agent check in AC-1(b) cannot 
 ### Summary
 
 Smallest fix is about ten lines in `server/secrets.ts`: keep the worktree root that the trust check already computes and compare it with saved roots before the main checkout. No decision needs the Captain. Scratch reproduction and prototype lived in /tmp/wtpr only; no repository file, branch or commit was made.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design in project-env/server/secrets.ts: match the agent's own worktree root against saved project roots first, then its main checkout; keep the registered-worktree trust check; a worktree's own project wins in that worktree only.
+  Commit 09bc5c9 on spacedock-ensign/project-env-worktree-project-root (base 15b1e3f): private `locate(cwd)` returns `{top, root}` after the unchanged trust check; `mainCheckout` stays exported; `projectForCwd` indexes `top` before `root`. 2 files, +93/-6.
+- DONE: Land the fake-git cases so AC-1's unit clause and AC-2 pass and the new cases fail on today's projectForCwd; record the qnow-adopt-dev2 agent check on Kent's daemon as owed.
+  Seven cases added to `project-for-cwd.test.ts`. Falsifiable pair, failing on 15b1e3f before the fix (observed): "serves an agent in a linked worktree from a project saved at that worktree" (AC-1a; revert top-first match and it returns null) and "lets a worktree's own project win in that worktree only, whatever the list order" (own beats main in wt, main serves wt2, both list orders). AC-2 and trust (pass before and after, pin behaviour): project at `repo` serves `wt`; project at `wt` returns null for `other` and for sibling `wt2`; unregistered worktree with its project saved returns null. The seven existing cases stay green. Real-git scratch repo with two linked worktrees (removed afterwards): saved at wt serves wt, not wt2; saved at repo serves wt. AC-1(b) is OWED: needs merge and Kent's reload, then the shape-only `[ -n "${NAME}" ]` check for every variable in /Users/kent/conductor/repos/qnow-adopt-dev2; not run.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate and doc_impact.py, then open the Draft PR.
+  `npm test` 127 pass 0 fail (an earlier run on unfixed code also failed the load-sensitive session-open deadline test, which passed on the full rerun); typecheck clean; roborev gate exit 0 `clean on 09bc5c984; evidence=roborev:976`; `doc_impact.py 15b1e3f HEAD`: "0 document(s) mention what changed", nothing to record; `comment_ratio.py`: code lines 86, comment lines 0, 0.0%, max 5% met; `design_surfaces.py check`: presentable. Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/19 (pushed under the Captain's standing grant).
+
+### Summary
+
+Port of the approved ~10-line design, no deviations: worktree root compared first, main checkout second, trust check first. The worktree was at 487b9b0 and was fast-forwarded to origin/main 15b1e3f before work; no rebase needed. CHANGELOG.md is release-please generated and was not edited. No ADR added or changed; Number guards: not applicable (Surfaces: none, no migration). Limits: AC-1(b) owed after merge and reload; a `node_modules` symlink to the main checkout was used locally for test runs and removed before the gate, not committed.
