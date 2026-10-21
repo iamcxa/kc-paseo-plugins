@@ -230,6 +230,9 @@ function ProjectEditor({
             onPress={() => refs.mutate()}
             error={refs.error ? (refs.error as Error).message : undefined}
           />
+          {(refs.data?.skipped ?? []).map((s, i) => (
+            <SettingsRow key={`${i}-${s.item}`} label={s.item} hint={`Not listed: ${s.reason}`} />
+          ))}
           <SettingsAction
             label="Import names and prompt from Conductor"
             hint="Reads variable names and the general prompt from .conductor settings; no values."

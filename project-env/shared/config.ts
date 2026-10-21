@@ -75,7 +75,11 @@ export const storeToken = defineRpc({
 export const listRefs = defineRpc({
   name: "vault.list-refs",
   input: z.object({ serviceAccount: z.string().min(1), vault: z.string().min(1) }),
-  output: z.object({ refs: z.array(z.string()) }),
+  // `skipped` defaults so a client older than the daemon still parses the output.
+  output: z.object({
+    refs: z.array(z.string()),
+    skipped: z.array(z.object({ item: z.string(), reason: z.string() })).default([]),
+  }),
 });
 
 export const testProject = defineRpc({

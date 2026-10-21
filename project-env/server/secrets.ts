@@ -1,7 +1,7 @@
 import { execFile, type ExecFileException } from "node:child_process";
 import { realpath } from "node:fs/promises";
 import { basename, dirname } from "node:path";
-import type { Cause } from "../shared/cause.ts";
+import { causeText, unreadableItemText, type Cause } from "../shared/cause.ts";
 import { isReservedName, type Project } from "../shared/config.ts";
 import { classifyOpFailure, isOutsideVault, parseRef, type OpExit } from "./cause.ts";
 
@@ -150,26 +150,57 @@ export function createSecrets(tools: Tools) {
     return tokenStatus(serviceAccount);
   }
 
-  async function listRefs(serviceAccount: string, vault: string): Promise<string[]> {
+  async function listRefs(serviceAccount: string, vault: string) {
     const token = await readToken(serviceAccount);
-    if (!token) throw new Error(`No token stored for ${serviceAccount}`);
+    if (!token) throw new Error(causeText["no-token"]);
     const env = opEnv(token);
-    const items = JSON.parse(
-      await run(tools.op, ["item", "list", "--vault", vault, "--format", "json"], { env }),
-    ) as { id: string; title: string }[];
+    const stop = (cause: Cause) => new Error(causeText[cause]);
+    const failureCause = (error: unknown) =>
+      classifyOpFailure(error instanceof RunFailure ? error.exit : {});
+
+    let items: { id: string; title: string; category?: unknown }[];
+    try {
+      const listed: unknown = JSON.parse(
+        await run(tools.op, ["item", "list", "--vault", vault, "--format", "json"], { env }),
+      );
+      if (!Array.isArray(listed) || !listed.every((i) => typeof i?.id === "string" && typeof i?.title === "string")) {
+        throw new Error("unexpected shape");
+      }
+      items = listed;
+    } catch (error) {
+      throw stop(error instanceof RunFailure ? failureCause(error) : "unexpected");
+    }
+
     const refs: string[] = [];
+    const skipped: { item: string; reason: string }[] = [];
     for (const item of items) {
-      const detail = JSON.parse(
-        await run(tools.op, ["item", "get", item.id, "--vault", vault, "--format", "json"], {
+      const skip = () =>
+        skipped.push({ item: item.title, reason: unreadableItemText(item.category) });
+      let out: string;
+      try {
+        out = await run(tools.op, ["item", "get", item.id, "--vault", vault, "--format", "json"], {
           env,
-        }),
-      ) as { fields?: { label?: string; type?: string; purpose?: string }[] };
-      for (const field of detail.fields ?? []) {
-        if (!field.label || field.purpose === "NOTES") continue;
-        refs.push(`op://${vault}/${item.title}/${field.label}`);
+        });
+      } catch (error) {
+        const cause = failureCause(error);
+        // These hit every item, so naming each as skipped would hide the real problem.
+        if (cause === "rejected-token" || cause === "unreachable") throw stop(cause);
+        skip();
+        continue;
+      }
+      try {
+        const detail = JSON.parse(out) as {
+          fields?: { label?: string; purpose?: string }[];
+        };
+        const labels = (detail.fields ?? [])
+          .filter((field) => field.label && field.purpose !== "NOTES")
+          .map((field) => `op://${vault}/${item.title}/${field.label}`);
+        refs.push(...labels);
+      } catch {
+        skip();
       }
     }
-    return refs;
+    return { refs, skipped };
   }
 
   async function readVariable(

@@ -3,10 +3,21 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Tools } from "../server/secrets.ts";
 
+export interface FakeItem {
+  id: string;
+  title: string;
+  category?: string;
+  fields?: { label?: string; type?: string; purpose?: string; value?: string }[];
+}
+
 export interface Scenario {
   keychain?: Record<string, string>;
   op?: {
-    accounts?: Record<string, { refs?: Record<string, string>; vaults?: string[] }>;
+    accounts?: Record<
+      string,
+      { refs?: Record<string, string>; vaults?: string[]; items?: FakeItem[] }
+    >;
+    raw?: Record<string, string>;
     delayMs?: Record<string, number>;
     fail?: Record<string, { stderr: string; code?: number }>;
   };
