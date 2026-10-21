@@ -417,3 +417,65 @@ Recommend PASSED: at e9661f0 AC-1 to AC-3 hold, the merge kept #16/#17 behaviour
 ### Summary
 
 A saved vault id is now accepted when the token can read that vault, in the Vault gate, the select and Browse vault; names work as before. Limit: the real `op vault list --format json` id field is not run here (no op call allowed); the fake emits `{id,name}` per the CLI's documented shape.
+
+## Stage Report: validation (cycle 3)
+
+- DONE: Independently check candidate 5ee39c3d5fb093536df1815edbedd51a22a5c6c9 (PR iamcxa/kc-paseo-plugins#15) for feedback cycle 1: a saved vault equal to either a readable vault's id or its name passes the Vault gate and auto-pick and enables Browse vault; the list shown stays by name; the session-open vault boundary and saved values are unchanged; the new tests fail when a readable saved id is rejected or a name stops working; and AC-1 to AC-3 still hold with their decisive tests failing under mutation; give a verdict.
+  Verdict: PASSED (recommended). PR head is 5ee39c3 (open, not draft, mergeable; only check GitGuardian green). Fix-only diff 5bb70a3..5ee39c3 is 8 files, 79 insertions, 21 deletions: `checkToken`/`tokenStatus` return `vaultIds` beside `vaults` (names, same order), `canReadVault` and `vaultChoices` in `shared/token.ts`, and `settings-screen.tsx` routes all three uses through them: the Vault error line, the "(this token cannot read it)" entry and the Browse vault disabled flag via `vaultReadable`, and the menu via `vaultChoices`. The only remaining name-list use is the status-line text (`tokenRowText`, names only). Auto-pick: `pickVault` is unchanged and fires only when nothing is chosen, so a saved id is never replaced (test "does not replace a saved id"). Saved values: nothing in the diff writes a vault except that unchanged effect; the menu option keeps a saved id as its value, label stays the name. Session-open boundary: the diff touches only `tokenStatus`/`checkToken` in `server/secrets.ts` (`resolveProject`, `isOutsideVault`, `readVariable` and `listRefs` untouched); `npm run typecheck` exit 0.
+  Tests: `npm test` 150 tests; 2 of 3 full runs 150/150 (load about 10); the first run failed 1 test I did not capture (load 8 to 12, the known session-open deadline flake is the likely one, not established); `test/session-open.test.ts` alone 16/16. Mutations on a throwaway copy (deleted; worktree untouched), each failed the named test: drop the id half of `canReadVault` or the name half -> "accepts a saved id and a saved name of a readable vault, and nothing else"; menu value loses the saved id -> "lists readable vaults by name, and keeps a saved id as the value of its own entry"; `pickVault` ignores a chosen vault -> "chooses the only readable vault ... and nothing else" and "does not replace a saved id"; `vaultIds` returned empty (3 failures), misaligned with names (2), or names taken from ids (3) -> the token-check and `secrets` tests; case-insensitive match and empty-saved-accepted -> the same accepts/rejects test. AC-1: exit 128 not locked -> "Keychain refuses with exit 128 is locked"; `DecodeSACredentials` dropped -> "op cannot decode the token is rejected"; empty-token guard dropped -> "checks a token that is in no Keychain"; two labels equal -> "gives each of the eight states its own label". AC-3: `git grep "ADR 0027" project-env` and `git grep OP_CONNECT project-env` print nothing (exit 1 each).
+  Limit found: reverting the screen's Browse vault gate to `vaults.includes(draft.vault)` fails no test (no screen test seam, journey token-works/q8), so the screen wiring of this fix is covered by the grep above, typecheck and the logic tests on `canReadVault`, not by a failing test.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell (token-row text included) and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  `adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. Also at 5ee39c3: comment_ratio 985e7e4..5ee39c3 "code lines 311, comment lines 1, 0.3%" exit 0 (487b9b0..5ee39c3: 1025 and 6, 0.6%; the one added comment is the 128-character fact in `checkToken`); number_guards PASS exit 0; dispatch_records "9 dispatch record(s) complete" exit 0; design_surfaces "design surfaces presentable" exit 0; doc_impact 985e7e4..5ee39c3 lists ADR 0004 and the journey map: I judge both unaffected (ADR 0004 is about reserved names; journey q5 closed enum is unchanged and the map names no vault id), but the implementation report for this cycle records no `unaffected` line for them. Script below.
+- DONE: Record every unverified obligation, including AC-2 on Kent's Mac, without touching the live paseo-project-env install.
+  See Unverified obligations. No daemon, plugin install, `op`, `security` or secret was touched; Kent's live plugin and the main checkout's branch were not touched.
+
+### Findings
+
+- Polish: the implementation report for this cycle has no doc_impact `unaffected` lines; the two documents are unaffected (reason above). No repair needed.
+- Deferred risk: the session-open deadline test fails intermittently under machine load (this cycle: 1 of 3 full runs, a failure I did not identify); passes alone 16/16. Material only if it fails on a quiet machine or in CI.
+- Polish (unchanged): `vaultListDelayMs` and `hang` fake-tool knobs are used by no committed test; removal is FO's or the Captain's call.
+- Residual in the PR body: with `OP_CONNECT_*` set in the daemon a good token reads as the unrecognised state.
+- roborev:977 and Codex P2 review:5599400357 are addressed by this candidate (a readable saved id passes the gate); roborev:980 is recorded clean by the implementer, not re-run by me.
+
+### Unverified obligations
+
+- AC-2 on Kent's Mac (vault chosen and listed after Check; no check while typing) is owed to him; add: a project whose saved vault is an id, with a token that reads it, shows no error line and Browse vault is enabled. The screen wiring (Check, the pick effect, `staleTime`/`gcTime`/`refetchOnWindowFocus`, the three `vaultReadable` uses) has no automated test.
+- Real `op vault list --format json` output was never run; the `id` field is assumed from the CLI's documented shape and the fake emits `{id,name}`. If a real vault object lacked `id`, `vaultIds` would hold `undefined` and a saved name would still pass.
+- Whether Browse vault (`op item list --vault <id>`) accepts an id was not run; `op` documents `--vault` as taking a name or an id, which is not observed here.
+- No screenshot of the screen at 5ee39c3 was taken by me; the ideation pictures are of the prototype. FO's isolated-Paseo integration test, if rerun at this head, is the only screen evidence.
+- Screen-only texts ("Not checked for <name> yet", "Checking token…", "Choose…", "(this token cannot read it)", the Vault error line, disabled Browse vault) are unseen at the candidate by me.
+- `op` wording for unreachable and a revoked 401 is unobserved; locked Keychain exit 36 derived, killed lookup assumed; Kent's saved vault form (name or id) not read; `token.status` consumers outside this repo; CI beyond GitGuardian; whether Kent's daemon sets `OP_CONNECT_*`.
+
+### Acceptance script (about 3 minutes; no secret, no network, no daemon)
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause && git rev-parse HEAD && git grep "ADR 0027" project-env; echo "adr-grep-exit=$?"; git grep OP_CONNECT project-env; echo "connect-grep-exit=$?"` expects `5ee39c3d5fb093536df1815edbedd51a22a5c6c9`, then `adr-grep-exit=1` and `connect-grep-exit=1` with nothing printed between.
+2. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause/project-env && npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"` expects `ℹ tests 150`, `ℹ pass 150`, `ℹ fail 0`. Under machine load the one test "blanks a variable 1Password does not answer in time" can fail; rerun `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/session-open.test.ts` and expect `ℹ fail 0`.
+3. Same directory: `npm run typecheck; echo "typecheck-exit=$?"` expects `typecheck-exit=0`.
+4. Same directory, the token-row text:
+   `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e 'import { tokenRowText, pickVault } from "./shared/token.ts"; for (const state of ["missing","locked","op-missing","unreachable","rejected","truncated","unexpected"]) { const t = tokenRowText({ state, vaults: [] }); console.log(state + " | " + t.label + " | " + t.hint); } for (const vaults of [["Dev"],["Dev","Prod"],[]]) { const t = tokenRowText({ state: "ok", vaults }); console.log("ok " + JSON.stringify(vaults) + " | " + t.label + " | " + t.hint); } console.log("pick", JSON.stringify([pickVault("",["Dev"]), pickVault("Prod",["Dev"]), pickVault("",["Dev","Prod"])]));'`
+   expects exactly these eleven lines:
+   `missing | No token in Keychain | Paste it below and save it.`
+   `locked | Keychain is locked | Unlock the login Keychain on this Mac (a macOS prompt may appear), then check again.`
+   `op-missing | 1Password CLI (op) not found | Install it, restart Paseo, then check again.`
+   `unreachable | Could not reach 1Password | Check the network, then check again.`
+   `rejected | 1Password rejected the token | Copy a fresh token from 1Password.`
+   `truncated | Token is exactly 128 characters, likely truncated | Copy it again from 1Password.`
+   `unexpected | The token check failed for a reason the plugin does not recognise | Check again.`
+   `ok ["Dev"] | Token works | Can read 1 vault: Dev`
+   `ok ["Dev","Prod"] | Token works | Can read 2 vaults: Dev, Prod`
+   `ok [] | Token works, but it can read no vault | In 1Password, give the service account access to one, then check again.`
+   `pick ["Dev","Prod",""]`
+5. Same directory, the saved id or name rule:
+   `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e 'import { canReadVault, vaultChoices, pickVault } from "./shared/token.ts"; const s = { vaults: ["Dev","Prod"], vaultIds: ["abc123","def456"] }; console.log("gate", JSON.stringify(["def456","Prod","ghi789","prod",""].map((v) => canReadVault(s, v)))); console.log("menu", JSON.stringify(vaultChoices(s, "def456"))); console.log("pick", JSON.stringify(pickVault("abc123", ["Dev"])));'`
+   expects exactly three lines:
+   `gate [true,true,false,false,false]`
+   `menu [{"label":"Dev","value":"Dev"},{"label":"Prod","value":"def456"}]`
+   `pick "abc123"`
+6. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr-lint-exit=$?"` expects `5 ADR file(s) checked, 0 legacy` and `adr-lint-exit=0`.
+7. Kent's own use (FO cannot run: needs his Mac, Paseo and a real token; mark not run): load the candidate plugin in his own Paseo, open a project whose token reads exactly one vault with no vault chosen, press Check, and see "Token works" / "Can read 1 vault: <name>" with the Vault field set to it; open a project whose saved vault is an id the token reads and see no "This token cannot read that vault" line and Browse vault enabled.
+
+Does not cover: the screen at 5ee39c3 (steps 1 to 6 test logic and text; step 7 is the screen), real `op` or `security` output, Browse vault with an id on real `op`, OP_CONNECT behaviour, CI.
+
+### Summary
+
+Recommend PASSED: at 5ee39c3 a saved vault equal to a readable vault's id or name passes the gate, the menu and Browse vault, the list stays by name, the session-open boundary and saved values are untouched, and each new test and each AC-1 to AC-3 decisive test fails under its mutation (adr_lint exit 0, all package checks 0). Owed: AC-2 and the saved-id case on Kent's Mac, real `op` id output, and a screen picture at this head; the screen gate itself has no failing-test cover.
