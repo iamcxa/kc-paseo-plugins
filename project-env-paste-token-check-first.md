@@ -311,3 +311,99 @@ A token whose full `security -i` command line would pass 3840 bytes is refused u
 ### Summary
 
 A save is now bound to the service account named when Save or Replace was pressed, so a rename in flight can neither write the token under the new name nor skip the Replace confirmation made for the old one. No test: no screen seam.
+
+## Stage Report: validation (cycle 1)
+
+- DONE: Independently check candidate 130389257448ea1387f93ce6d8bc87e88df5d81e (PR iamcxa/kc-paseo-plugins#21) for feedback cycle 1 and the FO-authorized fix: a token whose security -i command line would pass 3840 bytes is refused with "Token is longer than this plugin can store safely" before any op or security call; the check and the write share addTokenCommand; the Save and Replace mutations carry { serviceAccount, token } from the press (roborev:988); and AC-1 to AC-4 still hold with their decisive tests failing under mutation; give a verdict.
+  Verdict PASSED at 1303892, one Deferred risk and one unverified screen fix (below). Reran at the candidate: `npm test` 166 pass 0 fail, typecheck clean. Refusal: `storeToken` calls `tokenShapeError(token, serviceAccount)` before `checkToken` and `writeToken`; the test asserts `world.calls()` is `[]` for a 2000-character token. Shared builder: `writeToken` and `tokenShapeError` both call `addTokenCommand` (the old inline builder is gone; `KEYCHAIN_ACCOUNT` moved to shared/token.ts). Screen: `git diff c23b96c..HEAD` shows `pressSave` and Replace build `{ serviceAccount: account, token: tokenDraft }` at the press and the mutation reads both from its variables; read, not run (no seam).
+  Mutations on a /tmp copy of the candidate (paste-token + secrets tests, baseline 20 pass): no length refusal, 2 fail; account ignored in the length (`""`), 1 fail (the boundary test with a 200-character multibyte name); margin 0, 2 fail; no shape gate in `storeToken`, 2 fail; write before check, 3 fail (AC-1 one per cause); token on argv via `-w`, 6 fail incl. "every security argv is -i or a read"; no name guard in `writeToken`, 1 fail; own root counted in `projectsUsingName`, 1 fail. One mutant SURVIVES: `storeToken` calling `tokenShapeError(token)` without the account, 0 fail; the boundary test checks `tokenShapeError` alone and the `storeToken` test uses a 2000-character token that fails either way.
+  Minimal necessity: each added line maps to the Captain's revise assignment (refusal, shared builder so the check cannot drift from the write) or to roborev:988. The 3840 margin is the implementation's choice, not the Captain's; it costs 14 characters of token (1883 accepted vs about 1897 at 4096). `writeToken`'s optional `keychain` argument still has no caller outside tests (earlier removal candidate for Kent, unchanged). Comments: `comment_ratio.py 948e98a..130389257` 317 code lines, 5 comment lines, 1.6%, exit 0; the two added this cycle state the measured 4096 limit, a fact the code cannot, and none narrates.
+- DONE: Confirm the 4096-byte line limit with the real /usr/bin/security on a throwaway keychain with fake values; write the minimal acceptance script FO will rerun in a fresh shell; run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Limit (macOS 26.5.2, throwaway keychain file, fake values, bisected by exact line bytes): 4095 and 4096 exit 0; 4097 and 4098 exit 1 with a `SecKeychainItemCreateFromContent` error from the first fragment. Confirmed 4096 inclusive. The longest token the code accepts with name `accept-probe` is 1883 characters (line 3871 bytes) and wrote with exit 0 and one item on the real binary; one more is refused. Keychain deleted, login search list unchanged (diffed). Script under `### Acceptance script (cycle 1)`, run end to end in a fresh `env -i bash`: all six steps printed the expected output. `adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. Also exit 0: `design_surfaces.py check`, `dispatch_records.py` (7 complete), `doc_impact.py` (lists ADR 0004 only; unaffected, as the implementation recorded). No `## Number guards`.
+- DONE: Record every unverified obligation, including the hex round trip with a real token, the rename-during-save case and Kent's on-Mac use, without touching the live paseo-project-env install.
+  Listed under `### Unverified obligations (cycle 1)`. No op or secret-reading command was run; nothing live touched.
+
+### Summary
+
+The length refusal works as ruled: measured limit 4096 bytes, refusal at 3840 with the plain text, before any op or security call, sharing `addTokenCommand` with the write, and the real binary accepts the longest token the code allows. AC-1 to AC-4 still hold and their decisive tests fail under mutation. Verdict PASSED. Gaps for FO: the screen binding for roborev:988 is read, not run; and one mutant survives (`storeToken` not passing the account to the length check).
+
+### Deferred risk (cycle 1)
+
+- Trigger: a service name of roughly 256 bytes or more together with a token near the length limit, reaching `storeToken` through a caller that skips the account argument; today the only callers (`storeToken` itself and the screen) pass it, and a name that long is not in any journey. Harm if it fires: the split-line truncated write the refusal exists to stop. Not Material: no observed trigger, and the shipped code passes the account. Becomes Material if a new caller of `tokenShapeError` omits the account. Smallest repair: drop the `serviceAccount = ""` default so the type system demands it, or add a `storeToken` test with a long name and a fitting token.
+
+### Unverified obligations (cycle 1)
+
+- Hex round trip with a real token: not run; the stored bytes are proved only by Kent's real save reading "Token works". No value was read back (every probe used fake values; attributes only).
+- Real tokens above the 1883-character limit (for a short name) are refused; whether Kent's real token is longer is unknown to me. If his reads "Token is longer than this plugin can store safely", the 3840 limit needs a Captain ruling.
+- Rename-during-save (roborev:988): pause a save offline, rename the account, resume; expect the old name written and the Replace confirmation for the old name kept. Not tested (no screen seam), read only in the diff. Owed to Kent's on-Mac use.
+- Kent's on-Mac use (AC-2): the warning naming the other project, nothing changing until Replace, Cancel, no warning for the project's own name, "Not saved:" with the token kept, "Checking…", and the new length refusal text under the field. No screenshot of the changed screen at the candidate (Paseo not run; live install untouched).
+- Checked on macOS 26.5.2 only; the real `op` wording for rejection or unreachability is still the `classifyOpFailure` hypothesis.
+- Carried from design, not re-opened: an unclaimed Keychain entry is replaced without a warning; a name with trailing spaces is stored untrimmed.
+
+### Acceptance script (cycle 1)
+
+Run in a fresh shell on this Mac (no secret, no sign-in, nothing live touched; the Keychain steps use throwaway files with fake values and delete them). It does not cover: the rendered screen, the warning's appearance, the rename-during-save case, a real token or real `op`, or a token the code refuses.
+
+```bash
+set -u
+WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-paste-token-check-first
+P=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0
+C=130389257448ea1387f93ce6d8bc87e88df5d81e
+echo "## 1 tests"
+cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/paste-token.test.ts 2>&1 | grep -E "^ℹ (tests|pass|fail)"
+npm run typecheck 2>&1 | tail -1; echo "typecheck exit=${PIPESTATUS[0]}"
+echo "## 2 texts the screen and server owe"
+cd $WT/project-env && grep -hoE 'Not saved: \$\{tokenRowText\(status\)\.label\}|is also used by|Replacing its token changes it for|The new token is checked first; a rejected token is not saved|actionLabel="(Replace|Cancel)"|"Checking…"|Token is longer than this plugin can store safely' client/settings-screen.tsx shared/token.ts
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON -e '
+import("./shared/token.ts").then(({ tokenRowText }) => {
+  for (const state of ["rejected", "unreachable", "op-missing"]) console.log(`Not saved: ${tokenRowText({ state, vaults: [] }).label}`);
+});'
+echo "## 3 token off argv, real /usr/bin/security, throwaway keychain, fake value"
+D=$(mktemp -d /tmp/acceptXXXX); KC=$D/t.keychain-db
+security create-keychain -p fakepw "$KC" >/dev/null 2>&1 && security unlock-keychain -p fakepw "$KC"
+FAKE=ops_FAKE_NOT_A_TOKEN; HEX=$(printf %s "$FAKE" | xxd -p | tr -d '\n')
+( sleep 3; printf 'add-generic-password -U -a op-service-account-token -s "accept-probe" -X %s "%s"\n' "$HEX" "$KC" ) | /usr/bin/security -i &
+sleep 1; ps -ax -o args= | grep -E '^/usr/bin/security -i' | grep -v grep
+ps -ax -o args= | grep -F "$HEX" | grep -v grep | wc -l | sed 's/^/processes whose args hold the token hex (expect 0): /'
+wait
+security dump-keychain "$KC" 2>/dev/null | grep -c '"svce"<blob>="accept-probe"' | sed 's/^/items stored: /'
+security delete-keychain "$KC"; rm -rf "$D"
+echo "## 4 length: the longest accepted token writes on the real security, one more is refused"
+D=$(mktemp -d /tmp/acceptXXXX); KC=$D/t.keychain-db
+security create-keychain -p fakepw "$KC" >/dev/null 2>&1 && security unlock-keychain -p fakepw "$KC"
+cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON -e '
+import("./shared/token.ts").then(({ tokenShapeError, addTokenCommand }) => {
+  const kc = process.argv[1], account = "accept-probe", mk = (n) => "ops_" + "A".repeat(n - 4);
+  let n = 128; while (tokenShapeError(mk(n + 1), account) === null) n++;
+  console.log("longest accepted length", n, "| one more:", tokenShapeError(mk(n + 1), account));
+  const line = addTokenCommand(account, mk(n), kc);
+  const r = require("node:child_process").spawnSync("/usr/bin/security", ["-i"], { input: line + "\n", encoding: "utf8" });
+  console.log("line bytes", Buffer.byteLength(line), "| real security exit", r.status, "| stderr", JSON.stringify(r.stderr));
+})' "$KC"
+security dump-keychain "$KC" 2>/dev/null | grep -c '"svce"<blob>="accept-probe"' | sed 's/^/items stored: /'
+security delete-keychain "$KC"; rm -rf "$D"
+echo "## 5 falsifiers: write before check, and no length refusal, must each fail tests"
+for M in order length; do
+  T=$(mktemp -d /tmp/acceptXXXX); git -C $WT archive $C project-env | tar -x -C $T
+  ln -s $WT/project-env/node_modules $T/project-env/node_modules
+  python3 - "$T/project-env" $M <<'PY'
+import sys
+root,m=sys.argv[1:]
+if m=="order":
+    p=root+"/server/secrets.ts"; s=open(p).read()
+    a='    const checked = await checkToken(token);\n    if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };\n    await writeToken(serviceAccount, token);'
+    b='    await writeToken(serviceAccount, token);\n    const checked = await checkToken(token);\n    if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };'
+else:
+    p=root+"/shared/token.ts"; s=open(p).read()
+    a='SECURITY_LINE_LIMIT - SECURITY_LINE_MARGIN) {'
+    b='SECURITY_LINE_LIMIT - SECURITY_LINE_MARGIN && false) {'
+assert a in s; open(p,'w').write(s.replace(a,b,1))
+PY
+  echo "mutation: $M"; (cd $T/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/paste-token.test.ts 2>&1 | grep -E "^ℹ (pass|fail)")
+  rm -rf $T
+done
+echo "## 6 adr lint"
+cd $WT && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr_lint exit=$?"
+```
+
+Expected: step 1 `tests 16`, `pass 16`, `fail 0`, `typecheck exit=0`; step 2 `Not saved: ${tokenRowText(status).label}`, `"Checking…"` twice, `is also used by`, `Replacing its token changes it for`, `The new token is checked first; a rejected token is not saved`, `actionLabel="Replace"`, `actionLabel="Cancel"`, `Token is longer than this plugin can store safely`, then `Not saved: 1Password rejected the token`, `Not saved: Could not reach 1Password`, `Not saved: 1Password CLI (op) not found`; step 3 `/usr/bin/security -i`, `expect 0` shows 0, `items stored: 1`; step 4 `longest accepted length 1883 | one more: Token is longer than this plugin can store safely`, `line bytes 3871 | real security exit 0 | stderr ""`, `items stored: 1`; step 5 `mutation: order` `fail 3` and `mutation: length` `fail 2`; step 6 `5 ADR file(s) checked, 0 legacy`, `adr_lint exit=0`.
