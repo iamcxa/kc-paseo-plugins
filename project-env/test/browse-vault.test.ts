@@ -11,7 +11,7 @@ afterEach(() => {
   for (const w of worlds.splice(0)) w.cleanup();
 });
 
-const STDERR = "STDERR-SENTINEL-4f2a";
+const STDERR = "SNTNL-4f2a";
 const VALUE = "VALUE-SENTINEL-9c1d";
 
 const login: FakeItem = {
@@ -115,8 +115,8 @@ describe("Browse vault never shows op output or a value", () => {
     ["a failing item list", { ...account([login, note]), fail: { "item list": { stderr: `[ERROR] ${STDERR}` } } }],
     ["a skipped item's failing get", { ...account([login, sshKey, note]), fail: { "item get i-ssh": { stderr: `[ERROR] ${STDERR}` } } }],
     ["a rejected-token get", { ...account([login, note]), fail: { "item get i-login": { stderr: `[ERROR] 401 ${STDERR}` } } }],
-    ["malformed item list output", { ...account([login, note]), raw: { "item list": `not json ${STDERR}` } }],
-    ["malformed item get output", { ...account([login, sshKey, note]), raw: { "item get i-ssh": `not json ${STDERR}` } }],
+    ["malformed item list output", { ...account([login, note]), raw: { "item list": `${STDERR} not json` } }],
+    ["malformed item get output", { ...account([login, sshKey, note]), raw: { "item get i-ssh": `${STDERR} not json` } }],
   ];
 
   for (const [label, op] of cases) {
