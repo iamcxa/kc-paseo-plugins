@@ -5,7 +5,7 @@ status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
-worktree:
+worktree: .worktrees/spacedock-ensign-project-env-variable-row-edit
 pr:
 journey: paseo-project-env
 journey-release: r1.5
