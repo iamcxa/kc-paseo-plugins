@@ -176,3 +176,46 @@ Browse vault gets a per-item catch in `listRefs`: an unreadable item is skipped 
 ### Summary
 
 An item whose get fails for an item-specific reason or returns non-JSON is skipped and named as `1Password could not read this item (ssh key)`; a rejected token, unreachable 1Password, failed list or missing token stops the list with fixed `causeText`, so no op or `JSON.parse` text reaches Browse vault. `CAUSES` was not grown, as the design recommended. Limits: a missing vault reads "field not found in the vault"; the type text depends on `category` from `op item list`, unverified on a real vault; one timing-sensitive session-open test is flaky under load. No ADR added or changed; no Number guards section.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate a422acd308768abf707fce5ff7ebce45ac3c248a (PR iamcxa/kc-paseo-plugins#16, base main) against AC-1, AC-2 and the approved design, including that each decisive test fails when its behaviour is removed and that a Secure Note with custom fields still lists; give a verdict.
+  Verdict: recommend PASSED (no Material finding). Checked at a422acd: `test/browse-vault.test.ts` 12/12 pass; `npm run typecheck` exit 0; full `npm test` 91/92 under load average 132, the one failure being the recorded flaky `session open > blanks a variable 1Password does not answer in time`, which passes solo (exit 0, 1 pass).
+  Falsifiability, run on a scratch copy outside the repo (removed afterwards): per-item skip replaced by a stop fails the SSH Key case and the no-category case; skipping rejected-token/unreachable too fails both stop-the-list cases; letting op/`JSON.parse` text through fails the failing-list and malformed-list sentinel cases; dropping the NOTES filter fails the Secure Note case, the SSH Key case and the malformed-get case. Base `server/secrets.ts` + `contribute.ts` (487b9b0) fails 11 of 12; the Secure Note case passes on both by design (it guards listing, not the fix).
+  AC-1 holds: the failing SSH Key get leaves all four readable refs listed (Login username/password, Secure Note `api_key`/`region`; `notesPlain` absent) and names `Deploy key` with `1Password could not read this item (ssh key)`; a rejected-token get rejects with exactly `causeText`. AC-2 holds: stderr sentinel in a failing list, a skipped get and a rejected-token get, malformed stdout of list and get, and a value sentinel on every readable field never appear in the result or error message. Design holds: `{refs, skipped}` with `skipped` defaulting to `[]`, `CAUSES` not grown, reason text beside `causeText`, client draws `Not listed: <reason>` rows under the action.
+  Minimal necessity: every changed surface maps to AC-1/AC-2 or the wire contract; the two added comments (`secrets.ts` list-wide-cause rationale, `config.ts` default rationale) carry facts the code cannot state. `comment_ratio.py 487b9b0 a422acd` exit 0 (210 code, 2 comment, 1.0%); `doc_impact.py` lists ADR 0004 only, implementation recorded `unaffected: <reason>`, which I agree with (the reserved-name list is untouched); ADR 0005's last consequence ("can still fail to read") stays true for the whole-list case and is now softened for Browse, no edit owed; `design_surfaces.py check` exit 0; `dispatch_records.py` exit 0 (3 records).
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, including the "Not listed" row text the ui surface owes, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  adr_lint exit code 0 ("5 ADR file(s) checked, 0 legacy"), run from the task worktree; the candidate adds no ADR. Script is under `### Acceptance script` below.
+- DONE: Record every unverified obligation, including Kent's use against his vault and whether op item list carries `category`, without touching the live paseo-project-env install.
+  Listed under `### Unverified obligations` below; no live install, op, Keychain or secret command was run (the live checkout was not touched; the scratch copy lived in /tmp and is deleted).
+
+### Acceptance script
+
+Run from any shell; `WT` is the task worktree on branch `spacedock-ensign/project-env-browse-vault-survives`.
+
+    WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-browse-vault-survives
+    cd "$WT/project-env"
+    1. git rev-parse HEAD                      # expect a422acd308768abf707fce5ff7ebce45ac3c248a
+    2. npm test -- 2>&1 | tail -n 12           # expect "fail 0"; if only "blanks a variable 1Password does not answer in time" fails, rerun it alone:
+       node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-name-pattern="blanks a variable 1Password does not answer" test/session-open.test.ts   # expect "pass 1"
+    3. node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/browse-vault.test.ts 2>&1 | grep -E "^ℹ (tests|pass|fail)"   # expect tests 12, pass 12, fail 0
+    4. node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON -e 'import("./shared/cause.ts").then(m=>console.log("Not listed: "+m.unreadableItemText("SSH_KEY")))'   # expect: Not listed: 1Password could not read this item (ssh key)
+       grep -n 'Not listed: ${s.reason}' client/settings-screen.tsx   # expect one match: the row help line the screen draws
+    5. npm run typecheck                       # expect exit 0
+    6. cd "$WT" && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo "exit $?"   # expect exit 0
+
+Does not cover: Kent's own vault, the rows drawn in a running Paseo, the real `op` output shape (all below).
+
+### Unverified obligations
+
+- Kent's use: Browse vault pressed on his own vault lists the other items' fields and names the SSH Key item (AC-1 last sentence). Not run; needs his vault and sign-in.
+- `category` in real `op item list --format json`: not checked (running `op` was barred). Fake op carries it. Without it the row reads `1Password could not read this item` with no type: still plain, never a leak.
+- Client rows: `Not listed:` rows are type-checked and the text is exercised only through `unreadableItemText`; no screenshot of the changed screen at the candidate exists (the design preview is a stand-in, not the candidate), so the validation principle "a screenshot of the changed screen" is unmet. Needs Kent's Paseo with this branch loaded, not the live install.
+- That a new press clears earlier rows and a failed run leaves none rests on react-query v5 mutation-state semantics (`refs.data` is undefined while pending and after an error), not on a test here.
+- Real `op item get` stderr for an SSH Key reaches `classifyOpFailure` as `unexpected` (the line `invalid PEM private key passed in` matches no class), shown only with the fake op; a real wording that matched the network/auth patterns would stop the list instead of skipping. Deferred risk: becomes Material if Kent's real SSH Key item stops the list.
+- Whether `op item get --format json` includes concealed `value` by default is unverified (ideation limit): values enter daemon memory and are dropped at once; only the value sentinel test guards the wire.
+- Flaky `session open` deadline test failed in the full run under load average 132 and passed solo (deferred risk since r1).
+
+### Summary
+
+Recommend PASSED: AC-1 and AC-2 hold at a422acd, the decisive tests fail when the skip, the list-wide stop, the sanitized errors or the notes filter is removed, and a Secure Note with custom fields still lists. Open items are Kent's own vault run, the real `category` shape and a real screen render, none a defect found; the missing screenshot is the one principle-level gap FO should weigh at the gate.
