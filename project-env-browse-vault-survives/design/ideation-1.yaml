@@ -1,0 +1,75 @@
+design_review:
+  preview: project-env-browse-vault-survives/design/preview.html
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-oneskipped-desktop-light.png, preview-oneskipped-phone-light.png
+      seen: The skipped row ("deploy key") has the same bold title weight and the same row shape as the "Pick fields from the vault" row and the variable rows, with no right-hand control. It can read as a variable that has no value, and nothing marks it as a result of the Browse vault action.
+      fix: Give skipped rows a quieter title weight, or a muted skipped marker, so they read as a result list and not as variables or actions.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-allskipped-desktop-light.png, preview-many-desktop-light.png
+      seen: Every skipped row repeats the identical sentence "Not listed: 1Password could not read this item (ssh key)", so the same fact is said two times in allskipped and six or more times in many.
+      fix: When rows share a reason, say it once above the group and keep only the item title per row. If the per-row text stays, say so in the proposal.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-failure-desktop-light.png, preview-failure-phone-light.png
+      seen: The red error line sits directly under the grey help line with no gap and is the same small size. The rows above hold the empty placeholder inputs, so the failure shows no variables filled and no skipped rows.
+      fix: Add a small gap above the error line, or move it into its own row, so it separates from the help text.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-oneskipped-desktop-light.png vs the variable rows
+      seen: Skipped rows are about 63px tall, taller than the two-line variable rows at about 57px. The vertical rhythm inside the card is therefore not uniform.
+      fix: Match the skipped row height to the variable rows or give both one defined row padding.
+    - severity: MINOR
+      dimension: system-fit
+      where: all desktop and phone pictures
+      seen: The filled 36px-high Browse vault button sits in the same card as 30px-high select controls. It is the only filled, high-contrast control, and the other rows have none.
+      fix: Keep as today, since it is the card's one action. Otherwise align the control heights.
+    - severity: MINOR
+      dimension: platform
+      where: preview-oneskipped-phone-light.png, preview-failure-phone-light.png, preview-longtitle-phone-light.png
+      seen: On the phone size the Browse vault button is about 36px high and the select controls about 30px high. Both are under the usual 44px touch target. The help text wraps to three lines beside the button.
+      fix: Raise both touch targets to at least 44px on phone, or stack the button below the help text.
+    - severity: MINOR
+      dimension: flow
+      where: preview-failure-desktop-light.png, preview-failure-phone-light.png
+      seen: "1Password rejected the token" says what went wrong but not what to do or where to fix the token. The skipped rows likewise give no next step.
+      fix: Add the fix to each fixed sentence, for example where the token is set, or accept this as today's behaviour and say so.
+    - severity: MINOR
+      dimension: states
+      where: states with no picture
+      seen: The set has no picture of: failure in dark, failure with the other three causes (no token, could not be reached, unrecognised error), loading on phone or dark, and a re-browse that shows loading, failure or a clean result while skipped rows from the previous run exist.
+      fix: Add those pictures. Say whether old skipped rows clear on a new run and whether a failure keeps or clears them.
+    - severity: MINOR
+      dimension: states
+      where: preview-many-desktop-light.png
+      seen: The picture is cut off at "key 6", and the skipped list grows without a limit, so the card gets as long as the number of skipped items.
+      fix: Cap the list, for example show three rows plus "and N more", or let it scroll inside the card, and show the end of the many state.
+    - severity: MINOR
+      dimension: states
+      where: preview-allskipped-desktop-light.png
+      seen: When every item is skipped, the variable rows still show empty placeholder inputs. Nothing says that no variable could be filled, and the only difference from the "before" picture is the rows below.
+      fix: Show a cue for the all-skipped case, for example a fixed sentence that no item could be listed.
+    - severity: MINOR
+      dimension: states
+      where: preview-clean-desktop-light.png
+      seen: After a clean run there is no confirmation that it finished and filled the fields. The variable rows change from text inputs to selects without any cue.
+      fix: Add a short fixed result line, or state that this silence is intended and as today.
+    - severity: MINOR
+      dimension: theme-size
+      where: set coverage
+      seen: Dark is shown only for oneskipped, at desktop and phone. Phone is shown only for oneskipped, failure and longtitle. The following are not shown: allskipped and many on phone or dark, longtitle on desktop or dark, and failure in dark. The red error colour is not checked on a dark background.
+      fix: Add dark pictures for failure and many, phone pictures for allskipped and many, and a dark picture for longtitle.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-clean-desktop-light.png, preview-oneskipped-phone-dark.png
+      seen: The select controls have a tiny down-pointing triangle, about 6px, as the only affordance. The skipped rows have no state marker at all, while the same kind of row elsewhere has a control.
+      fix: Use one chevron size across the card and give the skipped rows a state marker such as a small muted icon.
+  limitations:
+    - The pictures show only the card with its "ENVIRONMENT VARIABLES" heading, with no screen header, profile block or page chrome. The count of blocks passed before the first content, and the real viewport, could not be judged beyond that heading.
+    - Inventory of controls seen. Desktop: one filled text button "Browse vault" (about 120x36), two select controls (about 186x30 and 172x30), two text inputs in the before state. Phone: the same controls, with the help text wrapping to three lines. Skipped rows have no controls. There are no icon buttons, links, checkboxes or chips.
+    - The images are static. Hover, focus, keyboard behaviour, the open state of the selects and screen-reader text could not be checked.
+    - The many picture is cropped at about 560px, so the end of the list and the card bottom are not visible.
+    - The long-title picture shows wrapping on phone only. Ellipsis or truncation for titles longer than the three lines shown could not be judged.
+    - I did not open preview.html. Only the png files were read.
