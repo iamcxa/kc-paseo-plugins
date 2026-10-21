@@ -258,3 +258,56 @@ Applied the ideation prototype in a clean worktree, added the one missing cause-
 ### Summary
 
 OP_CONNECT handling is back to today's behaviour; the question now sits in the PR body for the Captain. The cycle-1 mutation list lost its Connect-deletion item with that code.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate c504e5c5531b01b1fc3ee72a07f15335606c407e (PR iamcxa/kc-paseo-plugins#15, base main) against AC-1 to AC-3 and the approved design, including that each decisive test fails when its behaviour is removed and that OP_CONNECT handling is unchanged from main; give a verdict.
+  Verdict: PASSED (recommended), with the findings and limits below. Candidate head is c504e5c (PR #15 draft, OPEN); main is the merge-base 487b9b0. `git grep "ADR 0027" project-env` prints nothing (exit 1) = AC-3. `git grep OP_CONNECT project-env` prints nothing, and the `opEnv` hunk is absent from `git diff 487b9b0 c504e5c -- project-env/server/secrets.ts` = unchanged from main.
+  AC-1 and AC-2 unit: `npm test` 98 tests; `npm run typecheck` exit 0. Mutations run on a throwaway copy of the candidate (each failed the named test, copy deleted, worktree untouched): drop exit 128 from locked -> "exit 128 is locked"; drop `DecodeSACredentials` -> "op cannot decode the token is rejected"; drop the empty-token guard -> "checks a token that is in no Keychain" (asserts op is not called); drop the ENOENT rule -> "op is not installed is op-missing"; `pickVault` fires with a vault chosen, or with two vaults -> "chooses the only readable vault ... and nothing else"; two labels collide -> "gives each of the eight states its own label"; a stderr line leaked into `vaults` -> three sentinel rows fail; keychain failure always `missing` -> three rows fail; killed lookup not locked -> classifier test; unreachable rule dropped -> "the network is down is unreachable"; no-vault headline dropped -> "lists the readable vaults ...".
+  Screen: candidate `client/settings-screen.tsx`, `server/cause.ts`, `shared/config.ts`, `shared/token.ts`, `test/fakes/security.mjs` and `test/world.ts` are byte-identical to the ideation prototype (`spike/prototype.patch` applied to 487b9b0, diffed); the only differences are the reverted OP_CONNECT lines and its test and fake branch. So the 17 ideation pictures show this candidate's screen; no new picture was taken at the candidate.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, including the token-row text the ui surface owes, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  `adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0 (run in the candidate worktree). Script below. Also run: comment_ratio 487b9b0..c504e5c "code lines 248, comment lines 1, 0.4%" exit 0 (the one comment is the 128-character fact in `checkToken`, a fact the code cannot state); number_guards PASS exit 0; dispatch_records "5 dispatch record(s) complete" exit 0; design_surfaces "design surfaces presentable" exit 0; doc_impact lists ADR 0004 and the journey map, both already `unaffected` in the implementation report (the journey q5 "closed enum" is still true).
+- DONE: Record every unverified obligation, including AC-2's use on Kent's Mac and the unobserved op wording, without touching the live paseo-project-env install.
+  See Unverified obligations below. No daemon, plugin install, `op`, `security` or secret was touched; the throwaway worktree and copy were removed.
+
+### Findings
+
+- Deferred risk: `session-open` test "blanks a variable 1Password does not answer in time and returns at the deadline" (4 s budget, expects `FAST` = quick) failed in 4 of my first 5 full-suite runs on the candidate (blank at the deadline), while the machine load average was 70 to 215 from other sessions; it passed alone, and 3 of 3 later full runs passed at load about 35; main passed 80 of 80 in 3 of 3 runs. The test and the `readToken` path it uses are unchanged in behaviour (`lookupToken` is the old body plus a classified failure), so I could not attribute it to the candidate and did not establish a cause. It becomes material if it fails on a quiet machine or in CI.
+- Polish (minimal necessity): `vaultListDelayMs` in `test/fakes/op.mjs` and `hang` in `test/fakes/security.mjs` are used by no committed test (they drove the ideation pictures; `vaultListDelayMs` is not even typed in `test/world.ts`). Without them nothing in the suite or the accepted criteria breaks. Removal is a candidate; not mine to delete.
+- Residual, already in the PR body under without-it unanswered: with `OP_CONNECT_*` set in the daemon, a good token shows "The token check failed for a reason the plugin does not recognise" (classifier gives `unexpected`: the Connect wording matches no pattern), never another cause; Captain's call.
+
+### Unverified obligations
+
+- AC-2 on Kent's Mac: open a project whose token reads one vault with no vault chosen; see the vault chosen and the vault list on the token row. OWED to Kent; the screen wiring (Check, the pick effect, query settings `staleTime`/`gcTime`/`refetchOnWindowFocus`) has no automated test (journey token-works/q8), and the window-focus setting was never observed.
+- The row texts "Not checked for <name> yet", "Checking token…", "No service account named yet", the Vault menu "Choose…" and "(this token cannot read it)", the Vault error line and the disabled Browse vault exist only in the screen; seen only in prototype pictures, not at the candidate.
+- `op` wording unobserved: unreachable (network) and revoked-token 401; the classifier keeps r1's hypothesis patterns; a miss shows as the unrecognised state. Locked Keychain: exit 128 seen on a sibling `security` command, exit 36 derived, killed lookup assumed; a locked login Keychain may raise a macOS dialog; real `security find-generic-password` on a locked keychain not run (guard).
+- Whether Kent's daemon sets `OP_CONNECT_HOST`/`OP_CONNECT_TOKEN`; the `op` read subcommand under Connect.
+- `token.status` consumers outside this repo: none known; an older client against this daemon is not supported (closed enum, accepted in the design).
+- Full-suite timing flake above: unattributed.
+
+### Acceptance script (about 3 minutes; no secret, no network, no daemon)
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause && git rev-parse HEAD && git grep "ADR 0027" project-env; echo "adr-grep-exit=$?"; git grep OP_CONNECT project-env; echo "connect-grep-exit=$?"` expects `c504e5c5531b01b1fc3ee72a07f15335606c407e`, then `adr-grep-exit=1` and `connect-grep-exit=1` with nothing printed between (AC-3; OP_CONNECT as on main).
+2. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause/project-env && npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"` expects `ℹ tests 98`, `ℹ pass 98`, `ℹ fail 0` (AC-1 eleven cause rows, label distinctness, `pickVault`, row text). On a heavily loaded machine the one test "blanks a variable 1Password does not answer in time" can fail; rerun `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/session-open.test.ts` and expect `ℹ fail 0`.
+3. Same directory: `npm run typecheck; echo "typecheck-exit=$?"` expects `typecheck-exit=0`.
+4. Same directory, the token-row text the ui surface owes:
+   `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e 'import { tokenRowText, pickVault } from "./shared/token.ts"; for (const state of ["missing","locked","op-missing","unreachable","rejected","truncated","unexpected"]) { const t = tokenRowText({ state, vaults: [] }); console.log(state + " | " + t.label + " | " + t.hint); } for (const vaults of [["Dev"],["Dev","Prod"],[]]) { const t = tokenRowText({ state: "ok", vaults }); console.log("ok " + JSON.stringify(vaults) + " | " + t.label + " | " + t.hint); } console.log("pick", JSON.stringify([pickVault("",["Dev"]), pickVault("Prod",["Dev"]), pickVault("",["Dev","Prod"])]));'`
+   expects exactly these eleven lines:
+   `missing | No token in Keychain | Paste it below and save it.`
+   `locked | Keychain is locked | Unlock the login Keychain on this Mac (a macOS prompt may appear), then check again.`
+   `op-missing | 1Password CLI (op) not found | Install it, restart Paseo, then check again.`
+   `unreachable | Could not reach 1Password | Check the network, then check again.`
+   `rejected | 1Password rejected the token | Copy a fresh token from 1Password.`
+   `truncated | Token is exactly 128 characters, likely truncated | Copy it again from 1Password.`
+   `unexpected | The token check failed for a reason the plugin does not recognise | Check again.`
+   `ok ["Dev"] | Token works | Can read 1 vault: Dev`
+   `ok ["Dev","Prod"] | Token works | Can read 2 vaults: Dev, Prod`
+   `ok [] | Token works, but it can read no vault | In 1Password, give the service account access to one, then check again.`
+   `pick ["Dev","Prod",""]`
+5. Kent's own use (FO cannot run: needs his Mac, his Paseo and a real token; marked not run): load the candidate plugin in his own Paseo, open a project whose service-account token reads exactly one vault with no vault chosen, press Check, and see the token row read "Token works" / "Can read 1 vault: <name>" and the Vault field already set to that vault; typing in the account field runs no check and the row reads "Not checked for <name> yet" until Check is pressed.
+
+Does not cover: the screen at the candidate (steps 1 to 4 test logic and text; step 5 is the screen), real `op` or `security` failures, a token reading several vaults on the real client, OP_CONNECT behaviour, CI.
+
+### Summary
+
+Recommend PASSED: AC-1 to AC-3 hold at c504e5c with falsifying mutations for every decisive test, OP_CONNECT is as on main, and all package checks exit 0 (adr_lint 0). Open: AC-2's on-Mac use is owed to Kent, one load-sensitive existing test failed intermittently on a loaded machine (unattributed), and two unused fake-tool knobs are a polish removal candidate.
