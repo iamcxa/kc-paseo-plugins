@@ -191,7 +191,8 @@ function ProjectEditor({
   const saveToken = useRpc(storeToken);
   const tokenInput = useRef<SettingsInputHandle>(null);
   const [tokenDraft, setTokenDraft] = useState("");
-  const [shapeRefusal, setShapeRefusal] = useState<string | null>(null);
+  const latestToken = useRef("");
+  const [tokenRefusal, setTokenRefusal] = useState<string | null>(null);
   const [sharedWith, setSharedWith] = useState<string[] | null>(null);
   const refsRpc = useRpc(listRefs);
   const testRpc = useRpc(testProject);
@@ -209,30 +210,34 @@ function ProjectEditor({
   });
   const check = () => (account === checked ? void token.refetch() : setChecked(account));
   const store = useMutation({
-    mutationFn: () => saveToken({ serviceAccount: account, token: tokenDraft }),
-    onSuccess: ({ stored }) => {
-      if (!stored) return;
-      tokenInput.current?.replaceText("");
-      setTokenDraft("");
+    mutationFn: (pasted: string) => saveToken({ serviceAccount: account, token: pasted }),
+    onSuccess: ({ stored, ...status }, pasted) => {
+      if (!stored) {
+        if (latestToken.current === pasted) setTokenRefusal(`Not saved: ${tokenRowText(status).label}`);
+        return;
+      }
+      if (latestToken.current === pasted) {
+        tokenInput.current?.replaceText("");
+        setTokenDraft("");
+      }
       check();
+    },
+    onError: (error, pasted) => {
+      if (latestToken.current === pasted) setTokenRefusal(error.message);
     },
   });
   const pressSave = () => {
     const refused = tokenShapeError(tokenDraft) ?? serviceAccountNameError(account);
-    setShapeRefusal(refused);
+    setTokenRefusal(refused);
     if (refused) return;
     const others = projectsUsingName(settings.values.projects, draft.root, account);
     if (others.length > 0) setSharedWith(others);
-    else store.mutate();
+    else store.mutate(tokenDraft);
   };
   const clearTokenMessages = () => {
-    setShapeRefusal(null);
+    setTokenRefusal(null);
     setSharedWith(null);
-    store.reset();
   };
-  const tokenError = shapeRefusal
-    ?? (store.error ? (store.error as Error).message : undefined)
-    ?? (store.data && !store.data.stored ? `Not saved: ${tokenRowText(store.data).label}` : undefined);
   const refs = useMutation({
     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
   });
@@ -333,10 +338,11 @@ function ProjectEditor({
             secureTextEntry
             initialValue=""
             onChangeText={(text) => {
+              latestToken.current = text;
               setTokenDraft(text);
               clearTokenMessages();
             }}
-            error={tokenError}
+            error={tokenRefusal ?? undefined}
           />
           <SettingsAction
             label="Save token to Keychain"
@@ -355,7 +361,7 @@ function ProjectEditor({
                 actionLabel="Replace"
                 onPress={() => {
                   setSharedWith(null);
-                  store.mutate();
+                  store.mutate(tokenDraft);
                 }}
               />
               <SettingsAction
