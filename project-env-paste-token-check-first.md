@@ -1,12 +1,12 @@
 ---
 id:
 title: A token is stored only after 1Password accepts it
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-paste-token-check-first
-pr:
+pr: iamcxa/kc-paseo-plugins#21
 journey: paseo-project-env
 journey-release: r1.5
 journey-story: paste-token
