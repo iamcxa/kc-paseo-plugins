@@ -1,12 +1,12 @@
 ---
 id:
 title: A project registered at a worktree path gives its agents their variables
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-worktree-project-root
-pr:
+pr: iamcxa/kc-paseo-plugins#19
 gates:
     version: 1
     records:
