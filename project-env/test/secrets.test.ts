@@ -17,9 +17,9 @@ describe("token storage", () => {
     const world = makeWorld({ op: { accounts: { x: { vaults: ["Dev"] } } } });
     cleanups.push(world.cleanup);
     const secrets = createSecrets(world.tools);
-    assert.deepEqual(await secrets.tokenStatus("sa-x"), { state: "missing", vaults: [] });
+    assert.deepEqual(await secrets.tokenStatus("sa-x"), { state: "missing", vaults: [], vaultIds: [] });
     const stored = await secrets.storeToken("sa-x", "ops_fake_x");
-    assert.deepEqual(stored, { state: "ok", vaults: ["Dev"] });
+    assert.deepEqual(stored, { state: "ok", vaults: ["Dev"], vaultIds: ["vid-Dev"] });
     const argvs = world.calls().filter((c) => c.tool === "security").map((c) => c.argv.join(" "));
     assert.ok(argvs.some((a) => a.includes("add-generic-password") && a.includes("<redacted>")));
   });

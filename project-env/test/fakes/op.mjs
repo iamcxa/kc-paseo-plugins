@@ -21,7 +21,10 @@ if (cmd === "read") {
   if (delay) setTimeout(respond, delay);
   else respond();
 } else if (cmd === "vault" && sub === "list") {
-  process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((name) => ({ name }))));
+  if (scenario.op.vaultListFail) fail(scenario.op.vaultListFail.stderr, scenario.op.vaultListFail.code ?? 1);
+  const respondList = () => process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((v) => (typeof v === "string" ? { id: `vid-${v}`, name: v } : v))));
+  if (scenario.op.vaultListDelayMs) setTimeout(respondList, scenario.op.vaultListDelayMs);
+  else respondList();
 } else if (cmd === "item" && (sub === "list" || sub === "get")) {
   const id = sub === "get" ? argv[2] : null;
   const key = id === null ? "item list" : `item get ${id}`;

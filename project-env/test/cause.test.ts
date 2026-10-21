@@ -6,6 +6,7 @@ import { classifyOpFailure, failureLine, parseRef } from "../server/cause.ts";
 describe("classifyOpFailure", () => {
   const table: [string, Parameters<typeof classifyOpFailure>[0], string][] = [
     ["an authentication error", { code: 1, stderr: "[ERROR] 401 Authentication: invalid service account token\n" }, "rejected-token"],
+    ["an undecodable service account token", { code: 8, stderr: "[ERROR] failed to DecodeSACredentials: invalid credentials provided" }, "rejected-token"],
     ["a missing item", { code: 1, stderr: `[ERROR] "op://V/i/f" isn't an item in the vault\n` }, "missing-field"],
     ["a missing vault", { code: 1, stderr: `[ERROR] "V" isn't a vault in this account\n` }, "missing-field"],
     ["a missing field", { code: 1, stderr: `[ERROR] "f" isn't a field in the item\n` }, "missing-field"],

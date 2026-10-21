@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { type ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
 import {
@@ -33,16 +33,10 @@ import {
   tokenStatus,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
+import { canReadVault, pickVault, tokenRowText, vaultChoices } from "../shared/token";
 
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
-
-const TOKEN_LABEL = {
-  missing: "No token in Keychain",
-  truncated: "Token is exactly 128 characters, likely truncated; store it again",
-  invalid: "Token stored but 1Password rejected it",
-  ok: "Token works",
-} as const;
 
 type Result = { name: string; ok: boolean; cause?: Cause };
 
@@ -194,17 +188,22 @@ function ProjectEditor({
   const importRpc = useRpc(importConductor);
 
   const account = draft.serviceAccount.trim();
+  const [checked, setChecked] = useState(account);
   const token = useQuery({
-    queryKey: ["token", account],
-    queryFn: () => status({ serviceAccount: account }),
-    enabled: account.length > 0,
+    queryKey: ["token", checked],
+    queryFn: () => status({ serviceAccount: checked }),
+    enabled: checked.length > 0,
+    staleTime: Infinity,
+    gcTime: 0,
+    refetchOnWindowFocus: false,
   });
+  const check = () => (account === checked ? void token.refetch() : setChecked(account));
   const store = useMutation({
     mutationFn: () => saveToken({ serviceAccount: account, token: tokenDraft }),
     onSuccess: () => {
       tokenInput.current?.replaceText("");
       setTokenDraft("");
-      void token.refetch();
+      check();
     },
   });
   const refs = useMutation({
@@ -252,7 +251,30 @@ function ProjectEditor({
   };
 
   const nameRefusal = refusal(newName, draft.variables.map((v) => v.name));
-  const vaultOptions = (token.data?.vaults ?? []).map((v) => ({ label: v, value: v }));
+  const current = account === checked && !token.isFetching ? token.data : undefined;
+  const vaults = current?.vaults ?? [];
+  const vaultIds = current?.vaultIds ?? [];
+  const vaultReadable = canReadVault({ vaults, vaultIds }, draft.vault);
+  useEffect(() => {
+    const vault = pickVault(draft.vault, vaults);
+    if (vault !== draft.vault) patch({ vault });
+  }, [draft.vault, vaults, patch]);
+  const tokenText = !account
+    ? { label: "No service account named yet", hint: "Name it above, then press Check." }
+    : account !== checked
+      ? { label: `Not checked for ${account} yet`, hint: "Press Check." }
+      : current
+        ? tokenRowText(current)
+        : { label: "Checking token…", hint: "Asking the Keychain and 1Password." };
+  const vaultOptions = current?.state === "ok"
+    ? [
+        ...(draft.vault === "" ? [{ label: "Choose…", value: "" }] : []),
+        ...(draft.vault && !vaultReadable
+          ? [{ label: `${draft.vault} (this token cannot read it)`, value: draft.vault }]
+          : []),
+        ...vaultChoices({ vaults, vaultIds }, draft.vault),
+      ]
+    : [];
   const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
 
   return (
@@ -266,8 +288,12 @@ function ProjectEditor({
             initialValue={draft.serviceAccount}
             onChangeText={(serviceAccount) => patch({ serviceAccount })}
           />
-          <SettingsRow
-            label={token.data ? TOKEN_LABEL[token.data.state] : account ? "Checking token…" : "Token"}
+          <SettingsAction
+            label={tokenText.label}
+            hint={tokenText.hint}
+            actionLabel={token.isFetching ? "Checking…" : "Check"}
+            disabled={!account || token.isFetching}
+            onPress={check}
           />
           <SettingsInput
             ref={tokenInput}
@@ -290,6 +316,11 @@ function ProjectEditor({
               label="Vault"
               value={draft.vault}
               options={vaultOptions}
+              error={
+                draft.vault && !vaultReadable
+                  ? "This token cannot read that vault. Choose one it can read."
+                  : undefined
+              }
               onValueChange={(vault) => patch({ vault })}
             />
           ) : (
@@ -382,7 +413,7 @@ function ProjectEditor({
             label="Pick fields from the vault"
             hint="Lists item and field names only; values are never sent to the app."
             actionLabel={refs.isPending ? "Loading…" : "Browse vault"}
-            disabled={token.data?.state !== "ok" || !draft.vault || refs.isPending}
+            disabled={current?.state !== "ok" || !vaultReadable || refs.isPending}
             onPress={() => refs.mutate()}
             error={refs.error ? (refs.error as Error).message : undefined}
           />
