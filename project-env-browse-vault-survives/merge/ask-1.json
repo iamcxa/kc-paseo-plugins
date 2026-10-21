@@ -1,0 +1,17 @@
+{
+  "class": "other",
+  "head": "a422acd308768abf707fce5ff7ebce45ac3c248a",
+  "model": "not run",
+  "necessity": "Kent, release r1.5's only user; without it one unreadable item, like the SSH Key item on 2026-10-21, makes Browse vault fail for the whole vault and shows raw op output.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: '- Real `op item get` stderr'",
+    "point: deferred: '- Flaky `session open` deadline test'",
+    "point: acceptance-not-run: \"- Kent's use: Browse vault pressed\"",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#16",
+  "sufficiency": "AC-1 and AC-2 are met by 12 browse-vault tests, 11 of which fail on base 487b9b0, with stderr and value sentinels (validation report and FO rerun, candidate a422acd); Kent's own vault run is owed.",
+  "time": "2026-10-21T11:22:28Z",
+  "verdict": "ask"
+}

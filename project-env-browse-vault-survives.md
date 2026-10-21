@@ -93,6 +93,7 @@ Surfaces: ui
 Visible change: Browse vault lists the fields it can read and names the item it skipped.
 Direction alignment with the Captain: not needed — the Captain approved this task on 2026-10-21 (「可以」); it pulls part of r1b's pick-field into r1.5 (signal 2), recorded here.
 Release review: paseo-project-env/r1.5 at 9489e13
+Map footprints: not needed: no ruling on this task answered an open map question.
 
 ## Design
 
