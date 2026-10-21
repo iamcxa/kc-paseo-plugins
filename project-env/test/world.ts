@@ -9,8 +9,9 @@ export interface Scenario {
     accounts?: Record<string, { refs?: Record<string, string>; vaults?: string[] }>;
     delayMs?: Record<string, number>;
     fail?: Record<string, { stderr: string; code?: number }>;
+    vaultListFail?: { stderr: string; code?: number };
   };
-  security?: { crash?: boolean };
+  security?: { crash?: boolean; find?: { exit: number; stderr: string; hang?: boolean } };
   git?: { answers?: Record<string, string | { exit: number; stderr: string }> };
 }
 

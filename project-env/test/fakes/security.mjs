@@ -10,6 +10,11 @@ if (scenario.security?.crash) process.kill(process.pid, "SIGSEGV");
 const state = readState();
 const service = flag("-s");
 if (argv[0] === "find-generic-password") {
+  const refusal = scenario.security?.find;
+  if (refusal) {
+    if (refusal.hang) setInterval(() => {}, 1000);
+    else fail(refusal.stderr, refusal.exit);
+  }
   const label = state.keychain[service];
   if (label === undefined) {
     fail("security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.", 44);

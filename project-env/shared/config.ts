@@ -58,7 +58,17 @@ export const missingVariablesData = z.object({
 });
 export type MissingVariablesData = z.infer<typeof missingVariablesData>;
 
-export const tokenState = z.enum(["missing", "truncated", "invalid", "ok"]);
+export const tokenState = z.enum([
+  "missing",
+  "locked",
+  "op-missing",
+  "unreachable",
+  "rejected",
+  "truncated",
+  "unexpected",
+  "ok",
+]);
+export type TokenState = z.infer<typeof tokenState>;
 
 export const tokenStatus = defineRpc({
   name: "token.status",

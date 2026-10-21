@@ -1,6 +1,10 @@
 import { boot, TOKEN_PREFIX } from "./common.mjs";
 
 const { scenario, argv, log, fail } = boot("op");
+if (process.env.OP_CONNECT_HOST || process.env.OP_CONNECT_TOKEN) {
+  log({ connect: true });
+  fail(`[ERROR] "op ${process.argv[3]} ${process.argv[4]}" doesn't work with Connect. Please unset 'OP_CONNECT_HOST' and 'OP_CONNECT_TOKEN' to use this command.`);
+}
 const token = process.env.OP_SERVICE_ACCOUNT_TOKEN ?? "";
 const account = token.startsWith(TOKEN_PREFIX) ? token.slice(TOKEN_PREFIX.length) : null;
 const known = account !== null && scenario.op?.accounts?.[account] !== undefined;
@@ -21,7 +25,10 @@ if (cmd === "read") {
   if (delay) setTimeout(respond, delay);
   else respond();
 } else if (cmd === "vault" && sub === "list") {
-  process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((name) => ({ name }))));
+  if (scenario.op.vaultListFail) fail(scenario.op.vaultListFail.stderr, scenario.op.vaultListFail.code ?? 1);
+  const respondList = () => process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((name) => ({ name }))));
+  if (scenario.op.vaultListDelayMs) setTimeout(respondList, scenario.op.vaultListDelayMs);
+  else respondList();
 } else {
   fail(`[ERROR] fake op does not implement: ${argv.join(" ")}`);
 }

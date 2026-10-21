@@ -2,8 +2,15 @@ import { execFile, type ExecFileException } from "node:child_process";
 import { realpath } from "node:fs/promises";
 import { basename, dirname } from "node:path";
 import type { Cause } from "../shared/cause.ts";
-import { isReservedName, type Project } from "../shared/config.ts";
-import { classifyOpFailure, isOutsideVault, parseRef, type OpExit } from "./cause.ts";
+import { isReservedName, type Project, type TokenState } from "../shared/config.ts";
+import {
+  classifyKeychainFailure,
+  classifyOpFailure,
+  classifyTokenCheckFailure,
+  isOutsideVault,
+  parseRef,
+  type OpExit,
+} from "./cause.ts";
 
 const KEYCHAIN_ACCOUNT = "op-service-account-token";
 const CACHE_MS = 15 * 60 * 1000;
@@ -36,10 +43,11 @@ export class RunFailure extends Error {
 }
 
 function opEnv(token: string): NodeJS.ProcessEnv {
-  return { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
+  const env: NodeJS.ProcessEnv = { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
+  delete env.OP_CONNECT_HOST;
+  delete env.OP_CONNECT_TOKEN;
+  return env;
 }
-
-export type TokenState = "missing" | "truncated" | "invalid" | "ok";
 
 export function createSecrets(tools: Tools) {
   const cache = new Map<string, { value: string; at: number }>();
@@ -95,7 +103,10 @@ export function createSecrets(tools: Tools) {
     return projects[roots.indexOf(root)] ?? null;
   }
 
-  async function readToken(serviceAccount: string, timeout?: number): Promise<string | null> {
+  async function lookupToken(
+    serviceAccount: string,
+    timeout?: number,
+  ): Promise<{ token: string } | { failure: "missing" | "locked" | "unexpected" }> {
     try {
       const token = (
         await run(
@@ -104,18 +115,28 @@ export function createSecrets(tools: Tools) {
           { timeout },
         )
       ).trim();
-      return token || null;
-    } catch {
-      return null;
+      return token ? { token } : { failure: "missing" };
+    } catch (error) {
+      return { failure: classifyKeychainFailure(error instanceof RunFailure ? error.exit : {}) };
     }
+  }
+
+  async function readToken(serviceAccount: string, timeout?: number): Promise<string | null> {
+    const found = await lookupToken(serviceAccount, timeout);
+    return "token" in found ? found.token : null;
   }
 
   async function tokenStatus(
     serviceAccount: string,
   ): Promise<{ state: TokenState; vaults: string[] }> {
-    const token = await readToken(serviceAccount);
-    if (!token) return { state: "missing", vaults: [] };
-    // ADR 0027: the interactive Keychain prompt truncates tokens to exactly 128 characters.
+    const found = await lookupToken(serviceAccount);
+    if ("failure" in found) return { state: found.failure, vaults: [] };
+    return checkToken(found.token);
+  }
+
+  async function checkToken(token: string): Promise<{ state: TokenState; vaults: string[] }> {
+    if (token.trim() === "") return { state: "rejected", vaults: [] };
+    // An interactive Keychain prompt has been seen cutting a token to exactly 128 characters.
     if (token.length === 128) return { state: "truncated", vaults: [] };
     try {
       const out = await run(tools.op, ["vault", "list", "--format", "json"], {
@@ -123,8 +144,11 @@ export function createSecrets(tools: Tools) {
       });
       const vaults = (JSON.parse(out) as { name: string }[]).map((v) => v.name);
       return { state: "ok", vaults };
-    } catch {
-      return { state: "invalid", vaults: [] };
+    } catch (error) {
+      return {
+        state: classifyTokenCheckFailure(error instanceof RunFailure ? error.exit : {}),
+        vaults: [],
+      };
     }
   }
 
@@ -242,7 +266,7 @@ export function createSecrets(tools: Tools) {
     cache.clear();
   }
 
-  return { mainCheckout, projectForCwd, tokenStatus, storeToken, listRefs, resolveProject, clearCache };
+  return { mainCheckout, projectForCwd, tokenStatus, checkToken, storeToken, listRefs, resolveProject, clearCache };
 }
 
 export type Secrets = ReturnType<typeof createSecrets>;
