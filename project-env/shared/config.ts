@@ -1,19 +1,19 @@
 import { defineRpc, defineSettings } from "@getpaseo/plugin";
 import { z } from "zod";
-import { cause } from "./cause.ts";
+import { cause, type Cause, rowHint } from "./cause.ts";
 
+const NAME_SHAPE = /^[A-Za-z_][A-Za-z0-9_]*$/;
+
+// An empty ref is a variable whose field nobody has picked yet.
 const variable = z.object({
-  name: z.string().regex(/^[A-Za-z_][A-Za-z0-9_]*$/),
-  ref: z.string().startsWith("op://"),
+  name: z.string().regex(NAME_SHAPE),
+  ref: z.union([z.literal(""), z.string().startsWith("op://")]),
 });
 
-// Names Paseo sets or deletes after the plugin hooks, plus names that would break the agent or
-// the plugin itself; ADR 0004.
-const RESERVED_NAMES: ReadonlySet<string> = new Set([
-  "PATH",
-  "HOME",
-  "NODE_OPTIONS",
-  "OP_SERVICE_ACCOUNT_TOKEN",
+const AGENT_NAMES = new Set(["PATH", "HOME", "NODE_OPTIONS"]);
+const PLUGIN_NAMES = new Set(["OP_SERVICE_ACCOUNT_TOKEN"]);
+// Names Paseo sets or deletes after the plugin hooks; ADR 0004.
+const PASEO_NAMES = new Set([
   "PASEO_AGENT_ID",
   "PASEO_AGENT_CWD",
   "PASEO_NODE_ENV",
@@ -28,8 +28,41 @@ const RESERVED_NAMES: ReadonlySet<string> = new Set([
   "CLAUDE_AGENT_SDK_VERSION",
 ]);
 
+export function reservedReason(name: string): string | null {
+  if (AGENT_NAMES.has(name)) return "the agent needs its own value to run";
+  if (PLUGIN_NAMES.has(name)) return "this plugin uses it to reach 1Password";
+  if (PASEO_NAMES.has(name)) return "Paseo sets or removes it after plugins run";
+  if (name.startsWith("DYLD_") || name === "LD_PRELOAD") return "it makes the agent load other code";
+  return null;
+}
+
 export function isReservedName(name: string): boolean {
-  return RESERVED_NAMES.has(name);
+  return reservedReason(name) !== null;
+}
+
+export function refusal(name: string, existing: readonly string[]): string | null {
+  if (name === "") return null;
+  if (!NAME_SHAPE.test(name)) return "Use letters, digits and underscores, not starting with a digit";
+  const reason = reservedReason(name);
+  if (reason) return `${name} is reserved: ${reason}. The agent keeps its own value.`;
+  if (existing.includes(name)) return `${name} is already in this project`;
+  return null;
+}
+
+export function splitImported(names: readonly string[], existing: readonly string[]) {
+  const have = new Set(existing);
+  const add: string[] = [];
+  const skipped: { name: string; reason: string }[] = [];
+  for (const name of names) {
+    if (have.has(name)) continue;
+    const reason = reservedReason(name);
+    if (reason) skipped.push({ name, reason });
+    else {
+      add.push(name);
+      have.add(name);
+    }
+  }
+  return { add, skipped };
 }
 
 export const project = z.object({
@@ -41,6 +74,19 @@ export const project = z.object({
 });
 export type Project = z.infer<typeof project>;
 export type Variable = z.infer<typeof variable>;
+
+// The one line under a variable's name: why it does nothing, or what the last Test said.
+export function variableLine(
+  variable: Variable,
+  result: { ok: boolean; cause?: Cause } | undefined,
+): { text: string; failed: boolean } | null {
+  const reason = reservedReason(variable.name);
+  if (reason !== null) return { text: `Not applied: ${reason}`, failed: true };
+  if (variable.ref === "") return { text: "No field picked", failed: true };
+  return result ? { text: rowHint(result), failed: !result.ok } : null;
+}
+
+export const newVariable = (name: string): Variable => ({ name, ref: "" });
 
 export const projectEnv = defineSettings({
   id: "projects",

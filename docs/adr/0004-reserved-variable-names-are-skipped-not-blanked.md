@@ -36,11 +36,21 @@ twelve Paseo names above, kept in one predicate, `isReservedName` in
 `project-env/shared/config.ts`. This is the one exception to ADR 0002's rule that an
 agent never runs on a stale value of a mapped name.
 
+**Amendment, 2026-10-21** (Captain, journey add-remove-variable/q5, 「可以」): the reserved
+set also holds every name starting `DYLD_` and `LD_PRELOAD`, which make a process load
+other code; `ANTHROPIC_*` is not reserved, because a person may set it on purpose. The set
+is now a table of exact names and one prefix, still behind one predicate,
+`isReservedName` in `project-env/shared/config.ts`, which has a reason for each class,
+`reservedReason`.
+
 ## Consequences
 
 - A reserved name never reaches `op`, and the agent keeps the value it already has.
 - The reason shown for a failed variable gains a fifth class, "reserved name".
-- Refusing a reserved name when a variable is added (release 1.5) reuses the same
-  predicate.
+- Add, Conductor import and the variables card use the same table: Add and import refuse
+  a reserved name with its reason; a saved reserved variable stays, shows "Not applied" and
+  is skipped at session open.
+- An existing variable named `DYLD_*` or `LD_PRELOAD` stops being applied at the next
+  session open.
 - Changing the set, or ruling otherwise, changes `isReservedName` and its handling in
   `resolveProject`.
