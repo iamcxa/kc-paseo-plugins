@@ -1,7 +1,7 @@
 ---
 id:
 title: An agent's timeline shows each variable it started without
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -71,8 +71,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「其他的部分授權你合併」 — approves delivery of PR iamcxa/kc-paseo-plugins#11 at head 90074f64b9d49c55f61a09662cac9b31a173fb87 after the roborev run he asked for (clean), including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-20T14:19:51Z
+verdict: PASSED
+completed: 2026-10-21T00:39:38Z
+archived: 2026-10-21T00:39:39Z
 ---
 
 ADR 0002 rules that an unresolved variable is shown on the agent's timeline. Today the failure goes only to the daemon log, and the plugin registers no timeline renderer.
