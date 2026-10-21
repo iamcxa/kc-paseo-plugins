@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-paste-token-check-first
-pr: iamcxa/kc-paseo-plugins#21
+pr: pr-merge:21
 journey: paseo-project-env
 journey-release: r1.5
 journey-story: paste-token
