@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:6812",
+    "mcp": {
+      "injectIntoAgents": false
+    },
+    "browserTools": {
+      "enabled": false
+    },
+    "enableTerminalAgentHooks": false,
+    "cors": {
+      "allowedOrigins": [
+        "https://app.paseo.sh"
+      ]
+    },
+    "relay": {
+      "enabled": false
+    }
+  },
+  "app": {
+    "baseUrl": "https://app.paseo.sh"
+  },
+  "plugins": {
+    "row-edit-spike": {
+      "source": "directory",
+      "path": "/tmp/variable-row-edit-spike-r15/plugin",
+      "enabled": true
+    }
+  },
+  "features": {
+    "dictation": {
+      "enabled": false
+    },
+    "voiceMode": {
+      "enabled": false
+    }
+  },
+  "pluginsEnabled": true
+}

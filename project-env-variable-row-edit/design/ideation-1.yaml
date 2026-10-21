@@ -1,0 +1,114 @@
+design_review:
+  preview: project-env-variable-row-edit/design/preview-desktop-dark-tested.png
+  findings:
+    - severity: MAJOR
+      dimension: states
+      where: preview-desktop-dark-tested.png, preview-desktop-dark-twelve-long.png (set, failed and Not applied lines)
+      seen: The Test result now sits on the same row as an editable reference field, but no preview shows a row whose reference was edited after Test; it would still read "set" or "failed: field not found in the vault".
+      fix: Add a state where editing a reference clears or greys that row's result line (for example "Changed since last test"), and show it in a preview.
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-browse-loaded.png, preview-desktop-dark-import-skipped.png, preview-desktop-dark-add-refused.png (Save card)
+      seen: After rows are added or changed (NEW_ONE appended, fields picked), Save, Discard and Stop managing look the same as before, so nothing says there are unsaved edits. Test also does not say whether it checks the draft or the saved values.
+      fix: Show an unsaved-changes cue (primary or enabled Save, a "Not saved" line) and one line on whether Test uses the draft or the saved values.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-tested.png (blocks before first content)
+      seen: Inventory of the page area above the first content: page title (about 24px), a "Back to plugins" link, a "work" section label, then the first card row (Main checkout) at about y=215 of 1500 (14%). The sidebar "Back" repeats the same exit as "Back to plugins". The variables card starts at about y=629 (42%), below a six-row token and vault setup card.
+      fix: Drop one of the two back controls, and consider putting Environment variables above or beside the token setup card.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-tested.png (action rows), all desktop and compact previews
+      seen: Each action row repeats its button label as the row label: "Add variable" / Add, "Check the variables" / Test, "Save this project" / Save, "Discard changes" / Discard, "Save token to Keychain" / Save token. "New variable name" and "Add variable" also take two rows for one action.
+      fix: Merge the name field and Add into one row, and drop row labels that only repeat the button text.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-tested.png and the other desktop previews ("Token works" row)
+      seen: The row "Token works" has a label but no value, help text or control, so it reads as an assertion beside a disabled Save token and an empty "ops_..." field.
+      fix: Give the row a visible state ("Not checked", "Works", "Failed: reason") or remove it until it has one.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-tested.png and preview-desktop-dark-saved.png (PATH row)
+      seen: "Not applied" is drawn in the same red as "failed: ..." lines. In the saved state PATH is the only row with a red line, before any Test.
+      fix: Use a neutral or amber tone for "Not applied", since it is a rule and not a failure.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-tested.png (set rows)
+      seen: The success line says only "set". It is plain grey, and in the saved state the same rows have no line at all, so "set" does not read as a Test result.
+      fix: Word it as a result ("resolved") and show it in a clear success tone.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-saved.png vs preview-desktop-dark-tested.png
+      seen: Running Test adds a second line to each row. Rows grow from about 66px to 69px and the Test row moves down about 15px, so the layout shifts under the pointer.
+      fix: Reserve the result-line height in every row, or pin the row height.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-tested.png (variable rows vs add row)
+      seen: Reference fields are about 260px wide and start at x=781. The "New variable name" field is about 180px wide and starts at x=947, so two input widths and left edges sit in one card.
+      fix: Use one input width and left edge in the card, or make the name field align with the reference column.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-twelve-long.png and preview-desktop-dark-tested.png
+      seen: Each row ends in a 78x32 outlined "Remove" text button. It has the same weight as Test, Save and Browse vault, so twelve rows give twelve equal-weight text buttons.
+      fix: Make Remove a quieter control, such as an icon button with a label, or a destructive text style at lower emphasis.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-browse-loaded.png vs the Vault control "Dev"
+      seen: The Vault selector is a small outlined button with a chevron. The new field pills are wide filled boxes with a chevron that open a modal list, and the Vault selector's open state is not shown, so the two chevron controls look different and behave differently.
+      fix: Use one dropdown style for both, or show the Vault open state and make both open the same kind of menu.
+    - severity: MINOR
+      dimension: system-fit
+      where: all previews (Save card)
+      seen: Save, Discard and Stop managing are the same outlined 32px buttons. No button in the page is primary, and Stop managing, which deletes data now, sits in the group named "Save".
+      fix: Make Save the primary button, and move Stop managing to its own destructive group away from Save and Discard.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-stop-confirm.png
+      seen: The dialog offers "Keep" and "Stop managing" as two identical outlined buttons in settings-style rows, plus an X, so the destructive choice is not marked. The title says "Stop managing work?" while the page title says "row-edit-spike", so "work" is not tied to the project.
+      fix: Style the destructive button as danger, use plain Cancel and Confirm footer buttons, and name the project the same way as the page title.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-add-refused.png
+      seen: The refusal text sits under the left-hand label, about 20px away from the name field at the right edge. The field shows a green focus ring while the text is red, and the typed name is clipped on the left ("YLD_INSERT_LIBRARIES"). The "LINEAR_API_KEY" placeholder in the name field is the same as an existing variable name.
+      fix: Put the message under the field, use an error ring, and use a placeholder that is not an existing name. Also show the refusal for a duplicate name.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-import-skipped.png
+      seen: The skipped-names notice replaces the Import help text in the same small grey style, so it is easy to miss. The picture does not show which rows Import added (NEW_ONE has no cue) or whether it overwrote the prompt text.
+      fix: Show the notice as a warning line with a dismiss control, and mark the rows Import added.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-browse-loaded.png, preview-desktop-dark-browse-picker.png
+      seen: The picker shows only four fields in a plain list with the current one in green text. There is no search, scroll, loading, empty or error view. Refs on the rows (database/url, path/credential, dyld) are not in the list, with no cue. The picker pill replaces the free-text field, so a person cannot type or keep such a ref.
+      fix: Add a check mark for the current choice, a "not in vault" line, and loading, empty and error views. Keep a way to type a ref.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-empty.png
+      seen: The Environment variables card in the empty state starts straight at "New variable name" with no sentence saying that no variables are set yet.
+      fix: Add one empty-state line above the add row.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-twelve-long.png, preview-compact-dark-twelve-long.png
+      seen: Long references are cut hard at the field edge ("very-long-t", "very-lon") with no ellipsis. With 12 rows the Test button is about 800px below the first row, so a person clicking Test may not see any result on the rows. No Test-running state is shown anywhere.
+      fix: Add an ellipsis and a full-value tooltip, a "Testing..." line, and a count such as "5 failed" next to Test.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-tested.png
+      seen: At the 390px size, Remove, Test, Add, Browse vault and Import are about 28-33px tall, Remove sits about 8px from the reference field, and the dialog close X is about 20px.
+      fix: Raise compact controls to at least 44px, and add spacing between the field and Remove.
+    - severity: MINOR
+      dimension: platform
+      where: preview-desktop-dark-browse-picker.png vs the Vault menu
+      seen: The field pill has a chevron, which suggests an inline menu, but it opens a centred modal with a close X, unlike the Vault dropdown.
+      fix: Open an anchored menu under the pill, or drop the chevron if a modal stays.
+    - severity: MINOR
+      dimension: theme-size
+      where: preview set
+      seen: Light theme is shown only for the tested desktop state. Compact is shown for saved, tested and twelve-long only. Add-refused, import-skipped, stop-confirm, browse-loaded, browse-picker and empty are missing in compact and in light. The dialogs are about 520px wide against a 390px compact width.
+      fix: Add compact previews of the dialogs and the add-refused state, and light previews of the error and dialog states.
+  limitations:
+    - I could not see the hover, focus (except the add-refused name field), pressed or open-menu states of any control, the Vault menu open, or any loading animation.
+    - Several previews are cropped at the bottom (compact saved and tested, desktop tested, saved, add-refused, empty), so the Save card is not visible in them.
+    - I did not see how Add behaves with a duplicate name, or what Test does for a row edited after the run.
+    - Only the desktop tested picture was assessed against the light theme, and no phone-width dialogs exist, so those are inferences from the missing files.
+    - The Pass 1 control sizes are estimates from the images.
