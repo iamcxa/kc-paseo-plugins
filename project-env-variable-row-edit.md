@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-variable-row-edit:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-variable-row-edit-ideation-1
+              briefing:
+                id: briefing:project-env-variable-row-edit:ideation:attempt-1:revision-1
+                digest: sha256:beb4eefb10230ff03bd9ba9222c2ff0c3a5fc600b8682513eb208605b31c1f35
+                room-ref: ./project-env-variable-row-edit/review/ideation/briefing-1
 started: 2026-10-21T08:41:59Z
 ---
 
