@@ -23,6 +23,17 @@ gates:
                 id: briefing:project-env-paste-token-check-first:backlog:attempt-1:revision-1
                 digest: sha256:bff7fdb7603e47c890709aed8cb74fe4cc58f3a65fde85fab009382fc99e1a9b
                 room-ref: ./project-env-paste-token-check-first/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-paste-token-check-first:backlog:1
+                briefing: briefing:project-env-paste-token-check-first:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T08:40:27.125996Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「准」 — accepts this release r1.5 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today storeToken writes the Keychain first and checks afterwards, and a name another project uses is overwritten without a warning.
