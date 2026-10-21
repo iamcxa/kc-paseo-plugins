@@ -330,3 +330,17 @@ Does not cover: the screen at the candidate (steps 1 to 4 test logic and text; s
 ### Summary
 
 Recommend PASSED: AC-1 to AC-3 hold at c504e5c with falsifying mutations for every decisive test, OP_CONNECT is as on main, and all package checks exit 0 (adr_lint 0). Open: AC-2's on-Mac use is owed to Kent, one load-sensitive existing test failed intermittently on a loaded machine (unattributed), and two unused fake-tool knobs are a polish removal candidate.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Merge origin/main (PR #16 browse-vault, PR #17 variable rows) into the branch with a merge commit, resolving `secrets.ts`, `test/fakes/op.mjs` and `client/settings-screen.tsx`.
+  Merge commit e9661f0ddf5adb06a28cc6afa0d714b9e554c950 on origin/main 15b1e3f; no rebase, no force-push. `git diff origin/main` of `settings-screen.tsx` shows only this task's design (Check state, token row, vault menu, pick effect); the fake op keeps both `vaultListFail`/`vaultListDelayMs` and main's `item list`/`item get`.
+- DONE: Rerun `npm test`, `npm run typecheck` and the roborev gate; push to PR #15.
+  `npm test` 138 of 139 pass; the one failure was the session-open deadline test, which passes alone (15 of 15 in `test/session-open.test.ts`). Typecheck exit 0. Ordinary push c504e5c..e9661f0.
+- FAILED: roborev gate clean on the merged head.
+  Exit 1, `findings on e9661f0dd; evidence=roborev:977`: one Medium. A saved vault identifier (not a name) would disable Browse vault and show the access error, since the token check returns names only (`vaults.includes(draft.vault)` in `settings-screen.tsx`). Not fixed: the vault boundary compares the saved string with the ref's vault segment literally, the approved design (q2) picks vaults by name, and returning identifiers changes the wire shape and scope. Listed in the PR body under without-it unanswered for FO and the Captain.
+- DONE: Append the result; no AC text or scope changed.
+
+### Summary
+
+Merged main into PR #15, new head e9661f0ddf5adb06a28cc6afa0d714b9e554c950. Tests and typecheck pass; one roborev Medium finding is left for FO to disposition.
