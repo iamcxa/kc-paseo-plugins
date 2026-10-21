@@ -77,6 +77,17 @@ gates:
                 id: briefing:project-env-token-works-cause:validation:attempt-2:revision-1
                 digest: sha256:8ae9d8fa4aa7eb119ea116f1bd02a31cc8a5db5948c48f2864881ff7208caa55
                 room-ref: ./project-env-token-works-cause/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-token-works-cause:validation:2
+                briefing: briefing:project-env-token-works-cause:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-21T14:53:27.982755Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「准合併」 — asked whether to merge PR iamcxa/kc-paseo-plugins#15 at head 5ee39c3d5fb093536df1815edbedd51a22a5c6c9 without waiting for Codex round 2 (running since 12:38 UTC, no verdict by 13:37 UTC), FO recommending merge; approves squash merge of that head and removing its clean pushed worktree. codex not run: round 2 on 5ee39c3 gave no verdict; round 1 finding (review:5599400357) fixed in this head.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-21T08:41:45Z
 ---
 
