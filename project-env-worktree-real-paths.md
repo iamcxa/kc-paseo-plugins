@@ -70,6 +70,17 @@ gates:
                 id: briefing:project-env-worktree-real-paths:validation:attempt-2:revision-1
                 digest: sha256:dc1d6d0f26340c0607fc8366fafcbd254e306273534b0d556377e158d7d7865a
                 room-ref: ./project-env-worktree-real-paths/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-worktree-real-paths:validation:2
+                briefing: briefing:project-env-worktree-real-paths:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-21T00:34:42.410261Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「其他的部分授權你合併」 — approves delivery of PR iamcxa/kc-paseo-plugins#8 at head 5ff307de6df4af4c1804d640ad8d31a068fe2e62 once its Codex round on that head is clean, after the roborev run he asked for (clean), including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-20T14:19:57Z
 ---
 
