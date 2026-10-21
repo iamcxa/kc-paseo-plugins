@@ -125,7 +125,12 @@ export const tokenStatus = defineRpc({
 export const storeToken = defineRpc({
   name: "token.store",
   input: z.object({ serviceAccount: z.string().min(1), token: z.string().min(1) }),
-  output: z.object({ state: tokenState, vaults: z.array(z.string()), vaultIds: z.array(z.string()) }),
+  output: z.object({
+    stored: z.boolean(),
+    state: tokenState,
+    vaults: z.array(z.string()),
+    vaultIds: z.array(z.string()),
+  }),
 });
 
 export const listRefs = defineRpc({

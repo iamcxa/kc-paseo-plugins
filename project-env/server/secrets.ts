@@ -3,7 +3,7 @@ import { realpath } from "node:fs/promises";
 import { basename, dirname } from "node:path";
 import { causeText, unreadableItemText, type Cause } from "../shared/cause.ts";
 import { isReservedName, type Project, type TokenState } from "../shared/config.ts";
-import type { TokenStatus } from "../shared/token.ts";
+import { serviceAccountNameError, tokenShapeError, type TokenStatus } from "../shared/token.ts";
 import {
   classifyKeychainFailure,
   classifyOpFailure,
@@ -53,10 +53,10 @@ export function createSecrets(tools: Tools) {
   function run(
     file: string,
     args: string[],
-    options: { env?: NodeJS.ProcessEnv; timeout?: number } = {},
+    options: { env?: NodeJS.ProcessEnv; timeout?: number; stdin?: string } = {},
   ): Promise<string> {
     return new Promise((resolve, reject) => {
-      execFile(
+      const child = execFile(
         file,
         args,
         {
@@ -72,6 +72,10 @@ export function createSecrets(tools: Tools) {
           reject(new RunFailure(first, { code, killed, signal, stderr: String(stderr) }));
         },
       );
+      if (options.stdin !== undefined) {
+        child.stdin?.on("error", () => {});
+        child.stdin?.end(options.stdin);
+      }
     });
   }
 
@@ -156,26 +160,26 @@ export function createSecrets(tools: Tools) {
     }
   }
 
+  // The token travels as hex on stdin so it never appears in the process list.
+  async function writeToken(serviceAccount: string, token: string, keychain?: string) {
+    const unsafe = serviceAccountNameError(serviceAccount) ?? (keychain && serviceAccountNameError(keychain));
+    if (unsafe) throw new Error(unsafe);
+    const hex = Buffer.from(token, "utf8").toString("hex");
+    const target = keychain ? ` "${keychain}"` : "";
+    await run(tools.security, ["-i"], {
+      stdin: `add-generic-password -U -a ${KEYCHAIN_ACCOUNT} -s "${serviceAccount}" -X ${hex}${target}\n`,
+    });
+  }
+
   async function storeToken(serviceAccount: string, raw: string) {
     const token = raw.trim();
-    if (!token.startsWith("ops_")) {
-      throw new Error("Not a 1Password service account token (expected ops_…)");
-    }
-    if (token.length === 128) {
-      throw new Error("Token is exactly 128 characters, likely truncated; copy it again");
-    }
-    await run(tools.security, [
-      "add-generic-password",
-      "-U",
-      "-a",
-      KEYCHAIN_ACCOUNT,
-      "-s",
-      serviceAccount,
-      "-w",
-      token,
-    ]);
+    const refused = tokenShapeError(token) ?? serviceAccountNameError(serviceAccount);
+    if (refused) throw new Error(refused);
+    const checked = await checkToken(token);
+    if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };
+    await writeToken(serviceAccount, token);
     cache.clear();
-    return tokenStatus(serviceAccount);
+    return { stored: true, ...(await tokenStatus(serviceAccount)) };
   }
 
   async function listRefs(serviceAccount: string, vault: string) {
@@ -301,7 +305,7 @@ export function createSecrets(tools: Tools) {
     cache.clear();
   }
 
-  return { mainCheckout, projectForCwd, tokenStatus, checkToken, storeToken, listRefs, resolveProject, clearCache };
+  return { mainCheckout, projectForCwd, tokenStatus, checkToken, storeToken, writeToken, listRefs, resolveProject, clearCache };
 }
 
 export type Secrets = ReturnType<typeof createSecrets>;

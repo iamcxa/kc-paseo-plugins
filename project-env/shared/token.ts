@@ -1,4 +1,4 @@
-import type { TokenState } from "./config.ts";
+import type { Project, TokenState } from "./config.ts";
 
 export interface TokenStatus {
   state: TokenState;
@@ -67,4 +67,30 @@ export function vaultChoices(
     label: name,
     value: status.vaultIds[i] === saved ? saved : name,
   }));
+}
+
+const UNSAFE_IN_TOKEN = /[\s"'\\\u0000-\u001f\u007f]/;
+const UNSAFE_IN_NAME = /["\\\u0000-\u001f\u007f]/;
+
+// The token reaches `security -i` on stdin, where a line break would start a second command.
+export function tokenShapeError(raw: string): string | null {
+  const token = raw.trim();
+  if (!token.startsWith("ops_")) return "Not a 1Password service account token (expected ops_…)";
+  if (token.length === 128) return "Token is exactly 128 characters, likely truncated; copy it again";
+  if (UNSAFE_IN_TOKEN.test(token)) {
+    return "The token contains a space, quote, backslash or line break; copy it again";
+  }
+  return null;
+}
+
+export function serviceAccountNameError(name: string): string | null {
+  return UNSAFE_IN_NAME.test(name)
+    ? "The service account name cannot contain a quote, backslash or line break"
+    : null;
+}
+
+export function projectsUsingName(projects: readonly Project[], root: string, name: string): string[] {
+  const wanted = name.trim();
+  if (wanted === "") return [];
+  return projects.filter((p) => p.root !== root && p.serviceAccount.trim() === wanted).map((p) => p.root);
 }
