@@ -61,6 +61,17 @@ gates:
                 id: briefing:project-env-notice-missing-variable:validation:attempt-1:revision-1
                 digest: sha256:7587e4152f5cec5bf5ef91f9d783b1870b5c957bdd0e8b124cf735801f5555ca
                 room-ref: ./project-env-notice-missing-variable/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-notice-missing-variable:validation:1
+                briefing: briefing:project-env-notice-missing-variable:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T00:32:30.743459Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「其他的部分授權你合併」 — approves delivery of PR iamcxa/kc-paseo-plugins#11 at head 90074f64b9d49c55f61a09662cac9b31a173fb87 after the roborev run he asked for (clean), including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-20T14:19:51Z
 ---
 
