@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-worktree-project-root
-pr: iamcxa/kc-paseo-plugins#19
+pr: pr-merge:19
 gates:
     version: 1
     records:
