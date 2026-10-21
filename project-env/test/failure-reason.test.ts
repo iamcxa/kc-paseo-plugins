@@ -45,6 +45,7 @@ describe("each failure names exactly one cause class", () => {
     ["missing-field", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/nope")).cause],
     ["unreachable", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "dial tcp: lookup my.1password.com: no such host" } } } })).cause],
     ["empty", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/blank")).cause],
+    ["outside-vault", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts: { a: { refs: { "op://Other/i/x": "v" } } } } }, "op://Other/i/x")).cause],
     ["unexpected", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "[ERROR] something new" } } } })).cause],
     ["unexpected", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/x", { tools: { op: "/nonexistent/op" } })).cause],
   ];
@@ -70,8 +71,8 @@ describe("each failure names exactly one cause class", () => {
     produced.add("reserved-name");
   });
 
-  it("every id is produced by a case here, except outside-vault, which project-env-vault-boundary detects", () => {
-    assert.deepEqual([...CAUSES].filter((c) => !produced.has(c)), ["outside-vault"]);
+  it("every id is produced by a case here", () => {
+    assert.deepEqual([...CAUSES].filter((c) => !produced.has(c)), []);
   });
 });
 
