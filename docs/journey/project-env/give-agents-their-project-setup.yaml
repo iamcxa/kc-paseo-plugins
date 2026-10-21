@@ -69,6 +69,12 @@ steps:
           - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1.5 validates before writing and warns on an existing name, still letting a repository replace its own token."}
           - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; an interactive Keychain prompt has been seen truncating one to exactly 128, so the check stays as a guard."}
           - {id: "q3", ask: "What counts as an existing name, and which repository owns a token stored under it?", status: "open"}
+          - {id: "q4", ask: "What must a token pass before it is stored, and what if 1Password cannot be reached?", status: "open"}
+          - {id: "q5", ask: "Is the token, passed as an argument to security when stored, inside ADR 0001's accepted weaknesses?", status: "open"}
+          - {id: "q6", ask: "Can a failed token store show the token or raw tool output on screen?", status: "answered", answer: "Gap: a failed store shows security's first error line (run, store.error); the only test covers a failure with no error output. Not yet placed in a release."}
+          - {id: "q7", ask: "Is storing a token part of the draft that Save and Discard govern?", status: "answered", answer: "No: Save token writes the Keychain at once and Discard does not undo it; on success the token input is cleared, whatever the result or any newer typing."}
+          - {id: "q8", ask: "What happens to a stored token when its project is removed?", status: "answered", answer: "Gap: it stays in the Keychain and no screen deletes it. Not yet placed in a release."}
+          - {id: "q9", ask: "What happens when a token is replaced while another store or read is still running?", status: "deferred", because: "The last store wins (add-generic-password -U), and a read still running can cache an old-token value for 15 minutes (CACHE_MS); only concurrent use meets it, and release 1.5 has one user."}
       - id: token-works
         card: "See that the token works and which vaults it can read"
         release: r1.5
@@ -76,6 +82,14 @@ steps:
         evidence: tokenStatus
         questions:
           - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: tokenStatus reads any Keychain failure as missing (readToken returns null) and any op failure as rejected; release 1.5 names each cause on screen. Release 1's cause classes have none for a locked Keychain or a missing op (classifyOpFailure reads a missing op as unexpected)."}
+          - {id: "q2", ask: "What should the screen do when the token reads no vault, or more than the chosen one?", status: "open"}
+          - {id: "q3", ask: "What do the vault and field pickers show after the account or vault changes?", status: "answered", answer: "Gap: neither resets, so a draft can keep a vault the new token cannot list or a field from another vault; it fails only at Test or session open. Not yet placed in a release."}
+          - {id: "q4", ask: "Does typing the account name run a token check per keystroke?", status: "answered", answer: "Gap: yes; the token query is keyed by the typed name, so each change runs security and op vault list. Not yet placed in a release."}
+          - {id: "q5", ask: "How does a new token state reach a client older than the daemon?", status: "answered", answer: "Fact: token.status returns tokenState, a closed enum; the timeline row keeps its cause a plain string (missingVariablesData) so an older client still draws it, and token states have no such allowance."}
+          - {id: "q6", ask: "Which identity does op use when the daemon environment also sets OP_CONNECT or OP_ACCOUNT variables?", status: "open"}
+          - {id: "q7", ask: "Does an op installed while Paseo runs take effect?", status: "answered", answer: "Fact: tools.ts picks op's path once when the daemon loads, else a bare op on the daemon's PATH, which may lack Homebrew; a later install can need a daemon restart."}
+          - {id: "q8", ask: "How is naming each token cause proven?", status: "answered", answer: "By Kent's own use, as release 1.5's goal says. Fact: the op fake answers vault list with no failure scenarios, the security fake models only a missing entry and a crash, and the screen has no test seam."}
+          - {id: "q9", ask: "How are two vaults with the same name told apart?", status: "answered", answer: "Gap: they are not; tokenStatus keeps only names and references are built from them. Not yet placed in a release."}
       - id: pick-vault
         card: "Choose the vault"
         release: r1
@@ -105,6 +119,12 @@ steps:
           - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1.5 puts each remove beside its field."}
           - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "The 16 reserved names in isReservedName; session open skips them since release 1. Gap: the Add button checks only the name pattern and duplicates; release 1.5 refuses a reserved name on Add, using isReservedName.", doc: "docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md"}
           - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "deferred", because: "Gap: the save is refused with no recovery path; release 1b shows the conflict and reloads without losing the draft. Only a second editor meets it; release 1 has one user."}
+          - {id: "q4", ask: "Does refusing a reserved name also cover Conductor import and variables saved before release 1.5?", status: "open"}
+          - {id: "q5", ask: "Should the reserved set grow to names that redirect or bill the agent, such as DYLD_*, LD_PRELOAD or ANTHROPIC_*?", status: "open"}
+          - {id: "q6", ask: "After a variable is removed, what value does the next agent get for that name?", status: "answered", answer: "Whatever the daemon passes: session open blanks only mapped names, so a same-named daemon value returns; open agents keep the value they had."}
+          - {id: "q7", ask: "Should the project's Remove, which saves at once without asking, change once each variable has its own Remove?", status: "open"}
+          - {id: "q8", ask: "What reference does a new variable get before a field is picked?", status: "answered", answer: "A guess, op://<vault>/<name>/credential, with VAULT when none is chosen; Test fails it as missing-field, or outside-vault with no vault, unless such an item exists."}
+          - {id: "q9", ask: "How are names that differ only in case, or duplicates in saved settings, handled?", status: "answered", answer: "Names are case-sensitive, like the environment. Add and import refuse exact duplicates only; the settings schema allows them, and then edits and Remove act on both and the later one wins at session open."}
       - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2, status: exists, evidence: importConductor}
 
   - id: standing-instructions
@@ -131,6 +151,13 @@ steps:
         evidence: testProject
         questions:
           - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: earlier results stay after the draft changes, and set does not say it only proves a value came back; release 1.5 clears results on edit and says set does not prove the service accepts the key."}
+          - {id: "q2", ask: "Does Test check the draft or the saved project, and does the screen say which?", status: "answered", answer: "The draft, as release 1.5's goal wants (testProject receives it); new agents use the saved project, and the screen does not say so."}
+          - {id: "q3", ask: "Can Test read set for a field too slow to reach an agent?", status: "answered", answer: "Yes: Test has no deadline (30 seconds per op call), while session open stops at HOOK_BUDGET_MS, 20 seconds, and blanks a late field."}
+          - {id: "q4", ask: "What load does one Test put on 1Password and on other projects?", status: "answered", answer: "Fact: Test clears the shared cache for every project, then starts one op call per variable, all at once; nothing bounds it."}
+          - {id: "q5", ask: "Does a value of only whitespace count as empty, and so failed, under new-agent-env/q7?", status: "open"}
+          - {id: "q6", ask: "How does Test show a reserved name, which the agent keeps its own value for?", status: "answered", answer: "As a failed variable with the reserved-name cause, as ADR 0004 rules; rowHint reads failed: reserved name.", doc: "docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md"}
+          - {id: "q7", ask: "What does Test show when one reference does not start with op://?", status: "answered", answer: "Gap: the input schema refuses the whole Test and the screen draws no Test error, so no result shows. Not yet placed in a release."}
+          - {id: "q8", ask: "May any client on the Paseo host store a token or test any reference, not only a saved project's?", status: "answered", answer: "Yes: any client Paseo authorizes on the host may store a token or run a test (ADR 0003); the calls take any account, vault and reference.", doc: "docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
