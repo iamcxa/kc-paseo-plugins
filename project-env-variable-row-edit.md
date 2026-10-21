@@ -205,3 +205,30 @@ Machine dependencies, declared: Paseo.app 0.12.0 CLI at `/Users/kent/.local/bin/
 ### Summary
 
 Each variable is one row built from `SettingsRow` (field and Remove at the right, last Test result under the name); Test moves into the variables card under the last row. Add refuses reserved, duplicate and malformed names under the field with the reason; Import skips reserved names; saved reserved variables stay and read "Not applied"; Stop managing replaces the project Remove and asks first. Two Needs decisions from the design review (both small, recommendations given): a row edited after Test keeps its result until T4 clears it, and whether to add one "checks the draft, saved or not" sentence to the Test row. Not done on purpose: ADR 0004 file edit and any repository code (ideation writes none). The spike daemon, throwaway plugin and `/tmp/variable-row-edit-spike-r15` are removed; `paseo plugin ls` on Kent's daemon still shows `paseo-project-env` running, unchanged. Known limit: the in-row field picker is new code (a host `Modal` list), the price of keeping Browse vault inside one row, and r1b may replace it.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: one row per variable with its field, Remove and last Test result; Add refusing reserved names (DYLD_* prefix and LD_PRELOAD added), duplicates and bad shapes with the reason; "Stop managing" with its confirmation; and the gate addition (no guessed reference, "No field picked" until one is chosen).
+  Commits feed4f5, 01ef122, 1e317ed on `spacedock-ensign/project-env-variable-row-edit` (`client/settings-screen.tsx`, `shared/config.ts`: `reservedReason`, `refusal`, `splitImported`, `newVariable`, `variableLine`); schema `ref` now accepts "" (no migration). Runtime probe of the branch code on an isolated Paseo 0.12.0 daemon (port 6813, throwaway plugin `row-edit-impl`, fake op/security/git): rows with Remove and Test results on rows, `DYLD_INSERT_LIBRARIES` refused with Add off, Add clears the name field and the new row reads "No field picked". Not exercised on branch code: Browse picker, per-row Remove, Stop managing dialog (the session browser was hijacked to another site after the API pause, so the probe stopped; those were drawn in the ideation spike). Daemon, plugin and `/tmp/variable-row-edit-impl` removed; Kent's `paseo-project-env` untouched and still running.
+- DONE: Land the ADR 0004 amendment as drafted.
+  `docs/adr/0004-...md`: Amendment paragraph under Decision, Consequences replaced as drafted; `adr_lint.py docs/adr --since 487b9b0`: 5 ADR files checked, exit 0.
+- DONE: Tests so AC-1 and AC-2 pass with the evidence their clauses name and fail when the behaviour is removed.
+  AC-2: `test/variable-name.test.ts` asserts each of the 16 ADR 0004 names plus LD_PRELOAD and DYLD_* returns a refusal with a reason, and allowed names return null; `test/session-open.test.ts` asserts DYLD_/LD_PRELOAD are reported reserved with no 1Password read, and an empty-ref variable is blanked with no read. Mutation runs each fail a test: drop `LD_PRELOAD`, drop the `DYLD_` prefix, drop PATH, make `ref` strict again, guess a ref in `newVariable`, drop the "No field picked" line. AC-1: row logic (`variableLine`) is unit-tested; JSX composition is not unit-provable, evidence is the runtime probe above plus Kent's screenshot.
+- DONE: Record the on-Mac screenshot as owed.
+  AC-1 clause stays owed: Kent's own use on his Mac with a screenshot attached to the PR (steps in PR #17 "Known limits").
+- DONE: Run `npm test`, `npm run typecheck`.
+  `npm test`: 109 tests pass, 0 fail (at feed4f5; later commits touch only `client/settings-screen.tsx`); `npm run typecheck` clean at 1e317ed. One earlier run under load failed a 4 s-deadline test in session-open.test.ts (timing flake; base and later runs pass).
+- DONE: Run the roborev gate.
+  Run 1 `roborev:969` finding (import race), run 2 `roborev:970` finding (Stop managing error hidden behind dialog), both fixed in scope; run 3 `clean on 1e317edc8; evidence=roborev:971`.
+- DONE: Run `design_surfaces.py check <task file>`.
+  `design surfaces presentable`, exit 0.
+- DONE: Run `doc_impact.py <base> <candidate>`.
+  Lists `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md`: updated (amendment, same candidate). Exit 0.
+- DONE: Run `comment_ratio.py`.
+  `code lines 377, comment lines 3, 0.8%`, maximum 5% met, exit 0.
+- DONE: Open the Draft PR.
+  https://github.com/iamcxa/kc-paseo-plugins/pull/17 (Draft, title `feat(project-env): one row per variable, Add refuses reserved names`).
+
+### Summary
+
+The variables card is one row per variable with field, Remove and the Test result, Add and Import refuse or skip reserved names (DYLD_* and LD_PRELOAD added, ADR 0004 amended), and Stop managing asks first. New and imported variables have no guessed reference: the schema accepts an empty `ref`, the row reads "No field picked", and at session open such a variable is blanked and reported failed like any unresolved one. Limits: AC-1 screenshot owed from Kent's Mac; Save stays enabled with an empty field (a decision for Kent if he wants it blocked); design finding 2's "checks the draft, saved or not" sentence was not added (it was a Needs decision, not in the gate additions; T4 owns the wording).
