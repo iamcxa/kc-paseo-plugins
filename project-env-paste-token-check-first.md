@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-paste-token-check-first:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-paste-token-check-first-ideation-1
+              briefing:
+                id: briefing:project-env-paste-token-check-first:ideation:attempt-1:revision-1
+                digest: sha256:a0132a01d30783636a7714d771a66886a7a1683c72cb51ab662fb41d1a1fb6ca
+                room-ref: ./project-env-paste-token-check-first/review/ideation/briefing-1
 started: 2026-10-21T08:41:52Z
 ---
 
