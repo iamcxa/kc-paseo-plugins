@@ -344,3 +344,57 @@ Recommend PASSED: AC-1 to AC-3 hold at c504e5c with falsifying mutations for eve
 ### Summary
 
 Merged main into PR #15, new head e9661f0ddf5adb06a28cc6afa0d714b9e554c950. Tests and typecheck pass; one roborev Medium finding is left for FO to disposition.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Independently check the reconciled candidate e9661f0ddf5adb06a28cc6afa0d714b9e554c950 (PR iamcxa/kc-paseo-plugins#15, a merge of main 15b1e3f into c504e5c) against AC-1 to AC-3, the approved design and the merged #16/#17 behaviour, including the conflict resolutions in server/secrets.ts, test/fakes/op.mjs and client/settings-screen.tsx, and that each decisive test still fails when its behaviour is removed; give a verdict.
+  Verdict: PASSED (recommended). Head of PR #15 is e9661f0 (open, not draft, mergeable; only check GitGuardian green). AC-3: `git grep "ADR 0027" project-env` and `git grep OP_CONNECT project-env` both print nothing (exit 1). `git diff 15b1e3f e9661f0` is 10 files, 264 insertions, 34 deletions, all inside this task's design; the three conflict files show no hunk from #16/#17 removed: `secrets.ts` adds `lookupToken`/`checkToken` and keeps `readToken` for `listRefs` and session open, `op.mjs` keeps main's `item list`/`item get` beside `vaultListFail`/`vaultListDelayMs`, `settings-screen.tsx` swaps `token.data` for the `checked`-keyed `current` and keeps main's variable rows. `npm run typecheck` exit 0.
+  `npm test`: 139 tests; 5 full runs at load about 11 to 15 passed 139 of 139, 2 earlier runs at load 15 to 30 each failed one test (I did not capture its name; the dispatch names the session-open deadline test, which passes alone 15 of 15, and it failed once in a mutation run). Mutations on a throwaway copy of e9661f0 (deleted; worktree untouched), each failed the named test: exit 128 not locked -> "Keychain refuses with exit 128 is locked"; `DecodeSACredentials` dropped -> "op cannot decode the token is rejected"; empty-token guard dropped -> "checks a token that is in no Keychain"; ENOENT rule dropped -> "op is not installed is op-missing"; unreachable rule dropped -> "the network is down is unreachable"; killed lookup not locked -> "a locked Keychain or a killed lookup is locked"; keychain failure always missing -> three Keychain rows; `pickVault` ignoring a chosen vault or firing with two vaults -> "chooses the only readable vault when none is chosen, and nothing else"; two labels equal -> "gives each of the eight states its own label"; `readToken` always null -> 35 failures including the #16 Browse vault and #17 tests, so the merged behaviour is exercised.
+- DONE: Assess roborev:977 (a saved vault id instead of a name disables Browse vault) against the r1 vault-boundary design, which matches the saved vault string exactly and deferred id-based vault identity as a limit the Captain accepted; classify it with the four evidence fields.
+  Classification: Deferred risk. (1) Released user and workflow: Kent, the only user, opening a project whose saved vault is an id; the vault-boundary task measured his saved vault as name-shaped on 2026-10-20 (not re-measured; I read no settings). (2) Harm: with a token that checks `ok`, `settings-screen.tsx` shows the error line "This token cannot read that vault" and disables Browse vault, because `vaults.includes(draft.vault)` compares an id to names; on main 15b1e3f Browse vault needed only `ok` and a non-empty vault. (3) Value or boundary: none established; the vault boundary itself (`isOutsideVault`, exact string match, id form allowed) is unchanged and its tests pass, and the design (q2, accepted at the 2026-10-21 ideation gate) already disables Browse vault for a chosen vault the token's name list lacks. (4) Trigger: no saved id is known; once the check is `ok` the Vault field is a menu of names, so an id can no longer be typed there, only an earlier saved one persists. Becomes Material if a supported configuration holds a saved id and the person needs Browse vault. Not a repair; the wire shape and an id-based identity stay deferred.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell (including the token-row text), run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code, and record every unverified obligation.
+  `adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. Also at e9661f0: comment_ratio 15b1e3f..e9661f0 "code lines 248, comment lines 1, 0.4%" exit 0 (487b9b0..e9661f0: 842 and 6, 0.7%); number_guards PASS exit 0; dispatch_records "7 dispatch record(s) complete" exit 0; design_surfaces "design surfaces presentable"; doc_impact lists ADR 0004 (changed by #17, not this task) and the journey map, both recorded `unaffected` in the implementation report. Script and obligations below.
+
+### Findings
+
+- Deferred risk: roborev:977, as classified above.
+- Deferred risk: the session-open deadline test fails under machine load (about 2 of 7 full runs at load 15 to 30, 0 of 5 at load about 12); passes alone. Material only if it fails on a quiet machine or in CI.
+- Polish: `vaultListDelayMs` (fake op, untyped in `test/world.ts`) and `hang` (fake security) are used by no committed test; unchanged since the first validation; removal is Captain's or FO's call.
+- Residual in the PR body: with `OP_CONNECT_*` set in the daemon a good token reads as the unrecognised state, never another cause.
+
+### Unverified obligations
+
+- AC-2 on Kent's Mac (vault chosen and listed after Check; no check while typing) is owed to him. The screen wiring (Check, the pick effect, `staleTime`/`gcTime`/`refetchOnWindowFocus`) has no automated test (journey token-works/q8).
+- No screenshot of the screen at e9661f0 was taken by me. The 17 ideation pictures are of the prototype; since then #16/#17 changed the same screen, so only typecheck, a code diff and FO's isolated-Paseo integration test (per the gate record, not seen by me) cover the merged screen.
+- Screen-only texts ("Not checked for <name> yet", "Checking token…", "No service account named yet", "Choose…", "(this token cannot read it)", the Vault error line, disabled Browse vault) are unseen at the candidate by me.
+- `op` wording for unreachable and a revoked 401 is unobserved; locked Keychain: exit 36 derived, killed lookup assumed, real password read on a locked Keychain not run; a macOS dialog may appear.
+- Whether Kent's daemon sets `OP_CONNECT_*`; Kent's saved vault form (name or id) not re-read; `token.status` consumers outside this repo; CI beyond GitGuardian.
+- No `op`, `security` or secret command was run, and Kent's live plugin and the main checkout's branch were not touched.
+
+### Acceptance script (about 3 minutes; no secret, no network, no daemon)
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause && git rev-parse HEAD && git grep "ADR 0027" project-env; echo "adr-grep-exit=$?"; git grep OP_CONNECT project-env; echo "connect-grep-exit=$?"` expects `e9661f0ddf5adb06a28cc6afa0d714b9e554c950`, then `adr-grep-exit=1` and `connect-grep-exit=1` with nothing printed between (AC-3; OP_CONNECT as on main).
+2. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause/project-env && npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"` expects `ℹ tests 139`, `ℹ pass 139`, `ℹ fail 0` (AC-1 cause rows, label distinctness, `pickVault`, row text, plus the merged #16/#17 tests). Under heavy machine load the one test "blanks a variable 1Password does not answer in time" can fail; rerun `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/session-open.test.ts` and expect `ℹ fail 0`.
+3. Same directory: `npm run typecheck; echo "typecheck-exit=$?"` expects `typecheck-exit=0`.
+4. Same directory, the token-row text the ui surface owes:
+   `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e 'import { tokenRowText, pickVault } from "./shared/token.ts"; for (const state of ["missing","locked","op-missing","unreachable","rejected","truncated","unexpected"]) { const t = tokenRowText({ state, vaults: [] }); console.log(state + " | " + t.label + " | " + t.hint); } for (const vaults of [["Dev"],["Dev","Prod"],[]]) { const t = tokenRowText({ state: "ok", vaults }); console.log("ok " + JSON.stringify(vaults) + " | " + t.label + " | " + t.hint); } console.log("pick", JSON.stringify([pickVault("",["Dev"]), pickVault("Prod",["Dev"]), pickVault("",["Dev","Prod"])]));'`
+   expects exactly these eleven lines:
+   `missing | No token in Keychain | Paste it below and save it.`
+   `locked | Keychain is locked | Unlock the login Keychain on this Mac (a macOS prompt may appear), then check again.`
+   `op-missing | 1Password CLI (op) not found | Install it, restart Paseo, then check again.`
+   `unreachable | Could not reach 1Password | Check the network, then check again.`
+   `rejected | 1Password rejected the token | Copy a fresh token from 1Password.`
+   `truncated | Token is exactly 128 characters, likely truncated | Copy it again from 1Password.`
+   `unexpected | The token check failed for a reason the plugin does not recognise | Check again.`
+   `ok ["Dev"] | Token works | Can read 1 vault: Dev`
+   `ok ["Dev","Prod"] | Token works | Can read 2 vaults: Dev, Prod`
+   `ok [] | Token works, but it can read no vault | In 1Password, give the service account access to one, then check again.`
+   `pick ["Dev","Prod",""]`
+5. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-token-works-cause && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr-lint-exit=$?"` expects `5 ADR file(s) checked, 0 legacy` and `adr-lint-exit=0`.
+6. Kent's own use (FO cannot run: needs his Mac, Paseo and a real token; mark not run): load the candidate plugin in his own Paseo, open a project whose service-account token reads exactly one vault with no vault chosen, press Check, and see "Token works" / "Can read 1 vault: <name>" with the Vault field already set to it; typing in the account field runs no check and the row reads "Not checked for <name> yet" until Check is pressed.
+
+Does not cover: the screen at e9661f0 (steps 1 to 5 test logic and text; step 6 is the screen), real `op` or `security` failures, a saved vault id on the real client, OP_CONNECT behaviour, CI.
+
+### Summary
+
+Recommend PASSED: at e9661f0 AC-1 to AC-3 hold, the merge kept #16/#17 behaviour (139 tests, typecheck 0, package checks 0 including adr_lint), and every decisive test fails under its mutation. roborev:977 is a Deferred risk (no known saved vault id; design already name-based). Owed: AC-2 on Kent's Mac and a screenshot of the merged screen, which I did not take.
