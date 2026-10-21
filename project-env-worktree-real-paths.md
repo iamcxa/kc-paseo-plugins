@@ -101,6 +101,7 @@ Surfaces: none
 Visible change: none
 Direction alignment with the Captain: not needed — the outcome follows rulings already recorded (docs/adr/0001, docs/adr/0002, and the Captain's 2026-10-20 rulings in the journey map); release r1 was marked changed by signal 2 (the Captain narrowed r1 on 2026-10-20: 「可以改成兩段，不用第一時間給隊友，要先我用到覺得可以」, 「就五個，剩下做 r1.5」). kc-journey-map review-release ran on r1 at 60799d9; after the rulings, a fresh audit, the map split and an interrogation of the changed stories, this task split was re-derived from the map at 760bfaa (branch docs/project-env-r1-split, PR #6).
 Release review: paseo-project-env/r1 at 760bfaa
+Map footprints: not needed: no ruling on this task answered an open map question; worktree-env/q1 already carries its gap.
 
 ## PRFAQ
 
