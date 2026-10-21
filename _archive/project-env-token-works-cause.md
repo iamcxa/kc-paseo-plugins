@@ -1,7 +1,7 @@
 ---
 id:
 title: The token row names why a token fails and picks the only readable vault
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -87,8 +87,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「准合併」 — asked whether to merge PR iamcxa/kc-paseo-plugins#15 at head 5ee39c3d5fb093536df1815edbedd51a22a5c6c9 without waiting for Codex round 2 (running since 12:38 UTC, no verdict by 13:37 UTC), FO recommending merge; approves squash merge of that head and removing its clean pushed worktree. codex not run: round 2 on 5ee39c3 gave no verdict; round 1 finding (review:5599400357) fixed in this head.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-21T08:41:45Z
+verdict: PASSED
+completed: 2026-10-21T14:59:44Z
+archived: 2026-10-21T14:59:44Z
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today a locked Keychain reads as no token, and a missing op, an outage and a rejection all read as invalid; a token that reads exactly one vault still leaves the vault unchosen.
