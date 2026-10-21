@@ -220,4 +220,30 @@ describe("session open", () => {
     ]);
     assert.equal(reads(world).length, 1);
   });
+
+  it("does not call op for a DYLD_ or LD_PRELOAD name, and reports it reserved", async () => {
+    const { world, secrets } = setup({
+      keychain: { "sa-a": "a" },
+      op: { accounts: { a: { refs: { "op://V/i/x": "/evil.dylib" } } } },
+    });
+    const opened = await openSession(
+      secrets,
+      project([["DYLD_INSERT_LIBRARIES", "op://V/i/x"], ["LD_PRELOAD", "op://V/i/x"]]),
+      request,
+    );
+    assert.deepEqual(opened.request.env, { KEEP: "request" });
+    assert.deepEqual(opened.results.map((r) => r.cause), ["reserved-name", "reserved-name"]);
+    assert.equal(reads(world).length, 0);
+  });
+
+  it("blanks a variable whose field was never picked without asking op for it", async () => {
+    const { world, secrets } = setup({
+      keychain: { "sa-a": "a" },
+      op: { accounts: { a: { refs: {} } } },
+    });
+    const opened = await openSession(secrets, project([["LINEAR_API_KEY", ""]]), request);
+    assert.equal(opened.request.env.LINEAR_API_KEY, "");
+    assert.equal(opened.results[0].ok, false);
+    assert.equal(reads(world).length, 0);
+  });
 });
