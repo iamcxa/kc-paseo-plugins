@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-notice-missing-variable
-pr: iamcxa/kc-paseo-plugins#11
+pr: pr-merge:11
 journey: paseo-project-env
 journey-release: r1
 journey-story: notice-missing-variable
