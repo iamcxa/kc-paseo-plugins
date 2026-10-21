@@ -1,0 +1,12 @@
+{
+  "class": "other",
+  "head": "a30ad6357ae0fb3f2d02f5e990c0d9a28dea7022",
+  "model": "not run",
+  "necessity": "Kent, release r1's only user; without it any op:// reference, including one typed by hand or imported, is read from whatever vault the service account can see, against ADR 0001.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [],
+  "pr": "iamcxa/kc-paseo-plugins#10",
+  "sufficiency": "AC-1 and AC-2 are met by fake-op tests showing op is never called for an outside reference, failing when the check is removed or loosened (validation report, candidate a30ad63); no live-daemon run.",
+  "time": "2026-10-21T00:33:19Z",
+  "verdict": "merge"
+}
