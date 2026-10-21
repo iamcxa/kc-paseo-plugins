@@ -1,7 +1,7 @@
 ---
 id:
 title: A project registered at a worktree path gives its agents their variables
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -66,8 +66,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「Dev2檢驗都過了嗎？ 如果說就批准合併」 — conditional approval; FO confirmed for this PR: validation PASSED, FO acceptance rerun matched, roborev clean, Codex clean on the head, real-tool integration test passed — approves delivery of PR iamcxa/kc-paseo-plugins#19 at head 09bc5c98488f75d77e14c9bf73bd532457dd490e by squash, including removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-21T09:42:39Z
+verdict: PASSED
+completed: 2026-10-21T12:14:05Z
+archived: 2026-10-21T12:14:05Z
 ---
 
 Kent found on 2026-10-21 that agents in /Users/kent/conductor/repos/qnow-adopt-dev2 start with none of the project's variables (reported missing, not empty, and no timeline line), while Test reads them. That directory is a linked worktree of /Users/kent/conductor/repos/qnow and is itself the project's saved root. `projectForCwd` in project-env/server/secrets.ts maps every working directory to its main checkout (`mainCheckout`) and compares only that with the saved roots, so a project saved at a worktree path never matches. Captain, 2026-10-21: 「也准加入」 — added to the release r1.5 batch.
