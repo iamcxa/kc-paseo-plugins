@@ -1,7 +1,7 @@
 ---
 id:
 title: Each variable is one row with its field, Remove and last Test result
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -52,7 +52,7 @@ gates:
                 reason: 'Captain 2026-10-21: 「准五個設計」 — accepts this ideation design and its acceptance criteria into implementation, with the additions presented at this gate: no guessed reference in project-env-variable-row-edit (a new variable has no reference until a field is picked), AC-4 and the rewritten AC-3 in project-env-paste-token-check-first, the empty-value wording ''the 1Password field is empty'' in project-env-test-results-match-draft; FO''s recommendations also presented: removing the OP_CONNECT names in project-env-token-works-cause is left out and listed for the Captain, and naming a locked Keychain on the Test row is a follow-up after project-env-test-results-match-draft.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-21T08:41:59Z
 ---
 
