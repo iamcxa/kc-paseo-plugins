@@ -23,6 +23,17 @@ gates:
                 id: briefing:project-env-variable-row-edit:backlog:attempt-1:revision-1
                 digest: sha256:0206a1bba6667ba86102e83a22ccdfb37f9636fb30efa5d6976585321881b1b8
                 room-ref: ./project-env-variable-row-edit/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-variable-row-edit:backlog:1
+                briefing: briefing:project-env-variable-row-edit:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T08:40:40.237397Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「准」 — accepts this release r1.5 task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today all Remove buttons sit after all fields, Add accepts reserved names, and the name input is not cleared after Add.
