@@ -1,5 +1,11 @@
 import type { TokenState } from "./config.ts";
 
+export interface TokenStatus {
+  state: TokenState;
+  vaults: string[];
+  vaultIds: string[];
+}
+
 export interface TokenRowText {
   label: string;
   hint?: string;
@@ -30,7 +36,7 @@ const FAILURE_TEXT: Record<Exclude<TokenState, "ok">, TokenRowText> = {
   },
 };
 
-export function tokenRowText(status: { state: TokenState; vaults: string[] }): TokenRowText {
+export function tokenRowText(status: Pick<TokenStatus, "state" | "vaults">): TokenRowText {
   if (status.state !== "ok") return FAILURE_TEXT[status.state];
   const { vaults } = status;
   if (vaults.length === 0) {
@@ -47,4 +53,18 @@ export function tokenRowText(status: { state: TokenState; vaults: string[] }): T
 
 export function pickVault(chosen: string, vaults: string[]): string {
   return chosen === "" && vaults.length === 1 ? vaults[0] : chosen;
+}
+
+export function canReadVault(status: Pick<TokenStatus, "vaults" | "vaultIds">, saved: string): boolean {
+  return status.vaults.includes(saved) || status.vaultIds.includes(saved);
+}
+
+export function vaultChoices(
+  status: Pick<TokenStatus, "vaults" | "vaultIds">,
+  saved: string,
+): { label: string; value: string }[] {
+  return status.vaults.map((name, i) => ({
+    label: name,
+    value: status.vaultIds[i] === saved ? saved : name,
+  }));
 }

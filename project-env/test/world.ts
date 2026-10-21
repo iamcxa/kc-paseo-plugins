@@ -15,7 +15,7 @@ export interface Scenario {
   op?: {
     accounts?: Record<
       string,
-      { refs?: Record<string, string>; vaults?: string[]; items?: FakeItem[] }
+      { refs?: Record<string, string>; vaults?: (string | { id: string; name: string })[]; items?: FakeItem[] }
     >;
     raw?: Record<string, string>;
     delayMs?: Record<string, number>;

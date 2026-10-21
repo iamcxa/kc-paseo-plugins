@@ -33,7 +33,7 @@ import {
   tokenStatus,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
-import { pickVault, tokenRowText } from "../shared/token";
+import { canReadVault, pickVault, tokenRowText, vaultChoices } from "../shared/token";
 
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
@@ -253,6 +253,8 @@ function ProjectEditor({
   const nameRefusal = refusal(newName, draft.variables.map((v) => v.name));
   const current = account === checked && !token.isFetching ? token.data : undefined;
   const vaults = current?.vaults ?? [];
+  const vaultIds = current?.vaultIds ?? [];
+  const vaultReadable = canReadVault({ vaults, vaultIds }, draft.vault);
   useEffect(() => {
     const vault = pickVault(draft.vault, vaults);
     if (vault !== draft.vault) patch({ vault });
@@ -267,10 +269,10 @@ function ProjectEditor({
   const vaultOptions = current?.state === "ok"
     ? [
         ...(draft.vault === "" ? [{ label: "Choose…", value: "" }] : []),
-        ...(draft.vault && !vaults.includes(draft.vault)
+        ...(draft.vault && !vaultReadable
           ? [{ label: `${draft.vault} (this token cannot read it)`, value: draft.vault }]
           : []),
-        ...vaults.map((v) => ({ label: v, value: v })),
+        ...vaultChoices({ vaults, vaultIds }, draft.vault),
       ]
     : [];
   const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
@@ -315,7 +317,7 @@ function ProjectEditor({
               value={draft.vault}
               options={vaultOptions}
               error={
-                draft.vault && !vaults.includes(draft.vault)
+                draft.vault && !vaultReadable
                   ? "This token cannot read that vault. Choose one it can read."
                   : undefined
               }
@@ -411,7 +413,7 @@ function ProjectEditor({
             label="Pick fields from the vault"
             hint="Lists item and field names only; values are never sent to the app."
             actionLabel={refs.isPending ? "Loading…" : "Browse vault"}
-            disabled={current?.state !== "ok" || !vaults.includes(draft.vault) || refs.isPending}
+            disabled={current?.state !== "ok" || !vaultReadable || refs.isPending}
             onPress={() => refs.mutate()}
             error={refs.error ? (refs.error as Error).message : undefined}
           />

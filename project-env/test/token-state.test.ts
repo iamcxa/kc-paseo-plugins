@@ -3,7 +3,7 @@ import { afterEach, describe, it } from "node:test";
 import { classifyKeychainFailure, classifyTokenCheckFailure } from "../server/cause.ts";
 import { createSecrets } from "../server/secrets.ts";
 import type { TokenState } from "../shared/config.ts";
-import { pickVault, tokenRowText } from "../shared/token.ts";
+import { canReadVault, pickVault, tokenRowText, vaultChoices } from "../shared/token.ts";
 import { makeWorld, type Scenario } from "./world.ts";
 
 const cleanups: (() => void)[] = [];
@@ -79,12 +79,46 @@ describe("pickVault", () => {
   });
 });
 
+describe("a saved vault may be a name or an id", () => {
+  const readable = { vaults: ["Dev", "Prod"], vaultIds: ["abc123", "def456"] };
+  it("the token check keeps the id and the name of each readable vault", async () => {
+    const result = await status(
+      withKeychain({ op: { accounts: { x: { vaults: [{ id: "abc123", name: "Dev" }, { id: "def456", name: "Prod" }] } } } }),
+    );
+    assert.deepEqual([result.vaults, result.vaultIds], [readable.vaults, readable.vaultIds]);
+  });
+  it("accepts a saved id and a saved name of a readable vault, and nothing else", () => {
+    assert.equal(canReadVault(readable, "def456"), true);
+    assert.equal(canReadVault(readable, "Prod"), true);
+    assert.equal(canReadVault(readable, "ghi789"), false);
+    assert.equal(canReadVault(readable, "prod"), false);
+    assert.equal(canReadVault(readable, ""), false);
+  });
+  it("lists readable vaults by name, and keeps a saved id as the value of its own entry", () => {
+    assert.deepEqual(vaultChoices(readable, "def456"), [
+      { label: "Dev", value: "Dev" },
+      { label: "Prod", value: "def456" },
+    ]);
+    assert.deepEqual(vaultChoices(readable, "Prod"), [
+      { label: "Dev", value: "Dev" },
+      { label: "Prod", value: "Prod" },
+    ]);
+  });
+  it("does not replace a saved id with the only readable vault's name", () => {
+    assert.equal(pickVault("abc123", ["Dev"]), "abc123");
+  });
+});
+
 describe("checkToken takes the token itself", () => {
   it("checks a token that is in no Keychain", async () => {
     const world = makeWorld({ op: { accounts } });
     cleanups.push(world.cleanup);
     const secrets = createSecrets(world.tools);
-    assert.deepEqual(await secrets.checkToken("ops_fake_x"), { state: "ok", vaults: ["Dev", "Prod"] });
+    assert.deepEqual(await secrets.checkToken("ops_fake_x"), {
+      state: "ok",
+      vaults: ["Dev", "Prod"],
+      vaultIds: ["vid-Dev", "vid-Prod"],
+    });
     assert.equal((await secrets.checkToken("ops_fake_nobody")).state, "rejected");
     assert.equal(world.calls().some((c) => c.tool === "security"), false);
     const before = world.calls().length;

@@ -3,6 +3,7 @@ import { realpath } from "node:fs/promises";
 import { basename, dirname } from "node:path";
 import { causeText, unreadableItemText, type Cause } from "../shared/cause.ts";
 import { isReservedName, type Project, type TokenState } from "../shared/config.ts";
+import type { TokenStatus } from "../shared/token.ts";
 import {
   classifyKeychainFailure,
   classifyOpFailure,
@@ -130,26 +131,27 @@ export function createSecrets(tools: Tools) {
 
   async function tokenStatus(
     serviceAccount: string,
-  ): Promise<{ state: TokenState; vaults: string[] }> {
+  ): Promise<TokenStatus> {
     const found = await lookupToken(serviceAccount);
-    if ("failure" in found) return { state: found.failure, vaults: [] };
+    if ("failure" in found) return { state: found.failure, vaults: [], vaultIds: [] };
     return checkToken(found.token);
   }
 
-  async function checkToken(token: string): Promise<{ state: TokenState; vaults: string[] }> {
-    if (token.trim() === "") return { state: "rejected", vaults: [] };
+  async function checkToken(token: string): Promise<TokenStatus> {
+    if (token.trim() === "") return { state: "rejected", vaults: [], vaultIds: [] };
     // An interactive Keychain prompt has been seen cutting a token to exactly 128 characters.
-    if (token.length === 128) return { state: "truncated", vaults: [] };
+    if (token.length === 128) return { state: "truncated", vaults: [], vaultIds: [] };
     try {
       const out = await run(tools.op, ["vault", "list", "--format", "json"], {
         env: opEnv(token),
       });
-      const vaults = (JSON.parse(out) as { name: string }[]).map((v) => v.name);
-      return { state: "ok", vaults };
+      const listed = JSON.parse(out) as { id: string; name: string }[];
+      return { state: "ok", vaults: listed.map((v) => v.name), vaultIds: listed.map((v) => v.id) };
     } catch (error) {
       return {
         state: classifyTokenCheckFailure(error instanceof RunFailure ? error.exit : {}),
         vaults: [],
+        vaultIds: [],
       };
     }
   }
