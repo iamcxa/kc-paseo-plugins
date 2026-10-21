@@ -217,3 +217,45 @@ Test results now belong to the draft they were run on, the Test hint explains "s
 ### Limits
 - Mermaid diagrams not rendered; no retained document was affected. The isolated daemon, plugin id `pe-t4-impl`, browser session and `/tmp/pe-t4-impl` are removed; Kent's live `paseo-project-env` install shows running before and after. Machine dependencies for the isolated run: Paseo.app 0.12.0 CLI and its `app-dist` web client, `agent-browser`, Node; scripts hardcode `/tmp/pe-t4-impl` and a server id read from the daemon.
 - One slip, repaired: a stray `git checkout` detached the worktree HEAD for a moment; the branch and candidate commit were untouched and re-attached.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 5a073fcc162d77955de8b486f57bd94fe1b213e4 (PR iamcxa/kc-paseo-plugins#20, base main 15b1e3f) against AC-1 to AC-3, the approved design and its declared deviations (edit counter instead of draft identity so prompt edits keep results; ADR 0002 amendment inside Decision), including that each decisive test fails when its behaviour is removed and that the ADR 0002 amendment quotes the Captain's 「算失敗」 and 「可以」 without adding to them; give a verdict.
+  Verdict: PASSED (recommended), with AC-1 on Kent's Mac and the PR screenshot owed. Worktree HEAD is 5a073fc, clean; PR #20 is an open Draft at that head, mergeable, only GitGuardian green. Diff 15b1e3f..5a073fc is 6 files, 45 insertions, 13 deletions, each hunk maps to an AC or the declared ADR change. `npm test` 122 of 122 (this run, quiet enough that the deadline test passed), `npm run typecheck` exit 0.
+  AC-3 mutations on a throwaway copy (deleted, worktree untouched): `.trim()` removed from the empty check fails "a whitespace-only value is a failed variable, blanked and not cached"; returned value trimmed fails "a value with whitespace around text is delivered as read"; old cause words fail that test and "is empty before a Test, set or failed after it". `rowHint` for cause `empty` prints "failed: the 1Password field is empty".
+  AC-1 (read, not rerun): code read at `settings-screen.tsx`: every draft change goes through `patch` (account, vault, reference via `setRef`, add, remove) or the import `onSuccess`, each bumping `edits`; results show only when `test.variables.edits === edits`, so a late result and an edit-back both stay hidden; the prompt uses `setDraft` and keeps them, as the FAQ says. The implementer's isolated-daemon transcripts `implementation/ac1.out` (all five edits and the in-flight edit take set=2 failed=2 to 0; prompt keeps 2 and 2; control 2 and 2) and `ac1-falsifier.out` (comparison removed: every clearing step stays 2 and 2) show the behaviour and its falsifier; I did not rerun the daemon.
+  AC-2: I viewed `implementation/ac2-desktop-before-test.png` and `ac2-compact-before-test.png` (400 px): the sentence is on the Test row before any Test; `desktop-after-test.png` shows "set" and two "failed: the 1Password field is empty" rows. These are the implementer's screenshots at the candidate; the PR itself carries no image.
+  ADR 0002 amendment: sits inside Decision after `**Recommended:** not recorded`; it quotes 「算失敗」 (journey new-agent-env/q7, Captain 2026-10-20) and 「可以」 (journey test-each-variable/q5, Captain 2026-10-21) verbatim, both checked against `docs/journey/project-env/give-agents-their-project-setup.yaml`. The body ("empty, or only whitespace, is a failed variable: blanked and shown at session open as this decision rules, and reported as failed by Test") restates q7's "blanked and shown like ADR 0002's other causes" and q5's whitespace-counts-as-failed; it was part of the amendment presented at the ideation gate the Captain approved (「准五個設計」). The `Recommended:` line is lint scaffolding, not his words.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, including the hint sentence and the empty-value row text the ui surface owes, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  `adr_lint.py docs/adr --since 60799d9` from the task worktree: "5 ADR file(s) checked, 0 legacy", exit 0 (also exit 0 with `--since 15b1e3f`). Also at the candidate: `comment_ratio.py 15b1e3f 5a073fc` "code lines 39, comment lines 0, 0.0%" exit 0; `doc_impact.py 15b1e3f 5a073fc` "0 document(s) mention what changed" exit 0; `design_surfaces.py check` "design surfaces presentable" exit 0; `dispatch_records.py` "3 dispatch record(s) complete" exit 0; no `## Number guards`, no db surface. Script below.
+- DONE: Record every unverified obligation, including Kent's own use and the PR screenshot, without touching the live paseo-project-env install.
+  Listed under Unverified obligations; I ran no `op`, `security` or daemon command, read no secret, and touched neither Kent's live plugin nor the main checkout's branch.
+
+### Findings
+
+- Polish: the client wiring of AC-1 (`edits` counter and comparison in `ProjectEditor`) has no automated test; its only falsifier is the daemon transcript pair. Material only if a later change adds an edit path that calls `setDraft` directly (the prompt already does, by design).
+- Deferred risk: the session-open deadline test fails under heavy load and passes alone; it passed in my full run.
+- Not a finding: the amendment sits inside Decision rather than a new `## Amendment` section; `adr_lint.py` rejects the latter (implementer's record, consistent with ADR 0004's amendment).
+
+### Unverified obligations
+
+- AC-1 on Kent's real project on his Mac (the five edits and the in-flight edit): owed to him; FO cannot run it.
+- The PR carries no screenshot for AC-2: the images are in the state checkout, not the repository, and I did not attach any. Owed before the PR leaves Draft, if the Captain wants it there.
+- I did not rerun the isolated daemon for AC-1 or retake any screenshot; the transcripts and pictures are the implementer's, read at the same candidate.
+- Light theme and the "Testing…" state at the candidate are unseen (only the ideation previews show them); real `op` returning whitespace is unobserved.
+- CI beyond GitGuardian.
+
+### Acceptance script (about 3 minutes; no secret, no network, no daemon)
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-test-results-match-draft && git rev-parse HEAD` expects `5a073fcc162d77955de8b486f57bd94fe1b213e4`.
+2. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-test-results-match-draft/project-env && npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"` expects `ℹ tests 122`, `ℹ pass 122`, `ℹ fail 0` (AC-3: whitespace-only is failed and not cached, `" x "` delivered as read). Under heavy load "blanks a variable 1Password does not answer in time" can fail; rerun `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/session-open.test.ts` and expect `ℹ fail 0`.
+3. Same directory: `npm run typecheck; echo "typecheck-exit=$?"` expects `typecheck-exit=0`.
+4. Same directory, the texts the ui surface owes: `grep -c 'Set means a value came back from 1Password; it does not prove the service accepts that key\.' client/settings-screen.tsx` expects `1`; then `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e 'import { rowHint } from "./shared/cause.ts"; console.log(rowHint({ name: "X", ok: false, cause: "empty" }))'` expects exactly `failed: the 1Password field is empty`.
+5. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-test-results-match-draft && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr-lint-exit=$?"` expects `5 ADR file(s) checked, 0 legacy` and `adr-lint-exit=0`.
+6. Kent's own use (FO cannot run: needs his Mac, Paseo and a real project; mark not run): load the candidate plugin in his own Paseo, open a project with a mix of set and failed variables, press Test, then change the account, the vault, one reference, add a variable and remove a variable, pressing Test before each; after each change no row shows a result; the Test row reads "Set means a value came back from 1Password; it does not prove the service accepts that key." before any Test; a whitespace-only field reads "failed: the 1Password field is empty"; then press Test and edit a reference before it finishes and see no result appear.
+
+Does not cover: the screen at 5a073fc in a running Paseo (steps 1 to 5 test logic and text; step 6 is the screen, and AC-1's client wiring has only the implementer's transcripts), real `op` or `security`, light theme, CI.
+
+### Summary
+
+Recommend PASSED: AC-3 passes in `npm test` and fails under each of three mutations; AC-1 and AC-2 hold by code read plus the implementer's runtime transcripts and screenshots at the same candidate, which I read but did not rerun; the ADR 0002 amendment quotes both Captain rulings verbatim and the ADR lint exits 0. Owed: Kent's own use for AC-1 and a PR-attached screenshot for AC-2.
