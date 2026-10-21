@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-token-works-cause:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-token-works-cause-ideation-1
+              briefing:
+                id: briefing:project-env-token-works-cause:ideation:attempt-1:revision-1
+                digest: sha256:21814375a339d28f28986252a02acd06aea049d3d217db9c71c35da0d9eb1c80
+                room-ref: ./project-env-token-works-cause/review/ideation/briefing-1
 started: 2026-10-21T08:41:45Z
 ---
 
