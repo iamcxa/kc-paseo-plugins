@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-browse-vault-survives:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#16 at head a422acd?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-browse-vault-survives:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/3905e90edb53a9504d3e9b73db9b72c8b94d77be/project-env-browse-vault-survives.md",
+      "rev": "sha256:19265fd97cd27711836e857d0ce579055ececc87bc6ffa45629864ee88c6a54c",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED for candidate a422acd; FO reran the acceptance script (the load-sensitive session-open deadline test failed once alone at load ~52 and passed alone on rerun). op item list carries category (FO read on Kent's vault with his op sign-in, 2026-10-21). Owed: Kent's own vault run and a screenshot of the drawn row."
+    }
+  ]
+}
