@@ -156,3 +156,23 @@ Design finding 13: declined: the select arrow is Paseo's `SettingsSelect`; skipp
 ### Summary
 
 Browse vault gets a per-item catch in `listRefs`: an unreadable item is skipped and named (`1Password could not read this item (ssh key)`), while a rejected token or an unreachable 1Password stops the list with fixed text; every Browse error is built from `causeText`, never op or `JSON.parse` text. Recommendations (no Captain decision needed): do not grow `CAUSES`, and throw the fixed text rather than return a cause. Known limits: a missing vault reads with the closest existing text "field not found in the vault"; `category` in `op item list` JSON is unverified here and the type text is dropped without it; bounding a large vault stays in r1b.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: per-item skip in listRefs with a plain reason naming the item, fixed cause text for list-wide failures, `{refs, skipped}` on the wire, and a Secure Note with custom fields still listing.
+  Commits 4a0d044 and a422acd on spacedock-ensign/project-env-browse-vault-survives: `listRefs` in `server/secrets.ts`, `unreadableItemText` in `shared/cause.ts`, `skipped` in `shared/config.ts`, `Not listed:` rows in `client/settings-screen.tsx`.
+- DONE: Land tests so AC-1 and AC-2 pass with the evidence their clauses name (one failing item get, stderr and value sentinels) and fail when the behaviour is removed.
+  `test/browse-vault.test.ts`, 12 pass. With `server/secrets.ts` and `server/contribute.ts` restored to 487b9b0, 11 of 12 fail; the Secure Note case passes on both by design.
+  AC-1: a failing SSH Key get leaves all four other refs listed and names `Deploy key` with `(ssh key)`; fails if the per-item catch is removed. A rejected token or unreachable get rejects with exactly `causeText`; fails if every failure is skipped.
+  AC-2: stderr sentinel in a failing list, a skipped get and a rejected-token get, malformed stdout of list and get, and a value sentinel on every readable field, all absent from the result or error message; fails if `RunFailure.message` or `JSON.parse`'s message passes through (shown on base).
+- DONE: Record Kent's on-vault use as owed.
+  Owed: Kent presses Browse vault on his own vault and sees the other items' fields plus the SSH Key item named (AC-1 last sentence). The client rows are type-checked only, not drawn in a running Paseo.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, design_surfaces and doc_impact.
+  `npm test` 92 tests; `session open > blanks a variable 1Password does not answer in time` failed once in a loaded full run and passed on solo re-run (path untouched). Typecheck clean. `roborev_gate.py` exit 0: `clean on a422acd30; evidence=roborev:968`. `design_surfaces.py check`: presentable, exit 0. `comment_ratio.py`: code 210, comment 2, 1.0%, maximum 5% met.
+  `doc_impact.py 487b9b0 HEAD` listed one document: docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md: unaffected: it cites `shared/config.ts` for the reserved-name list, which this change does not touch.
+- DONE: Open the Draft PR.
+  https://github.com/iamcxa/kc-paseo-plugins/pull/16 (draft, title `feat(project-env): Browse vault lists fields even when one item cannot be read`).
+
+### Summary
+
+An item whose get fails for an item-specific reason or returns non-JSON is skipped and named as `1Password could not read this item (ssh key)`; a rejected token, unreachable 1Password, failed list or missing token stops the list with fixed `causeText`, so no op or `JSON.parse` text reaches Browse vault. `CAUSES` was not grown, as the design recommended. Limits: a missing vault reads "field not found in the vault"; the type text depends on `category` from `op item list`, unverified on a real vault; one timing-sensitive session-open test is flaky under load. No ADR added or changed; no Number guards section.
