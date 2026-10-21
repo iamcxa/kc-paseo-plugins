@@ -61,6 +61,14 @@ gates:
                 id: briefing:project-env-paste-token-check-first:validation:attempt-1:revision-1
                 digest: sha256:c6e7a072478e25ebbd088960bfa4c26a5b8acd71a354ed4c851e00fe18b5b5eb
                 room-ref: ./project-env-paste-token-check-first/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-paste-token-check-first:validation:1
+                briefing: briefing:project-env-paste-token-check-first:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T15:30:33.237971Z"
+                decision: revise
+                reason: 'Captain 2026-10-21: 「按建議」 — accepts the stated recommendation: revise before merge. Assignment: in tokenShapeError refuse a token longer than the longest length that fits one security -i command line with the hex encoding and the command text (measure the exact limit; about 1900 characters), with a plain reason such as ''Token is longer than this plugin can store safely'', and add a test that fails without the refusal; leave every other behaviour unchanged; then revalidate.'
 started: 2026-10-21T08:41:52Z
 ---
 
