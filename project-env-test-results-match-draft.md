@@ -12,6 +12,17 @@ journey-release: r1.5
 journey-story: test-each-variable
 journey-required-tasks: '["project-env-test-results-match-draft"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-test-results-match-draft:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-test-results-match-draft-backlog-1
+              briefing:
+                id: briefing:project-env-test-results-match-draft:backlog:attempt-1:revision-1
+                digest: sha256:7c6993c7b2e690e9261bd15498a708242f1c7f723792d49d48edcd21f68266b8
+                room-ref: ./project-env-test-results-match-draft/review/backlog/briefing-1
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today results stay after the draft changes, and "set" does not say it only proves a value came back.
