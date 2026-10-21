@@ -32,6 +32,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-browse-vault-survives:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-browse-vault-survives-ideation-1
+              briefing:
+                id: briefing:project-env-browse-vault-survives:ideation:attempt-1:revision-1
+                digest: sha256:5290b358800247868e7fb6797ff871e9c9da3af3a5805063b4fd3f9feed06fbe
+                room-ref: ./project-env-browse-vault-survives/review/ideation/briefing-1
 started: 2026-10-21T08:42:14Z
 ---
 
