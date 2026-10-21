@@ -175,7 +175,7 @@ Machine dependencies, declared: Paseo.app 0.12.0 CLI at `/Users/kent/.local/bin/
 - DONE: Design Add refusing every reserved name with its reason via isReservedName, with DYLD_* and LD_PRELOAD added, and draft the ADR 0004 amendment (no number change).
   `reservedReason` table beside `isReservedName`, `refusal`, `splitImported`; draft under "ADR 0004 amendment"; run on the spike copy: 9 reserved names refused, 5 allowed names null.
 - DONE: Keep AC-1 and AC-2 with reproducible evidence clauses and produce the artifact the ui surface owes, including how T4's results sit in the row.
-  Artifact: `UI proposal:` and `Preview:` lines, 17 real-client pictures in `design/`, spike sources in `spike/`, review `design/ideation-1.yaml`; T4 interface is the per-row `test.data` lookup that T4 clears with `test.reset()`.
+  Artifact: `UI proposal:` and `Preview:` lines, 16 real-client pictures in `design/`, spike sources in `spike/`, review `design/ideation-1.yaml`; T4 interface is the per-row `test.data` lookup that T4 clears with `test.reset()`.
 - DONE: AC-1 — each variable is one row with its field, Remove and last Test result.
   Not yet verified: no implementation. Current evidence: the operable spike pictures; plan is Kent's use on his Mac with a screenshot.
 - DONE: AC-2 — Add refuses every reserved name, including DYLD_* and LD_PRELOAD, and says why.
