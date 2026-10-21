@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-test-results-match-draft:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#20 at head 5a073fcc162d77955de8b486f57bd94fe1b213e4? Approval also covers later external-review rounds on the same PR, merging that full head by squash once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-test-results-match-draft:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/e2d8a9e9e7101bbff05776487574595eb6338597/project-env-test-results-match-draft.md",
+      "rev": "sha256:dee7fd1e9faeeb2dedb7b3d6ef51da7ddc11115623047a3882ebe19a89d32a09",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED for candidate 5a073fc; FO reran steps 1-5 of the acceptance script in a fresh shell and every step matched (122/122, typecheck 0, hint sentence present, empty row text 'failed: the 1Password field is empty', adr_lint 0); step 6 is Kent's own use, not run. Declared deviations: an edit counter instead of draft identity (prompt edits keep results, as the design FAQ says) and the ADR 0002 amendment inside Decision. Reviewers: roborev clean (roborev:978); codex pending at presentation. FO declines the Polish finding that the client wiring of AC-1 has no automated test: the daemon transcripts at this candidate show it. Owed: Kent's own use and a PR screenshot."
+    }
+  ]
+}
