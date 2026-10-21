@@ -25,6 +25,12 @@ export const causeText: Record<Cause, string> = {
   unexpected: "1Password returned an error the plugin does not recognise",
 };
 
+export function unreadableItemText(category: unknown): string {
+  const base = "1Password could not read this item";
+  if (typeof category !== "string" || !/^[A-Z_]+$/.test(category)) return base;
+  return `${base} (${category.toLowerCase().replaceAll("_", " ")})`;
+}
+
 export function rowHint(result: { ok: boolean; cause?: Cause }): string {
   return result.ok ? "set" : `failed: ${causeText[result.cause ?? "unexpected"]}`;
 }

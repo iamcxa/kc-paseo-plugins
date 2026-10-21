@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Pressable, Text, TextInput, View } from "react-native";
+import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
 import {
   type PluginSurfaceProps,
   type SettingsState,
@@ -21,16 +22,127 @@ import {
   importConductor,
   listRefs,
   type Project,
+  type Variable,
+  newVariable,
+  refusal,
+  splitImported,
+  variableLine,
   projectEnv,
   storeToken,
   testProject,
   tokenStatus,
 } from "../shared/config";
-import { rowHint } from "../shared/cause";
+import type { Cause } from "../shared/cause";
 import { pickVault, tokenRowText } from "../shared/token";
 
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
+
+type Result = { name: string; ok: boolean; cause?: Cause };
+
+function RefPicker({
+  name,
+  value,
+  options,
+  theme,
+  onPick,
+}: {
+  name: string;
+  value: string;
+  options: { label: string; value: string }[];
+  theme: Theme;
+  onPick(ref: string): void;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Field for ${name}`}
+        onPress={() => setOpen(true)}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 6,
+          width: 260,
+          backgroundColor: theme.colors.surface2,
+          borderRadius: 8,
+          paddingHorizontal: 12,
+          paddingVertical: 8,
+        }}
+      >
+        <Text
+          numberOfLines={1}
+          style={{ flex: 1, color: value ? theme.colors.foreground : theme.colors.foregroundMuted, fontSize: 14 }}
+        >
+          {value || "Pick a field"}
+        </Text>
+        <Icon name="ChevronDown" size={14} color={theme.colors.foregroundMuted} />
+      </Pressable>
+      <Modal title={`Field for ${name}`} open={open} onOpenChange={setOpen}>
+        <Modal.Content>
+          {options.map((o) => (
+            <Pressable
+              key={o.value}
+              accessibilityRole="button"
+              onPress={() => {
+                onPick(o.value);
+                setOpen(false);
+              }}
+              style={{ paddingVertical: 8 }}
+            >
+              <Text style={{ color: o.value === value ? theme.colors.accent : theme.colors.foreground, fontSize: 14 }}>
+                {o.label}
+              </Text>
+            </Pressable>
+          ))}
+        </Modal.Content>
+      </Modal>
+    </>
+  );
+}
+
+function VariableRow({
+  variable,
+  result,
+  theme,
+  children,
+  onRemove,
+}: {
+  variable: Variable;
+  result: Result | undefined;
+  theme: Theme;
+  children: ReactNode;
+  onRemove(): void;
+}) {
+  const { name } = variable;
+  const line = variableLine(variable, result);
+  return (
+    <SettingsRow
+      label={name}
+      hint={line && !line.failed ? line.text : undefined}
+      error={line?.failed ? line.text : undefined}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 }}>
+        {children}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Remove ${name}`}
+          onPress={onRemove}
+          style={{
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 7,
+          }}
+        >
+          <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Remove</Text>
+        </Pressable>
+      </View>
+    </SettingsRow>
+  );
+}
 
 const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
 
@@ -48,6 +160,9 @@ function ProjectEditor({
   const [draft, setDraft] = useState(initial);
   const [revision] = useState(settings.revision);
   const [newName, setNewName] = useState("");
+  const nameInput = useRef<SettingsInputHandle>(null);
+  const [importNote, setImportNote] = useState<string | null>(null);
+  const [confirmStop, setConfirmStop] = useState(false);
   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
   const muted = useMemo(() => ({ color: theme.colors.foregroundMuted }), [theme]);
   const promptStyle = useMemo(
@@ -96,14 +211,22 @@ function ProjectEditor({
   const test = useMutation({ mutationFn: () => testRpc({ project: draft }) });
   const doImport = useMutation({
     mutationFn: () => importRpc({ root: draft.root }),
-    onSuccess: ({ names, prompt }) =>
-      setDraft((d) => {
-        const have = new Set(d.variables.map((v) => v.name));
-        const added = names
-          .filter((n) => !have.has(n))
-          .map((name) => ({ name, ref: `op://${d.vault || "VAULT"}/${name}/credential` }));
-        return { ...d, variables: [...d.variables, ...added], prompt: d.prompt || prompt };
-      }),
+    onSuccess: ({ names, prompt }) => {
+      const { skipped } = splitImported(names, []);
+      setImportNote(
+        skipped.length === 0
+          ? null
+          : `Skipped ${skipped.map((x) => x.name).join(", ")}: reserved names, so the agent keeps its own value.`,
+      );
+      setDraft((d) => ({
+        ...d,
+        variables: [
+          ...d.variables,
+          ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
+        ],
+        prompt: d.prompt || prompt,
+      }));
+    },
   });
 
   const patch = useCallback((change: Partial<Project>) => setDraft((d) => ({ ...d, ...change })), []);
@@ -119,6 +242,7 @@ function ProjectEditor({
     if (await settings.save({ projects: others }, revision)) onDone();
   };
 
+  const nameRefusal = refusal(newName, draft.variables.map((v) => v.name));
   const current = account === checked && !token.isFetching ? token.data : undefined;
   const vaults = current?.vaults ?? [];
   useEffect(() => {
@@ -201,55 +325,79 @@ function ProjectEditor({
 
       <SettingsSection title="Environment variables">
         <SettingsCard>
-          {draft.variables.map((v) =>
-            refOptions.length > 0 ? (
-              <SettingsSelect
-                key={v.name}
-                label={v.name}
-                value={v.ref}
-                options={
-                  refOptions.some((o) => o.value === v.ref)
-                    ? refOptions
-                    : [{ label: v.ref, value: v.ref }, ...refOptions]
-                }
-                onValueChange={(ref) => setRef(v.name, ref)}
-              />
-            ) : (
-              <SettingsInput
-                key={v.name}
-                label={v.name}
-                initialValue={v.ref}
-                placeholder="op://vault/item/field"
-                onChangeText={(ref) => setRef(v.name, ref)}
-              />
-            ),
-          )}
           {draft.variables.map((v) => (
-            <SettingsAction
-              key={`remove-${v.name}`}
-              label={`Remove ${v.name}`}
-              actionLabel="Remove"
-              onPress={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
-            />
+            <VariableRow
+              key={v.name}
+              variable={v}
+              theme={theme}
+              result={test.data?.results.find((r) => r.name === v.name)}
+              onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
+            >
+              {refOptions.length > 0 ? (
+                <RefPicker
+                  name={v.name}
+                  value={v.ref}
+                  options={
+                    v.ref === "" || refOptions.some((o) => o.value === v.ref)
+                      ? refOptions
+                      : [{ label: v.ref, value: v.ref }, ...refOptions]
+                  }
+                  theme={theme}
+                  onPick={(ref) => setRef(v.name, ref)}
+                />
+              ) : (
+                <HostInput
+                  defaultValue={v.ref}
+                  placeholder="op://vault/item/field"
+                  placeholderTextColor={theme.colors.foregroundMuted}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  onChangeText={(ref) => setRef(v.name, ref)}
+                  style={{
+                    color: theme.colors.foreground,
+                    backgroundColor: theme.colors.surface2,
+                    borderRadius: 8,
+                    paddingHorizontal: 12,
+                    paddingVertical: 8,
+                    width: 260,
+                    fontSize: 14,
+                  }}
+                />
+              )}
+            </VariableRow>
           ))}
+          {draft.variables.length > 0 ? (
+            <SettingsAction
+              label="Check the variables"
+              hint="Resolves every variable now and shows the result on its row; never the value."
+              actionLabel={test.isPending ? "Testing…" : "Test"}
+              disabled={test.isPending}
+              onPress={() => test.mutate()}
+            />
+          ) : null}
           <SettingsInput
+            ref={nameInput}
             label="New variable name"
             initialValue=""
             placeholder="LINEAR_API_KEY"
             onChangeText={setNewName}
+            error={nameRefusal ?? undefined}
           />
           <SettingsAction
             label="Add variable"
             actionLabel="Add"
-            disabled={!/^[A-Za-z_][A-Za-z0-9_]*$/.test(newName) || draft.variables.some((v) => v.name === newName)}
-            onPress={() =>
+            disabled={newName === "" || nameRefusal !== null}
+            onPress={() => {
+              if (nameRefusal !== null) return;
               patch({
                 variables: [
                   ...draft.variables,
-                  { name: newName, ref: `op://${draft.vault || "VAULT"}/${newName}/credential` },
+                  newVariable(newName),
                 ],
-              })
-            }
+              });
+              nameInput.current?.replaceText("");
+              setNewName("");
+            }}
           />
           <SettingsAction
             label="Pick fields from the vault"
@@ -259,10 +407,14 @@ function ProjectEditor({
             onPress={() => refs.mutate()}
             error={refs.error ? (refs.error as Error).message : undefined}
           />
+          {(refs.data?.skipped ?? []).map((s, i) => (
+            <SettingsRow key={`${i}-${s.item}`} label={s.item} hint={`Not listed: ${s.reason}`} />
+          ))}
           <SettingsAction
             label="Import names and prompt from Conductor"
-            hint="Reads variable names and the general prompt from .conductor settings; no values."
-            actionLabel="Import"
+            hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
+            actionLabel={doImport.isPending ? "Importing…" : "Import"}
+            disabled={doImport.isPending}
             onPress={() => doImport.mutate()}
           />
         </SettingsCard>
@@ -281,18 +433,8 @@ function ProjectEditor({
         </View>
       </SettingsSection>
 
-      <SettingsSection title="Check and save">
+      <SettingsSection title="Save">
         <SettingsCard>
-          <SettingsAction
-            label="Resolve every variable now"
-            hint="Shows set or failed per variable; never the value."
-            actionLabel={test.isPending ? "Testing…" : "Test"}
-            disabled={test.isPending}
-            onPress={() => test.mutate()}
-          />
-          {(test.data?.results ?? []).map((r) => (
-            <SettingsRow key={r.name} label={r.name} hint={rowHint(r)} />
-          ))}
           <SettingsAction
             label="Save this project"
             actionLabel="Save"
@@ -301,8 +443,32 @@ function ProjectEditor({
             error={settings.saveError ?? undefined}
           />
           <SettingsAction label="Discard changes" actionLabel="Discard" onPress={onDone} />
-          <SettingsAction label="Stop managing this project" actionLabel="Remove" onPress={remove} />
+          <SettingsAction
+            label="Stop managing this project"
+            hint="Deletes its variables and default prompt now. The Keychain token stays."
+            actionLabel="Stop managing"
+            onPress={() => setConfirmStop(true)}
+          />
         </SettingsCard>
+        <Modal title={`Stop managing ${basename(draft.root)}?`} open={confirmStop} onOpenChange={setConfirmStop}>
+          <Modal.Content>
+            <Text style={text}>
+              This deletes the project's variables and default prompt from this plugin right away,
+              without Save. Agents already open keep the values they have. The token stays in the
+              Keychain.
+            </Text>
+            <SettingsCard>
+              <SettingsAction label="Keep this project" actionLabel="Keep" onPress={() => setConfirmStop(false)} />
+              <SettingsAction
+                label="Stop managing"
+                actionLabel="Stop managing"
+                disabled={settings.saving}
+                onPress={remove}
+                error={settings.saveError ?? undefined}
+              />
+            </SettingsCard>
+          </Modal.Content>
+        </Modal>
         <Text style={muted}>
           Values are injected into each agent's environment when its session opens, so the agent
           itself can read them.
