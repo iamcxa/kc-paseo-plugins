@@ -61,6 +61,17 @@ gates:
                 id: briefing:project-env-variable-row-edit:validation:attempt-1:revision-1
                 digest: sha256:0fa362f3e55edcbf3c02994d47435f87ac54fa624d2d7584836a176e085caab4
                 room-ref: ./project-env-variable-row-edit/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-variable-row-edit:validation:1
+                briefing: briefing:project-env-variable-row-edit:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T11:21:54.418106Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「可以，同意你的計畫」 — approves delivery of PR iamcxa/kc-paseo-plugins#17 at head 1e317edc869b9e310e129a4b7718895f0f535792, merged second by squash once Codex is clean, including later review rounds on the same PR and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-21T08:41:59Z
 ---
 
