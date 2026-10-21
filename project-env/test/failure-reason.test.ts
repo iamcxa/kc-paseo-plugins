@@ -142,7 +142,7 @@ describe("no tool output and no value reaches the log, the RPC result or the Tes
 describe("a command that fails with no stderr", () => {
   it("does not put its arguments, a token included, in the error", async () => {
     const TOKEN = "ops_fake_TOKEN-SENTINEL-2b8e";
-    const world = makeWorld({ security: { crash: true } });
+    const world = makeWorld({ op: { accounts: { "TOKEN-SENTINEL-2b8e": { vaults: [] } } }, security: { crash: true } });
     cleanups.push(world.cleanup);
     await assert.rejects(createSecrets(world.tools).storeToken("sa-a", TOKEN), (error: Error) => {
       assert.ok(!error.message.includes("TOKEN-SENTINEL-2b8e"), error.message);

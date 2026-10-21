@@ -33,7 +33,15 @@ import {
   tokenStatus,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
-import { canReadVault, pickVault, tokenRowText, vaultChoices } from "../shared/token";
+import {
+  canReadVault,
+  pickVault,
+  projectsUsingName,
+  serviceAccountNameError,
+  tokenRowText,
+  tokenShapeError,
+  vaultChoices,
+} from "../shared/token";
 
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
@@ -183,6 +191,9 @@ function ProjectEditor({
   const saveToken = useRpc(storeToken);
   const tokenInput = useRef<SettingsInputHandle>(null);
   const [tokenDraft, setTokenDraft] = useState("");
+  const latestToken = useRef("");
+  const [tokenRefusal, setTokenRefusal] = useState<string | null>(null);
+  const [sharedWith, setSharedWith] = useState<string[] | null>(null);
   const refsRpc = useRpc(listRefs);
   const testRpc = useRpc(testProject);
   const importRpc = useRpc(importConductor);
@@ -199,13 +210,34 @@ function ProjectEditor({
   });
   const check = () => (account === checked ? void token.refetch() : setChecked(account));
   const store = useMutation({
-    mutationFn: () => saveToken({ serviceAccount: account, token: tokenDraft }),
-    onSuccess: () => {
-      tokenInput.current?.replaceText("");
-      setTokenDraft("");
+    mutationFn: (submitted: { serviceAccount: string; token: string }) => saveToken(submitted),
+    onSuccess: ({ stored, ...status }, { token: pasted }) => {
+      if (!stored) {
+        if (latestToken.current === pasted) setTokenRefusal(`Not saved: ${tokenRowText(status).label}`);
+        return;
+      }
+      if (latestToken.current === pasted) {
+        tokenInput.current?.replaceText("");
+        setTokenDraft("");
+      }
       check();
     },
+    onError: (error, { token: pasted }) => {
+      if (latestToken.current === pasted) setTokenRefusal(error.message);
+    },
   });
+  const pressSave = () => {
+    const refused = tokenShapeError(tokenDraft, account) ?? serviceAccountNameError(account);
+    setTokenRefusal(refused);
+    if (refused) return;
+    const others = projectsUsingName(settings.values.projects, draft.root, account);
+    if (others.length > 0) setSharedWith(others);
+    else store.mutate({ serviceAccount: account, token: tokenDraft });
+  };
+  const clearTokenMessages = () => {
+    setTokenRefusal(null);
+    setSharedWith(null);
+  };
   const refs = useMutation({
     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
   });
@@ -286,7 +318,10 @@ function ProjectEditor({
             label="1Password service account"
             hint="Keychain item name holding its token, e.g. relay-dev-read"
             initialValue={draft.serviceAccount}
-            onChangeText={(serviceAccount) => patch({ serviceAccount })}
+            onChangeText={(serviceAccount) => {
+              patch({ serviceAccount });
+              clearTokenMessages();
+            }}
           />
           <SettingsAction
             label={tokenText.label}
@@ -302,15 +337,40 @@ function ProjectEditor({
             placeholder="ops_…"
             secureTextEntry
             initialValue=""
-            onChangeText={setTokenDraft}
-            error={store.error ? (store.error as Error).message : undefined}
+            onChangeText={(text) => {
+              latestToken.current = text;
+              setTokenDraft(text);
+              clearTokenMessages();
+            }}
+            error={tokenRefusal ?? undefined}
           />
           <SettingsAction
             label="Save token to Keychain"
-            actionLabel={store.isPending ? "Saving…" : "Save token"}
-            disabled={!account || !tokenDraft.trim() || store.isPending}
-            onPress={() => store.mutate()}
+            actionLabel={store.isPending ? "Checking…" : "Save token"}
+            disabled={!account || !tokenDraft.trim() || store.isPending || sharedWith !== null}
+            onPress={pressSave}
           />
+          {sharedWith !== null ? (
+            <>
+              <SettingsRow
+                label={`${account} is also used by ${sharedWith.map(basename).join(" and ")}`}
+                hint={`Replacing its token changes it for ${sharedWith.length > 1 ? "all of them" : basename(sharedWith[0])} too. The new token is checked first; a rejected token is not saved.`}
+              />
+              <SettingsAction
+                label={`Replace the token under ${account}`}
+                actionLabel="Replace"
+                onPress={() => {
+                  setSharedWith(null);
+                  store.mutate({ serviceAccount: account, token: tokenDraft });
+                }}
+              />
+              <SettingsAction
+                label="Keep the current token"
+                actionLabel="Cancel"
+                onPress={() => setSharedWith(null)}
+              />
+            </>
+          ) : null}
           {vaultOptions.length > 0 ? (
             <SettingsSelect
               label="Vault"
