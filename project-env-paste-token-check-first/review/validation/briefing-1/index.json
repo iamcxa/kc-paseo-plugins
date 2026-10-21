@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-paste-token-check-first:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#21 at head c23b96cc184b1294422d49e4277600235ef3c0dd, or first add a refusal of tokens too long for one security -i command line? Approving the recommendation means: revise before merge — refuse a token longer than about 1900 characters with a plain reason and a test, then revalidate; say if you object.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-paste-token-check-first:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/abdb8ddd5f64d4ffbeb2747214dd1959b26db7bb/project-env-paste-token-check-first.md",
+      "rev": "sha256:684479ad10085fb1cf84890da6baec8605c78d02f56d84f238b38911a5079be7",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at c23b96c with one Deferred risk: security -i splits a command line longer than about 4096 bytes, so a token of roughly 1950+ characters (hex doubles it) fails, and the first fragment could write a truncated value to the login keychain (probed with fake values and a throwaway keychain: 120/900/1800 ok, 2000-5000 'unknown command'). Kent's real token length is unknown. FO recommends a length refusal before merge. Reviewers: roborev clean (roborev:985); codex not yet requested. Owed: Kent's on-Mac use, the hex round trip with a real token."
+    }
+  ]
+}

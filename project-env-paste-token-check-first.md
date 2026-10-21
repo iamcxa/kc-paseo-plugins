@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-paste-token-check-first:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-paste-token-check-first-validation-1
+              briefing:
+                id: briefing:project-env-paste-token-check-first:validation:attempt-1:revision-1
+                digest: sha256:c6e7a072478e25ebbd088960bfa4c26a5b8acd71a354ed4c851e00fe18b5b5eb
+                room-ref: ./project-env-paste-token-check-first/review/validation/briefing-1
 started: 2026-10-21T08:41:52Z
 ---
 
