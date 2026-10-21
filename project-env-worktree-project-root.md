@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-worktree-project-root:ideation:attempt-1:revision-1
                 digest: sha256:4741d4fd480ba368e9712db705b0da678999993297e9190aa283f1e36df788e0
                 room-ref: ./project-env-worktree-project-root/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-worktree-project-root:ideation:1
+                briefing: briefing:project-env-worktree-project-root:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T11:22:05.825515Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「可以，同意你的計畫」 — accepts this ideation design and its acceptance criteria into implementation.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-21T09:42:39Z
 ---
 
