@@ -1,12 +1,12 @@
 ---
 id:
 title: Each variable is one row with its field, Remove and last Test result
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-variable-row-edit
-pr:
+pr: iamcxa/kc-paseo-plugins#17
 journey: paseo-project-env
 journey-release: r1.5
 journey-story: add-remove-variable
