@@ -68,13 +68,14 @@ steps:
         questions:
           - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1.5 validates before writing and warns on an existing name, still letting a repository replace its own token."}
           - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; an interactive Keychain prompt has been seen truncating one to exactly 128, so the check stays as a guard."}
+          - {id: "q3", ask: "What counts as an existing name, and which repository owns a token stored under it?", status: "open"}
       - id: token-works
         card: "See that the token works and which vaults it can read"
         release: r1.5
         status: gap
         evidence: tokenStatus
         questions:
-          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: a locked Keychain, a missing op, an outage and a rejection all read as missing or rejected; release 1.5 names each cause on screen."}
+          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: tokenStatus reads any Keychain failure as missing (readToken returns null) and any op failure as rejected; release 1.5 names each cause on screen. Release 1's cause classes have none for a locked Keychain or a missing op (classifyOpFailure reads a missing op as unexpected)."}
       - id: pick-vault
         card: "Choose the vault"
         release: r1
@@ -102,7 +103,7 @@ steps:
         evidence: newName
         questions:
           - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1.5 puts each remove beside its field."}
-          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "Gap: PATH, HOME, NODE_OPTIONS and OP_SERVICE_ACCOUNT_TOKEN pass the name check; release 1.5 refuses them when added. What session open does with them is asked at new-agent-env/q6."}
+          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "The 16 reserved names in isReservedName; session open skips them since release 1. Gap: the Add button checks only the name pattern and duplicates; release 1.5 refuses a reserved name on Add, using isReservedName.", doc: "docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md"}
           - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "deferred", because: "Gap: the save is refused with no recovery path; release 1b shows the conflict and reloads without losing the draft. Only a second editor meets it; release 1 has one user."}
       - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2, status: exists, evidence: importConductor}
 
@@ -129,7 +130,7 @@ steps:
         status: gap
         evidence: testProject
         questions:
-          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1.5 clears results on edit and says set does not prove the service accepts the key. Empty counts as failed (new-agent-env/q7, release 1); Test shares that answer."}
+          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: earlier results stay after the draft changes, and set does not say it only proves a value came back; release 1.5 clears results on edit and says set does not prove the service accepts the key."}
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
@@ -209,7 +210,7 @@ releases:
     goal: "On his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; Kent's own use and judgment accept it."
     ruling:
       - "「就五個，剩下做 r1.5」 — Captain, 2026-10-20"
-      - "「我覺得UI不夠直覺」 — Captain"
+      - "「我覺得UI不夠直覺」 — Captain, 2026-10-20"
   - id: r1b
     name: "RELEASE 1b — A teammate connects one repository"
     goal: "A recce teammate installs the plugin from GitHub and reaches a working connection for one repository by following the in-app steps; one run on a teammate's Mac accepts it."
