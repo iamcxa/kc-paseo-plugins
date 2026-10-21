@@ -1,7 +1,7 @@
 ---
 id:
 title: A project registered at a worktree path gives its agents their variables
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-21: 「可以，同意你的計畫」 — accepts this ideation design and its acceptance criteria into implementation.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-21T09:42:39Z
 ---
 
