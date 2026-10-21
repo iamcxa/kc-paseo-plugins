@@ -402,3 +402,18 @@ Recommend PASSED: at e9661f0 AC-1 to AC-3 hold, the merge kept #16/#17 behaviour
 ### Feedback Cycles
 
 - Cycle 1 (validation, candidate e9661f0): Codex P2 review:5599400357 and roborev:977 — a saved vault id instead of a name disables Browse vault and reports "This token cannot read that vault", because checkToken reduces `op vault list` to names. FO recommended declining it as an accepted limit; Captain 2026-10-21 chose 「先修再合併」. Override: recommended merge with the finding declined; Captain chose fix before merge; area: vault identity on the token row. Routed to implementation by `merge guard --rework`.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Apply the authorized correction: keep id and name per readable vault in the token check, accept a saved vault equal to either in the Vault gate and auto-pick, leave the session-open vault boundary and saved values unchanged, and land tests that fail when a readable saved id is rejected or a name stops working.
+  Commit 5ee39c3 (after merging origin/main 985e7e4 as 5bb70a3). `checkToken` returns `vaults` (names) plus parallel `vaultIds`; `canReadVault` and `vaultChoices` in `shared/token.ts` drive the gate, Browse vault and select. Shown list stays by name; the saved id stays the option value. `server/` session-open boundary untouched.
+- DONE: Falsifiable tests, in `test/token-state.test.ts` "a saved vault may be a name or an id".
+  `canReadVault` accepts saved id and saved name, rejects unknown/case-different/empty: fails if either lookup half is removed (checked by mutating each half; 1 failure each). `vaultChoices` keeps a saved id as its entry's value, label stays the name. Token check keeps id and name from fake `op`. `pickVault` keeps a saved id.
+- DONE: Rerun `npm test`, `npm run typecheck` and the roborev gate.
+  `npm test` 150/150 pass, `npm run typecheck` clean; gate: clean on 5ee39c3d5; evidence=roborev:980
+- DONE: Push to PR #15 with an ordinary push, reply on the Codex thread, report the new head SHA.
+  Pushed e9661f0..5ee39c3; reply https://github.com/iamcxa/kc-paseo-plugins/pull/15#discussion_r4336736020. New head 5ee39c3.
+
+### Summary
+
+A saved vault id is now accepted when the token can read that vault, in the Vault gate, the select and Browse vault; names work as before. Limit: the real `op vault list --format json` id field is not run here (no op call allowed); the fake emits `{id,name}` per the CLI's documented shape.
