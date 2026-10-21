@@ -298,3 +298,16 @@ Expected: step 1 `tests 14`, `pass 14`, `fail 0`, `typecheck exit=0`; step 2 lin
 ### Summary
 
 A token whose full `security -i` command line would pass 3840 bytes is refused up front with a plain reason, so the split-line truncated write cannot start. Not changed: every other behaviour; `writeToken`'s optional keychain argument still adds length only in tests. Roborev:988 reports a Medium I did not fix because it is outside this scope and pre-existing in c23b96c: in `client/settings-screen.tsx`, the save mutation captures only the pasted token and reads the account name at resume, so a Save paused offline and then a renamed account could write the old token under the new name and skip the shared-name confirmation. Needs a FO ruling whether to fix it in this PR or defer.
+
+## Stage Report: implementation (cycle 1, roborev:988 fix)
+
+- DONE: Fix roborev:988 inside this task's scope: the Save mutation in `project-env/client/settings-screen.tsx` must take `{ serviceAccount, token }` as its variables at the moment Save (or Replace) is pressed.
+  Commit 1303892: `store` mutation now takes `{ serviceAccount, token }`; `pressSave` and the Replace button build it from the account and token on screen at the press, so a later rename changes neither the name written nor the shared-name check already made. `onSuccess`/`onError` read the pasted token from the variables as before.
+- DONE: Add a test that fails without the fix if a seam allows it; otherwise state why none can and keep the change minimal. Rerun `npm test`, `npm run typecheck` and the roborev gate, push to PR #21 with an ordinary push, and report the new head SHA.
+  No test added: the screen has no test seam (known limit since ideation; the bug is a closure over component state in a React hook, and the server `storeToken` already takes the name as an argument and is covered). `npm test` 166 pass, 0 fail; typecheck clean; gate `clean on 130389257; evidence=roborev:989`. Ordinary push 4965df8..1303892; new head 1303892 (full SHA in the completion message). Owed to Kent's on-Mac use: pause a save offline, rename, resume.
+- DONE: Append the result to your implementation stage report under cycle 1, one item per line of this checklist with an evidence line each.
+  This section.
+
+### Summary
+
+A save is now bound to the service account named when Save or Replace was pressed, so a rename in flight can neither write the token under the new name nor skip the Replace confirmation made for the old one. No test: no screen seam.
