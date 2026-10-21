@@ -398,3 +398,7 @@ Does not cover: the screen at e9661f0 (steps 1 to 5 test logic and text; step 6 
 ### Summary
 
 Recommend PASSED: at e9661f0 AC-1 to AC-3 hold, the merge kept #16/#17 behaviour (139 tests, typecheck 0, package checks 0 including adr_lint), and every decisive test fails under its mutation. roborev:977 is a Deferred risk (no known saved vault id; design already name-based). Owed: AC-2 on Kent's Mac and a screenshot of the merged screen, which I did not take.
+
+### Feedback Cycles
+
+- Cycle 1 (validation, candidate e9661f0): Codex P2 review:5599400357 and roborev:977 — a saved vault id instead of a name disables Browse vault and reports "This token cannot read that vault", because checkToken reduces `op vault list` to names. FO recommended declining it as an accepted limit; Captain 2026-10-21 chose 「先修再合併」. Override: recommended merge with the finding declined; Captain chose fix before merge; area: vault identity on the token row. Routed to implementation by `merge guard --rework`.
