@@ -53,6 +53,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-token-works-cause:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-token-works-cause-validation-1
+              briefing:
+                id: briefing:project-env-token-works-cause:validation:attempt-1:revision-1
+                digest: sha256:62ea6ef15e88f152f38e9f427949fa57a6aa8d3a91839bea526ca6ae013b37f9
+                room-ref: ./project-env-token-works-cause/review/validation/briefing-1
 started: 2026-10-21T08:41:45Z
 ---
 
