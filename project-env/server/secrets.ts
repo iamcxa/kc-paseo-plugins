@@ -3,7 +3,7 @@ import { realpath } from "node:fs/promises";
 import { basename, dirname } from "node:path";
 import { causeText, unreadableItemText, type Cause } from "../shared/cause.ts";
 import { isReservedName, type Project, type TokenState } from "../shared/config.ts";
-import { serviceAccountNameError, tokenShapeError, type TokenStatus } from "../shared/token.ts";
+import { addTokenCommand, KEYCHAIN_ACCOUNT, serviceAccountNameError, tokenShapeError, type TokenStatus } from "../shared/token.ts";
 import {
   classifyKeychainFailure,
   classifyOpFailure,
@@ -13,7 +13,6 @@ import {
   type OpExit,
 } from "./cause.ts";
 
-const KEYCHAIN_ACCOUNT = "op-service-account-token";
 const CACHE_MS = 15 * 60 * 1000;
 const CALL_TIMEOUT_MS = 30_000;
 
@@ -164,16 +163,12 @@ export function createSecrets(tools: Tools) {
   async function writeToken(serviceAccount: string, token: string, keychain?: string) {
     const unsafe = serviceAccountNameError(serviceAccount) ?? (keychain && serviceAccountNameError(keychain));
     if (unsafe) throw new Error(unsafe);
-    const hex = Buffer.from(token, "utf8").toString("hex");
-    const target = keychain ? ` "${keychain}"` : "";
-    await run(tools.security, ["-i"], {
-      stdin: `add-generic-password -U -a ${KEYCHAIN_ACCOUNT} -s "${serviceAccount}" -X ${hex}${target}\n`,
-    });
+    await run(tools.security, ["-i"], { stdin: `${addTokenCommand(serviceAccount, token, keychain)}\n` });
   }
 
   async function storeToken(serviceAccount: string, raw: string) {
     const token = raw.trim();
-    const refused = tokenShapeError(token) ?? serviceAccountNameError(serviceAccount);
+    const refused = tokenShapeError(token, serviceAccount) ?? serviceAccountNameError(serviceAccount);
     if (refused) throw new Error(refused);
     const checked = await checkToken(token);
     if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };

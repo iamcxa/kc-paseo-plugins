@@ -227,7 +227,7 @@ function ProjectEditor({
     },
   });
   const pressSave = () => {
-    const refused = tokenShapeError(tokenDraft) ?? serviceAccountNameError(account);
+    const refused = tokenShapeError(tokenDraft, account) ?? serviceAccountNameError(account);
     setTokenRefusal(refused);
     if (refused) return;
     const others = projectsUsingName(settings.values.projects, draft.root, account);

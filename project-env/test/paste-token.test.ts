@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { afterEach, describe, it } from "node:test";
 import { createSecrets } from "../server/secrets.ts";
 import type { Project } from "../shared/config.ts";
-import { projectsUsingName, serviceAccountNameError, tokenShapeError } from "../shared/token.ts";
+import { addTokenCommand, projectsUsingName, serviceAccountNameError, tokenShapeError } from "../shared/token.ts";
 import { makeWorld, type Scenario } from "./world.ts";
 
 const cleanups: (() => void)[] = [];
@@ -89,6 +89,25 @@ describe("the shape of a token", () => {
     assert.match(tokenShapeError(tokenOf(128)) ?? "", /128 characters/);
     assert.equal(tokenShapeError(tokenOf(127)), null);
     assert.equal(tokenShapeError(tokenOf(129)), null);
+  });
+
+  it("refuses a token whose security command line would pass 3840 bytes, 256 under the measured 4096", () => {
+    const fits = (account: string, length: number) =>
+      new TextEncoder().encode(addTokenCommand(account, tokenOf(length))).length <= 3840;
+    for (const account of [ACCOUNT, "", "é".repeat(200)]) {
+      let longest = 128;
+      while (fits(account, longest + 1)) longest += 1;
+      assert.ok(longest > 1000 && longest < 1950, `${account.length}: ${longest}`);
+      assert.equal(tokenShapeError(tokenOf(longest), account), null);
+      assert.match(tokenShapeError(tokenOf(longest + 1), account) ?? "", /longer than this plugin can store safely/);
+    }
+    assert.match(tokenShapeError(tokenOf(2000), ACCOUNT) ?? "", /longer than this plugin can store safely/);
+  });
+
+  it("storeToken refuses an over-long token before any op or security call", async () => {
+    const { secrets, world } = setup({ op: { accounts } });
+    await assert.rejects(secrets.storeToken(ACCOUNT, tokenOf(2000)), /longer than this plugin can store safely/);
+    assert.deepEqual(world.calls(), []);
   });
 
   it("storeToken makes each refusal before any op or security call", async () => {

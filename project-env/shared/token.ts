@@ -72,13 +72,29 @@ export function vaultChoices(
 const UNSAFE_IN_TOKEN = /[\s"'\\\u0000-\u001f\u007f]/;
 const UNSAFE_IN_NAME = /["\\\u0000-\u001f\u007f]/;
 
+export const KEYCHAIN_ACCOUNT = "op-service-account-token";
+// Measured with fake values on a throwaway keychain: `security -i` ran a 4096-byte line and
+// failed on a 4097-byte one, splitting it so the first piece could store a cut-off value.
+const SECURITY_LINE_LIMIT = 4096;
+const SECURITY_LINE_MARGIN = 256;
+const utf8 = new TextEncoder();
+
+export function addTokenCommand(serviceAccount: string, token: string, keychain?: string): string {
+  const hex = Array.from(utf8.encode(token), (b) => b.toString(16).padStart(2, "0")).join("");
+  const target = keychain ? ` "${keychain}"` : "";
+  return `add-generic-password -U -a ${KEYCHAIN_ACCOUNT} -s "${serviceAccount}" -X ${hex}${target}`;
+}
+
 // The token reaches `security -i` on stdin, where a line break would start a second command.
-export function tokenShapeError(raw: string): string | null {
+export function tokenShapeError(raw: string, serviceAccount = ""): string | null {
   const token = raw.trim();
   if (!token.startsWith("ops_")) return "Not a 1Password service account token (expected ops_…)";
   if (token.length === 128) return "Token is exactly 128 characters, likely truncated; copy it again";
   if (UNSAFE_IN_TOKEN.test(token)) {
     return "The token contains a space, quote, backslash or line break; copy it again";
+  }
+  if (utf8.encode(addTokenCommand(serviceAccount, token)).length > SECURITY_LINE_LIMIT - SECURITY_LINE_MARGIN) {
+    return "Token is longer than this plugin can store safely";
   }
   return null;
 }
