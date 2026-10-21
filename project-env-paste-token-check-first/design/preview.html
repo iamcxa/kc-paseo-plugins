@@ -1,0 +1,114 @@
+<!doctype html>
+<!-- DISPOSABLE preview for task project-env-paste-token-check-first. Approximates the Paseo settings card (SettingsInput, SettingsRow, SettingsAction); not Paseo's real styles. Delete after the ideation gate. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Save token preview (disposable)</title>
+<style>
+  :root { --bg:#fff; --fg:#111; --muted:#6b7280; --border:#e5e7eb; --card:#f9fafb; --btn:#111; --btnfg:#fff; --bad:#b42318; --warn:#b54708; }
+  body.dark { --bg:#111418; --fg:#f3f4f6; --muted:#9ca3af; --border:#2a2f37; --card:#181c22; --btn:#f3f4f6; --btnfg:#111; --bad:#f97066; --warn:#fdb022; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.35 -apple-system,system-ui,sans-serif; padding:16px; }
+  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 8px; }
+  .card { border:1px solid var(--border); background:var(--card); border-radius:12px; max-width:560px; }
+  .row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border-top:1px solid var(--border); }
+  .row:first-child { border-top:0; }
+  .txt { min-width:0; flex:1; }
+  .label { font-weight:600; overflow-wrap:anywhere; }
+  .hint { color:var(--muted); font-size:13px; overflow-wrap:anywhere; }
+  .err { color:var(--bad); font-size:13px; margin-top:4px; overflow-wrap:anywhere; }
+  .warn .label { color:var(--warn); }
+  input.field { width:100%; box-sizing:border-box; margin-top:6px; background:transparent; color:var(--fg); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font:inherit; }
+  button { background:var(--btn); color:var(--btnfg); border:0; border-radius:8px; padding:7px 14px; font:inherit; font-weight:600; min-height:36px; white-space:nowrap; }
+  button[disabled] { opacity:.5; }
+  .panel { max-width:560px; margin-bottom:14px; font-size:12px; color:var(--muted); border:1px dashed var(--border); padding:6px 8px; border-radius:6px; }
+  .panel button { min-height:28px; padding:3px 8px; font-size:12px; margin:2px 4px 2px 0; }
+  .phone .card, .phone .panel { max-width:360px; }
+  body.phone { width:392px; }
+</style>
+<div class="panel" id="panel">Preview controls (not part of the design). Check result of the pasted token:
+  <button onclick="S.result='ok'">works</button>
+  <button onclick="S.result='rejected'">rejected</button>
+  <button onclick="S.result='unreachable'">unreachable</button>
+  <button onclick="S.result='opmissing'">op missing</button><br>
+  Saved projects: this project (own name: <b>this-repo-dev</b>) and <b>other-repo</b> (name: <b>relay-dev-read</b>).
+  <button onclick="setName('relay-dev-read')">type other-repo's name</button>
+  <button onclick="setName('this-repo-dev')">type own name</button>
+  <button onclick="setName('fresh-name')">type a new name</button>
+  <button onclick="S.many=!S.many;draw()">two projects use it</button>
+  <button onclick="document.body.classList.toggle('dark')">dark/light</button>
+</div>
+<h2>Connect to 1Password</h2>
+<div class="card" id="card"></div>
+<script>
+const TEXT = {
+  rejected: "1Password rejected the token",
+  unreachable: "1Password could not be reached",
+  opmissing: "the 1Password command-line tool (op) was not found"
+};
+const params = new URLSearchParams(location.search);
+const S = { name: "this-repo-dev", token: "", result: "ok", phase: "idle", many: false, error: "", pending: false, stored: "Token works", vaults: "" };
+const OTHERS = () => (S.many ? ["other-repo", "third-repo"] : ["other-repo"]);
+const usedBy = () => S.name.trim() === "relay-dev-read" ? OTHERS() : [];
+function setName(n){ S.name=n; S.pending=false; S.error=""; draw(); }
+function shapeError(t){
+  if (!t.startsWith("ops_")) return "Not a 1Password service account token (expected ops_…)";
+  if (t.length === 128) return "Token is exactly 128 characters, likely truncated; copy it again";
+  if (/[\s"'\\\u0000-\u001f]/.test(t)) return "The token contains a space, quote, backslash or line break; copy it again";
+  return null;
+}
+function press(){
+  S.error = ""; const e = shapeError(S.token.trim());
+  if (e) { S.error = e; return draw(); }
+  if (usedBy().length) { S.pending = true; return draw(); }
+  run();
+}
+function run(){
+  S.pending = false; S.phase = "checking"; draw();
+  setTimeout(() => {
+    if (S.result === "ok") { S.phase = "idle"; S.token = ""; S.stored = "Token works"; S.error = ""; S.justSaved = true; }
+    else { S.phase = "idle"; S.error = "Not saved: " + TEXT[S.result]; }
+    draw();
+  }, params.get("hold") ? 3600000 : 900);
+}
+function draw(){
+  const busy = S.phase === "checking";
+  const names = usedBy();
+  const warn = S.pending ? `
+    <div class="row warn"><div class="txt"><div class="label">${esc(S.name)} is also used by ${names.map(esc).join(" and ")}</div>
+      <div class="hint">Replacing its token changes it for ${names.length>1?"both":esc(names[0])} too. The new token is checked first; a rejected token is not saved.</div></div></div>
+    <div class="row"><div class="txt"><div class="label">Replace the token under ${esc(S.name)}</div></div><button onclick="run()">Replace</button></div>
+    <div class="row"><div class="txt"><div class="label">Keep the current token</div></div><button onclick="S.pending=false;draw()">Cancel</button></div>` : "";
+  card.innerHTML = `
+  <div class="row"><div class="txt"><div class="label">1Password service account</div>
+    <div class="hint">Keychain item name holding its token, e.g. relay-dev-read</div>
+    <input class="field" id="name" value="${esc(S.name)}" oninput="S.name=this.value;S.pending=false;S.error='';draw(true)"></div></div>
+  <div class="row"><div class="txt"><div class="label">${esc(S.stored)}</div>${S.vaults ? `<div class="hint">${esc(S.vaults)}</div>` : ""}</div></div>
+  <div class="row"><div class="txt"><div class="label">Service account token</div>
+    <div class="hint">Stored in this Mac's Keychain, only after 1Password accepts it; never shown again.</div>
+    <input class="field" id="tok" type="password" placeholder="ops_…" value="${esc(S.token)}" oninput="S.token=this.value;S.pending=false;S.error='';S.justSaved=false;draw(true)">
+    ${S.error ? `<div class="err">${esc(S.error)}</div>` : ""}</div></div>
+  <div class="row"><div class="txt"><div class="label">Save token to Keychain</div></div>
+    <button ${(!S.name.trim() || !S.token.trim() || busy || S.pending) ? "disabled" : ""} onclick="press()">${busy ? "Checking…" : "Save token"}</button></div>${warn}`;
+  if (arguments[0] === true) { const el = document.getElementById(document.activeElement && document.activeElement.id || ""); }
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+// Typing re-renders the card, so restore focus and caret.
+const _draw = draw;
+draw = function(keep){ const a = document.activeElement, id = a && a.id, pos = a && a.selectionStart; _draw(); if (keep && id) { const el = document.getElementById(id); if (el) { el.focus(); try { el.setSelectionRange(pos,pos);} catch(e){} } } };
+// Scenario for pictures: ?s=idle|checking|rejected|unreachable|opmissing|shape|warn|warn2|saved|empty &dark=1 &phone=1
+const s = params.get("s");
+if (params.get("dark")) document.body.classList.add("dark");
+if (params.get("nopanel")) document.getElementById("panel").style.display = "none";
+if (params.get("phone")) document.body.classList.add("phone");
+if (s === "checking") { S.token = "ops_fake_value"; S.phase = "checking"; }
+else if (["rejected","unreachable","opmissing"].includes(s)) { S.token = "ops_fake_value"; S.error = "Not saved: " + TEXT[s]; }
+else if (s === "shape") { S.token = "ops_fake value"; S.error = shapeError(S.token); }
+else if (s === "warn" || s === "warn2") { S.name = "relay-dev-read"; S.token = "ops_fake_value"; S.pending = true; S.many = s === "warn2"; }
+else if (s === "saved") { S.name = "fresh-name"; S.stored = "Token works"; }
+else if (s === "replace-checking") { S.name = "relay-dev-read"; S.token = "ops_fake_value"; S.phase = "checking"; }
+else if (s === "replace-rejected") { S.name = "relay-dev-read"; S.token = "ops_fake_value"; S.error = "Not saved: " + TEXT.rejected; }
+else if (s === "prefix") { S.token = "sk_fake_value"; S.error = shapeError(S.token); }
+else if (s === "len128") { S.token = "ops_" + "x".repeat(124); S.error = shapeError(S.token); }
+else if (s === "newproject") { S.name = "fresh-name"; S.stored = "No token in Keychain"; S.vaults = ""; }
+if (s === "rejected-first") { S.name="fresh-name"; S.stored="No token in Keychain"; S.vaults=""; S.token="ops_fake_value"; S.error="Not saved: "+TEXT.rejected; }
+draw();
+</script>

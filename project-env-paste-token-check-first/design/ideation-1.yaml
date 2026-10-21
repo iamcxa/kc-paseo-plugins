@@ -1,0 +1,78 @@
+design_review:
+  preview: project-env-paste-token-check-first/design/preview.html
+  findings:
+    - severity: MAJOR
+      dimension: states
+      where: preview-warning-*.png (all four); no picture of Replace pressed
+      seen: After the warning row, no picture shows what happens when Replace is pressed (Checking... label, which button shows it, where a 1Password rejection appears, whether the warning row stays), and Save token is already greyed out while Replace and Cancel are both live.
+      fix: Add a picture of the warning card with Replace pressed (checking) and one of Replace followed by a rejected token, showing where the status and the "Not saved:" text go and what happens to Replace and Cancel.
+    - severity: MAJOR
+      dimension: states
+      where: preview-shape-desktop-light.png and the set as a whole
+      seen: Only one of the shape refusals is drawn (space, quote, backslash or line break); the not-ops_ and not-128-characters reasons have no picture, and the field is masked so the person cannot see what is wrong in what they pasted.
+      fix: Show the other shape reasons (wrong prefix, wrong length) and state the actual length or the first problem so the person can act without seeing the masked text.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-rejected-desktop-light.png, preview-rejected-desktop-dark.png, preview-unreachable-desktop-light.png, preview-opmissing-desktop-light.png
+      seen: The card shows "Token works" in the row above the field and, a few lines below, "Not saved: 1Password rejected the token" (or could not be reached or tool not found), so two status facts about "the token" sit in one card without saying one is the stored token and one is the pasted token.
+      fix: Label the top row as the stored token (for example "Saved token works") or tie the error text to "the pasted token".
+    - severity: MINOR
+      dimension: flow
+      where: preview-saved-desktop-light.png vs preview-idle-desktop-light.png
+      seen: The saved picture is almost identical to idle (same "Token works" row, empty field), with only a faint small caption "Saved after 1Password accepted it." as the success cue, and the idle row already read "Token works" before saving.
+      fix: Give success a visible cue (for example a check mark or brief highlight on the token row) and show the case where the row changes from "No token in Keychain" to "Token works".
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-saved-desktop-light.png, preview-idle-desktop-light.png
+      seen: "Saved after 1Password accepted it." repeats the help text above the field ("only after 1Password accepts it"), and the row "Save token to Keychain" beside the button "Save token" says the same action twice.
+      fix: Drop the repeated caption or the repeated row label so each fact appears once.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-warning-desktop-light.png, preview-warning-two-desktop-light.png, preview-warning-phone-dark.png
+      seen: The warning card says the project name three times (heading, "Replace the token under relay-dev-read", and the field), and each action row has a label that only restates its button ("Keep the current token" next to Cancel, "Replace the token under ..." next to Replace).
+      fix: Keep the warning heading and the two buttons and remove or shorten the explaining row labels.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-warning-desktop-light.png, preview-warning-desktop-dark.png
+      seen: Replace and Cancel are both solid black (white in dark) buttons of equal weight in stacked rows, so the destructive choice and the safe choice look alike and there are three filled buttons in one card; Save token (about 106x36), Replace (about 86x36) and Cancel (about 78x36) also differ in width.
+      fix: Make Cancel a secondary (outline or text) button, make Replace the only filled one (or a warning tone), and give the two buttons the same width.
+    - severity: MINOR
+      dimension: flow
+      where: preview-warning-desktop-light.png
+      seen: The warning row sits below a greyed Save token button with no sign of why it is grey, and it is not shown what happens to the warning if the person edits the service account name or the token while it is open.
+      fix: Show the warning card with the name field edited (warning clears or stays) and tie the grey Save token to the open warning.
+    - severity: MINOR
+      dimension: states
+      where: preview-checking-desktop-light.png
+      seen: "Checking..." is the same grey as the disabled Save token in idle, with no spinner, and nothing shows whether the name and token fields are locked or how a slow check can be stopped.
+      fix: Add a spinner or progress mark, show the fields as locked, and show what a slow check looks like.
+    - severity: MINOR
+      dimension: states
+      where: preview-unreachable-desktop-light.png, preview-opmissing-desktop-light.png
+      seen: "1Password could not be reached" and "the 1Password command-line tool (op) was not found" give no next step (retry, check network, install link), and the long op message is only drawn at desktop width.
+      fix: Add a short next step to each cause and show the long message on phone.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole
+      seen: There is no picture of three or more projects sharing a name, a very long project or service account name, a read-only card, or a warning and an error at the same time.
+      fix: Add pictures for a long name, three or more sharing projects, and read-only.
+    - severity: MINOR
+      dimension: platform
+      where: preview-warning-phone-dark.png, preview-rejected-newproject-phone-light.png
+      seen: Buttons on phone are about 34-36 px tall (Save token, Replace, Cancel), below the common 44 px touch target, and project names break mid-word at the hyphen ("relay-dev-" then "read") in the field help, the warning heading and the Replace label.
+      fix: Raise phone button height to at least 44 px and keep project names on one line (wrap the sentence, not the name).
+    - severity: MINOR
+      dimension: consistency
+      where: preview-warning-desktop-light.png, preview-warning-desktop-dark.png
+      seen: The warning is signalled by orange or amber colour of the heading only, with no icon, while the error lines use red text only with no icon.
+      fix: Add a warning icon (and an error icon) so state does not depend on colour alone.
+    - severity: MINOR
+      dimension: theme-size
+      where: set as a whole
+      seen: Idle, checking, saved, shape, unreachable and opmissing are drawn only in desktop light; rejected is the only state in both light and dark on desktop; phone shows only warning dark and rejected-newproject light; warning light on phone, and warning-two and dark states on phone are missing.
+      fix: Add the missing theme and size combinations, at least phone light for warning and phone dark for the error states, or state that they reuse the same card.
+  limitations:
+    - Read only the 13 PNG previews; did not open preview.html, so hover, focus, disabled-field behaviour and transitions are unseen.
+    - Dark versions exist only for rejected and warning; phone only for warning dark and rejected-newproject light, so judgements for the other combinations are inferred from the desktop light pictures.
+    - The previews show one card only; the rest of the settings screen (header, other cards) is not shown, so spacing and block counts above the card could not be assessed beyond the section label.
+    - Text size, colour contrast and pixel sizes are estimated from the images, not measured.
