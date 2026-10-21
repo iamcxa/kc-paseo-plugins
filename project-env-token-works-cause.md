@@ -1,12 +1,12 @@
 ---
 id:
 title: The token row names why a token fails and picks the only readable vault
-status: validation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-token-works-cause
-pr: iamcxa/kc-paseo-plugins#15
+pr:
 journey: paseo-project-env
 journey-release: r1.5
 journey-story: token-works
@@ -71,7 +71,7 @@ gates:
                 reason: 'Captain 2026-10-21: 「可以，同意你的計畫」 — approves delivery of PR iamcxa/kc-paseo-plugins#15, merged last by squash after a merge-main reconciliation that passes revalidation with no Material or Needs-decision finding, a clean Codex round on that head, and FO''s real-tool integration test on an isolated Paseo; includes later review rounds on the same PR and removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: superseded
 started: 2026-10-21T08:41:45Z
 ---
 
