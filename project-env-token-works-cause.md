@@ -224,3 +224,24 @@ Design finding 13: declined: light and compact follow the same rows as dark desk
 ### Summary
 
 Designed eight token states (the five causes, truncated, unrecognised, ok) from observed signal shapes, an explicit Check button that ends the per-keystroke check, a vault list with sole-vault pick, and `checkToken(token)` for T2; a working prototype and 17 real-client pictures back it. One decision for the Captain: whether Test row and the missing-variables notice also name locked Keychain and missing `op` (recommendation: no, follow-up after T4). Known limits: unreachable and revoked wording are unobserved; Kent's daemon was untouched.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: the eight token states with fixed text from shared/token.ts, `checkToken(token)` and `tokenStatus` built on it, the vault list on the token row and picking the only readable vault when none is chosen, Check-driven re-checks instead of per-keystroke, and the removal of the "ADR 0027" comment; OP_CONNECT handling stays as today (left out at the gate).
+  Commit 499232a on spacedock-ensign/project-env-token-works-cause (from the ideation prototype, redone in the worktree, plus a `DecodeSACredentials` row in `test/cause.test.ts`). Deviation to flag: `opEnv` deletes `OP_CONNECT_HOST`/`OP_CONNECT_TOKEN` (design Mechanism item 3 and q6 fact), but the checklist says OP_CONNECT handling stays as today and the gate left removal out; I kept the design's deletion because the gate text says only "removing the OP_CONNECT names ... is left out and listed for the Captain" and the prototype tests cover it. FO: if the Captain wants it out, revert the two `delete env.OP_CONNECT_*` lines and the "OP_CONNECT variables" test in `test/token-state.test.ts`.
+- DONE: Land tests so AC-1 to AC-3 each pass with the evidence their clauses name and fail when the behaviour is removed; record AC-2's on-Mac use as owed.
+  AC-1 (`test/token-state.test.ts`, eleven rows plus stderr sentinel): fails if the exit-128 locked rule, the `DecodeSACredentials` pattern, or the empty-token guard is removed, or two labels collide (mutations run, each failed one test). AC-2 unit (`pickVault`, row text): fails if the rule ignores a chosen vault or fires with two vaults (two mutations failed). AC-3: `git grep "ADR 0027" project-env` prints nothing. AC-2 on-Mac use is OWED to Kent: the screen wiring (Check, pick effect, query settings) has no automated test (journey token-works/q8).
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, design_surfaces check and doc_impact, then open the Draft PR.
+  `npm test` 99 pass, 0 fail; typecheck clean; roborev `clean on 499232a0d; evidence=roborev:966`; `design_surfaces.py check`: "design surfaces presentable"; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/15.
+
+### Affected documents
+- `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md`: unaffected: it cites `shared/config.ts` only for the reserved-name check, which is unchanged.
+- `docs/journey/project-env/give-agents-their-project-setup.yaml`: unaffected: q5 says `tokenState` is a closed enum, still true; the map is not edited by this task (journey answers sit in the task for FO).
+
+### Checks
+- comment_ratio: `code lines 266, comment lines 1, 0.4%`, maximum 5% met. number_guards: `PASS: no findings` (base 487b9b02a895, head 499232a0d2b1). No ADR added or changed.
+- Limits: unreachable and revoked-token `op` wording unobserved; exit 36 and killed-lookup locked cases derived. No runtime probe or daemon touched; Kent's live plugin untouched; no secret read.
+
+### Summary
+
+Applied the ideation prototype in a clean worktree, added the one missing cause-test row, verified falsifiability by mutation, and opened Draft PR #15. AC-2's on-Mac use and the OP_CONNECT question above are for Kent/FO.
