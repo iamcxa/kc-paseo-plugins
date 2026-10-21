@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-test-results-match-draft
-pr: iamcxa/kc-paseo-plugins#20
+pr: pr-merge:20
 journey: paseo-project-env
 journey-release: r1.5
 journey-story: test-each-variable
