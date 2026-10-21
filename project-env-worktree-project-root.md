@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-worktree-project-root:validation:attempt-1:revision-1
                 digest: sha256:13167fad1a2e81e34cb84c7338cb365c42ba07c9c0f9a9b4830ecd9baa5420cd
                 room-ref: ./project-env-worktree-project-root/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-worktree-project-root:validation:1
+                briefing: briefing:project-env-worktree-project-root:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T12:09:50.880692Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「Dev2檢驗都過了嗎？ 如果說就批准合併」 — conditional approval; FO confirmed for this PR: validation PASSED, FO acceptance rerun matched, roborev clean, Codex clean on the head, real-tool integration test passed — approves delivery of PR iamcxa/kc-paseo-plugins#19 at head 09bc5c98488f75d77e14c9bf73bd532457dd490e by squash, including removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-21T09:42:39Z
 ---
 
