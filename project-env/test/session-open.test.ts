@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, describe, it } from "node:test";
 import type { PluginSessionOpenRequest } from "@getpaseo/plugin/server";
+import { rowHint } from "../shared/cause.ts";
 import type { Project } from "../shared/config.ts";
 import { createSecrets } from "../server/secrets.ts";
 import { openSession } from "../server/session-open.ts";
@@ -86,13 +87,32 @@ describe("session open", () => {
     assert.equal(reads(world).length, 2);
   });
 
-  it("whitespace is a value, not empty", async () => {
+  it("a whitespace-only value is a failed variable, blanked and not cached", async () => {
+    const { world, secrets } = setup({
+      keychain: { "sa-a": "a" },
+      op: { accounts: { a: { refs: { "op://V/i/sp": "   \t " } } } },
+    });
+    const p = project([["SP", "op://V/i/sp"]]);
+    const tested = await secrets.resolveProject(p);
+    assert.deepEqual(tested.results, [{ name: "SP", ok: false, cause: "empty" }]);
+    assert.equal(reads(world).length, 1);
+    await secrets.resolveProject(p);
+    assert.equal(reads(world).length, 2);
+
+    const opened = await openSession(secrets, p, request);
+    assert.equal(opened.request.env.SP, "");
+    assert.deepEqual(opened.results, [{ name: "SP", ok: false, cause: "empty" }]);
+    assert.equal(rowHint(opened.results[0]), "failed: the 1Password field is empty");
+  });
+
+  it("a value with whitespace around text is delivered as read", async () => {
     const { secrets } = setup({
       keychain: { "sa-a": "a" },
-      op: { accounts: { a: { refs: { "op://V/i/sp": " " } } } },
+      op: { accounts: { a: { refs: { "op://V/i/pad": " x " } } } },
     });
-    const opened = await openSession(secrets, project([["SP", "op://V/i/sp"]]), request);
-    assert.equal(opened.request.env.SP, " ");
+    const opened = await openSession(secrets, project([["PAD", "op://V/i/pad"]]), request);
+    assert.equal(opened.request.env.PAD, " x ");
+    assert.deepEqual(opened.results, [{ name: "PAD", ok: true }]);
   });
 
   for (const [label, scenario, cause] of [
