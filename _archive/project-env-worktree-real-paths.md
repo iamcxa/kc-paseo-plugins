@@ -1,7 +1,7 @@
 ---
 id:
 title: Agents in a worktree or symlinked checkout get the repository's variables
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -80,8 +80,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「其他的部分授權你合併」 — approves delivery of PR iamcxa/kc-paseo-plugins#8 at head 5ff307de6df4af4c1804d640ad8d31a068fe2e62 once its Codex round on that head is clean, after the roborev run he asked for (clean), including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-20T14:19:57Z
+verdict: PASSED
+completed: 2026-10-21T01:41:11Z
+archived: 2026-10-21T01:41:11Z
 ---
 
 Kent uses worktrees daily. Worktree membership already resolves real paths, but the stored repository root is compared with git's common-dir parent as written, so a symlinked path fails to match.
