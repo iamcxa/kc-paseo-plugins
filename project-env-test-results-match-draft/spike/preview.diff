@@ -1,0 +1,70 @@
+--- client/settings-screen.tsx	2026-10-21 08:32:22
++++ /tmp/pe-t4-match-draft/plugin/client/settings-screen.tsx	2026-10-21 16:49:20
+@@ -94,7 +94,11 @@
+   const refs = useMutation({
+     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
+   });
+-  const test = useMutation({ mutationFn: () => testRpc({ project: draft }) });
++  const test = useMutation({
++    mutationFn: async (sent: Project) => ({ sent, results: (await testRpc({ project: sent })).results }),
++  });
++  const shown = test.data && test.data.sent === draft ? test.data.results : [];
++  const resultOf = new Map(shown.map((r) => [r.name, r]));
+   const doImport = useMutation({
+     mutationFn: () => importRpc({ root: draft.root }),
+     onSuccess: ({ names, prompt }) =>
+@@ -184,6 +188,7 @@
+                     : [{ label: v.ref, value: v.ref }, ...refOptions]
+                 }
+                 onValueChange={(ref) => setRef(v.name, ref)}
++                hint={resultOf.has(v.name) ? rowHint(resultOf.get(v.name)!) : undefined}
+               />
+             ) : (
+               <SettingsInput
+@@ -192,6 +197,7 @@
+                 initialValue={v.ref}
+                 placeholder="op://vault/item/field"
+                 onChangeText={(ref) => setRef(v.name, ref)}
++                hint={resultOf.has(v.name) ? rowHint(resultOf.get(v.name)!) : undefined}
+               />
+             ),
+           )}
+@@ -256,14 +262,11 @@
+         <SettingsCard>
+           <SettingsAction
+             label="Resolve every variable now"
+-            hint="Shows set or failed per variable; never the value."
++            hint="Shows set or failed for each variable, never the value. Set means a value came back from 1Password; it does not prove the service accepts that key."
+             actionLabel={test.isPending ? "Testing…" : "Test"}
+             disabled={test.isPending}
+-            onPress={() => test.mutate()}
++            onPress={() => test.mutate(draft)}
+           />
+-          {(test.data?.results ?? []).map((r) => (
+-            <SettingsRow key={r.name} label={r.name} hint={rowHint(r)} />
+-          ))}
+           <SettingsAction
+             label="Save this project"
+             actionLabel="Save"
+--- server/secrets.ts	2026-10-21 09:41:19
++++ /tmp/pe-t4-match-draft/plugin/server/secrets.ts	2026-10-21 16:49:10
+@@ -191,7 +191,7 @@
+         env: opEnv(secret),
+         timeout: timeout(),
+       });
+-      if (value === "") return { ok: false, cause: "empty" };
++      if (value.trim() === "") return { ok: false, cause: "empty" };
+       cache.set(key, { value, at: Date.now() });
+       return { ok: true, value };
+     } catch (error) {
+--- project-env/shared/cause.ts	2026-10-21 08:40:05
++++ /tmp/pe-t4-match-draft/plugin/shared/cause.ts	2026-10-21 17:11:58
+@@ -19,7 +19,7 @@
+   "rejected-token": "1Password rejected the token",
+   "missing-field": "field not found in the vault",
+   unreachable: "1Password could not be reached",
+-  empty: "the field is empty",
++  empty: "the 1Password field is empty",
+   "outside-vault": "reference points outside the chosen vault",
+   "reserved-name": "reserved name",
+   unexpected: "1Password returned an error the plugin does not recognise",

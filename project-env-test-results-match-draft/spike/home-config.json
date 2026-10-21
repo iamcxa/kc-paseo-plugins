@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:6841",
+    "mcp": {
+      "injectIntoAgents": false
+    },
+    "browserTools": {
+      "enabled": false
+    },
+    "enableTerminalAgentHooks": false,
+    "relay": {
+      "enabled": false
+    }
+  },
+  "pluginsEnabled": true,
+  "plugins": {
+    "pe-t4-preview": {
+      "source": "directory",
+      "path": "/tmp/pe-t4-match-draft/plugin",
+      "enabled": true
+    }
+  },
+  "features": {
+    "dictation": {
+      "enabled": false
+    },
+    "voiceMode": {
+      "enabled": false
+    }
+  }
+}

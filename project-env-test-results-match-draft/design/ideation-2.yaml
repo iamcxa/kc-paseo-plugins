@@ -1,0 +1,67 @@
+design_review:
+  preview: project-env-test-results-match-draft/design/preview-desktop-dark-results-shown.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-results-shown.png, "Stop managing this project" row and the "Remove API_KEY" rows
+      seen: The project-level "Stop managing this project" button and the per-variable buttons all read "Remove", share one outlined style, and sit in the same column with no confirm or undo cue.
+      fix: Give the project-level action a distinct label and destructive styling plus a confirm, or state its scope on the row.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-testing.png
+      seen: Only the Test button changes (to a faint "Testing..."); no variable row shows progress.
+      fix: Show a "testing" cue on each variable row, or on the Test row's help text.
+    - severity: MAJOR
+      dimension: states
+      where: set (no picture): editing while a Test is running
+      seen: No picture shows the proposed case of editing while a Test runs and the result being dropped, so a person sees the button revert to "Test" with no result and no explanation.
+      fix: Add a preview of this case with a short cue, for example "Settings changed, run Test again", or an explicit decision that silence is intended.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-results-cleared.png
+      seen: After the results are cleared, nothing on the Test row or the variable rows says why they vanished or that Test needs to be run again.
+      fix: Add a muted "Changed since last test" cue on the Test row, or accept silence and record that choice.
+    - severity: MINOR
+      dimension: states
+      where: all previews
+      seen: Only the spaces-only and blank failure causes are drawn. There is no preview of a long or wrapping cause, a whole-test error such as 1Password being locked, or many variables.
+      fix: Add previews for a long cause, a test-level error, and a list long enough to scroll.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-results-shown.png, API_KEY and BLANK_ONE rows
+      seen: "set" and "failed: the 1Password field is empty" are drawn in the same small, low-contrast grey with no colour or icon, so a failure is no more prominent than a success.
+      fix: Give "failed" a distinct colour or icon, and keep "set" neutral.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-results-shown.png vs preview-desktop-dark-results-cleared.png
+      seen: Rows with a result are about 69px tall and rows without are about 65px, so the Check and save section shifts by about 16px when the results clear.
+      fix: Reserve the result line's height in every row, or accept the jump knowingly.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-results-shown.png, "New variable name" = DB_URL, Add disabled
+      seen: Add is greyed out because the name duplicates an existing variable, but no message says why.
+      fix: Add an inline "already exists" hint, or note that the greyed-out Add is existing behaviour.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-results-shown.png, Test row
+      seen: The Test row does not say whether it checks the unsaved edits on screen or the saved project, although this task's name implies the draft.
+      fix: Add a few words to the Test row's help text saying what the test is run against.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-results-shown.png, Check and save card
+      seen: Test, Save, Discard and Remove are all the same outlined buttons, so nothing marks Save as primary or Remove as destructive.
+      fix: Give Save a primary style and Remove a destructive one.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-results-shown.png
+      seen: Remove, Test and Save buttons are about 30 to 34px tall at compact size, below the usual 44px touch target.
+      fix: Raise the compact button hit area to 44px.
+    - severity: MINOR
+      dimension: theme-size
+      where: set (no picture): testing state in light theme and at compact size
+      seen: The testing state is drawn only for desktop dark.
+      fix: Add testing previews for desktop light and both compact themes.
+  limitations:
+    - I opened 6 of the 9 previews (desktop-dark shown, cleared and testing; compact-dark shown; compact-light cleared; desktop-light shown). I did not open desktop-light cleared, compact-dark cleared or compact-light shown, so the findings and "not drawn" claims cover only the ones I opened.
+    - The previews are scrolled, so the top of the panel (title, profile, first card) is cropped. I could not count the blocks above the first content, and the page header is visible only at compact size.
+    - Static images show no hover, focus, keyboard or animation behaviour. Cause text other than the empty-field message and any long, overflowing or many-row content are not drawn, and I could not judge them.

@@ -1,0 +1,68 @@
+design_review:
+  preview: project-env-test-results-match-draft/design/preview-desktop-dark-results-shown.png
+  findings:
+    - severity: MAJOR
+      dimension: hierarchy
+      where: preview-desktop-dark-results-shown.png, preview-compact-dark-results-shown.png
+      seen: BLANK_ONE and SPACES_ONE read "failed: the field is empty" while the reference input on the same row shows a filled value (op://V/api/blank, op://V/api/spaces), so "the field" reads as the input beside it and contradicts it.
+      fix: Name the thing that is empty, for example "failed: the 1Password field is empty", so it cannot be read as this editor's input.
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-results-shown.png, "Stop managing this project" row
+      seen: The "Stop managing this project" row uses a button labelled plain "Remove", the same label, size and weight as the four per-variable Remove buttons above it and next to Save and Discard, and no confirm state is drawn.
+      fix: Give the project-level action a distinct label such as "Stop managing", and draw a confirm step or state its scope.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-results-shown.png, preview-compact-dark-results-shown.png
+      seen: "set" and "failed: ..." are both small grey text under the variable name, in the same weight and colour, so a failure does not stand out from a success and is the lowest-emphasis text on the page.
+      fix: Give failed a distinct colour or icon (and set a quiet success cue) while keeping the words.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-results-cleared.png, preview-compact-dark-results-cleared.png
+      seen: After an edit the results simply vanish, with nothing saying results were cleared or that the variables are untested, and Save and Discard look the same as before the edit, with no unsaved-changes cue.
+      fix: Show a short "Edited since test, run Test again" cue near the Test row, or a visible untested state per row, and an unsaved cue on Save.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-testing.png
+      seen: While testing, only the Test button changes to a faint "Testing..." (wider, so the help text reflows); the variable rows show no pending mark, and nothing says that editing now will discard the result.
+      fix: Show a per-row "checking" mark, keep the button width stable, and add a one-line note that edits during a test discard its result.
+    - severity: MINOR
+      dimension: states
+      where: set of previews
+      seen: There is no picture of a whole-run error (1Password locked or unavailable), a long variable name or long failure cause, many variables, zero variables (Test enabled or not), or a read-only project.
+      fix: Add previews for a run-level error, long and many-item content, and the empty and read-only cases.
+    - severity: MINOR
+      dimension: theme-size
+      where: set of previews
+      seen: The testing state exists only for desktop dark; there is no testing picture for desktop light, compact dark or compact light.
+      fix: Add the testing state for the three missing theme and size combinations.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-results-shown.png vs preview-desktop-dark-results-cleared.png
+      seen: A result line makes each variable row about 4px taller on desktop, so the lower sections shift about 16px (the "Check and save" label moves from y=1085 to y=1101) when results appear or clear; on compact each variable block is about 125px tall.
+      fix: Reserve the result line's height in every state so rows do not move when results appear or disappear.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-results-shown.png, "New variable name" and "Add variable" rows
+      seen: The new-variable input is pre-filled with "DB_URL", which duplicates an existing row, and Add is greyed with no reason shown.
+      fix: Show an empty placeholder for the new-name input, or an inline "already exists" message when Add is disabled.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-results-shown.png, Test row
+      seen: The one sentence explaining what set means sits in the Test row near the bottom, far from the result rows (about 1000px away on desktop and several screens away on compact), so a person reading "set" on a row does not see it.
+      fix: Keep the sentence on the Test row as proposed and add a short pointer or info cue on the result line, or place the explanation next to the results.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-results-shown.png, preview-compact-light-results-shown.png
+      seen: On compact, Test, Add, Save, Discard and Remove are about 52-78px wide and 30-34px tall, below the usual 44px touch target.
+      fix: Raise compact buttons to at least 44px tall with adequate spacing.
+    - severity: MINOR
+      dimension: theme-size
+      where: preview-compact-dark-results-shown.png, preview-compact-dark-results-cleared.png
+      seen: Compact pictures are cropped under the header, so the API_KEY row (and its result or its focused edit state) is cut off.
+      fix: Re-capture the compact previews scrolled so the first variable row is fully visible.
+  limitations:
+    - Previews are scrolled mid-page, so the top header and blocks above "Environment variables" on desktop, and the section heading on compact, are not visible; the count of blocks before the first content cannot be fully measured.
+    - Opened and inspected - desktop dark shown, cleared and testing; compact dark shown and cleared; desktop light shown; compact light shown. Not opened - preview-desktop-light-results-cleared.png and preview-compact-light-results-cleared.png; light-theme findings are inferred from the shown variants.
+    - Static images only - hover, focus (apart from one focused field in the cleared pictures), animation, the actual behaviour of a Test finishing after an edit, and any confirm dialogs cannot be seen.
+    - Colour contrast was judged by eye, not measured.
