@@ -12,6 +12,17 @@ journey-release: r1.5
 journey-story: paste-token
 journey-required-tasks: '["project-env-paste-token-check-first"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-paste-token-check-first:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-paste-token-check-first-backlog-1
+              briefing:
+                id: briefing:project-env-paste-token-check-first:backlog:attempt-1:revision-1
+                digest: sha256:bff7fdb7603e47c890709aed8cb74fe4cc58f3a65fde85fab009382fc99e1a9b
+                room-ref: ./project-env-paste-token-check-first/review/backlog/briefing-1
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today storeToken writes the Keychain first and checks afterwards, and a name another project uses is overwritten without a warning.
