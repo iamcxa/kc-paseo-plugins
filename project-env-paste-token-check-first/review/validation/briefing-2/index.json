@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-paste-token-check-first:validation:attempt-2:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#21 at head 130389257448ea1387f93ce6d8bc87e88df5d81e? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds. Approving also accepts FO's recommendation to decline as Deferred risk the surviving mutant (storeToken not passing the account to the length check) and to leave writeToken's unused keychain argument for a later cleanup; say if you object.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-paste-token-check-first:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/4580cc65e02c38fba648336b51894763236bf902/project-env-paste-token-check-first.md",
+      "rev": "sha256:c352e33220960395afd6e7102d1484f5b1307fcfd4582e41a3106f2d17e14254",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 2 PASSED at 1303892. Cycle 1 (Captain 「按建議」): a token whose security -i line would pass 3840 bytes is refused with 'Token is longer than this plugin can store safely'; the real 4096-byte limit is confirmed; the longest accepted token for a short name is 1883 characters and writes with exit 0. FO-authorized fix roborev:988: Save and Replace carry { serviceAccount, token } from the press (read, no screen test seam). FO reran the six-step acceptance script in a fresh shell and every step matched (16/16, texts present, token off argv with 0 processes holding the hex, longest token writes, both falsifiers fail tests, adr_lint 0). Reviewers: roborev clean (roborev:989); codex round 1 requested at ready. Deferred risk: the surviving mutant above; the load-sensitive session-open deadline test. Owed: the hex round trip with a real token, whether Kent's real token exceeds 1883 characters, the rename-during-save case, Kent's on-Mac use."
+    }
+  ]
+}

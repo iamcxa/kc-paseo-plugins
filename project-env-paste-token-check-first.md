@@ -69,6 +69,11 @@ gates:
                 at: "2026-10-21T15:30:33.237971Z"
                 decision: revise
                 reason: 'Captain 2026-10-21: 「按建議」 — accepts the stated recommendation: revise before merge. Assignment: in tokenShapeError refuse a token longer than the longest length that fits one security -i command line with the hex encoding and the command text (measure the exact limit; about 1900 characters), with a plain reason such as ''Token is longer than this plugin can store safely'', and add a test that fails without the refusal; leave every other behaviour unchanged; then revalidate.'
+            - id: gate-attempt:project-env-paste-token-check-first-validation-2
+              briefing:
+                id: briefing:project-env-paste-token-check-first:validation:attempt-2:revision-1
+                digest: sha256:da09f06700862b8e0c5a058c1c770347490524b565f295edd669992ab51e6924
+                room-ref: ./project-env-paste-token-check-first/review/validation/briefing-2
 started: 2026-10-21T08:41:52Z
 ---
 
