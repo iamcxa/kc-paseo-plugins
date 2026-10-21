@@ -90,7 +90,7 @@ describe("a row's one line", () => {
     assert.equal(variableLine(v, undefined), null);
     assert.deepEqual(variableLine(v, { ok: true }), { text: "set", failed: false });
     assert.deepEqual(variableLine(v, { ok: false, cause: "empty" }), {
-      text: "failed: the field is empty",
+      text: "failed: the 1Password field is empty",
       failed: true,
     });
   });

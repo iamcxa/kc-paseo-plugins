@@ -74,7 +74,7 @@ export function createSecrets(tools: Tools) {
     });
   }
 
-  async function mainCheckout(cwd: string): Promise<string | null> {
+  async function locate(cwd: string): Promise<{ top: string; root: string } | null> {
     try {
       const git = (args: string[]) => run(tools.git, args).then((out) => out.trim());
       const root = await realOrSelf(
@@ -87,17 +87,22 @@ export function createSecrets(tools: Tools) {
         .filter((line) => line.startsWith("worktree "))
         .map((line) => line.slice("worktree ".length));
       const known = await Promise.all(registered.map(realOrSelf));
-      return known.includes(top) ? root : null;
+      return known.includes(top) ? { top, root } : null;
     } catch {
       return null;
     }
   }
 
+  async function mainCheckout(cwd: string): Promise<string | null> {
+    return (await locate(cwd))?.root ?? null;
+  }
+
   async function projectForCwd(projects: Project[], cwd: string): Promise<Project | null> {
-    const root = await mainCheckout(cwd);
-    if (root === null) return null;
+    const place = await locate(cwd);
+    if (place === null) return null;
     const roots = await Promise.all(projects.map((p) => realOrSelf(p.root)));
-    return projects[roots.indexOf(root)] ?? null;
+    const own = roots.indexOf(place.top);
+    return projects[own >= 0 ? own : roots.indexOf(place.root)] ?? null;
   }
 
   async function lookupToken(
@@ -243,7 +248,7 @@ export function createSecrets(tools: Tools) {
         env: opEnv(secret),
         timeout: timeout(),
       });
-      if (value === "") return { ok: false, cause: "empty" };
+      if (value.trim() === "") return { ok: false, cause: "empty" };
       cache.set(key, { value, at: Date.now() });
       return { ok: true, value };
     } catch (error) {

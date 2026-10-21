@@ -158,6 +158,7 @@ function ProjectEditor({
   onDone(): void;
 }) {
   const [draft, setDraft] = useState(initial);
+  const [edits, setEdits] = useState(0);
   const [revision] = useState(settings.revision);
   const [newName, setNewName] = useState("");
   const nameInput = useRef<SettingsInputHandle>(null);
@@ -208,7 +209,10 @@ function ProjectEditor({
   const refs = useMutation({
     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
   });
-  const test = useMutation({ mutationFn: () => testRpc({ project: draft }) });
+  const test = useMutation({
+    mutationFn: ({ project }: { project: Project; edits: number }) => testRpc({ project }),
+  });
+  const testResults = test.variables?.edits === edits ? test.data?.results : undefined;
   const doImport = useMutation({
     mutationFn: () => importRpc({ root: draft.root }),
     onSuccess: ({ names, prompt }) => {
@@ -218,6 +222,7 @@ function ProjectEditor({
           ? null
           : `Skipped ${skipped.map((x) => x.name).join(", ")}: reserved names, so the agent keeps its own value.`,
       );
+      setEdits((n) => n + 1);
       setDraft((d) => ({
         ...d,
         variables: [
@@ -229,7 +234,10 @@ function ProjectEditor({
     },
   });
 
-  const patch = useCallback((change: Partial<Project>) => setDraft((d) => ({ ...d, ...change })), []);
+  const patch = useCallback((change: Partial<Project>) => {
+    setEdits((n) => n + 1);
+    setDraft((d) => ({ ...d, ...change }));
+  }, []);
   const setRef = (name: string, ref: string) =>
     patch({ variables: draft.variables.map((v) => (v.name === name ? { ...v, ref } : v)) });
 
@@ -330,7 +338,7 @@ function ProjectEditor({
               key={v.name}
               variable={v}
               theme={theme}
-              result={test.data?.results.find((r) => r.name === v.name)}
+              result={testResults?.find((r) => r.name === v.name)}
               onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
             >
               {refOptions.length > 0 ? (
@@ -369,10 +377,10 @@ function ProjectEditor({
           {draft.variables.length > 0 ? (
             <SettingsAction
               label="Check the variables"
-              hint="Resolves every variable now and shows the result on its row; never the value."
+              hint="Resolves every variable now and shows the result on its row; never the value. Set means a value came back from 1Password; it does not prove the service accepts that key."
               actionLabel={test.isPending ? "Testing…" : "Test"}
               disabled={test.isPending}
-              onPress={() => test.mutate()}
+              onPress={() => test.mutate({ project: draft, edits })}
             />
           ) : null}
           <SettingsInput
@@ -428,7 +436,7 @@ function ProjectEditor({
             placeholderTextColor={theme.colors.foregroundMuted}
             placeholder="Appended to the system prompt of every new agent in this project"
             value={draft.prompt}
-            onChangeText={(prompt) => patch({ prompt })}
+            onChangeText={(prompt) => setDraft((d) => ({ ...d, prompt }))}
           />
         </View>
       </SettingsSection>
