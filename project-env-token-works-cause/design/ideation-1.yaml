@@ -1,0 +1,78 @@
+design_review:
+  preview: project-env-token-works-cause/design/preview-desktop-dark-4-ok-three-vaults.png
+  findings:
+    - severity: MAJOR
+      dimension: consistency
+      where: preview-desktop-dark-12-ok-no-vault.png vs preview-desktop-dark-13-chosen-vault-not-readable.png
+      seen: In 12 the status says the token reads no vault, yet the Vault field shows a plain "relay-dev" with no flag; in 13 a chosen unreadable vault is flagged.
+      fix: Flag a chosen vault as unreadable whenever the check succeeded and the vault is not in the readable list, including the empty list.
+    - severity: MAJOR
+      dimension: hierarchy
+      where: preview-desktop-dark-13-chosen-vault-not-readable.png
+      seen: The status line says "The chosen vault, relay-dev, is not one of them" and the Vault trigger also reads "relay-dev (this token cannot read it)", so the same fact is stated twice.
+      fix: Keep the flag on the Vault field only and let the status line list just the readable vaults.
+    - severity: MAJOR
+      dimension: states
+      where: preview-desktop-dark-12-ok-no-vault.png
+      seen: The headline is "Token works" while the line beneath says it can read no vault, so a success title sits over a result that blocks the task.
+      fix: Give this case its own headline (for example "Token works, but reads no vault") or a distinct warning treatment.
+    - severity: MINOR
+      dimension: states
+      where: all previews (main picture 4, vault menu)
+      seen: The Vault control is only ever drawn closed ("Choose..." with a chevron); no picture shows the open menu listing exactly the readable vaults, which is the core of the proposal.
+      fix: Add a preview of the open Vault menu with three options, and one with a long vault list.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-4-ok-three-vaults.png, Token works row
+      seen: "Token works" has the same white title weight and no icon or colour as the failure titles in 7, 10 and 6, so success and failure look alike at a glance.
+      fix: Add a small status mark (tick, warning) or colour to the status title so the outcome reads before the text does.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-4-ok-three-vaults.png, line "Can read 3 vaults: relay-dev, relay-prod, personal"
+      seen: The count "3" repeats what the list already shows, and nothing in the line tells the person the next step, which is to pick a vault in the empty "Choose..." field four rows below.
+      fix: Drop the count and end the line with a pointer such as "Choose one below".
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-4-ok-three-vaults.png
+      seen: Before the first card row a person passes the page title, a "Back to plugins" link and a "relay" section label (3 blocks, about 190 of 1100 px, roughly 17 percent), and the sidebar already has a "Back" at top left.
+      fix: Merge the title and back link into one header and fold the "relay" label into the card or drop it.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-3-checking.png vs 4
+      seen: When checking, the status row loses its second line and shrinks by about 4 px, so every row below, including Vault, jumps up.
+      fix: Keep a fixed-height second line (for example "Asking 1Password...") so the row does not resize.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-4-ok-three-vaults.png, Browse vault and Add buttons
+      seen: Browse vault and Add are drawn dim like disabled controls, with no text saying why (no vault chosen, no variable name).
+      fix: Add a short reason line or tooltip for each disabled control, or keep Browse vault enabled and have it ask for a vault.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole (pictures 1-13)
+      seen: There is no picture for the "truncated" cause, for a very long service-account name in "Not checked for <name> yet", or for the result going stale after the name or token is edited following a successful check.
+      fix: Add previews for truncated, long name, and edit-after-success, showing the row reverting to "Not checked".
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-4 vs 7 and 10, Vault field
+      seen: Vault is a menu with a chevron after a good check, but a free-text-looking field ("relay-dev", 180 px) in the locked, rejected and no-token pictures, and its width changes (108, 74, 240 px) from state to state.
+      fix: Draw Vault as the same control in every state, with a fixed width, and show it as disabled or unverified when no readable list exists.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-ok-three-vaults.png
+      seen: Check, Save token, Add and Browse vault are about 30-32 px high on the 430 px wide layout, below the usual 44 px touch target.
+      fix: Raise button hit areas to at least 44 px on the compact size.
+    - severity: MINOR
+      dimension: theme-size
+      where: preview-compact-dark-ok-three-vaults.png vs preview-compact-dark-locked.png
+      seen: On compact, the Vault row is inline with the control on the right in the ok picture but stacked with a full-width field under the label in the locked picture.
+      fix: Use one Vault layout on compact for all states.
+    - severity: MINOR
+      dimension: theme-size
+      where: set as a whole
+      seen: Light theme is shown only for locked and ok-three-vaults, compact only in dark for those two states, and no compact picture shows the long flagged Vault value from state 13 or the one-vault case.
+      fix: Add compact light, and compact versions of states 5 and 13, or state that they follow the same rules.
+  limitations:
+    - Read the main desktop picture closely plus 1, 2, 3, 5, 6, 7, 10, 12, 13, both compact pictures and light ok-three-vaults; did not open 8, 9, 11 or preview-desktop-light-locked, so those states are not judged.
+    - No hover, focus (except picture 2), pressed or open-menu state is visible, so menu behaviour and hover cues could not be checked.
+    - Sizes are estimated from pixel positions in the images, not measured from the running screen.
+    - Contrast ratios and colours of the dim/disabled controls could not be measured, only judged by eye.

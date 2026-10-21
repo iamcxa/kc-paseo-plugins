@@ -1,0 +1,495 @@
+--- a/project-env/client/settings-screen.tsx
++++ b/project-env/client/settings-screen.tsx
+@@ -1,5 +1,5 @@
+ import { useMutation, useQuery } from "@tanstack/react-query";
+-import { useCallback, useMemo, useRef, useState } from "react";
++import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import { Text, TextInput, View } from "react-native";
+ import {
+   type PluginSurfaceProps,
+@@ -27,17 +27,11 @@
+   tokenStatus,
+ } from "../shared/config";
+ import { rowHint } from "../shared/cause";
++import { pickVault, tokenRowText } from "../shared/token";
+ 
+ type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
+ type Theme = PluginSurfaceProps["theme"];
+ 
+-const TOKEN_LABEL = {
+-  missing: "No token in Keychain",
+-  truncated: "Token is exactly 128 characters, likely truncated; store it again",
+-  invalid: "Token stored but 1Password rejected it",
+-  ok: "Token works",
+-} as const;
+-
+ const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
+ 
+ function ProjectEditor({
+@@ -78,17 +72,22 @@
+   const importRpc = useRpc(importConductor);
+ 
+   const account = draft.serviceAccount.trim();
++  const [checked, setChecked] = useState(account);
+   const token = useQuery({
+-    queryKey: ["token", account],
+-    queryFn: () => status({ serviceAccount: account }),
+-    enabled: account.length > 0,
++    queryKey: ["token", checked],
++    queryFn: () => status({ serviceAccount: checked }),
++    enabled: checked.length > 0,
++    staleTime: Infinity,
++    gcTime: 0,
++    refetchOnWindowFocus: false,
+   });
++  const check = () => (account === checked ? void token.refetch() : setChecked(account));
+   const store = useMutation({
+     mutationFn: () => saveToken({ serviceAccount: account, token: tokenDraft }),
+     onSuccess: () => {
+       tokenInput.current?.replaceText("");
+       setTokenDraft("");
+-      void token.refetch();
++      check();
+     },
+   });
+   const refs = useMutation({
+@@ -120,7 +119,28 @@
+     if (await settings.save({ projects: others }, revision)) onDone();
+   };
+ 
+-  const vaultOptions = (token.data?.vaults ?? []).map((v) => ({ label: v, value: v }));
++  const current = account === checked && !token.isFetching ? token.data : undefined;
++  const vaults = current?.vaults ?? [];
++  useEffect(() => {
++    const vault = pickVault(draft.vault, vaults);
++    if (vault !== draft.vault) patch({ vault });
++  }, [draft.vault, vaults, patch]);
++  const tokenText = !account
++    ? { label: "No service account named yet", hint: "Name it above, then press Check." }
++    : account !== checked
++      ? { label: `Not checked for ${account} yet`, hint: "Press Check." }
++      : current
++        ? tokenRowText(current)
++        : { label: "Checking token…", hint: "Asking the Keychain and 1Password." };
++  const vaultOptions = current?.state === "ok"
++    ? [
++        ...(draft.vault === "" ? [{ label: "Choose…", value: "" }] : []),
++        ...(draft.vault && !vaults.includes(draft.vault)
++          ? [{ label: `${draft.vault} (this token cannot read it)`, value: draft.vault }]
++          : []),
++        ...vaults.map((v) => ({ label: v, value: v })),
++      ]
++    : [];
+   const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
+ 
+   return (
+@@ -134,8 +154,12 @@
+             initialValue={draft.serviceAccount}
+             onChangeText={(serviceAccount) => patch({ serviceAccount })}
+           />
+-          <SettingsRow
+-            label={token.data ? TOKEN_LABEL[token.data.state] : account ? "Checking token…" : "Token"}
++          <SettingsAction
++            label={tokenText.label}
++            hint={tokenText.hint}
++            actionLabel={token.isFetching ? "Checking…" : "Check"}
++            disabled={!account || token.isFetching}
++            onPress={check}
+           />
+           <SettingsInput
+             ref={tokenInput}
+@@ -158,6 +182,11 @@
+               label="Vault"
+               value={draft.vault}
+               options={vaultOptions}
++              error={
++                draft.vault && !vaults.includes(draft.vault)
++                  ? "This token cannot read that vault. Choose one it can read."
++                  : undefined
++              }
+               onValueChange={(vault) => patch({ vault })}
+             />
+           ) : (
+@@ -226,7 +255,7 @@
+             label="Pick fields from the vault"
+             hint="Lists item and field names only; values are never sent to the app."
+             actionLabel={refs.isPending ? "Loading…" : "Browse vault"}
+-            disabled={token.data?.state !== "ok" || !draft.vault || refs.isPending}
++            disabled={current?.state !== "ok" || !vaults.includes(draft.vault) || refs.isPending}
+             onPress={() => refs.mutate()}
+             error={refs.error ? (refs.error as Error).message : undefined}
+           />
+--- a/project-env/server/cause.ts
++++ b/project-env/server/cause.ts
+@@ -1,4 +1,5 @@
+ import type { Cause } from "../shared/cause.ts";
++import type { TokenState } from "../shared/config.ts";
+ 
+ export interface OpExit {
+   code?: unknown;
+@@ -10,7 +11,7 @@
+ // Wording is a hypothesis from 1Password community threads; a miss degrades to "unexpected".
+ const MISSING = /isn't (a|an) (vault|item|field)|no such (vault|item|field)|could not find|not found|does not exist|doesn't exist/i;
+ const NETWORK = /network|timed? ?out|connection|could not resolve|no such host|dial tcp|unreachable|offline|ENOTFOUND|ECONNREFUSED|\bEOF\b/i;
+-const AUTH = /401|authenticat|unauthori[sz]ed|invalid (service account )?token|token.*(expired|invalid|malformed)|not signed in|not currently signed in/i;
++const AUTH = /401|DecodeSACredentials|authenticat|unauthori[sz]ed|invalid (service account )?token|token.*(expired|invalid|malformed)|not signed in|not currently signed in/i;
+ 
+ export function classifyOpFailure(exit: OpExit): Cause {
+   if (exit.killed === true || (typeof exit.signal === "string" && exit.signal !== "")) {
+@@ -45,3 +46,18 @@
+ export function failureLine(root: string, name: string, cause: Cause): string {
+   return `[project-env] ${root} ${name}: ${cause}`;
+ }
++
++export function classifyKeychainFailure(exit: OpExit): "missing" | "locked" | "unexpected" {
++  if (exit.killed === true) return "locked";
++  if (exit.code === 44) return "missing";
++  if (exit.code === 36 || exit.code === 128) return "locked";
++  return "unexpected";
++}
++
++export function classifyTokenCheckFailure(exit: OpExit): TokenState {
++  if (exit.code === "ENOENT") return "op-missing";
++  const cause = classifyOpFailure(exit);
++  if (cause === "rejected-token") return "rejected";
++  if (cause === "unreachable") return "unreachable";
++  return "unexpected";
++}
+--- a/project-env/server/secrets.ts
++++ b/project-env/server/secrets.ts
+@@ -2,8 +2,15 @@
+ import { realpath } from "node:fs/promises";
+ import { basename, dirname } from "node:path";
+ import type { Cause } from "../shared/cause.ts";
+-import { isReservedName, type Project } from "../shared/config.ts";
+-import { classifyOpFailure, isOutsideVault, parseRef, type OpExit } from "./cause.ts";
++import { isReservedName, type Project, type TokenState } from "../shared/config.ts";
++import {
++  classifyKeychainFailure,
++  classifyOpFailure,
++  classifyTokenCheckFailure,
++  isOutsideVault,
++  parseRef,
++  type OpExit,
++} from "./cause.ts";
+ 
+ const KEYCHAIN_ACCOUNT = "op-service-account-token";
+ const CACHE_MS = 15 * 60 * 1000;
+@@ -36,10 +43,12 @@
+ }
+ 
+ function opEnv(token: string): NodeJS.ProcessEnv {
+-  return { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
++  const env: NodeJS.ProcessEnv = { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
++  delete env.OP_CONNECT_HOST;
++  delete env.OP_CONNECT_TOKEN;
++  return env;
+ }
+ 
+-export type TokenState = "missing" | "truncated" | "invalid" | "ok";
+ 
+ export function createSecrets(tools: Tools) {
+   const cache = new Map<string, { value: string; at: number }>();
+@@ -95,7 +104,10 @@
+     return projects[roots.indexOf(root)] ?? null;
+   }
+ 
+-  async function readToken(serviceAccount: string, timeout?: number): Promise<string | null> {
++  async function lookupToken(
++    serviceAccount: string,
++    timeout?: number,
++  ): Promise<{ token: string } | { failure: "missing" | "locked" | "unexpected" }> {
+     try {
+       const token = (
+         await run(
+@@ -104,18 +116,28 @@
+           { timeout },
+         )
+       ).trim();
+-      return token || null;
+-    } catch {
+-      return null;
++      return token ? { token } : { failure: "missing" };
++    } catch (error) {
++      return { failure: classifyKeychainFailure(error instanceof RunFailure ? error.exit : {}) };
+     }
+   }
+ 
++  async function readToken(serviceAccount: string, timeout?: number): Promise<string | null> {
++    const found = await lookupToken(serviceAccount, timeout);
++    return "token" in found ? found.token : null;
++  }
++
+   async function tokenStatus(
+     serviceAccount: string,
+   ): Promise<{ state: TokenState; vaults: string[] }> {
+-    const token = await readToken(serviceAccount);
+-    if (!token) return { state: "missing", vaults: [] };
+-    // ADR 0027: the interactive Keychain prompt truncates tokens to exactly 128 characters.
++    const found = await lookupToken(serviceAccount);
++    if ("failure" in found) return { state: found.failure, vaults: [] };
++    return checkToken(found.token);
++  }
++
++  async function checkToken(token: string): Promise<{ state: TokenState; vaults: string[] }> {
++    if (token.trim() === "") return { state: "rejected", vaults: [] };
++    // An interactive Keychain prompt has been seen cutting a token to exactly 128 characters.
+     if (token.length === 128) return { state: "truncated", vaults: [] };
+     try {
+       const out = await run(tools.op, ["vault", "list", "--format", "json"], {
+@@ -123,8 +145,11 @@
+       });
+       const vaults = (JSON.parse(out) as { name: string }[]).map((v) => v.name);
+       return { state: "ok", vaults };
+-    } catch {
+-      return { state: "invalid", vaults: [] };
++    } catch (error) {
++      return {
++        state: classifyTokenCheckFailure(error instanceof RunFailure ? error.exit : {}),
++        vaults: [],
++      };
+     }
+   }
+ 
+@@ -242,7 +267,7 @@
+     cache.clear();
+   }
+ 
+-  return { mainCheckout, projectForCwd, tokenStatus, storeToken, listRefs, resolveProject, clearCache };
++  return { mainCheckout, projectForCwd, tokenStatus, checkToken, storeToken, listRefs, resolveProject, clearCache };
+ }
+ 
+ export type Secrets = ReturnType<typeof createSecrets>;
+--- a/project-env/shared/config.ts
++++ b/project-env/shared/config.ts
+@@ -58,7 +58,17 @@
+ });
+ export type MissingVariablesData = z.infer<typeof missingVariablesData>;
+ 
+-export const tokenState = z.enum(["missing", "truncated", "invalid", "ok"]);
++export const tokenState = z.enum([
++  "missing",
++  "locked",
++  "op-missing",
++  "unreachable",
++  "rejected",
++  "truncated",
++  "unexpected",
++  "ok",
++]);
++export type TokenState = z.infer<typeof tokenState>;
+ 
+ export const tokenStatus = defineRpc({
+   name: "token.status",
+--- /dev/null
++++ b/project-env/shared/token.ts
+@@ -0,0 +1,50 @@
++import type { TokenState } from "./config.ts";
++
++export interface TokenRowText {
++  label: string;
++  hint?: string;
++}
++
++const FAILURE_TEXT: Record<Exclude<TokenState, "ok">, TokenRowText> = {
++  missing: { label: "No token in Keychain", hint: "Paste it below and save it." },
++  locked: {
++    label: "Keychain is locked",
++    hint: "Unlock the login Keychain on this Mac (a macOS prompt may appear), then check again.",
++  },
++  "op-missing": {
++    label: "1Password CLI (op) not found",
++    hint: "Install it, restart Paseo, then check again.",
++  },
++  unreachable: { label: "Could not reach 1Password", hint: "Check the network, then check again." },
++  rejected: {
++    label: "1Password rejected the token",
++    hint: "Copy a fresh token from 1Password.",
++  },
++  truncated: {
++    label: "Token is exactly 128 characters, likely truncated",
++    hint: "Copy it again from 1Password.",
++  },
++  unexpected: {
++    label: "The token check failed for a reason the plugin does not recognise",
++    hint: "Check again.",
++  },
++};
++
++export function tokenRowText(status: { state: TokenState; vaults: string[] }): TokenRowText {
++  if (status.state !== "ok") return FAILURE_TEXT[status.state];
++  const { vaults } = status;
++  if (vaults.length === 0) {
++    return {
++      label: "Token works, but it can read no vault",
++      hint: "In 1Password, give the service account access to one, then check again.",
++    };
++  }
++  return {
++    label: "Token works",
++    hint: `Can read ${vaults.length === 1 ? "1 vault" : `${vaults.length} vaults`}: ${vaults.join(", ")}`,
++  };
++}
++
++export function pickVault(chosen: string, vaults: string[]): string {
++  return chosen === "" && vaults.length === 1 ? vaults[0] : chosen;
++}
+--- a/project-env/test/world.ts
++++ b/project-env/test/world.ts
+@@ -9,8 +9,9 @@
+     accounts?: Record<string, { refs?: Record<string, string>; vaults?: string[] }>;
+     delayMs?: Record<string, number>;
+     fail?: Record<string, { stderr: string; code?: number }>;
++    vaultListFail?: { stderr: string; code?: number };
+   };
+-  security?: { crash?: boolean };
++  security?: { crash?: boolean; find?: { exit: number; stderr: string; hang?: boolean } };
+   git?: { answers?: Record<string, string | { exit: number; stderr: string }> };
+ }
+ 
+--- a/project-env/test/fakes/op.mjs
++++ b/project-env/test/fakes/op.mjs
+@@ -1,6 +1,10 @@
+ import { boot, TOKEN_PREFIX } from "./common.mjs";
+ 
+ const { scenario, argv, log, fail } = boot("op");
++if (process.env.OP_CONNECT_HOST || process.env.OP_CONNECT_TOKEN) {
++  log({ connect: true });
++  fail(`[ERROR] "op ${process.argv[3]} ${process.argv[4]}" doesn't work with Connect. Please unset 'OP_CONNECT_HOST' and 'OP_CONNECT_TOKEN' to use this command.`);
++}
+ const token = process.env.OP_SERVICE_ACCOUNT_TOKEN ?? "";
+ const account = token.startsWith(TOKEN_PREFIX) ? token.slice(TOKEN_PREFIX.length) : null;
+ const known = account !== null && scenario.op?.accounts?.[account] !== undefined;
+@@ -21,7 +25,10 @@
+   if (delay) setTimeout(respond, delay);
+   else respond();
+ } else if (cmd === "vault" && sub === "list") {
+-  process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((name) => ({ name }))));
++  if (scenario.op.vaultListFail) fail(scenario.op.vaultListFail.stderr, scenario.op.vaultListFail.code ?? 1);
++  const respondList = () => process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((name) => ({ name }))));
++  if (scenario.op.vaultListDelayMs) setTimeout(respondList, scenario.op.vaultListDelayMs);
++  else respondList();
+ } else {
+   fail(`[ERROR] fake op does not implement: ${argv.join(" ")}`);
+ }
+--- a/project-env/test/fakes/security.mjs
++++ b/project-env/test/fakes/security.mjs
+@@ -10,6 +10,11 @@
+ const state = readState();
+ const service = flag("-s");
+ if (argv[0] === "find-generic-password") {
++  const refusal = scenario.security?.find;
++  if (refusal) {
++    if (refusal.hang) setInterval(() => {}, 1000);
++    else fail(refusal.stderr, refusal.exit);
++  }
+   const label = state.keychain[service];
+   if (label === undefined) {
+     fail("security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.", 44);
+--- /dev/null
++++ b/project-env/test/token-state.test.ts
+@@ -0,0 +1,104 @@
++import assert from "node:assert/strict";
++import { afterEach, describe, it } from "node:test";
++import { classifyKeychainFailure, classifyTokenCheckFailure } from "../server/cause.ts";
++import { createSecrets } from "../server/secrets.ts";
++import type { TokenState } from "../shared/config.ts";
++import { pickVault, tokenRowText } from "../shared/token.ts";
++import { makeWorld, type Scenario } from "./world.ts";
++
++const cleanups: (() => void)[] = [];
++afterEach(() => {
++  for (const c of cleanups.splice(0)) c();
++});
++
++const SENTINEL = "SENTINEL-do-not-show-7f3a";
++const ACCOUNT = "sa-x";
++const withKeychain = (scenario: Scenario): Scenario => ({ keychain: { [ACCOUNT]: "x" }, ...scenario });
++const accounts = { x: { vaults: ["Dev", "Prod"] } };
++
++async function status(scenario: Scenario, tools?: { op?: string }) {
++  const world = makeWorld(scenario);
++  cleanups.push(world.cleanup);
++  return createSecrets({ ...world.tools, ...tools }).tokenStatus(ACCOUNT);
++}
++
++describe("each token failure has its own state", () => {
++  const cases: [string, Scenario, TokenState, { op?: string }?][] = [
++    ["no item in the Keychain", { op: { accounts } }, "missing"],
++    ["Keychain refuses with exit 128", withKeychain({ security: { find: { exit: 128, stderr: SENTINEL } }, op: { accounts } }), "locked"],
++    ["Keychain refuses with exit 36", withKeychain({ security: { find: { exit: 36, stderr: SENTINEL } }, op: { accounts } }), "locked"],
++    ["Keychain fails some other way", withKeychain({ security: { find: { exit: 1, stderr: SENTINEL } }, op: { accounts } }), "unexpected"],
++    ["op is not installed", withKeychain({ op: { accounts } }), "op-missing", { op: "/nonexistent/op" }],
++    ["op cannot decode the token", withKeychain({ op: { accounts, vaultListFail: { stderr: `[ERROR] failed to DecodeSACredentials: ${SENTINEL}`, code: 8 } } }), "rejected"],
++    ["1Password answers 401", withKeychain({ keychain: { [ACCOUNT]: "unknown" }, op: { accounts } }), "rejected"],
++    ["the network is down", withKeychain({ op: { accounts, vaultListFail: { stderr: `dial tcp: no such host ${SENTINEL}` } } }), "unreachable"],
++    ["op fails in a way nobody has seen", withKeychain({ op: { accounts, vaultListFail: { stderr: `[ERROR] ${SENTINEL}` } } }), "unexpected"],
++    ["the stored token is 128 characters", withKeychain({ keychain: { [ACCOUNT]: "x".repeat(119) }, op: { accounts } }), "truncated"],
++    ["everything works", withKeychain({ op: { accounts } }), "ok"],
++  ];
++  for (const [label, scenario, expected, tools] of cases) {
++    it(`${label} is ${expected}`, async () => {
++      const result = await status(scenario, tools);
++      assert.equal(result.state, expected);
++      const shown = JSON.stringify([result, tokenRowText(result)]);
++      assert.equal(shown.includes(SENTINEL), false, "tool output reached the rendered text");
++    });
++  }
++
++  it("a locked Keychain or a killed lookup is locked, a crash is not", () => {
++    assert.equal(classifyKeychainFailure({ code: null, killed: true, signal: "SIGTERM" }), "locked");
++    assert.equal(classifyKeychainFailure({ code: null, killed: false, signal: "SIGSEGV" }), "unexpected");
++    assert.equal(classifyKeychainFailure({ code: 44 }), "missing");
++  });
++  it("op ENOENT is op-missing; a killed op is unreachable", () => {
++    assert.equal(classifyTokenCheckFailure({ code: "ENOENT", stderr: "" }), "op-missing");
++    assert.equal(classifyTokenCheckFailure({ code: null, killed: true, signal: "SIGTERM" }), "unreachable");
++    assert.equal(classifyTokenCheckFailure({ code: 8, stderr: "[ERROR] failed to DecodeSACredentials: invalid credentials provided" }), "rejected");
++  });
++  it("OP_CONNECT variables in the daemon environment do not change the identity", async () => {
++    process.env.OP_CONNECT_HOST = "http://127.0.0.1:9";
++    process.env.OP_CONNECT_TOKEN = "dummy";
++    try {
++      assert.equal((await status(withKeychain({ op: { accounts } }))).state, "ok");
++    } finally {
++      delete process.env.OP_CONNECT_HOST;
++      delete process.env.OP_CONNECT_TOKEN;
++    }
++  });
++});
++
++describe("the token row text", () => {
++  it("gives each of the eight states its own label", () => {
++    const states: TokenState[] = ["missing", "locked", "op-missing", "unreachable", "rejected", "truncated", "unexpected", "ok"];
++    const labels = states.map((state) => tokenRowText({ state, vaults: ["Dev"] }).label);
++    assert.equal(new Set(labels).size, states.length);
++  });
++  it("lists the readable vaults, and a token that reads none says so in the headline", () => {
++    assert.equal(tokenRowText({ state: "ok", vaults: ["Dev"] }).hint, "Can read 1 vault: Dev");
++    assert.equal(tokenRowText({ state: "ok", vaults: ["Dev", "Prod"] }).hint, "Can read 2 vaults: Dev, Prod");
++    assert.match(tokenRowText({ state: "ok", vaults: [] }).label, /no vault/);
++  });
++});
++
++describe("pickVault", () => {
++  it("chooses the only readable vault when none is chosen, and nothing else", () => {
++    assert.equal(pickVault("", ["Dev"]), "Dev");
++    assert.equal(pickVault("Prod", ["Dev"]), "Prod");
++    assert.equal(pickVault("", ["Dev", "Prod"]), "");
++    assert.equal(pickVault("", []), "");
++  });
++});
++
++describe("checkToken takes the token itself", () => {
++  it("checks a token that is in no Keychain", async () => {
++    const world = makeWorld({ op: { accounts } });
++    cleanups.push(world.cleanup);
++    const secrets = createSecrets(world.tools);
++    assert.deepEqual(await secrets.checkToken("ops_fake_x"), { state: "ok", vaults: ["Dev", "Prod"] });
++    assert.equal((await secrets.checkToken("ops_fake_nobody")).state, "rejected");
++    assert.equal(world.calls().some((c) => c.tool === "security"), false);
++    const before = world.calls().length;
++    assert.equal((await secrets.checkToken("  ")).state, "rejected");
++    assert.equal(world.calls().length, before, "an empty token must not reach op, which would fall back to the desktop app");
++  });
++});
