@@ -4,7 +4,7 @@ entity-type: task
 id-style: slug
 entity-label: task
 entity-label-plural: tasks
-extensions: []
+extensions: [codex, journey-map, learn, peers, roborev]
 second-reviewer: ""
 state: .spacedock-state
 trunk: main
