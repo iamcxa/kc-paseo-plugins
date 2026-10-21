@@ -151,3 +151,65 @@ Smallest fix is about ten lines in `server/secrets.ts`: keep the worktree root t
 ### Summary
 
 Port of the approved ~10-line design, no deviations: worktree root compared first, main checkout second, trust check first. The worktree was at 487b9b0 and was fast-forwarded to origin/main 15b1e3f before work; no rebase needed. CHANGELOG.md is release-please generated and was not edited. No ADR added or changed; Number guards: not applicable (Surfaces: none, no migration). Limits: AC-1(b) owed after merge and reload; a `node_modules` symlink to the main checkout was used locally for test runs and removed before the gate, not committed.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 09bc5c98488f75d77e14c9bf73bd532457dd490e (PR iamcxa/kc-paseo-plugins#19, base main) against AC-1, AC-2 and the approved design, including that the new cases fail on main's projectForCwd and that every existing project-for-cwd case still passes; also run the match read-only with real git against /Users/kent/conductor/repos/qnow-adopt-dev2 and a saved root equal to it; give a verdict.
+  Verdict: PASSED for AC-1(a) and AC-2 at 09bc5c9 (PR head confirmed by `gh pr view 19`: headRefOid 09bc5c9, Draft, base main; diff vs 15b1e3f is only secrets.ts +10/-5 and the test file). Extracted candidate and 15b1e3f with `git archive` (no worktree touched): project-for-cwd 13/13 pass on candidate; with the candidate's test file on 15b1e3f's secrets.ts, 11 pass and 2 fail ("serves an agent in a linked worktree from a project saved at that worktree" = AC-1(a), returns null; "lets a worktree's own project win in that worktree only..." = own-wins) - the 7 existing cases pass on both. The other 4 added cases (AC-2 pair, sibling wt2, unregistered worktree) pass on both sides: they pin behaviour and are not falsifiers. Real git, read-only, saved root = qnow-adopt-dev2, cwd same: 15b1e3f null, candidate MATCH; also candidate: cwd `docs` subdirectory MATCH, sibling `.worktrees/r1-walk` null, project saved at qnow serves the worktree, [qnow, worktree] list gives the worktree project, `/tmp` null; `mainCheckout` still returns qnow. Matches the design's trust-check-then-top-then-root order and the Mermaid.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Script below, run once by me via `bash --norc --noprofile` with the expected outputs shown. adr_lint.py exit code 0 ("5 ADR file(s) checked, 0 legacy"); no ADR added or changed by the candidate, none reserved (no Number guards section).
+- DONE: Record every unverified obligation, including the qnow-adopt-dev2 agent check on Kent's daemon, without touching the live paseo-project-env install.
+  See Unverified obligations below; no secret, op or security command was run, no value read, live install and main checkout branch untouched.
+
+### Summary
+
+The fix is minimal: one private `locate` returning `{top, root}` after the unchanged trust check, `projectForCwd` indexing `top` before `root`; `mainCheckout` is kept only because two existing tests in secrets.test.ts call it (no signature change). Other checks at 09bc5c9: `npm test` 126/127 with the known load-sensitive session-open deadline test failing in the full run and 15/15 when rerun alone (not counted); `npm run typecheck` exit 0; `comment_ratio.py 15b1e3f 09bc5c9`: code lines 86, comment lines 0, 0.0%, exit 0 (I read the diff: no added comments); `doc_impact.py`: 0 documents, exit 0; `design_surfaces.py check`: presentable, exit 0; `dispatch_records.py`: 3 records complete, exit 0. Goal sufficiency: the real-git result shows the reported case (agent in qnow-adopt-dev2) now matches. Necessity: each changed line maps to AC-1/AC-2; no new git call, export or file. No findings.
+
+### Unverified obligations
+
+- AC-1(b) is not verified: after merge and Kent's reload of `paseo-project-env`, a new agent in /Users/kent/conductor/repos/qnow-adopt-dev2 on Kent's daemon must report `[ -n "${NAME}" ] && echo set || echo missing` as `set` for every project variable, with no missing-variables timeline row. Needs Kent's daemon, 1Password and a reload; I ran no op/security command.
+- The candidate was not run inside the paseo plugin host; the real-git check calls `projectForCwd` directly with fake op/security paths, so it proves the match, not variable delivery or `session-open` wiring.
+- The real-git result depends on this machine's qnow worktree layout (qnow-adopt-dev2 registered under /Users/kent/conductor/repos/qnow); it will differ if that worktree is removed.
+- Resumed agents are out of scope (r2). Merge-order with token-works-cause (adjacent hunks in secrets.ts) was not tested; whichever lands second rebases.
+- Not run: the repository's own roborev gate (read from the implementation report only).
+
+### Minimal acceptance script
+
+Run in a fresh shell (bash). Needs only this machine's checkout at /Users/kent/Project/kc-paseo-plugins (for `git archive` and its project-env/node_modules), node, and the qnow-adopt-dev2 worktree. Prints no secret, runs no op/security. Not covered: variable delivery to a real agent (AC-1(b)), the plugin host, the full suite.
+
+```bash
+set -u
+REPO=/Users/kent/Project/kc-paseo-plugins
+NM=$REPO/project-env/node_modules
+W=$(mktemp -d /tmp/wtpr-accept.XXXXXX)
+mkdir "$W/pr" "$W/main"
+
+echo "Step 1: unpack the candidate (09bc5c9) and main before the fix (15b1e3f) side by side"
+git -C "$REPO" archive 09bc5c9 project-env | tar -x -C "$W/pr" && git -C "$REPO" archive 15b1e3f project-env | tar -x -C "$W/main" \
+  && ln -s "$NM" "$W/pr/project-env/node_modules" && ln -s "$NM" "$W/main/project-env/node_modules" && echo "expect: no error above; both unpacked"
+
+echo "Step 2: candidate, project-for-cwd tests (expect 13 pass, 0 fail)"
+(cd "$W/pr/project-env" && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/project-for-cwd.test.ts 2>&1 | grep -E "^ℹ (pass|fail)")
+
+echo "Step 3: same new tests on main's projectForCwd (expect 11 pass, 2 fail: the worktree-saved case and the own-project-wins case)"
+cp "$W/pr/project-env/test/project-for-cwd.test.ts" "$W/main/project-env/test/project-for-cwd.test.ts"
+(cd "$W/main/project-env" && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/project-for-cwd.test.ts 2>&1 | grep -E "^ℹ (pass|fail)|^  ✖")
+
+echo "Step 4: real git, read-only, project saved at qnow-adopt-dev2, cwd the same directory (expect: main null, candidate MATCH)"
+for v in main pr; do
+  printf '%s: ' "$v"
+  (cd "$W" && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e '
+    const { createSecrets } = await import("file://" + process.argv[1] + "/project-env/server/secrets.ts");
+    const s = createSecrets({ op: "/none", security: "/none", git: "/usr/bin/git" });
+    const w = "/Users/kent/conductor/repos/qnow-adopt-dev2";
+    const r = await s.projectForCwd([{ root: w }], w);
+    console.log(r ? "MATCH" : "null");
+  ' "$W/$v")
+done
+
+echo "Step 5: candidate, typecheck (expect no error output)"
+(cd "$W/pr/project-env" && npm run typecheck 2>&1 | grep -E "error" ; echo "typecheck done")
+rm -rf "$W"
+```
+
+Expected output: Step 2 `ℹ pass 13` and `ℹ fail 0`; Step 3 two `✖` lines (the "serves an agent in a linked worktree..." and "lets a worktree's own project win..." cases), `ℹ pass 11`, `ℹ fail 2`; Step 4 `main: null` then `pr: MATCH`; Step 5 only `typecheck done`.
