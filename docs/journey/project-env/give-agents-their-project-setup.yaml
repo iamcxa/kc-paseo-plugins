@@ -48,6 +48,11 @@ steps:
         questions:
           - {id: "q1", ask: "Which access and naming must the in-app steps explain for the vault, the secrets and the service account?", status: "answered", answer: "Gap: the form starts at the account name; release 1b adds steps covering vault creation, one item per variable, a read-only account limited to that vault with an expiry, and narrow agent-specific keys."}
           - {id: "q2", ask: "Where are the two weaknesses ADR 0001 accepted stated for the user?", status: "answered", answer: "The settings screen and the plugin overview state both weaknesses in plain words. Gap: the screen states only that an agent can read its values, and OVERVIEW.md is still the template; release 1b adds the Keychain weakness to the screen and both to the overview.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q3", ask: "How should the in-app steps tell a user to lay out 1Password items and fields?", status: "answered", answer: "Ruling, Captain 2026-10-21: 「可以」 — one Secure Note item per service; secrets as password fields, other settings as text fields; the note body stays empty; unique titles, no fields in sections, no / in labels. An agent creates this structure through a skill after a person reviews it, and the person fills the values. Replaces the earlier 「好」 layout (one API Credential item per service).", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md"}
+      - id: agent-lays-out-vault
+        release: r1b
+        status: gap
+        card: "An authorized agent lays out the vault's items to one convention, a person reviews and fills the values"
 
   - id: connect
     card: "Connects a repository to 1Password"
