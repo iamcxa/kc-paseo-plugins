@@ -16,8 +16,7 @@ export function contribute(server: PluginServerContext, tools: Tools) {
   async function projectFor(cwd: string): Promise<Project | null> {
     const current = await settings.read();
     if (current.status !== "ready") return null;
-    const root = await secrets.mainCheckout(cwd);
-    return current.values.projects.find((p) => p.root === root) ?? null;
+    return secrets.projectForCwd(current.values.projects, cwd);
   }
 
   server.before("agent.create", async ({ request }) => {
