@@ -78,8 +78,8 @@ steps:
       - id: pick-vault
         card: "Choose the vault"
         release: r1
-        status: gap
-        evidence: vaultOptions
+        status: exists
+        evidence: isOutsideVault
         questions:
           - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault. Gap: any op:// reference is saved and resolved, whatever its vault; release 1 refuses a reference to any other vault when an agent session opens.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
@@ -133,8 +133,8 @@ steps:
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
-        status: gap
-        evidence: resolveProject
+        status: exists
+        evidence: causeText
         questions:
           - {id: "q1", ask: "What may a failure message contain?", status: "answered", answer: "The reason shown names the cause class (no token, rejected token, missing field, 1Password unreachable) and never contains a value. Gap: the first line of op's or security's error output is shown; release 1 shows the cause class instead.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
       - {id: unsaved-warning, card: "Be warned before leaving with unsaved changes", release: r3, status: gap}
@@ -146,8 +146,8 @@ steps:
       - id: new-agent-env
         card: "A new agent starts with the variables"
         release: r1
-        status: gap
-        evidence: resolveProject
+        status: exists
+        evidence: openSession
         questions:
           - {id: "q1", ask: "Should an agent start when a variable fails to resolve?", status: "answered", answer: "Yes: the variable is blanked and a line naming it and the cause is added to the agent's timeline. Gap: a failed variable is left out of the merge and logged only to the daemon, so a same-named value already present stays; release 1 blanks it, and notice-missing-variable adds the line.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
           - {id: "q2", ask: "Is the plugin's no-secret rule also about what an agent prints after receiving a value?", status: "answered", answer: "No: the plugin never shows, logs or sends a value; an agent can read what it received.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
@@ -159,8 +159,8 @@ steps:
       - id: worktree-env
         card: "Agents in any worktree of the repository get them too"
         release: r1
-        status: gap
-        evidence: mainCheckout
+        status: exists
+        evidence: projectForCwd
         questions:
           - {id: "q1", ask: "Which path forms must match, such as symlinked checkouts?", status: "answered", answer: "Gap: worktree membership compares real paths, but the stored root is compared with git's main-checkout path as written; release 1 compares real paths on both sides."}
       - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2, status: unverified}
@@ -182,7 +182,8 @@ steps:
       - id: notice-missing-variable
         card: "Notice when an agent started without a variable"
         release: r1
-        status: gap
+        status: exists
+        evidence: MissingVariablesRow
         questions:
           - {id: "q1", ask: "How does a user notice that an agent started without a variable?", status: "answered", answer: "A visible line naming the variable and the reason is appended to the agent's timeline. Gap: the failure is logged only to the daemon; release 1 adds the line.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
           - {id: "q2", ask: "Which agent openings show the line: a new agent, a resumed one, one in a worktree?", status: "answered", answer: "Paseo runs agent.session_open on create, resume, refresh and import (PluginSessionOpenRequest.reason), and the hook resolves on every one, in the main checkout and registered worktrees alike (projectFor, mainCheckout), so ADR 0002 blanks a failed variable at each. Gap: none shows a line; release 1 is accepted on new agents in the main checkout and in worktrees, resumed sessions in release 2 (resumed-env).", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
@@ -224,7 +225,8 @@ rules:
   - {id: registered-worktrees-only, text: "Secrets go only to the repository's main checkout and its registered worktrees."}
 
 status:
-  unproven: "Only a typecheck exists; no story has run end to end on any Mac."
-  unmerged: "The proof of concept is on GitHub main; no version is tagged; release PR #3 is open."
-  undeployed: "Recorded as installed only on Kent's Paseo daemon; no teammate has installed it."
+  as_of: "2026-10-21"
+  unproven: "No end-to-end test; r1 rests on unit tests with fakes and Kent's own use."
+  unmerged: "r1 is merged and tagged project-env-v0.1.0; r1.5 and r1b are not built."
+  undeployed: "Runs on Kent's Paseo daemon from his main checkout; no teammate install."
   irreversible: "Storing a token writes, and overwrites, a login Keychain entry on the Paseo Mac."
