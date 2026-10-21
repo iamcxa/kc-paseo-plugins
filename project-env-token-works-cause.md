@@ -12,6 +12,17 @@ journey-release: r1.5
 journey-story: token-works
 journey-required-tasks: '["project-env-token-works-cause"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-token-works-cause:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-token-works-cause-backlog-1
+              briefing:
+                id: briefing:project-env-token-works-cause:backlog:attempt-1:revision-1
+                digest: sha256:a57002b250af600379f48caac6a605ef7c57e654d390140053702424057074a2
+                room-ref: ./project-env-token-works-cause/review/backlog/briefing-1
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today a locked Keychain reads as no token, and a missing op, an outage and a rejection all read as invalid; a token that reads exactly one vault still leaves the vault unchosen.
