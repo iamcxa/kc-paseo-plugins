@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-token-works-cause:validation:attempt-2:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#15 at head 5ee39c3d5fb093536df1815edbedd51a22a5c6c9 (feedback cycle 1 fix)? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-token-works-cause:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/c0e1a255bdcb636ba549a23b73944837bb63b9cc/project-env-token-works-cause.md",
+      "rev": "sha256:4b9866e722f3f4d5a4eadc8eb7b30e59e111617f273a598eaaa4e85f0b322b20",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 3 PASSED at 5ee39c3: a saved vault equal to a readable vault's id or name passes the Vault gate, the menu and Browse vault; the session-open boundary and saved values are unchanged. FO reran steps 1-6 of the acceptance script in a fresh shell and every step matched (150/150, typecheck 0, eleven token-row lines, gate [true,true,false,false,false], menu keeps the saved id, adr_lint 0); step 7 is Kent's own use, not run. Reviewers: roborev clean on 5ee39c3 (roborev:980); codex round 1 on e9661f0 found the vault-id P2 (review:5599400357), fixed here per the Captain's 「先修再合併」; codex round 2 requested on 5ee39c3. Integration test with real tools passed on the earlier combined candidate (#15 e9661f0 + #19 + #20). FO declines as Polish: no test covers the screen's Browse gate wiring (no client test seam), and the unused fake knobs vaultListDelayMs and hang. Deferred risk: the load-sensitive session-open deadline test. Owed: AC-2 on Kent's Mac, a real op vault list id field."
+    }
+  ]
+}

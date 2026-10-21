@@ -72,6 +72,11 @@ gates:
               application:
                 target-stage: done
                 state: superseded
+            - id: gate-attempt:project-env-token-works-cause-validation-2
+              briefing:
+                id: briefing:project-env-token-works-cause:validation:attempt-2:revision-1
+                digest: sha256:8ae9d8fa4aa7eb119ea116f1bd02a31cc8a5db5948c48f2864881ff7208caa55
+                room-ref: ./project-env-token-works-cause/review/validation/briefing-2
 started: 2026-10-21T08:41:45Z
 ---
 
