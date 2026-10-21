@@ -96,6 +96,7 @@ Visible change: The variables card shows one row per variable with its own Remov
 Direction alignment with the Captain: done — the Captain chose one row per variable on 2026-10-21 (「可以」 to the recommended layout).
 Result: one row per variable holding its field, Remove button and last Test result.
 Release review: paseo-project-env/r1.5 at 9489e13
+Map footprints: not needed: the rulings this task carries (add-remove-variable q4, q5, q7) were written to the map in PR #13 before this task ran.
 
 ## Design
 

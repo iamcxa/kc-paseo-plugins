@@ -1,0 +1,16 @@
+{
+  "class": "never",
+  "head": "1e317edc869b9e310e129a4b7718895f0f535792",
+  "model": "not run",
+  "necessity": "Kent, release r1.5's only user, said \u300c\u6211\u89ba\u5f97UI\u4e0d\u5920\u76f4\u89ba\u300d; without it Remove sits away from its field, Add accepts reserved names, and a guessed reference made all five qnow variables fail on 2026-10-21.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: '- Save stays enabled with an'",
+    "point: path: 'docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#17",
+  "sufficiency": "AC-2 is met by tests over the reserved set that fail when LD_PRELOAD, the DYLD_ prefix or PATH is dropped, and the gate addition by tests that fail when a reference is guessed; AC-1's screen is shown ",
+  "time": "2026-10-21T11:23:14Z",
+  "verdict": "ask"
+}
