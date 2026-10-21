@@ -281,3 +281,7 @@ cd $WT && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr_lin
 ```
 
 Expected: step 1 `tests 14`, `pass 14`, `fail 0`, `typecheck exit=0`; step 2 lines for `Not saved: ...` (line 216), `is also used by`, `Replacing its token changes it for`, `Replace`, `Cancel`, then `Not saved: 1Password rejected the token`, `Not saved: Could not reach 1Password`, `Not saved: 1Password CLI (op) not found`; step 3 `/usr/bin/security -i`, `expect 0` shows 0, `items stored: 1`; step 4 three failing tests and `fail 3`; step 5 `5 ADR file(s) checked, 0 legacy`, `adr_lint exit=0`.
+
+### Feedback Cycles
+
+- Cycle 1 (validation, candidate c23b96c): Deferred risk from validation — `security -i` splits a command line longer than about 4096 bytes, so a long token can fail or write a truncated value. FO recommended a length refusal before merge; Captain 2026-10-21 「按建議」 (revise recorded at the validation gate). Routed to implementation.
