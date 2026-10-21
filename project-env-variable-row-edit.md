@@ -12,6 +12,17 @@ journey-release: r1.5
 journey-story: add-remove-variable
 journey-required-tasks: '["project-env-variable-row-edit"]'
 journey-mapping-complete: true
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-variable-row-edit:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-variable-row-edit-backlog-1
+              briefing:
+                id: briefing:project-env-variable-row-edit:backlog:attempt-1:revision-1
+                digest: sha256:0206a1bba6667ba86102e83a22ccdfb37f9636fb30efa5d6976585321881b1b8
+                room-ref: ./project-env-variable-row-edit/review/backlog/briefing-1
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today all Remove buttons sit after all fields, Add accepts reserved names, and the name input is not cleared after Add.
