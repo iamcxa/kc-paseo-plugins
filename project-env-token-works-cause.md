@@ -245,3 +245,16 @@ Designed eight token states (the five causes, truncated, unrecognised, ok) from 
 ### Summary
 
 Applied the ideation prototype in a clean worktree, added the one missing cause-test row, verified falsifiability by mutation, and opened Draft PR #15. AC-2's on-Mac use and the OP_CONNECT question above are for Kent/FO.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Revert the OP_CONNECT handling to today's behaviour: remove the two `delete env.OP_CONNECT_*` lines in `opEnv` and the "OP_CONNECT variables" test.
+  Commit c504e5c: `opEnv` is as on main; the test is removed, and so is the fake op's Connect refusal that only that test used. `git grep OP_CONNECT project-env` prints nothing.
+- DONE: Rerun `npm test`, `npm run typecheck` and the roborev gate; push to PR #15.
+  `npm test` 98 pass, 0 fail; typecheck exit 0; roborev `clean on c504e5c55; evidence=roborev:967`; ordinary push 499232a..c504e5c. New head SHA: c504e5c5531b01b1fc3ee72a07f15335606c407e.
+- DONE: In the PR body, list the OP_CONNECT question under `without-it unanswered` with the observed fact.
+  PR #15 body updated: test counts, roborev line, and the Connect refusal fact (observed 2026-10-21, `op` 2.30.3) with the decision for the Captain.
+
+### Summary
+
+OP_CONNECT handling is back to today's behaviour; the question now sits in the PR body for the Captain. The cycle-1 mutation list lost its Connect-deletion item with that code.
