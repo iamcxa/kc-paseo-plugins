@@ -114,6 +114,7 @@ Surfaces: ui
 Visible change: A bad token is refused before it is saved, and replacing another project's token asks first.
 Direction alignment with the Captain: not needed for the outcome — the Captain approved it on 2026-10-21 (「可以」); the warning's form is settled in ideation.
 Release review: paseo-project-env/r1.5 at 9489e13
+Map footprints: not needed: paste-token q3, q4 and q5 were settled in this task's ideation and approved at its gate; no open map question remains on this task.
 
 ## Design
 
@@ -423,3 +424,7 @@ cd $WT && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr_lin
 ```
 
 Expected: step 1 `tests 16`, `pass 16`, `fail 0`, `typecheck exit=0`; step 2 `Not saved: ${tokenRowText(status).label}`, `"Checking…"` twice, `is also used by`, `Replacing its token changes it for`, `The new token is checked first; a rejected token is not saved`, `actionLabel="Replace"`, `actionLabel="Cancel"`, `Token is longer than this plugin can store safely`, then `Not saved: 1Password rejected the token`, `Not saved: Could not reach 1Password`, `Not saved: 1Password CLI (op) not found`; step 3 `/usr/bin/security -i`, `expect 0` shows 0, `items stored: 1`; step 4 `longest accepted length 1883 | one more: Token is longer than this plugin can store safely`, `line bytes 3871 | real security exit 0 | stderr ""`, `items stored: 1`; step 5 `mutation: order` `fail 3` and `mutation: length` `fail 2`; step 6 `5 ADR file(s) checked, 0 legacy`, `adr_lint exit=0`.
+
+### FO declines
+
+- Deferred risk, candidate 1303892: the surviving mutant where `storeToken` calls `tokenShapeError(token)` without the account (`project-env/server/secrets.ts`, `storeToken`). Declined because the only callers, `storeToken` and the settings screen, pass the account today, so no observed trigger exists; it becomes Material if a new caller omits the account or a service name of about 256 bytes or more is used. Accepted by the Captain at the validation gate (「准」, 2026-10-22), whose question stated this recommendation.

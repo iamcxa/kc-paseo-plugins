@@ -1,0 +1,22 @@
+{
+  "class": "other",
+  "head": "130389257448ea1387f93ce6d8bc87e88df5d81e",
+  "model": "not run",
+  "necessity": "Kent, release r1.5's only user; without it a rejected token overwrites a working one, a name another project uses is replaced silently, and the token is visible on the security command line.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: 'Verdict PASSED, one Deferred risk (below).'",
+    "point: deferred: 'The candidate does what AC-1 to'",
+    "point: deferred: '### Deferred risk'",
+    "point: deferred: '- Cycle 1 (validation, candidate c23b96c):'",
+    "point: deferred: 'Verdict PASSED at 1303892, one Deferred'",
+    "point: deferred: '### Deferred risk (cycle 1)'",
+    "point: acceptance-not-run: 'The length refusal works as ruled:'",
+    "point: acceptance-not-run: \"- Kent's on-Mac use (AC-2): the\"",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#21",
+  "sufficiency": "AC-1 to AC-4 and the cycle-1 length refusal are met by tests that fail under mutation, the real security -i 4096-byte limit is confirmed, and the token never appears on argv (validation cycle 2 and FO",
+  "time": "2026-10-21T17:08:32Z",
+  "verdict": "ask"
+}
