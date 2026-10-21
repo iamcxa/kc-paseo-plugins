@@ -1,7 +1,7 @@
 ---
 id:
 title: Test results clear when the draft changes and say what set means
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -71,8 +71,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「Dev2檢驗都過了嗎？ 如果說就批准合併」 — conditional approval; FO confirmed for this PR: validation PASSED, FO acceptance rerun matched, roborev clean, Codex clean on the head, real-tool integration test passed — approves delivery of PR iamcxa/kc-paseo-plugins#20 at head 5a073fcc162d77955de8b486f57bd94fe1b213e4 by squash, including removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-21T08:42:06Z
+verdict: PASSED
+completed: 2026-10-21T12:15:07Z
+archived: 2026-10-21T12:15:07Z
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today results stay after the draft changes, and "set" does not say it only proves a value came back.
