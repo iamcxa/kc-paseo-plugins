@@ -26,7 +26,7 @@ steps:
         status: gap
         evidence: ProjectEnvSettings
         questions:
-          - {id: "q1", ask: "Which machine's Keychain and agents does the settings screen change when the client runs elsewhere?", status: "answered", answer: "The Mac running Paseo; only Paseo on the user's own Mac is supported, and the screen says the token is stored on the Mac running Paseo. Gap: the token hint says \"this Mac's Keychain\", which names the client's machine; release 1b says the Mac running Paseo.", doc: "docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
+          - {id: "q1", ask: "Which machine's Keychain and agents does the settings screen change when the client runs elsewhere?", status: "answered", answer: "The Mac running Paseo; only Paseo on the user's own Mac is supported, and the screen says the token is stored on the Mac running Paseo. Gap: the token hint says \"this Mac's Keychain\", which names the client's machine; release 1b says the Mac running Paseo.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
 
   - id: prepare-1password
     card: "Prepares 1Password for a repository"
@@ -39,7 +39,7 @@ steps:
         release: r1b
         status: unverified
         questions:
-          - {id: "q1", ask: "Is read-only verified, or only asked of the user?", status: "answered", answer: "Asked in the setup steps and not verified by the plugin. Gap: no setup steps exist yet; release 1b's steps ask for it (setup-guide).", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q1", ask: "Is read-only verified, or only asked of the user?", status: "answered", answer: "Asked in the setup steps and not verified by the plugin. Gap: no setup steps exist yet; release 1b's steps ask for it (setup-guide).", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
           - {id: "q2", ask: "Can a non-admin teammate create a vault and a service account in the team 1Password account?", status: "open"}
       - id: setup-guide
         card: "Follow in-app steps for what to create and how to name it"
@@ -47,7 +47,7 @@ steps:
         status: gap
         questions:
           - {id: "q1", ask: "Which access and naming must the in-app steps explain for the vault, the secrets and the service account?", status: "answered", answer: "Gap: the form starts at the account name; release 1b adds steps covering vault creation, one item per variable, a read-only account limited to that vault with an expiry, and narrow agent-specific keys."}
-          - {id: "q2", ask: "Where are the two weaknesses ADR 0001 accepted stated for the user?", status: "answered", answer: "The settings screen and the plugin overview state both weaknesses in plain words. Gap: the screen states only that an agent can read its values, and OVERVIEW.md is still the template; release 1b adds the Keychain weakness to the screen and both to the overview.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q2", ask: "Where are the two weaknesses ADR 0001 accepted stated for the user?", status: "answered", answer: "The settings screen and the plugin overview state both weaknesses in plain words. Gap: the screen states only that an agent can read its values, and OVERVIEW.md is still the template; release 1b adds the Keychain weakness to the screen and both to the overview.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
   - id: connect
     card: "Connects a repository to 1Password"
@@ -68,20 +68,35 @@ steps:
         questions:
           - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1.5 validates before writing and warns on an existing name, still letting a repository replace its own token."}
           - {id: "q2", ask: "Can a valid token be exactly 128 characters?", status: "answered", answer: "Service-account tokens are far longer; an interactive Keychain prompt has been seen truncating one to exactly 128, so the check stays as a guard."}
+          - {id: "q3", ask: "What counts as an existing name, and which repository owns a token stored under it?", status: "deferred", because: "Settled in project-env-paste-token-check-first ideation (Captain 2026-10-21: 「可以」)."}
+          - {id: "q4", ask: "What must a token pass before it is stored, and what if 1Password cannot be reached?", status: "deferred", because: "Settled in project-env-paste-token-check-first ideation (Captain 2026-10-21: 「可以」)."}
+          - {id: "q5", ask: "Is the token, passed as an argument to security when stored, inside ADR 0001's accepted weaknesses?", status: "deferred", because: "Settled in project-env-paste-token-check-first ideation: the token is kept off the security command line if feasible, else it returns to the Captain (Captain 2026-10-21: 「可以」)."}
+          - {id: "q6", ask: "Can a failed token store show the token or raw tool output on screen?", status: "answered", answer: "Gap: a failed store shows security's first error line (run, store.error); the only test covers a failure with no error output. Not yet placed in a release."}
+          - {id: "q7", ask: "Is storing a token part of the draft that Save and Discard govern?", status: "answered", answer: "No: Save token writes the Keychain at once and Discard does not undo it; on success the token input is cleared, whatever the result or any newer typing."}
+          - {id: "q8", ask: "What happens to a stored token when its project is removed?", status: "answered", answer: "Gap: it stays in the Keychain and no screen deletes it. Not yet placed in a release."}
+          - {id: "q9", ask: "What happens when a token is replaced while another store or read is still running?", status: "deferred", because: "The last store wins (add-generic-password -U), and a read still running can cache an old-token value for 15 minutes (CACHE_MS); only concurrent use meets it, and release 1.5 has one user."}
       - id: token-works
         card: "See that the token works and which vaults it can read"
         release: r1.5
         status: gap
         evidence: tokenStatus
         questions:
-          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: a locked Keychain, a missing op, an outage and a rejection all read as missing or rejected; release 1.5 names each cause on screen."}
+          - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: tokenStatus reads any Keychain failure as missing (readToken returns null) and any op failure as rejected; release 1.5 names each cause on screen. Release 1's cause classes have none for a locked Keychain or a missing op (classifyOpFailure reads a missing op as unexpected)."}
+          - {id: "q2", ask: "What should the screen do when the token reads no vault, or more than the chosen one?", status: "deferred", because: "Settled in project-env-token-works-cause ideation (Captain 2026-10-21: 「可以」)."}
+          - {id: "q3", ask: "What do the vault and field pickers show after the account or vault changes?", status: "answered", answer: "Gap: neither resets, so a draft can keep a vault the new token cannot list or a field from another vault; it fails only at Test or session open. Not yet placed in a release."}
+          - {id: "q4", ask: "Does typing the account name run a token check per keystroke?", status: "answered", answer: "Gap: yes; the token query is keyed by the typed name, so each change runs security and op vault list. Not yet placed in a release."}
+          - {id: "q5", ask: "How does a new token state reach a client older than the daemon?", status: "answered", answer: "Fact: token.status returns tokenState, a closed enum; the timeline row keeps its cause a plain string (missingVariablesData) so an older client still draws it, and token states have no such allowance."}
+          - {id: "q6", ask: "Which identity does op use when the daemon environment also sets OP_CONNECT or OP_ACCOUNT variables?", status: "deferred", because: "Settled in project-env-token-works-cause ideation, which checks it as a fact (Captain 2026-10-21: 「可以」)."}
+          - {id: "q7", ask: "Does an op installed while Paseo runs take effect?", status: "answered", answer: "Fact: tools.ts picks op's path once when the daemon loads, else a bare op on the daemon's PATH, which may lack Homebrew; a later install can need a daemon restart."}
+          - {id: "q8", ask: "How is naming each token cause proven?", status: "answered", answer: "By Kent's own use, as release 1.5's goal says. Fact: the op fake answers vault list with no failure scenarios, the security fake models only a missing entry and a crash, and the screen has no test seam."}
+          - {id: "q9", ask: "How are two vaults with the same name told apart?", status: "answered", answer: "Gap: they are not; tokenStatus keeps only names and references are built from them. Not yet placed in a release."}
       - id: pick-vault
         card: "Choose the vault"
         release: r1
-        status: gap
-        evidence: vaultOptions
+        status: exists
+        evidence: isOutsideVault
         questions:
-          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault. Gap: any op:// reference is saved and resolved, whatever its vault; release 1 refuses a reference to any other vault when an agent session opens.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q1", ask: "Is the chosen vault an access boundary or only a browsing convenience?", status: "answered", answer: "A boundary: every reference must point into the chosen vault. Gap: any op:// reference is saved and resolved, whatever its vault; release 1 refuses a reference to any other vault when an agent session opens.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
 
   - id: choose-secrets
     card: "Chooses which secrets agents receive"
@@ -102,8 +117,14 @@ steps:
         evidence: newName
         questions:
           - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1.5 puts each remove beside its field."}
-          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "Gap: PATH, HOME, NODE_OPTIONS and OP_SERVICE_ACCOUNT_TOKEN pass the name check; release 1.5 refuses them when added. What session open does with them is asked at new-agent-env/q6."}
+          - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "The 16 reserved names in isReservedName; session open skips them since release 1. Gap: the Add button checks only the name pattern and duplicates; release 1.5 refuses a reserved name on Add, using isReservedName.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md"}
           - {id: "q3", ask: "What happens when another editor saved after this one opened?", status: "deferred", because: "Gap: the save is refused with no recovery path; release 1b shows the conflict and reloads without losing the draft. Only a second editor meets it; release 1 has one user."}
+          - {id: "q4", ask: "Does refusing a reserved name also cover Conductor import and variables saved before release 1.5?", status: "deferred", because: "Settled in project-env-variable-row-edit ideation (Captain 2026-10-21: 「可以」)."}
+          - {id: "q5", ask: "Should the reserved set grow to names that redirect or bill the agent, such as DYLD_*, LD_PRELOAD or ANTHROPIC_*?", status: "answered", answer: "Ruling, Captain 2026-10-21: 「可以」: add DYLD_* and LD_PRELOAD to the reserved set (they inject code into the agent); do not add ANTHROPIC_*, which a user may legitimately set; ADR 0004 is amended with the change."}
+          - {id: "q6", ask: "After a variable is removed, what value does the next agent get for that name?", status: "answered", answer: "Whatever the daemon passes: session open blanks only mapped names, so a same-named daemon value returns; open agents keep the value they had."}
+          - {id: "q7", ask: "Should the project's Remove, which saves at once without asking, change once each variable has its own Remove?", status: "deferred", because: "Settled with the variable-row layout in project-env-variable-row-edit ideation (Captain 2026-10-21: 「可以」)."}
+          - {id: "q8", ask: "What reference does a new variable get before a field is picked?", status: "answered", answer: "A guess, op://<vault>/<name>/credential, with VAULT when none is chosen; Test fails it as missing-field, or outside-vault with no vault, unless such an item exists."}
+          - {id: "q9", ask: "How are names that differ only in case, or duplicates in saved settings, handled?", status: "answered", answer: "Names are case-sensitive, like the environment. Add and import refuse exact duplicates only; the settings schema allows them, and then edits and Remove act on both and the later one wins at session open."}
       - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2, status: exists, evidence: importConductor}
 
   - id: standing-instructions
@@ -129,14 +150,21 @@ steps:
         status: gap
         evidence: testProject
         questions:
-          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: an empty value reads as set and earlier results stay after the draft changes; release 1.5 clears results on edit and says set does not prove the service accepts the key. Empty counts as failed (new-agent-env/q7, release 1); Test shares that answer."}
+          - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: earlier results stay after the draft changes, and set does not say it only proves a value came back; release 1.5 clears results on edit and says set does not prove the service accepts the key."}
+          - {id: "q2", ask: "Does Test check the draft or the saved project, and does the screen say which?", status: "answered", answer: "The draft, as release 1.5's goal wants (testProject receives it); new agents use the saved project, and the screen does not say so."}
+          - {id: "q3", ask: "Can Test read set for a field too slow to reach an agent?", status: "answered", answer: "Yes: Test has no deadline (30 seconds per op call), while session open stops at HOOK_BUDGET_MS, 20 seconds, and blanks a late field."}
+          - {id: "q4", ask: "What load does one Test put on 1Password and on other projects?", status: "answered", answer: "Fact: Test clears the shared cache for every project, then starts one op call per variable, all at once; nothing bounds it."}
+          - {id: "q5", ask: "Does a value of only whitespace count as empty, and so failed, under new-agent-env/q7?", status: "answered", answer: "Ruling, Captain 2026-10-21: 「可以」: a whitespace-only value counts as empty, and so failed, consistent with 「算失敗」."}
+          - {id: "q6", ask: "How does Test show a reserved name, which the agent keeps its own value for?", status: "answered", answer: "As a failed variable with the reserved-name cause, as ADR 0004 rules; rowHint reads failed: reserved name.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md"}
+          - {id: "q7", ask: "What does Test show when one reference does not start with op://?", status: "answered", answer: "Gap: the input schema refuses the whole Test and the screen draws no Test error, so no result shows. Not yet placed in a release."}
+          - {id: "q8", ask: "May any client on the Paseo host store a token or test any reference, not only a saved project's?", status: "answered", answer: "Yes: any client Paseo authorizes on the host may store a token or run a test (ADR 0003); the calls take any account, vault and reference.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
       - id: plain-failure-reason
         card: "Get a plain reason when a variable fails"
         release: r1
-        status: gap
-        evidence: resolveProject
+        status: exists
+        evidence: causeText
         questions:
-          - {id: "q1", ask: "What may a failure message contain?", status: "answered", answer: "The reason shown names the cause class (no token, rejected token, missing field, 1Password unreachable) and never contains a value. Gap: the first line of op's or security's error output is shown; release 1 shows the cause class instead.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q1", ask: "What may a failure message contain?", status: "answered", answer: "The reason shown names the cause class (no token, rejected token, missing field, 1Password unreachable) and never contains a value. Gap: the first line of op's or security's error output is shown; release 1 shows the cause class instead.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
       - {id: unsaved-warning, card: "Be warned before leaving with unsaved changes", release: r3, status: gap}
 
   - id: work
@@ -146,21 +174,21 @@ steps:
       - id: new-agent-env
         card: "A new agent starts with the variables"
         release: r1
-        status: gap
-        evidence: resolveProject
+        status: exists
+        evidence: openSession
         questions:
-          - {id: "q1", ask: "Should an agent start when a variable fails to resolve?", status: "answered", answer: "Yes: the variable is blanked and a line naming it and the cause is added to the agent's timeline. Gap: a failed variable is left out of the merge and logged only to the daemon, so a same-named value already present stays; release 1 blanks it, and notice-missing-variable adds the line.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
-          - {id: "q2", ask: "Is the plugin's no-secret rule also about what an agent prints after receiving a value?", status: "answered", answer: "No: the plugin never shows, logs or sends a value; an agent can read what it received.", doc: "docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+          - {id: "q1", ask: "Should an agent start when a variable fails to resolve?", status: "answered", answer: "Yes: the variable is blanked and a line naming it and the cause is added to the agent's timeline. Gap: a failed variable is left out of the merge and logged only to the daemon, so a same-named value already present stays; release 1 blanks it, and notice-missing-variable adds the line.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q2", ask: "Is the plugin's no-secret rule also about what an agent prints after receiving a value?", status: "answered", answer: "No: the plugin never shows, logs or sends a value; an agent can read what it received.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
           - {id: "q3", ask: "Can one service account receive a value another account fetched?", status: "answered", answer: "Gap: the cache is keyed by reference only; release 1 keys it by account and reference."}
           - {id: "q4", ask: "How long does a changed secret take to reach new agents?", status: "deferred", because: "Up to 15 minutes, cleared by Test and Save; release r3 owns secret-change-picked-up."}
           - {id: "q5", ask: "How is the release proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls covering its fixes; releases 1 and 1.5 are accepted by Kent's own use, release 1b by one run on a teammate's Mac."}
           - {id: "q6", ask: "What happens at session open to a variable named like one the agent relies on, such as PATH?", status: "answered", answer: "Ruling, Captain 2026-10-20: 「做法一」 — a reserved name is neither applied nor blanked; the agent keeps its own value and the timeline names it as not applied, with a reserved-name cause. The reserved set is settled in project-env-new-agent-env ideation. Fact: the name check in shared/config.ts admits PATH, and the session_open hook spreads resolved values over request.env, so a mapped PATH replaces the agent's own; Paseo sets PASEO_AGENT_ID and PASEO_AGENT_CWD after the hooks. No ruling names which names are reserved, or whether a reserved name is skipped or blanked; blanking PATH as ADR 0002 blanks a failed variable would break the agent."}
-          - {id: "q7", ask: "Does an empty value count as a failed variable at session open?", status: "answered", answer: "Ruling, Captain 2026-10-20: 「算失敗」 — an empty value is a failed variable, blanked and shown like ADR 0002's other causes. Gap: resolveProject marks an empty value from readRef as ok, caches it and passes it as set; release 1 counts it as failed.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q7", ask: "Does an empty value count as a failed variable at session open?", status: "answered", answer: "Ruling, Captain 2026-10-20: 「算失敗」 — an empty value is a failed variable, blanked and shown like ADR 0002's other causes. Gap: resolveProject marks an empty value from readRef as ok, caches it and passes it as set; release 1 counts it as failed.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
       - id: worktree-env
         card: "Agents in any worktree of the repository get them too"
         release: r1
-        status: gap
-        evidence: mainCheckout
+        status: exists
+        evidence: projectForCwd
         questions:
           - {id: "q1", ask: "Which path forms must match, such as symlinked checkouts?", status: "answered", answer: "Gap: worktree membership compares real paths, but the stored root is compared with git's main-checkout path as written; release 1 compares real paths on both sides."}
       - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2, status: unverified}
@@ -182,16 +210,17 @@ steps:
       - id: notice-missing-variable
         card: "Notice when an agent started without a variable"
         release: r1
-        status: gap
+        status: exists
+        evidence: MissingVariablesRow
         questions:
-          - {id: "q1", ask: "How does a user notice that an agent started without a variable?", status: "answered", answer: "A visible line naming the variable and the reason is appended to the agent's timeline. Gap: the failure is logged only to the daemon; release 1 adds the line.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
-          - {id: "q2", ask: "Which agent openings show the line: a new agent, a resumed one, one in a worktree?", status: "answered", answer: "Paseo runs agent.session_open on create, resume, refresh and import (PluginSessionOpenRequest.reason), and the hook resolves on every one, in the main checkout and registered worktrees alike (projectFor, mainCheckout), so ADR 0002 blanks a failed variable at each. Gap: none shows a line; release 1 is accepted on new agents in the main checkout and in worktrees, resumed sessions in release 2 (resumed-env).", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q1", ask: "How does a user notice that an agent started without a variable?", status: "answered", answer: "A visible line naming the variable and the reason is appended to the agent's timeline. Gap: the failure is logged only to the daemon; release 1 adds the line.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q2", ask: "Which agent openings show the line: a new agent, a resumed one, one in a worktree?", status: "answered", answer: "Paseo runs agent.session_open on create, resume, refresh and import (PluginSessionOpenRequest.reason), and the hook resolves on every one, in the main checkout and registered worktrees alike (projectFor, mainCheckout), so ADR 0002 blanks a failed variable at each. Gap: none shows a line; release 1 is accepted on new agents in the main checkout and in worktrees, resumed sessions in release 2 (resumed-env).", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
           - {id: "q3", ask: "Should a session opened only to show history resolve variables and show the line?", status: answered, answer: "A history opening (an archived agent opened to read) resolves nothing and shows no line.", source: {kind: gate, ref: "project-env-notice-missing-variable/gate-attempt:project-env-notice-missing-variable-ideation-1", words: "准", date: "2026-10-20"}}
-          - {id: "q4", ask: "What does the line show, and what must it never show?", status: "answered", answer: "The variable's name and its cause class (no token, rejected token, missing field, 1Password unreachable); never a value and never op's or security's own output. Gap: today the only report is op's first stderr line in the daemon log (run, the session_open hook's console.error); the cause class is plain-failure-reason/q1.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q4", ask: "What does the line show, and what must it never show?", status: "answered", answer: "The variable's name and its cause class (no token, rejected token, missing field, 1Password unreachable); never a value and never op's or security's own output. Gap: today the only report is op's first stderr line in the daemon log (run, the session_open hook's console.error); the cause class is plain-failure-reason/q1.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
           - {id: "q5", ask: "What draws the line in the app?", status: "answered", answer: "Gap: index.client.tsx registers no timeline renderer, and Paseo draws a plugin row without one as an unavailable placeholder; release 1 registers a renderer for the line."}
           - {id: "q6", ask: "Can the plugin append a timeline row from agent.session_open before the agent is saved?", status: "answered", answer: "Gap the first ideation must spike. Fact: the hook context carries paseo (PluginHookContext, @getpaseo/plugin 0.12.0), its agent ref has timeline.append (@getpaseo/client 0.12.0) and the request carries agentId, but Paseo's reference runs session_open before it saves the agent and does not say whether an unsaved agent accepts a row. Fallback if not: append after the hook returns; agent.created carries the id for new agents only, resume and import have no opened event, and a before hook that throws fails the opening, so the append must not throw."}
-          - {id: "q7", ask: "How many lines appear when several variables fail, and what happens to a line when a later opening resolves them all?", status: answered, doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md", answer: "One row per opening with one line per variable, under a fixed per-agent row id so a re-append replaces it; later openings change nothing in release 1.", source: {kind: gate, ref: "project-env-notice-missing-variable/gate-attempt:project-env-notice-missing-variable-ideation-1", words: "准", date: "2026-10-20"}}
-          - {id: "q8", ask: "What does the user see when resolving takes longer than Paseo's hook time limit?", status: "answered", answer: "Gap: a before hook past 30 seconds fails the opening (Paseo's plugin reference, hook timeout), and run allows each op call 30 seconds, so a slow 1Password stops the agent instead of starting it with a line as ADR 0002 rules; release 1 bounds resolving below the limit and shows it as 1Password unreachable.", doc: "docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q7", ask: "How many lines appear when several variables fail, and what happens to a line when a later opening resolves them all?", status: answered, doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md", answer: "One row per opening with one line per variable, under a fixed per-agent row id so a re-append replaces it; later openings change nothing in release 1.", source: {kind: gate, ref: "project-env-notice-missing-variable/gate-attempt:project-env-notice-missing-variable-ideation-1", words: "准", date: "2026-10-20"}}
+          - {id: "q8", ask: "What does the user see when resolving takes longer than Paseo's hook time limit?", status: "answered", answer: "Gap: a before hook past 30 seconds fails the opening (Paseo's plugin reference, hook timeout), and run allows each op call 30 seconds, so a slow 1Password stops the agent instead of starting it with a line as ADR 0002 rules; release 1 bounds resolving below the limit and shows it as 1Password unreachable.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
           - {id: "q9", ask: "How is the line proven?", status: "answered", answer: "Fakes for op, the Keychain and git (new-agent-env/q5) cannot show a row in the app; Kent seeing the line on his own daemon, which accepts release 1, proves it."}
       - {id: teammate-same-setup, card: "A teammate sets up the same repository quickly", release: r3, status: gap}
 
@@ -208,7 +237,7 @@ releases:
     goal: "On his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; Kent's own use and judgment accept it."
     ruling:
       - "「就五個，剩下做 r1.5」 — Captain, 2026-10-20"
-      - "「我覺得UI不夠直覺」 — Captain"
+      - "「我覺得UI不夠直覺」 — Captain, 2026-10-20"
   - id: r1b
     name: "RELEASE 1b — A teammate connects one repository"
     goal: "A recce teammate installs the plugin from GitHub and reaches a working connection for one repository by following the in-app steps; one run on a teammate's Mac accepts it."
@@ -224,7 +253,8 @@ rules:
   - {id: registered-worktrees-only, text: "Secrets go only to the repository's main checkout and its registered worktrees."}
 
 status:
-  unproven: "Only a typecheck exists; no story has run end to end on any Mac."
-  unmerged: "The proof of concept is on GitHub main; no version is tagged; release PR #3 is open."
-  undeployed: "Recorded as installed only on Kent's Paseo daemon; no teammate has installed it."
+  as_of: "2026-10-21"
+  unproven: "No end-to-end test; r1 rests on unit tests with fakes and Kent's own use."
+  unmerged: "r1 is merged and tagged project-env-v0.1.0; r1.5 and r1b are not built."
+  undeployed: "Runs on Kent's Paseo daemon from his main checkout; no teammate install."
   irreversible: "Storing a token writes, and overwrites, a login Keychain entry on the Paseo Mac."
