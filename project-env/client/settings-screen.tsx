@@ -213,7 +213,7 @@ function ProjectEditor({
   const doImport = useMutation({
     mutationFn: () => importRpc({ root: draft.root }),
     onSuccess: ({ names, prompt }) => {
-      const { add, skipped } = splitImported(names, draft.variables.map((v) => v.name));
+      const { skipped } = splitImported(names, []);
       setImportNote(
         skipped.length === 0
           ? null
@@ -223,7 +223,7 @@ function ProjectEditor({
         ...d,
         variables: [
           ...d.variables,
-          ...add.map(newVariable),
+          ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
         ],
         prompt: d.prompt || prompt,
       }));
@@ -381,7 +381,8 @@ function ProjectEditor({
           <SettingsAction
             label="Import names and prompt from Conductor"
             hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
-            actionLabel="Import"
+            actionLabel={doImport.isPending ? "Importing…" : "Import"}
+            disabled={doImport.isPending}
             onPress={() => doImport.mutate()}
           />
         </SettingsCard>
