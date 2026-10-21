@@ -98,6 +98,7 @@ Surfaces: ui
 Visible change: Stale Test results disappear, set is explained, and a blank value shows as failed.
 Direction alignment with the Captain: not needed — follows the Captain's 2026-10-21 layout choice (one row per variable).
 Release review: paseo-project-env/r1.5 at 9489e13
+Map footprints: not needed: the rulings this task carries (new-agent-env/q7, test-each-variable/q5) were written to the map in PRs #13 and earlier, before this task ran.
 
 ## Design
 
