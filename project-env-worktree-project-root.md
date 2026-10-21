@@ -90,6 +90,7 @@ Surfaces: none
 Visible change: none
 Direction alignment with the Captain: not needed — a defect fix the Captain approved on 2026-10-21 (「也准加入」).
 Release review: not needed: a bug fix carrying no journey story; the Captain placed it in the r1.5 batch.
+Map footprints: not needed: a bug fix with no journey story; no ruling answered a map question.
 
 ## Design
 

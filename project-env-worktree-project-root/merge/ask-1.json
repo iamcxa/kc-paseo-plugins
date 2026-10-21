@@ -1,0 +1,12 @@
+{
+  "class": "other",
+  "head": "09bc5c98488f75d77e14c9bf73bd532457dd490e",
+  "model": "not run",
+  "necessity": "Kent, release r1.5's only user; without it an agent in a worktree saved as its own project, such as qnow-adopt-dev2, starts with none of its variables.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [],
+  "pr": "iamcxa/kc-paseo-plugins#19",
+  "sufficiency": "AC-1(a) and AC-2 are met by fake-git cases, two of which fail on main, and a real-git check (main null, candidate MATCH); the integration test showed a new qnow-adopt-dev2 agent receiving all five var",
+  "time": "2026-10-21T12:10:04Z",
+  "verdict": "merge"
+}
