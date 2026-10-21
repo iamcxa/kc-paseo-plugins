@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-worktree-project-root:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-worktree-project-root-validation-1
+              briefing:
+                id: briefing:project-env-worktree-project-root:validation:attempt-1:revision-1
+                digest: sha256:13167fad1a2e81e34cb84c7338cb365c42ba07c9c0f9a9b4830ecd9baa5420cd
+                room-ref: ./project-env-worktree-project-root/review/validation/briefing-1
 started: 2026-10-21T09:42:39Z
 ---
 

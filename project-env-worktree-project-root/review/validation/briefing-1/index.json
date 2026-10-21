@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-worktree-project-root:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#19 at head 09bc5c98488f75d77e14c9bf73bd532457dd490e? Approval also covers later external-review rounds on the same PR, merging that full head by squash once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-worktree-project-root:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/55bb558ec6ab4bd1e0faa0e1877009afa8b3f0d2/project-env-worktree-project-root.md",
+      "rev": "sha256:0791915ace56e54f9b9f05eb0051f29ac529a0b9213e96862464b8062c4c0e07",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED for candidate 09bc5c9; FO reran the 5-step acceptance script in a fresh shell and every step matched (13 pass; 11 pass 2 fail on main; real git main null, candidate MATCH; typecheck clean). Reviewers: roborev clean (roborev:976); codex pending at presentation. Owed: AC-1(b), a new qnow-adopt-dev2 agent reading every variable set after merge and Kent's reload. Merge order: after #15 or before it; adjacent secrets.ts hunks with #15 untested, so whichever merges second is re-checked for conflicts."
+    }
+  ]
+}
