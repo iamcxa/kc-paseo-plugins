@@ -59,6 +59,17 @@ gates:
                 id: briefing:project-env-browse-vault-survives:validation:attempt-1:revision-1
                 digest: sha256:036d01b382a5dfb5f891f3c2fdcd8861c4c3de8b048efa5b56e8a91487bbc9c2
                 room-ref: ./project-env-browse-vault-survives/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-browse-vault-survives:validation:1
+                briefing: briefing:project-env-browse-vault-survives:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T11:21:48.741216Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「可以，同意你的計畫」 — approves delivery of PR iamcxa/kc-paseo-plugins#16 at head a422acd308768abf707fce5ff7ebce45ac3c248a, merged first by squash once Codex is clean, including later review rounds on the same PR and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-21T08:42:14Z
 ---
 
