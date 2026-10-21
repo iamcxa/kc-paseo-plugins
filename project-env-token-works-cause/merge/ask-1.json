@@ -1,0 +1,22 @@
+{
+  "class": "other",
+  "head": "5ee39c3d5fb093536df1815edbedd51a22a5c6c9",
+  "model": "not run",
+  "necessity": "Kent, release r1.5's only user; without it a locked Keychain reads as no token, a missing op, an outage and a rejected token all read as invalid, the token is re-checked on every keystroke, and a toke",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: '- Deferred risk: `session-open` test \"blanks'",
+    "point: deferred: 'Classification: Deferred risk. (1) Released user'",
+    "point: deferred: '- Deferred risk: roborev:977, as classified'",
+    "point: deferred: '- Deferred risk: the session-open deadline'",
+    "point: deferred: 'Recommend PASSED: at e9661f0 AC-1 to'",
+    "point: deferred: '- Cycle 1 (validation, candidate e9661f0):'",
+    "point: deferred: '- Deferred risk: the session-open deadline'",
+    "point: not-run: 'Reviewers: roborev clean (evidence=roborev:980); codex not'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#15",
+  "sufficiency": "AC-1 to AC-3 are met by tests that fail under mutation, plus the cycle-1 fix whose tests fail when a readable saved id is rejected or a name stops working (validation cycle 3 and FO rerun, candidate 5",
+  "time": "2026-10-21T14:53:37Z",
+  "verdict": "ask"
+}

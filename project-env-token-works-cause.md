@@ -117,6 +117,7 @@ Surfaces: ui
 Visible change: The token row says why a token fails, lists the vaults it can read, and picks the only one.
 Direction alignment with the Captain: not needed — follows r1's cause-class wording and the Captain's 2026-10-21 「可以」 on this task list; release r1.5 is reviewed and interrogated (signal 4).
 Release review: paseo-project-env/r1.5 at 9489e13
+Map footprints: not needed: token-works/q2 and q6 were settled in this task's ideation and approved at its gate before the map was next updated; no open map question remains on this task.
 
 ## PRFAQ
 
