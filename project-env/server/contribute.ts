@@ -59,9 +59,7 @@ export function contribute(server: PluginServerContext, tools: Tools) {
   server.handle(rpc.storeToken, ({ serviceAccount, token }) =>
     secrets.storeToken(serviceAccount, token),
   );
-  server.handle(rpc.listRefs, async ({ serviceAccount, vault }) => ({
-    refs: await secrets.listRefs(serviceAccount, vault),
-  }));
+  server.handle(rpc.listRefs, ({ serviceAccount, vault }) => secrets.listRefs(serviceAccount, vault));
   server.handle(rpc.testProject, async ({ project }) => {
     secrets.clearCache();
     return { results: (await secrets.resolveProject(project)).results };

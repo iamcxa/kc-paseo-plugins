@@ -22,6 +22,20 @@ if (cmd === "read") {
   else respond();
 } else if (cmd === "vault" && sub === "list") {
   process.stdout.write(JSON.stringify((accountData.vaults ?? []).map((name) => ({ name }))));
+} else if (cmd === "item" && (sub === "list" || sub === "get")) {
+  const id = sub === "get" ? argv[2] : null;
+  const key = id === null ? "item list" : `item get ${id}`;
+  const failure = scenario.op.fail?.[key];
+  if (failure) fail(failure.stderr, failure.code ?? 1);
+  const raw = scenario.op.raw?.[key];
+  if (raw !== undefined) process.stdout.write(raw);
+  else if (id === null) {
+    process.stdout.write(JSON.stringify((accountData.items ?? []).map(({ fields, ...summary }) => summary)));
+  } else {
+    const item = (accountData.items ?? []).find((i) => i.id === id);
+    if (!item) fail(`[ERROR] "${id}" isn't an item in the vault`);
+    process.stdout.write(JSON.stringify(item));
+  }
 } else {
   fail(`[ERROR] fake op does not implement: ${argv.join(" ")}`);
 }
