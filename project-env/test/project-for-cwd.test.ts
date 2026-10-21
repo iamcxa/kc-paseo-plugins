@@ -15,7 +15,7 @@ afterEach(() => {
 function layout() {
   const base = realpathSync(mkdtempSync(join(tmpdir(), "project-env-paths-")));
   cleanups.push(() => rmSync(base, { recursive: true, force: true }));
-  for (const dir of ["real/repo", "real/wt", "real/other"]) mkdirSync(join(base, dir), { recursive: true });
+  for (const dir of ["real/repo", "real/wt", "real/wt2", "real/other"]) mkdirSync(join(base, dir), { recursive: true });
   symlinkSync(join(base, "real"), join(base, "linkA"));
   symlinkSync(join(base, "real"), join(base, "linkB"));
   return { base, at: (...parts: string[]) => join(base, ...parts) };
@@ -148,5 +148,87 @@ describe("project for a working directory", () => {
       ),
     );
     assert.equal(await secrets.projectForCwd([project(at("linkA", "other"))], at("real", "repo")), null);
+  });
+
+  it("serves an agent in a linked worktree from a project saved at that worktree", async () => {
+    const { at } = layout();
+    const stored = project(at("real", "wt"));
+    const secrets = secretsFor(
+      gitAnswers(
+        [{ cwd: at("real", "wt"), commonDir: at("real", "repo", ".git"), toplevel: at("real", "wt") }],
+        [at("real", "repo"), at("real", "wt"), at("real", "wt2")],
+        [at("real", "repo")],
+      ),
+    );
+    assert.equal(await secrets.projectForCwd([stored], at("real", "wt")), stored);
+  });
+
+  it("keeps a project saved at the main checkout serving its registered worktree", async () => {
+    const { at } = layout();
+    const stored = project(at("real", "repo"));
+    const secrets = secretsFor(
+      gitAnswers(
+        [{ cwd: at("real", "wt"), commonDir: at("real", "repo", ".git"), toplevel: at("real", "wt") }],
+        [at("real", "repo"), at("real", "wt"), at("real", "wt2")],
+        [at("real", "repo")],
+      ),
+    );
+    assert.equal(await secrets.projectForCwd([stored], at("real", "wt")), stored);
+  });
+
+  it("does not serve a repository unconnected to the project saved at a worktree", async () => {
+    const { at } = layout();
+    const secrets = secretsFor(
+      gitAnswers(
+        [{ cwd: at("real", "other"), commonDir: at("real", "other", ".git"), toplevel: at("real", "other") }],
+        [at("real", "other")],
+        [at("real", "other")],
+      ),
+    );
+    assert.equal(await secrets.projectForCwd([project(at("real", "wt"))], at("real", "other")), null);
+  });
+
+  it("does not serve a sibling worktree from a project saved at another worktree", async () => {
+    const { at } = layout();
+    const secrets = secretsFor(
+      gitAnswers(
+        [{ cwd: at("real", "wt2"), commonDir: at("real", "repo", ".git"), toplevel: at("real", "wt2") }],
+        [at("real", "repo"), at("real", "wt"), at("real", "wt2")],
+        [at("real", "repo")],
+      ),
+    );
+    assert.equal(await secrets.projectForCwd([project(at("real", "wt"))], at("real", "wt2")), null);
+  });
+
+  it("lets a worktree's own project win in that worktree only, whatever the list order", async () => {
+    const { at } = layout();
+    const main = project(at("real", "repo"));
+    const own = project(at("real", "wt"));
+    const secrets = secretsFor(
+      gitAnswers(
+        [
+          { cwd: at("real", "wt"), commonDir: at("real", "repo", ".git"), toplevel: at("real", "wt") },
+          { cwd: at("real", "wt2"), commonDir: at("real", "repo", ".git"), toplevel: at("real", "wt2") },
+        ],
+        [at("real", "repo"), at("real", "wt"), at("real", "wt2")],
+        [at("real", "repo")],
+      ),
+    );
+    for (const list of [[main, own], [own, main]]) {
+      assert.equal(await secrets.projectForCwd(list, at("real", "wt")), own);
+      assert.equal(await secrets.projectForCwd(list, at("real", "wt2")), main);
+    }
+  });
+
+  it("still refuses a worktree the main checkout did not register, even when its project is saved", async () => {
+    const { at } = layout();
+    const secrets = secretsFor(
+      gitAnswers(
+        [{ cwd: at("real", "wt"), commonDir: at("real", "repo", ".git"), toplevel: at("real", "wt") }],
+        [at("real", "repo")],
+        [at("real", "repo")],
+      ),
+    );
+    assert.equal(await secrets.projectForCwd([project(at("real", "wt"))], at("real", "wt")), null);
   });
 });
