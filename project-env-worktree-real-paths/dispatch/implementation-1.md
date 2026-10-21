@@ -18,3 +18,4 @@ Captain rulings carried into r1: an empty value is a failed variable (「算失�
 PRs go to iamcxa/kc-paseo-plugins as a Draft; commit and PR titles use conventional commits scoped to the plugin, e.g. `fix(project-env): …`, because release-please reads them. Merging is Kent's.
 Never read or print a secret value: run no command that fetches a 1Password field value or a Keychain password; check secrets only by shape.
 Kent's live plugin install `paseo-project-env` (from /Users/kent/Project/paseo-project-env) must not be changed, reloaded or removed. A live probe uses a separate install id and is removed afterwards; if that cannot be made certain, skip it and say which proof is still owed.
+roborev not run: the extension was listed on 2026-10-21 (PR #12), after this dispatch; line added 2026-10-21 by FO, which ran roborev_gate.py on the delivered head afterwards: clean on 5ff307d, evidence=roborev:957.
