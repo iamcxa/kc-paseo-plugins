@@ -61,6 +61,17 @@ gates:
                 id: briefing:project-env-token-works-cause:validation:attempt-1:revision-1
                 digest: sha256:62ea6ef15e88f152f38e9f427949fa57a6aa8d3a91839bea526ca6ae013b37f9
                 room-ref: ./project-env-token-works-cause/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-token-works-cause:validation:1
+                briefing: briefing:project-env-token-works-cause:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T11:22:00.157836Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「可以，同意你的計畫」 — approves delivery of PR iamcxa/kc-paseo-plugins#15, merged last by squash after a merge-main reconciliation that passes revalidation with no Material or Needs-decision finding, a clean Codex round on that head, and FO''s real-tool integration test on an isolated Paseo; includes later review rounds on the same PR and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-21T08:41:45Z
 ---
 
