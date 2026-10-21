@@ -427,7 +427,13 @@ function ProjectEditor({
             </Text>
             <SettingsCard>
               <SettingsAction label="Keep this project" actionLabel="Keep" onPress={() => setConfirmStop(false)} />
-              <SettingsAction label="Stop managing" actionLabel="Stop managing" onPress={remove} />
+              <SettingsAction
+                label="Stop managing"
+                actionLabel="Stop managing"
+                disabled={settings.saving}
+                onPress={remove}
+                error={settings.saveError ?? undefined}
+              />
             </SettingsCard>
           </Modal.Content>
         </Modal>
