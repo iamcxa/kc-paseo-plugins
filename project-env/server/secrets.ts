@@ -227,7 +227,7 @@ export function createSecrets(tools: Tools) {
         env: opEnv(secret),
         timeout: timeout(),
       });
-      if (value === "") return { ok: false, cause: "empty" };
+      if (value.trim() === "") return { ok: false, cause: "empty" };
       cache.set(key, { value, at: Date.now() });
       return { ok: true, value };
     } catch (error) {

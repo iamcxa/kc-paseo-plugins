@@ -19,7 +19,7 @@ export const causeText: Record<Cause, string> = {
   "rejected-token": "1Password rejected the token",
   "missing-field": "field not found in the vault",
   unreachable: "1Password could not be reached",
-  empty: "the field is empty",
+  empty: "the 1Password field is empty",
   "outside-vault": "reference points outside the chosen vault",
   "reserved-name": "reserved name",
   unexpected: "1Password returned an error the plugin does not recognise",
