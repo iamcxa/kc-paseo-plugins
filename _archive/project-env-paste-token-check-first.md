@@ -1,7 +1,7 @@
 ---
 id:
 title: A token is stored only after 1Password accepts it
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -84,8 +84,11 @@ gates:
                 reason: 'Captain 2026-10-22: 「准」 — approves delivery of PR iamcxa/kc-paseo-plugins#21 at head 130389257448ea1387f93ce6d8bc87e88df5d81e by squash after the clean Codex round (summary:6321533700), and accepts the stated recommendations: the surviving mutant is a Deferred risk and writeToken''s unused keychain argument is left for a later cleanup.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-21T08:41:52Z
+verdict: PASSED
+completed: 2026-10-21T17:12:49Z
+archived: 2026-10-21T17:12:49Z
 ---
 
 Release r1.5 of the paseo-project-env journey: on his own Mac, Kent stores a token only after it is checked, sees why a token fails, edits each variable where it sits, and sees test results that match his draft; his own use accepts it. Captain, 2026-10-20: 「我覺得UI不夠直覺」. Captain accepted this task list on 2026-10-21: 「可以」. Today storeToken writes the Keychain first and checks afterwards, and a name another project uses is overwritten without a warning.
