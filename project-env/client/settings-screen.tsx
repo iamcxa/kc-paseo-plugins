@@ -210,8 +210,8 @@ function ProjectEditor({
   });
   const check = () => (account === checked ? void token.refetch() : setChecked(account));
   const store = useMutation({
-    mutationFn: (pasted: string) => saveToken({ serviceAccount: account, token: pasted }),
-    onSuccess: ({ stored, ...status }, pasted) => {
+    mutationFn: (submitted: { serviceAccount: string; token: string }) => saveToken(submitted),
+    onSuccess: ({ stored, ...status }, { token: pasted }) => {
       if (!stored) {
         if (latestToken.current === pasted) setTokenRefusal(`Not saved: ${tokenRowText(status).label}`);
         return;
@@ -222,7 +222,7 @@ function ProjectEditor({
       }
       check();
     },
-    onError: (error, pasted) => {
+    onError: (error, { token: pasted }) => {
       if (latestToken.current === pasted) setTokenRefusal(error.message);
     },
   });
@@ -232,7 +232,7 @@ function ProjectEditor({
     if (refused) return;
     const others = projectsUsingName(settings.values.projects, draft.root, account);
     if (others.length > 0) setSharedWith(others);
-    else store.mutate(tokenDraft);
+    else store.mutate({ serviceAccount: account, token: tokenDraft });
   };
   const clearTokenMessages = () => {
     setTokenRefusal(null);
@@ -361,7 +361,7 @@ function ProjectEditor({
                 actionLabel="Replace"
                 onPress={() => {
                   setSharedWith(null);
-                  store.mutate(tokenDraft);
+                  store.mutate({ serviceAccount: account, token: tokenDraft });
                 }}
               />
               <SettingsAction
