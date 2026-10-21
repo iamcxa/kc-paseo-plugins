@@ -1,7 +1,7 @@
 ---
 id:
 title: A reference outside the repository's chosen vault is never read
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -71,8 +71,11 @@ gates:
                 reason: 'Captain 2026-10-21: 「其他的部分授權你合併」 — approves delivery of PR iamcxa/kc-paseo-plugins#10 at head a30ad6357ae0fb3f2d02f5e990c0d9a28dea7022 after the roborev run he asked for (clean), including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-20T14:20:03Z
+verdict: PASSED
+completed: 2026-10-21T00:39:31Z
+archived: 2026-10-21T00:39:31Z
 ---
 
 ADR 0001 rules that the plugin refuses a reference outside the chosen vault. Today any `op://` reference is read, including one typed by hand or imported.
