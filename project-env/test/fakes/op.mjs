@@ -1,10 +1,6 @@
 import { boot, TOKEN_PREFIX } from "./common.mjs";
 
 const { scenario, argv, log, fail } = boot("op");
-if (process.env.OP_CONNECT_HOST || process.env.OP_CONNECT_TOKEN) {
-  log({ connect: true });
-  fail(`[ERROR] "op ${process.argv[3]} ${process.argv[4]}" doesn't work with Connect. Please unset 'OP_CONNECT_HOST' and 'OP_CONNECT_TOKEN' to use this command.`);
-}
 const token = process.env.OP_SERVICE_ACCOUNT_TOKEN ?? "";
 const account = token.startsWith(TOKEN_PREFIX) ? token.slice(TOKEN_PREFIX.length) : null;
 const known = account !== null && scenario.op?.accounts?.[account] !== undefined;

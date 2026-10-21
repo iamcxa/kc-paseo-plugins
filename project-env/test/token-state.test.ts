@@ -55,16 +55,6 @@ describe("each token failure has its own state", () => {
     assert.equal(classifyTokenCheckFailure({ code: null, killed: true, signal: "SIGTERM" }), "unreachable");
     assert.equal(classifyTokenCheckFailure({ code: 8, stderr: "[ERROR] failed to DecodeSACredentials: invalid credentials provided" }), "rejected");
   });
-  it("OP_CONNECT variables in the daemon environment do not change the identity", async () => {
-    process.env.OP_CONNECT_HOST = "http://127.0.0.1:9";
-    process.env.OP_CONNECT_TOKEN = "dummy";
-    try {
-      assert.equal((await status(withKeychain({ op: { accounts } }))).state, "ok");
-    } finally {
-      delete process.env.OP_CONNECT_HOST;
-      delete process.env.OP_CONNECT_TOKEN;
-    }
-  });
 });
 
 describe("the token row text", () => {

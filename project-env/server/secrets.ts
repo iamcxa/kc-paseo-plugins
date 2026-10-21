@@ -43,10 +43,7 @@ export class RunFailure extends Error {
 }
 
 function opEnv(token: string): NodeJS.ProcessEnv {
-  const env: NodeJS.ProcessEnv = { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
-  delete env.OP_CONNECT_HOST;
-  delete env.OP_CONNECT_TOKEN;
-  return env;
+  return { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
 }
 
 export function createSecrets(tools: Tools) {
