@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-variable-row-edit:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#17 at head 1e317ed?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-variable-row-edit:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/0ae66c705396bcf397a56f17cf571fbb54ca36c0/project-env-variable-row-edit.md",
+      "rev": "sha256:ef34819ed38812a2a83713bf1eee6315a5c3f32d5074d82c646390d5074ddb7e",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED for candidate 1e317ed; FO reran the acceptance script including the 30-check UI run (all PASS). Owed: AC-1 screenshot from Kent's Mac. FO declines the Polish finding that Save stays enabled with an empty field: a saved empty-ref variable is blanked at session open (tested)."
+    }
+  ]
+}
