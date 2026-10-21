@@ -190,3 +190,30 @@ Test results are tied to the draft they were run on, `set` is explained on the T
 
 ### Limits
 - Mermaid diagrams were not rendered; only the checker ran. Kent's live `paseo-project-env` install was untouched (`paseo plugin ls` shows it running before and after). The isolated daemon, plugin id `pe-t4-preview`, browser session and `/tmp/pe-t4-match-draft` are removed. Machine dependencies: Paseo.app 0.12.0 CLI, Node 24, `agent-browser`; `spike/index.server.ts` and `spike/lib.sh` hardcode `/tmp/pe-t4-match-draft`.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design on top of the merged variable rows (PR #17): results shown only while the draft they were run on is still current, the hint sentence, whitespace-only values empty at Test and session open (value not trimmed), cause text "the 1Password field is empty".
+  Candidate 5a073fc on `spacedock-ensign/project-env-test-results-match-draft`, base 15b1e3f (holds #16, #17), Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/20. Deviation from the design's mechanism: results are tied to an edit counter (bumped by every `patch` and by import) rather than the draft object's identity, because identity would also clear on a prompt edit, which the FAQ says does not count; prompt edits call `setDraft` directly. A late Test result is dropped because its stored counter no longer matches.
+- DONE: Land the ADR 0002 amendment as drafted.
+  Inside Decision (as ADR 0004's amendment does) with `**Recommended:** not recorded` added, because `adr_lint.py` rejects an extra `## Amendment` section and a Decision without that line; the amendment text and words are as drafted. `adr_lint.py docs/adr --since 15b1e3f --require 2` exit 0. ADR changed: 0002.
+- DONE: Replace the superseded test "whitespace is a value, not empty" with the AC-3 tests, and make AC-1 to AC-3 pass with the evidence their clauses name, each failing when its behaviour is removed.
+  Group AC-3 (`test/session-open.test.ts`): "a whitespace-only value is a failed variable, blanked and not cached" asserts `resolveProject` gives `{ok:false,cause:"empty"}` for `"   \t "`, a second call reads `op` again, `openSession` puts `""` and returns the failed result, `rowHint` is "failed: the 1Password field is empty"; it failed when `.trim()` was removed from the empty check. "a value with whitespace around text is delivered as read" asserts `" x "` is ok and env `" x "`; it failed when the returned value was trimmed. `variable-name.test.ts` asserts the new cause words.
+  Group AC-1 (isolated Paseo 0.12.0 daemon, own home, port 6841, throwaway plugin id, fake `op` and `security`, real web client): account, vault, reference, add, remove each took results from set=2 failed=2 to 0; editing a reference back to the same text stayed 0; a prompt-only edit kept them; a reference edited during a 5 s Test showed 0 when it finished, the unedited control showed 2 and 2. With the comparison removed the same script left results shown at every step. Transcripts and scripts: `implementation/ac1.out`, `ac1-falsifier.out`, `ac1.sh`, `lib.sh`, `mkworld.ts` in the task folder.
+  Group AC-2: `implementation/ac2-desktop-before-test.png` and `ac2-compact-before-test.png` (400 px) show the sentence verbatim before any Test; `desktop-after-test.png`, `compact-after-test.png` show results.
+- DONE: Record Kent's on-Mac use and the PR screenshot as owed.
+  Both listed under Owed in the PR body: AC-1 on Kent's real project (the five edits and the in-flight edit), and the AC-2 screenshot attached to the PR (images are in the state checkout, not the repository).
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, `design_surfaces.py check`, `doc_impact.py`, then open the Draft PR.
+  `npm test` 121 of 122; the one failure, "blanks a variable 1Password does not answer in time and returns at the deadline", is the load-sensitive test and passes alone (2 of 2 reruns, machine load average 7 to 17). `tsc --noEmit` clean. roborev gate `clean on 5a073fcc1; evidence=roborev:978`. `design_surfaces.py check`: "design surfaces presentable". `doc_impact.py 15b1e3f HEAD`: 0 documents; no updates owed. `comment_ratio.py`: code lines 39, comment lines 0, 0.0%, maximum 5% met. Number guards not applicable (no db surface; ADR 0002 amended, number kept).
+
+### Per-criterion evidence
+- AC-1: passes at lower level on the isolated daemon (above), failing when the comparison is removed; Kent's own use on his Mac is owed.
+- AC-2: sentence on screen before Test at desktop and 400 px in the real client; the PR-attached screenshot is owed.
+- AC-3: passes in `npm test`; both tests fail when their behaviour is removed.
+
+### Summary
+Test results now belong to the draft they were run on, the Test hint explains "set", and whitespace-only values fail as "the 1Password field is empty" through the shared `readVariable`. One mechanism choice differs from the design text (edit counter instead of draft-object identity, to keep prompt edits from clearing results); the ADR 0002 amendment sits inside Decision to satisfy the ADR lint.
+
+### Limits
+- Mermaid diagrams not rendered; no retained document was affected. The isolated daemon, plugin id `pe-t4-impl`, browser session and `/tmp/pe-t4-impl` are removed; Kent's live `paseo-project-env` install shows running before and after. Machine dependencies for the isolated run: Paseo.app 0.12.0 CLI and its `app-dist` web client, `agent-browser`, Node; scripts hardcode `/tmp/pe-t4-impl` and a server id read from the daemon.
+- One slip, repaired: a stray `git checkout` detached the worktree HEAD for a moment; the branch and candidate commit were untouched and re-attached.

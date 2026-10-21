@@ -1,0 +1,25 @@
+== control: Test with no edit
+  after Test:   set=2 empty=2 total_failed=2
+== 1 change the account
+  after Test:   set=2 empty=2 total_failed=2
+  after change: set=2 empty=2 total_failed=2
+== 2 change the vault
+  after Test:   set=2 empty=2 total_failed=2
+  after change: set=2 empty=2 total_failed=2
+== 3 edit a reference
+  after Test:   set=2 empty=2 total_failed=2
+  after change: set=2 empty=2 total_failed=2
+  after editing back to the same text: set=2 empty=2 total_failed=2
+== 4 add a variable
+  after Test:   set=2 empty=2 total_failed=2
+  after change: set=2 empty=2 total_failed=2
+== 5 remove a variable
+  after Test:   set=2 empty=2 total_failed=2
+  after change: set=2 empty=2 total_failed=2
+== 6 edit the prompt only (not a Test input)
+  after Test:   set=2 empty=2 total_failed=2
+  after prompt edit: set=2 empty=2 total_failed=2
+== 7 edit a reference while Test is running
+  after Test finished: set=2 empty=2 total_failed=2  (Test button: button "Test")
+== 8 control: Test, no edit while running
+  after Test finished: set=2 empty=2 total_failed=2
