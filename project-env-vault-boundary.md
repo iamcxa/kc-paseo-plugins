@@ -61,6 +61,17 @@ gates:
                 id: briefing:project-env-vault-boundary:validation:attempt-1:revision-1
                 digest: sha256:438e2d82abc20fc58c9eb0748f9d91fd2fb164c1b2d6457fd509d1a25cf141c4
                 room-ref: ./project-env-vault-boundary/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-boundary:validation:1
+                briefing: briefing:project-env-vault-boundary:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T00:32:25.017863Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「其他的部分授權你合併」 — approves delivery of PR iamcxa/kc-paseo-plugins#10 at head a30ad6357ae0fb3f2d02f5e990c0d9a28dea7022 after the roborev run he asked for (clean), including later review rounds on the same PR, merging that head, and removing its clean pushed worktree.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-20T14:20:03Z
 ---
 
