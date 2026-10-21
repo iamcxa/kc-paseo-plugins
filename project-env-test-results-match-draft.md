@@ -34,6 +34,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-test-results-match-draft:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-test-results-match-draft-ideation-1
+              briefing:
+                id: briefing:project-env-test-results-match-draft:ideation:attempt-1:revision-1
+                digest: sha256:51099762d8164bc1af1e9a598c9df78abdcdc7d788cd16c04cfe403187ee529a
+                room-ref: ./project-env-test-results-match-draft/review/ideation/briefing-1
 started: 2026-10-21T08:42:06Z
 ---
 
