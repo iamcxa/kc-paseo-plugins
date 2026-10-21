@@ -193,3 +193,75 @@ Check-before-store is a reorder of `storeToken` plus a stdin write through `secu
 ### Summary
 
 Storing a token is now check, then write: shape gate, `checkToken` on the pasted token, then `security -i` with hex on stdin; a name or token holding a quote, backslash or control character never reaches `security`. The screen refuses on the spot, keeps the pasted token after a refusal, and asks Replace or Cancel when another saved project uses the name. Limits: no screen test seam; `security -i` probed on macOS 26.5.2 only; a Keychain entry no saved project uses is replaced without a warning (known limit from design); `checkToken`'s `truncated` state is unreachable from the store path because the shape gate refuses 128 first.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate c23b96cc184b1294422d49e4277600235ef3c0dd (PR iamcxa/kc-paseo-plugins#21, base main 948e98a) against AC-1 to AC-4 and the approved design, including that each decisive test fails when its behaviour is removed (write before check, no shape gate, token on argv, no name guard, own root counted) and that a token is never on a security argv; give a verdict.
+  Verdict PASSED, one Deferred risk (below). Reran at the candidate: `npm test` 164 pass 0 fail, typecheck clean. Mutations run by me on a /tmp copy (candidate untouched), each against `paste-token.test.ts` + `secrets.test.ts` (baseline 18 pass): write before check, 3 fail (AC-1, one per cause); no shape gate, 1 fail ("each refusal before any op or security call"); token on argv via `-w`, 6 fail incl. "every security argv is -i or a read"; no name guard in `writeToken`, 1 fail; own root counted in `projectsUsingName`, 1 fail; also dropping the name guard in `storeToken` only (1 fail) and the whitespace/control rule from the token shape (1 fail). AC-4 on the real `/usr/bin/security`: a held-open `security -i` showed `ps` args `/usr/bin/security -i`, no process args held the token hex, one item stored (acceptance script step 3). Minimal necessity: every retained change maps to an AC or the design (`stored` to AC-1, `projectsUsingName` to AC-2, shape gate to AC-3/AC-4, hex stdin to AC-4); one removal candidate for Kent: `writeToken`'s optional `keychain` argument has no caller in the repo (design kept it for a probe), nothing breaks without it. Comment lines added: 3 of 290 (1.0%), `comment_ratio.py` exit 0; I read all three, none narrates.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, including the "Not saved:" text and the overwrite warning text the ui surface owes, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Script is under `### Acceptance script`; I ran it end to end in a fresh `bash`: all five steps printed the expected output. `adr_lint.py docs/adr --since 60799d9` run in the worktree: "5 ADR file(s) checked, 0 legacy", exit 0 (the candidate adds no ADR). Also exit 0: `design_surfaces.py check`, `dispatch_records.py` (4 complete), `doc_impact.py` (lists ADR 0004, implementation recorded it unaffected; agree: only `token.store` output changed). No `## Number guards` section, so no number check.
+- DONE: Record every unverified obligation, including the hex round trip with a real token and Kent's on-Mac use, without touching the live paseo-project-env install.
+  Unverified, listed under `### Unverified obligations`. Nothing live was touched; Keychain probes used throwaway files with fake values, deleted afterwards, login keychain search list unchanged.
+
+### Summary
+
+The candidate does what AC-1 to AC-4 say and every decisive test fails when its behaviour is removed; the token is on no `security` argv in the fake or in a real-binary run. Verdict PASSED. One Deferred risk I found by probing, not covered by any criterion: `security -i` splits a command line longer than about 4096 bytes, so a token of roughly 1950 characters or more would run a truncated first fragment and error on the rest (unknown command); a real 1Password token's length is not known to me, so this is not Material yet.
+
+### Deferred risk
+
+- Trigger: a pasted token (plus the name) whose `add-generic-password ... -X <hex>` line exceeds about 4096 bytes. Probe on macOS 26.5.2, real `/usr/bin/security -i`, throwaway keychain, fake values: tokens of 120, 900 and 1800 characters wrote with exit 0 and no output; 2000, 2500, 3000, 4000 and 5000 characters exited 1 with `security: unknown command "<rest of the hex line>"`. The first fragment was executed as a command (its own error `The specified item already exists` / `-25299` appeared), so with no keychain argument it could write a truncated value to the login keychain before the error.
+- Harm if it fires: the Save shows an error whose first stderr line may carry hex of the token tail, and a login-keychain item may hold a truncated token (the class of fault the 128-character guard exists for). Not read back: the secret-read guard blocked every read, and I did not work around it.
+- Not Material today: no evidence that a real token reaches that length (journey q2 only says "far longer" than 128), and Kent's own save of a real token reading "Token works" is the trigger test. Becomes Material if his real token, or any later real one, errors with `unknown command`, or a long service name pushes a token over. Smallest repair if wanted: refuse in `tokenShapeError` when the command line would pass about 4000 bytes, with a test; this needs a Captain ruling on adding a criterion.
+
+### Unverified obligations
+
+- Hex round trip with a real token: not run. The stored bytes are proved only by Kent's real save reading "Token works" (AC-4's own clause); my probes never read a value back (guard blocked reads) and used fake values.
+- Kent's on-Mac use (AC-2): the warning naming the other project, nothing changing in the Keychain until Replace, Cancel, no warning for the project's own name, the "Not saved:" line with the token kept, and "Checking...". The screen has no test seam; script step 2 only shows the strings exist in the source and the label text for three causes, not that they render.
+- No screenshot of the changed screen at the candidate: the only pictures are the ideation preview PNGs (a disposable page, not Paseo). Rendering needs a Paseo run and I did not touch the live install.
+- Checked only on macOS 26.5.2 (`security -i`, `-X`); the real `op` wording for a rejected or unreachable token is still the `classifyOpFailure` hypothesis (no real `op` run).
+- Known limits carried from design, not re-opened: a Keychain entry no saved project uses is replaced without a warning; a service name with trailing spaces is stored untrimmed.
+
+### Acceptance script
+
+Run in a fresh shell on this Mac (no secret, no sign-in, nothing live touched). Expected output after each step is stated. It does not cover: the rendered screen, the overwrite warning's appearance, a real token or real `op`, or token lengths above about 1950 characters.
+
+```bash
+set -u
+WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-paste-token-check-first
+P=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0
+echo "## 1 tests"
+cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/paste-token.test.ts 2>&1 | grep -E "^ℹ (tests|pass|fail)"
+npm run typecheck 2>&1 | tail -1; echo "typecheck exit=${PIPESTATUS[0]}"
+echo "## 2 texts the screen owes"
+cd $WT/project-env && grep -noE 'Not saved: \$\{tokenRowText\(status\)\.label\}|is also used by|Replacing its token changes it for|The new token is checked first; a rejected token is not saved|actionLabel="(Replace|Cancel)"|"Checking…"' client/settings-screen.tsx
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON -e '
+import("./shared/token.ts").then(({ tokenRowText }) => {
+  for (const state of ["rejected", "unreachable", "op-missing"]) console.log(`Not saved: ${tokenRowText({ state, vaults: [] }).label}`);
+});'
+echo "## 3 token off argv, real /usr/bin/security, throwaway keychain, fake value"
+D=$(mktemp -d /tmp/acceptXXXX); KC=$D/t.keychain-db
+security create-keychain -p fakepw "$KC" >/dev/null 2>&1 && security unlock-keychain -p fakepw "$KC"
+FAKE=ops_FAKE_NOT_A_TOKEN; HEX=$(printf %s "$FAKE" | xxd -p | tr -d '\n')
+( sleep 3; printf 'add-generic-password -U -a op-service-account-token -s "accept-probe" -X %s "%s"\n' "$HEX" "$KC" ) | /usr/bin/security -i &
+sleep 1; ps -ax -o args= | grep -E '^/usr/bin/security -i' | grep -v grep
+ps -ax -o args= | grep -F "$HEX" | grep -v grep | wc -l | sed 's/^/processes whose args hold the token hex (expect 0): /'
+wait
+security dump-keychain "$KC" 2>/dev/null | grep -c '"svce"<blob>="accept-probe"' | sed 's/^/items stored: /'
+security delete-keychain "$KC"; rm -rf "$D"
+echo "## 4 falsifier: write before check must fail the tests"
+T=$(mktemp -d /tmp/acceptXXXX); git -C $WT archive c23b96cc184b1294422d49e4277600235ef3c0dd project-env | tar -x -C $T
+ln -s $WT/project-env/node_modules $T/project-env/node_modules
+python3 - "$T/project-env/server/secrets.ts" <<'PY'
+import sys
+p=sys.argv[1]; s=open(p).read()
+a='    const checked = await checkToken(token);\n    if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };\n    await writeToken(serviceAccount, token);'
+b='    await writeToken(serviceAccount, token);\n    const checked = await checkToken(token);\n    if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };'
+assert a in s; open(p,'w').write(s.replace(a,b,1))
+PY
+(cd $T/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/paste-token.test.ts 2>&1 | grep -E "^ℹ (pass|fail)|✖ a ")
+rm -rf $T
+echo "## 5 adr lint"
+cd $WT && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9; echo "adr_lint exit=$?"
+```
+
+Expected: step 1 `tests 14`, `pass 14`, `fail 0`, `typecheck exit=0`; step 2 lines for `Not saved: ...` (line 216), `is also used by`, `Replacing its token changes it for`, `Replace`, `Cancel`, then `Not saved: 1Password rejected the token`, `Not saved: Could not reach 1Password`, `Not saved: 1Password CLI (op) not found`; step 3 `/usr/bin/security -i`, `expect 0` shows 0, `items stored: 1`; step 4 three failing tests and `fail 3`; step 5 `5 ADR file(s) checked, 0 legacy`, `adr_lint exit=0`.
