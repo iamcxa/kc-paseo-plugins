@@ -1,12 +1,12 @@
 ---
 id:
 title: The token row names why a token fails and picks the only readable vault
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-token-works-cause
-pr:
+pr: iamcxa/kc-paseo-plugins#15
 journey: paseo-project-env
 journey-release: r1.5
 journey-story: token-works
