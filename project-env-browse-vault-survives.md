@@ -40,6 +40,17 @@ gates:
                 id: briefing:project-env-browse-vault-survives:ideation:attempt-1:revision-1
                 digest: sha256:5290b358800247868e7fb6797ff871e9c9da3af3a5805063b4fd3f9feed06fbe
                 room-ref: ./project-env-browse-vault-survives/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-browse-vault-survives:ideation:1
+                briefing: briefing:project-env-browse-vault-survives:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-21T09:36:27.368545Z"
+                decision: approve
+                reason: 'Captain 2026-10-21: 「准五個設計」 — accepts this ideation design and its acceptance criteria into implementation, with the additions presented at this gate: no guessed reference in project-env-variable-row-edit (a new variable has no reference until a field is picked), AC-4 and the rewritten AC-3 in project-env-paste-token-check-first, the empty-value wording ''the 1Password field is empty'' in project-env-test-results-match-draft; FO''s recommendations also presented: removing the OP_CONNECT names in project-env-token-works-cause is left out and listed for the Captain, and naming a locked Keychain on the Test row is a follow-up after project-env-test-results-match-draft.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-21T08:42:14Z
 ---
 
