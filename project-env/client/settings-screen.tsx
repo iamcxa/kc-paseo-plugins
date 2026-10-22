@@ -180,8 +180,6 @@ function ConnectionLineRow({
   const vaultColor = line.kind === "problem" ? theme.colors.foregroundMuted : theme.colors.foreground;
   return (
     <View
-      accessible
-      accessibilityLabel={`${headline}, service account ${account}, vault ${vault}`}
       style={{
         flexDirection: "row",
         alignItems: compact ? "flex-start" : "center",
@@ -190,13 +188,19 @@ function ConnectionLineRow({
         paddingVertical: 11,
       }}
     >
-      <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: dot, marginTop: compact ? 7 : 0, alignSelf: compact ? "flex-start" : "center" }} />
-      <View style={{ flex: 1, flexDirection: compact ? "column" : "row", alignItems: compact ? "flex-start" : "baseline", columnGap: 6 }}>
-        <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>{headline}</Text>
-        <Text style={{ fontSize: 14 }}>
-          <Text style={{ color: theme.colors.foregroundMuted }}>{`${compact ? "" : "·\u00a0"}${account}`}</Text>
-          <Text style={{ color: vaultColor }}>{`\u00a0·\u00a0${vault}`}</Text>
-        </Text>
+      <View
+        accessible
+        accessibilityLabel={`${headline}, service account ${account}, vault ${vault}`}
+        style={{ flex: 1, flexDirection: "row", alignItems: compact ? "flex-start" : "center", gap: 10 }}
+      >
+        <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: dot, marginTop: compact ? 7 : 0, alignSelf: compact ? "flex-start" : "center" }} />
+        <View style={{ flex: 1, flexDirection: compact ? "column" : "row", alignItems: compact ? "flex-start" : "baseline", columnGap: 6 }}>
+          <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>{headline}</Text>
+          <Text style={{ fontSize: 14 }}>
+            <Text style={{ color: theme.colors.foregroundMuted }}>{`${compact ? "" : "·\u00a0"}${account}`}</Text>
+            <Text style={{ color: vaultColor }}>{`\u00a0·\u00a0${vault}`}</Text>
+          </Text>
+        </View>
       </View>
       <Pressable
         accessibilityRole="button"
