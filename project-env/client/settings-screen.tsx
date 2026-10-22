@@ -31,6 +31,7 @@ import {
   storeToken,
   testProject,
   tokenStatus,
+  hasPendingSave,
   unsavedCount,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
@@ -191,6 +192,7 @@ const barText = (theme: Theme, tone: "plain" | "primary" | "danger" | "dangerSol
 
 function SaveBar({
   count,
+  isSaved,
   saving,
   error,
   theme,
@@ -198,13 +200,15 @@ function SaveBar({
   onSave,
 }: {
   count: number;
+  isSaved: boolean;
   saving: boolean;
   error: string | null;
   theme: Theme;
   onDiscard(): void;
   onSave(): void;
 }) {
-  const canSave = count > 0 && !saving;
+  const pending = hasPendingSave(count, isSaved);
+  const canSave = pending && !saving;
   return (
     <View
       style={[
@@ -235,19 +239,23 @@ function SaveBar({
           accessibilityLiveRegion="polite"
           style={{
             fontSize: error ? 13 : 14,
-            color: count > 0 && !error ? theme.colors.foreground : theme.colors.foregroundMuted,
+            color: pending && !error ? theme.colors.foreground : theme.colors.foregroundMuted,
           }}
         >
           {error
-            ? `${count} unsaved ${count === 1 ? "change is" : "changes are"} still here. Discard drops them and reloads the settings.`
-            : count === 0
-              ? "No unsaved changes"
-              : `${count} unsaved ${count === 1 ? "change" : "changes"}`}
+            ? count === 0
+              ? "This new project is still not saved. Discard drops it and reloads the settings."
+              : `${count} unsaved ${count === 1 ? "change is" : "changes are"} still here. Discard drops them and reloads the settings.`
+            : count > 0
+              ? `${count} unsaved ${count === 1 ? "change" : "changes"}`
+              : pending
+                ? "New project, not saved yet"
+                : "No unsaved changes"}
         </Text>
       </View>
       <View style={{ flexDirection: "row", gap: 8, marginLeft: "auto" }}>
         <Pressable accessibilityRole="button" onPress={onDiscard} style={barButton(theme, "plain")}>
-          <Text style={barText(theme, "plain")}>{count === 0 ? "Close" : "Discard"}</Text>
+          <Text style={barText(theme, "plain")}>{pending ? "Discard" : "Close"}</Text>
         </Pressable>
         <Pressable
           accessibilityRole="button"
@@ -686,6 +694,7 @@ function ProjectEditor({
 
       <SaveBar
         count={count}
+        isSaved={isSaved}
         saving={settings.saving}
         error={settings.saveError}
         theme={theme}

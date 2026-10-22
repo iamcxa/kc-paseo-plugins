@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { it } from "node:test";
-import { unsavedCount, type Project } from "../shared/config.ts";
+import { hasPendingSave, unsavedCount, type Project } from "../shared/config.ts";
 
 const base: Project = {
   root: "/w",
@@ -33,4 +33,10 @@ it("counts what Save would write", () => {
 it("removing then re-adding the same variable is no change", () => {
   const removedThenBack = with_({ variables: [base.variables[1], base.variables[0]] });
   assert.equal(unsavedCount(base, removedThenBack), 0);
+});
+
+it("a project not saved yet can be saved with no changes", () => {
+  assert.equal(hasPendingSave(0, false), true);
+  assert.equal(hasPendingSave(0, true), false);
+  assert.equal(hasPendingSave(2, true), true);
 });

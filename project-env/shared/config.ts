@@ -168,3 +168,5 @@ export function unsavedCount(saved: Project, draft: Project): number {
   for (const name of before.keys()) if (!after.has(name)) n++;
   return n;
 }
+
+export const hasPendingSave = (count: number, isSaved: boolean) => count > 0 || !isSaved;
