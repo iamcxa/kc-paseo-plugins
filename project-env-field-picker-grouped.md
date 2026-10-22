@@ -255,3 +255,11 @@ The candidate behaves as designed and both routed fixes hold in a real browser, 
 ### Feedback Cycles
 
 - Cycle 1 (validation-1, candidate 76e1675): REJECTED for one test gap. Finding 1: two mutants of `matches` (item-title branch deleted; title match case-sensitive) survive the field-picker tests, so AC-1's evidence clause "fails if a search hides a matching item" is not met; the product is correct (validator's direct probe). FO assessment: no observable harm, value-ac[AC-1] evidence clause unmet; FO authorizes the fix (one title-only test case, no product change) as implementation-2, then validation-2 on the new head.
+
+### Feedback cycle 1
+
+Head 57540cc (test-only commit on top of 76e1675; `git diff --name-only` against the product files is unchanged: no product bytes touched). Validation-1 found `matches` in `shared/field-picker.ts` mutants surviving because "twil" also matched every Twilio label. Added two cases in `project-env/test/field-picker.test.ts`: query "billing" keeps `["# Billing/Team","Billing/Team>api_key"]` (no label contains it), and a case variant ("BILLING", "archive") for the title match.
+- Mutant 1, item-title branch deleted: fails both new cases (22 pass, 2 fail).
+- Mutant 2, title match case-sensitive (`item.includes(q)`): fails both new cases and the existing "follows the search by item title" (21 pass, 3 fail).
+- Mutant 2b, title lowercased but query not: fails the case-variant case (23 pass, 1 fail).
+- Restored: 24 pass in `field-picker.test.ts`; `npm test` 215 pass, 0 fail; `tsc --noEmit` clean; roborev gate `clean on 57540cce4; evidence=roborev:1056`, exit 0; pushed to PR #26.
