@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-add-variable-one-step:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-add-variable-one-step-ideation-1
+              briefing:
+                id: briefing:project-env-add-variable-one-step:ideation:attempt-1:revision-1
+                digest: sha256:a3b34b880ea7ed84c15215e89a733de1007b8635f2cc77bba1a81b7d7d683756
+                room-ref: ./project-env-add-variable-one-step/review/ideation/briefing-1
 started: 2026-10-22T04:16:46Z
 ---
 
