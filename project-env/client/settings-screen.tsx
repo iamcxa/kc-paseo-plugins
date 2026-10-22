@@ -34,7 +34,7 @@ import {
   unsavedCount,
 } from "../shared/config";
 import { rowReason, summaryParts, type Run } from "../shared/test-marks";
-import { FailureMark } from "./failure-mark";
+import { FailureMark, MARK_SLOT } from "./failure-mark";
 import { FieldPicker, type VaultList } from "./field-picker";
 import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
@@ -158,6 +158,7 @@ function VariableRow({
 }) {
   const { name } = variable;
   const compact = useWindowDimensions().width < 600;
+  const [hover, setHover] = useState(false);
   const nameText = (
     <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
   );
@@ -172,15 +173,18 @@ function VariableRow({
       <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
     </Pressable>
   );
+  const shown = reason !== null && (open || (!compact && hover));
   const mark = (
-    <FailureMark name={name} reason={reason} open={open} inline={compact} theme={theme} onToggle={onToggleMark} />
+    <FailureMark name={name} reason={reason} active={shown} theme={theme} onToggle={onToggleMark} onHover={setHover} />
   );
-  const line =
-    compact && open && reason !== null ? (
-      <Text accessibilityRole="alert" style={{ color: theme.colors.statusDanger, fontSize: 13, paddingHorizontal: 4 }}>
-        {reason}
-      </Text>
-    ) : null;
+  const line = shown ? (
+    <Text
+      accessibilityRole="alert"
+      style={{ color: theme.colors.statusDanger, fontSize: 13, paddingHorizontal: 4, marginLeft: compact ? 0 : 212, marginRight: MARK_SLOT + (compact ? 0 : 40) }}
+    >
+      {reason}
+    </Text>
+  ) : null;
   return (
     <View
       style={{
@@ -211,6 +215,7 @@ function VariableRow({
           <View style={{ marginTop: 4 }}>{cross}</View>
         </View>
       )}
+      {!compact ? line : null}
     </View>
   );
 }
