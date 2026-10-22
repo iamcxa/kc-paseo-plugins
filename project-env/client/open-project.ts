@@ -28,7 +28,8 @@ export const openProject = {
     if (!current || (session !== undefined && session !== current.session)) return;
     set({ ...current, draft: change(current.draft), edits: current.edits + (countsAsEdit ? 1 : 0) });
   },
-  close() {
+  close(session?: number) {
+    if (session !== undefined && session !== current?.session) return;
     set(null);
   },
   get(): OpenProject | null {

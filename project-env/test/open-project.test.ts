@@ -63,6 +63,16 @@ describe("open project store", () => {
     assert.equal(openProject.get()?.draft.prompt, "current");
   });
 
+  it("close tagged with a session that is no longer open leaves the open project alone", () => {
+    openProject.begin(project(), "rev-1");
+    const stale = openProject.get()?.session;
+    openProject.begin({ ...project(), root: "/work/other" }, "rev-1");
+    openProject.close(stale);
+    assert.equal(openProject.get()?.initial.root, "/work/other");
+    openProject.close(openProject.get()?.session);
+    assert.equal(openProject.get(), null);
+  });
+
   it("begin twice yields different sessions and drops the earlier draft", () => {
     openProject.begin(project(), "rev-1");
     const first = openProject.get()?.session;

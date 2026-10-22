@@ -561,7 +561,7 @@ function Configured({ settings, theme }: { settings: Ready; theme: Theme }) {
   );
   const open = (project: Project) => openProject.begin(project, settings.revision);
   const done = () => {
-    openProject.close();
+    openProject.close(editing?.session);
     void settings.reload();
   };
 
