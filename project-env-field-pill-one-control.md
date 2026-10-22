@@ -227,3 +227,47 @@ Each row is now `NAME [ITEM › field ⌄] ✕` and the Browse vault row is gone
 
 - roborev:1033 finding 1 (the stand-in picker keeps its search text after a pick): declined here, routed to project-env-field-picker-grouped, which replaces `field-picker.tsx`; FO puts it in that task's implementation dispatch.
 - roborev:1033 finding 2 (no way to refresh the vault list once loaded): deferred; AC-1 and the approved design require the second press to read nothing. It becomes material if the Captain wants a refresh, which FO raises with him when he tries the screen.
+
+## Stage Report: validation
+
+Verdict: PASSED (recommended) for candidate c5336781701bd1425b287dc693af0ee58f1dbac1 (PR #24, base d61e243). No new finding.
+
+- DONE: Independently check candidate against AC-1 to AC-3, the approved design and Captain amendment 1 on an isolated Paseo.
+  Rebuilt from `git archive` of c533678 on port 6871 (own home, fake op/security/git, own browser session, removed afterwards). Whole-page shots in `validation/shots/` (15 files, 1280 and 400 px). AC-1: every row one `ITEM › field` pill (`*-01-base`), long item and field wrap and are whole (`*-11-long-names`), no Browse vault row, `grep -n "Browse vault\|RefPicker\|HostInput" settings-screen.tsx` exit 1; vault reads 0, 1, 1 at 1280 and 0, 1 at 400 on a fresh daemon. AC-2: `*-02-differs-tap` and `1280-03-differs-hover` show the detail line with no dialog; the picker opens only from the pill (`*-04-picker`). AC-3: snapshot lists `button "Remove SENTRY_AUTH_TOKEN"`, `*-09-after-remove` keeps the other rows at both widths, saved file still has 6 variables. Amendment 1 (✕) covered by AC-3.
+- DONE: Confirm the new tests fail when their behaviour is removed.
+  Throwaway copy at c533678, five mutations, each fails exactly one test: `differs: false` and a case-insensitive compare fail "marks a field whose label differs"; vault always null fails "names the vault only when..."; item = parsed.item fails "keeps everything between the vault and the field"; restoring "No field picked" in `variableLine` fails the rewritten variable-name test. Base: 33 pass. Not mutated: the runtime wiring (≠ not opening the picker, read once); the capture counters would show a change (0 stays 0, or 1 becomes 2), but I did not run that mutation.
+- DONE: Check the two picker files are byte-identical to the stand-in and do not judge their internals.
+  `cmp` of `client/field-picker.tsx` and `shared/field-picker.ts` against `design/spike/picker-stand-in/` printed nothing (identical). Not judged.
+- DONE: Write the minimal acceptance script, and run adr_lint with its exit code.
+  `validation/accept.sh` (below), run once end to end in a fresh `bash`: all expected outputs matched, teardown done. `python3 .../adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. Also: comment_ratio exit 0 (1 comment line in 584 code lines, in the stand-in), doc_impact lists ADR 0004 with an `unaffected` reason recorded (`variableLine` still returns the reserved-name reason first), dispatch_records exit 0 (4 complete), design_surfaces exit 0.
+- DONE: Look at the whole-page screenshots at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  See Captain view and Unverified below.
+
+### Summary
+
+The candidate meets AC-1 to AC-3 and amendment 1 on a rebuilt isolated Paseo, the new tests fail when their behaviour is removed, and the picker stand-ins are identical to the approved copy. `npm test` is 180 pass, 0 fail, `npm run typecheck` clean; session-open's deadline test failed in one full run and in one alone-run while machine load averaged 150 to 270, and passed alone twice after. One polish note, not a finding: `parseRef` moved from `server/cause.ts` to `shared/ref.ts` and is re-exported from `cause.ts`, where the design said it stays; its contract is unchanged (tested) and the client cannot import from `server/`.
+
+### Captain view
+
+At 1280 px each variable reads `NAME  [item › field ⌄]  ✕`: item muted, field full strength, the dashed "Pick a field" pill on POSTHOG_CLI_HOST, amber ≠ in the pill for STRIPE_KEY and TWILIO_AUTH_TOKEN, no Browse vault row. At 400 px the name and ✕ share the first line and the pill sits below. Pressing ≠ (or hovering at desktop) shows "The field name differs from the variable name." under that pill and opens nothing. Long names wrap rather than being cut, though the field wraps mid-word (`operator_service_account_password_rotat/ed`). A reference in another vault reads `prod-shared · SENTRY › SENTRY_ORG`; a hand-typed `op://demo-dev` shows a dashed red pill with "Not a field reference. It looks like op://vault/item/field." The picker is the stand-in (grouped list, "Type a reference…" row).
+
+### Minimal acceptance script
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-pill-one-control/validation/accept.sh`; it needs the worktree at c533678 with its `node_modules`, paseo 0.12.0 with /Applications/Paseo.app, agent-browser, python3; it reads no secret and touches no live plugin or ~/.paseo. Expected output, in order:
+1. `rev-parse` prints c5336781701bd1425b287dc693af0ee58f1dbac1.
+2. `grep -n "Browse vault\|RefPicker\|HostInput" project-env/client/settings-screen.tsx` prints nothing, then `grep exit 1`.
+3. `node --test test/field-pill.test.ts test/variable-name.test.ts` prints `pass 33` and `fail 0`.
+4. Desktop capture on a fresh throwaway daemon prints `vault reads before any picker: 0`, `after first open: 1`, `after a second open (another row): 1`.
+5. Capture at 400 px on a fresh daemon prints `0` then `1`.
+6. The accessibility snapshot lists `button "Remove SENTRY_AUTH_TOKEN"`, then `rows left ...: 5`, then `saved variables (expect 6): 6`.
+7. Teardown prints `done`. Then open `/tmp/fp-val-accept-shots/1280-01-base.png` and `400-01-base.png` and check the pill, ≠ and dashed pill described above.
+Does not cover: touch (a click stands for tap), light theme, a mid width, a real vault or 1Password, a failed Test row, the picker's contents (picker-grouped), a vault refresh after load (deferred by FO), or a Paseo other than 0.12.0. The script takes minutes on a loaded machine.
+
+### Unverified obligations
+
+- Tap on a real touch device; hover was checked at desktop only.
+- Real 1Password vault read and its timing (fake op only).
+- Light theme and widths between 400 and 1280.
+- Picker error and loading states (`05`, `06`, `07`) and the failed-row look (`10`): seen only in the implementation's shots, not rerun here.
+- Runtime-wiring mutation (read-once, ≠ not opening the picker) not run.
+- The stand-in picker's behaviour after a pick (search text kept) is FO-dispositioned and not judged.
