@@ -8,6 +8,7 @@ const mode = process.env.FIELD_PILL_MODE ?? "base";
 const world = makeWorld({
   keychain: { "demo-read": "a" },
   op: {
+    ...(mode === "slowtoken" ? { vaultListDelayMs: 4000 } : {}),
     ...(mode === "slow" ? { itemListDelayMs: 1500 } : {}),
     ...(mode === "fail" ? { fail: { "item list": { stderr: "[ERROR] network unreachable" } } } : {}),
     accounts: {

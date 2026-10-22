@@ -8,7 +8,7 @@ HERE=$(cd "$(dirname "$0")" && pwd)
 S=${S:-/tmp/fp-val-spike}
 PORT=${PORT:-6871}
 rm -rf "$S"; mkdir -p "$S/plugin" "$S/home/plugin-settings/field-pill-spike" "$S/work/demo-app"
-mkdir -p "$S/src-tmp"; git -C "$WT" archive HEAD project-env | tar -x -C "$S/src-tmp"
+mkdir -p "$S/src-tmp"; git -C "$WT" archive "${REV:-HEAD}" project-env | tar -x -C "$S/src-tmp"
 cp -R "$S/src-tmp/project-env/client" "$S/src-tmp/project-env/shared" "$S/plugin/"
 mkdir -p "$S/plugin/server/fakes"
 cp -R "$S/src-tmp/project-env/server/." "$S/plugin/server/"

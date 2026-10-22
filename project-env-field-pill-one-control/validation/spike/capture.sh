@@ -27,6 +27,7 @@ for sz in $sizes; do W=${sz%%:*}; HT=${sz##*:}; open
       fi
       $AB click "@$(ref 'button "POSTHOG POSTHOG_CLI_HOST"')" >/dev/null; $AB wait 800 >/dev/null; shot 08-after-pick
       $AB click "@$(ref 'Remove SENTRY_AUTH_TOKEN')" >/dev/null; $AB wait 800 >/dev/null; shot 09-after-remove;;
+    stuck) $AB click "@$(ref 'Field for SENTRY_PROJECT')" >/dev/null; $AB wait 12000 >/dev/null; shot 13-picker-opened-while-token-resolves;;
     slow) $AB click "@$(ref 'Field for SENTRY_PROJECT')" >/dev/null; $AB wait 600 >/dev/null; shot 05-picker-loading;;
     fail) $AB click "@$(ref 'Field for SENTRY_PROJECT')" >/dev/null; waitfor "Close this list"; shot 06-picker-error;;
     nokey) $AB click "@$(ref 'Field for SENTRY_PROJECT')" >/dev/null; waitfor "Close this list"; shot 07-picker-unavailable;;

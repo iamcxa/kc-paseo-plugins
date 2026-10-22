@@ -280,3 +280,43 @@ New head 316bd4c0044bd2927d6fb345a68361d5584be7c7, pushed to PR #24. Merge commi
 - `npm test` 183 pass, 0 fail (an earlier merged-head run had the session-open deadline test fail under load; it passed alone and the next full run); `npm run typecheck` clean.
 - roborev gate, `--base af6aaec61449ce85b631606c0fea2f4a0270f37b`, on 316bd4c: exit 1, `evidence=roborev:1047` (findings on 316bd4c00). The two findings are the ones already reported and not fixed: the vault list is not refreshed after it loads (AC-1 requires the second press to read nothing), and the stand-in picker keeps its search text after a pick (picker-grouped's file, unchanged copy).
 - accept.sh: candidate sha edited to 316bd4c0044bd2927d6fb345a68361d5584be7c7 and run once fresh, all expected lines met: grep exit 1; pass 33, fail 0; reads 0, 1, 1 at 1280 and 0, 1 at 400; the Remove line, 5 rows left, 6 saved variables.
+
+## Stage Report: validation (cycle 2)
+
+Verdict: PASSED (recommended) for candidate 316bd4c0044bd2927d6fb345a68361d5584be7c7 (PR #24: merge of main af6aaec plus the Codex P2 fix). No new finding.
+
+- DONE: Check AC-1 to AC-3 and amendment 1 still hold on the merged page.
+  `validation/accept.sh` rerun in a fresh `env -i` bash at 316bd4c, all expected lines met: grep exit 1; pass 33, fail 0; vault reads 0, 1, 1 at 1280 and 0, 1 at 400; `button "Remove SENTRY_AUTH_TOKEN"`, 5 rows left after one ✕, 6 saved variables. Whole-page shots of the merged page in `validation/shots-merged/` (1280 and 400): pill rows, dashed pill, ≠ and ✕ unchanged next to the save bar and Danger zone.
+- DONE: Check the save bar and Danger zone from main still work on the merged page.
+  `validation/spike/merged.sh` on a rebuilt isolated Paseo at 316bd4c: ALL PASS, 38 checks, at 1280 and 400 px. Bar reads "No unsaved changes" with Save disabled and Danger zone present for a saved project; one ✕ gives "1 unsaved change" with Discard and Save on and the file still at 6 variables; a pick makes it 2; Discard asks "Discard 2 unsaved changes?", Keep editing keeps the draft, Discard changes leaves the file at 6 and returns to the list; ✕ then Save shows the toast "Saved demo-app" and the file holds 5; Stop managing asks first, Keep this project keeps it, confirming removes it at once; a not-yet-saved project (billing-api) shows "New project, not saved yet", Discard, Save on and no Danger zone.
+- DONE: Check the P2 is fixed, with before and after evidence.
+  `validation/spike/p2.sh <rev> before|after` (vault list delayed 4 s, project saved with no vault, a pill pressed at once; prints the dialog at 1, 5, 9, 14, 20 s). Before, c533678: "Loading the vault…" at every time through 20 s, no field list, though one item-list read ran (`shots-p2/before/`). After, 316bd4c: loading until 5 s, the field list at 9 s and 20 s, 1 read, no reopening (`shots-p2/after/`). The 1 unsaved change in the after shot is the auto-picked vault. No unit test covers it (the fault was effect ordering); the runtime pair is the evidence and it fails on the old code.
+- DONE: Run adr_lint and the other package scripts, and record their exit codes.
+  `python3 .../adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. comment_ratio (d61e243..316bd4c) exit 0, 1 comment line in 815 code lines (stand-in). doc_impact exit 0, lists ADR 0004 with the earlier `unaffected` reason; the merge adds `unsavedCount` to `shared/config.ts`, which does not touch ADR 0004's rule. dispatch_records exit 0 (6 complete), design_surfaces exit 0. `npm test` 183 pass, 0 fail; `npm run typecheck` clean.
+- DONE: Record what the Captain should see and every unverified obligation.
+  See below.
+
+### Summary
+
+The merged candidate keeps AC-1 to AC-3 and amendment 1, main's save bar and Danger zone work beside the pill rows at both widths, and the picker-stuck-on-Loading fault reproduces on c533678 and is gone on 316bd4c. Two scripts of mine were wrong along the way and are fixed in the committed copies: `accept.sh` step 3 matched the test summary with a pattern that fails in a non-UTF-8 locale, and the first `merged.sh` selected refs with a pattern that missed `[expanded=false, ref=eN]` lines. Observation for the save-footer task, not this one: at 1280 by 1700 the sticky save bar covers the top of the Danger zone card until the page is scrolled to its end.
+
+### Captain view
+
+Same rows as before (`NAME [item › field ⌄] ✕`, dashed "Pick a field", amber ≠, long names wrapping), now with main's bar pinned at the bottom: "No unsaved changes" with Close and a greyed Save; after one ✕ it reads "1 unsaved change" with Discard and a white Save. A "Danger zone" card above the bar holds Stop managing for a saved project. A new project shows "New project, not saved yet" and no Danger zone. At 400 px the bar and the Danger zone stack and fit. Opening a pill while the connection is still being checked now ends on the field list instead of "Loading the vault…".
+
+### Minimal acceptance script
+
+Run in a fresh shell, one after another (each stops any earlier throwaway daemon first, uses port 6871, plugin id field-pill-spike, session fp-val, fake op/security/git, no secret, nothing live):
+1. `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-pill-one-control/validation/accept.sh`: expect, in order, the candidate sha 316bd4c0044bd2927d6fb345a68361d5584be7c7; `grep exit 1`; `pass 33` and `fail 0`; vault reads `0`, `1`, `1`; then `0`, `1`; the `Remove SENTRY_AUTH_TOKEN` line, `5`, `6`; `done`.
+2. `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-pill-one-control/validation/spike/p2.sh 316bd4c0044bd2927d6fb345a68361d5584be7c7 after`: expect `Loading-the-vault: 1` at 1 s and 5 s, then `Loading-the-vault: 0  field-list-shown(SENTRY_ORG): 1` at 9, 14 and 20 s. Optional reproduction of the fault: the same with `c533678 before`, which stays at `Loading-the-vault: 1` through 20 s.
+3. `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-pill-one-control/validation/merged.sh`: expect only PASS lines (38) then `ALL PASS`, `== screenshots in /tmp/fp-val-merged-shots`, `teardown done`.
+Each script tears down its own daemon at the end (p2.sh leaves it running: stop it with `paseo daemon stop --home /tmp/fp-val-spike/home; agent-browser --session fp-val close; rm -rf /tmp/fp-val-spike`).
+Does not cover: touch, light theme, mid widths, a real 1Password vault, the real Paseo app profile, a failed Test row, picker contents, a vault refresh after load.
+
+### Unverified obligations
+
+- Tap on a touch device; hover at desktop only; light theme; widths between 400 and 1280.
+- Real 1Password vault and its timing (fake op only); the real, slower token check the P2 depends on is imitated with a 4 s delay.
+- Picker error and loading shots (`05`, `06`, `07`) and the failed-row look (`10`): implementation's shots only.
+- Runtime-wiring mutation of read-once and ≠ not opening the picker: not run.
+- No unit test for the P2 fix.

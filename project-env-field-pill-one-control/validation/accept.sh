@@ -11,7 +11,7 @@ echo "== 1 candidate: expect 316bd4c0044bd2927d6fb345a68361d5584be7c7"; git -C "
 echo "== 2 no Browse vault / RefPicker / HostInput left: expect no output below and 'grep exit 1'"
 grep -n "Browse vault\|RefPicker\|HostInput" "$WT/project-env/client/settings-screen.tsx"; echo "grep exit $?"
 echo "== 3 new and rewritten tests: expect 'pass 33' and 'fail 0'"
-(cd "$WT/project-env" && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/field-pill.test.ts test/variable-name.test.ts 2>&1 | grep -E "^. (pass|fail) ")
+(cd "$WT/project-env" && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/field-pill.test.ts test/variable-name.test.ts 2>&1 | grep -E "(pass|fail) [0-9]+$")
 echo "== 4 build the candidate on the throwaway Paseo"
 paseo daemon stop --home /tmp/fp-val-spike/home >/dev/null 2>&1; "$SP/ab.sh" close >/dev/null 2>&1
 "$SP/setup.sh" >/dev/null 2>&1 && "$SP/restart.sh" >/dev/null 2>&1; sleep 3
