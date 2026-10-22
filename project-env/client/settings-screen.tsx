@@ -244,7 +244,9 @@ function SaveBar({
         >
           {error
             ? count === 0
-              ? "This new project is still not saved. Discard drops it and reloads the settings."
+              ? isSaved
+                ? "No unsaved changes. Close reloads the settings."
+                : "This new project is still not saved. Discard drops it and reloads the settings."
               : `${count} unsaved ${count === 1 ? "change is" : "changes are"} still here. Discard drops them and reloads the settings.`
             : count > 0
               ? `${count} unsaved ${count === 1 ? "change" : "changes"}`
