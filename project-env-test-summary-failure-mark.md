@@ -18,6 +18,17 @@ gates:
                 id: briefing:project-env-test-summary-failure-mark:backlog:attempt-1:revision-1
                 digest: sha256:3765029300073892d0da5c11fbaec0050f8c6403bd5aa5295d79730bdd45925d
                 room-ref: ./project-env-test-summary-failure-mark/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-test-summary-failure-mark:backlog:1
+                briefing: briefing:project-env-test-summary-failure-mark:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T04:15:22.498305Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — accepts this A5 settings-screen rework task''s outcome, scope and acceptance criteria on the pilot profile, into ideation.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
