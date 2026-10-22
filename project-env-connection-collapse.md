@@ -274,3 +274,104 @@ PASSED (recommend): AC-1 holds on the rebuilt candidate in a real browser on an 
 - Validator polish 2 (the `vaults.length === 0` label is untested): declined; only the label differs and the vault is unreadable either way.
 - roborev:1041 finding 1 (a resize during a token save loses the pending save and its result): deferred; the typed token is component state, a limit stated since implementation-1, unchanged by this task.
 - roborev:1041 finding 2 (footer Save still saves while Change is open and Done is disabled): deferred; before this rework Save also wrote any draft, so nothing regresses. FO raises it with the Captain when he tries the screen.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Revalidate candidate 8b02d1159f109cd90fb0d4bee012fa0e06b750fe (PR iamcxa/kc-paseo-plugins#25): connection line, Change, Cancel, failed check and resize behaviour; the save bar and Danger zone from main on the merged page; Change as its own button at 1280 and 400 px; give a verdict.
+  Verdict PASSED (recommend), no Material finding. Worktree HEAD is 8b02d11, clean. On my own isolated Paseo (fakes only, own home, port 6882, throwaway id `ccaccept`, own agent-browser session, torn down; no process left): the line, Change, Cancel (account restored, save bar back to "No unsaved changes"), the red failed check with "1Password rejected the token", and a Change in progress across 400 to 1280 all hold. Merged page: a saved untouched project shows "No unsaved changes", Close and a disabled Save; one prompt edit shows "1 unsaved change", Discard and an enabled Save; Discard asks "Discard 1 unsaved change?" and Discard changes returns to the list with the edit gone; Save shows the toast "Saved ci-app" and returns to the list; a saved project has the Danger zone with Stop managing; a project added from the workspace list (fresh-app) shows "New project, not saved yet" and no Danger zone.
+- DONE: Change is its own button in the accessibility snapshot at 1280 and 400 px.
+  Both widths: `button "Change the 1Password connection"` is in the snapshot and the DOM check "the labelled status element does not contain the Change button" passes. The same script at 4dc1123 FAILS that check at both widths (the 8b02d11 change fixes what it names). Whether a screen reader reads it as intended was not tested with one.
+- DONE: The new store tests fail without the field.
+  Full suite at the candidate: 185 pass 0 fail (npm test, run by me; typecheck clean). Throwaway copy, one change at a time, `test/open-project.test.ts` (10 tests): `begin` not resetting `changing` fails 2; `setChanging` without the session guard fails "tagged with a session that is no longer open"; `update` dropping `changing` fails 1; `setChanging` as a no-op fails 1; `setChanging` counting as an edit fails 1. What no unit test covers: that the component calls `setChanging` on Change and on Done and Cancel; the script's resize step and the Cancel step cover that (cycle 1: deleting either assignment broke them).
+- DONE: Rerun /tmp/cc-accept.sh in a fresh shell at 8b02d1159f109cd90fb0d4bee012fa0e06b750fe, record its PASS/FAIL lines, and run adr_lint with its exit code.
+  `/tmp/cc-accept.sh` as dispatched (copy /tmp/cc-accept.v1.sh): 9 PASS, 0 FAIL, 6 unit tests pass, typecheck ok. The extended script below (the merged-page steps 6 and 7 and the Cancel save-bar step added; copy /tmp/cc-accept.v2.sh): 18 PASS, 0 FAIL on the final run; the same extended script at 4dc1123 fails the two separate-element checks and the seven merged-page checks, as it should. One earlier run had one FAIL on the very first check (cold-start timing on a loaded machine); `chk` now retries up to four times. `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. Also `comment_ratio.py af6aaec 8b02d11`: 0 comment lines of 227, exit 0; design_surfaces: presentable; doc_impact: 0 documents; dispatch_records: 6 complete.
+- DONE: Look at whole-page screenshots of the merged page at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  1280 (/tmp/cc-accept/shots/1-connected-1280.png, 5-unsaved-1280.png, 7-new-project-1280.png after a run): project name and grey folder path, then a "1Password" card of one row (green dot, "Connected", muted demo-ok, normal Dev, Change at the right), the variables card, the default-prompt box, a "Danger zone" card with a red-outlined Stop managing, and a sticky bar at the bottom reading "No unsaved changes" with Close and a dimmed Save. 400 (4-connected-400.png): the same, host sidebar hidden, "Connected" above "demo-ok . Dev", Change at the right, the bar wraps cleanly. Unverified: real 1Password and Keychain (fakes only); light theme; the Paseo desktop app (web client only); the Stop managing confirmation and a failed Save (only the section and button were seen; the save bar's error text was not triggered); a screen reader itself; a typed token across a re-mount (known limit); Footer Save while Change is open (deferred to the Captain, not counted); PR #25 CI and the Codex review rounds were not weighed.
+
+### Minimal acceptance script
+
+Needs: Paseo.app 0.12.0 at /Applications, `agent-browser`, node, the worktree below (HEAD must be the candidate); about 3 minutes, port 6882; fakes only, no secret.
+
+```bash
+WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-connection-collapse
+S=/tmp/cc-accept; PORT=6882; export AGENT_BROWSER_SESSION=cc-accept
+chk(){ for i in 1 2 3 4; do if eval "$2"; then echo "PASS  $1"; return; fi; sleep 2; done; echo "FAIL  $1"; }
+echo "== 1. unit tests and typecheck at the candidate"
+git -C $WT rev-parse HEAD
+( cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/connection-line.test.ts 2>&1 | grep -E "^. (pass|fail) " ; npm run typecheck >/dev/null 2>&1 && echo "typecheck ok" || echo "typecheck FAIL" )
+echo "== 2. isolated Paseo with fake op/security/git (own home, port $PORT, plugin id ccaccept)"
+rm -rf $S; mkdir -p $S/plugin $S/world $S/home/plugin-settings/ccaccept $S/repos $S/shots
+git -C $WT archive 8b02d11 project-env | tar -x -C $S/plugin --strip-components=1
+cd $S/plugin && ln -s $WT/project-env/node_modules node_modules && mkdir server/fakes && cp test/fakes/* server/fakes/
+echo '{"id":"ccaccept","media":[],"requirements":{"paseo":">=0.12.0"},"name":"Project environment (acceptance)"}' > paseo-plugin.json
+for t in op security git; do printf '#!/bin/sh\nexec %s %s/plugin/server/fakes/%s.mjs %s/world "$@"\n' "$(command -v node)" $S $t $S > $S/world/$t; chmod +x $S/world/$t; done
+printf 'import type { Tools } from "./secrets.ts";\nexport const realTools: Tools = { op: "%s/world/op", security: "%s/world/security", git: "%s/world/git" };\n' $S $S $S > server/tools.ts
+echo '{"keychain":{"demo-ok":"demo-ok","demo-one":"demo-one","demo-revoked":"demo-revoked"},"op":{"accounts":{"demo-ok":{"vaults":["Dev","Prod"]},"demo-one":{"vaults":["Solo"]}}}}' > $S/world/scenario.json
+for r in ci-app legacy-api fresh-app; do mkdir -p $S/repos/$r; git -C $S/repos/$r init -q; git -C $S/repos/$r -c user.email=a@b -c user.name=a commit -q --allow-empty -m init; done
+echo "{\"version\":1,\"values\":{\"projects\":[{\"root\":\"$S/repos/ci-app\",\"serviceAccount\":\"demo-ok\",\"vault\":\"Dev\",\"variables\":[],\"prompt\":\"\"},{\"root\":\"$S/repos/legacy-api\",\"serviceAccount\":\"demo-revoked\",\"vault\":\"Dev\",\"variables\":[],\"prompt\":\"\"}]}}" > $S/home/plugin-settings/ccaccept/projects.json
+echo "{\"version\":1,\"daemon\":{\"listen\":\"127.0.0.1:$PORT\",\"cors\":{\"allowedOrigins\":[\"https://app.paseo.sh\"]},\"relay\":{\"enabled\":false}},\"app\":{\"baseUrl\":\"https://app.paseo.sh\"},\"plugins\":{\"ccaccept\":{\"source\":\"directory\",\"path\":\"$S/plugin\",\"enabled\":true}},\"pluginsEnabled\":true}" > $S/home/config.json
+( PASEO_HOME=$S/home PASEO_LISTEN=127.0.0.1:$PORT PASEO_RELAY_ENABLED=false PASEO_WEB_UI_ENABLED=true PASEO_WEB_UI_DIST_DIR=/Applications/Paseo.app/Contents/Resources/app-dist nohup /Users/kent/.local/bin/paseo daemon run --home $S/home > $S/daemon.log 2>&1 & )
+until curl -s -o /dev/null http://127.0.0.1:$PORT/; do sleep 1; done; sleep 4
+SID=$(cat $S/home/server-id)
+/Users/kent/.local/bin/paseo --home $S/home workspace create --isolation local --path $S/repos/fresh-app >/dev/null 2>&1; echo "workspace create exit $?"
+snap(){ agent-browser snapshot -i 2>&1; }
+text(){ agent-browser get text body 2>&1; }
+press(){ local r; r=$(snap | grep -E "button \"$1\"( |\\[)" | sed -n "$((${2:-0}+1))p" | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser click @$r >/dev/null; sleep 2; }
+openproj(){ agent-browser open "http://127.0.0.1:$PORT/settings/hosts/$SID/plugins/ccaccept/projects" >/dev/null; sleep 3; press Edit $1; sleep 2; }
+echo "== 3. a working connection is one line; Change opens the controls; Cancel restores the line"
+agent-browser set viewport 1280 1500 >/dev/null
+openproj 0
+chk "ci-app: line reads Connected, demo-ok, Dev with a Change button" 'text | grep -q Connected && text | grep -q "demo-ok" && snap | grep -q "Change the 1Password connection"'
+chk "ci-app: no account textbox while collapsed" '! snap | grep -q "textbox \"1Password service account\""'
+chk "status element and Change are separate: Change is not inside the labelled status element (1280)" 'agent-browser eval "(()=>{const s=[...document.querySelectorAll(\"[aria-label]\")].find(e=>/^(Connected|Checking|.*), service account /.test(e.getAttribute(\"aria-label\")));const b=document.querySelector(\"[aria-label=\\\"Change the 1Password connection\\\"]\");return !!s&&!!b&&!s.contains(b)})()" | grep -q true'
+agent-browser screenshot --full $S/shots/1-connected-1280.png >/dev/null
+press "Change the 1Password connection"
+chk "Change: account, Check, token, Save token, Vault, Done, Cancel shown" 'S1=$(snap); for w in "textbox \"1Password service account\"" "button \"Check\"" "textbox \"Service account token\"" "button \"Save token\"" "button \"Vault: Dev\"" "button \"Done\"" "button \"Cancel\""; do echo "$S1" | grep -q "$w" || exit 1; done'
+agent-browser screenshot --full $S/shots/2-change-1280.png >/dev/null
+agent-browser set viewport 400 1500 >/dev/null; sleep 3; agent-browser set viewport 1280 1500 >/dev/null; sleep 3
+chk "Change survives a resize across 720 px (400 then 1280)" 'snap | grep -q "button \"Cancel\"" && snap | grep -q "textbox \"1Password service account\""'
+R=$(snap | grep 'textbox "1Password service account"' | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser fill @$R demo-one >/dev/null; press Check 0; sleep 2
+chk "Typed account demo-one: Done is disabled (vault Dev not readable)" 'snap | grep -q "button \"Done\" \[disabled"'
+press Cancel 0
+chk "Cancel restores the one line with demo-ok" 'text | grep -q Connected && text | grep -q "demo-ok" && ! text | grep -q "demo-one"'
+chk "after Cancel the save bar is back to No unsaved changes" 'text | grep -q "No unsaved changes"'
+echo "== 4. a failed check is red with its cause"
+openproj 1
+chk "legacy-api: line says 1Password rejected the token, demo-revoked, with Change" 'text | grep -q "1Password rejected the token" && snap | grep -q "Change the 1Password connection"'
+agent-browser screenshot --full $S/shots/3-problem-1280.png >/dev/null
+echo "== 5. 400 px"
+agent-browser set viewport 400 1500 >/dev/null; openproj 0; chk "status element and Change are separate: Change is not inside the labelled status element (400)" 'agent-browser eval "(()=>{const s=[...document.querySelectorAll(\"[aria-label]\")].find(e=>/^(Connected|Checking|.*), service account /.test(e.getAttribute(\"aria-label\")));const b=document.querySelector(\"[aria-label=\\\"Change the 1Password connection\\\"]\");return !!s&&!!b&&!s.contains(b)})()" | grep -q true'
+agent-browser screenshot --full $S/shots/4-connected-400.png >/dev/null
+echo "== 6. merged page: save bar, Danger zone, Discard, Save toast"
+agent-browser set viewport 1280 1500 >/dev/null
+openproj 0
+chk "untouched saved project: bar says No unsaved changes, buttons Close and Save (disabled)" 'text | grep -q "No unsaved changes" && snap | grep -q "button \"Close\"" && snap | grep -q "button \"Save\" \[disabled"'
+chk "saved project has the Danger zone with Stop managing" 'text | grep -q "Danger zone" && snap | grep -q "button \"Stop managing\""'
+P=$(snap | grep 'textbox "Appended to the system prompt' | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser fill @$P "hello" >/dev/null; sleep 1
+chk "one edit: bar says 1 unsaved change, Discard shown, Save enabled" 'text | grep -q "1 unsaved change" && snap | grep -q "button \"Discard\"" && ! snap | grep -q "button \"Save\" \[disabled"'
+agent-browser screenshot --full $S/shots/5-unsaved-1280.png >/dev/null
+press Discard 0; sleep 2
+chk "Discard with an edit asks first: Discard 1 unsaved change? with Keep editing" 'text | grep -q "Discard 1 unsaved change?" && snap | grep -q "button \"Keep editing\""'
+press "Discard changes" 0; sleep 3
+chk "Discard changes leaves the editor for the project list (Edit buttons, no Danger zone)" 'snap | grep -q "button \"Edit\"" && ! text | grep -q "Danger zone"'
+openproj 0
+chk "after Discard the prompt edit is gone: No unsaved changes" 'text | grep -q "No unsaved changes"'
+P=$(snap | grep 'textbox "Appended to the system prompt' | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser fill @$P "hello" >/dev/null; sleep 1
+press Save 0; agent-browser screenshot $S/shots/6-after-save.png >/dev/null
+chk "Save: toast Saved ci-app and the editor closes to the project list" 'text | grep -q "Saved ci-app" && snap | grep -q "button \"Edit\""'
+echo "== 7. a project not yet saved: bar says so, no Danger zone"
+agent-browser open "http://127.0.0.1:$PORT/settings/hosts/$SID/plugins/ccaccept/projects" >/dev/null; sleep 3
+press "Add a project: Choose…" 0
+M=$(snap | grep 'menuitem "fresh-app"' | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser click @$M >/dev/null; sleep 3
+chk "new project fresh-app: New project, not saved yet; no Danger zone" 'text | grep -q "New project, not saved yet" && ! text | grep -q "Danger zone"'
+agent-browser screenshot --full $S/shots/7-new-project-1280.png >/dev/null
+echo "screenshots: $S/shots/ (open them: the dot is green with Connected, account muted, vault normal; at 400 px the second line holds account and vault)"
+echo "== teardown"
+pkill -f "daemon run --home $S/home"; agent-browser close >/dev/null 2>&1; rm -rf $S/plugin $S/home $S/world $S/repos
+```
+
+Not covered: real 1Password or Keychain, light theme, the desktop app, a screen reader, Stop managing's confirmation, a failed Save, layout beyond the screenshots (look at /tmp/cc-accept/shots/*.png).
+
+### Summary
+
+PASSED (recommend): at 8b02d11 the connection line, Change, Cancel, failed check and resize behave as accepted, the save bar and Danger zone from main work on the merged page, Change is a separate accessible button at both widths, and the full suite is 185 pass 0 fail. Both cycle-1 polish items are done (the `changing` store field, and its store tests fail without it); the empty-vault label test gap remains, polish only.
