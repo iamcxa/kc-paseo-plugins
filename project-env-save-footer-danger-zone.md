@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-save-footer-danger-zone:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-save-footer-danger-zone-ideation-1
+              briefing:
+                id: briefing:project-env-save-footer-danger-zone:ideation:attempt-1:revision-1
+                digest: sha256:46d86c9f2283cbaa6186e42a8aa6d71aa91a3dbd85fe3b47fb507324fe9382de
+                room-ref: ./project-env-save-footer-danger-zone/review/ideation/briefing-1
 started: 2026-10-22T04:16:59Z
 ---
 
