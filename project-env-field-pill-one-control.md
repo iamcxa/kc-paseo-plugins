@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-field-pill-one-control:ideation:attempt-1:revision-1
                 digest: sha256:369cb056ffa571714c726f1673d78970809041d572c6ce482d068998699c19a8
                 room-ref: ./project-env-field-pill-one-control/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-field-pill-one-control:ideation:1
+                briefing: briefing:project-env-field-pill-one-control:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T08:47:00.611805Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准。先做完讓我試試看好了，我暫時沒有時間看得太仔細」 — accepts this A5 rework design and its acceptance criteria into implementation, including the scope addition (Remove becomes ✕) and AC-3 stated in this gate''s question (Captain amendment 1).'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-22T04:16:32Z
 ---
 
@@ -191,3 +202,10 @@ The Scope line above lists no ✕; FO routed it here on 2026-10-22 (project-env-
 ### Summary
 
 The row becomes `NAME [ITEM › field ⌄] ✕` per A5 and consumes picker-grouped's `FieldPicker` instead of drawing a picker. The prototype reads the vault once per editor session on the first pill press. The full suite on the prototype is 172 of 173 passing; the one failure is "reads No field picked on its row", which this design rewrites. Findings 1 to 15 are all MINOR and declined; the third review exceeded the two-run cap because the follow-up replaced the design the first two reviewed (their reports are in `design/superseded/`). Known limits: a click stands for tap, a real vault read was not timed, light theme and a mid width are not drawn. Teardown: daemon stopped, browser session closed; `/tmp/field-pill-spike` remains until removed (scripts redraw everything: `design/spike/setup.sh`, `restart.sh`, `capture.sh`).
+
+## Captain amendments
+
+### Amendment 1 — 2026-10-22, ideation gate
+Captain: 「准。先做完讓我試試看好了，我暫時沒有時間看得太仔細」 (chat, answering the ideation gate)
+Asked: "Approve this A5 rework design and its acceptance criteria into implementation? Approving also adds to Scope 'each row's Remove text button becomes a ✕ icon button (direction A5)' and accepts the new AC-3 for it; say if you object."
+Supersedes: none
