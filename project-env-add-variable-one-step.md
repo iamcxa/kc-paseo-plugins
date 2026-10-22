@@ -7,6 +7,17 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-add-variable-one-step:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-add-variable-one-step-backlog-1
+              briefing:
+                id: briefing:project-env-add-variable-one-step:backlog:attempt-1:revision-1
+                digest: sha256:56a8cabfdc21525ca19ff247496c689f70f98c6630aa46578291d32eba570d87
+                room-ref: ./project-env-add-variable-one-step/review/backlog/briefing-1
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
