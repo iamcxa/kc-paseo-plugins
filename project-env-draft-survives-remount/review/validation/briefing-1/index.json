@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-draft-survives-remount:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#22 at head 8831beb37a6019519e8954f964b0cb9be8630e74? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-draft-survives-remount:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b88e30d32004360bfbf3c07557b54c5d909608df/project-env-draft-survives-remount.md",
+      "rev": "sha256:b05bffa3c7321600624b9244ca4acb29efa8f52481dba59dfebee3f2300ea849",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at 8831beb. FO reran the acceptance script in a fresh shell: 174/174 tests; the resize harness on an isolated Paseo gives 0 failed checks on the candidate and 22 failed on main 1adf630; adr_lint 0. Reviewers: roborev clean (roborev:1026); codex requested at ready. Owed: the stale Import/Save session guard is proved at unit level only; leaving the settings screen and returning was not run; Kent's own use."
+    }
+  ]
+}

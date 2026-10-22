@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-draft-survives-remount:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-draft-survives-remount-validation-1
+              briefing:
+                id: briefing:project-env-draft-survives-remount:validation:attempt-1:revision-1
+                digest: sha256:143b5319777ce97d26a75f09af1261c5fb5997e1b9ff92878295b203ea6a2554
+                room-ref: ./project-env-draft-survives-remount/review/validation/briefing-1
 started: 2026-10-22T04:16:26Z
 ---
 
