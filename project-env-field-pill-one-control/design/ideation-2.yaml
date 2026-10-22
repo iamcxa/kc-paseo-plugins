@@ -1,0 +1,68 @@
+design_review:
+  preview: design/preview.html
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: 1280-09-picker-unavailable.png and 400-09-picker-unavailable.png
+      seen: The picker says "The vault cannot be listed yet: No token in Keychain." and then tells the person to "Check the 1Password connection" with a "Check again" button, while the page row above says "Paste it below and save it" and has its own "Check" button.
+      fix: Make the picker's next step match the cause (point to pasting and saving the token), and either remove the duplicate "Check again" or label it with what it does.
+    - severity: MINOR
+      dimension: flow
+      where: 1280-01-base.png, 400-01-base.png (variable rows)
+      seen: The ✕ is a small glyph of about 12 px with no confirm or undo, sitting about 10 px from the pill at 400 px wide, and no row shows that it has unsaved changes.
+      fix: Enlarge the ✕ hit area to at least 44 px with space from the pill, and show a changed-row cue or a Removed state with undo until Save.
+    - severity: MINOR
+      dimension: platform
+      where: 400-02-differs-tap.png, 400-11-long-names.png
+      seen: The ≠ is a chip of about 20 px inside the pill, right beside the chevron, so a missed tap opens the picker instead of the detail.
+      fix: Give the ≠ a target of at least 44 px (or a clear gap from the chevron), and show a pressed state.
+    - severity: MINOR
+      dimension: hierarchy
+      where: 1280-11-long-names.png, 1280-02-differs-tap.png
+      seen: The orange ≠ chip is the brightest thing in the row and is repeated on 5 of 10 rows. Its detail line ("The field name differs from the variable name.") is the same for every row and restates what the two visible names already show.
+      fix: Make the ≠ quiet when it is common, and have the detail name the actual two names or say what the difference risks.
+    - severity: MINOR
+      dimension: spacing
+      where: 1280-12-long-differs-open.png, 400-11-long-names.png
+      seen: Long variable names break mid-word ("OPERATOR_SERVICE_ACCOU / NT_PASSWORD…", "PASSWORD_R / OTATED…") and long fields break mid-word at 400 px ("passw / ord_rotated"), which makes exact identifiers hard to read or copy.
+      fix: Wrap at underscores or separators (for example with word-break and zero-width break points) and let the name column grow.
+    - severity: MINOR
+      dimension: flow
+      where: 1280-03-differs-hover.png vs 1280-01-base.png
+      seen: The hover detail line pushes the rows below down by about 19 px (the TWILIO row moves from y=889 to y=899), so targets move under the pointer.
+      fix: Reserve the line's height, or show the detail as a popover that does not shift the layout.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-04-picker-ready.png, 1280-11-long-names.png
+      seen: The pill shows the item muted and the field in full strength, but the picker list shows both at full strength. The reference separators also differ: "·" between vault and item, "›" between item and field, and "/" in "Legacy section / TWILIO_FROM_NUMBER" (a form the proposal does not describe).
+      fix: Reuse the pill's muted item and full-strength field in the picker, and define one separator scheme including sections.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-04-picker-ready.png, 1280-07-picker-error.png
+      seen: The chevron on every pill is a down caret, which suggests an inline dropdown, but it opens a centred modal at 1280 px and a bottom sheet at 400 px. The ✕ also means delete in rows and close in the picker header, and no open or pressed state is drawn on the pill.
+      fix: Use a caret that suits a dialog or anchor the picker to the pill, differentiate close from delete, and show an open or focused state on the pill.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-08-typed-error.png vs 1280-11-long-names.png
+      seen: The typed-reference error is drawn with a green focus border and red text under the input, while the row error uses a dashed red pill with red text. Its tiny red message sits under the input, with the "Typed reference" label and "Use" below it.
+      fix: Draw invalid input in the same way in both places (red dashed border plus reason) and put the label above the input.
+    - severity: MINOR
+      dimension: spacing
+      where: 1280-04-picker-ready.png, 1280-07-picker-error.png
+      seen: The "Changed something in 1Password?" and error rows are indented about 16 px relative to the list, heading and input, and "Fields in demo-dev" still heads the panel when no fields could be read.
+      fix: Align the status rows to the 24 px content edge and hide or reword the heading in the error and unavailable states.
+    - severity: MINOR
+      dimension: states
+      where: 1280-04-picker-ready.png, 400-04-picker-ready.png
+      seen: Missing states: a vault with many fields (scroll and overflow of the list), a vault with zero fields, a picker opened from a typed-error or other-vault pill (is the typed value prefilled?), and a disabled or read-only pill. The selected field is shown only by green text, and the 400 px sheet covers the row being edited.
+      fix: Add previews for the long, empty and prefilled picker states and a read-only row, and mark the selected field with a check as well as colour.
+    - severity: MINOR
+      dimension: theme-size
+      where: all 23 pictures
+      seen: Every picture is dark theme at 1280 px or 400 px, with no light theme and no tablet width, and 03 (hover) has no 400 px counterpart.
+      fix: Add a light-theme set, at least the base, the long-names and the picker error states, and one mid width.
+  limitations:
+    - Only static pictures were seen. Hover, focus, pressed, keyboard, animation (spinner) and the ≠ press-versus-picker behaviour cannot be checked, and 400-03 does not exist.
+    - Pixel sizes are estimated from the pictures (the 400 px ones were displayed scaled by 1.2), and touch targets were judged from visible glyphs only.
+    - The behaviour of the first picture's top card (Checking token, vault as plain input versus menu) varies between pictures and was treated as outside this task.
+    - The picker after a pick (05, 10) is not shown, and 05 shows POSTHOG_CLI_HOST filled although the picker in 04 was opened for SENTRY_PROJECT, so which row was picked cannot be confirmed.

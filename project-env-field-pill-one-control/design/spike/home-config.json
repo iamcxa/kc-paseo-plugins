@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:__PORT__",
+    "mcp": { "injectIntoAgents": false },
+    "browserTools": { "enabled": false },
+    "enableTerminalAgentHooks": false,
+    "cors": { "allowedOrigins": ["https://app.paseo.sh"] },
+    "relay": { "enabled": false }
+  },
+  "app": { "baseUrl": "https://app.paseo.sh" },
+  "plugins": { "field-pill-spike": { "source": "directory", "path": "__S__/plugin", "enabled": true } },
+  "features": { "dictation": { "enabled": false }, "voiceMode": { "enabled": false } },
+  "pluginsEnabled": true
+}

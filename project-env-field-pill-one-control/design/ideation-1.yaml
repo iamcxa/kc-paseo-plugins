@@ -1,0 +1,97 @@
+design_review:
+  preview: design/preview.html
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: 1280-04-picker-ready.png, 400-04-picker-ready.png
+      seen: The ready picker is a flat list with no typed op:// reference field, which appears only after a read failure (07, 08, 09). Yet rows such as FROM_OTHER_VAULT (prod-shared) and TYPED_BY_HAND in 11 hold references the list cannot produce, and the picker never names the vault it lists.
+      fix: Always offer a typed-reference entry below the list, and say in the picker header which vault the list comes from.
+    - severity: MAJOR
+      dimension: states
+      where: 1280-07-picker-error.png, 400-07-picker-error.png
+      seen: The error reads only "1Password could not be reached" with no reason, though the proposal says the reason is shown and 09 does show one ("No token in Keychain").
+      fix: Show the specific failure reason under the error line, as 09 does.
+    - severity: MAJOR
+      dimension: consistency
+      where: 1280-02-differs-tap.png, 400-02-differs-tap.png
+      seen: The proposal says the whole pill opens the picker, and also that the ≠ detail opens on tap. The tapped state shows the detail line under the pill with the pill drawn unchanged, so on touch there is no separate target that opens the detail instead of the picker.
+      fix: State which gesture or target opens the detail (for example a separate ≠ target or a long-press), or show the detail permanently under the pill on touch.
+    - severity: MAJOR
+      dimension: states
+      where: 1280-11-long-names.png, 400-11-long-names.png (TYPED_BY_HAND row)
+      seen: A hand-typed reference "op://demo-dev" with no item or field is drawn as a normal filled pill, with no dashed "Pick a field" look and no invalid cue, so the row looks complete.
+      fix: Draw an unparseable or incomplete reference in the dashed or error style and say what is missing.
+    - severity: MINOR
+      dimension: states
+      where: 1280-09-picker-unavailable.png, 1280-10-typed-picked.png
+      seen: At desktop, 09 shows the page with no picker open, and 10 shows the Projects list page instead of the typed-picked row. Only the 400 pictures show these two states (400-09 and 400-10 do).
+      fix: Re-capture both desktop states so they show the picker with the unavailable message and the row after a typed pick.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-07-picker-error.png vs 1280-04-picker-ready.png
+      seen: The same refresh action is named "Read again" in 04 but "Try again" in 07, and 09 has neither. Row labels repeat their buttons ("Read the vault again" / "Try again", "Use the typed reference" / "Use").
+      fix: Use one name for the action everywhere and drop the label text that repeats the button.
+    - severity: MINOR
+      dimension: states
+      where: 400-09-picker-unavailable.png
+      seen: The message says "Fix the connection above", but the sheet covers the connection rows. No retry action is offered once the connection is fixed.
+      fix: Add a "Read again" action, and name the fix inline instead of pointing at hidden content.
+    - severity: MINOR
+      dimension: states
+      where: 1280-06-picker-loading.png, 400-06-picker-loading.png
+      seen: The loading state is one static text line with no spinner or progress, and no typed reference is offered although "a large vault can take a while".
+      fix: Add an activity indicator and show the typed-reference field while reading.
+    - severity: MINOR
+      dimension: states
+      where: 1280-04-picker-ready.png, 400-04-picker-ready.png
+      seen: The picker has no search or filter, and no many-items, scrolling or empty-vault state is shown.
+      fix: Add a filter field, and show scrolling and empty-vault states.
+    - severity: MINOR
+      dimension: hierarchy
+      where: 1280-01-base.png
+      seen: In most rows the variable name is repeated in full strength inside the pill (SENTRY_AUTH_TOKEN twice, POSTHOG_CLI_API_KEY twice). The amber ≠ badge reads as a warning, yet it only means the label differs, and 4 of 6 rows in 11 carry it.
+      fix: Use a neutral tone for ≠, or show the field only when it differs.
+    - severity: MINOR
+      dimension: hierarchy
+      where: 1280-11-long-names.png (FROM_OTHER_VAULT, LEGACY_SECTION_REF)
+      seen: Vault, item and field all use the same "›" separator, and vault and item are both muted. "prod-shared › SENTRY › SENTRY_ORG" and "Legacy section/TWILIO_FROM_NUMBER" do not say which part is the vault or section.
+      fix: Give the vault its own treatment (a prefix or a different tone) and use one separator style for section and field.
+    - severity: MINOR
+      dimension: spacing
+      where: 1280-03-differs-hover.png, 1280-02-differs-tap.png
+      seen: The detail line makes the row about 19 px taller, so rows below jump. The variable name centres on the pill plus detail and drops about 10 px below the pill text (name at y 899, pill at y 889).
+      fix: Reserve the detail space, or overlay it as a popover, and align the name to the pill baseline.
+    - severity: MINOR
+      dimension: system-fit
+      where: 1280-01-base.png
+      seen: The pill is a filled, roughly 400 px wide, 38 px tall control with a chevron. The Vault dropdown above is a small outlined chip with a chevron, and the text inputs are 32 px filled fields, so there are two looks for the same dropdown cue.
+      fix: Align the pill height and style with the Vault dropdown and the inputs.
+    - severity: MINOR
+      dimension: platform
+      where: 400-01-base.png, 400-02-differs-tap.png
+      seen: At 400 px the ✕ (about 12 px glyph) and the ≠ badge (about 16 px) are small, and ✕ sits within about 14 px of the pill edge, so a mis-tap removes a variable with no confirm.
+      fix: Give ✕ and ≠ a 44 px hit area with spacing, or add undo after removal.
+    - severity: MINOR
+      dimension: flow
+      where: 1280-05-after-pick.png, 400-10-typed-picked.png
+      seen: After a pick or typed pick the row changes (SENTRY_PROJECT becomes SENTRY_ORG with ≠, POSTHOG_CLI_HOST fills) with no changed or unsaved cue, and Save and Discard look the same as before. "Pick a field" shows no cue about whether it blocks Save.
+      fix: Mark changed rows or enable Save visibly, and say whether an empty field blocks Save.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-04-picker-ready.png
+      seen: The pill carries a down chevron but opens a modal or sheet, not an inline menu. The row that owns the open picker is hidden behind the overlay, so there is no open state on it. The current choice in the picker is marked only by green text, with no check mark.
+      fix: Use a non-dropdown glyph for a modal picker, highlight the active row, and add a check mark to the selected item.
+    - severity: MINOR
+      dimension: spacing
+      where: 1280-11-long-names.png, 400-11-long-names.png
+      seen: Long variable names wrap mid-word (OPERATOR_SERVICE_ACCOU / NT_PASSWORD_ROTATED_FO / R_STAGING) and the field wraps mid-word at 400 ("passw / ord_rotated").
+      fix: Break at underscores, or give the long name more width, with the full name in a tooltip.
+    - severity: MINOR
+      dimension: theme-size
+      where: all previews
+      seen: Only dark theme and the 400 and 1280 widths are shown, and no disabled, read-only or zero-variable state of a pill is shown.
+      fix: Add light theme and a mid width, and show a disabled pill and the empty variables list.
+  limitations:
+    - Static images only, so hover and tap behaviour, focus rings, keyboard use, animation and the actual hit areas could not be checked.
+    - 400-03 does not exist, and 1280-09 and 1280-10 show states other than their names (the page without a picker, and the Projects list), so those states were judged only from the 400 pictures.
+    - No light-theme pictures exist, and the host sidebar, the rows below the variables and the placeholder picker list were treated as context.
