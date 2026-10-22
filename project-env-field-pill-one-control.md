@@ -1,7 +1,7 @@
 ---
 id:
 title: Each variable row has one field pill showing item and field
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
