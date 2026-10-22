@@ -263,3 +263,45 @@ Head 57540cc (test-only commit on top of 76e1675; `git diff --name-only` against
 - Mutant 2, title match case-sensitive (`item.includes(q)`): fails both new cases and the existing "follows the search by item title" (21 pass, 3 fail).
 - Mutant 2b, title lowercased but query not: fails the case-variant case (23 pass, 1 fail).
 - Restored: 24 pass in `field-picker.test.ts`; `npm test` 215 pass, 0 fail; `tsc --noEmit` clean; roborev gate `clean on 57540cce4; evidence=roborev:1056`, exit 0; pushed to PR #26.
+
+## Stage Report: validation (cycle 2)
+
+Verdict: PASSED. Candidate 57540cce4427cfe1cec504ebbbcbb4a875db7c64 (PR iamcxa/kc-paseo-plugins#26) closes Finding 1; it adds only test cases on top of 76e1675.
+
+- DONE: Confirm no product bytes changed since 76e1675.
+  `git diff --stat 76e1675 57540cc`: one file, `project-env/test/field-picker.test.ts`, 7 insertions; no other path differs.
+- DONE: The two surviving mutants each fail a case.
+  On a throwaway copy, deleting the item-title branch of `matches` and making the title match case-sensitive each give pass 22, fail 2: "keeps an item whose title alone matches, though none of its labels do" (query "billing") and "matches a title whatever the case of the title or the query" (queries "BILLING", "archive"). Unmutated copy: pass 24, fail 0. The 11 mutants caught in cycle 1 are untouched by the diff (test file additions only).
+- DONE: `npm test` and typecheck at the candidate.
+  `npm test` 215 tests, 215 pass, 0 fail (session-open deadline test passed in the full run); `npm run typecheck` exit 0.
+- DONE: Carry forward cycle 1's runtime results for the unchanged product bytes.
+  The acceptance script's `verify.sh` was rerun at the candidate on an isolated Paseo (port 6874): search text after pick and reopen `[]`; Use disabled for `op://Dev/item//field` and `op://Dev/ /field`, enabled for `op://Dev/item/field`. Cycle 1's pictures (grouping, search, Suggested first, used-by, not-in-vault, Not listed, load-failed, 1280 and 400 px) and its base-build negative control (`[twilio]`, Use enabled for both bad references) carry forward because `shared/` and `client/` are byte-identical to 76e1675.
+- DONE: Update and rerun the acceptance script in a fresh shell; run `adr_lint.py docs/adr --since 60799d9`.
+  Script below run with `env -i HOME PATH bash --noprofile --norc`; output recorded below. adr_lint exit 0 ("5 ADR file(s) checked, 0 legacy"). Also: comment_ratio 0.0% exit 0 (205 code lines, 0 comment lines); design_surfaces exit 0; dispatch_records "5 dispatch record(s) complete" exit 0; doc_impact lists 0 documents.
+- DONE: Record every unverified obligation.
+  Listed below.
+
+### Acceptance script (cycle 2)
+Needs paseo 0.12.0, agent-browser, node, python3; touches no 1Password, Keychain or ~/.paseo. About 80 s.
+
+    S=/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-picker-grouped
+    W=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-field-picker-grouped
+
+1. `git -C $W rev-parse HEAD` prints `57540cce4427cfe1cec504ebbbcbb4a875db7c64`.
+2. `cd $W/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/field-picker.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"` prints `ℹ pass 24` and `ℹ fail 0`; `npm run typecheck >/dev/null 2>&1; echo $?` prints `0`.
+3. Mutants on a temporary copy of `shared/` and `test/`: replace `item.toLowerCase().includes(q) || field` in `shared/field-picker.ts` with `field`, then with `item.includes(q) || field`; each run of the step 2 test command prints `ℹ pass 22` and `ℹ fail 2`.
+4. `bash $S/impl/run.sh up > /tmp/fp-accept-up.log 2>&1; tail -1 /tmp/fp-accept-up.log` prints `open http://127.0.0.1:6874/settings/hosts/<id>/plugins/fp-grouped-impl/projects`.
+5. `bash $S/impl/verify.sh` prints `search text after pick and reopen: []`, `Use disabled for [op://Dev/item//field]: true`, `Use disabled for [op://Dev/ /field]: true`, `Use disabled for [op://Dev/item/field]: false`; exit 0.
+6. `bash $S/impl/run.sh down`; then `lsof -iTCP:6874 -sTCP:LISTEN | wc -l` prints `0`.
+
+Observed output in the fresh shell: step 1 `57540cce4427cfe1cec504ebbbcbb4a875db7c64`; step 2 `ℹ pass 24`, `ℹ fail 0`, `typecheck exit 0`; step 3 both mutants `ℹ pass 22`, `ℹ fail 2`; step 4 `open http://127.0.0.1:6874/settings/hosts/<id>/plugins/fp-grouped-impl/projects`; step 5 `[]`, `true`, `true`, `false`, `verify exit 0`; step 6 `0`. As written, steps 1 to 6 ran unchanged apart from the id elision in step 4's display.
+Not covered: a real 1Password vault (no `op` run), the Paseo desktop and phone apps, keyboard navigation, mouse-wheel scrolling, a vault of hundreds of fields.
+
+### Unverified obligations
+- Real vault listing speed (about 6 s for 21 items with the fake op in the design; unmeasured on real `op`).
+- Wheel scrolling, keyboard navigation, the Paseo desktop and phone apps, light-theme pictures redrawn at the candidate (carried from design).
+- The two component fixes are proven only by `impl/verify.sh` in a browser; the repo has no React renderer.
+- Pictures were not redrawn this cycle; they carry forward from cycle 1 on identical product bytes.
+
+### Summary
+The candidate adds two test cases that pin the item-title search branch; both cycle-1 survivors now fail, the suite is 215 of 215 green, and the product is byte-identical to 76e1675, so cycle 1's runtime results stand and were rerun through verify.sh. Recommend PASSED; delivery stays the Captain's decision.
