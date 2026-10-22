@@ -33,6 +33,7 @@ import {
   tokenStatus,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
+import { type OpenProject, openProject, useOpenProject } from "./open-project";
 import {
   canReadVault,
   pickVault,
@@ -156,18 +157,16 @@ const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path
 
 function ProjectEditor({
   settings,
-  initial,
+  open,
   theme,
   onDone,
 }: {
   settings: Ready;
-  initial: Project;
+  open: OpenProject;
   theme: Theme;
   onDone(): void;
 }) {
-  const [draft, setDraft] = useState(initial);
-  const [edits, setEdits] = useState(0);
-  const [revision] = useState(settings.revision);
+  const { draft, edits, revision } = open;
   const [newName, setNewName] = useState("");
   const nameInput = useRef<SettingsInputHandle>(null);
   const [importNote, setImportNote] = useState<string | null>(null);
@@ -254,21 +253,22 @@ function ProjectEditor({
           ? null
           : `Skipped ${skipped.map((x) => x.name).join(", ")}: reserved names, so the agent keeps its own value.`,
       );
-      setEdits((n) => n + 1);
-      setDraft((d) => ({
-        ...d,
-        variables: [
-          ...d.variables,
-          ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
-        ],
-        prompt: d.prompt || prompt,
-      }));
+      openProject.update(
+        (d) => ({
+          ...d,
+          variables: [
+            ...d.variables,
+            ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
+          ],
+          prompt: d.prompt || prompt,
+        }),
+        true,
+      );
     },
   });
 
   const patch = useCallback((change: Partial<Project>) => {
-    setEdits((n) => n + 1);
-    setDraft((d) => ({ ...d, ...change }));
+    openProject.update((d) => ({ ...d, ...change }), true);
   }, []);
   const setRef = (name: string, ref: string) =>
     patch({ variables: draft.variables.map((v) => (v.name === name ? { ...v, ref } : v)) });
@@ -498,7 +498,7 @@ function ProjectEditor({
             placeholderTextColor={theme.colors.foregroundMuted}
             placeholder="Appended to the system prompt of every new agent in this project"
             value={draft.prompt}
-            onChangeText={(prompt) => setDraft((d) => ({ ...d, prompt }))}
+            onChangeText={(prompt) => openProject.update((d) => ({ ...d, prompt }), false)}
           />
         </View>
       </SettingsSection>
@@ -551,29 +551,25 @@ function ProjectEditor({
 
 function Configured({ settings, theme }: { settings: Ready; theme: Theme }) {
   const paseo = usePaseo();
-  const [editing, setEditing] = useState<Project | null>(null);
-  const [session, setSession] = useState(0);
+  const editing = useOpenProject();
   const known = useQuery({ queryKey: ["projects"], queryFn: () => paseo.projects.list() });
 
   const configured = settings.values.projects;
   const candidates = (known.data?.projects ?? []).filter(
     (p) => !configured.some((c) => c.root === p.projectRootPath),
   );
-  const open = (project: Project) => {
-    setSession((n) => n + 1);
-    setEditing(project);
-  };
+  const open = (project: Project) => openProject.begin(project, settings.revision);
   const done = () => {
-    setEditing(null);
+    openProject.close();
     void settings.reload();
   };
 
   if (editing) {
     return (
       <ProjectEditor
-        key={`${editing.root}-${session}`}
+        key={`${editing.initial.root}-${editing.session}`}
         settings={settings}
-        initial={editing}
+        open={editing}
         theme={theme}
         onDone={done}
       />
