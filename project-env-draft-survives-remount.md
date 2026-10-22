@@ -1,12 +1,12 @@
 ---
 id:
 title: Unsaved edits survive the settings screen re-mounting
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-draft-survives-remount
-pr:
+pr: iamcxa/kc-paseo-plugins#22
 gates:
     version: 1
     records:
