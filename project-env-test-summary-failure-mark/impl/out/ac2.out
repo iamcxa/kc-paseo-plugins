@@ -1,0 +1,7 @@
+  after Test: summary=[StaticText "3 failed · 2 set · 1 no field"] marks= SENTRY_PROJECT   STRIPE_KEY   POSTHOG_CLI_API_KEY  
+  edit STRIPE_KEY (only its mark clears): summary=[StaticText "Not tested since changes"] marks= SENTRY_PROJECT   POSTHOG_CLI_API_KEY  
+  edit STRIPE_KEY back to the tested field: summary=[StaticText "3 failed · 2 set · 1 no field"] marks= SENTRY_PROJECT   STRIPE_KEY   POSTHOG_CLI_API_KEY  
+  SENTRY_PROJECT edited while Test runs, after it finished: summary=[StaticText "Not tested since changes"] marks= STRIPE_KEY   POSTHOG_CLI_API_KEY  
+  fresh Test: summary=[StaticText "3 failed · 2 set · 1 no field"] marks= SENTRY_PROJECT   STRIPE_KEY   POSTHOG_CLI_API_KEY  
+  service account sa-a -> sa-b (every mark clears): summary=[StaticText "Not tested since changes"] marks=
+  service account back to sa-a: summary=[StaticText "3 failed · 2 set · 1 no field"] marks= SENTRY_PROJECT   STRIPE_KEY   POSTHOG_CLI_API_KEY  

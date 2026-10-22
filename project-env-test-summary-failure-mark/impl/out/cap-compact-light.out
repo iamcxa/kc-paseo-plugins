@@ -1,0 +1,7 @@
+compact light first-SENTRY_PROJECT: "{\"open\":true,\"own\":\"SENTRY_PROJECT\",\"text\":\"The 1Password field is empty.\",\"reason\":{\"l\":33,\"t\":432,\"r\":335,\"b\":448},\"ownPill\":{\"l\":33,\"t\":389,\"r\":335,\"b\":424},\"lines\":1,\"ownFieldTextCoveredByReason\":0,\"coversOtherRows\":[]}"
+compact light another (!) closes the first: alerts=1
+compact light middle-STRIPE_KEY: "{\"open\":true,\"own\":\"STRIPE_KEY\",\"text\":\"Field not found in the vault.\",\"reason\":{\"l\":33,\"t\":636,\"r\":335,\"b\":652},\"ownPill\":{\"l\":33,\"t\":591,\"r\":335,\"b\":628},\"lines\":1,\"ownFieldTextCoveredByReason\":0,\"coversOtherRows\":[]}"
+compact light last-POSTHOG_CLI_API_KEY-unexpected: "{\"open\":true,\"own\":\"POSTHOG_CLI_API_KEY\",\"text\":\"1Password returned an error the plugin does not recognise.\",\"reason\":{\"l\":33,\"t\":939,\"r\":335,\"b\":971},\"ownPill\":{\"l\":33,\"t\":896,\"r\":335,\"b\":931},\"lines\":2,\"ownFieldTextCoveredByReason\":0,\"coversOtherRows\":[]}"
+compact light second press closes (pointer moved off): alerts=0
+compact light Test closes an open reason: alerts=0
+compact light after editing STRIPE_KEY: summary-not-tested=1  marks:  SENTRY_PROJECT   POSTHOG_CLI_API_KEY  
