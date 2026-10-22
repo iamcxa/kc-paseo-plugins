@@ -201,3 +201,39 @@ The open project and its draft moved out of the re-mounted screen into a module-
 - The "before" run was made once on the first build of the harness; the "after" run was repeated on final HEAD. The before code (main 1adf630) did not change between them.
 - Machine dependencies (declared): Paseo.app 0.12.0 CLI `/Users/kent/.local/bin/paseo`, Node 24.18.0, `agent-browser`; run `implementation/harness/setup.sh <worktree> <base sha>` then `resize.sh draft-after after <dir>` and `resize.sh draft-before before <dir>`.
 - Temporary scaffolding: the daemon and `/tmp/draft-remount-impl` are throwaway, stopped after the run.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 8831beb37a6019519e8954f964b0cb9be8630e74 (PR iamcxa/kc-paseo-plugins#22, base main 1adf630) against AC-1 and the approved design: rerun the resize harness yourself on an isolated Paseo against both main 1adf630 (must fail) and the candidate (must pass), check the store unit tests fail when the store is removed or not cleared on Save, Discard and Stop managing, and check the session guard added for roborev findings; give a verdict.
+  Verdict: PASSED (recommended). Own isolated daemon (port 6882, `/tmp/draft-remount-val`, throwaway ids, fake op/security/git), harness copied from `implementation/harness/` with path and port changed only. Candidate: 40 PASS, exit 0, "0 check(s) failed". Main 1adf630: 18 PASS, 22 FAIL, exit 1 (editor, added row and prompt gone at 719, 400 and back to 1280; new project lost; Save wrote nothing; conflict refusal lost; Stop-managing dialog case loses the draft), matching the implementation log. Same-checkout `npm test` 174 pass 0 fail, `tsc --noEmit` exit 0.
+  Mutations (store unit tests, copy of the candidate, restored after): `begin` stores nothing fails 6 of 8; `close` a no-op fails 2; `update` ignoring the session fails 1; `close` ignoring the session fails 1; no edit count fails 1; revision overwritten fails 1.
+  Mutations (runtime, two throwaway plugin copies of the candidate): `done()` not closing the store fails Save and Discard and Stop-managing steps (d, e, h: 8 checks); Stop managing not calling `onDone` fails 3 checks (h). My extra step H (confirm Stop managing at 400 after a crossing) passes on the candidate: list shown, project removed from the file, editor stays closed after growing to 1280. Not mutated at runtime: the session argument on Import and Save completion; that guard is proved at unit level only (two stale-session tests, each fails when its check is removed), no runtime stale-completion probe was run.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  `adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0 (the candidate adds no ADR; no Number guards section). Other package checks at the candidate: `comment_ratio.py 1adf630 8831beb` 1.4% (2 of 139), exit 0; `doc_impact.py` 0 documents, exit 0; `design_surfaces.py check` presentable, exit 0; `dispatch_records.py` 3 records complete, exit 0. Script below.
+- DONE: Look at the whole-page screenshots at 1280, 719 and 400 px and record what the Captain should see; record every unverified obligation, without touching the live paseo-project-env install.
+  Seen on the candidate: at 1280 the editor shows the project with the added LINEAR_API_KEY row ("No field picked") and the typed prompt; at 719 and at 400 the same editor, row and prompt (compact layout stacks inputs, the Remove and Save controls stay reachable); on main at 400 the page is only the project list ("demo-app, Edit" and "Add a project"). Plugin title reads the throwaway id. Live install and ~/.paseo not touched; daemon, agent-browser session and /tmp copies removed (nothing on 6882).
+
+### Minimal acceptance script
+
+Needs: Paseo.app 0.12.0 CLI `/Users/kent/.local/bin/paseo`, `agent-browser`, Node 24, the worktree `/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-draft-survives-remount` at 8831beb, and the state checkout `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state`. Uses port 6872 and `/tmp/draft-remount-impl`; stop any run left over first. About 3 minutes.
+
+1. `WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-draft-survives-remount; cd $WT/project-env && npm test 2>&1 | grep -E "^ℹ (pass|fail)"` expect `pass 174`, `fail 0` (use `rtk proxy npm test` if output is filtered; rerun the session-open deadline test alone if it is the only failure).
+2. `H=/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-draft-survives-remount/implementation/harness; $H/setup.sh $WT 1adf630` expect a `server-id: srv_...` last line.
+3. `$H/resize.sh draft-after after /tmp/draft-remount-impl-shots; echo exit $?` expect `RESULT after: 0 check(s) failed` and `exit 0`.
+4. `$H/resize.sh draft-before before /tmp/draft-remount-impl-shots; echo exit $?` expect `RESULT before: 22 check(s) failed` and `exit 1` (main loses the edits).
+5. `cd $WT && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9; echo exit $?` expect `exit 0`.
+6. Look at `/tmp/draft-remount-impl-shots/after-a3-400.png` (editor, LINEAR_API_KEY row and prompt at 400 px) and `before-a3-400.png` (project list only). Cleanup: `kill $(cat /tmp/draft-remount-impl/daemon.pid); agent-browser --session draft-remount-impl close; rm -rf /tmp/draft-remount-impl /tmp/draft-remount-impl-shots`.
+
+Does not cover: a real 1Password or Keychain (fakes only), Paseo versions other than 0.12.0, a real phone rotation or drag-resize by hand, pixel-level layout, or the unsaved-changes warning (r3).
+
+### Unverified obligations
+
+- Session guard on stale Import and Save completion: unit level only; no runtime probe of a completion landing after another project opened.
+- Real Keychain, 1Password and `op` never reached; Token check, Test and Browse vault behaviour across a crossing not exercised (Test results and an open picker are deliberately not kept, per design).
+- Harness reads the accessibility tree (names, labels), not pixels; the screenshots were looked at by me, not diffed.
+- Not exercised: leaving the settings screen and returning inside the app keeps the draft (design consequence recorded for the Captain, not run in my harness); the sibling interfaces (`initial` read by the save-footer task) are design-only.
+- PR #22 CI and merge state not checked in this stage; live paseo-project-env install not touched, so nothing here shows the change working in Kent's own Paseo.
+
+### Summary
+
+PASSED: the candidate passes every resize, Save, Discard, Stop managing and conflict step on an isolated Paseo and the same harness fails 22 checks on main 1adf630; mutating the store, the close-on-exit paths and the session check each makes a test or runtime step fail. Package checks all exit 0 (adr_lint exit 0). Open limits are above, chiefly that the roborev session guard is unit-proved only.
