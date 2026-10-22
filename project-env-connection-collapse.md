@@ -7,6 +7,17 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-connection-collapse:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-connection-collapse-backlog-1
+              briefing:
+                id: briefing:project-env-connection-collapse:backlog:attempt-1:revision-1
+                digest: sha256:22ae5b236de78b8e78296e10b884c16e701657e8fe055d9a3ed903a2265d24fe
+                room-ref: ./project-env-connection-collapse/review/backlog/briefing-1
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
