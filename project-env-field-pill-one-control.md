@@ -1,7 +1,7 @@
 ---
 id:
 title: Each variable row has one field pill showing item and field
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-22: 「准。先做完讓我試試看好了，我暫時沒有時間看得太仔細」 — accepts this A5 rework design and its acceptance criteria into implementation, including the scope addition (Remove becomes ✕) and AC-3 stated in this gate''s question (Captain amendment 1).'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-22T04:16:32Z
 ---
 
