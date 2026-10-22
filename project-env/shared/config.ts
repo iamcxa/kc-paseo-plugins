@@ -82,7 +82,7 @@ export function variableLine(
 ): { text: string; failed: boolean } | null {
   const reason = reservedReason(variable.name);
   if (reason !== null) return { text: `Not applied: ${reason}`, failed: true };
-  if (variable.ref === "") return { text: "No field picked", failed: true };
+  if (variable.ref === "") return null;
   return result ? { text: rowHint(result), failed: !result.ok } : null;
 }
 
