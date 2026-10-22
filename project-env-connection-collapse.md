@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-connection-collapse
-pr: iamcxa/kc-paseo-plugins#25
+pr: pr-merge:25
 gates:
     version: 1
     records:
@@ -89,6 +89,7 @@ Direction alignment with the Captain: done — the Captain chose direction A5 an
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 ## Design
 
 **PRFAQ.** Press release: a 1Password connection that works takes one row, not six. Once a project's service account has a token that 1Password accepts and a readable vault is chosen, the card shows a dot, "Connected", the account and the vault, and a Change button; the controls Kent set up on day one stop sitting above what he edits most (review finding 8). FAQ: *What if the token later fails?* The same row turns red and names the cause ("1Password rejected the token"); Change opens the controls. *What if I only wanted to look?* Cancel returns to the row with the account and vault as they were. *Does the first setup still work?* Yes: a project with no account or no vault shows the controls as today and collapses to the row the moment the token works and a vault is chosen. *Where did the folder path go?* It is the grey line under the project-name heading above the card.
@@ -394,3 +395,8 @@ Not covered: real 1Password or Keychain, light theme, the desktop app, a screen 
 ### Summary
 
 PASSED (recommend): at 8b02d11 the connection line, Change, Cancel, failed check and resize behave as accepted, the save bar and Danger zone from main work on the merged page, Change is a separate accessible button at both widths, and the full suite is 185 pass 0 fail. Both cycle-1 polish items are done (the `changing` store field, and its store tests fail without it); the empty-vault label test gap remains, polish only.
+
+## FO records
+
+External review rounds at the validation gate: Codex 2 (round 1 one P2, fixed in feedback cycle 2; round 2 clean at 8b02d11). The local roborev gate is not an external round.
+delivery_gate.py check passed at 8b02d11 before the ask; the Captain approved with 「准」 and FO merged as 681f861.
