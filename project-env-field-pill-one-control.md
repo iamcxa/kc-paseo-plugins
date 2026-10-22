@@ -320,3 +320,5 @@ Does not cover: touch, light theme, mid widths, a real 1Password vault, the real
 - Picker error and loading shots (`05`, `06`, `07`) and the failed-row look (`10`): implementation's shots only.
 - Runtime-wiring mutation of read-once and ≠ not opening the picker: not run.
 - No unit test for the P2 fix.
+- Codex round 2 P2 on 316bd4c (the typed-reference check in the stand-in `shared/field-picker.ts` accepts empty path segments that `parseRef` rejects): declined here, routed to project-env-field-picker-grouped, which replaces that file; FO puts it in that task's implementation dispatch. The Captain tries the screen only after picker-grouped lands.
+- Validator observation (validation cycle 2): at 1280 by 1700 the sticky save bar covers the top of the Danger zone card until the page is scrolled to the end; it belongs to the merged save-footer task, not this one. FO raises it with the Captain when he tries the screen.
