@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:6911",
+    "mcp": {"injectIntoAgents": false},
+    "browserTools": {"enabled": false},
+    "enableTerminalAgentHooks": false,
+    "cors": {"allowedOrigins": ["https://app.paseo.sh"]},
+    "relay": {"enabled": false}
+  },
+  "app": {"baseUrl": "https://app.paseo.sh"},
+  "plugins": {
+    "sfdz-val": {"source": "directory", "path": "/tmp/sfdz-val/plugin", "enabled": true}
+  },
+  "features": {"dictation": {"enabled": false}, "voiceMode": {"enabled": false}},
+  "pluginsEnabled": true
+}

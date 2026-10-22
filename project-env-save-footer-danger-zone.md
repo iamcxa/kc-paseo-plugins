@@ -199,3 +199,51 @@ The footer is one pure function, `unsavedCount(saved, draft)`, a bar that shows 
 ### Summary
 
 The settings page now ends with the Danger zone (saved projects only) and a pinned save bar with the unsaved count, Close/Discard and Save, a Discard confirm, a red-confirm Stop managing dialog and a Saved toast; the count is a difference between `initial` and `draft`. Known limits: the phone app, the "Saving…" label and a refused Stop managing are source-verified only, not drawn; screenshots show the page as of main d61e243 without the sibling rework tasks. The isolated daemon was stopped and `/tmp/sfdz-impl` removed; Kent's `~/.paseo` and the live plugin were not touched.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate aded5429f8ac5e24c8e722f7109c22ecbaa7a994 (PR iamcxa/kc-paseo-plugins#23, base main d61e243) against AC-1 and AC-2 and the approved design, then give a verdict.
+  Verdict: PASSED (recommended; the Captain decides). PR head is exactly aded5429 (Draft, open); I rebuilt it from `git archive` into `/tmp/sfdz-val` and ran it on an isolated Paseo 0.12.0 (port 6911, plugin `sfdz-val`, fake op/security/git, own agent-browser session); typecheck clean, `npm test` 176 pass 0 fail.
+- DONE: Make three edits and confirm the save bar counts 3, Save writes them and shows the toast, Discard leaves the saved file unchanged, the Danger zone shows only for a saved project and its confirm button is destructive.
+  Observed 2026-10-22 at 1280x2700 and 400x2700: removing two variables and typing a prompt read "3 unsaved changes" with Save on; Save wrote 4 variables plus the prompt (file read back) and the toast "Saved demo-app" showed on the list (`validation/acc-saved-toast.png`); Discard asked "Discard 3 unsaved changes?", Keep editing kept the draft, Discard changes left the file md5-identical; demo-app shows Danger zone, billing-api (not saved) does not; the Stop managing dialog confirm is a red fill beside a plain "Keep this project"; Keep left 1 project, Stop managing left 0; refused Save (file changed elsewhere) showed "Not saved: Settings changed on another client..." with "3 unsaved changes are still here. Discard drops them and reloads the settings."
+- DONE: Confirm `unsavedCount` tests fail when a counted change stops counting.
+  On a throwaway copy, removing each of the five counted rules (account, vault, prompt, added/re-pointed variable, removed variable) and the trim variant each took `test/unsaved-count.test.ts` from 2 pass to 1 fail; the shipped file stays 2 pass. The acceptance script also failed 5 checks when I removed the toast, the prompt count and the saved-project guard (daemon restarted on the mutated copy).
+- DONE: Judge the worker's one departure (service account compared raw, not trimmed) against Save's write.
+  Justified. `save` writes `draft` as typed (no trim in `settings.save`), and on the isolated Paseo typing "sa-a " read "1 unsaved change" and Save wrote `'sa-a '` to the file, so a trimmed compare would show 0 and disable Save while the draft differs from the file. The design text ("trimmed-equal account is 0") is superseded for that one case; no criterion depends on it. Cost: a stray trailing space shows as one change.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  adr_lint exit 0 ("5 ADR file(s) checked, 0 legacy"); also comment_ratio exit 0 (227 code lines, 0 comment lines, 0.0%), design_surfaces exit 0, doc_impact lists ADR 0004 and the implementation report records it `unaffected`, dispatch_records exit 0 (3 complete). Script below.
+- DONE: Look at the whole-page screenshots at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  Screenshots in `project-env-save-footer-danger-zone/validation/` (mine) and `impl/` (worker's); see "What the Captain should see" and "Unverified" below.
+
+### Acceptance script (fresh shell, about 3 minutes)
+
+Needs: the worktree at aded5429, `paseo` 0.12.0, `agent-browser`, `/Applications/Paseo.app`, Node 24. It touches only `/tmp/sfdz-val` and port 6911, never `~/.paseo`; fake 1Password, no secret.
+
+    WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-save-footer-danger-zone
+    D=/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-save-footer-danger-zone/validation
+    1. cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/unsaved-count.test.ts   -> "pass 2", "fail 0"
+    2. sh $D/up.sh      -> last line "READY http://127.0.0.1:6911 (home /tmp/sfdz-val/home)"
+    3. sh $D/drive.sh   -> 13 lines starting PASS, then "ALL PASS", exit 0 (any FAIL line, or exit 1, is a failure)
+    4. open /tmp/sfdz-val/shots/acc-edited-3.png and acc-stop-dialog.png -> bar reads "3 unsaved changes" with Save on; the dialog's Stop managing button is a red fill
+    5. sh $D/down.sh    -> "DOWN"
+
+Not covered: phone app, the "Saving…" label, a refused Stop managing, light theme, the real 1Password and Keychain (fakes), the merge with the sibling rework tasks.
+
+### What the Captain should see
+
+At 1280 px the page ends with the grey sentence about agents reading values, a "Danger zone" card (saved projects only) holding "Stop managing this project" with a red-outlined button, then a rounded bar: "No unsaved changes", Close and a dim Save at rest; "3 unsaved changes", Discard and a white Save after three edits. At 400 px the same stack in one column; the bar stays one row. Save returns to the project list with a "Saved demo-app" pill at the top centre, which overlaps the page title (host-positioned, design finding 6 declined). With a 800 px-high window the bar is pinned to the bottom and covers rows scrolling under it. A new project shows no Danger zone. The dialogs have a plain left button and a red filled right button.
+
+### Findings
+
+None Material. Polish only: a trailing space counts as a change (above); when a Stop managing is refused the host refusal text shows in the dialog and, behind it, the bar also reads "Not saved:" because both use `settings.saveError` (source-read, not drawn; the design says the refusal shows in the dialog).
+
+### Unverified obligations
+
+- Phone app (sticky style skipped on native), the "Saving…" label, a refused Stop managing drawn, light theme at the candidate, a Save while the host toast placement differs: not observed.
+- Real 1Password and Keychain: fakes only, by instruction; the pre-existing token flows are untouched by this diff.
+- The sibling rework tasks (field-pill, connection-collapse) are not in this build; the count is a difference, so none should need a hook, but the merged page was not observed.
+- Toast presence was read from the accessibility snapshot and a screenshot taken within about a second of Save; the toast is ephemeral and my immediate body-text read did not contain it.
+
+### Summary
+
+The candidate meets AC-1 and AC-2 at the exact PR head on a rebuilt isolated Paseo: the count, Save write, toast, Discard no-op, Danger zone only for a saved project and a red confirm all observed, and the count tests and the acceptance script both fail when a counted behaviour is removed. The raw service-account compare is correct against Save's write. Verdict PASSED; limits are the phone app, the "Saving…" label, a refused Stop managing and the sibling-merge page. The isolated daemon, browser session and `/tmp/sfdz-val` are removed; `~/.paseo` and the live plugin were not touched.
