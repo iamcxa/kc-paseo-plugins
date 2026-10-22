@@ -173,6 +173,13 @@ A working connection becomes one row (dot, Connected, account, vault, Change); C
 
 A working connection is one row with Change; Change opens today's controls plus Done and Cancel; a failed check turns the row red with the cause. Not verifiable by unit test: the `view` transitions live in the component, so they are proven by the screenshots and the browser runs only, not by a test that fails when they are removed. Known limits: a typed unsaved token is not kept across a re-mount; run against fakes only.
 
+### Feedback cycle 1 (validator polish: changing into the store)
+
+- DONE: `changing` moved from a module-level variable in `settings-screen.tsx` into the `openProject` store (`OpenProject.changing`, `openProject.setChanging(before, session?)`); `begin` and `close` clear it, the manual `changing = null` is gone. New head 3fe658d on PR #25, pushed.
+- DONE: two `open-project.test.ts` cases: a Change survives draft updates without counting as an edit and is cleared by `begin` and `close`; `setChanging` tagged with a stale session is ignored. Both fail without the field (`setChanging` missing). `npm test` 182 pass 0 fail; typecheck clean.
+- DONE: `/tmp/cc-accept.sh` and the script copy in the validation report now use `git archive 3fe658d`; fresh run: 7 PASS, 0 FAIL (the first two attempts failed on a cold-start browser timing and a stale daemon from the aborted run, not on the code).
+- FINDINGS for FO: roborev gate `evidence=roborev:1041` exited 1 with two Medium findings, both outside this polish and not fixed: (1) a resize during a token save loses the pending save and its result (typed token and `store.isPending` are component state; known limit already stated); (2) project Save (the footer) still saves the draft while Change is open and Done is disabled, which belongs to project-env-save-footer-danger-zone. The earlier gate runs on 4dc1123 were clean (roborev:1036).
+
 ## Stage Report: validation
 
 - DONE: Independently check candidate 4dc112307ded792890fab8d7886359c2ca6dd01b (PR iamcxa/kc-paseo-plugins#25, base main d61e243) against AC-1 and the approved design on an isolated Paseo; give a verdict.
@@ -199,7 +206,7 @@ git -C $WT rev-parse HEAD
 ( cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/connection-line.test.ts 2>&1 | grep -E "^. (pass|fail) " ; npm run typecheck >/dev/null 2>&1 && echo "typecheck ok" || echo "typecheck FAIL" )
 echo "== 2. isolated Paseo with fake op/security/git (own home, port $PORT, plugin id ccaccept)"
 rm -rf $S; mkdir -p $S/plugin $S/world $S/home/plugin-settings/ccaccept $S/repos $S/shots
-git -C $WT archive 4dc1123 project-env | tar -x -C $S/plugin --strip-components=1
+git -C $WT archive 3fe658d project-env | tar -x -C $S/plugin --strip-components=1
 cd $S/plugin && ln -s $WT/project-env/node_modules node_modules && mkdir server/fakes && cp test/fakes/* server/fakes/
 echo '{"id":"ccaccept","media":[],"requirements":{"paseo":">=0.12.0"},"name":"Project environment (acceptance)"}' > paseo-plugin.json
 for t in op security git; do printf '#!/bin/sh\nexec %s %s/plugin/server/fakes/%s.mjs %s/world "$@"\n' "$(command -v node)" $S $t $S > $S/world/$t; chmod +x $S/world/$t; done
