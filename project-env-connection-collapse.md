@@ -159,3 +159,16 @@ Design finding 16: declined: long names wrap inside the row (pictures 19 and 20)
 ### Summary
 
 A working connection becomes one row (dot, Connected, account, vault, Change); Change opens today's controls plus Done and Cancel; a failed check shows the same row in red with the cause. The variables, prompt and save parts of every picture are today's screen, which sibling tasks replace; only the 1Password card and the project heading are this task's change. Known limits: Cancel's redraw was not re-reviewed (two runs is the limit); on a 400 px page the row is two lines, not one, because the account is kept (the A5 mock hides it); the preview was never run against a real Keychain or 1Password.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, including every interface it names for its sibling tasks and, where present, Captain amendment 1 in the task file.
+  PR https://github.com/iamcxa/kc-paseo-plugins/pull/25 (Draft, base d61e243): `connectionLine` in `shared/token.ts`, `ConnectionLineRow` and `view` state in `ProjectEditor`; draft changes go through `patch`/`openProject.update`; no Captain amendment in the task file. Initial view is computed from the draft (not `initial`) so a re-mounted editor recomputes it, as the interfaces section says.
+- DONE: Land tests so each acceptance criterion passes with the evidence its clause names and fails when its behaviour is removed, plus whole-page screenshots of the built change at desktop and 400 px.
+  AC-1(a): `test/connection-line.test.ts`, 6 tests; deleting the `canReadVault` line makes "unreadable, empty, or no vault" fail (run 2026-10-22); a test with `failed: true` plus cached success fails if the `failed` check moves below the status check. AC-1(b): 14 whole-page screenshots in `project-env-connection-collapse/evidence/` (01-04, 08-09 and 13-14 desktop and 400 px Change/Cancel flows, 05-07 setup collapsing, 10-12 400 px) from an isolated Paseo (own home, port 6872, id `collapse-impl`, fakes).
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, design_surfaces check and doc_impact, then open the Draft PR.
+  `npm test` 180 pass 0 fail (session-open deadline test failed once under load, passed alone and in the final full run); typecheck clean; `evidence=roborev:1036` (clean; two fix rounds: failed recheck hidden by cached success, "Saved token works" shown for a failed saved token, Change lost on re-mount); design_surfaces: presentable; doc_impact: 0 documents mention the change.
+
+### Summary
+
+A working connection is one row with Change; Change opens today's controls plus Done and Cancel; a failed check turns the row red with the cause. Not verifiable by unit test: the `view` transitions live in the component, so they are proven by the screenshots and the browser runs only, not by a test that fails when they are removed. Known limits: a typed unsaved token is not kept across a re-mount; run against fakes only.
