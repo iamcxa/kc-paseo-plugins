@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-add-variable-one-step:ideation:attempt-1:revision-1
                 digest: sha256:a3b34b880ea7ed84c15215e89a733de1007b8635f2cc77bba1a81b7d7d683756
                 room-ref: ./project-env-add-variable-one-step/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-add-variable-one-step:ideation:1
+                briefing: briefing:project-env-add-variable-one-step:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T07:45:08.127665Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — accepts this A5 rework design and its acceptance criteria into implementation, including the recommendation stated in this gate''s question.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-22T04:16:46Z
 ---
 
