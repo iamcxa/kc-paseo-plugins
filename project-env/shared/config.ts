@@ -156,3 +156,15 @@ export const importConductor = defineRpc({
   input: z.object({ root: z.string().min(1) }),
   output: z.object({ names: z.array(z.string()), prompt: z.string() }),
 });
+
+export function unsavedCount(saved: Project, draft: Project): number {
+  let n = 0;
+  if (saved.serviceAccount.trim() !== draft.serviceAccount.trim()) n++;
+  if (saved.vault !== draft.vault) n++;
+  if (saved.prompt !== draft.prompt) n++;
+  const before = new Map(saved.variables.map((v) => [v.name, v.ref]));
+  const after = new Map(draft.variables.map((v) => [v.name, v.ref]));
+  for (const [name, ref] of after) if (before.get(name) !== ref) n++;
+  for (const name of before.keys()) if (!after.has(name)) n++;
+  return n;
+}
