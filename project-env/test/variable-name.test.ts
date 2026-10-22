@@ -7,7 +7,6 @@ import {
   refusal,
   reservedReason,
   splitImported,
-  variableLine,
 } from "../shared/config.ts";
 
 const ADR_0004_NAMES = [
@@ -73,27 +72,5 @@ describe("a variable with no field picked", () => {
 
   it("still rejects a reference that is not a 1Password reference", () => {
     assert.equal(project.safeParse({ root: "/r", variables: [{ name: "X", ref: "vault/item" }] }).success, false);
-  });
-
-  it("has no line for a row with no field: the dashed pill says it", () => {
-    assert.equal(variableLine(newVariable("X"), undefined), null);
-    assert.equal(variableLine(newVariable("X"), { ok: false, cause: "missing-field" }), null);
-  });
-});
-
-describe("a row's one line", () => {
-  it("is empty before a Test, set or failed after it", () => {
-    const v = { name: "X", ref: "op://V/i/x" };
-    assert.equal(variableLine(v, undefined), null);
-    assert.deepEqual(variableLine(v, { ok: true }), { text: "set", failed: false });
-    assert.deepEqual(variableLine(v, { ok: false, cause: "empty" }), {
-      text: "failed: the 1Password field is empty",
-      failed: true,
-    });
-  });
-
-  it("says Not applied with the reason for a saved reserved name, whatever the Test said", () => {
-    const line = variableLine({ name: "DYLD_INSERT_LIBRARIES", ref: "op://V/i/x" }, { ok: true });
-    assert.deepEqual(line, { text: `Not applied: ${reservedReason("DYLD_INSERT_LIBRARIES")}`, failed: true });
   });
 });

@@ -26,7 +26,6 @@ import {
   newVariable,
   refusal,
   splitImported,
-  variableLine,
   projectEnv,
   storeToken,
   testProject,
@@ -34,7 +33,8 @@ import {
   hasPendingSave,
   unsavedCount,
 } from "../shared/config";
-import type { Cause } from "../shared/cause";
+import { rowReason, summaryParts, type Run } from "../shared/test-marks";
+import { FailureMark } from "./failure-mark";
 import { FieldPicker, type VaultList } from "./field-picker";
 import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
@@ -52,11 +52,8 @@ import {
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
 
-type Result = { name: string; ok: boolean; cause?: Cause };
-
 const DIFFERS = "The field name differs from the variable name.";
 const WRAP = { overflowWrap: "anywhere" } as object;
-const SLOT = 32;
 
 function FieldPill({
   name,
@@ -143,22 +140,23 @@ function FieldPill({
 function VariableRow({
   variable,
   first,
-  failed,
-  result,
+  reason,
+  open,
   theme,
   pill,
+  onToggleMark,
   onRemove,
 }: {
   variable: Variable;
   first: boolean;
-  failed: boolean;
-  result: Result | undefined;
+  reason: string | null;
+  open: boolean;
   theme: Theme;
   pill: ReactNode;
+  onToggleMark(): void;
   onRemove(): void;
 }) {
   const { name } = variable;
-  const line = variableLine(variable, result);
   const compact = useWindowDimensions().width < 600;
   const nameText = (
     <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
@@ -174,20 +172,15 @@ function VariableRow({
       <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
     </Pressable>
   );
-  const slot = (
-    <View style={{ width: SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
-      {failed ? (
-        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: theme.colors.statusDanger, alignItems: "center", justifyContent: "center" }}>
-          <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>!</Text>
-        </View>
-      ) : null}
-    </View>
+  const mark = (
+    <FailureMark name={name} reason={reason} open={open} inline={compact} theme={theme} onToggle={onToggleMark} />
   );
-  const status = line ? (
-    <Text style={{ color: line.failed ? theme.colors.statusDanger : theme.colors.foregroundMuted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
-      {line.text}
-    </Text>
-  ) : null;
+  const line =
+    compact && open && reason !== null ? (
+      <Text accessibilityRole="alert" style={{ color: theme.colors.statusDanger, fontSize: 13, paddingHorizontal: 4 }}>
+        {reason}
+      </Text>
+    ) : null;
   return (
     <View
       style={{
@@ -206,19 +199,18 @@ function VariableRow({
           </View>
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 0 }}>
             {pill}
-            {slot}
+            {mark}
           </View>
-          {status}
+          {line}
         </>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
           <View style={{ width: 200, paddingTop: 9 }}>{nameText}</View>
           {pill}
-          {slot}
+          {mark}
           <View style={{ marginTop: 4 }}>{cross}</View>
         </View>
       )}
-      {!compact ? status : null}
     </View>
   );
 }
@@ -418,7 +410,7 @@ function ProjectEditor({
   theme: Theme;
   onDone(): void;
 }) {
-  const { draft, edits, initial, revision } = open;
+  const { draft, initial, revision } = open;
   const [newName, setNewName] = useState("");
   const nameInput = useRef<SettingsInputHandle>(null);
   const [importNote, setImportNote] = useState<string | null>(null);
@@ -504,9 +496,22 @@ function ProjectEditor({
     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
   });
   const test = useMutation({
-    mutationFn: ({ project }: { project: Project; edits: number }) => testRpc({ project }),
+    mutationFn: async (sent: Project): Promise<Run> => ({ sent, results: (await testRpc({ project: sent })).results }),
   });
-  const testResults = test.variables?.edits === edits ? test.data?.results : undefined;
+  const run = test.data;
+  const [openMark, setOpenMark] = useState<string | null>(null);
+  const summary = summaryParts(draft, run, test.isPending);
+  const compactHeader = useWindowDimensions().width < 600;
+  const summaryNode = (
+    <Text accessibilityLiveRegion="polite" numberOfLines={1} style={{ fontSize: 13 }}>
+      {summary.map((p, i) => (
+        <Text key={p.text} style={{ color: p.tone === "bad" ? theme.colors.statusDanger : theme.colors.foregroundMuted }}>
+          {i > 0 ? " · " : ""}
+          {p.text}
+        </Text>
+      ))}
+    </Text>
+  );
   const doImport = useMutation({
     mutationFn: () => importRpc({ root: draft.root }),
     onSuccess: ({ names, prompt }) => {
@@ -755,24 +760,55 @@ function ProjectEditor({
         )}
       </SettingsSection>
 
-      <SettingsSection title="Environment variables">
+      <SettingsSection
+        title="Variables"
+        info="Test resolves every variable now and never shows a value. Set means a value came back from 1Password; it does not prove the service accepts that key."
+        trailing={
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+            {compactHeader ? null : summaryNode}
+            {draft.variables.length > 0 ? (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Test"
+                disabled={test.isPending}
+                onPress={() => {
+                  setOpenMark(null);
+                  test.mutate(draft);
+                }}
+                style={{
+                  borderWidth: 1,
+                  borderColor: theme.colors.border,
+                  borderRadius: 8,
+                  paddingHorizontal: 12,
+                  paddingVertical: 7,
+                  opacity: test.isPending ? 0.5 : 1,
+                }}
+              >
+                <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Test</Text>
+              </Pressable>
+            ) : null}
+          </View>
+        }
+      >
+        {compactHeader && summary.length > 0 ? <View style={{ paddingBottom: 8 }}>{summaryNode}</View> : null}
         <SettingsCard>
           {draft.variables.map((v, i) => {
-            const result = testResults?.find((r) => r.name === v.name);
+            const reason = rowReason(draft, run, v);
             return (
               <VariableRow
                 key={v.name}
                 variable={v}
                 first={i === 0}
-                failed={result?.ok === false}
+                reason={reason}
+                open={openMark === v.name}
                 theme={theme}
-                result={result}
+                onToggleMark={() => setOpenMark((n) => (n === v.name ? null : v.name))}
                 onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
                 pill={
                   <FieldPill
                     name={v.name}
                     view={pillView(v.ref, v.name, draft.vault)}
-                    failed={result?.ok === false}
+                    failed={reason !== null}
                     theme={theme}
                     onOpen={() => {
                       if (refs.isError) refs.reset();
@@ -783,15 +819,6 @@ function ProjectEditor({
               />
             );
           })}
-          {draft.variables.length > 0 ? (
-            <SettingsAction
-              label="Check the variables"
-              hint="Resolves every variable now and shows the result on its row; never the value. Set means a value came back from 1Password; it does not prove the service accepts that key."
-              actionLabel={test.isPending ? "Testing…" : "Test"}
-              disabled={test.isPending}
-              onPress={() => test.mutate({ project: draft, edits })}
-            />
-          ) : null}
           <SettingsInput
             ref={nameInput}
             label="New variable name"
