@@ -33,4 +33,7 @@ describe("the connection line", () => {
   it("is a problem when the check itself failed", () => {
     assert.deepEqual(line({ status: undefined, failed: true }), { kind: "problem", label: "Could not check the connection" });
   });
+  it("is a problem when a recheck failed even though an earlier check succeeded", () => {
+    assert.deepEqual(line({ failed: true }), { kind: "problem", label: "Could not check the connection" });
+  });
 });

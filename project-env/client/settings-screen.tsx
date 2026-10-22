@@ -362,7 +362,7 @@ function ProjectEditor({
     : account !== checked
       ? { label: `Not checked for ${account} yet`, hint: "Press Check." }
       : current
-        ? tokenDraft.trim() !== ""
+        ? tokenDraft.trim() !== "" && current.state === "ok"
           ? { label: "Saved token works", hint: `${tokenRowText(current).hint ?? ""}. The token you typed is not saved yet.` }
           : tokenRowText(current)
         : { label: "Checking token…", hint: "Asking the Keychain and 1Password." };

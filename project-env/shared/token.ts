@@ -124,7 +124,8 @@ export function connectionLine(input: {
 }): ConnectionLine {
   const { vault, fetching, failed, status } = input;
   if (fetching) return { kind: "checking" };
-  if (!status) return failed ? { kind: "problem", label: "Could not check the connection" } : { kind: "checking" };
+  if (failed) return { kind: "problem", label: "Could not check the connection" };
+  if (!status) return { kind: "checking" };
   if (status.state !== "ok") return { kind: "problem", label: tokenRowText(status).label };
   if (status.vaults.length === 0) return { kind: "problem", label: tokenRowText(status).label };
   if (vault === "") return { kind: "problem", label: "No vault chosen" };
