@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-field-pill-one-control:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-field-pill-one-control-ideation-1
+              briefing:
+                id: briefing:project-env-field-pill-one-control:ideation:attempt-1:revision-1
+                digest: sha256:369cb056ffa571714c726f1673d78970809041d572c6ce482d068998699c19a8
+                room-ref: ./project-env-field-pill-one-control/review/ideation/briefing-1
 started: 2026-10-22T04:16:32Z
 ---
 
