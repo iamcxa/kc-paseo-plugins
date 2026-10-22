@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, useWindowDimensions, View } from "react-native";
 import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
 import {
   type PluginSurfaceProps,
@@ -36,6 +36,7 @@ import type { Cause } from "../shared/cause";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
 import {
   canReadVault,
+  connectionLine,
   pickVault,
   projectsUsingName,
   serviceAccountNameError,
@@ -153,6 +154,66 @@ function VariableRow({
   );
 }
 
+function ConnectionLineRow({
+  line,
+  account,
+  vault,
+  theme,
+  onChange,
+}: {
+  line: ReturnType<typeof connectionLine>;
+  account: string;
+  vault: string;
+  theme: Theme;
+  onChange(): void;
+}) {
+  const dot =
+    line.kind === "connected"
+      ? theme.colors.statusSuccess
+      : line.kind === "problem"
+        ? theme.colors.statusDanger
+        : theme.colors.foregroundMuted;
+  const headline = line.kind === "connected" ? "Connected" : line.kind === "problem" ? line.label : "Checking…";
+  const compact = useWindowDimensions().width < 520;
+  const vaultColor = line.kind === "problem" ? theme.colors.foregroundMuted : theme.colors.foreground;
+  return (
+    <View
+      accessible
+      accessibilityLabel={`${headline}, service account ${account}, vault ${vault}`}
+      style={{
+        flexDirection: "row",
+        alignItems: compact ? "flex-start" : "center",
+        gap: 10,
+        paddingHorizontal: 14,
+        paddingVertical: 11,
+      }}
+    >
+      <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: dot, marginTop: compact ? 7 : 0, alignSelf: compact ? "flex-start" : "center" }} />
+      <View style={{ flex: 1, flexDirection: compact ? "column" : "row", alignItems: compact ? "flex-start" : "baseline", columnGap: 6 }}>
+        <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>{headline}</Text>
+        <Text style={{ fontSize: 14 }}>
+          <Text style={{ color: theme.colors.foregroundMuted }}>{`${compact ? "" : "·\u00a0"}${account}`}</Text>
+          <Text style={{ color: vaultColor }}>{`\u00a0·\u00a0${vault}`}</Text>
+        </Text>
+      </View>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Change the 1Password connection"
+        onPress={onChange}
+        style={{
+          borderWidth: 1,
+          borderColor: theme.colors.border,
+          borderRadius: 8,
+          paddingHorizontal: 12,
+          paddingVertical: 7,
+        }}
+      >
+        <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Change</Text>
+      </Pressable>
+    </View>
+  );
+}
+
 const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
 
 function ProjectEditor({
@@ -171,6 +232,10 @@ function ProjectEditor({
   const nameInput = useRef<SettingsInputHandle>(null);
   const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
+  const [before, setBefore] = useState({ serviceAccount: draft.serviceAccount, vault: draft.vault });
+  const [view, setView] = useState<"line" | "setup" | "change">(
+    draft.serviceAccount.trim() !== "" && draft.vault !== "" ? "line" : "setup",
+  );
   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
   const muted = useMemo(() => ({ color: theme.colors.foregroundMuted }), [theme]);
   const promptStyle = useMemo(
@@ -297,7 +362,9 @@ function ProjectEditor({
     : account !== checked
       ? { label: `Not checked for ${account} yet`, hint: "Press Check." }
       : current
-        ? tokenRowText(current)
+        ? tokenDraft.trim() !== ""
+          ? { label: "Saved token works", hint: `${tokenRowText(current).hint ?? ""}. The token you typed is not saved yet.` }
+          : tokenRowText(current)
         : { label: "Checking token…", hint: "Asking the Keychain and 1Password." };
   const vaultOptions = current?.state === "ok"
     ? [
@@ -308,13 +375,40 @@ function ProjectEditor({
         ...vaultChoices({ vaults, vaultIds }, draft.vault),
       ]
     : [];
+  const line = connectionLine({
+    vault: draft.vault,
+    fetching: token.isFetching || account !== checked,
+    failed: token.isError,
+    status: token.data,
+  });
+  const nothingPending = tokenDraft.trim() === "" && sharedWith === null && !store.isPending;
+  useEffect(() => {
+    if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
+  }, [view, line.kind, nothingPending]);
   const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
 
   return (
     <>
-      <SettingsSection title={basename(draft.root)}>
+      <View style={{ gap: 2, marginBottom: 20 }}>
+        <Text style={{ color: theme.colors.foreground, fontSize: 20, fontWeight: "500" }}>{basename(draft.root)}</Text>
+        <Text style={{ color: theme.colors.foregroundMuted, fontSize: 12 }}>{draft.root}</Text>
+      </View>
+      <SettingsSection title="1Password">
+        {view === "line" ? (
+          <SettingsCard>
+            <ConnectionLineRow
+              line={line}
+              account={account}
+              vault={draft.vault}
+              theme={theme}
+              onChange={() => {
+                setBefore({ serviceAccount: draft.serviceAccount, vault: draft.vault });
+                setView("change");
+              }}
+            />
+          </SettingsCard>
+        ) : (
         <SettingsCard>
-          <SettingsRow label="Main checkout" hint={draft.root} />
           <SettingsInput
             label="1Password service account"
             hint="Keychain item name holding its token, e.g. relay-dev-read"
@@ -391,7 +485,37 @@ function ProjectEditor({
               onChangeText={(vault) => patch({ vault })}
             />
           )}
+          {view === "change" ? (
+            <SettingsAction
+              label="Use this connection"
+              hint={
+                tokenDraft.trim() !== ""
+                  ? "Save the token or clear the field first."
+                  : line.kind !== "connected"
+                    ? "Available once the connection works."
+                    : undefined
+              }
+              actionLabel="Done"
+              disabled={line.kind !== "connected" || !nothingPending}
+              onPress={() => setView("line")}
+            />
+          ) : null}
+          {view === "change" ? (
+            <SettingsAction
+              label="Keep the current connection"
+              actionLabel="Cancel"
+              onPress={() => {
+                if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) patch(before);
+                setChecked(before.serviceAccount.trim());
+                setTokenDraft("");
+                latestToken.current = "";
+                clearTokenMessages();
+                setView("line");
+              }}
+            />
+          ) : null}
         </SettingsCard>
+        )}
       </SettingsSection>
 
       <SettingsSection title="Environment variables">
