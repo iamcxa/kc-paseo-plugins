@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:6831",
+    "mcp": {"injectIntoAgents": false},
+    "browserTools": {"enabled": false},
+    "enableTerminalAgentHooks": false,
+    "cors": {"allowedOrigins": ["https://app.paseo.sh"]},
+    "relay": {"enabled": false}
+  },
+  "app": {"baseUrl": "https://app.paseo.sh"},
+  "plugins": {
+    "save-footer-spike": {"source": "directory", "path": "/tmp/save-footer-spike/plugin", "enabled": true}
+  },
+  "features": {"dictation": {"enabled": false}, "voiceMode": {"enabled": false}},
+  "pluginsEnabled": true
+}

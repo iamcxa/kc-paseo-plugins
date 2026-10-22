@@ -1,0 +1,63 @@
+design_review:
+  preview: project-env-save-footer-danger-zone/design/preview-desktop-dark-edited-3-unsaved.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-edited-3-unsaved.png, preview-compact-dark-save-refused.png (Discard in the save bar)
+      seen: Discard sits next to Save in the bar and drops all unsaved edits with no confirm shown in any picture, while the Stop managing action next to it gets a full dialog; after a refused Save it is also the only way to reload.
+      fix: Show a short confirm (or an undo toast) for Discard when the count is above zero, worded like the Stop managing dialog ("Discard 3 unsaved changes?").
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-save-refused.png, preview-compact-dark-save-refused.png
+      seen: The red text says "Reload before saving again" but no control is called Reload, and the filled white Save stays the strongest button even though it will be refused again.
+      fix: Say "Discard reloads the settings" in the first line, and either disable Save or make Discard the lead button until the person reloads.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-edited-3-unsaved.png
+      seen: The bar says "3 unsaved changes" but no edited row, field or the prompt box carries a changed mark; only the focused prompt box has a green ring.
+      fix: Add a small changed marker on each edited row (or list the changed names under the count) so the count can be checked.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-clean-saved-project.png
+      seen: A person has three ways to leave the same page, the sidebar Back, "Back to plugins" under the title, and the new Close button in the bar, and the bar shows Close in the slot where Discard sits when edited.
+      fix: Keep Close but say in the design what it does (same as "Back to plugins"), or drop one of the two page-level exits.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-clean-saved-project.png, preview-compact-dark-clean-saved-project.png
+      seen: The disabled Save is a grey filled button with dark text, while other disabled buttons on the same page (Save token, Add, Browse vault) are dim outlines, so Save at zero changes can read as a live secondary button.
+      fix: Draw disabled Save the same way as the other disabled buttons, a dim outline or dimmed fill with dimmed text.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-saved-toast-on-list.png
+      seen: The "Saved demo-app" toast sits on top of the page title "save-footer-spike · Project environment" and hides part of "save-footer-spike" (it only clears the "Projects" label on compact).
+      fix: Place the toast at the bottom of the window (where the save bar was) or below the title row, so it covers no text.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-edited-sticky-viewport.png, preview-compact-dark-save-refused.png, preview-compact-dark-edited-3-unsaved.png
+      seen: Discard, Save, Stop managing and Remove are about 30 to 34 px tall on the phone width, and the back arrow is a small bare icon, below the usual 44 px touch target.
+      fix: Give the save bar buttons and the Stop managing button at least 44 px tap height on the compact layout, with the bar growing to fit.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-compact-dark-save-refused.png
+      seen: The refused bar grows to four lines plus buttons and covers about 17 percent of the 800 px phone viewport, and sits at a different distance from the bottom edge than the one-line bar in preview-compact-dark-edited-sticky-viewport.png.
+      fix: Put the reason on its own line above the buttons with a fixed bottom offset, and cap its height with a "details" fold for long reasons.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-stop-dialog.png
+      seen: The phone dialog is a bottom sheet with a drag handle, a close X and a Keep this project button, and about half the sheet is empty space under small right-aligned buttons.
+      fix: Size the sheet to its content and make the two buttons full width and stacked, with the red Stop managing last, and drop the redundant X.
+    - severity: MINOR
+      dimension: states
+      where: all previews
+      seen: No picture shows Save or Stop managing in progress (button busy, bar locked), a failed Stop managing, the stop dialog at zero unsaved changes, what the list shows after Stop managing (toast or none), a long project name in the title, or a long refusal reason on desktop.
+      fix: Add previews for the busy Save, the failed or finished Stop managing, the zero-change dialog wording, and one long project name or long reason.
+    - severity: MINOR
+      dimension: theme-size
+      where: preview set (light)
+      seen: Light theme appears only for desktop edited-sticky, stop dialog and save-refused, and for compact edited and edited-sticky; there is no light desktop main picture, light toast, light clean or new-project state, or light compact stop dialog, refused bar or toast.
+      fix: Add the missing light previews, in particular the compact refused bar and compact dialog where red text and a red filled button sit on a light background.
+  limitations:
+    - Pictures only; I could not click anything, so Discard behaviour, whether Save really refuses a second time, auto-dismiss time of the toast, and whether the bar is truly pinned while scrolling are inferred from the sticky-viewport pictures.
+    - The rows above the prompt were not reviewed, as instructed, except where they show how controls in the new region compare (disabled button style, Vault chevron).
+    - No tablet width, no right-to-left or large-text rendering, and no keyboard focus ring on the new buttons are shown, so I could not review them.
+    - Colour contrast was judged by eye, not measured.

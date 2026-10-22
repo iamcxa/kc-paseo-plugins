@@ -1,0 +1,78 @@
+design_review:
+  preview: project-env-save-footer-danger-zone/design/preview-desktop-dark-edited-3-unsaved.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-stop-dialog.png (with preview-desktop-dark-edited-3-unsaved.png)
+      seen: The desktop dark Stop managing dialog sits over a bar reading "3 unsaved changes", yet its text ends at "The token stays in the Keychain." and never says unsaved changes are dropped; the compact dark and light desktop dialogs do say it.
+      fix: Show the "Your N unsaved changes are dropped too." sentence in every dialog render whenever the count is above zero, and make the dark desktop preview match.
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-save-refused.png and preview-compact-dark-save-refused.png
+      seen: The red text says "Reload before saving again" but the bar has no Reload control, Save stays fully enabled and would fail again, and the unsaved count has been replaced so the person cannot see how many edits are at risk.
+      fix: Add a Reload action (or make Discard say it reloads) and disable Save until the reload, and keep the change count visible beside the error.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-stop-dialog.png and preview-compact-dark-stop-dialog.png
+      seen: The dialog's "Stop managing" confirm button is a pale salmon fill with white text and looks dimmed or disabled, while the light-theme version is a strong dark red.
+      fix: Use the same saturated destructive red as in light, with enough contrast for white text.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-compact-dark-save-refused.png vs preview-compact-dark-edited-sticky-viewport.png
+      seen: In the refused state the compact bar grows to about 100px, the message wraps to two lines, and Discard and Save move to a second row aligned left, while in the normal state they are on one row aligned right.
+      fix: Keep buttons right-aligned on the same row (or always stack them the same way) and truncate or allow the reason to wrap without moving the buttons.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-edited-3-unsaved.png, preview-compact-dark-stop-dialog.png
+      seen: Discard, Save, Stop managing and the dialog buttons are about 32px tall, and the dialog's X icon is about 16px, well below a 44px touch target on a phone-size layout.
+      fix: Give compact buttons and the close icon at least a 44px tap area.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-compact-dark-stop-dialog.png
+      seen: The bottom sheet is about 520px tall with the buttons in the middle and a large empty area below them, plus both a drag handle and an X for dismissing.
+      fix: Size the sheet to its content with the buttons at the bottom, and keep one dismiss affordance besides Keep this project.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-edited-3-unsaved.png
+      seen: The "Values are injected into each agent's environment..." note sits between the prompt box and the "Danger zone" label at nearly equal gaps, so it can read as belonging to the Danger zone, and the "Danger zone" label is the same grey as other section labels.
+      fix: Bind the note tightly to the prompt (smaller gap above, larger gap before Danger zone) and tint or weight the Danger zone label.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-edited-3-unsaved.png and preview-desktop-dark-clean-saved-project.png
+      seen: At zero changes the bar offers "Close" while "Back to plugins" and the sidebar Back sit above on the same page; both leave the editor, and the compact pictures have only an arrow at the top.
+      fix: Keep one visible way out per size, or state in the bar what Close does that Back to plugins does not.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-edited-3-unsaved.png
+      seen: The count reads "3 unsaved changes" but nothing on the rows marks what changed; the two removed variables simply vanish and the only visible edit is the focused prompt.
+      fix: Mark changed or removed rows (or let Discard/an undo be discoverable per row) so the count can be traced.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole
+      seen: There is no Saving-in-progress state for Save, no failed or in-progress Stop managing state, no long-reason or long-name case, and no many-changes case ("12 unsaved changes"); the refused reason is only the one short sentence.
+      fix: Add previews for Save pending (disabled plus label), Stop managing failing, and a long refusal reason.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-new-project-unsaved.png
+      seen: The desktop new-project picture shows "No unsaved changes" with Close and dimmed Save, although its name says unsaved and only the compact version shows "1 unsaved change"; blank Vault and service account fields have no required cue.
+      fix: Add the desktop new-project edited state, and say whether Save is allowed with an empty Vault.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-saved-toast-on-list.png
+      seen: The "Saved demo-app" toast pill sits on top of the page title and clips "save-footer-spike" text; there is no compact toast and no failure toast.
+      fix: Place the toast where it covers no content (bottom or top edge above the title) and show it at compact size too.
+    - severity: MINOR
+      dimension: theme-size
+      where: set as a whole
+      seen: Light theme is shown only for the 1-unsaved state and the dialog; light clean, refused, toast, sticky and new-project, and any compact light picture, are missing.
+      fix: Add light previews for clean, refused and toast, and at least one compact light preview.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-edited-sticky-viewport.png and preview-desktop-dark-save-refused.png
+      seen: The pinned bar is the same dark fill as the page with no shadow or divider, and the row text underneath ("No field picked", row fragments) shows right below its edge, so it reads as a clipped row.
+      fix: Give the pinned bar a distinct surface, a top shadow or border, and bottom padding so rows do not peek out beneath it.
+  limitations:
+    - Pictures are static full-page or single-viewport renders; I could not check hover, focus, press, animation, or the real pinned behavior while scrolling.
+    - Contrast and pixel sizes are estimated by eye from the images, not measured.
+    - No phone-width light theme and no tablet width exist, so those could not be reviewed.
+    - Mock data differs between pictures (variable counts 4, 5 and 6), so I treated that as sample data, not a defect.
