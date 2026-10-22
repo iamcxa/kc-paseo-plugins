@@ -82,4 +82,32 @@ describe("open project store", () => {
     assert.equal(openProject.get()?.draft.prompt, "");
     assert.equal(openProject.get()?.revision, "rev-2");
   });
+
+  it("a Change in progress stays through draft updates, is not an edit, and is cleared by close and begin", () => {
+    const before = { serviceAccount: "sa-a", vault: "Dev" };
+    openProject.begin(project(), "rev-1");
+    assert.equal(openProject.get()?.changing, null);
+    const session = openProject.get()?.session;
+    openProject.setChanging(before, session);
+    openProject.update((d) => ({ ...d, serviceAccount: "sa-b" }), true);
+    assert.deepEqual(openProject.get()?.changing, before);
+    assert.equal(openProject.get()?.edits, 1);
+    openProject.setChanging(null, session);
+    assert.equal(openProject.get()?.changing, null);
+    openProject.setChanging(before, session);
+    openProject.begin(project(), "rev-2");
+    assert.equal(openProject.get()?.changing, null);
+    openProject.setChanging(before);
+    openProject.close();
+    openProject.begin(project(), "rev-3");
+    assert.equal(openProject.get()?.changing, null);
+  });
+
+  it("setChanging tagged with a session that is no longer open is ignored", () => {
+    openProject.begin(project(), "rev-1");
+    const stale = openProject.get()?.session;
+    openProject.begin(project(), "rev-1");
+    openProject.setChanging({ serviceAccount: "x", vault: "y" }, stale);
+    assert.equal(openProject.get()?.changing, null);
+  });
 });

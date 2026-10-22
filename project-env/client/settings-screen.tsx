@@ -214,9 +214,6 @@ function ConnectionLineRow({
   );
 }
 
-// Paseo re-mounts the screen when the window crosses 720 px; a Change in progress survives it.
-let changing: { session: number; before: Pick<Project, "serviceAccount" | "vault"> } | null = null;
-
 const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
 
 function ProjectEditor({
@@ -235,13 +232,13 @@ function ProjectEditor({
   const nameInput = useRef<SettingsInputHandle>(null);
   const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
-  const resumed = changing?.session === open.session ? changing : null;
-  const [before, setBefore] = useState(resumed?.before ?? { serviceAccount: draft.serviceAccount, vault: draft.vault });
+  const resumed = open.changing;
+  const [before, setBefore] = useState(resumed ?? { serviceAccount: draft.serviceAccount, vault: draft.vault });
   const [view, setView] = useState<"line" | "setup" | "change">(
     resumed ? "change" : draft.serviceAccount.trim() !== "" && draft.vault !== "" ? "line" : "setup",
   );
   const backToLine = () => {
-    changing = null;
+    openProject.setChanging(null, open.session);
     setView("line");
   };
   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
@@ -411,7 +408,7 @@ function ProjectEditor({
               theme={theme}
               onChange={() => {
                 const snapshot = { serviceAccount: draft.serviceAccount, vault: draft.vault };
-                changing = { session: open.session, before: snapshot };
+                openProject.setChanging(snapshot, open.session);
                 setBefore(snapshot);
                 setView("change");
               }}

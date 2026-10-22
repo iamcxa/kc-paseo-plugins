@@ -7,6 +7,7 @@ export type OpenProject = {
   draft: Project;
   edits: number;
   revision: string;
+  changing: Pick<Project, "serviceAccount" | "vault"> | null;
 };
 
 // Paseo re-mounts the settings screen when the window crosses 720 px, which drops
@@ -22,11 +23,15 @@ const set = (next: OpenProject | null) => {
 
 export const openProject = {
   begin(initial: Project, revision: string) {
-    set({ session: ++sessions, initial, draft: initial, edits: 0, revision });
+    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null });
   },
   update(change: (draft: Project) => Project, countsAsEdit: boolean, session?: number) {
     if (!current || (session !== undefined && session !== current.session)) return;
     set({ ...current, draft: change(current.draft), edits: current.edits + (countsAsEdit ? 1 : 0) });
+  },
+  setChanging(before: OpenProject["changing"], session?: number) {
+    if (!current || (session !== undefined && session !== current.session)) return;
+    set({ ...current, changing: before });
   },
   close(session?: number) {
     if (session !== undefined && session !== current?.session) return;
