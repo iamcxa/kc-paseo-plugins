@@ -1,0 +1,85 @@
+--- /Users/kent/Project/kc-paseo-plugins/project-env/client/settings-screen.tsx	2026-10-22 01:15:13
++++ client/settings-screen.tsx	2026-10-22 12:31:06
+@@ -33,6 +33,7 @@
+   tokenStatus,
+ } from "../shared/config";
+ import type { Cause } from "../shared/cause";
++import { openProject, useOpenProject } from "./open-project";
+ import {
+   canReadVault,
+   pickVault,
+@@ -165,9 +166,11 @@
+   theme: Theme;
+   onDone(): void;
+ }) {
+-  const [draft, setDraft] = useState(initial);
+-  const [edits, setEdits] = useState(0);
+-  const [revision] = useState(settings.revision);
++  const open = useOpenProject();
++  const draft = open?.draft ?? initial;
++  const edits = open?.edits ?? 0;
++  const revision = open?.revision ?? settings.revision;
++  const setDraft = (change: (d: Project) => Project) => openProject.update(change, false);
+   const [newName, setNewName] = useState("");
+   const nameInput = useRef<SettingsInputHandle>(null);
+   const [importNote, setImportNote] = useState<string | null>(null);
+@@ -254,21 +257,19 @@
+           ? null
+           : `Skipped ${skipped.map((x) => x.name).join(", ")}: reserved names, so the agent keeps its own value.`,
+       );
+-      setEdits((n) => n + 1);
+-      setDraft((d) => ({
++      openProject.update((d) => ({
+         ...d,
+         variables: [
+           ...d.variables,
+           ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
+         ],
+         prompt: d.prompt || prompt,
+-      }));
++      }), true);
+     },
+   });
+ 
+   const patch = useCallback((change: Partial<Project>) => {
+-    setEdits((n) => n + 1);
+-    setDraft((d) => ({ ...d, ...change }));
++    openProject.update((d) => ({ ...d, ...change }), true);
+   }, []);
+   const setRef = (name: string, ref: string) =>
+     patch({ variables: draft.variables.map((v) => (v.name === name ? { ...v, ref } : v)) });
+@@ -551,29 +552,25 @@
+ 
+ function Configured({ settings, theme }: { settings: Ready; theme: Theme }) {
+   const paseo = usePaseo();
+-  const [editing, setEditing] = useState<Project | null>(null);
+-  const [session, setSession] = useState(0);
++  const editing = useOpenProject();
+   const known = useQuery({ queryKey: ["projects"], queryFn: () => paseo.projects.list() });
+ 
+   const configured = settings.values.projects;
+   const candidates = (known.data?.projects ?? []).filter(
+     (p) => !configured.some((c) => c.root === p.projectRootPath),
+   );
+-  const open = (project: Project) => {
+-    setSession((n) => n + 1);
+-    setEditing(project);
+-  };
++  const open = (project: Project) => openProject.begin(project, settings.revision);
+   const done = () => {
+-    setEditing(null);
++    openProject.close();
+     void settings.reload();
+   };
+ 
+   if (editing) {
+     return (
+       <ProjectEditor
+-        key={`${editing.root}-${session}`}
++        key={`${editing.initial.root}-${editing.session}`}
+         settings={settings}
+-        initial={editing}
++        initial={editing.initial}
+         theme={theme}
+         onDone={done}
+       />

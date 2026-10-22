@@ -1,0 +1,72 @@
+design_review:
+  preview: project-env-draft-survives-remount/design/preview-compact-dark-after-fix-edits-kept.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-compact-dark-after-fix-edits-kept.png, Save card at the bottom
+      seen: "\"Stop managing\" is drawn exactly like \"Save\" and \"Discard\" (same outlined pill, no danger colour, no confirm cue), and its help text says it \"Deletes its variables and default prompt now\". It sits directly under \"Discard\", on a touch screen."
+      fix: Give Stop managing a destructive style and a confirm step, or separate it from Save and Discard so a mis-tap cannot delete the project's variables and prompt.
+    - severity: MINOR
+      dimension: flow
+      where: preview-compact-dark-after-fix-edits-kept.png, LINEAR_API_KEY row and default prompt box
+      seen: The kept edits (the LINEAR_API_KEY row, the prompt text) carry no "unsaved" cue, and Save looks the same as Discard. A person who just resized cannot tell whether the edits were saved or only kept as a draft.
+      fix: Add one unsaved-changes cue near Save, for example a "Unsaved changes" line, or make Save the primary button while the draft differs from the saved project.
+    - severity: MINOR
+      dimension: flow
+      where: preview-compact-dark-after-fix-edits-kept.png, Save card vs the edits at the top
+      seen: Save sits about 85% of the way down a 2450 px page, below all edits. Two rows show red "No field picked" (POSTHOG_CLI_HOST, LINEAR_API_KEY), and nothing says whether Save is blocked or saves them as they are.
+      fix: Say whether rows with no field picked are saved or block Save, and keep Save reachable, for example in a sticky footer on compact.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-compact-dark-after-fix-edits-kept.png, "Token works" row and "Vault" row
+      seen: "\"Can read 1 vault: demo-dev\" and the Vault menu showing \"demo-dev\" state the same fact twice."
+      fix: Keep one of them, or make the sentence say only what the Vault menu does not.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-compact-dark-after-fix-edits-kept.png, Save section
+      seen: The word "Save" appears as the section label, as "Save this project" and as the "Save" button, and "Save token" appears again at the top. The header project name "draft-remount-spike" and the "demo-app" section label also name the project in two different ways.
+      fix: Drop the redundant section label or row title, and say which name is the project.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-compact-dark-after-fix-edits-kept.png, "Check the variables", "Pick fields from the vault" and "Import names and prompt" rows
+      seen: Three to four lines of help text sit beside Test, Browse vault and Import. The "Set means..." sentence explains a result state that is not on screen, and the rows are much taller than the other rows.
+      fix: Shorten the help text and show the "Set means..." line only after a test has run.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-compact-dark-after-fix-edits-kept.png, text inputs
+      seen: The inputs have different widths and no common edge. The sa-a, ops_... and New variable name fields are about 150 px wide, the variable value fields end at the Remove button, and the prompt box is full width.
+      fix: Use one input width rule, for example full width on compact or a shared max width.
+    - severity: MINOR
+      dimension: states
+      where: preview-compact-dark-after-fix-edits-kept.png, "New variable name" field
+      seen: The field shows the dim text "LINEAR_API_KEY" right below the LINEAR_API_KEY row that was just added, and Add is dimmed. This reads as a leftover duplicate and not as an example.
+      fix: Use a neutral placeholder such as "NAME" or a name that is not already in the list.
+    - severity: MINOR
+      dimension: states
+      where: preview-compact-dark-after-fix-edits-kept.png, variable value fields
+      seen: The values are cut off ("op://demo-dev/SENTRY/SENTRY_A", "op://demo-dev/TWILIO/TWILIO_AC") and there is no way to see the full reference.
+      fix: Let the value wrap or truncate in the middle, or show the full value on focus.
+    - severity: MINOR
+      dimension: states
+      where: set-wide
+      seen: The set does not show what the user sees after Save, Discard or Stop managing (the return to the project list), an open Vault menu or open Browse vault panel across the 720 px crossing, loading, or a read-only host. The "return to the list exactly as before" claim has no picture.
+      fix: Add previews for the list after each of the three actions and for an open menu or panel across the crossing.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-compact-dark-after-fix-edits-kept.png, Remove buttons vs Check, Test and Browse vault
+      seen: Remove looks like a squarer rounded rectangle, while Check, Test, Save token, Browse vault and Import look like full pills of a similar height. The row-level "Remove" is a text button repeated seven times and is the same weight as the card-level actions.
+      fix: Use one radius for all outlined buttons, and make the per-row Remove lighter, for example an icon button.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-after-fix-edits-kept.png, header back arrow, Remove, Check and Save token
+      seen: The back arrow glyph is about 20 px and the text buttons are about 30 px tall, below the usual 44 px touch target on a phone-width screen.
+      fix: Pad the hit areas to at least 44 px.
+    - severity: MINOR
+      dimension: theme-size
+      where: set-wide (file list)
+      seen: There is no desktop light after-fix picture (only desktop-light-edited-before-resize), and no light picture for conflict-refused or new-project-kept, nor a desktop picture for conflict-refused.
+      fix: Add desktop light after-fix and light or desktop conflict-refused and new-project pictures, or state that they are out of scope.
+  limitations:
+    - I read only the named compact-dark after-fix picture. I only listed the other previews' file names, so I did not compare them pixel for pixel.
+    - It is a static picture, so I could not check focus, scroll position, disabled states beyond how they look, or what Save does with rows that have no field picked.
+    - The picture was scaled from 400x2450, and the "dim placeholder" reading of the New variable name field is from text colour only.
