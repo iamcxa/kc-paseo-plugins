@@ -47,6 +47,13 @@ describe("search", () => {
       "# Twilio", "Twilio>TWILIO_ACCOUNT_SID", "Twilio>TWILIO_AUTH_TOKEN",
     ]);
   });
+  it("keeps an item whose title alone matches, though none of its labels do", () => {
+    assert.deepEqual(text(pickerRows({ ...base, query: "billing" })), ["# Billing/Team", "Billing/Team>api_key"]);
+  });
+  it("matches a title whatever the case of the title or the query", () => {
+    assert.deepEqual(text(pickerRows({ ...base, query: "BILLING" })), ["# Billing/Team", "Billing/Team>api_key"]);
+    assert.deepEqual(text(pickerRows({ ...base, query: "archive" })), ["# Archive", "Archive>SENTRY_AUTH_TOKEN"]);
+  });
   it("has no field when nothing matches", () => {
     assert.equal(hasFields(pickerRows({ ...base, query: "zzz" })), false);
   });
