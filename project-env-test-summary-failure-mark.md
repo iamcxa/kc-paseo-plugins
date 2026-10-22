@@ -1,7 +1,7 @@
 ---
 id:
 title: Test shows a summary line and marks failed rows with a red border and (!)
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
