@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
-import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
+import { Pressable, Text, TextInput, View, useWindowDimensions } from "react-native";
+import { Icon, Modal } from "@getpaseo/plugin/client/react-native";
 import {
   type PluginSurfaceProps,
   type SettingsState,
@@ -33,6 +33,8 @@ import {
   tokenStatus,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
+import { FieldPicker, type VaultList } from "./field-picker";
+import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
 import {
   canReadVault,
@@ -49,107 +51,172 @@ type Theme = PluginSurfaceProps["theme"];
 
 type Result = { name: string; ok: boolean; cause?: Cause };
 
-function RefPicker({
+const DIFFERS = "The field name differs from the variable name.";
+const WRAP = { overflowWrap: "anywhere" } as object;
+const SLOT = 32;
+
+function FieldPill({
   name,
-  value,
-  options,
+  view,
+  failed,
   theme,
-  onPick,
+  onOpen,
 }: {
   name: string;
-  value: string;
-  options: { label: string; value: string }[];
+  view: PillView;
+  failed: boolean;
   theme: Theme;
-  onPick(ref: string): void;
+  onOpen(): void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [shown, setShown] = useState(false);
+  const [hover, setHover] = useState(false);
+  const muted = theme.colors.foregroundMuted;
+  const dashed = view.kind === "empty" || view.kind === "raw";
+  const label =
+    view.kind === "ref"
+      ? `${view.vault ? `${view.vault} ` : ""}${view.item} ${view.field}`
+      : view.kind === "raw"
+        ? view.text
+        : "no field picked";
   return (
-    <>
+    <View style={{ flex: 1, minWidth: 0 }}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`Field for ${name}`}
-        onPress={() => setOpen(true)}
+        accessibilityLabel={`Field for ${name}: ${label}`}
+        onPress={onOpen}
         style={{
           flexDirection: "row",
           alignItems: "center",
-          gap: 6,
-          width: 260,
-          backgroundColor: theme.colors.surface2,
+          gap: 8,
+          backgroundColor: view.kind === "empty" ? "transparent" : theme.colors.surface2,
+          borderWidth: 1,
+          borderStyle: dashed ? "dashed" : "solid",
+          borderColor: failed || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
           borderRadius: 8,
           paddingHorizontal: 12,
           paddingVertical: 8,
         }}
       >
-        <Text
-          numberOfLines={1}
-          style={{ flex: 1, color: value ? theme.colors.foreground : theme.colors.foregroundMuted, fontSize: 14 }}
-        >
-          {value || "Pick a field"}
-        </Text>
-        <Icon name="ChevronDown" size={14} color={theme.colors.foregroundMuted} />
+        {view.kind === "empty" ? (
+          <Text style={{ flex: 1, color: muted, fontSize: 14 }}>Pick a field</Text>
+        ) : view.kind === "raw" ? (
+          <Text style={{ flex: 1, minWidth: 0, color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{view.text}</Text>
+        ) : (
+          <Text style={{ flex: 1, minWidth: 0, fontSize: 14, color: theme.colors.foreground, ...WRAP }}>
+            <Text style={{ color: muted }}>
+              {view.vault ? `${view.vault} · ` : ""}
+              {view.item} ›{" "}
+            </Text>
+            {view.field}
+          </Text>
+        )}
+        {view.kind === "ref" && view.differs ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`Why ${name} is marked different`}
+            hitSlop={12}
+            onPress={() => setShown((v) => !v)}
+            onHoverIn={() => setHover(true)}
+            onHoverOut={() => setHover(false)}
+            style={{ borderWidth: 1, borderColor: theme.colors.statusWarning, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}
+          >
+            <Text style={{ color: theme.colors.statusWarning, fontSize: 12 }}>≠</Text>
+          </Pressable>
+        ) : null}
+        <Icon name="ChevronDown" size={14} color={muted} />
       </Pressable>
-      <Modal title={`Field for ${name}`} open={open} onOpenChange={setOpen}>
-        <Modal.Content>
-          {options.map((o) => (
-            <Pressable
-              key={o.value}
-              accessibilityRole="button"
-              onPress={() => {
-                onPick(o.value);
-                setOpen(false);
-              }}
-              style={{ paddingVertical: 8 }}
-            >
-              <Text style={{ color: o.value === value ? theme.colors.accent : theme.colors.foreground, fontSize: 14 }}>
-                {o.label}
-              </Text>
-            </Pressable>
-          ))}
-        </Modal.Content>
-      </Modal>
-    </>
+      {view.kind === "raw" ? (
+        <Text style={{ color: theme.colors.statusDanger, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
+          Not a field reference. It looks like op://vault/item/field.
+        </Text>
+      ) : null}
+      {view.kind === "ref" && view.differs && (shown || hover) ? (
+        <Text style={{ color: muted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>{DIFFERS}</Text>
+      ) : null}
+    </View>
   );
 }
 
 function VariableRow({
   variable,
+  first,
+  failed,
   result,
   theme,
-  children,
+  pill,
   onRemove,
 }: {
   variable: Variable;
+  first: boolean;
+  failed: boolean;
   result: Result | undefined;
   theme: Theme;
-  children: ReactNode;
+  pill: ReactNode;
   onRemove(): void;
 }) {
   const { name } = variable;
   const line = variableLine(variable, result);
-  return (
-    <SettingsRow
-      label={name}
-      hint={line && !line.failed ? line.text : undefined}
-      error={line?.failed ? line.text : undefined}
+  const compact = useWindowDimensions().width < 600;
+  const nameText = (
+    <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
+  );
+  const cross = (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`Remove ${name}`}
+      hitSlop={10}
+      onPress={onRemove}
+      style={{ padding: 6 }}
     >
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 }}>
-        {children}
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={`Remove ${name}`}
-          onPress={onRemove}
-          style={{
-            borderWidth: 1,
-            borderColor: theme.colors.border,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            paddingVertical: 7,
-          }}
-        >
-          <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Remove</Text>
-        </Pressable>
-      </View>
-    </SettingsRow>
+      <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
+    </Pressable>
+  );
+  const slot = (
+    <View style={{ width: SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
+      {failed ? (
+        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: theme.colors.statusDanger, alignItems: "center", justifyContent: "center" }}>
+          <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>!</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+  const status = line ? (
+    <Text style={{ color: line.failed ? theme.colors.statusDanger : theme.colors.foregroundMuted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
+      {line.text}
+    </Text>
+  ) : null;
+  return (
+    <View
+      style={{
+        paddingHorizontal: 16,
+        paddingVertical: 14,
+        borderTopWidth: first ? 0 : 1,
+        borderTopColor: theme.colors.border,
+        gap: 8,
+      }}
+    >
+      {compact ? (
+        <>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+            <View style={{ flex: 1, minWidth: 0 }}>{nameText}</View>
+            {cross}
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 0 }}>
+            {pill}
+            {slot}
+          </View>
+          {status}
+        </>
+      ) : (
+        <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
+          <View style={{ width: 200, paddingTop: 9 }}>{nameText}</View>
+          {pill}
+          {slot}
+          <View style={{ marginTop: 4 }}>{cross}</View>
+        </View>
+      )}
+      {!compact ? status : null}
+    </View>
   );
 }
 
@@ -308,7 +375,45 @@ function ProjectEditor({
         ...vaultChoices({ vaults, vaultIds }, draft.vault),
       ]
     : [];
-  const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
+  const fix = "Close this list, fix the 1Password connection on this page, then open it again.";
+  const unusable =
+    current?.state === "ok"
+      ? vaultReadable
+        ? null
+        : {
+            message: draft.vault ? "This token cannot read that vault." : "No vault chosen yet.",
+            hint: "Choose a vault it can read, then open this list again.",
+          }
+      : token.isFetching
+        ? null
+        : { message: tokenText.label, hint: `${tokenText.hint} ${fix}` };
+  const list: VaultList = refs.isError
+    ? {
+        status: "error",
+        message: (refs.error as Error).message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""),
+        hint: fix,
+      }
+    : refs.data
+      ? { status: "ready", refs: refs.data.refs, skipped: refs.data.skipped }
+      : unusable
+        ? { status: "error", ...unusable }
+        : { status: "loading" };
+  const [picking, setPicking] = useState<string | null>(null);
+  const pickingVariable = draft.variables.find((v) => v.name === picking);
+  const [vaultWanted, setVaultWanted] = useState(false);
+  const loadVault = () => {
+    if (refs.isError) refs.reset();
+    setVaultWanted(true);
+  };
+  useEffect(() => {
+    if (vaultWanted && !refs.data && !refs.isPending && !refs.isError && current?.state === "ok" && vaultReadable) {
+      refs.mutate();
+    }
+  }, [vaultWanted, refs, current?.state, vaultReadable]);
+  useEffect(() => {
+    refs.reset();
+    setVaultWanted(false);
+  }, [account, draft.vault]);
 
   return (
     <>
@@ -396,47 +501,32 @@ function ProjectEditor({
 
       <SettingsSection title="Environment variables">
         <SettingsCard>
-          {draft.variables.map((v) => (
-            <VariableRow
-              key={v.name}
-              variable={v}
-              theme={theme}
-              result={testResults?.find((r) => r.name === v.name)}
-              onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
-            >
-              {refOptions.length > 0 ? (
-                <RefPicker
-                  name={v.name}
-                  value={v.ref}
-                  options={
-                    v.ref === "" || refOptions.some((o) => o.value === v.ref)
-                      ? refOptions
-                      : [{ label: v.ref, value: v.ref }, ...refOptions]
-                  }
-                  theme={theme}
-                  onPick={(ref) => setRef(v.name, ref)}
-                />
-              ) : (
-                <HostInput
-                  defaultValue={v.ref}
-                  placeholder="op://vault/item/field"
-                  placeholderTextColor={theme.colors.foregroundMuted}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  onChangeText={(ref) => setRef(v.name, ref)}
-                  style={{
-                    color: theme.colors.foreground,
-                    backgroundColor: theme.colors.surface2,
-                    borderRadius: 8,
-                    paddingHorizontal: 12,
-                    paddingVertical: 8,
-                    width: 260,
-                    fontSize: 14,
-                  }}
-                />
-              )}
-            </VariableRow>
-          ))}
+          {draft.variables.map((v, i) => {
+            const result = testResults?.find((r) => r.name === v.name);
+            return (
+              <VariableRow
+                key={v.name}
+                variable={v}
+                first={i === 0}
+                failed={result?.ok === false}
+                theme={theme}
+                result={result}
+                onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
+                pill={
+                  <FieldPill
+                    name={v.name}
+                    view={pillView(v.ref, v.name, draft.vault)}
+                    failed={result?.ok === false}
+                    theme={theme}
+                    onOpen={() => {
+                      loadVault();
+                      setPicking(v.name);
+                    }}
+                  />
+                }
+              />
+            );
+          })}
           {draft.variables.length > 0 ? (
             <SettingsAction
               label="Check the variables"
@@ -471,17 +561,6 @@ function ProjectEditor({
             }}
           />
           <SettingsAction
-            label="Pick fields from the vault"
-            hint="Lists item and field names only; values are never sent to the app."
-            actionLabel={refs.isPending ? "Loading…" : "Browse vault"}
-            disabled={current?.state !== "ok" || !vaultReadable || refs.isPending}
-            onPress={() => refs.mutate()}
-            error={refs.error ? (refs.error as Error).message : undefined}
-          />
-          {(refs.data?.skipped ?? []).map((s, i) => (
-            <SettingsRow key={`${i}-${s.item}`} label={s.item} hint={`Not listed: ${s.reason}`} />
-          ))}
-          <SettingsAction
             label="Import names and prompt from Conductor"
             hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
             actionLabel={doImport.isPending ? "Importing…" : "Import"}
@@ -490,6 +569,22 @@ function ProjectEditor({
           />
         </SettingsCard>
       </SettingsSection>
+
+      <FieldPicker
+        title={`Field for ${picking ?? ""}`}
+        open={picking !== null}
+        onOpenChange={(o) => !o && setPicking(null)}
+        name={picking}
+        vault={draft.vault}
+        current={pickingVariable?.ref ?? ""}
+        holders={draft.variables}
+        list={list}
+        theme={theme}
+        onPick={(ref) => {
+          if (picking !== null) setRef(picking, ref);
+          setPicking(null);
+        }}
+      />
 
       <SettingsSection title="Default prompt for new agents">
         <View>

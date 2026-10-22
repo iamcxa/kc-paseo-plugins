@@ -75,12 +75,9 @@ describe("a variable with no field picked", () => {
     assert.equal(project.safeParse({ root: "/r", variables: [{ name: "X", ref: "vault/item" }] }).success, false);
   });
 
-  it("reads No field picked on its row, before any Test says anything", () => {
-    assert.deepEqual(variableLine(newVariable("X"), undefined), { text: "No field picked", failed: true });
-    assert.deepEqual(variableLine(newVariable("X"), { ok: false, cause: "missing-field" }), {
-      text: "No field picked",
-      failed: true,
-    });
+  it("has no line for a row with no field: the dashed pill says it", () => {
+    assert.equal(variableLine(newVariable("X"), undefined), null);
+    assert.equal(variableLine(newVariable("X"), { ok: false, cause: "missing-field" }), null);
   });
 });
 

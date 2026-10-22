@@ -1,5 +1,8 @@
 import type { Cause } from "../shared/cause.ts";
 import type { TokenState } from "../shared/config.ts";
+import { parseRef } from "../shared/ref.ts";
+
+export { parseRef };
 
 export interface OpExit {
   code?: unknown;
@@ -23,19 +26,6 @@ export function classifyOpFailure(exit: OpExit): Cause {
   if (NETWORK.test(line)) return "unreachable";
   if (AUTH.test(line)) return "rejected-token";
   return "unexpected";
-}
-
-export interface ParsedRef {
-  vault: string;
-  item: string;
-  field: string;
-}
-
-export function parseRef(ref: string): ParsedRef | null {
-  if (!ref.startsWith("op://")) return null;
-  const parts = ref.slice("op://".length).split("/");
-  if (parts.length < 3 || parts.some((part) => part.trim() === "")) return null;
-  return { vault: parts[0], item: parts[1], field: parts[parts.length - 1] };
 }
 
 export function isOutsideVault(ref: string, vault: string): boolean {
