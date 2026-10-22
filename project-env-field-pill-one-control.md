@@ -330,3 +330,45 @@ New head d6e5c10620af09bf66f82d553567eeff322735cc, pushed to PR #24 (merge commi
 - `npm test` 191 pass, 0 fail; `npm run typecheck` clean.
 - roborev gate, `--base 681f861ee07c847a83fb59ccb6be27c26960ae95`, on d6e5c10: exit 1, `evidence=roborev:1050` (findings on d6e5c1062). The same two findings as before, not fixed: the vault list is not refreshed once loaded (the review adds "or after replacing the token"; AC-1 requires the second press to read nothing), and the stand-in picker keeps its search text after a pick (picker-grouped's file).
 - validation/accept.sh: sha edited to d6e5c10 and run fresh, every expected line met (grep exit 1; pass 33, fail 0; reads 0, 1, 1 at 1280 and 0, 1 at 400; Remove line; 5 rows left; 6 saved variables). validation/merged.sh holds no sha (it builds the worktree HEAD), so it needed no edit; run fresh on d6e5c10 it printed ALL PASS (38 checks at 1280 and 400 px).
+
+## Stage Report: validation (cycle 3)
+
+Verdict: PASSED (recommended) for candidate d6e5c10620af09bf66f82d553567eeff322735cc (PR #24: merge of main 681f861, the connection line from PR #25, on the validated 316bd4c). No new Material finding. The extra token check FO asked for: the stated scenario is not stuck; the "replaced token" variant leaves a stale list (a Deferred risk, below).
+
+- DONE: Check AC-1 to AC-3, amendment 1, the P2 fix, the save bar and Danger zone still hold on the merged page.
+  Fresh `env -i` bash at d6e5c10: `validation/accept.sh` met every expected line (grep exit 1; pass 33, fail 0; reads 0, 1, 1 at 1280 and 0, 1 at 400; Remove line; 5 rows left; 6 saved variables). `validation/merged.sh` ALL PASS, 38 checks at 1280 and 400. `validation/spike/p2.sh d6e5c10620af09bf66f82d553567eeff322735cc after`: Loading-the-vault 1 at 1 s and 5 s, then 0 with the field list shown at 9, 14 and 20 s, 1 read. Shots `validation/shots-merged-c3/`.
+- DONE: Check the connection line works beside the pill rows.
+  New `validation/conn.sh line` (wrapper of `validation/spike/conn.sh`), fresh `env -i` bash, ALL PASS at 1280 and 400: one row reading "Connected · demo-read · demo-dev" with a Change button, no token box and no Check button; Change reopens the controls with Done and Cancel; after typing another account name, Cancel restores the row, the account and "No unsaved changes"; Change then Done returns to the row. Shots `validation/shots-conn/*-c01..c03`.
+- DONE: Run the package scripts and record exit codes.
+  adr_lint `docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0. comment_ratio (d61e243..d6e5c10) exit 0, 1 comment line in 1041 code lines (the stand-in). doc_impact exit 0 (ADR 0004 listed, earlier `unaffected` reason stands). dispatch_records exit 0 (8 complete). design_surfaces exit 0. `npm test` 191 pass, 0 fail; `npm run typecheck` clean.
+- DONE: Extra check FO asked for (roborev:1050: stale list "or after replacing the token").
+  Fake world, whole run in `validation/conn.sh fixtoken` and `swaptoken` (fake tokens `ops_fake_a`/`ops_fake_b`, no secret). A, as asked: saved token rejected, pill shows "1Password rejected the token / Copy a fresh token from 1Password…", closed; Change, saved a working token for the same account (fake keychain now `demo-read: a`), Done; pill again: the picker lists the fields (SENTRY_ORG present, no error, no "Loading", 1 vault read). Not stuck, at 1280 and at 400. B, the variant: working token and list loaded (1 read), closed; Change, saved a token for different data (keychain `demo-read: b`), Done; pill again: the picker still shows the first list (SENTRY_ORG shown, NEW_FIELD_ONE absent, reads still 1); after reloading the page the same press lists NEW_FIELD_ONE (reads 2). Shots `validation/shots-conn/1280-fixtoken-c10..c12`, `1280-swaptoken-c10..c13`, `400-fixtoken-c10..c12`.
+- DONE: Record what the Captain should see and every unverified obligation.
+  See below.
+
+### Summary
+
+The merged page keeps AC-1 to AC-3, amendment 1, the P2 fix, the save bar and Danger zone, and main's connection line works beside the pill rows at both widths. A person who fixes a rejected token can pick a field on the next press without reopening the page. One Deferred risk, not a finding: replacing a working token with one that reads different data leaves the earlier list until the page is reloaded. It follows the approved design ("kept until the account or vault changes") and AC-1 (a second press reads nothing), so it is not a defect against either. It becomes Material if the Captain wants a replaced token to refresh the list; the fix would be to drop the loaded list when the token is saved (`refs.reset()` in the `store` mutation's `onSuccess`), which changes what AC-1 allows and is FO's and his call. The roborev findings already dispositioned (stand-in search text; no refresh after load) are not re-reported.
+
+### Captain view
+
+At 1280 px the "1Password" section is one row, a green dot, "Connected · demo-read · demo-dev" and a Change button, above the same pill rows, the Danger zone card and the pinned bar ("No unsaved changes", Close, a greyed Save). At 400 px the same row stacks "Connected" over "demo-read · demo-dev" with Change on the right, then the pill rows (name and ✕ on one line, pill below), Danger zone and bar. Change opens the old controls with "Use this connection / Done" and "Keep the current connection / Cancel". A rejected token still opens the picker on "1Password rejected the token"; fixing the token then pressing a pill lists the fields.
+
+### Minimal acceptance script
+
+Run each in a fresh shell, one after another (same isolation as before: port 6871, plugin id field-pill-spike, session fp-val, fake op/security/git, no secret, nothing live), all under `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-pill-one-control/validation/`:
+1. `bash accept.sh`: candidate sha d6e5c10620af09bf66f82d553567eeff322735cc, `grep exit 1`, `pass 33`/`fail 0`, reads `0 1 1` then `0 1`, the Remove line, `5`, `6`, `done`.
+2. `bash spike/p2.sh d6e5c10620af09bf66f82d553567eeff322735cc after`: `Loading-the-vault: 1` at 1 s and 5 s, then `0` with `field-list-shown(SENTRY_ORG): 1` at 9, 14, 20 s (the daemon stays up: `paseo daemon stop --home /tmp/fp-val-spike/home; agent-browser --session fp-val close; rm -rf /tmp/fp-val-spike`).
+3. `bash merged.sh`: PASS lines then `ALL PASS`.
+4. `bash conn.sh line`: PASS lines and `ALL PASS` for 1280 and 400.
+5. `SIZES=1280:1700 bash conn.sh fixtoken`: `FIRST OPEN: Close-this-list(error)=1 list(SENTRY_ORG)=0`, `1Password rejected the token`, `token row: Token works`, then `SECOND OPEN: Close-this-list(error)=0 list(SENTRY_ORG)=1`.
+6. `SIZES=1280:1700 bash conn.sh swaptoken`: `SECOND OPEN` still `list(SENTRY_ORG)=1 list(NEW_FIELD_ONE)=0` (the stale list), `AFTER RELOAD` `list(SENTRY_ORG)=0 list(NEW_FIELD_ONE)=1`.
+Does not cover: touch, light theme, mid widths, a real 1Password vault or the real Paseo app profile, a failed Test row, picker contents, a refresh after the list loads.
+
+### Unverified obligations
+
+- Tap on a touch device; hover at desktop only; light theme; widths between 400 and 1280.
+- Real 1Password vault and token-check timing (fake op only).
+- Picker loading and error shots `05`, `06`, `07` and the failed-row look `10`: implementation's shots only; the rejected-token error was seen here (`fixtoken-c10`).
+- Runtime-wiring mutation of read-once and ≠ not opening the picker: not run. No unit test for the P2 fix.
+- Variant B (replaced token, different data) depends on a fake world where a token for the same keychain name reads other items; a real rotated token normally reads the same data.
