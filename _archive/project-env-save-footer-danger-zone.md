@@ -1,7 +1,7 @@
 ---
 id:
 title: A save bar shows unsaved changes and Stop managing has its own section
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -69,8 +69,11 @@ gates:
                     source: chat, 2026-10-22, answering the field-pill ideation gate
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-22T04:16:59Z
+verdict: PASSED
+completed: 2026-10-22T10:07:46Z
+archived: 2026-10-22T10:07:46Z
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
