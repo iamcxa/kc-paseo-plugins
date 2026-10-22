@@ -172,3 +172,77 @@ A working connection becomes one row (dot, Connected, account, vault, Change); C
 ### Summary
 
 A working connection is one row with Change; Change opens today's controls plus Done and Cancel; a failed check turns the row red with the cause. Not verifiable by unit test: the `view` transitions live in the component, so they are proven by the screenshots and the browser runs only, not by a test that fails when they are removed. Known limits: a typed unsaved token is not kept across a re-mount; run against fakes only.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 4dc112307ded792890fab8d7886359c2ca6dd01b (PR iamcxa/kc-paseo-plugins#25, base main d61e243) against AC-1 and the approved design on an isolated Paseo; give a verdict.
+  Verdict PASSED (recommend). Rebuilt the candidate (`git archive 4dc1123`) on my own Paseo (home /tmp/cc-val, port 6881, id `ccval`, fakes for op/security/git, own agent-browser session); no real op, security, Keychain, ~/.paseo or live plugin touched. Seen: a working connection is one line (green dot, "Connected", account muted, vault normal, Change) at 1280 and 400 px; Change shows account, Check, token, Save token, Vault, Done, Cancel; Cancel after typing demo-one restores the demo-ok line; legacy-api (rejected token) shows a red dot and "1Password rejected the token" with Change; Change plus a typed account survives 1280 to 600 to 1280 and 400 to 1280 and Cancel still restores; a new project collapses the moment a vault is picked, and a one-vault token collapses with no vault choice; a typed token disables Done with "Save the token or clear the field first." and the status row reads "Saved token works ... not saved yet."; Done returns to the line. `npm test` 180 pass 0 fail (session-open deadline test failed once under load, rerun alone and in the full run passed); typecheck clean.
+- DONE: Confirm the `connectionLine` tests fail when their behaviour is removed.
+  Throwaway copy in /tmp/cc-val-mut, one deletion at a time: removing the `canReadVault` line fails "vault is unreadable, empty..."; moving `failed` below the status check fails "recheck failed even though an earlier check succeeded"; removing the `vault === ""` line, the `fetching` line or the `status.state !== "ok"` line fails one test each. Survived: removing the `status.vaults.length === 0` line (the test checks only `kind` of `ok([])`, and the vault is then unreadable anyway; only the label differs). Polish, no loss.
+- DONE: Judge the two departures from the design; say whether `changing` should move into the `openProject` store and whether the `view` transitions need a test that fails when removed.
+  (1) Initial view computed from `draft`: accepted; the design's own interfaces note says the editor recomputes `view` from the draft after a re-mount, and a draft with account and vault is a line either way. (2) Module-level `changing` keyed by session: it works (resize runs above) and cannot collide, because session numbers never repeat; but it is the same re-mount state `openProject` exists for, so it should move into the store as a field cleared by `begin`/`close`, which removes the manual `changing = null` and lets `open-project.test.ts` prove it in node. Polish, not a blocker: no observed harm. (3) `view` transitions: no component test harness exists in the repo, so a failing-test needs the transitions pulled into a pure function first; not required by AC-1 (its clause (b) names screenshots for them). Runtime mutation instead: deleting `patch(before)` in Cancel leaves "demo-one . Dev" on the line after Cancel, and deleting the `changing = {...}` assignment drops Change back to the line on resize; the acceptance script below asserts both outcomes (I ran those two mutants by hand with the same steps, not through the script).
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Script below ran in a fresh `bash` at 4dc1123: 6 unit-test passes, typecheck ok, 7 PASS 0 FAIL, teardown leaves only the screenshots. `adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0 (the candidate adds no ADR). Also: `comment_ratio.py d61e243 4dc1123`: 1 comment line of 193 code lines, 0.5%, exit 0 (the one comment states the 720 px re-mount, a fact the code cannot); `design_surfaces.py check`: presentable; `doc_impact.py`: 0 documents; `dispatch_records.py`: 3 records complete.
+- DONE: Look at the whole-page screenshots at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  1280 (/tmp/cc-val/shots/v11-cancel-after-resize-1280.png, v05-problem-1280.png, v02-change-1280.png; script copies land in /tmp/cc-accept/shots): under the project name and grey folder path, a "1Password" card of one row, green dot, "Connected", muted "demo-ok", normal "Dev", Change at the right; the variables, prompt and save parts below are today's. Problem: the dot is red and the cause is the first words. Change: today's rows plus "Use this connection / Done" and "Keep the current connection / Cancel". 400 (v08-connected-400.png, v09-change-400.png): two-line row, "Connected" above "demo-ok . Dev", dot aligned with the headline, Change at the right, host sidebar hidden. Unverified: real 1Password and Keychain (fakes only); light theme (not rerun; design pictures only); the "Checking..." row (too short to catch); Save token inside Change (shipped by a sibling task); a typed token lost on re-mount (a known limit; the implementer's note); the Paseo desktop (Electron) app, only the web client was driven; the roborev result `roborev:1036` was read, not rerun; I did not weigh PR #25's CI.
+
+### Minimal acceptance script
+
+Needs: Paseo.app 0.12.0 at /Applications, `agent-browser`, node, the worktree below; about 2 minutes, ports 6882. It uses fakes only and no secret.
+
+```bash
+WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-connection-collapse
+S=/tmp/cc-accept; PORT=6882; export AGENT_BROWSER_SESSION=cc-accept
+chk(){ if eval "$2"; then echo "PASS  $1"; else echo "FAIL  $1"; fi; }
+echo "== 1. unit tests and typecheck at the candidate"
+git -C $WT rev-parse HEAD
+( cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/connection-line.test.ts 2>&1 | grep -E "^. (pass|fail) " ; npm run typecheck >/dev/null 2>&1 && echo "typecheck ok" || echo "typecheck FAIL" )
+echo "== 2. isolated Paseo with fake op/security/git (own home, port $PORT, plugin id ccaccept)"
+rm -rf $S; mkdir -p $S/plugin $S/world $S/home/plugin-settings/ccaccept $S/repos $S/shots
+git -C $WT archive 4dc1123 project-env | tar -x -C $S/plugin --strip-components=1
+cd $S/plugin && ln -s $WT/project-env/node_modules node_modules && mkdir server/fakes && cp test/fakes/* server/fakes/
+echo '{"id":"ccaccept","media":[],"requirements":{"paseo":">=0.12.0"},"name":"Project environment (acceptance)"}' > paseo-plugin.json
+for t in op security git; do printf '#!/bin/sh\nexec %s %s/plugin/server/fakes/%s.mjs %s/world "$@"\n' "$(command -v node)" $S $t $S > $S/world/$t; chmod +x $S/world/$t; done
+printf 'import type { Tools } from "./secrets.ts";\nexport const realTools: Tools = { op: "%s/world/op", security: "%s/world/security", git: "%s/world/git" };\n' $S $S $S > server/tools.ts
+echo '{"keychain":{"demo-ok":"demo-ok","demo-one":"demo-one","demo-revoked":"demo-revoked"},"op":{"accounts":{"demo-ok":{"vaults":["Dev","Prod"]},"demo-one":{"vaults":["Solo"]}}}}' > $S/world/scenario.json
+for r in ci-app legacy-api; do mkdir -p $S/repos/$r; git -C $S/repos/$r init -q; done
+echo "{\"version\":1,\"values\":{\"projects\":[{\"root\":\"$S/repos/ci-app\",\"serviceAccount\":\"demo-ok\",\"vault\":\"Dev\",\"variables\":[],\"prompt\":\"\"},{\"root\":\"$S/repos/legacy-api\",\"serviceAccount\":\"demo-revoked\",\"vault\":\"Dev\",\"variables\":[],\"prompt\":\"\"}]}}" > $S/home/plugin-settings/ccaccept/projects.json
+echo "{\"version\":1,\"daemon\":{\"listen\":\"127.0.0.1:$PORT\",\"cors\":{\"allowedOrigins\":[\"https://app.paseo.sh\"]},\"relay\":{\"enabled\":false}},\"app\":{\"baseUrl\":\"https://app.paseo.sh\"},\"plugins\":{\"ccaccept\":{\"source\":\"directory\",\"path\":\"$S/plugin\",\"enabled\":true}},\"pluginsEnabled\":true}" > $S/home/config.json
+( PASEO_HOME=$S/home PASEO_LISTEN=127.0.0.1:$PORT PASEO_RELAY_ENABLED=false PASEO_WEB_UI_ENABLED=true PASEO_WEB_UI_DIST_DIR=/Applications/Paseo.app/Contents/Resources/app-dist nohup /Users/kent/.local/bin/paseo daemon run --home $S/home > $S/daemon.log 2>&1 & )
+until curl -s -o /dev/null http://127.0.0.1:$PORT/; do sleep 1; done; sleep 4
+SID=$(cat $S/home/server-id)
+snap(){ agent-browser snapshot -i 2>&1; }
+text(){ agent-browser get text body 2>&1; }
+press(){ local r; r=$(snap | grep -E "button \"$1\"( |\\[)" | sed -n "$((${2:-0}+1))p" | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser click @$r >/dev/null; sleep 2; }
+openproj(){ agent-browser open "http://127.0.0.1:$PORT/settings/hosts/$SID/plugins/ccaccept/projects" >/dev/null; sleep 3; press Edit $1; sleep 2; }
+echo "== 3. a working connection is one line; Change opens the controls; Cancel restores the line"
+agent-browser set viewport 1280 1500 >/dev/null
+openproj 0
+chk "ci-app: line reads Connected, demo-ok, Dev with a Change button" 'text | grep -q Connected && text | grep -q "demo-ok" && snap | grep -q "Change the 1Password connection"'
+chk "ci-app: no account textbox while collapsed" '! snap | grep -q "textbox \"1Password service account\""'
+agent-browser screenshot --full $S/shots/1-connected-1280.png >/dev/null
+press "Change the 1Password connection"
+chk "Change: account, Check, token, Save token, Vault, Done, Cancel shown" 'S1=$(snap); for w in "textbox \"1Password service account\"" "button \"Check\"" "textbox \"Service account token\"" "button \"Save token\"" "button \"Vault: Dev\"" "button \"Done\"" "button \"Cancel\""; do echo "$S1" | grep -q "$w" || exit 1; done'
+agent-browser screenshot --full $S/shots/2-change-1280.png >/dev/null
+agent-browser set viewport 400 1500 >/dev/null; sleep 3; agent-browser set viewport 1280 1500 >/dev/null; sleep 3
+chk "Change survives a resize across 720 px (400 then 1280)" 'snap | grep -q "button \"Cancel\"" && snap | grep -q "textbox \"1Password service account\""'
+R=$(snap | grep 'textbox "1Password service account"' | sed -E 's/.*ref=(e[0-9]+).*/\1/'); agent-browser fill @$R demo-one >/dev/null; press Check 0; sleep 2
+chk "Typed account demo-one: Done is disabled (vault Dev not readable)" 'snap | grep -q "button \"Done\" \[disabled"'
+press Cancel 0
+chk "Cancel restores the one line with demo-ok" 'text | grep -q Connected && text | grep -q "demo-ok" && ! text | grep -q "demo-one"'
+echo "== 4. a failed check is red with its cause"
+openproj 1
+chk "legacy-api: line says 1Password rejected the token, demo-revoked, with Change" 'text | grep -q "1Password rejected the token" && snap | grep -q "Change the 1Password connection"'
+agent-browser screenshot --full $S/shots/3-problem-1280.png >/dev/null
+echo "== 5. 400 px"
+agent-browser set viewport 400 1500 >/dev/null; openproj 0; agent-browser screenshot --full $S/shots/4-connected-400.png >/dev/null
+echo "screenshots: $S/shots/ (open them: the dot is green with Connected, account muted, vault normal; at 400 px the second line holds account and vault)"
+echo "== teardown"
+pkill -f "daemon run --home $S/home"; agent-browser close >/dev/null 2>&1; rm -rf $S/plugin $S/home $S/world $S/repos
+```
+
+Not covered: real 1Password or Keychain, light theme, the desktop app, a typed token across a re-mount, layout details beyond the screenshots (look at /tmp/cc-accept/shots/*.png).
+
+### Summary
+
+PASSED (recommend): AC-1 holds on the rebuilt candidate in a real browser on an isolated Paseo, and the `connectionLine` tests fail when five of the six branches are removed. Two polish items, neither blocking: move `changing` into the `openProject` store, and the untested empty-vault label. The view transitions are proven by the browser run and the script, not by a unit test.
