@@ -322,3 +322,11 @@ Does not cover: touch, light theme, mid widths, a real 1Password vault, the real
 - No unit test for the P2 fix.
 - Codex round 2 P2 on 316bd4c (the typed-reference check in the stand-in `shared/field-picker.ts` accepts empty path segments that `parseRef` rejects): declined here, routed to project-env-field-picker-grouped, which replaces that file; FO puts it in that task's implementation dispatch. The Captain tries the screen only after picker-grouped lands.
 - Validator observation (validation cycle 2): at 1280 by 1700 the sticky save bar covers the top of the Danger zone card until the page is scrolled to the end; it belongs to the merged save-footer task, not this one. FO raises it with the Captain when he tries the screen.
+
+### Main merge (681f861)
+
+New head d6e5c10620af09bf66f82d553567eeff322735cc, pushed to PR #24 (merge commit of origin/main 681f861; no rebase, no force-push, no other change).
+- Conflicts: two, both in `project-env/client/settings-screen.tsx`. (1) The `react-native` and host import lines: took main's `Platform, Pressable, Text, TextInput, useWindowDimensions, View` and `Icon, Modal, useToast`; dropped `HostInput`. (2) After `vaultOptions`: kept main's `connectionLine`, `nothingPending` and the `view`-to-"line" effect and dropped main's `refOptions` line (it fed the removed `RefPicker`), then kept my `list`, `picking` and the two vault-load effects unchanged. The save bar, the connection line (`ConnectionLineRow`, `changing`) and the pill rows are all in the merged file.
+- `npm test` 191 pass, 0 fail; `npm run typecheck` clean.
+- roborev gate, `--base 681f861ee07c847a83fb59ccb6be27c26960ae95`, on d6e5c10: exit 1, `evidence=roborev:1050` (findings on d6e5c1062). The same two findings as before, not fixed: the vault list is not refreshed once loaded (the review adds "or after replacing the token"; AC-1 requires the second press to read nothing), and the stand-in picker keeps its search text after a pick (picker-grouped's file).
+- validation/accept.sh: sha edited to d6e5c10 and run fresh, every expected line met (grep exit 1; pass 33, fail 0; reads 0, 1, 1 at 1280 and 0, 1 at 400; Remove line; 5 rows left; 6 saved variables). validation/merged.sh holds no sha (it builds the worktree HEAD), so it needed no edit; run fresh on d6e5c10 it printed ALL PASS (38 checks at 1280 and 400 px).

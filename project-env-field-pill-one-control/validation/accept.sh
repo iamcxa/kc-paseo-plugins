@@ -1,5 +1,5 @@
 #!/bin/bash
-# Minimal acceptance script for project-env-field-pill-one-control, candidate 316bd4c0044bd2927d6fb345a68361d5584be7c7.
+# Minimal acceptance script for project-env-field-pill-one-control, candidate d6e5c10620af09bf66f82d553567eeff322735cc.
 # Needs: node, npm deps already installed in the worktree, paseo 0.12.0 CLI plus /Applications/Paseo.app, agent-browser, python3.
 # Uses its own throwaway daemon (port 6871, /tmp/fp-val-spike, plugin id field-pill-spike, session fp-val) with fake op/security/git:
 # no Keychain, no 1Password, no live plugin, no ~/.paseo. Reads no secret. Allow ~5 minutes on a quiet machine.
@@ -7,7 +7,7 @@ set -u
 WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-field-pill-one-control
 SP=/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-pill-one-control/validation/spike
 export SHOTS=/tmp/fp-val-accept-shots; mkdir -p "$SHOTS"
-echo "== 1 candidate: expect 316bd4c0044bd2927d6fb345a68361d5584be7c7"; git -C "$WT" rev-parse HEAD
+echo "== 1 candidate: expect d6e5c10620af09bf66f82d553567eeff322735cc"; git -C "$WT" rev-parse HEAD
 echo "== 2 no Browse vault / RefPicker / HostInput left: expect no output below and 'grep exit 1'"
 grep -n "Browse vault\|RefPicker\|HostInput" "$WT/project-env/client/settings-screen.tsx"; echo "grep exit $?"
 echo "== 3 new and rewritten tests: expect 'pass 33' and 'fail 0'"
