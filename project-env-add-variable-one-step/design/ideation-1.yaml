@@ -1,0 +1,63 @@
+design_review:
+  preview: project-env-add-variable-one-step/design/preview-desktop-dark-09-name-only-row.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-02-picker-open.png, preview-desktop-dark-09-name-only-row.png
+      seen: The picker lists SENTRY_AUTH_TOKEN and PATH in the same plain style as every other field, with no mark for "already in this project" or "reserved". The row for each is only found out about after the dialog closes, as an empty-name row with a red reason (the two red rows in 09).
+      fix: Mark already-used and reserved fields in the picker list itself (muted text plus a short reason), so the person learns it before picking, not after.
+    - severity: MAJOR
+      dimension: states
+      where: preview-desktop-dark-09-name-only-row.png (Save block)
+      seen: Save is off with "Name 2 variables first" and says nothing about the NEW_API_KEY row, whose dashed "Pick a field" pill is empty. No picture shows whether Save is on or off when only the pill is empty, or what Save does with that row.
+      fix: Add a picture and one line of help for a row with a name but no field, stating whether it blocks Save; if it does not block, say what it saves.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-09-name-only-row.png (Variables header)
+      seen: Test (about 50x28) and "+ Add" (about 58x28) are smaller than Check, Import, Save and Stop managing in the cards (about 67x32), and "+ Add" is the only button with a plus glyph. Test and Add have the same outline weight, so the header has no primary action.
+      fix: Use the card button size for both header buttons, drop the plus glyph or use it on all add actions, and keep Test as the quieter one.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-09-name-only-row.png
+      seen: At 400 px, Test and "+ Add" are about 46x26 with about 8 px between them, and the row remove "x" glyphs are about 14 px. All are below the 44 px touch target, and Test sits right next to the new Add.
+      fix: Give the header buttons and the row remove icon a 44 px hit area, with more space between Test and Add.
+    - severity: MINOR
+      dimension: flow
+      where: preview-compact-dark-09-name-only-row.png, preview-desktop-dark-09-name-only-row.png
+      seen: The new row (NEW_API_KEY) is appended at the bottom of the list, about 450 px (desktop) and 740 px (400 px) below the Add button that created it. The previews show no scroll-to, highlight or focus on it, and for a kept name nothing is selected.
+      fix: Scroll the new row into view and flash it briefly, and focus its pill when the name was kept.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-09-name-only-row.png
+      seen: In the two empty-name rows the 3-line error in a narrow name column makes the row about 95 px tall against about 54 px for the others. The pill and the x are centred on the whole cell, so the pill sits lower than the input beside it.
+      fix: Align the pill and x to the name input's line, and let the error span the full row width.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-09-name-only-row.png (PATH row error)
+      seen: The red reason says "the agent needs its own value to run. The agent keeps its own value.", which says the same thing twice. The small red text on the dark card is also low-contrast.
+      fix: Cut to one sentence ("PATH is reserved: the agent keeps its own value.") and check the red against 4.5:1.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-09-name-only-row.png
+      seen: A named row shows its name as plain text, an unnamed row shows a filled input whose only label is the VARIABLE_NAME placeholder, and the "Pick a field" pill is a dashed, grey-text box that looks disabled.
+      fix: Make an unnamed row's input visibly editable (a border or focus ring, or a persistent label) and give the "Pick a field" pill a readable text colour and an action look.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-07-typed-name.png, preview-desktop-dark-08-typed-name-refused.png, preview-desktop-dark-12-unavailable-picker.png
+      seen: The "Add NAME" suggestion is a bordered box that looks like a field. The refused state puts red "already in this project" text in the same box (no longer a button), and "No field matches." sits under it. The dialog's top edge moves between 521 px (02), 735 px (07, 08) and 727 px (12) as its content changes.
+      fix: Style the suggestion as a list row or button, show the refusal as help text rather than inside the button box, and pin the dialog's top edge.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole
+      seen: The previews do not show the following states. Picker loading; a picker with many fields, or a scrolled one, with a sticky search box; a long name or long field label (the name column is about 225 px) truncating or wrapping; a typed name that is empty, has only symbols, or is longer than the limit; many rows (20 or more); read-only or disabled when the vault is not connected (only the picker shows 12); an undo after a one-click add.
+      fix: Add pictures for loading, many fields, long text and an invalid typed name, and state how a wrong add is undone.
+    - severity: MINOR
+      dimension: theme-size
+      where: set as a whole
+      seen: Only dark at 1280 px and 400 px is drawn. There is no light theme and no mid width (about 768 px), and no 400 px picture shows the on-screen keyboard over the bottom sheet while the search box is focused.
+      fix: Add light-theme pictures of 02 and 09 and a 400 px picture with the keyboard open, or declare them out of scope.
+  limitations:
+    - I opened only desktop 02, 07, 08, 09, 12 and compact 02 and 09; the other pictures (01, 03 to 06, 10, 11 at both sizes, and compact 07, 08, 11, 12) I did not open, so findings about them are inferred from the proposal and the pictures I did open.
+    - The pictures are static, so I could not check hover, focus, keyboard behaviour, animation, whether the dialog closes after a pick, or whether Enter adds the suggestion.
+    - Touch sizes are measured from the 400 px picture (displayed at 348 px, scaled by 1.15) and are approximate.
+    - Dark theme only; no light theme was available to review.

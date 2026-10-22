@@ -1,0 +1,29 @@
+--- /Users/kent/Project/kc-paseo-plugins/project-env/shared/config.ts	2026-10-22 01:15:13
++++ shared/config.ts	2026-10-22 12:40:29
+@@ -49,6 +49,26 @@
+   return null;
+ }
+ 
++export type NameFromLabel =
++  | { name: string; state: "kept" | "converted" }
++  | { name: ""; state: "refused"; why: "reserved" | "used" | "shape"; reason: string };
++
++// The name a new variable gets from the label of the field it was added from (ADR 0005: label equals name).
++export function nameFromLabel(label: string, existing: readonly string[]): NameFromLabel {
++  const text = label.trim();
++  let candidate = text;
++  if (!NAME_SHAPE.test(text)) {
++    candidate = text.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "").toUpperCase();
++    if (/^[0-9]/.test(candidate)) candidate = `_${candidate}`;
++  }
++  if (candidate === "") {
++    return { name: "", state: "refused", why: "shape", reason: text === "" ? "Name this variable" : `"${text}" has no letters or digits to make a name from` };
++  }
++  const reason = refusal(candidate, existing);
++  if (reason) return { name: "", state: "refused", why: reservedReason(candidate) ? "reserved" : "used", reason };
++  return { name: candidate, state: candidate === text ? "kept" : "converted" };
++}
++
+ export function splitImported(names: readonly string[], existing: readonly string[]) {
+   const have = new Set(existing);
+   const add: string[] = [];

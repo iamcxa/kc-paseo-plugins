@@ -1,0 +1,642 @@
+--- /Users/kent/Project/kc-paseo-plugins/project-env/client/settings-screen.tsx	2026-10-22 01:15:13
++++ client/settings-screen.tsx	2026-10-22 12:48:39
+@@ -1,6 +1,6 @@
+ import { useMutation, useQuery } from "@tanstack/react-query";
+-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+-import { Pressable, Text, TextInput, View } from "react-native";
++import React, { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
++import { Pressable, Text, TextInput, View, useWindowDimensions } from "react-native";
+ import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
+ import {
+   type PluginSurfaceProps,
+@@ -24,6 +24,7 @@
+   type Project,
+   type Variable,
+   newVariable,
++  nameFromLabel,
+   refusal,
+   splitImported,
+   variableLine,
+@@ -48,110 +49,298 @@
+ 
+ type Result = { name: string; ok: boolean; cause?: Cause };
+ 
+-function RefPicker({
+-  name,
+-  value,
+-  options,
++type Field = { ref: string; item: string; label: string };
++const parseRef = (ref: string): Field => {
++  const [, , , item = "", ...rest] = ref.split("/");
++  return { ref, item, label: rest.join("/") };
++};
++
++// Stand-in for the grouped picker of project-env-field-picker-grouped: grouped list, search, and the Add-only footer action.
++function FieldPicker({
++  title,
++  open,
++  onOpenChange,
++  state,
++  fields,
++  skipped,
++  existing,
++  addByName,
+   theme,
+   onPick,
++  onAddByName,
+ }: {
+-  name: string;
+-  value: string;
+-  options: { label: string; value: string }[];
++  title: string;
++  open: boolean;
++  onOpenChange(open: boolean): void;
++  state: { kind: "ready" } | { kind: "loading" } | { kind: "unavailable"; text: string };
++  fields: Field[];
++  skipped: { item: string; reason: string }[];
++  existing: string[];
++  addByName: boolean;
+   theme: Theme;
+-  onPick(ref: string): void;
++  onPick(field: Field): void;
++  onAddByName(text: string): void;
+ }) {
+-  const [open, setOpen] = useState(false);
++  const [query, setQuery] = useState("");
++  useEffect(() => {
++    if (!open) setQuery("");
++  }, [open]);
++  const q = query.trim().toLowerCase();
++  const shown = fields.filter((f) => q === "" || `${f.item} ${f.label}`.toLowerCase().includes(q));
++  const items = [...new Set(shown.map((f) => f.item))];
++  const typed = addByName && query.trim() !== "" ? nameFromLabel(query, existing) : null;
++  const noteFor = (f: Field) => {
++    if (!addByName) return null;
++    const r = nameFromLabel(f.label, existing);
++    return r.state !== "refused" ? null : r.why === "reserved" ? "reserved; you name it" : r.why === "used" ? "name in use; you name it" : "you name it";
++  };
++  const muted = { color: theme.colors.foregroundMuted, fontSize: 13 };
+   return (
+-    <>
+-      <Pressable
+-        accessibilityRole="button"
+-        accessibilityLabel={`Field for ${name}`}
+-        onPress={() => setOpen(true)}
+-        style={{
+-          flexDirection: "row",
+-          alignItems: "center",
+-          gap: 6,
+-          width: 260,
+-          backgroundColor: theme.colors.surface2,
+-          borderRadius: 8,
+-          paddingHorizontal: 12,
+-          paddingVertical: 8,
+-        }}
+-      >
+-        <Text
+-          numberOfLines={1}
+-          style={{ flex: 1, color: value ? theme.colors.foreground : theme.colors.foregroundMuted, fontSize: 14 }}
+-        >
+-          {value || "Pick a field"}
+-        </Text>
+-        <Icon name="ChevronDown" size={14} color={theme.colors.foregroundMuted} />
+-      </Pressable>
+-      <Modal title={`Field for ${name}`} open={open} onOpenChange={setOpen}>
+-        <Modal.Content>
+-          {options.map((o) => (
++    <Modal title={title} open={open} onOpenChange={onOpenChange}>
++      <Modal.Content>
++        <HostInput
++          value={query}
++          onChangeText={setQuery}
++          placeholder={addByName ? "Search fields, or type a name" : "Search fields"}
++          placeholderTextColor={theme.colors.foregroundMuted}
++          autoCapitalize="none"
++          autoCorrect={false}
++          accessibilityLabel="Search fields"
++          style={{
++            color: theme.colors.foreground,
++            backgroundColor: theme.colors.surface2,
++            borderRadius: 8,
++            paddingHorizontal: 12,
++            paddingVertical: 8,
++            fontSize: 14,
++          }}
++        />
++        {typed ? (
++          typed.state === "refused" ? (
++            <Text style={{ color: theme.colors.statusDanger, fontSize: 13 }}>{typed.reason}</Text>
++          ) : (
+             <Pressable
+-              key={o.value}
+               accessibilityRole="button"
+-              onPress={() => {
+-                onPick(o.value);
+-                setOpen(false);
+-              }}
+-              style={{ paddingVertical: 8 }}
++              accessibilityLabel={`Add ${typed.name} and pick the field later`}
++              onPress={() => onAddByName(query)}
++              style={{ paddingVertical: 8, flexDirection: "row", gap: 8, alignItems: "center" }}
+             >
+-              <Text style={{ color: o.value === value ? theme.colors.accent : theme.colors.foreground, fontSize: 14 }}>
+-                {o.label}
++              <Icon name="Plus" size={14} color={theme.colors.foreground} />
++              <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>
++                Add <Text style={{ fontWeight: "600" }}>{typed.name}</Text> and pick the field later
+               </Text>
+             </Pressable>
+-          ))}
+-        </Modal.Content>
+-      </Modal>
+-    </>
++          )
++        ) : null}
++        {state.kind === "loading" ? <Text style={muted}>Loading the vault…</Text> : null}
++        {state.kind === "unavailable" ? <Text style={muted}>{state.text}</Text> : null}
++        {state.kind === "ready" && items.length === 0 ? (
++          <Text style={muted}>{fields.length === 0 ? "This vault has no fields to list." : "No field matches."}</Text>
++        ) : null}
++        {items.map((item) => (
++          <View key={item} style={{ gap: 2 }}>
++            <Text style={{ color: theme.colors.foregroundMuted, fontSize: 12, marginTop: 6 }}>{item}</Text>
++            {shown
++              .filter((f) => f.item === item)
++              .map((f) => (
++                <Pressable
++                  key={f.ref}
++                  accessibilityRole="button"
++                  accessibilityLabel={`${f.item} ${f.label}`}
++                  onPress={() => onPick(f)}
++                  style={{ paddingVertical: 7 }}
++                >
++                  <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>
++                    {f.label}
++                    {noteFor(f) ? <Text style={{ color: theme.colors.foregroundMuted, fontSize: 12 }}>{`  ·  ${noteFor(f)}`}</Text> : null}
++                  </Text>
++                </Pressable>
++              ))}
++          </View>
++        ))}
++        {skipped.map((x, i) => (
++          <Text key={`${i}-${x.item}`} style={muted}>
++            Not listed: {x.item}, {x.reason}
++          </Text>
++        ))}
++      </Modal.Content>
++    </Modal>
+   );
+ }
+ 
++function Pill({ name, value, theme, onPress }: { name: string; value: string; theme: Theme; onPress(): void }) {
++  const narrow = useWindowDimensions().width < 520;
++  const f = value ? parseRef(value) : null;
++  return (
++    <Pressable
++      accessibilityRole="button"
++      accessibilityLabel={`Field for ${name}`}
++      onPress={onPress}
++      style={{
++        flexDirection: "row",
++        alignItems: "center",
++        gap: 6,
++        width: narrow ? "100%" : 400,
++        maxWidth: "100%",
++        flexShrink: 1,
++        backgroundColor: f ? theme.colors.surface2 : "transparent",
++        borderWidth: 1,
++        borderStyle: f ? "solid" : "dashed",
++        borderColor: f ? "transparent" : "#4a4a4a",
++        borderRadius: 9,
++        paddingLeft: 11,
++        paddingRight: 10,
++        paddingVertical: 8,
++      }}
++    >
++      <Text
++        numberOfLines={1}
++        style={{ flex: 1, fontSize: 13, color: f ? theme.colors.foreground : theme.colors.foregroundMuted }}
++      >
++        {f ? (
++          <>
++            <Text style={{ color: theme.colors.foregroundMuted }}>{f.item} › </Text>
++            {f.label}
++          </>
++        ) : (
++          "Pick a field"
++        )}
++      </Text>
++      <Icon name="ChevronDown" size={14} color={theme.colors.foregroundMuted} />
++    </Pressable>
++  );
++}
++
++// Stand-in for the row of project-env-field-pill-one-control, plus the naming state this task adds.
+ function VariableRow({
+   variable,
+   result,
+   theme,
+-  children,
++  naming,
++  note,
++  reveal,
++  others,
++  onName,
++  onPill,
+   onRemove,
+ }: {
+   variable: Variable;
+   result: Result | undefined;
+   theme: Theme;
+-  children: ReactNode;
++  naming: boolean;
++  note: string | null;
++  reveal: boolean;
++  others: string[];
++  onName(name: string, note: string | null): void;
++  onPill(): void;
+   onRemove(): void;
+ }) {
+   const { name } = variable;
+-  const line = variableLine(variable, result);
+-  return (
+-    <SettingsRow
+-      label={name}
+-      hint={line && !line.failed ? line.text : undefined}
+-      error={line?.failed ? line.text : undefined}
++  const line = variable.ref === "" ? null : variableLine(variable, result);
++  const editing = naming || name === "";
++  const [text, setText] = useState(name);
++  const narrow = useWindowDimensions().width < 520;
++  const box = useRef<View>(null);
++  useEffect(() => {
++    if (reveal) (box.current as unknown as { scrollIntoView?(o: object): void } | null)?.scrollIntoView?.({ block: "nearest" });
++  }, [reveal]);
++  const removeButton = (
++    <Pressable
++      accessibilityRole="button"
++      accessibilityLabel={`Remove ${name || "this variable"}`}
++      onPress={onRemove}
++      style={{ padding: 6 }}
+     >
+-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 }}>
+-        {children}
+-        <Pressable
+-          accessibilityRole="button"
+-          accessibilityLabel={`Remove ${name}`}
+-          onPress={onRemove}
+-          style={{
+-            borderWidth: 1,
+-            borderColor: theme.colors.border,
+-            borderRadius: 8,
+-            paddingHorizontal: 12,
+-            paddingVertical: 7,
+-          }}
+-        >
+-          <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Remove</Text>
+-        </Pressable>
++      <Text style={{ color: theme.colors.foregroundMuted, fontSize: 15 }}>✕</Text>
++    </Pressable>
++  );
++  const commit = () => {
++    const t = text.trim();
++    if (t === "" && name === "") return;
++    const why = t === "" ? "Name this variable" : refusal(t, others);
++    if (why) onName("", why);
++    else onName(t, null);
++  };
++  return (
++    <View
++      ref={box}
++      style={{
++        flexDirection: "row",
++        flexWrap: "wrap",
++        alignItems: "center",
++        gap: 8,
++        paddingVertical: 9,
++        paddingLeft: 14,
++        paddingRight: 10,
++        borderTopWidth: 1,
++        borderTopColor: theme.colors.border,
++      }}
++    >
++      <View style={{ flexDirection: "row", alignItems: "flex-start", flexGrow: 1, flexBasis: narrow ? "100%" : 200, minWidth: 0 }}>
++      <View style={{ flex: 1, minWidth: 0 }}>
++        {editing ? (
++          <HostInput
++            value={text}
++            onChangeText={setText}
++            autoFocus
++            selectTextOnFocus
++            autoCapitalize="none"
++            autoCorrect={false}
++            accessibilityLabel="Variable name"
++            placeholder="VARIABLE_NAME"
++            placeholderTextColor={theme.colors.foregroundMuted}
++            onSubmitEditing={commit}
++            onBlur={commit}
++            style={{
++              color: theme.colors.foreground,
++              backgroundColor: theme.colors.surface2,
++              borderRadius: 8,
++              paddingHorizontal: 10,
++              paddingVertical: 6,
++              fontSize: 14,
++            }}
++          />
++        ) : (
++          <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>{name}</Text>
++        )}
++        {editing && (note || name === "") ? (
++          <Text style={{ color: theme.colors.statusDanger, fontSize: 12, marginTop: 3 }}>{note ?? "Name this variable"}</Text>
++        ) : null}
++        {!editing && line ? (
++          <Text style={{ color: line.failed ? theme.colors.statusDanger : theme.colors.foregroundMuted, fontSize: 12, marginTop: 2 }}>
++            {line.text}
++          </Text>
++        ) : null}
+       </View>
+-    </SettingsRow>
++      {narrow ? removeButton : null}
++      </View>
++      <Pill name={name || "this variable"} value={variable.ref} theme={theme} onPress={onPill} />
++      {narrow ? null : removeButton}
++    </View>
+   );
+ }
+ 
++function HeaderButton({ label, theme, disabled, onPress }: { label: string; theme: Theme; disabled?: boolean; onPress(): void }) {
++  return (
++    <Pressable
++      accessibilityRole="button"
++      accessibilityLabel={label}
++      disabled={disabled}
++      onPress={onPress}
++      style={{
++        borderWidth: 1,
++        borderColor: theme.colors.border,
++        borderRadius: 8,
++        paddingHorizontal: 11,
++        paddingVertical: 5,
++        opacity: disabled ? 0.5 : 1,
++      }}
++    >
++      <Text style={{ color: theme.colors.foreground, fontSize: 13 }}>{label}</Text>
++    </Pressable>
++  );
++}
++
+ const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
+ 
+ function ProjectEditor({
+@@ -168,8 +357,10 @@
+   const [draft, setDraft] = useState(initial);
+   const [edits, setEdits] = useState(0);
+   const [revision] = useState(settings.revision);
+-  const [newName, setNewName] = useState("");
+-  const nameInput = useRef<SettingsInputHandle>(null);
++  const [picker, setPicker] = useState<{ mode: "add" } | { mode: "row"; index: number } | null>(null);
++  const [naming, setNaming] = useState<number | null>(null);
++  const [notes, setNotes] = useState<Record<number, string>>({});
++  const [added, setAdded] = useState<number | null>(null);
+   const [importNote, setImportNote] = useState<string | null>(null);
+   const [confirmStop, setConfirmStop] = useState(false);
+   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
+@@ -270,8 +461,8 @@
+     setEdits((n) => n + 1);
+     setDraft((d) => ({ ...d, ...change }));
+   }, []);
+-  const setRef = (name: string, ref: string) =>
+-    patch({ variables: draft.variables.map((v) => (v.name === name ? { ...v, ref } : v)) });
++  const setRef = (index: number, ref: string) =>
++    patch({ variables: draft.variables.map((v, i) => (i === index ? { ...v, ref } : v)) });
+ 
+   const save = async () => {
+     const others = settings.values.projects.filter((p) => p.root !== draft.root);
+@@ -282,7 +473,9 @@
+     if (await settings.save({ projects: others }, revision)) onDone();
+   };
+ 
+-  const nameRefusal = refusal(newName, draft.variables.map((v) => v.name));
++  const names = draft.variables.map((v) => v.name);
++  const unnamed = draft.variables.filter((v) => v.name === "").length;
++  const fieldless = draft.variables.filter((v) => v.name !== "" && v.ref === "").length;
+   const current = account === checked && !token.isFetching ? token.data : undefined;
+   const vaults = current?.vaults ?? [];
+   const vaultIds = current?.vaultIds ?? [];
+@@ -307,7 +500,46 @@
+         ...vaultChoices({ vaults, vaultIds }, draft.vault),
+       ]
+     : [];
+-  const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
++  const fields = (refs.data?.refs ?? []).map(parseRef);
++  const pickerState: React.ComponentProps<typeof FieldPicker>["state"] = refs.isPending
++    ? { kind: "loading" }
++    : refs.error
++      ? { kind: "unavailable", text: (refs.error as Error).message }
++      : refs.data
++        ? { kind: "ready" }
++        : { kind: "unavailable", text: "The vault is not connected yet. Check the token and choose a vault above to list fields." };
++  const openPicker = (next: NonNullable<typeof picker>) => {
++    setPicker(next);
++    if (!refs.data && !refs.isPending && current?.state === "ok" && vaultReadable) refs.mutate();
++  };
++  const addFromField = (f: Field) => {
++    const r = nameFromLabel(f.label, names);
++    const index = draft.variables.length;
++    patch({ variables: [...draft.variables, { name: r.name, ref: f.ref }] });
++    setAdded(index);
++    if (r.state !== "kept") setNaming(index);
++    if (r.state === "refused") setNotes((n) => ({ ...n, [index]: r.reason }));
++    setPicker(null);
++  };
++  const addByName = (text: string) => {
++    const r = nameFromLabel(text, names);
++    if (r.state === "refused") return;
++    const index = draft.variables.length;
++    patch({ variables: [...draft.variables, newVariable(r.name)] });
++    setAdded(index);
++    if (r.state === "converted") setNaming(index);
++    setPicker(null);
++  };
++  const nameRow = (index: number, name: string, note: string | null) => {
++    patch({ variables: draft.variables.map((v, i) => (i === index ? { ...v, name } : v)) });
++    if (note) {
++      setNaming(index);
++      setNotes((n) => ({ ...n, [index]: note }));
++    } else {
++      setNaming(null);
++      setNotes({});
++    }
++  };
+ 
+   return (
+     <>
+@@ -393,92 +625,49 @@
+         </SettingsCard>
+       </SettingsSection>
+ 
+-      <SettingsSection title="Environment variables">
+-        <SettingsCard>
+-          {draft.variables.map((v) => (
++      <SettingsSection
++        title="Variables"
++        trailing={
++          <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
++            <HeaderButton
++              label={test.isPending ? "Testing…" : "Test"}
++              theme={theme}
++              disabled={test.isPending || draft.variables.length === 0}
++              onPress={() =>
++                test.mutate({
++                  project: { ...draft, variables: draft.variables.filter((v) => v.name !== "") },
++                  edits,
++                })
++              }
++            />
++            <HeaderButton label="+ Add" theme={theme} onPress={() => openPicker({ mode: "add" })} />
++          </View>
++        }
++      >
++        <SettingsCard>
++          {draft.variables.length === 0 ? (
++            <View style={{ paddingVertical: 14, paddingHorizontal: 14 }}>
++              <Text style={muted}>No variables yet. Press + Add to pick a field from the vault.</Text>
++            </View>
++          ) : null}
++          {draft.variables.map((v, i) => (
+             <VariableRow
+-              key={v.name}
++              key={i}
+               variable={v}
+               theme={theme}
+               result={testResults?.find((r) => r.name === v.name)}
+-              onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
+-            >
+-              {refOptions.length > 0 ? (
+-                <RefPicker
+-                  name={v.name}
+-                  value={v.ref}
+-                  options={
+-                    v.ref === "" || refOptions.some((o) => o.value === v.ref)
+-                      ? refOptions
+-                      : [{ label: v.ref, value: v.ref }, ...refOptions]
+-                  }
+-                  theme={theme}
+-                  onPick={(ref) => setRef(v.name, ref)}
+-                />
+-              ) : (
+-                <HostInput
+-                  defaultValue={v.ref}
+-                  placeholder="op://vault/item/field"
+-                  placeholderTextColor={theme.colors.foregroundMuted}
+-                  autoCapitalize="none"
+-                  autoCorrect={false}
+-                  onChangeText={(ref) => setRef(v.name, ref)}
+-                  style={{
+-                    color: theme.colors.foreground,
+-                    backgroundColor: theme.colors.surface2,
+-                    borderRadius: 8,
+-                    paddingHorizontal: 12,
+-                    paddingVertical: 8,
+-                    width: 260,
+-                    fontSize: 14,
+-                  }}
+-                />
+-              )}
+-            </VariableRow>
+-          ))}
+-          {draft.variables.length > 0 ? (
+-            <SettingsAction
+-              label="Check the variables"
+-              hint="Resolves every variable now and shows the result on its row; never the value. Set means a value came back from 1Password; it does not prove the service accepts that key."
+-              actionLabel={test.isPending ? "Testing…" : "Test"}
+-              disabled={test.isPending}
+-              onPress={() => test.mutate({ project: draft, edits })}
++              naming={naming === i}
++              note={notes[i] ?? null}
++              reveal={added === i}
++              others={names.filter((_, j) => j !== i)}
++              onName={(name, note) => nameRow(i, name, note)}
++              onPill={() => openPicker({ mode: "row", index: i })}
++              onRemove={() => {
++                setNaming(null);
++                setNotes({});
++                patch({ variables: draft.variables.filter((_, j) => j !== i) });
++              }}
+             />
+-          ) : null}
+-          <SettingsInput
+-            ref={nameInput}
+-            label="New variable name"
+-            initialValue=""
+-            placeholder="LINEAR_API_KEY"
+-            onChangeText={setNewName}
+-            error={nameRefusal ?? undefined}
+-          />
+-          <SettingsAction
+-            label="Add variable"
+-            actionLabel="Add"
+-            disabled={newName === "" || nameRefusal !== null}
+-            onPress={() => {
+-              if (nameRefusal !== null) return;
+-              patch({
+-                variables: [
+-                  ...draft.variables,
+-                  newVariable(newName),
+-                ],
+-              });
+-              nameInput.current?.replaceText("");
+-              setNewName("");
+-            }}
+-          />
+-          <SettingsAction
+-            label="Pick fields from the vault"
+-            hint="Lists item and field names only; values are never sent to the app."
+-            actionLabel={refs.isPending ? "Loading…" : "Browse vault"}
+-            disabled={current?.state !== "ok" || !vaultReadable || refs.isPending}
+-            onPress={() => refs.mutate()}
+-            error={refs.error ? (refs.error as Error).message : undefined}
+-          />
+-          {(refs.data?.skipped ?? []).map((s, i) => (
+-            <SettingsRow key={`${i}-${s.item}`} label={s.item} hint={`Not listed: ${s.reason}`} />
+           ))}
+           <SettingsAction
+             label="Import names and prompt from Conductor"
+@@ -488,6 +677,19 @@
+             onPress={() => doImport.mutate()}
+           />
+         </SettingsCard>
++        <FieldPicker
++          title={picker?.mode === "row" ? `Field for ${draft.variables[picker.index]?.name || "this variable"}` : "Add a variable"}
++          open={picker !== null}
++          onOpenChange={(o) => !o && setPicker(null)}
++          state={pickerState}
++          fields={fields}
++          skipped={refs.data?.skipped ?? []}
++          existing={names}
++          addByName={picker?.mode === "add"}
++          theme={theme}
++          onPick={(f) => (picker?.mode === "row" ? (setRef(picker.index, f.ref), setPicker(null)) : addFromField(f))}
++          onAddByName={addByName}
++        />
+       </SettingsSection>
+ 
+       <SettingsSection title="Default prompt for new agents">
+@@ -508,8 +710,15 @@
+           <SettingsAction
+             label="Save this project"
+             actionLabel="Save"
+-            disabled={settings.saving}
++            disabled={settings.saving || unnamed > 0}
+             onPress={save}
++            hint={
++              unnamed > 0
++                ? `Name ${unnamed} ${unnamed === 1 ? "variable" : "variables"} first`
++                : fieldless > 0
++                  ? `${fieldless} without a field will read failed until you pick one`
++                  : undefined
++            }
+             error={settings.saveError ?? undefined}
+           />
+           <SettingsAction label="Discard changes" actionLabel="Discard" onPress={onDone} />

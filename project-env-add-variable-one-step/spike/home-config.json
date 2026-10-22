@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "daemon": { "listen": "127.0.0.1:6897", "mcp": { "injectIntoAgents": false }, "browserTools": { "enabled": false }, "enableTerminalAgentHooks": false, "relay": { "enabled": false } },
+  "pluginsEnabled": true,
+  "plugins": { "pe-add-step": { "source": "directory", "path": "/tmp/pe-add-step/plugin", "enabled": true } },
+  "features": { "dictation": { "enabled": false }, "voiceMode": { "enabled": false } }
+}

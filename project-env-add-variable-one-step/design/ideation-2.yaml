@@ -1,0 +1,63 @@
+design_review:
+  preview: project-env-add-variable-one-step/design/preview-desktop-dark-09-name-only-row.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-desktop-dark-09-name-only-row.png (and 12, 15 for the enabled Save)
+      seen: A name-only row is a real row with a dashed "Pick a field" pill, and in 12 and 15 Save is drawn enabled while one to four rows still say "Pick a field"; no text says what Save does with a row that has no field (kept and injected empty, dropped, or refused).
+      fix: Either keep Save off with a reason such as "Pick a field for N variables" or say next to Save or in the pill what happens to a row with no field.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-09-name-only-row.png, Save row "Name 2 variables first"
+      seen: The Save hint sits about 800 px below the two rows that need names and gives only a count, so in a long list (see 15) the rows it counts can be off-screen with no way to reach them.
+      fix: Make the hint a link that scrolls to and focuses the first unnamed row, or mark those rows with a stronger cue.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-02-picker-open.png and preview-compact-dark-02-picker-open.png
+      seen: Fields tagged "name already used" and "reserved name" look like every other row, so it reads as blocked, yet the proposal says picking one still adds a row with an empty name.
+      fix: Say in the tag what picking will do ("adds with empty name") or draw the row as disabled and drop the behaviour.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-09-name-only-row.png, row with empty name and PATH pill
+      seen: The reserved-name message says "the agent needs its own value to run. The agent keeps its own value." which states the same fact twice and wraps to three lines in a 220 px column.
+      fix: Cut it to one clause such as "PATH is reserved: the agent keeps its own value".
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-09-name-only-row.png and preview-compact-dark-09-name-only-row.png
+      seen: Inventory, desktop: page title, a "Back to plugins" link, a "work" label and a 6-row settings card (service account text field, Check, token text field, Save token, Vault menu) precede the Variables header, so the first variable row is at about 660 of 1700 px (39 percent); compact: title bar, "work" label and the same 6 taller rows put the header and + Add at about 690 of 2300 px (30 percent), below a typical phone first screen.
+      fix: The Add button cannot move without reordering the page, so consider repeating an add entry point at the end of the list or accept the scroll, and say which.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-09-name-only-row.png, rows with an empty name; preview-compact-dark-09-name-only-row.png
+      seen: In the empty-name rows the name input sits at the top and the pill is vertically centred on the taller row, so their baselines differ; the input text starts about 10 px right of the plain-text names, and at 400 px the input ends at about 305 px while the pill below ends at about 324 px.
+      fix: Align the name and pill to the same top line and give input and pill the same right edge and the same text inset as plain names.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-09-name-only-row.png and preview-compact-dark-09-name-only-row.png, Variables header
+      seen: Test (about 52x28) and + Add (about 60x28) are smaller outlined text buttons than Check and Import beside them (about 66x32), and at 400 px they are about 42x24 and 52x24 against about 67x32.
+      fix: Use the same button height as Check and Import, or state that header buttons are a deliberate smaller size.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-09-name-only-row.png and preview-compact-dark-02-picker-open.png
+      seen: At 400 px the Test and + Add buttons are about 24 px high, the row remove X is a bare glyph of about 16 px, and picker rows are about 32 px apart, all under the 44 px touch target.
+      fix: Give these controls at least a 44 px tap area (padding may be invisible), and pad the sheet rows to 44 px.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-14-typed-symbols-only.png and preview-desktop-dark-08-typed-name-refused.png
+      seen: The search box keeps a green focus ring while red error text sits under it, so one control shows both ok and error.
+      fix: Turn the ring red (or neutral) while the refusal message is shown.
+    - severity: MINOR
+      dimension: states
+      where: picker, all pictures 02, 11, 12 at both sizes
+      seen: The picker is shown only with a list that fits on screen; there is no loading state while vault fields load, no long list with a scroll or max height, and no long field name; desktop 15 shows a long variable name breaking mid-word across three lines.
+      fix: Add pictures for picker loading, a list taller than the dialog or sheet, and a long name (truncate with the full name on focus, or wrap at underscores).
+    - severity: MINOR
+      dimension: theme-size
+      where: all 30 pictures
+      seen: Only dark is shown, and only 1280 px and 400 px; there is no light theme and no tablet width between them.
+      fix: Add light-theme pictures of 02, 09 and 07 at both sizes, and one at about 768 px.
+  limitations:
+    - Pictures are static; I could not see hover, focus, pressed, drag or animation, or whether the dialog stays open after a pick (pictures 03 to 06 and 13 compact were not opened).
+    - I viewed desktop 02, 07, 08, 09, 10, 12, 14, 15 and compact 02, 07, 09, 15; the other numbered pictures were not opened.
+    - Control sizes are estimated from pixels (compact pictures were scaled by 1.15); the phone viewport height is unknown, so the below-the-first-screen claim is approximate.
+    - Rows, pills, the Test button and the grouped list are stand-ins for sibling tasks, so I judged only how the Add flow uses them.
