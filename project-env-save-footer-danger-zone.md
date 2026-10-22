@@ -158,6 +158,8 @@ Machine dependencies, declared: Paseo.app 0.12.0 CLI at `/Users/kent/.local/bin/
 - DONE: AC-2 Stop managing appears only for a saved project, in its own section, and its confirm button looks destructive.
   Spike evidence 2026-10-22: Danger zone present for demo-app, absent for billing-api, desktop and 400 px; Keep left 1 project in the saved file, Stop managing left 0; the dialog's confirm is a red fill. Not yet verified: the merged implementation, a refused Stop managing.
 
+Teardown (2026-10-22): daemon on port 6831 stopped (`paseo --home <spike home> daemon stop`, port no longer listening), browser session closed, `/tmp/save-footer-spike` removed; `spike/` keeps the sources and drive scripts; Kent's `~/.paseo` and port 6767 were not touched.
+
 ### Summary
 
 The footer is one pure function, `unsavedCount(saved, draft)`, a bar that shows it, one toast on Save, a Danger zone shown only for a saved project, and two confirm dialogs (Stop managing, Discard) with red confirm buttons; it was built as a spike on main 1adf630 and drawn at desktop and 400 px, dark and light. Both design reviews ran; the Discard confirm that fixes the last MAJOR finding was not reviewed again because the two-run cap was reached. The only Captain decision is whether Save should keep the editor open; the default recommended is that it closes, as today.
