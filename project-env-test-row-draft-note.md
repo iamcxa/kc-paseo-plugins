@@ -18,6 +18,14 @@ gates:
                 id: briefing:project-env-test-row-draft-note:backlog:attempt-1:revision-1
                 digest: sha256:a6aa846d49cc90cb521438732b5a97979e9ce101d23ae59961227b484bc25289
                 room-ref: ./project-env-test-row-draft-note/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-test-row-draft-note:backlog:1
+                briefing: briefing:project-env-test-row-draft-note:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T04:15:55.95983Z"
+                decision: hold
+                reason: 'Captain 2026-10-22: 「准」 — the gate asked to hold this task as superseded by project-env-test-summary-failure-mark (direction A5); held, not advanced.'
 ---
 
 Test resolves the variables in the editor's draft, not the saved settings, so a Test that reads set can sit beside a saved project whose new agents still miss the variable until Save. Captain, 2026-10-21, asked whether to add the sentence 「Checks the variables as edited here, saved or not」 to the Test row: 「好」.
