@@ -263,6 +263,7 @@ function ProjectEditor({
           prompt: d.prompt || prompt,
         }),
         true,
+        open.session,
       );
     },
   });

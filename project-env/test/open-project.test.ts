@@ -52,6 +52,17 @@ describe("open project store", () => {
     assert.equal(openProject.get(), null);
   });
 
+  it("update tagged with a session that is no longer open is ignored", () => {
+    openProject.begin(project(), "rev-1");
+    const stale = openProject.get()?.session;
+    openProject.begin({ ...project(), root: "/work/other" }, "rev-1");
+    openProject.update((d) => ({ ...d, prompt: "from the old import" }), true, stale);
+    assert.equal(openProject.get()?.draft.prompt, "");
+    assert.equal(openProject.get()?.edits, 0);
+    openProject.update((d) => ({ ...d, prompt: "current" }), true, openProject.get()?.session);
+    assert.equal(openProject.get()?.draft.prompt, "current");
+  });
+
   it("begin twice yields different sessions and drops the earlier draft", () => {
     openProject.begin(project(), "rev-1");
     const first = openProject.get()?.session;

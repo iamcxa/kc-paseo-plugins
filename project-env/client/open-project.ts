@@ -24,8 +24,8 @@ export const openProject = {
   begin(initial: Project, revision: string) {
     set({ session: ++sessions, initial, draft: initial, edits: 0, revision });
   },
-  update(change: (draft: Project) => Project, countsAsEdit: boolean) {
-    if (!current) return;
+  update(change: (draft: Project) => Project, countsAsEdit: boolean, session?: number) {
+    if (!current || (session !== undefined && session !== current.session)) return;
     set({ ...current, draft: change(current.draft), edits: current.edits + (countsAsEdit ? 1 : 0) });
   },
   close() {
