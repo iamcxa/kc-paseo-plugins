@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "daemon": {
+    "listen": "127.0.0.1:6867",
+    "mcp": {
+      "injectIntoAgents": false
+    },
+    "browserTools": {
+      "enabled": false
+    },
+    "enableTerminalAgentHooks": false,
+    "relay": {
+      "enabled": false
+    }
+  },
+  "pluginsEnabled": true,
+  "plugins": {
+    "pe-tsfm": {
+      "source": "directory",
+      "path": "/tmp/pe-tsfm/plugin",
+      "enabled": true
+    }
+  },
+  "features": {
+    "dictation": {
+      "enabled": false
+    },
+    "voiceMode": {
+      "enabled": false
+    }
+  }
+}

@@ -1,0 +1,379 @@
+--- client/settings-screen.tsx	2026-10-22 01:15:13
++++ client/settings-screen.tsx	2026-10-22 12:59:46
+@@ -26,13 +26,12 @@
+   newVariable,
+   refusal,
+   splitImported,
+-  variableLine,
+   projectEnv,
+   storeToken,
+   testProject,
+   tokenStatus,
+ } from "../shared/config";
+-import type { Cause } from "../shared/cause";
++import { rowReason, summaryParts, type Run } from "../shared/test-marks";
+ import {
+   canReadVault,
+   pickVault,
+@@ -46,19 +45,19 @@
+ type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
+ type Theme = PluginSurfaceProps["theme"];
+ 
+-type Result = { name: string; ok: boolean; cause?: Cause };
+-
+ function RefPicker({
+   name,
+   value,
+   options,
+   theme,
++  failed,
+   onPick,
+ }: {
+   name: string;
+   value: string;
+   options: { label: string; value: string }[];
+   theme: Theme;
++  failed: boolean;
+   onPick(ref: string): void;
+ }) {
+   const [open, setOpen] = useState(false);
+@@ -73,10 +72,14 @@
+           alignItems: "center",
+           gap: 6,
+           width: 260,
++          flexShrink: 1,
++          minWidth: 0,
+           backgroundColor: theme.colors.surface2,
+           borderRadius: 8,
++          borderWidth: 1,
++          borderColor: failed ? theme.colors.statusDanger : "transparent",
+           paddingHorizontal: 12,
+-          paddingVertical: 8,
++          paddingVertical: 7,
+         }}
+       >
+         <Text
+@@ -110,29 +113,120 @@
+   );
+ }
+ 
++const MARK_SLOT = 32;
++
++function FailureMark({
++  name,
++  reason,
++  open,
++  compact,
++  theme,
++  onToggle,
++}: {
++  name: string;
++  reason: string | null;
++  open: boolean;
++  compact: boolean;
++  theme: Theme;
++  onToggle(): void;
++}) {
++  const [hover, setHover] = useState(false);
++  const active = reason !== null && (open || hover);
++  const shown = !compact && active;
++  return (
++    <View style={{ width: MARK_SLOT, alignItems: "center", justifyContent: "center" }}>
++      {reason !== null ? (
++        <Pressable
++          accessibilityRole="button"
++          accessibilityLabel={`${name} failed. ${reason}`}
++          onPress={onToggle}
++          onHoverIn={() => setHover(true)}
++          onHoverOut={() => setHover(false)}
++          style={{
++            width: MARK_SLOT + 8,
++            height: 44,
++            marginHorizontal: -4,
++            marginVertical: -10,
++            alignItems: "center",
++            justifyContent: "center",
++          }}
++        >
++          <View
++            style={{
++              width: 24,
++              height: 24,
++              borderRadius: 12,
++              alignItems: "center",
++              justifyContent: "center",
++              backgroundColor: theme.colors.statusDanger,
++              borderWidth: 2,
++              borderColor: active ? theme.colors.foreground : theme.colors.statusDanger,
++            }}
++          >
++            <Text style={{ color: theme.colors.surface0, fontSize: 14, fontWeight: "700", lineHeight: 16 }}>!</Text>
++          </View>
++        </Pressable>
++      ) : null}
++      {shown ? (
++        <View
++          pointerEvents="box-none"
++          style={{
++            position: "absolute",
++            top: 0,
++            bottom: 0,
++            right: MARK_SLOT,
++            left: -230,
++            justifyContent: "center",
++            alignItems: "flex-end",
++            zIndex: 10,
++          }}
++        >
++          <View
++            accessibilityRole="alert"
++            style={{
++              maxWidth: 300,
++              backgroundColor: theme.colors.surface1,
++              borderColor: theme.colors.border,
++              borderWidth: 1,
++              borderRadius: 8,
++              paddingHorizontal: 10,
++              paddingVertical: 6,
++            }}
++          >
++            <Text style={{ color: theme.colors.foreground, fontSize: 13 }}>{reason}</Text>
++          </View>
++        </View>
++      ) : null}
++    </View>
++  );
++}
++
+ function VariableRow({
+   variable,
+-  result,
++  reason,
++  open,
++  compact,
+   theme,
+   children,
++  onToggleMark,
+   onRemove,
+ }: {
+   variable: Variable;
+-  result: Result | undefined;
++  reason: string | null;
++  open: boolean;
++  compact: boolean;
+   theme: Theme;
+   children: ReactNode;
++  onToggleMark(): void;
+   onRemove(): void;
+ }) {
+   const { name } = variable;
+-  const line = variableLine(variable, result);
+   return (
+-    <SettingsRow
+-      label={name}
+-      hint={line && !line.failed ? line.text : undefined}
+-      error={line?.failed ? line.text : undefined}
+-    >
++    <SettingsRow label={name}>
++      <View style={{ flexShrink: 1, gap: 6 }}>
+       <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 }}>
+         {children}
++        <FailureMark name={name} reason={reason} open={open} compact={compact} theme={theme} onToggle={onToggleMark} />
+         <Pressable
+           accessibilityRole="button"
+           accessibilityLabel={`Remove ${name}`}
+@@ -148,6 +242,12 @@
+           <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Remove</Text>
+         </Pressable>
+       </View>
++      {compact && open && reason !== null ? (
++        <Text accessibilityRole="alert" style={{ color: theme.colors.statusDanger, fontSize: 13 }}>
++          {reason}
++        </Text>
++      ) : null}
++      </View>
+     </SettingsRow>
+   );
+ }
+@@ -158,11 +258,13 @@
+   settings,
+   initial,
+   theme,
++  compact,
+   onDone,
+ }: {
+   settings: Ready;
+   initial: Project;
+   theme: Theme;
++  compact: boolean;
+   onDone(): void;
+ }) {
+   const [draft, setDraft] = useState(initial);
+@@ -242,9 +344,21 @@
+     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
+   });
+   const test = useMutation({
+-    mutationFn: ({ project }: { project: Project; edits: number }) => testRpc({ project }),
++    mutationFn: async (sent: Project): Promise<Run> => ({ sent, results: (await testRpc({ project: sent })).results }),
+   });
+-  const testResults = test.variables?.edits === edits ? test.data?.results : undefined;
++  const run = test.data;
++  const [openMark, setOpenMark] = useState<string | null>(null);
++  const summary = summaryParts(draft, run, test.isPending);
++  const summaryNode = (
++    <Text numberOfLines={1} style={{ fontSize: 13 }}>
++      {summary.map((p, i) => (
++        <Text key={p.text} style={{ color: p.tone === "bad" ? theme.colors.statusDanger : theme.colors.foregroundMuted }}>
++          {i > 0 ? " · " : ""}
++          {p.text}
++        </Text>
++      ))}
++    </Text>
++  );
+   const doImport = useMutation({
+     mutationFn: () => importRpc({ root: draft.root }),
+     onSuccess: ({ names, prompt }) => {
+@@ -393,14 +507,56 @@
+         </SettingsCard>
+       </SettingsSection>
+ 
+-      <SettingsSection title="Environment variables">
++      <SettingsSection
++        title="Variables"
++        info="Test resolves every variable now and never shows a value. Set means a value came back from 1Password; it does not prove the service accepts that key."
++        trailing={
++          <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
++            {compact ? null : summaryNode}
++            {draft.variables.length > 0 ? (
++              <Pressable
++                accessibilityRole="button"
++                accessibilityLabel="Test"
++                disabled={test.isPending}
++                onPress={() => {
++                  setOpenMark(null);
++                  test.mutate(draft);
++                }}
++                style={{
++                  borderWidth: 1,
++                  borderColor: theme.colors.border,
++                  borderRadius: 8,
++                  paddingHorizontal: 12,
++                  paddingVertical: 7,
++                  opacity: test.isPending ? 0.5 : 1,
++                }}
++              >
++                <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Test</Text>
++              </Pressable>
++            ) : null}
++            <Pressable
++              accessibilityRole="button"
++              accessibilityLabel="Add (stand-in for add-variable-one-step)"
++              style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 7 }}
++            >
++              <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>+ Add</Text>
++            </Pressable>
++          </View>
++        }
++      >
++        {compact && summary.length > 0 ? <View style={{ paddingBottom: 8 }}>{summaryNode}</View> : null}
+         <SettingsCard>
+-          {draft.variables.map((v) => (
++          {draft.variables.map((v) => {
++            const reason = rowReason(draft, run, v);
++            return (
+             <VariableRow
+               key={v.name}
+               variable={v}
+               theme={theme}
+-              result={testResults?.find((r) => r.name === v.name)}
++              reason={reason}
++              open={openMark === v.name}
++              compact={compact}
++              onToggleMark={() => setOpenMark((n) => (n === v.name ? null : v.name))}
+               onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
+             >
+               {refOptions.length > 0 ? (
+@@ -413,6 +569,7 @@
+                       : [{ label: v.ref, value: v.ref }, ...refOptions]
+                   }
+                   theme={theme}
++                  failed={reason !== null}
+                   onPick={(ref) => setRef(v.name, ref)}
+                 />
+               ) : (
+@@ -427,24 +584,20 @@
+                     color: theme.colors.foreground,
+                     backgroundColor: theme.colors.surface2,
+                     borderRadius: 8,
++                    borderWidth: 1,
++                    borderColor: reason !== null ? theme.colors.statusDanger : "transparent",
+                     paddingHorizontal: 12,
+-                    paddingVertical: 8,
++                    paddingVertical: 7,
+                     width: 260,
++                    flexShrink: 1,
++                    minWidth: 0,
+                     fontSize: 14,
+                   }}
+                 />
+               )}
+             </VariableRow>
+-          ))}
+-          {draft.variables.length > 0 ? (
+-            <SettingsAction
+-              label="Check the variables"
+-              hint="Resolves every variable now and shows the result on its row; never the value. Set means a value came back from 1Password; it does not prove the service accepts that key."
+-              actionLabel={test.isPending ? "Testing…" : "Test"}
+-              disabled={test.isPending}
+-              onPress={() => test.mutate({ project: draft, edits })}
+-            />
+-          ) : null}
++            );
++          })}
+           <SettingsInput
+             ref={nameInput}
+             label="New variable name"
+@@ -549,7 +702,7 @@
+   );
+ }
+ 
+-function Configured({ settings, theme }: { settings: Ready; theme: Theme }) {
++function Configured({ settings, theme, compact }: { settings: Ready; theme: Theme; compact: boolean }) {
+   const paseo = usePaseo();
+   const [editing, setEditing] = useState<Project | null>(null);
+   const [session, setSession] = useState(0);
+@@ -575,6 +728,7 @@
+         settings={settings}
+         initial={editing}
+         theme={theme}
++        compact={compact}
+         onDone={done}
+       />
+     );
+@@ -609,7 +763,7 @@
+   );
+ }
+ 
+-export function ProjectEnvSettings({ theme }: PluginSurfaceProps) {
++export function ProjectEnvSettings({ theme, layout }: PluginSurfaceProps) {
+   const settings = useSettings(projectEnv);
+   const style = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
+   if (settings.status === "loading") return <Text style={style}>Loading…</Text>;
+@@ -621,5 +775,5 @@
+       </SettingsSection>
+     );
+   }
+-  return <Configured settings={settings} theme={theme} />;
++  return <Configured settings={settings} theme={theme} compact={layout.compact} />;
+ }
+--- shared/cause.ts	2026-10-22 01:15:13
++++ shared/cause.ts	2026-10-22 12:24:20
+@@ -42,3 +42,8 @@
+ export function missingVariablesTitle(count: number): string {
+   return count === 1 ? "Started without 1 project variable" : `Started without ${count} project variables`;
+ }
++
++export function causeSentence(cause: Cause | undefined): string {
++  const text = causeText[cause ?? "unexpected"];
++  return `${text[0].toUpperCase()}${text.slice(1)}.`;
++}

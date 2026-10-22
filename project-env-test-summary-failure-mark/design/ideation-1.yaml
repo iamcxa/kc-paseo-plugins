@@ -1,0 +1,38 @@
+design_review:
+  preview: project-env-test-summary-failure-mark/design/preview-desktop-dark-tip-open.png
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-tip-open.png, row SENTRY_PROJECT
+      seen: The bubble sits on top of the failed field, hides the right border and chevron, and cuts the value to "op://V/SE". It has no pointer to the (!) and looks like text inside the field, not a bubble from the (!).
+      fix: Place the bubble below or above the row's field, or give it a visible pointer to the (!), so the field value and border stay readable.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-tip-open.png, both (!) marks
+      seen: The two (!) marks (SENTRY_PROJECT, STRIPE_KEY) look identical. Nothing shows which one is open or pressed except the bubble itself.
+      fix: Draw an open state on the (!) (ring or filled), and the same open state in compact.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-tip-open.png, (!) next to Remove
+      seen: The (!) is a circle about 24 px wide, and it sits right beside the Remove button, which is itself small.
+      fix: Give the (!) a hit area of at least 44 px at 400 px, or make the whole failed field tappable to show the sentence.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-results.png vs the "1 no field" count (POSTHOG_CLI_HOST)
+      seen: The summary counts "1 no field", but the only cue on the row is the muted "Pick a field" placeholder. It has no mark and no reason sentence, so a person scanning for what the summary counted cannot find it quickly.
+      fix: Give the no-field row a light cue (for example an amber border), or say in the (i) text that "no field" rows show "Pick a field".
+    - severity: MINOR
+      dimension: states
+      where: set of previews (long content, many items)
+      seen: No picture shows a long reason sentence at desktop width, many failed rows at once, or the summary when every row failed or there are zero rows. Both bubbles shown are one short sentence. At desktop the sentence already touches the field edge.
+      fix: Add previews for an all-failed case, a long reason sentence (wrapping or truncation), and the empty-variables state.
+    - severity: MINOR
+      dimension: theme-size
+      where: set of previews
+      seen: Light theme is missing for all-set, set-no-field and info-open at both sizes, and compact light is missing info-open and all-set. Dark also lacks the keyboard-focus view of the (!) for both sizes.
+      fix: Add the missing light previews and a focus-ring view of the (!) in dark and light.
+  limitations:
+    - I opened only preview-desktop-dark-tip-open.png and preview-compact-dark-tip-open.png. I judged the other states and themes from the file list, not from their pictures.
+    - Hover, click and tap behaviour, and whether the bubble dismisses, cannot be seen in static pictures.
+    - Contrast of the red border, red (!) and red summary text was judged by eye only, not measured.
+    - I could not see whether the bubble is clipped or overlaps other rows when the row is near the edge of the card.
