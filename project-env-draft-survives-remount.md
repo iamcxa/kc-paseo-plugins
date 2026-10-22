@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-draft-survives-remount
-pr: iamcxa/kc-paseo-plugins#22
+pr: pr-merge:22
 gates:
     version: 1
     records:
@@ -88,6 +88,7 @@ Visible change: Resizing the window no longer drops unsaved edits.
 Direction alignment with the Captain: done — the Captain chose direction A5 and the Add flow on 2026-10-22.
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 
 ## Design
 
@@ -256,3 +257,8 @@ Does not cover: a real 1Password or Keychain (fakes only), Paseo versions other 
 ### Summary
 
 PASSED: the candidate passes every resize, Save, Discard, Stop managing and conflict step on an isolated Paseo and the same harness fails 22 checks on main 1adf630; mutating the store, the close-on-exit paths and the session check each makes a test or runtime step fail. Package checks all exit 0 (adr_lint exit 0). Open limits are above, chiefly that the roborev session guard is unit-proved only.
+
+## FO records
+
+Review rounds at the validation gate: roborev 1 (clean, roborev:1026); Codex 1 (clean, summary:6335926273).
+Delivery reading: FO read 「先做完讓我試試看好了」 as a go-ahead to finish and merge the A5 tasks, not a hold, and told the Captain so in chat on 2026-10-22, inviting objection.
