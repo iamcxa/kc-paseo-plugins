@@ -222,3 +222,8 @@ Supersedes: none
 ### Summary
 
 Each row is now `NAME [ITEM › field ⌄] ✕` and the Browse vault row is gone; the vault is read on the first pill press and kept until the account or vault changes. One addition to the prototype: the picker's error state also covers a token that is unchecked or a vault it cannot read, so the picker never sits on "Loading" (shots 06, 07). Findings for FO from the roborev gate: (1) the stand-in picker keeps its search text after a pick, in picker-grouped's file, left unchanged, so picker-grouped should fix it; (2) there is no way to refresh the vault list once loaded; AC-1 and the design require the second press to read nothing, so this is a deferred risk (becomes material if Captain wants a refresh). Limits: click stands for tap, hover at desktop only, vault read timed on fake op only, light theme and a mid width not drawn. Teardown: daemon stopped and browser closed; /tmp/fp-impl-spike remains.
+
+### FO declines
+
+- roborev:1033 finding 1 (the stand-in picker keeps its search text after a pick): declined here, routed to project-env-field-picker-grouped, which replaces `field-picker.tsx`; FO puts it in that task's implementation dispatch.
+- roborev:1033 finding 2 (no way to refresh the vault list once loaded): deferred; AC-1 and the approved design require the second press to read nothing. It becomes material if the Captain wants a refresh, which FO raises with him when he tries the screen.
