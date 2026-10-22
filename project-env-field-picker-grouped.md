@@ -205,3 +205,49 @@ The picker stays a host dialog or bottom sheet and reuses `vault.list-refs` unch
 ### Summary
 
 The picker design was already live on main as the stand-in, so this stage adds the tests that pin AC-1 and AC-2 and fixes the two findings routed from #24: Use now follows `parseRef` (new `usableReference`), and the picker body mounts only while open so the search and typed-reference box reset. Known limits: the two component fixes are proven by a browser run (`impl/verify.sh`), not by `npm test`; first-open listing speed on a real vault was not measured. The picture scripts needed three fixes for the post-#24 page (pill label now ends in a colon, a second Close button on the page, the pill hidden behind the save bar at 400 px); all are in `impl/`.
+
+## Stage Report: validation
+
+Verdict: REJECTED, test-only repair. Candidate 76e16752897362c7cc5ba9b27d708b04941bac88 (PR iamcxa/kc-paseo-plugins#26, base d197f9d). The product behaviour passes AC-1 and AC-2 in a real browser; one behaviour AC-1's evidence clause names ("a search ... whole items whose title matches") is not pinned by any test.
+
+- DONE: Rebuild and run the candidate on an isolated Paseo; grouping, search, same-name first, used-by, not-in-vault.
+  Paseo 0.12.0 daemon on port 6891, plugin id fp-val, own agent-browser session, fake op/security/git, built from the worktree by the implementation's `impl/run.sh` and `capture.sh` (copied with port, session and id changed); 28 pictures redrawn at 1280 and 400 px. Seen: items bold with fields under them in title order; "Suggested" first (Sentry and Sentry (staging) for SENTRY_AUTH_TOKEN); search "twilio" leaves only Twilio; "used by" lists other holders and not the edited variable; STRIPE_KEY shows red "Stripe > secret-key  not in vault"; Deploy key and Notary scan under "Not listed" with reasons. Daemon, session and /tmp copies removed.
+- DONE: Confirm the two routed fixes.
+  `impl/verify.sh` on the candidate: search text after pick and reopen `[]`; Use disabled for `op://Dev/item//field` and `op://Dev/ /field`, enabled for `op://Dev/item/field`. Same script on a base d197f9d build: `[twilio]` FAIL, Use enabled for both bad references. Both fixes fail without the change.
+- FAILED: Confirm the field-picker tests fail when their behaviour is removed.
+  `npm test` 213 pass, `npm run typecheck` clean. Throwaway mutants of `shared/`, `node --test test/field-picker.test.ts`: caught (1 to 3 failing cases each): case-insensitive `sameName`; Suggested block removed; search hiding the stale current row; `usedBy` counting the edited variable; unreadable item called missing; other vault not stale; items unsorted; suggestion ignoring search; suggestions unsorted; Current repeated when suggested; case-sensitive label search; Not listed ignoring search; `usableReference` without `parseRef`. SURVIVED (22 pass, 0 fail): deleting the item-title branch of `matches` (`item.toLowerCase().includes(q) ||`), and making the title match case-sensitive. The title test uses query "twil", and every Twilio label contains it, so label match alone satisfies it. Direct probe of the real code is correct (query "billing" on `op://Dev/Billing/Team/api_key` keeps the item), so this is missing evidence, not a product defect.
+- DONE: Pill rows, save bar and connection line around the picker.
+  Page pictures show the Connected line, one pill per row with the not-equal mark, Check/Add/Import, Danger zone and the save bar. Picking Twilio > TWILIO_AUTH_TOKEN on SENTRY_PROJECT changed the pill and the bar read "1 unsaved change" with Save enabled (not clicked).
+- DONE: Acceptance script and `adr_lint.py docs/adr --since 60799d9`.
+  adr_lint exit 0 ("5 ADR file(s) checked, 0 legacy"), run from the worktree and from the repo root. Also: comment_ratio 0.0% exit 0; design_surfaces exit 0; dispatch_records "3 dispatch record(s) complete" exit 0; doc_impact lists 0 documents, so nothing to record; no `## Number guards`, no migration.
+- DONE: Screenshots at 1280 and 400 px; what the Captain should see; unverified obligations.
+  See Captain view and Unverified below.
+
+### Finding 1 (Deferred risk, repair requested because it is an evidence-clause gap)
+AC-1's clause says the test "fails if ... a search hides a matching item". Deleting the title-match branch leaves all 22 cases green. Repair: add one case where only the title matches, e.g. refs `op://Dev/Billing/Team/api_key`, query "billing" expects `["# Billing/Team", "Billing/Team>api_key"]`, then re-run the mutant. No product byte changes. Material fields: no supported-workflow harm is shown, since the code is correct; if the Captain waives the clause the product is PASSED as is.
+
+### Acceptance script
+Run in a fresh shell. Needs paseo 0.12.0, agent-browser, node; touches no 1Password, Keychain or ~/.paseo. S is the state checkout, W the candidate worktree.
+
+    S=/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-field-picker-grouped
+    W=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-field-picker-grouped
+
+1. `git -C $W rev-parse HEAD` prints `76e16752897362c7cc5ba9b27d708b04941bac88`.
+2. `cd $W/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/field-picker.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"` prints `ℹ pass 22` and `ℹ fail 0`; `npm run typecheck 2>&1 | tail -1` prints nothing after the npm header lines (no `error TS`).
+3. `cd $W/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --input-type=module -e 'import { pickerRows } from "./shared/field-picker.ts"; const refs=["op://Dev/Billing/api_key","op://Dev/Sentry/SENTRY_PROJECT","op://Dev/Sentry/SENTRY_ORG"]; console.log(JSON.stringify(pickerRows({vault:"Dev",refs,skipped:[],name:"SENTRY_PROJECT",current:"op://Dev/Stripe/k",holders:[{name:"A",ref:refs[1]}],query:""}).map(r=>r.kind==="field"?r.item+">"+r.field+(r.usedBy.length?" used by "+r.usedBy:""):r.kind==="stale"?"STALE "+r.label:r.kind==="heading"?"## "+r.text:"# "+r.item)))'` prints `["## Suggested","Sentry>SENTRY_PROJECT used by A","## Current","STALE Stripe › k","# Billing","Billing>api_key","# Sentry","Sentry>SENTRY_ORG"]`.
+4. `bash $S/impl/run.sh up > /tmp/fp-accept-up.log 2>&1; tail -1 /tmp/fp-accept-up.log` prints an `open http://127.0.0.1:6874/...` line (about 10 s).
+5. `bash $S/impl/verify.sh` (about 50 s) prints `search text after pick and reopen: []`, `Use disabled for [op://Dev/item//field]: true`, `Use disabled for [op://Dev/ /field]: true`, `Use disabled for [op://Dev/item/field]: false`, exit 0.
+6. Optional by eye: open the printed URL, press Edit on demo-app, press the pill of SENTRY_AUTH_TOKEN; the list shows "Suggested" first, items in bold. Then `bash $S/impl/run.sh down`.
+Not covered: a real 1Password vault (no `op` was run), the Paseo desktop and phone apps, keyboard navigation, mouse-wheel scrolling, a vault of hundreds of fields, first-open speed on a real vault, and the unit-test gap in Finding 1. verify.sh proves the two routed fixes in a browser; `npm test` does not cover the component.
+
+### Captain view
+At 1280 px: the page behind is the settings screen with the Connected line, one pill per variable, the save bar at the bottom. Pressing a pill opens a dialog "Field for NAME" with a search box; the same-name field sits first under "Suggested" with a tick when it is held; held-elsewhere fields appear under "Current"; below, each item is a bold heading with its fields; "used by A, B" in small text under a shared field; a red "Stripe > secret-key  not in vault" for a saved reference 1Password no longer has; "Not listed" at the end with a plain reason; a quiet "Type a reference..." last. At 400 px the same list is a bottom sheet with 44 px rows and wrapped long labels. Load failure shows "No token in Keychain" in red plus the fix-the-connection line and the Type a reference row; a bad typed reference keeps Use grey with "Use op://Dev/item/field". Not drawn by me: light theme (the design pictures covered it).
+
+### Unverified obligations
+- Real vault listing speed (the design recorded about 6 s for 21 items with the fake op; unmeasured on real `op`).
+- Wheel scrolling, keyboard navigation, desktop and phone apps.
+- The two component fixes are proven only by `impl/verify.sh` in a browser; the repo has no React renderer, so `npm test` cannot fail on them.
+- Finding 1 above.
+
+### Summary
+The candidate behaves as designed and both routed fixes hold in a real browser, with a base build failing the same script. The only gap is test strength: removing the item-title search branch leaves the suite green, which AC-1's evidence clause says must fail. Repair is one test case and a mutant rerun; no product change.
