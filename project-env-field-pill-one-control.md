@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-field-pill-one-control
-pr: iamcxa/kc-paseo-plugins#24
+pr: pr-merge:24
 gates:
     version: 1
     records:
@@ -95,6 +95,7 @@ Direction alignment with the Captain: done — the Captain chose direction A5 an
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 ## Design
 
 Direction: A5 (Captain 「就這樣」, 2026-10-22). The row geometry, pill look, dashed "Pick a field" pill, ≠ mark and ✕ follow `ux-review-r1.5/direction-a5.html`. What the picker lists, the failure mark, the Add flow, the footer and the connection line belong to sibling tasks, whose designs this one consumes (see Interfaces).
@@ -392,3 +393,8 @@ Does not cover: touch, light theme, mid widths, a real 1Password vault or the re
 - Runtime-wiring mutation of read-once and ≠ not opening the picker: not run. No unit test for the P2 fix.
 - Variant B (replaced token, different data) depends on a fake world where a token for the same keychain name reads other items; a real rotated token normally reads the same data.
 - Validation cycle 3 Deferred risk (after a token is replaced by one that reads different data, the loaded vault list stays stale until the page reloads): deferred; the approved design keeps the list "until the account or vault changes" and AC-1 requires the second press to read nothing. A rejected token fixed through Change lists the fields at once (cycle 3, scenario A). Material if the Captain wants a replaced token to refresh the list; candidate revision: drop the loaded list in the token `store` mutation's `onSuccess`.
+
+## FO records
+
+External review rounds at the validation gate: Codex 3 (round 1 one P2 fixed; round 2 one P2 in the stand-in picker file, routed to project-env-field-picker-grouped; round 3 no new finding at d6e5c10). The local roborev gate is not an external round.
+delivery_gate.py check passed at d6e5c10 before the ask; the Captain approved with 「准」 and FO merged as d197f9d.
