@@ -251,3 +251,7 @@ At 1280 px: the page behind is the settings screen with the Connected line, one 
 
 ### Summary
 The candidate behaves as designed and both routed fixes hold in a real browser, with a base build failing the same script. The only gap is test strength: removing the item-title search branch leaves the suite green, which AC-1's evidence clause says must fail. Repair is one test case and a mutant rerun; no product change.
+
+### Feedback Cycles
+
+- Cycle 1 (validation-1, candidate 76e1675): REJECTED for one test gap. Finding 1: two mutants of `matches` (item-title branch deleted; title match case-sensitive) survive the field-picker tests, so AC-1's evidence clause "fails if a search hides a matching item" is not met; the product is correct (validator's direct probe). FO assessment: no observable harm, value-ac[AC-1] evidence clause unmet; FO authorizes the fix (one title-only test case, no product change) as implementation-2, then validation-2 on the new head.
