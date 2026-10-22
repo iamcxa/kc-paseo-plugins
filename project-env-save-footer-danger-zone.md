@@ -48,6 +48,28 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-save-footer-danger-zone:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-save-footer-danger-zone-validation-1
+              briefing:
+                id: briefing:project-env-save-footer-danger-zone:validation:attempt-1:revision-1
+                digest: sha256:51aebecf48ab37d7834b3a9f7020b3107f531fdfdd8450c69d6e5da51844651d
+                room-ref: ./project-env-save-footer-danger-zone/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-save-footer-danger-zone:validation:1
+                briefing: briefing:project-env-save-footer-danger-zone:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-22T09:54:09.855964Z"
+                decision: approve
+                reason: 'FO delegated decision: validation PASSED, Codex round 2 clean at af52257, acceptance rerun 16 PASS; approves delivery of PR #23 by squash at af52257 per the gate question.'
+                conn:
+                    quote: 准。先做完讓我試試看好了，我暫時沒有時間看得太仔細
+                    source: chat, 2026-10-22, answering the field-pill ideation gate
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:16:59Z
 ---
 

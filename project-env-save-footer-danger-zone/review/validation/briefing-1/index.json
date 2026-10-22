@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-save-footer-danger-zone:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#23 at head af52257964ada675516e0ee1aa317f1e1111d711? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-save-footer-danger-zone:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/1308db1d507a81a15c7198c908ade3c5f7f376af/project-env-save-footer-danger-zone.md",
+      "rev": "sha256:d6d827d7f812d1a880a33166f35295c5455cb104dcd1d2f4f9f2bd8538709919",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at aded542; FO reran the acceptance script there (13 PASS). Codex round 1 (P2: a new project with no edits could not be saved) fixed in feedback cycle 1 at af52257; FO reran tests (177/177), typecheck and the updated acceptance script at af52257 (16 PASS, ALL PASS). Reviewers: roborev 3 rounds, final clean (roborev:1039); Codex 2 rounds, round 2 clean at af52257; security review clean. Owed: phone app, the Saving label, a refused Stop managing drawn, real 1Password; Kent's own use."
+    }
+  ]
+}
