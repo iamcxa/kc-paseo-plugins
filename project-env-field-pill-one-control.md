@@ -7,6 +7,17 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-field-pill-one-control:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-field-pill-one-control-backlog-1
+              briefing:
+                id: briefing:project-env-field-pill-one-control:backlog:attempt-1:revision-1
+                digest: sha256:1b21722b990eadd31f70a3870ffae57d37c3fa1a2bfadbd523c707de76da39ff
+                room-ref: ./project-env-field-pill-one-control/review/backlog/briefing-1
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
