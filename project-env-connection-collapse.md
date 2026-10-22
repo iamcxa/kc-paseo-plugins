@@ -253,3 +253,10 @@ Not covered: real 1Password or Keychain, light theme, the desktop app, a typed t
 ### Summary
 
 PASSED (recommend): AC-1 holds on the rebuilt candidate in a real browser on an isolated Paseo, and the `connectionLine` tests fail when five of the six branches are removed. Two polish items, neither blocking: move `changing` into the `openProject` store, and the untested empty-vault label. The view transitions are proven by the browser run and the script, not by a unit test.
+
+### FO declines
+
+- Validator polish 1 (`changing` belongs in the `openProject` store): adopted; done in feedback cycle 1 (3fe658d).
+- Validator polish 2 (the `vaults.length === 0` label is untested): declined; only the label differs and the vault is unreadable either way.
+- roborev:1041 finding 1 (a resize during a token save loses the pending save and its result): deferred; the typed token is component state, a limit stated since implementation-1, unchanged by this task.
+- roborev:1041 finding 2 (footer Save still saves while Change is open and Done is disabled): deferred; before this rework Save also wrote any draft, so nothing regresses. FO raises it with the Captain when he tries the screen.
