@@ -1,7 +1,7 @@
 ---
 id:
 title: The 1Password connection collapses to one line once the token works
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
