@@ -1,7 +1,7 @@
 ---
 id:
 title: A save bar shows unsaved changes and Stop managing has its own section
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
