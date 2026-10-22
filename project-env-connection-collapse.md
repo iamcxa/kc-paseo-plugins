@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-connection-collapse:ideation:attempt-1:revision-1
                 digest: sha256:d5df3610c9e42ec6ff315d035ef40fbddc50bc5d3805bb3d2e561c647a454b50
                 room-ref: ./project-env-connection-collapse/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-connection-collapse:ideation:1
+                briefing: briefing:project-env-connection-collapse:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T07:44:56.146656Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — accepts this A5 rework design and its acceptance criteria into implementation, including the recommendation stated in this gate''s question.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-22T04:17:06Z
 ---
 
