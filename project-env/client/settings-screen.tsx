@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, Text, TextInput, View, useWindowDimensions } from "react-native";
-import { Icon, Modal } from "@getpaseo/plugin/client/react-native";
+import { Platform, Pressable, Text, TextInput, View, useWindowDimensions } from "react-native";
+import { Icon, Modal, useToast } from "@getpaseo/plugin/client/react-native";
 import {
   type PluginSurfaceProps,
   type SettingsState,
@@ -31,6 +31,8 @@ import {
   storeToken,
   testProject,
   tokenStatus,
+  hasPendingSave,
+  unsavedCount,
 } from "../shared/config";
 import type { Cause } from "../shared/cause";
 import { FieldPicker, type VaultList } from "./field-picker";
@@ -220,6 +222,124 @@ function VariableRow({
   );
 }
 
+const barButton = (theme: Theme, tone: "plain" | "primary" | "danger" | "dangerSolid", disabled = false) => ({
+  borderWidth: 1,
+  borderColor:
+    tone === "primary"
+      ? disabled
+        ? theme.colors.border
+        : theme.colors.foreground
+      : tone === "danger" || tone === "dangerSolid"
+        ? theme.colors.statusDanger
+        : theme.colors.border,
+  backgroundColor:
+    tone === "primary" && !disabled
+      ? theme.colors.foreground
+      : tone === "dangerSolid"
+        ? theme.colors.statusDanger
+        : "transparent",
+  borderRadius: 8,
+  paddingHorizontal: 12,
+  paddingVertical: 7,
+  opacity: disabled ? 0.5 : 1,
+});
+const barText = (theme: Theme, tone: "plain" | "primary" | "danger" | "dangerSolid", disabled = false) => ({
+  fontSize: 14,
+  color:
+    tone === "primary"
+      ? disabled
+        ? theme.colors.foregroundMuted
+        : theme.colors.surface0
+      : tone === "danger"
+        ? theme.colors.statusDanger
+        : tone === "dangerSolid"
+          ? theme.colors.surface0
+          : theme.colors.foreground,
+});
+
+function SaveBar({
+  count,
+  isSaved,
+  saving,
+  error,
+  theme,
+  onDiscard,
+  onSave,
+}: {
+  count: number;
+  isSaved: boolean;
+  saving: boolean;
+  error: string | null;
+  theme: Theme;
+  onDiscard(): void;
+  onSave(): void;
+}) {
+  const pending = hasPendingSave(count, isSaved);
+  const canSave = pending && !saving;
+  return (
+    <View
+      style={[
+        {
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          flexWrap: "wrap",
+          backgroundColor: theme.colors.surface1,
+          borderWidth: 1,
+          borderColor: theme.colors.border,
+          borderRadius: 12,
+          paddingHorizontal: 12,
+          paddingVertical: 10,
+          marginTop: 16,
+        },
+        Platform.OS === "web" ? ({ position: "sticky", bottom: 12, boxShadow: "0 -10px 18px rgba(0,0,0,0.35)" } as object) : null,
+      ]}
+    >
+      <View style={{ flexShrink: 1, flexGrow: 1, gap: 2 }}>
+        {error ? (
+          <Text accessibilityLiveRegion="polite" style={{ fontSize: 14, color: theme.colors.statusDanger }}>
+            {`Not saved: ${error}`}
+          </Text>
+        ) : null}
+        <Text
+          accessibilityLiveRegion="polite"
+          style={{
+            fontSize: error ? 13 : 14,
+            color: pending && !error ? theme.colors.foreground : theme.colors.foregroundMuted,
+          }}
+        >
+          {error
+            ? count === 0
+              ? isSaved
+                ? "No unsaved changes. Close reloads the settings."
+                : "This new project is still not saved. Discard drops it and reloads the settings."
+              : `${count} unsaved ${count === 1 ? "change is" : "changes are"} still here. Discard drops them and reloads the settings.`
+            : count > 0
+              ? `${count} unsaved ${count === 1 ? "change" : "changes"}`
+              : pending
+                ? "New project, not saved yet"
+                : "No unsaved changes"}
+        </Text>
+      </View>
+      <View style={{ flexDirection: "row", gap: 8, marginLeft: "auto" }}>
+        <Pressable accessibilityRole="button" onPress={onDiscard} style={barButton(theme, "plain")}>
+          <Text style={barText(theme, "plain")}>{pending ? "Discard" : "Close"}</Text>
+        </Pressable>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ disabled: !canSave }}
+          disabled={!canSave}
+          onPress={onSave}
+          style={barButton(theme, "primary", !canSave)}
+        >
+          <Text style={barText(theme, "primary", !canSave)}>{saving ? "Saving…" : "Save"}</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
 const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
 
 function ProjectEditor({
@@ -233,11 +353,13 @@ function ProjectEditor({
   theme: Theme;
   onDone(): void;
 }) {
-  const { draft, edits, revision } = open;
+  const { draft, edits, initial, revision } = open;
   const [newName, setNewName] = useState("");
   const nameInput = useRef<SettingsInputHandle>(null);
   const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const toast = useToast();
   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
   const muted = useMemo(() => ({ color: theme.colors.foregroundMuted }), [theme]);
   const promptStyle = useMemo(
@@ -343,8 +465,13 @@ function ProjectEditor({
 
   const save = async () => {
     const others = settings.values.projects.filter((p) => p.root !== draft.root);
-    if (await settings.save({ projects: [...others, draft] }, revision)) onDone();
+    if (await settings.save({ projects: [...others, draft] }, revision)) {
+      toast.show(`Saved ${basename(draft.root)}`, { variant: "success" });
+      onDone();
+    }
   };
+  const isSaved = settings.values.projects.some((p) => p.root === draft.root);
+  const count = unsavedCount(initial, draft);
   const remove = async () => {
     const others = settings.values.projects.filter((p) => p.root !== draft.root);
     if (await settings.save({ projects: others }, revision)) onDone();
@@ -599,48 +726,78 @@ function ProjectEditor({
         </View>
       </SettingsSection>
 
-      <SettingsSection title="Save">
-        <SettingsCard>
-          <SettingsAction
-            label="Save this project"
-            actionLabel="Save"
-            disabled={settings.saving}
-            onPress={save}
-            error={settings.saveError ?? undefined}
-          />
-          <SettingsAction label="Discard changes" actionLabel="Discard" onPress={onDone} />
-          <SettingsAction
-            label="Stop managing this project"
-            hint="Deletes its variables and default prompt now. The Keychain token stays."
-            actionLabel="Stop managing"
-            onPress={() => setConfirmStop(true)}
-          />
-        </SettingsCard>
-        <Modal title={`Stop managing ${basename(draft.root)}?`} open={confirmStop} onOpenChange={setConfirmStop}>
-          <Modal.Content>
-            <Text style={text}>
-              This deletes the project's variables and default prompt from this plugin right away,
-              without Save. Agents already open keep the values they have. The token stays in the
-              Keychain.
-            </Text>
-            <SettingsCard>
-              <SettingsAction label="Keep this project" actionLabel="Keep" onPress={() => setConfirmStop(false)} />
-              <SettingsAction
-                label="Stop managing"
-                actionLabel="Stop managing"
-                disabled={settings.saving}
-                onPress={remove}
-                error={settings.saveError ?? undefined}
-              />
-            </SettingsCard>
-          </Modal.Content>
-        </Modal>
+      <View style={{ marginTop: -6, marginBottom: 28 }}>
         <Text style={muted}>
           Values are injected into each agent's environment when its session opens, so the agent
           itself can read them.
         </Text>
-        <Text style={text}> </Text>
-      </SettingsSection>
+      </View>
+
+      {isSaved ? (
+        <SettingsSection title="Danger zone">
+          <SettingsCard>
+            <SettingsRow
+              label="Stop managing this project"
+              hint="Deletes its variables and default prompt now, without Save. The Keychain token stays."
+            >
+              <Pressable accessibilityRole="button" onPress={() => setConfirmStop(true)} style={barButton(theme, "danger")}>
+                <Text style={barText(theme, "danger")}>Stop managing</Text>
+              </Pressable>
+            </SettingsRow>
+          </SettingsCard>
+        </SettingsSection>
+      ) : null}
+      <Modal title={`Stop managing ${basename(draft.root)}?`} open={confirmStop} onOpenChange={setConfirmStop}>
+        <Modal.Content>
+          <Text style={text}>
+            This deletes the project's variables and default prompt from this plugin right away,
+            without Save. Agents already open keep the values they have. The token stays in the
+            Keychain.{count > 0 ? ` Your ${count} unsaved ${count === 1 ? "change is" : "changes are"} dropped too.` : ""}
+          </Text>
+          {settings.saveError ? <Text style={{ color: theme.colors.statusDanger }}>{settings.saveError}</Text> : null}
+          <View style={{ flexDirection: "row", gap: 8, justifyContent: "flex-end", marginTop: 8 }}>
+            <Pressable accessibilityRole="button" onPress={() => setConfirmStop(false)} style={barButton(theme, "plain")}>
+              <Text style={barText(theme, "plain")}>Keep this project</Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              disabled={settings.saving}
+              onPress={remove}
+              style={barButton(theme, "dangerSolid", settings.saving)}
+            >
+              <Text style={barText(theme, "dangerSolid")}>Stop managing</Text>
+            </Pressable>
+          </View>
+        </Modal.Content>
+      </Modal>
+
+      <Modal
+        title={`Discard ${count} unsaved ${count === 1 ? "change" : "changes"}?`}
+        open={confirmDiscard}
+        onOpenChange={setConfirmDiscard}
+      >
+        <Modal.Content>
+          <Text style={text}>They are dropped and the project list reads the saved settings again.</Text>
+          <View style={{ flexDirection: "row", gap: 8, justifyContent: "flex-end", marginTop: 8 }}>
+            <Pressable accessibilityRole="button" onPress={() => setConfirmDiscard(false)} style={barButton(theme, "plain")}>
+              <Text style={barText(theme, "plain")}>Keep editing</Text>
+            </Pressable>
+            <Pressable accessibilityRole="button" onPress={onDone} style={barButton(theme, "dangerSolid")}>
+              <Text style={barText(theme, "dangerSolid")}>Discard changes</Text>
+            </Pressable>
+          </View>
+        </Modal.Content>
+      </Modal>
+
+      <SaveBar
+        count={count}
+        isSaved={isSaved}
+        saving={settings.saving}
+        error={settings.saveError}
+        theme={theme}
+        onDiscard={() => (count > 0 ? setConfirmDiscard(true) : onDone())}
+        onSave={save}
+      />
     </>
   );
 }
