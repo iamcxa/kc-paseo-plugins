@@ -1,0 +1,89 @@
+design_review:
+  preview: project-env-connection-collapse/design/preview-1-connected-desktop-dark.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-2-change-desktop-dark.png, preview-18-change-failed-desktop-dark.png, preview-9-change-token-typed-desktop-dark.png, preview-11-change-400-dark.png, preview-21-change-token-typed-400-dark.png
+      seen: The only way out of the opened Change view is the last-row "Done" button, and it is disabled in 9, 18 and 21 ("Available once the connection works." or "Save the token or clear the field first."); no Cancel, close or revert control is drawn, and the only other exit is the page-bottom "Discard changes".
+      fix: Add a Cancel (or "Keep current connection") control beside Done that returns to the collapsed row and restores the previous account and vault, so a person who opened Change on a failed or working connection, or mistyped an account name, is never stuck in the editor.
+    - severity: MINOR
+      dimension: flow
+      where: preview-9-change-token-typed-desktop-dark.png, preview-21-change-token-typed-400-dark.png
+      seen: With a token typed, the status row reads "Saved token works ... The token you typed is not saved yet" and still carries a "Check" button; the screen does not say whether Check tests the typed token or the saved one.
+      fix: Label the Check button's target (for example "Check typed token" while a token is typed) or make Check act on the typed token and say so in the row's second line.
+    - severity: MINOR
+      dimension: flow
+      where: preview-7-setup-two-vaults-desktop-dark.png then preview-8-collapsed-after-vault-desktop-dark.png
+      seen: Choosing a vault from "Choose…" instantly collapses the card into a green "Connected · demo-multi · demo-prod" row, and nothing in the page marks the project as still unsaved (the bottom "Save" looks like in every other state).
+      fix: Add an unsaved cue (for example a muted "not saved yet" after the vault name or a highlighted Save), and say in preview 7 that picking a vault finishes the connection.
+    - severity: MINOR
+      dimension: flow
+      where: preview-2-change-desktop-dark.png, preview-9-change-token-typed-desktop-dark.png
+      seen: "Save token to Keychain" is a single click that replaces the stored token, and the screen does not say whether other projects using the same service account share that token (the page footer only says "The Keychain token stays" on Stop managing).
+      fix: State the scope of the stored token in the row's help line (for example "Shared by every project using demo-read").
+    - severity: MINOR
+      dimension: states
+      where: set as a whole (3, 12, 17, 18 show only "1Password rejected the token")
+      seen: Only one failure cause is drawn; there is no preview for offline or 1Password unreachable, a vault no longer readable, or an account named but with no token in the Keychain.
+      fix: Add previews of the collapsed failed row and the Change view for at least these causes, with the cause as the first words as the proposal says.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole
+      seen: There is no preview of the Vault menu open (2 vaults at 7, many vaults), of the Change view while a check is running, of the Check button or Save token mid-action, or of "Checking…" at 400 px or in light.
+      fix: Add an open-menu preview with many vaults, a Change-while-checking preview, and a 400 px "Checking…" preview.
+    - severity: MINOR
+      dimension: theme-size
+      where: set as a whole
+      seen: Light theme is shown only for connected desktop (14), change desktop (15), connected 400 (16) and failed 400 (17); light is missing for checking, setup, token typed, long names and Change at 400; 400 px is missing for checking and two-vaults; previews 2, 11, 15, 18 and 21 are cut off before the Save section.
+      fix: Add the missing light and 400 px combinations that carry a new element (setup and token-typed in light, Change at 400 in light, long names in light).
+    - severity: MINOR
+      dimension: consistency
+      where: preview-2-change-desktop-dark.png vs preview-18-change-failed-desktop-dark.png vs preview-5-setup-empty-desktop-dark.png
+      seen: The Vault control is a select with a chevron ("demo-dev" with chevron in 2, "Choose…" with chevron in 7), a plain text-like box with no chevron in 18, and an empty box with no chevron or placeholder in 5, 6 and 13.
+      fix: Draw Vault as one control with a chevron in every state, with a placeholder and a disabled look plus reason when no vault can be chosen yet.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-1-connected-desktop-dark.png vs preview-2-change-desktop-dark.png
+      seen: The same connection state is worded and drawn differently in the two views: a green dot and "Connected" in the collapsed row, but "Token works" or "Saved token works" with no dot in Change; the row "Use this connection" has a button named "Done".
+      fix: Reuse the dot and one status word in the Change view's status row, and align the last row's title and button wording.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-2-change-desktop-dark.png, preview-7-setup-two-vaults-desktop-dark.png
+      seen: The vault name is stated twice in one card: "Can read 1 vault: demo-dev" above and the Vault value "demo-dev" below (and both vault names in 7 above the menu); the section label "1Password" is also repeated in "1Password service account" and "1Password rejected the token".
+      fix: Drop the vault list from the status help line once a vault is chosen, and shorten the account row title to "Service account".
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-3-problem-desktop-dark.png, preview-12-problem-400-dark.png
+      seen: The failed row differs from the connected row only by a small red dot and the cause text in the same weight, it gives no next step, and "Test" stays enabled while "Browse vault" is disabled with no reason given.
+      fix: Add a short next step after the cause (for example "Change to paste a new token"), and disable or explain Test and Browse vault consistently while the connection fails.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-1-connected-desktop-dark.png, preview-10-connected-400-dark.png
+      seen: The account and vault are distinguished only by muted versus normal text; no label says which is the service account and which is the vault.
+      fix: Keep the colour split but add a title or a short word ("account", "vault") for the first use, or put it in the Change button's accessible label.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-1-connected-desktop-dark.png, preview-10-connected-400-dark.png
+      seen: Inventory: at 1280 px a person passes the page title, a "Back to plugins" link, the project name with its folder path and the "1Password" section label (4 blocks, about 250 px of 1500, 17% of the page) before the connected row, and 4 blocks (about 175 px of 1900, 9%) at 400 px; no block only explains another, but in Change at 400 px the account and token inputs are half-width and left-aligned while the Vault select sits right-aligned in the same card (11, 13, 21).
+      fix: Make the stacked text inputs at 400 px full-width, or right-align them like the Vault select, so one layout applies to every row in the card.
+    - severity: MINOR
+      dimension: platform
+      where: preview-10-connected-400-dark.png, preview-11-change-400-dark.png, preview-12-problem-400-dark.png
+      seen: At 400 px the Change, Remove, Check, Save token, Done and Test buttons are about 32 to 34 px high (inputs about 44 px), below the usual 44 pt touch target.
+      fix: Raise button height to about 44 px at 400 px, at least for Change and Done.
+    - severity: MINOR
+      dimension: theme-size
+      where: preview-14-connected-desktop-light.png, preview-15-change-desktop-light.png, preview-17-problem-400-light.png
+      seen: In light theme the muted account text, the disabled "Save token" and "Add", and the grey help text appear low-contrast against the near-white card, and the dot is small (about 8 px).
+      fix: Check muted and disabled text contrast in light against the usual 4.5:1 and enlarge the dot slightly or pair it with the status word, which is already present.
+    - severity: MINOR
+      dimension: states
+      where: preview-19-long-names-desktop-dark.png, preview-20-long-names-400-dark.png
+      seen: At 1280 px the long account and vault names just fit on one line before the Change button, and at 400 px the account breaks mid-hyphen ("read-only-" / "readers"); no longer name or an overflow rule (ellipsis, tooltip) is shown.
+      fix: Show an overflow case with a longer name and define truncation with the full name available on hover or focus.
+  limitations:
+    - Pictures are static; I could not open the Vault menu, see hover, focus or pressed states, or see the collapse and expand transition and any live-region announcement.
+    - Sizes and contrast are estimated by eye from the images, not measured; touch-target and contrast findings need a measurement.
+    - Previews 2, 11, 15, 18 and 21 are cut off before the Save section; I only saw "Done" and its reasons in the dark desktop and 400 px Change views.
+    - I could not see what Check, Change, Done or Save token do on press, or whether the project is persisted when the card collapses; flow findings are inferred from the drawn states.
+    - The page title, back link, section label inset, button sizes and theme colours are host-owned and were not reviewed.

@@ -1,0 +1,73 @@
+design_review:
+  preview: project-env-connection-collapse/design/preview-1-connected-desktop-dark.png
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-9-change-token-typed-desktop-dark.png
+      seen: With a new token typed and unsaved, the row above it still reads "Token works / Can read 1 vault: demo-dev", so a success claim sits next to a token that has not been checked.
+      fix: Replace the status with "Not checked" (or run the check on the typed token) while the token field holds unsaved text.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-1-connected-desktop-dark.png, preview-10-connected-400-dark.png
+      seen: The row reads "Connected · demo-read · demo-dev" with no labels, so which value is the account and which is the vault rests only on muted versus normal text colour.
+      fix: Add a minimal label or tooltip ("account", "vault"), or use a different separator or icon per value, so the distinction does not depend on colour alone.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-1-connected-desktop-dark.png
+      seen: Before the card the desktop page shows 5 blocks (title "collapse-preview · Project environment", "Back to plugins" link, "demo-app" heading, path, "1Password" label) over about 250 of 1500 px, and the sidebar "Back" plus "Back to plugins" navigate to the same place; the page title and "demo-app" are two different names.
+      fix: Drop one back control, and make clear which of the two names is the project (for example show the project name only in the heading above the card).
+    - severity: MINOR
+      dimension: spacing
+      where: preview-10-connected-400-dark.png, preview-12-problem-400-dark.png, preview-16-connected-400-light.png, preview-17-problem-400-light.png
+      seen: At 400 px the wrapped second line starts with a dangling "· demo-read", and the status dot sits centred between the two lines instead of aligned with "Connected".
+      fix: Drop the leading separator when the account and vault wrap, and align the dot to the first line.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-1-connected-desktop-dark.png
+      seen: The "1Password" label and the page title start about 4 px to the right of the card edge and of the "demo-app" heading and path (x about 460 against 456).
+      fix: Align the card label and heading to the card's left edge.
+    - severity: MINOR
+      dimension: flow
+      where: preview-3-problem-desktop-dark.png, preview-12-problem-400-dark.png
+      seen: The failed row says "1Password rejected the token" with no next step; Change looks identical to the other secondary buttons, the vault "demo-dev" is shown in normal text as if verified, and Browse vault is disabled without a reason.
+      fix: Add a short remedy ("Change the service account or token") or emphasise Change, and give the disabled Browse vault a one-line reason.
+    - severity: MINOR
+      dimension: flow
+      where: preview-7-setup-two-vaults-desktop-dark.png to preview-8-collapsed-after-vault-desktop-dark.png
+      seen: Picking a vault in the "Choose…" menu immediately collapses the card and pulls the page up by about 300 px, with no cue beforehand and no confirm.
+      fix: Say next to the Vault control that choosing it finishes the connection, or collapse only after an explicit "Done".
+    - severity: MINOR
+      dimension: flow
+      where: preview-2-change-desktop-dark.png, preview-9-change-token-typed-desktop-dark.png, preview-8-collapsed-after-vault-desktop-dark.png
+      seen: The open form has no Cancel; "Use this connection / Done" is the only exit, it is disabled while a token is typed, and the collapsed "Connected" row gives no hint that nothing is saved until "Save this project" far below.
+      fix: Add a Cancel or close affordance, and state that Done applies to the draft (or show an unsaved cue on the card).
+    - severity: MINOR
+      dimension: consistency
+      where: preview-5-setup-empty-desktop-dark.png, preview-6-setup-typed-desktop-dark.png versus preview-7-setup-two-vaults-desktop-dark.png and preview-2-change-desktop-dark.png
+      seen: The empty Vault control is a blank box with no chevron or placeholder, while the same control shows a "Choose…" or "demo-dev" menu with a chevron elsewhere; the service-account box is blank with no placeholder while the token box shows "ops_…".
+      fix: Draw the empty Vault as the same disabled menu with a chevron and a hint such as "Check the account first", and give the account box a placeholder.
+    - severity: MINOR
+      dimension: platform
+      where: preview-11-change-400-dark.png, preview-13-setup-400-dark.png, preview-10-connected-400-dark.png
+      seen: At 400 px Check, Save token, Add and Remove are about 28-34 px tall and Change about 34 px, under the 44 px touch target.
+      fix: Raise the button height at phone width to at least 44 px, or add padding around the hit area.
+    - severity: MINOR
+      dimension: theme-size
+      where: preview-14-connected-desktop-light.png, preview-16-connected-400-light.png
+      seen: In light theme the muted account text ("demo-read") and the disabled buttons (Save token, Add, Browse vault) are low contrast against the near-white card, and the 8 px status dot is small.
+      fix: Check muted text and disabled contrast against 4.5:1 and darken the muted token, and enlarge the dot slightly.
+    - severity: MINOR
+      dimension: states
+      where: whole set
+      seen: Not shown: Change opened on a failed or checking project, Done disabled while the connection fails (a spec case), a failed check or rejected token inside the open form, the Vault menu open, and a long service-account or vault name (or many vaults) in the row at desktop and at 400 px.
+      fix: Add previews for these, especially the failed-in-Change and Done-disabled-with-reason cases and a long-name wrap.
+    - severity: MINOR
+      dimension: theme-size
+      where: whole set
+      seen: Light theme is shown only for connected (desktop and 400), change (desktop) and problem (400); checking, setup, typed token and token-typed states are missing in light, and checking, typed, two-vaults, collapsed and token-typed are missing at 400 px.
+      fix: Add the missing theme and size combinations, or state that the omitted ones reuse the same tokens.
+  limitations:
+    - Static images only: hover, focus, pressed, the open Vault menu, and the collapse animation cannot be seen.
+    - Sizes and contrast are judged by eye from the pictures, not measured, and no ratio was computed.
+    - The 400 px pictures of the change state (preview-11) and the desktop change/typed states cut off at the page bottom, so the lower part of those pages was not seen.
+    - Wording from the whole page outside the 1Password card (variables, prompt, save) was treated as context and only used for system-fit comparison.
