@@ -214,6 +214,9 @@ function ConnectionLineRow({
   );
 }
 
+// Paseo re-mounts the screen when the window crosses 720 px; a Change in progress survives it.
+let changing: { session: number; before: Pick<Project, "serviceAccount" | "vault"> } | null = null;
+
 const basename = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
 
 function ProjectEditor({
@@ -232,10 +235,15 @@ function ProjectEditor({
   const nameInput = useRef<SettingsInputHandle>(null);
   const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
-  const [before, setBefore] = useState({ serviceAccount: draft.serviceAccount, vault: draft.vault });
+  const resumed = changing?.session === open.session ? changing : null;
+  const [before, setBefore] = useState(resumed?.before ?? { serviceAccount: draft.serviceAccount, vault: draft.vault });
   const [view, setView] = useState<"line" | "setup" | "change">(
-    draft.serviceAccount.trim() !== "" && draft.vault !== "" ? "line" : "setup",
+    resumed ? "change" : draft.serviceAccount.trim() !== "" && draft.vault !== "" ? "line" : "setup",
   );
+  const backToLine = () => {
+    changing = null;
+    setView("line");
+  };
   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
   const muted = useMemo(() => ({ color: theme.colors.foregroundMuted }), [theme]);
   const promptStyle = useMemo(
@@ -402,7 +410,9 @@ function ProjectEditor({
               vault={draft.vault}
               theme={theme}
               onChange={() => {
-                setBefore({ serviceAccount: draft.serviceAccount, vault: draft.vault });
+                const snapshot = { serviceAccount: draft.serviceAccount, vault: draft.vault };
+                changing = { session: open.session, before: snapshot };
+                setBefore(snapshot);
                 setView("change");
               }}
             />
@@ -497,7 +507,7 @@ function ProjectEditor({
               }
               actionLabel="Done"
               disabled={line.kind !== "connected" || !nothingPending}
-              onPress={() => setView("line")}
+              onPress={backToLine}
             />
           ) : null}
           {view === "change" ? (
@@ -510,7 +520,7 @@ function ProjectEditor({
                 setTokenDraft("");
                 latestToken.current = "";
                 clearTokenMessages();
-                setView("line");
+                backToLine();
               }}
             />
           ) : null}
