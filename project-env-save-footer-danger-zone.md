@@ -182,3 +182,20 @@ Teardown (2026-10-22): daemon on port 6831 stopped (`paseo --home <spike home> d
 ### Summary
 
 The footer is one pure function, `unsavedCount(saved, draft)`, a bar that shows it, one toast on Save, a Danger zone shown only for a saved project, and two confirm dialogs (Stop managing, Discard) with red confirm buttons; it was built as a spike on main 1adf630 and drawn at desktop and 400 px, dark and light. Both design reviews ran; the Discard confirm that fixes the last MAJOR finding was not reviewed again because the two-run cap was reached. The only Captain decision is whether Save should keep the editor open; the default recommended is that it closes, as today.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, including every interface it names for its sibling tasks and, where present, Captain amendment 1 in the task file.
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/23 (commits 9b5008b, aded542) off d61e243; `unsavedCount`, `SaveBar`, Danger zone, Stop managing and Discard dialogs, toast; uses `openProject` `initial`/`draft` and `onDone` (close); no Captain amendment in the task. One departure: the service account is compared raw, not trimmed (roborev finding: Save writes it raw, so a whitespace-only fix is a real change); decision on Save closing the editor kept as recommended (yes, as today).
+- DONE: Land tests so each acceptance criterion passes with the evidence its clause names and fails when its behaviour is removed, plus whole-page screenshots of the built change at desktop and 400 px.
+  AC-1 count rule: `test/unsaved-count.test.ts` asserts 0 for no change, 1 per changed account/vault/prompt/removed/added/re-pointed variable, 3 for three, 0 for remove-then-re-add; mutation (prompt no longer counted) made it fail. AC-1/AC-2 runtime: 21 screenshots in `project-env-save-footer-danger-zone/impl/` (desktop 1280 and 400 px, whole page, isolated Paseo 0.12.0 on port 6893, throwaway plugin `sfdz-impl`, fake op/security/git); bar read 3 unsaved with Save on, Save wrote 4 variables and the prompt and showed "Saved demo-app" on the list; Discard changes left the file unchanged; Danger zone present for demo-app, absent for billing-api; Keep this project left 1 project, Stop managing left 0; refused Save showed the red reason with the count. A bar that never counts, or a Danger zone for an unsaved project, fails these.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, `design_surfaces.py check` and `doc_impact.py`, then open the Draft PR.
+  `npm test` 176 pass, 0 fail (first run once hit the session-open deadline under load; rerun passed); typecheck clean; roborev first run `evidence=roborev:1031` one Medium (fixed), final `clean on aded5429f; evidence=roborev:1034`; `design_surfaces.py`: "design surfaces presentable"; `comment_ratio.py`: code lines 226, comment lines 0, 0.0%, maximum 5% met; Draft PR opened (url above).
+
+### Affected documents
+
+`doc_impact.py d61e243 HEAD` lists one document: `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md` (review): unaffected: it records the reserved-name predicate `isReservedName`, which this change does not touch; only `unsavedCount` was added to `shared/config.ts`. No ADR added. CHANGELOG is release-please managed.
+
+### Summary
+
+The settings page now ends with the Danger zone (saved projects only) and a pinned save bar with the unsaved count, Close/Discard and Save, a Discard confirm, a red-confirm Stop managing dialog and a Saved toast; the count is a difference between `initial` and `draft`. Known limits: the phone app, the "Saving…" label and a refused Stop managing are source-verified only, not drawn; screenshots show the page as of main d61e243 without the sibling rework tasks. The isolated daemon was stopped and `/tmp/sfdz-impl` removed; Kent's `~/.paseo` and the live plugin were not touched.
