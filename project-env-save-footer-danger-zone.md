@@ -277,3 +277,34 @@ Wording for a new project with no edits: "New project, not saved yet", button "D
 Test: `test/unsaved-count.test.ts` "a project not saved yet can be saved with no changes" asserts `hasPendingSave(0,false)` true, `(0,true)` false, `(2,true)` true; it fails if the rule is `count > 0` alone. Wiring: validation `drive.sh` on a build of af52257 (isolated Paseo, port 6911): all 16 steps pass, including new-project "bar says not saved yet", Discard offered, Save on, no Danger zone, and Save with no edits writes the project (1 project in the file). `npm test` 177 pass, 0 fail; `npm run typecheck` clean.
 roborev (`--base d61e243`): e1792c5 `evidence=roborev:1037` one Low (fixed); final `clean on af5225796; evidence=roborev:1039`.
 Validation scripts updated in `validation/`: `CAND` in `up.sh` is the new head, the new-project step in `drive.sh` expects the new behaviour, and `acc-new-project.png` is retaken.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Revalidate candidate af52257964ada675516e0ee1aa317f1e1111d711 (PR iamcxa/kc-paseo-plugins#23), which adds e1792c5 and af52257 on top of the validated aded542 to fix Codex round 1's P2, and check the fix independently.
+  Verdict: PASSED (recommended; the Captain decides). PR head is exactly af52257 (open, no longer Draft); worktree clean at af52257; rebuilt from `git archive` on an isolated Paseo 0.12.0 (port 6911, plugin `sfdz-val`, fake op/security/git); typecheck clean, `npm test` 177 pass 0 fail.
+- DONE: A new project with no edits shows "New project, not saved yet", Save on, Discard, and Save writes it; a saved project with no edits is unchanged; refused Save wording for new vs saved.
+  Observed 2026-10-22 at 1280 and 400 px: billing-api opened via Add reads "New project, not saved yet", Discard, Save on, no Danger zone; Save with no edits wrote it (1 project in the file). A saved project with no edits still reads "No unsaved changes", Close, Save disabled. Refused with the file changed elsewhere: new project reads "Not saved: Settings changed on another client..." plus "This new project is still not saved. Discard drops it and reloads the settings."; a saved project whose Stop managing was refused reads "No unsaved changes. Close reloads the settings." with the refusal also in the dialog (`validation/p-new-refused.png`, `p-saved-stop-refused.png`). Discard on the refused new project returned to the list without adding it.
+- DONE: Confirm the `hasPendingSave` test fails when the rule is `count > 0` alone, and that nothing validated at aded542 regressed.
+  On a throwaway copy, `count > 0` alone, `!isSaved` alone and `true` each took `test/unsaved-count.test.ts` from 3 pass to 2 pass 1 fail. The test checks the helper only, so I also mutated the wiring (`const pending = count > 0;` in `SaveBar`) on a restarted daemon: `drive.sh` reported 4 FAIL (not-saved-yet text, Discard, Save on, Save writes). Every cycle 1 check (count 3, Save write and toast, Discard unchanged, Keep/Stop managing, Danger zone only for saved) passes again.
+- DONE: Rerun the acceptance script in the validation folder in a fresh shell at af52257964ada675516e0ee1aa317f1e1111d711 and record its PASS/FAIL lines, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Run via `env -i HOME PATH sh -c` (steps 1 to 3): step 1 "pass 3, fail 0"; `up.sh` READY; `drive.sh` 16 PASS lines, 0 FAIL, "ALL PASS", exit 0. adr_lint exit 0 ("5 ADR file(s) checked, 0 legacy"); comment_ratio exit 0 (244 code lines, 0 comment lines); design_surfaces exit 0; dispatch_records exit 0 (4 complete); doc_impact lists ADR 0004 only, still unaffected (the diff adds one line to `shared/config.ts`, not the reserved-name rule). Correction to the cycle 1 script text: step 1 now expects "pass 3" and step 3 expects 16 PASS lines.
+- DONE: Record every unverified obligation, and append your result as a validation stage report for this cycle.
+  See Unverified below.
+
+### What the Captain should see
+
+A new project with no edits: the page ends with the grey agents sentence, no Danger zone, and a bar reading "New project, not saved yet" with Discard and a white Save (`validation/acc-new-project.png` at 1280, `c400-new-project.png` at 400; the bar stays one row). Everything seen in cycle 1 is unchanged.
+
+### Findings
+
+None Material. Polish: Save on an untouched new project writes a project with no service account, vault or variables (what the fix asks for; no AC forbids it); a refused Stop managing still shows its text both in the dialog and, behind it, in the bar (carried from cycle 1, source and now drawn in `p-saved-stop-refused.png`).
+
+### Unverified obligations
+
+- Phone app, the "Saving…" label, light theme at this candidate, the page merged with the sibling rework tasks: not observed.
+- Real 1Password and Keychain: fakes only, by instruction.
+- Whether a successful Stop managing flashes "New project, not saved yet" for a frame before the editor closes (`isSaved` is read from settings that Stop managing has just rewritten): not observed; the editor was already closed when I looked.
+
+### Summary
+
+The fix for Codex's P2 works at the exact PR head on a rebuilt isolated Paseo: an unsaved project with no edits can be saved, a saved project with no edits stays Close with Save off, both refused-Save wordings are right, and nothing validated at aded542 regressed. The helper test and the runtime script both fail when the rule is `count > 0` alone. Verdict PASSED; the isolated daemon, browser session and `/tmp` dirs are removed.
