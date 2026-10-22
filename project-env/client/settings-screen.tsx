@@ -527,20 +527,14 @@ function ProjectEditor({
         : { status: "loading" };
   const [picking, setPicking] = useState<string | null>(null);
   const pickingVariable = draft.variables.find((v) => v.name === picking);
-  const [vaultWanted, setVaultWanted] = useState(false);
-  const loadVault = () => {
-    if (refs.isError) refs.reset();
-    setVaultWanted(true);
-  };
-  useEffect(() => {
-    if (vaultWanted && !refs.data && !refs.isPending && !refs.isError && current?.state === "ok" && vaultReadable) {
-      refs.mutate();
-    }
-  }, [vaultWanted, refs, current?.state, vaultReadable]);
   useEffect(() => {
     refs.reset();
-    setVaultWanted(false);
   }, [account, draft.vault]);
+  useEffect(() => {
+    if (picking !== null && !refs.data && !refs.isPending && !refs.isError && current?.state === "ok" && vaultReadable) {
+      refs.mutate();
+    }
+  }, [picking, refs, current?.state, vaultReadable]);
 
   return (
     <>
@@ -646,7 +640,7 @@ function ProjectEditor({
                     failed={result?.ok === false}
                     theme={theme}
                     onOpen={() => {
-                      loadVault();
+                      if (refs.isError) refs.reset();
                       setPicking(v.name);
                     }}
                   />
