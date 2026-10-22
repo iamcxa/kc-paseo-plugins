@@ -400,3 +400,4 @@ PASSED (recommend): at 8b02d11 the connection line, Change, Cancel, failed check
 
 External review rounds at the validation gate: Codex 2 (round 1 one P2, fixed in feedback cycle 2; round 2 clean at 8b02d11). The local roborev gate is not an external round.
 delivery_gate.py check passed at 8b02d11 before the ask; the Captain approved with 「准」 and FO merged as 681f861.
+FO response to observer.md: the deferrals now carry their triggers. roborev:1041 finding 1 becomes material if the Captain loses a saved token to a resize in use; candidate revision: hold the pending token save in the `openProject` store. roborev:1041 finding 2 becomes material if the Captain wants Save blocked while Change is open; candidate revision: disable the footer Save while `changing` is set. The ideation reason's "including the recommendation" phrase was boilerplate with no recommendation behind it; later gates state one or omit the phrase.
