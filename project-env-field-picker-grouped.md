@@ -176,3 +176,32 @@ Design finding 15: declined: colours come from the host theme; light pictures of
 ### Summary
 
 The picker stays a host dialog or bottom sheet and reuses `vault.list-refs` unchanged; a new pure `pickerRows` groups by item, puts the exact-label field first, ticks the held field, marks "used by" and "not in vault", and moves unreadable items to a "Not listed" footer. One Captain decision: keep a "Type a reference…" row, which nobody owns and which today's typed rows would otherwise lose. Known limits: first-open listing runs `op item get` per item (about 6 s for 21 items with the fake op; a real vault was not measured), and mouse-wheel scrolling and the desktop and phone apps were not exercised. Teardown: daemon stopped, `/tmp/fp-grouped-spike` removed, Kent's daemon on 6767 untouched; `spike/run.sh up` and `spike/capture.sh` redraw everything.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, including every interface it names for its sibling tasks.
+  The design's picker was already on main as the #24 stand-in (identical to the spike overlay, diffed); `FieldPicker`, `VaultList`, `sameName` and the settings-screen imports are unchanged. Code commit 76e1675 on spacedock-ensign/project-env-field-picker-grouped.
+- DONE: Land tests so each acceptance criterion passes with the evidence its clause names and fails when its behaviour is removed.
+  `project-env/test/field-picker.test.ts` (22 cases). AC-1: grouping asserts items by title with fields under them (fails if sort or group changes); search asserts label match and whole-item title match (fails if a search hides a matching item); suggestion asserts exact-label fields listed before every group and "sentry_project" does not suggest SENTRY_PROJECT (fails if the match turns case-insensitive or the suggestion falls back into its group). AC-2: `usedBy` lists other holders and never the edited variable; a saved reference absent or in another vault gives the `stale` row, one inside an unreadable item does not (fails if the edited variable is counted or an unreadable item is called missing).
+- DONE: Finding roborev:1033 (search text kept after a pick closes the picker), with a test that fails without the fix.
+  `PickerBody` renders only while open, so state resets by construction. Proof is in a real browser, `impl/verify.sh`: base code printed `search text after pick and reopen: [twilio]` and FAIL; with the fix `[]`. No React renderer exists in the repo, so `npm test` does not cover it (limit).
+- DONE: Finding Codex round 2 P2 ("Type a reference…" accepts empty or blank segments), with a test that fails without the fix.
+  `usableReference` in `shared/ref.ts` requires `parseRef` and `splitRef`. Unit test refuses `op://Dev/item//field`, `op://Dev/ /field`, `op://Dev//field` and fails when `parseRef` is dropped (run: 1 failing case). Browser: with the old client check Use was enabled for both bad references; with the fix it is disabled for both and enabled for `op://Dev/item/field`.
+- DONE: Whole-page screenshots of the built change at desktop and 400 px, saved in the task folder.
+  `project-env-field-picker-grouped/evidence/` holds 28 files: `impl-desktop-page.png` and `impl-400-page.png` (save bar, connection line, pill rows) plus 13 picker states at each size (loading, suggested, bottom, used-by, not-in-vault, empty-field, search, no-match, empty-vault, load-failed, type-reference-bad, type-reference-empty-segment, type-reference). Drawn by `impl/run.sh up` and `impl/capture.sh desktop|400` from the worktree on an isolated Paseo 0.12.0 (own home, port 6874, plugin fp-grouped-impl, fake op/security/git); no op or security command, no live plugin, no ~/.paseo touched; daemon stopped afterwards.
+- DONE: `npm test`, `npm run typecheck`.
+  213 tests pass, 0 fail (session-open deadline test passed in the full run); `tsc --noEmit` prints nothing.
+- DONE: The roborev gate.
+  `clean on 76e167528; evidence=roborev:1054`, exit 0, first run.
+- DONE: `design_surfaces.py check`.
+  "design surfaces presentable", exit 0.
+- DONE: `doc_impact.py <base> <candidate>`.
+  "0 document(s) mention what changed", nothing to record; CHANGELOG is release-generated and OVERVIEW.md is still the registry template.
+- DONE: `comment_ratio.py`.
+  "code lines 198, comment lines 0, 0.0%; maximum 5% met", exit 0.
+- DONE: Open the Draft PR.
+  https://github.com/iamcxa/kc-paseo-plugins/pull/26 (draft, base main, squash merge is the Captain's).
+
+### Summary
+
+The picker design was already live on main as the stand-in, so this stage adds the tests that pin AC-1 and AC-2 and fixes the two findings routed from #24: Use now follows `parseRef` (new `usableReference`), and the picker body mounts only while open so the search and typed-reference box reset. Known limits: the two component fixes are proven by a browser run (`impl/verify.sh`), not by `npm test`; first-open listing speed on a real vault was not measured. The picture scripts needed three fixes for the post-#24 page (pill label now ends in a colon, a second Close button on the page, the pill hidden behind the save bar at 400 px); all are in `impl/`.
