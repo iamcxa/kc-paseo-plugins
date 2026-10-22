@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-draft-survives-remount:ideation:attempt-1:revision-1
                 digest: sha256:f02ff4af014c0fe4b2cb25ac666d695a8fffc8f317ae4575dfe1134842e349a7
                 room-ref: ./project-env-draft-survives-remount/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-draft-survives-remount:ideation:1
+                briefing: briefing:project-env-draft-survives-remount:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T07:44:49.89192Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — accepts this A5 rework design and its acceptance criteria into implementation, including the recommendation stated in this gate''s question.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-22T04:16:26Z
 ---
 
