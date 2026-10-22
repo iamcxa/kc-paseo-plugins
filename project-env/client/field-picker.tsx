@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { FlatList, Icon, Modal, TextInput } from "@getpaseo/plugin/client/react-native";
 import type { PluginSurfaceProps } from "@getpaseo/plugin/client";
-import { type Holder, type PickerRow, type Skipped, hasFields, pickerRows, splitRef } from "../shared/field-picker";
+import { type Holder, type PickerRow, type Skipped, hasFields, pickerRows } from "../shared/field-picker";
+import { usableReference } from "../shared/ref";
 
 type Theme = PluginSurfaceProps["theme"];
 
@@ -20,7 +21,7 @@ function TypeReference({ vault, theme, onUse }: { vault: string; theme: Theme; o
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const c = theme.colors;
-  const valid = splitRef(text.trim(), vault) !== null;
+  const valid = usableReference(text, vault);
   if (!open) {
     return (
       <Pressable accessibilityRole="button" onPress={() => setOpen(true)} style={{ paddingVertical: 12 }}>
@@ -58,21 +59,7 @@ function TypeReference({ vault, theme, onUse }: { vault: string; theme: Theme; o
   );
 }
 
-export function FieldPicker({
-  title,
-  open,
-  onOpenChange,
-  name,
-  vault,
-  current,
-  holders,
-  list,
-  theme,
-  onPick,
-}: {
-  title: string;
-  open: boolean;
-  onOpenChange(open: boolean): void;
+type PickerProps = {
   name: string | null;
   vault: string;
   current: string;
@@ -80,7 +67,24 @@ export function FieldPicker({
   list: VaultList;
   theme: Theme;
   onPick(ref: string): void;
-}) {
+};
+
+export function FieldPicker({
+  title,
+  open,
+  onOpenChange,
+  ...body
+}: PickerProps & { title: string; open: boolean; onOpenChange(open: boolean): void }) {
+  return (
+    <Modal title={title} open={open} onOpenChange={onOpenChange}>
+      <Modal.Content scrollable={false} contentContainerStyle={{ flex: 1, padding: 24, gap: 8 }} style={{ flex: 1 }}>
+        {open ? <PickerBody {...body} onClose={() => onOpenChange(false)} /> : null}
+      </Modal.Content>
+    </Modal>
+  );
+}
+
+function PickerBody({ name, vault, current, holders, list, theme, onPick, onClose }: PickerProps & { onClose(): void }) {
   const [query, setQuery] = useState("");
   const c = theme.colors;
   const rowHeight = useWindowDimensions().width < 500 ? 44 : 36;
@@ -124,7 +128,7 @@ export function FieldPicker({
             accessibilityLabel={`${row.item} ${row.field}`}
             onPress={() => {
               onPick(row.ref);
-              onOpenChange(false);
+              onClose();
             }}
             style={{ flexDirection: "row", alignItems: "center", gap: 8, minHeight: rowHeight, paddingVertical: 5 }}
           >
@@ -156,22 +160,14 @@ export function FieldPicker({
       theme={theme}
       onUse={(ref) => {
         onPick(ref);
-        onOpenChange(false);
+        onClose();
       }}
     />
   );
   const searching = query.trim() !== "";
   return (
-    <Modal
-      title={title}
-      open={open}
-      onOpenChange={(next) => {
-        if (!next) setQuery("");
-        onOpenChange(next);
-      }}
-    >
-      <Modal.Content scrollable={false} contentContainerStyle={{ flex: 1, padding: 24, gap: 8 }} style={{ flex: 1 }}>
-        {list.status !== "error" ? (
+    <>
+      {list.status !== "error" ? (
         <TextInput
           value={query}
           onChangeText={setQuery}
@@ -189,33 +185,32 @@ export function FieldPicker({
             fontSize: 14,
           }}
         />
-        ) : null}
-        {list.status === "loading" ? note("Loading the vault…") : null}
-        {list.status === "error" ? (
-          <View style={{ paddingVertical: 16, gap: 4 }}>
-            <Text style={{ color: c.statusDanger, fontSize: 14, textAlign: "center" }}>{list.message}</Text>
-            {list.hint ? (
-              <Text style={{ color: c.foregroundMuted, fontSize: 13, textAlign: "center" }}>{list.hint}</Text>
-            ) : null}
-          </View>
-        ) : null}
-        {list.status === "ready" ? (
-          <View style={{ flex: 1, minHeight: 0 }}>
-            <FlatList
-              data={rows}
-              keyExtractor={(row, i) => `${i}-${row.kind}`}
-              renderItem={renderRow}
-              ListHeaderComponent={
-                hasFields(rows)
-                  ? null
-                  : note(searching ? `No field matches "${query.trim()}"` : "Nothing readable in this vault")
-              }
-              ListFooterComponent={typeRef}
-            />
-          </View>
-        ) : null}
-        {list.status !== "ready" && list.status !== "loading" ? typeRef : null}
-      </Modal.Content>
-    </Modal>
+      ) : null}
+      {list.status === "loading" ? note("Loading the vault…") : null}
+      {list.status === "error" ? (
+        <View style={{ paddingVertical: 16, gap: 4 }}>
+          <Text style={{ color: c.statusDanger, fontSize: 14, textAlign: "center" }}>{list.message}</Text>
+          {list.hint ? (
+            <Text style={{ color: c.foregroundMuted, fontSize: 13, textAlign: "center" }}>{list.hint}</Text>
+          ) : null}
+        </View>
+      ) : null}
+      {list.status === "ready" ? (
+        <View style={{ flex: 1, minHeight: 0 }}>
+          <FlatList
+            data={rows}
+            keyExtractor={(row, i) => `${i}-${row.kind}`}
+            renderItem={renderRow}
+            ListHeaderComponent={
+              hasFields(rows)
+                ? null
+                : note(searching ? `No field matches "${query.trim()}"` : "Nothing readable in this vault")
+            }
+            ListFooterComponent={typeRef}
+          />
+        </View>
+      ) : null}
+      {list.status !== "ready" && list.status !== "loading" ? typeRef : null}
+    </>
   );
 }

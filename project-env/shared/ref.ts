@@ -1,4 +1,4 @@
-import { sameName } from "./field-picker.ts";
+import { sameName, splitRef } from "./field-picker.ts";
 
 export interface ParsedRef {
   vault: string;
@@ -11,6 +11,11 @@ export function parseRef(ref: string): ParsedRef | null {
   const parts = ref.slice("op://".length).split("/");
   if (parts.length < 3 || parts.some((part) => part.trim() === "")) return null;
   return { vault: parts[0], item: parts[1], field: parts[parts.length - 1] };
+}
+
+export function usableReference(text: string, vault: string): boolean {
+  const ref = text.trim();
+  return parseRef(ref) !== null && splitRef(ref, vault) !== null;
 }
 
 export type PillView =
