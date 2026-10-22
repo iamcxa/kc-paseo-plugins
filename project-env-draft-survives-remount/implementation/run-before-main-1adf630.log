@@ -1,0 +1,48 @@
+== A: edit at 1280, cross to 719, 400, back to 1280
+PASS a1-1280: editor open
+PASS a1-1280: added row LINEAR_API_KEY
+PASS a1-1280: typed prompt
+FAIL a2-719: editor open (rows matching: 0, wanted some)
+FAIL a2-719: added row LINEAR_API_KEY (rows matching: 0, wanted some)
+FAIL a2-719: typed prompt (rows matching: 0, wanted some)
+FAIL a3-400: editor open (rows matching: 0, wanted some)
+FAIL a3-400: added row LINEAR_API_KEY (rows matching: 0, wanted some)
+FAIL a3-400: typed prompt (rows matching: 0, wanted some)
+FAIL a4-1280-again: editor open (rows matching: 0, wanted some)
+FAIL a4-1280-again: added row LINEAR_API_KEY (rows matching: 0, wanted some)
+FAIL a4-1280-again: typed prompt (rows matching: 0, wanted some)
+== B: edit at 400, grow to 1280
+PASS b1-400: editor open
+PASS b1-400: added row LINEAR_API_KEY
+PASS b1-400: typed prompt
+FAIL b2-1280: editor open (rows matching: 0, wanted some)
+FAIL b2-1280: added row LINEAR_API_KEY (rows matching: 0, wanted some)
+FAIL b2-1280: typed prompt (rows matching: 0, wanted some)
+== C: new unsaved project, cross to 400 and back
+PASS c1-1280: new project editor open
+PASS c1-1280: added row STRIPE_KEY
+PASS c1-1280: typed prompt
+FAIL c2-400: new project editor open (rows matching: 0, wanted some)
+FAIL c2-400: added row STRIPE_KEY (rows matching: 0, wanted some)
+FAIL c2-400: typed prompt (rows matching: 0, wanted some)
+FAIL c3-1280: new project editor open (rows matching: 0, wanted some)
+FAIL c3-1280: added row STRIPE_KEY (rows matching: 0, wanted some)
+FAIL c3-1280: typed prompt (rows matching: 0, wanted some)
+== D: Save at 400 after a crossing
+FAIL d: settings file lacks LINEAR_API_KEY after Save
+PASS d: back on the project list
+PASS d: editor closed
+== E: Discard at 400 after a crossing, then reopen
+PASS e: back on the project list
+PASS e: still the list after growing
+PASS e: reopened editor has no discarded row
+PASS e: reopened editor is open
+== F: another client saved first, Save after a crossing is refused
+PASS f: other writer's prompt still in the file
+FAIL f: editor still open after the refusal (rows matching: 0, wanted some)
+FAIL f: refusal message shown (rows matching: 0, wanted some)
+== G: Stop managing dialog open, cross to 400
+PASS g: dialog open at 1280
+PASS g: dialog closed after the crossing
+FAIL g: draft kept after the crossing (rows matching: 0, wanted some)
+RESULT before: 22 check(s) failed

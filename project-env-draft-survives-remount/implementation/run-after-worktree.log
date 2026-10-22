@@ -1,0 +1,49 @@
+== A: edit at 1280, cross to 719, 400, back to 1280
+[agent-browser] launched browser
+PASS a1-1280: editor open
+PASS a1-1280: added row LINEAR_API_KEY
+PASS a1-1280: typed prompt
+PASS a2-719: editor open
+PASS a2-719: added row LINEAR_API_KEY
+PASS a2-719: typed prompt
+PASS a3-400: editor open
+PASS a3-400: added row LINEAR_API_KEY
+PASS a3-400: typed prompt
+PASS a4-1280-again: editor open
+PASS a4-1280-again: added row LINEAR_API_KEY
+PASS a4-1280-again: typed prompt
+== B: edit at 400, grow to 1280
+PASS b1-400: editor open
+PASS b1-400: added row LINEAR_API_KEY
+PASS b1-400: typed prompt
+PASS b2-1280: editor open
+PASS b2-1280: added row LINEAR_API_KEY
+PASS b2-1280: typed prompt
+== C: new unsaved project, cross to 400 and back
+PASS c1-1280: new project editor open
+PASS c1-1280: added row STRIPE_KEY
+PASS c1-1280: typed prompt
+PASS c2-400: new project editor open
+PASS c2-400: added row STRIPE_KEY
+PASS c2-400: typed prompt
+PASS c3-1280: new project editor open
+PASS c3-1280: added row STRIPE_KEY
+PASS c3-1280: typed prompt
+== D: Save at 400 after a crossing
+PASS d: settings file has LINEAR_API_KEY after Save
+PASS d: back on the project list
+PASS d: editor closed
+== E: Discard at 400 after a crossing, then reopen
+PASS e: back on the project list
+PASS e: still the list after growing
+PASS e: reopened editor has no discarded row
+PASS e: reopened editor is open
+== F: another client saved first, Save after a crossing is refused
+PASS f: other writer's prompt still in the file
+PASS f: editor still open after the refusal
+PASS f: refusal message shown
+== G: Stop managing dialog open, cross to 400
+PASS g: dialog open at 1280
+PASS g: dialog closed after the crossing
+PASS g: draft kept after the crossing
+RESULT after: 0 check(s) failed

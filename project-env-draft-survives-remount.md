@@ -179,3 +179,25 @@ Unresolved decisions for the Captain: none. Recorded consequence for his gate: a
 ### Summary
 
 The edits vanish because Paseo re-mounts the plugin screen at 720 px and the draft lived in that screen's React state; a module-level store survives because the plugin module loads once per page. The prototype keeps the draft in both directions, for a new project, and across Save, Discard and the revision-conflict refusal. Design finding 1 (Stop managing looks like Save) is for FO to route to the save-footer task; `design_surfaces.py check` reported "design surfaces presentable" with 13 findings, 2 fixed, 10 declined, 1 decision.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: a module-level open-project store (initial, draft, edits, revision, session) that survives the settings screen re-mounting, cleared on Save, Discard, Stop managing and a full reload, exposing the interfaces the sibling designs named (saved, draft, close(), openProject.update(change, countsAsEdit)); the typed token, Test results and open dialogs are not kept.
+  `project-env/client/open-project.ts` (`openProject.begin/update/close/get`, `useOpenProject`), `ProjectEditor` takes the open project as a prop and every edit goes through `openProject.update`; `onDone` closes the store. `initial` is what the footer task calls `saved`. Added beyond the design: optional `session` argument on `update` and `close` so a stale Import or Save completion cannot touch another project (roborev findings, below). Commits 1f7bc4b, 7f61bf9, 8831beb on `spacedock-ensign/project-env-draft-survives-remount`.
+- DONE: Land the store unit test and the scripted resize run on an isolated Paseo so AC-1 passes with the evidence its clause names, with before and after whole-page screenshots at desktop and 400 px; the evidence must fail on main.
+  `project-env/test/open-project.test.ts` (8 tests; each fails if its store behaviour is removed, e.g. dropping the session check fails the two stale-session tests). Run on final HEAD 8831beb: `implementation/run-after-worktree.log` 0 failed; same script on main 1adf630: `implementation/run-before-main-1adf630.log` 22 failed (719/400/1280 editor, row and prompt gone; Save after crossing writes nothing; conflict refusal lost; dialog case loses draft). Harness `implementation/harness/` (`setup.sh`, `resize.sh`), 26 whole-page pictures in `implementation/screenshots/` (before-/after-, a/b/c/d/e/f/g steps, 1280 and 400/719).
+- DONE: Run `npm test` (rerun the load-sensitive session-open deadline test alone if it is the only failure), `npm run typecheck`, the roborev gate, `design_surfaces.py check` and `doc_impact.py <base> <candidate>`, then open the Draft PR.
+  `npm test` 174 pass, 0 fail (final HEAD); `tsc --noEmit` exit 0; `design_surfaces.py check`: "design surfaces presentable"; `doc_impact.py 1adf630 HEAD`: 0 documents listed, nothing to record; `comment_ratio.py`: 1.4% (2 of 139), under the 5% maximum; roborev final `clean on 8831beb37; evidence=roborev:1026` (earlier runs: roborev:1023 and roborev:1025 each found one Medium, both fixed: an Import finishing after another project opened, and a Save finishing after another project opened). Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/22.
+- DONE: AC-1 Resizing the window across the narrow-wide breakpoint keeps the open project and every unsaved edit.
+  All clause scenarios pass on final HEAD (edit at 1280 then 719, 400, back; start at 400 and grow; new unsaved project; Save, Discard and revision-conflict refusal after a crossing) and fail on main; unit test passes.
+
+### Summary
+
+The open project and its draft moved out of the re-mounted screen into a module-level store; Save, Discard, Stop managing and reload clear it. Roborev twice found a stale async completion writing to or closing another project's draft; both are fixed with an optional session argument and tested, and the final gate is clean (the second re-run is the cap in the dispatch). Not drawn again: the sibling-facing note that `saved` is named `initial` in the store.
+
+### Limits
+
+- Evidence reads the accessibility tree for names and labels; no pixel diff. The harness uses the Paseo 0.12.0 desktop web client at `/Applications/Paseo.app`.
+- The "before" run was made once on the first build of the harness; the "after" run was repeated on final HEAD. The before code (main 1adf630) did not change between them.
+- Machine dependencies (declared): Paseo.app 0.12.0 CLI `/Users/kent/.local/bin/paseo`, Node 24.18.0, `agent-browser`; run `implementation/harness/setup.sh <worktree> <base sha>` then `resize.sh draft-after after <dir>` and `resize.sh draft-before before <dir>`.
+- Temporary scaffolding: the daemon and `/tmp/draft-remount-impl` are throwaway, stopped after the run.
