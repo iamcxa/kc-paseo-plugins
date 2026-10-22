@@ -1,0 +1,85 @@
+design_review:
+  preview: project-env-field-pill-one-control/design/preview.html
+  findings:
+    - severity: MINOR
+      dimension: platform
+      where: 400-01-base.png, 400-02-differs-tap.png
+      seen: The ≠ badge is about 19 px wide, sits inside a pill about 34 px tall and touches the chevron, so it is a second tap target next to the whole-pill target; the ✕ glyph is about 12 px.
+      fix: Give ≠, the pill and ✕ at least 44 px touch areas, and either move ≠ out of the pill's tap area or drop the "one control per row" claim, since a row has three controls.
+    - severity: MINOR
+      dimension: hierarchy
+      where: 1280-10-failed-look.png, 400-10-failed-look.png
+      seen: The amber ≠ badge reads as a warning, and on the failed STRIPE_KEY row it sits beside the red border and red dot, while its explanation line is neutral ("The field name differs from the variable name.").
+      fix: Draw ≠ in a neutral muted tone, so only red marks failure and the failure is not read as a label mismatch.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-01-base.png vs 1280-02-differs-tap.png vs 1280-03-differs-hover.png
+      seen: The ≠ badge looks the same closed, hovered and open; the line under the pill is the only sign of state.
+      fix: Draw a pressed or open state on the ≠ badge (fill or outline) and a hover state, so the toggle shows whether the line is open.
+    - severity: MINOR
+      dimension: states
+      where: 1280-10-failed-look.png vs 1280-12-long-differs-open.png
+      seen: A row's note appears in two places, left under the variable name (today's "set" and "failed:" text) and under the pill (the ≠ line), and no picture shows a failed row with ≠ open.
+      fix: Show a failed row with ≠ open, and fix one place and one text style for notes under a row so two notes do not stack in different columns.
+    - severity: MINOR
+      dimension: flow
+      where: 1280-08-after-pick.png, 1280-09-after-remove.png, 400-09-after-remove.png
+      seen: After a pick or a ✕ the row changes or disappears with no undo and no sign that the draft differs from the saved state; Save and Discard look the same as before.
+      fix: Show a draft-changed cue (enabled Save, or a changed-row mark) after a pick or remove, and say whether ✕ is undone by Discard.
+    - severity: MINOR
+      dimension: flow
+      where: 1280-01-base.png, 400-01-base.png (POSTHOG_CLI_HOST)
+      seen: A row with "Pick a field" is shown, but nothing shows whether Save is blocked, warned or allowed when a row has no field.
+      fix: Show the Save state with an unresolved row, or say in the pill that a field is required.
+    - severity: MINOR
+      dimension: system-fit
+      where: 1280-01-base.png, 400-01-base.png
+      seen: The field pill is drawn as a filled, borderless block like the text inputs, while the Vault control, which is also a chevron opener, is an outlined button; one kind of opener has two looks.
+      fix: Draw the pill and the Vault selector in the same style, or make the pill look like a button.
+    - severity: MINOR
+      dimension: consistency
+      where: 1280-04-picker.png, 400-04-picker.png vs the pills
+      seen: The pill chevron points down like a dropdown, but pressing it opens a centered dialog on desktop and a bottom sheet at 400.
+      fix: Use an icon that suggests a picker or dialog, or keep the chevron only for inline menus such as Vault.
+    - severity: MINOR
+      dimension: spacing
+      where: 1280-11-long-names.png
+      seen: The variable name is cut mid-word ("ACCOU/NT_PASSWORD…") in a column about 190 px wide, while the pill has dead space around it and the ✕ sits at the top line, not level with the chevron, on multi-line rows.
+      fix: Give the name column more width, break names at underscores, and centre the ✕ on the row, or top-align the chevron, ≠ and ✕ together.
+    - severity: MINOR
+      dimension: spacing
+      where: 400-01-base.png, 1280-01-base.png
+      seen: The pill's right edge (about 334 px at 400, 1043 px at 1280) does not line up with the right edge of the Test, Check and Import buttons and inputs (about 366 px at 400, 1127 px at 1280), and the ✕ sits beyond the pill.
+      fix: Align the pill and ✕ to the same right edge as the other row controls.
+    - severity: MINOR
+      dimension: spacing
+      where: 1280-01-base.png, 400-01-base.png
+      seen: Above the first variable row a person passes the header, a back link, the project label and a six-row connection card; the first variable is at about 38% of the page height at 1280 and about 30% at 400.
+      fix: Collapse the connection card when it is healthy, so variables start sooner; this is outside the changed rows, so decide it with that task's owner.
+    - severity: MINOR
+      dimension: hierarchy
+      where: 1280-01-base.png (SENTRY_AUTH_TOKEN, SENTRY_PROJECT, POSTHOG_CLI_API_KEY)
+      seen: When variable name, item and field are the same string, the row says it three times and the muted item adds only noise.
+      fix: When item and field both match the name, show a short form (for example the item muted and the field once), or accept it and drop the extra weight.
+    - severity: MINOR
+      dimension: hierarchy
+      where: 1280-11-long-names.png, 400-11-long-names.png (FROM_OTHER_VAULT, LEGACY_SECTION_REF)
+      seen: The different-vault reference leads with "prod-shared · SENTRY › SENTRY_ORG" in the same muted tone as an item, so only the dot separator marks that the vault differs, and the section form "TWILIO/Legacy section" uses "/" without explanation.
+      fix: Mark a different-vault name with a distinct style such as a vault icon, and show the section with its own separator.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole
+      seen: There is no keyboard-focus ring on the pill, ≠ or ✕, no read-only or disabled pill (for example while Checking… or Saving), no picker opened on a row that already has a value, and no list longer than nine rows.
+      fix: Add pictures for focus, disabled during check or save, the picker on a filled row with the current value marked, and a list of 20 or more rows.
+    - severity: MINOR
+      dimension: theme-size
+      where: all pictures
+      seen: Every picture is dark theme, and only 1280 and 400 px widths are shown, so light theme and a tablet width are missing.
+      fix: Add light-theme pictures at both widths, and one picture at about 768 px.
+  limitations:
+    - I read only the PNG files; I did not read preview.html, as the brief said.
+    - The pictures are static, so I could not test pressing ≠ against pressing the pill, hover timing, keyboard order, the ≠ line closing, or whether a press on ≠ opens the picker.
+    - Touch-target sizes are estimated from pictures scaled by 1.20 and are approximate.
+    - There is no 400-03, as the brief says, so hover at 400 is not covered.
+    - I did not judge the picker dialog's contents, the red dot, or today's "set" and "failed:" lines, as the brief said.
+    - I could not check colour contrast numerically.

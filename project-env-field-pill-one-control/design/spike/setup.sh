@@ -9,6 +9,8 @@ S=${S:-/tmp/field-pill-spike}
 PORT=${PORT:-6851}
 rm -rf "$S"; mkdir -p "$S/plugin" "$S/home/plugin-settings/field-pill-spike" "$S/work/demo-app"
 mkdir -p "$S/src-tmp"; git -C "$REPO" archive 1adf630 project-env | tar -x -C "$S/src-tmp"
+cp "$HERE/picker-stand-in/field-picker.ts" "$S/src-tmp/project-env/shared/"
+cp "$HERE/picker-stand-in/field-picker.tsx" "$S/src-tmp/project-env/client/"
 cp -R "$S/src-tmp/project-env/client" "$S/src-tmp/project-env/shared" "$S/plugin/"
 mkdir -p "$S/plugin/server/fakes"
 cp -R "$S/src-tmp/project-env/server/." "$S/plugin/server/"
@@ -26,7 +28,7 @@ PY
 mkdir -p "$S/plugin/test" && cp "$HERE/field-pill.test.ts" "$S/plugin/test/"
 cp "$HERE/index.server.ts" "$S/plugin/index.server.ts"
 echo '{"id":"field-pill-spike","media":[],"requirements":{"paseo":">=0.12.0"},"name":"Project environment"}' > "$S/plugin/paseo-plugin.json"
-(cd "$S/plugin" && patch -p1 < "$HERE/prototype.patch")
+[ -s "$HERE/prototype.patch" ] && (cd "$S/plugin" && patch -p1 < "$HERE/prototype.patch") || true
 sed "s#__PORT__#$PORT#;s#__S__#$S#" "$HERE/home-config.json" > "$S/home/config.json"
 git -C "$S/work/demo-app" init -q
 python3 "$HERE/fixture.py" "$S" "${SCENARIO:-base}"

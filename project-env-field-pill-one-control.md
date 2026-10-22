@@ -40,11 +40,14 @@ In: every variable row shows one field pill in every state, reading `ITEM › fi
 
 ## Acceptance criteria
 
-**AC-1**: Each row shows one pill reading `ITEM › field` with the full field name, and clicking it opens the picker; no Browse vault row exists.
-Verified by: screenshots at desktop and 400 px on an isolated Paseo, and a source check that no Browse row remains.
+**AC-1**: Each row shows one pill reading `ITEM › field` with the full field name, and pressing it opens the picker; no Browse vault row exists.
+Verified by: on an isolated Paseo, `design/spike/capture.sh base` and `long` (after `setup.sh` and `restart.sh`) give whole-page screenshots at 1280 px and 400 px in which every row's pill reads item and field, a long field wraps instead of being cut (`*-01-base`, `*-11-long-names`), and `capture.sh` prints the vault reads as 0 before any press and 1 after the first and after a second pill (the second press reads nothing); a source check, `grep -n "Browse vault\|RefPicker\|HostInput" project-env/client/settings-screen.tsx`, returns nothing after implementation.
 
-**AC-2**: A label that differs from the variable name shows the ≠ mark with its detail on hover and on tap.
-Verified by: a unit test of the label comparison and a screenshot with the detail open.
+**AC-2**: A label that differs from the variable name shows the ≠ mark with its detail on hover and on tap, and pressing ≠ does not open the picker.
+Verified by: `project-env/test/field-pill.test.ts` (new): `pillView` marks `stripe/secret-key` for `STRIPE_KEY`, not for `secret-key`, and marks a case difference; and screenshots `*-02-differs-tap` and `1280-03-differs-hover` showing the detail line with no picker dialog open.
+
+**AC-3**: Each row's Remove is a ✕ icon button with the accessible label `Remove <name>`, at desktop and 400 px, and it removes only that draft row.
+Verified by: the accessibility snapshot in `capture.sh base` lists `button "Remove SENTRY_AUTH_TOKEN"`; screenshots `*-09-after-remove` show the other rows intact; the plugin's saved settings file still lists all six variables after ✕ (no Save pressed).
 
 ## FO alignment
 
@@ -53,3 +56,130 @@ Visible change: Each variable row shows one field pill reading item and field; t
 Direction alignment with the Captain: done — the Captain chose direction A5 and the Add flow on 2026-10-22.
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
+
+## Design
+
+Direction: A5 (Captain 「就這樣」, 2026-10-22). The row geometry, pill look, dashed "Pick a field" pill, ≠ mark and ✕ follow `ux-review-r1.5/direction-a5.html`. What the picker lists, the failure mark, the Add flow, the footer and the connection line belong to sibling tasks, whose designs this one consumes (see Interfaces).
+
+### PRFAQ
+
+**Press line.** Every variable in a project's settings shows on one pill which 1Password item and field fills it. The pill is also the only control that changes it, and ✕ is the only control that removes the row.
+
+**What Kent sees.** A row reads `NAME  [ITEM › field ⌄]  ✕`: item muted, field full strength, the vault left out because it is shown once above. A row with no field shows a dashed "Pick a field" pill. A small ≠ inside the pill marks a field whose label differs from the variable name; pressing it, or hovering it on desktop, opens one line under that pill and does not open the picker. Pressing anywhere else on the pill opens the field picker. There is no Browse vault row. At 400 px the name and ✕ share the first line and the pill takes the second.
+
+**FAQ**
+- *Why is Browse vault gone?* It looked like "show me the vault" but changed every row's control, far below the rows (review finding 1). Now the first press on any pill reads the vault; the result is kept until the account or vault changes (the effect resets both); a second pill opens at once.
+- *What if the vault cannot be read?* The picker (project-env-field-picker-grouped's) shows the reason: this task passes it the connection's own status text and hint, or the failure message, as its `error` state.
+- *Is a long name cut off?* No. Item and field wrap instead (preview 11), and the variable name wraps.
+- *A reference in another vault?* Its vault leads: `vault · item › field`.
+- *A reference that is not vault/item/field (hand-typed in an older save)?* It is shown as stored in a dashed red pill, with "Not a field reference. It looks like op://vault/item/field." under it.
+- *Is removal safe?* ✕ edits the draft only; nothing is saved until Save, and Discard brings the row back. It has no confirm and no undo of its own (unchanged from today's Remove).
+- *Not in this task:* what the picker lists (picker-grouped), how a failed row looks beyond the border and the slot (test-summary-failure-mark), "+ Add" and the name input (add-variable-one-step), the footer, the connection line, draft survival on resize.
+
+```mermaid
+flowchart TD
+  Row["Variable row: name, pill, 32 px slot, ✕"] -->|press pill| Load{"Vault read in this editor session?"}
+  Row -->|hover or press ≠| Tip["Detail line under that pill; picker stays closed"]
+  Row -->|press ✕| Gone["Row removed from the draft only"]
+  Load -- no, token ok and vault readable --> Read["Read the vault (once)"]
+  Load -- token or vault not usable --> Err["FieldPicker error state: cause and hint"]
+  Load -- yes --> Open
+  Read -- reading --> Open["FieldPicker opens for that variable"]
+  Read -- fails --> Err
+  Open -- pick a field --> Set["Row's reference set in the draft; picker closes"]
+  Err -- close --> Row
+  Open -- close --> Row
+  Gone -- Discard --> Back["Row is back"]
+  Account["Account or vault changes"] --> Reset["Listed result dropped; next pill press reads again"]
+```
+
+### What changes (read from `project-env/` at 1adf630, 2026-10-22)
+
+- `client/settings-screen.tsx`: `RefPicker` and the free-text `HostInput` branch are replaced by one `FieldPill`; `VariableRow` stops using `SettingsRow` and lays out `name | pill | 32 px slot | ✕` itself (compact below 600 px: name and ✕, then pill and slot); the `Remove` text button becomes the ✕ icon button, its accessibility label still `Remove <name>`; the Browse vault action and its `skipped` rows are deleted; `ProjectEditor` builds the `VaultList` (`loading`, `error`, `ready`), reads the vault on the first pill press and resets on account or vault change, and renders one `FieldPicker`.
+- `shared/ref.ts` (new): `pillView`. `parseRef` stays in `server/cause.ts` (unchanged contract, `test/cause.test.ts` keeps passing).
+- `shared/config.ts`: `variableLine` returns no line for an empty reference, because the dashed pill says it. The "set", "failed: …" and "Not applied: …" lines stay under the row until project-env-test-summary-failure-mark removes them, so nothing is lost if this lands first.
+- Test change: "reads No field picked on its row" in `test/variable-name.test.ts` is rewritten to the new contract (the one existing test this design breaks, measured in the Acceptance evidence plan).
+
+### Pill rules (`pillView`)
+
+| reference | pill reads |
+|---|---|
+| empty | dashed `Pick a field` |
+| `op://V/item/field`, V is the project's vault | `item › field` |
+| same, V differs, or the project has no vault yet | `V · item › field` |
+| `op://V/item/section/field` | `item/section › field` (everything between vault and field is the item, as the picker's `splitRef` reads it) |
+| starts with `op://` but has fewer than three parts | the text as stored, dashed red, with the reason under it |
+
+≠ shows when `sameName(field, variableName)` is false (`shared/field-picker.ts` from picker-grouped; exact, case-sensitive, ADR 0005). The A5 mock draws `STRIPE_KEY › secret-key` without a ≠; by AC-2 it has one, as in the previews.
+
+### Row layout
+
+Desktop: name column 200 px, pill fills the rest and can shrink, a 32 px slot, ✕ (16 px glyph, hit area extended by 10 px). Compact (under 600 px): line one is the name and ✕, line two the pill and the slot. The name cell is plain text here; add-variable-one-step swaps in an input with an error line for an unnamed row. The slot is empty unless the row failed; with `failed` the pill border is `statusDanger`, and the slot holds the sibling's (!) (preview 10 draws a stand-in dot).
+
+### UI proposal
+
+UI proposal: Each variable row reads `NAME  [ITEM › field ⌄]  ✕`, and at 400 px the name and ✕ sit on the first line with the pill below. The whole pill opens the field picker, so there is one control per row in every state. The item is muted and the field is full strength and wraps instead of being cut off; the vault is left out because it is shown once above, unless the reference is in a different vault, when its name leads. A row with no field shows a dashed "Pick a field" pill, and a reference that is not item and field is shown as stored in a dashed red pill with the reason under it. A small ≠ in the pill marks a field whose label differs from the variable name, and pressing it or hovering it opens one line under that pill without opening the picker. Remove is a ✕ icon button. The Browse vault row is gone: the vault is read the first time a pill is pressed.
+
+Preview: project-env-field-pill-one-control/design/preview.html
+
+The page shows the whole settings page, from a running build of the real client on an isolated Paseo 0.12.0 (own `PASEO_HOME`, port 6851, plugin id `field-pill-spike`, fake op, security and git; no Keychain or 1Password touched), at 1280 px and 400 px: all pill states (01), ≠ on press (02) and hover (03), the picker listed (04), reading (05), failed (06) and unavailable (07), after a pick (08) and after ✕ (09), a failed row (10) and long names with another vault and an unparsable reference (11, 12). The build is `design/spike/prototype.patch` (disposable) on main 1adf630 plus project-env-field-picker-grouped's `FieldPicker` and `sameName` copied unchanged into `design/spike/picker-stand-in/`, so the picker in the pictures is that task's design, not this one's.
+
+### Existing-code check
+
+Reused: the `refs` mutation and `vault.list-refs` RPC (unchanged), `parseRef` (unchanged), `canReadVault`/`tokenRowText` (the unavailable reason), `variableLine`, the host `Modal` through `FieldPicker`. Replaced: `RefPicker`, the text-box branch and the Remove text button. Observation that the change is needed: `ux-review-r1.5/shots/13-test-before-browse.png`, `15-after-browse.png` and `m03-browsed-400.png` (three rows reading the same clipped path, and a text box that becomes a dropdown after a distant button) against previews 01 and 11 here. No ADR is added or changed.
+
+### Interfaces
+
+Consumed, from the sibling designs in this state checkout:
+- **project-env-field-picker-grouped**: `<FieldPicker title open onOpenChange name vault current holders list theme onPick>` with `list: VaultList` (`loading`, `error{message,hint}`, `ready{refs,skipped}`); `sameName`. This task builds `list`, reads the vault on first press and renders the one picker. The typed-reference row is that task's pending Captain decision; if declined, a hand-typed reference can no longer be created from the screen but one already saved still shows (preview 11).
+- **project-env-test-summary-failure-mark**: `FieldPill` takes `failed` (red border), every row reserves the 32 px slot, the pill shrinks, ✕ replaces Remove (given to this task). The (!) and its reason are that task's.
+- **project-env-add-variable-one-step**: the name cell can become an input with an error line; the dashed pill; at 400 px name and ✕ share line one. Rows are keyed by name today; that task re-keys them by position, in the same lines.
+
+Offered: `pillView(ref, name, vault)` is pure and exported for tests.
+
+Order recommended to the FO: picker-grouped first (it defines `FieldPicker` and `sameName`; it carries a stand-in pill until this task lands), then this task, then add-variable-one-step and test-summary-failure-mark in either order. Both of the last two edit the Variables card header and row, so the second to land rebases.
+
+No new Captain decision.
+
+### Acceptance evidence plan
+
+Per-criterion evidence is under `## Acceptance criteria`. Limits: a click stands for "tap" (no touch device); hover is drawn on desktop only; the vault read was timed on the fake `op` only (a real vault was not measured); light theme and a mid width are not drawn.
+
+### Design review
+
+Design review: design/ideation-3.yaml
+
+Two earlier reviews (`design/superseded/ideation-1.yaml`, `ideation-2.yaml`) were of a draft with a stand-in picker; ideation-2's follow-up replaced that draft with the one in `design/preview.html`, so this third run is the one on the final pictures. It lists no MAJOR finding.
+
+Design finding 1: declined: ≠ already has a 12 px hit slop, and a missed press opens the picker, which closes without change; "one control per row" means one field control, with ≠ as an annotation inside it, and A5 draws ≠ in the pill.
+Design finding 2: declined: A5 (`shots/a5-desktop.png`, approved by the Captain) draws ≠ in amber; the red border and dot are the sibling's failure look.
+Design finding 3: declined: the open detail line is the open state, and A5 draws no pressed state for ≠.
+Design finding 4: declined: the line left under the name is today's text and project-env-test-summary-failure-mark removes it; a failed row with ≠ open is the same two lines, drawn in `1280-10-failed-look` and `1280-12-long-differs-open`.
+Design finding 5: declined: the unsaved-change cue belongs to project-env-save-footer-danger-zone; ✕ edits the draft and Discard restores the row (stated in the FAQ).
+Design finding 6: declined: whether Save accepts a row with no field is project-env-add-variable-one-step's (it keeps Save on).
+Design finding 7: declined: A5 draws the pill filled and the Vault selector belongs to project-env-connection-collapse.
+Design finding 8: declined: A5 draws the ⌄ on the pill; changing the glyph is a direction change the Captain made on 2026-10-22.
+Design finding 9: declined: wrapping a long name keeps the full name visible, which review finding 2 requires; ✕ top-aligns with the first line on purpose.
+Design finding 10: declined: the 32 px slot after the pill is reserved for the (!) by project-env-test-summary-failure-mark, as the A5 mock draws it.
+Design finding 11: declined: the connection card is project-env-connection-collapse's.
+Design finding 12: declined: AC-1 requires item and field in full; A5 draws rows like these.
+Design finding 13: declined: a reference in another vault is rare, it is drawn in `*-11-long-names`, and the leading vault and the dot say it.
+Design finding 14: declined: the pill has no disabled or read-only state because nothing in the editor disables editing today; a focus ring is the host's `Pressable`; the picker on a filled row and a long list are project-env-field-picker-grouped's pictures.
+Design finding 15: declined: light theme and a mid width are not drawn and are stated as limits in the evidence plan; the pill, ≠ and ✕ use only the host's theme colours (`surface2`, `foreground`, `foregroundMuted`, `statusDanger`, `statusWarning`, `border`).
+
+### Scope addition for the FO
+
+The Scope line above lists no ✕; FO routed it here on 2026-10-22 (project-env-test-summary-failure-mark named it as in none of the seven scopes). Suggested Scope wording to add: "each row's Remove text button becomes a ✕ icon button (direction A5)"; AC-3 tests it.
+
+## Stage Report: ideation
+
+- DONE: Design the change your Scope names inside direction A5, with each acceptance criterion kept and given a reproducible evidence clause.
+  `## Design` states the pill, row layout and ✕ per A5; AC-1 and AC-2 kept and sharpened, AC-3 (✕) added; every clause names a script, test or grep. AC-1 current evidence: screenshots `*-01-base`, `*-11-long-names` and the printed vault-read counts 0, 1, 1 (desktop); the source grep is not yet verifiable (no code written). AC-2 current evidence: `design/spike/field-pill.test.ts`, 7 pass, asserts `pillView` marks `stripe/secret-key` for `STRIPE_KEY` and not for `secret-key` (fails if `sameName` or the compare changes), plus screenshots `*-02-differs-tap`, `1280-03-differs-hover`. AC-3 current evidence: a11y snapshot lists `Remove <name>`, `*-09-after-remove` shows one row gone, saved file still holds all six variables.
+- DONE: Produce the artifact the ui surface owes: whole-page previews from a running build at desktop and 400 px, plus the design review, with each finding dispositioned.
+  `design/preview.html` and `design/shots/` (23 whole-page pictures, built from `design/spike/prototype.patch` on 1adf630 plus picker-grouped's `FieldPicker`, isolated Paseo 0.12.0 port 6851, fake op/security/git); `design/ideation-3.yaml`: 15 findings, none MAJOR, all dispositioned (15 declined with reasons). `design_surfaces.py check`: "design surfaces presentable".
+- DONE: Name every interface you need from a sibling rework task, and any decision the Captain must make (at most one), with a recommendation.
+  `### Interfaces` names `FieldPicker`/`VaultList`/`sameName` (picker-grouped), `failed`, the 32 px slot and shrinkable pill (test-summary-failure-mark), name cell and dashed pill (add-variable-one-step); recommends picker-grouped first. No new Captain decision; picker-grouped's typed-reference decision is theirs.
+
+### Summary
+
+The row becomes `NAME [ITEM › field ⌄] ✕` per A5 and consumes picker-grouped's `FieldPicker` instead of drawing a picker. The prototype reads the vault once per editor session on the first pill press. The full suite on the prototype is 172 of 173 passing; the one failure is "reads No field picked on its row", which this design rewrites. Findings 1 to 15 are all MINOR and declined; the third review exceeded the two-run cap because the follow-up replaced the design the first two reviewed (their reports are in `design/superseded/`). Known limits: a click stands for tap, a real vault read was not timed, light theme and a mid width are not drawn. Teardown: daemon stopped, browser session closed; `/tmp/field-pill-spike` remains until removed (scripts redraw everything: `design/spike/setup.sh`, `restart.sh`, `capture.sh`).

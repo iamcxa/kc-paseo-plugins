@@ -1,45 +1,45 @@
 <!doctype html><meta charset="utf-8"><title>project-env field pill: previews</title><style>body{background:#111;color:#ddd;font:14px system-ui;margin:24px}h2{margin-top:40px}.row{display:flex;gap:24px;align-items:flex-start}figure{margin:0}figcaption{font-size:12px;color:#aaa;margin:4px 0}img{max-width:100%;border:1px solid #333}.d{width:760px}.m{width:300px}</style>
-<h1>Each variable row has one field pill: whole-page previews</h1><p>Drawn from a running build of the real client (disposable prototype, design/spike/prototype.patch on main 1adf630) on an isolated Paseo 0.12.0 with fake op, security and git. Left: desktop 1280 px. Right: 400 px. Rows below the variables belong to sibling tasks and are unchanged here.</p>
-<h2>01-base</h2><p>Every pill state on one page: item and field, the ≠ mark, the dashed Pick a field pill</p><div class="row">
+<h1>Each variable row has one field pill: whole-page previews</h1><p>Drawn from a running build of the real client (disposable prototype, design/spike/prototype.patch on main 1adf630, plus the picker from project-env-field-picker-grouped) on an isolated Paseo 0.12.0 with fake op, security and git. Left: desktop 1280 px. Right: 400 px. Rows below the variables belong to sibling tasks and are unchanged here.</p>
+<h2>01-base</h2><p>Every pill state on one page: item and field, ≠, the dashed Pick a field pill, ✕ at the end of each row (400 px: name and ✕ on line one)</p><div class="row">
 <figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-01-base.png"></figure>
 <figure><figcaption>400 px</figcaption><img class="m" src="shots/400-01-base.png"></figure>
 </div>
-<h2>02-differs-tap</h2><p>Click on ≠: the detail opens under its own pill and no picker opens</p><div class="row">
+<h2>02-differs-tap</h2><p>Press on ≠: the detail opens under its own pill and no picker opens</p><div class="row">
 <figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-02-differs-tap.png"></figure>
 <figure><figcaption>400 px</figcaption><img class="m" src="shots/400-02-differs-tap.png"></figure>
 </div>
 <h2>03-differs-hover</h2><p>Hover on ≠ (desktop only): the same detail</p><div class="row">
 <figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-03-differs-hover.png"></figure>
 </div>
-<h2>04-picker-ready</h2><p>First picker open (for SENTRY_PROJECT): the vault was read once, then listed (placeholder flat list; the grouped list is project-env-field-picker-grouped)</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-04-picker-ready.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-04-picker-ready.png"></figure>
+<h2>04-picker</h2><p>First press of a pill (POSTHOG_CLI_HOST): the vault is read once and FieldPicker (project-env-field-picker-grouped's design, copied unchanged) lists it</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-04-picker.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-04-picker.png"></figure>
 </div>
-<h2>05-after-pick</h2><p>A second picker, opened from the dashed POSTHOG_CLI_HOST row (list already read, no second read), and POSTHOG › POSTHOG_CLI_HOST picked</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-05-after-pick.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-05-after-pick.png"></figure>
+<h2>05-picker-loading</h2><p>FieldPicker while the vault is being read</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-05-picker-loading.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-05-picker-loading.png"></figure>
 </div>
-<h2>06-picker-loading</h2><p>Picker while the vault is being read</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-06-picker-loading.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-06-picker-loading.png"></figure>
+<h2>06-picker-error</h2><p>FieldPicker when reading the vault fails: this task passes the failure as its error state</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-06-picker-error.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-06-picker-error.png"></figure>
 </div>
-<h2>07-picker-error</h2><p>Picker when reading the vault fails: reason, Read again, typed reference</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-07-picker-error.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-07-picker-error.png"></figure>
+<h2>07-picker-unavailable</h2><p>FieldPicker when no token is stored: this task passes the connection's own status text and hint</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-07-picker-unavailable.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-07-picker-unavailable.png"></figure>
 </div>
-<h2>08-typed-error</h2><p>A typed reference that is not op://vault/item/field is refused with the reason</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-08-typed-error.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-08-typed-error.png"></figure>
+<h2>08-after-pick</h2><p>After picking POSTHOG › POSTHOG_CLI_HOST for the dashed row (no second vault read)</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-08-after-pick.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-08-after-pick.png"></figure>
 </div>
-<h2>09-picker-unavailable</h2><p>Picker when the token is not stored: the cause, the connection's own next step, Check again, typed reference</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-09-picker-unavailable.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-09-picker-unavailable.png"></figure>
+<h2>09-after-remove</h2><p>After pressing ✕ on SENTRY_AUTH_TOKEN: only that draft row is gone; nothing is saved</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-09-after-remove.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-09-after-remove.png"></figure>
 </div>
-<h2>10-typed-picked</h2><p>A typed reference applied to SENTRY_PROJECT (with ≠, because the field is SENTRY_ORG)</p><div class="row">
-<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-10-typed-picked.png"></figure>
-<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-10-typed-picked.png"></figure>
+<h2>10-failed-look</h2><p>After Test with a missing field: the failed row has a red border and the 32 px slot (a stand-in dot for the sibling's (!)); the per-row line is today's and goes when test-summary-failure-mark lands</p><div class="row">
+<figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-10-failed-look.png"></figure>
+<figure><figcaption>400 px</figcaption><img class="m" src="shots/400-10-failed-look.png"></figure>
 </div>
-<h2>11-long-names</h2><p>Long item, long field, a section path, a reference in another vault, a reference that is not item and field</p><div class="row">
+<h2>11-long-names</h2><p>Long variable name, long item and field, a section path, another vault, a reference that is not item and field</p><div class="row">
 <figure><figcaption>desktop 1280</figcaption><img class="d" src="shots/1280-11-long-names.png"></figure>
 <figure><figcaption>400 px</figcaption><img class="m" src="shots/400-11-long-names.png"></figure>
 </div>

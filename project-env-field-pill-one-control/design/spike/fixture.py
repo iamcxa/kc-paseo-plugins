@@ -14,6 +14,9 @@ if scenario == "long":
     vars_[-1]["ref"] = "op://prod-shared/SENTRY/SENTRY_ORG"
     vars_.append({"name": "TYPED_BY_HAND", "ref": "op://demo-dev"})
 proj = {"root": S + "/work/demo-app", "serviceAccount": "demo-read", "vault": V, "prompt": "", "variables": vars_}
+if scenario == "failed":
+    vars_[2]["ref"] = "op://%s/stripe/old-key" % V
+    vars_[4]["ref"] = "op://%s/POSTHOG/POSTHOG_CLI_HOST" % V
 if scenario == "nokey":
     proj["serviceAccount"] = "not-stored"
 json.dump({"version": 1, "values": {"projects": [proj]}},

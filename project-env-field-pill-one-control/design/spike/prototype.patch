@@ -1,35 +1,40 @@
 diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
---- a/client/settings-screen.tsx	2026-10-22 13:11:46
-+++ b/client/settings-screen.tsx	2026-10-22 13:11:46
-@@ -1,6 +1,6 @@
+--- a/client/settings-screen.tsx	2026-10-22 16:04:56
++++ b/client/settings-screen.tsx	2026-10-22 16:04:56
+@@ -1,7 +1,7 @@
  import { useMutation, useQuery } from "@tanstack/react-query";
  import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 -import { Pressable, Text, TextInput, View } from "react-native";
-+import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
- import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
+-import { Icon, Modal, TextInput as HostInput } from "@getpaseo/plugin/client/react-native";
++import { Pressable, Text, TextInput, View, useWindowDimensions } from "react-native";
++import { Icon, Modal } from "@getpaseo/plugin/client/react-native";
  import {
    type PluginSurfaceProps,
-@@ -33,6 +33,7 @@
+   type SettingsState,
+@@ -33,6 +33,8 @@
    tokenStatus,
  } from "../shared/config";
  import type { Cause } from "../shared/cause";
-+import { type PillView, pillView, rpcReason, typedRefError } from "../shared/ref";
++import { FieldPicker, type VaultList } from "./field-picker";
++import { type PillView, pillView } from "../shared/ref";
  import {
    canReadVault,
    pickVault,
-@@ -48,65 +49,96 @@
+@@ -48,107 +50,172 @@
  
  type Result = { name: string; ok: boolean; cause?: Cause };
  
 -function RefPicker({
-+const WRAP = { overflowWrap: "anywhere" } as object;
 +const DIFFERS = "The field name differs from the variable name.";
++const WRAP = { overflowWrap: "anywhere" } as object;
++const SLOT = 32;
 +
 +function FieldPill({
    name,
 -  value,
 -  options,
 +  view,
++  failed,
    theme,
 -  onPick,
 +  onOpen,
@@ -38,14 +43,16 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
 -  value: string;
 -  options: { label: string; value: string }[];
 +  view: PillView;
++  failed: boolean;
    theme: Theme;
 -  onPick(ref: string): void;
 +  onOpen(): void;
  }) {
 -  const [open, setOpen] = useState(false);
-+  const [pressed, setPressed] = useState(false);
++  const [shown, setShown] = useState(false);
 +  const [hover, setHover] = useState(false);
 +  const muted = theme.colors.foregroundMuted;
++  const dashed = view.kind === "empty" || view.kind === "raw";
 +  const label =
 +    view.kind === "ref"
 +      ? `${view.vault ? `${view.vault} ` : ""}${view.item} ${view.field}`
@@ -70,13 +77,8 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
 +          gap: 8,
 +          backgroundColor: view.kind === "empty" ? "transparent" : theme.colors.surface2,
 +          borderWidth: 1,
-+          borderStyle: view.kind === "empty" || view.kind === "raw" ? "dashed" : "solid",
-+          borderColor:
-+            view.kind === "empty"
-+              ? theme.colors.foregroundMuted
-+              : view.kind === "raw"
-+                ? theme.colors.statusDanger
-+                : "transparent",
++          borderStyle: dashed ? "dashed" : "solid",
++          borderColor: failed || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
            borderRadius: 8,
            paddingHorizontal: 12,
            paddingVertical: 8,
@@ -107,16 +109,10 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
 +            accessibilityRole="button"
 +            accessibilityLabel={`Why ${name} is marked different`}
 +            hitSlop={12}
-+            onPress={() => setPressed((p) => !p)}
++            onPress={() => setShown((v) => !v)}
 +            onHoverIn={() => setHover(true)}
 +            onHoverOut={() => setHover(false)}
-+            style={{
-+              borderWidth: 1,
-+              borderColor: theme.colors.statusWarning,
-+              borderRadius: 4,
-+              paddingHorizontal: 5,
-+              paddingVertical: 1,
-+            }}
++            style={{ borderWidth: 1, borderColor: theme.colors.statusWarning, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}
 +          >
 +            <Text style={{ color: theme.colors.statusWarning, fontSize: 12 }}>≠</Text>
 +          </Pressable>
@@ -148,24 +144,83 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
 +          Not a field reference. It looks like op://vault/item/field.
 +        </Text>
 +      ) : null}
-+      {view.kind === "ref" && view.differs && (pressed || hover) ? (
++      {view.kind === "ref" && view.differs && (shown || hover) ? (
 +        <Text style={{ color: muted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>{DIFFERS}</Text>
 +      ) : null}
 +    </View>
    );
  }
  
-@@ -131,21 +163,16 @@
-       hint={line && !line.failed ? line.text : undefined}
-       error={line?.failed ? line.text : undefined}
+ function VariableRow({
+   variable,
++  first,
++  failed,
+   result,
+   theme,
+-  children,
++  pill,
+   onRemove,
+ }: {
+   variable: Variable;
++  first: boolean;
++  failed: boolean;
+   result: Result | undefined;
+   theme: Theme;
+-  children: ReactNode;
++  pill: ReactNode;
+   onRemove(): void;
+ }) {
+   const { name } = variable;
+   const line = variableLine(variable, result);
++  const compact = useWindowDimensions().width < 600;
++  const nameText = (
++    <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
++  );
++  const cross = (
++    <Pressable
++      accessibilityRole="button"
++      accessibilityLabel={`Remove ${name}`}
++      hitSlop={10}
++      onPress={onRemove}
++      style={{ padding: 6 }}
++    >
++      <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
++    </Pressable>
++  );
++  const slot = (
++    <View style={{ width: SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
++      {failed ? (
++        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: theme.colors.statusDanger, alignItems: "center", justifyContent: "center" }}>
++          <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>!</Text>
++        </View>
++      ) : null}
++    </View>
++  );
++  const status = line ? (
++    <Text style={{ color: line.failed ? theme.colors.statusDanger : theme.colors.foregroundMuted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
++      {line.text}
++    </Text>
++  ) : null;
+   return (
+-    <SettingsRow
+-      label={name}
+-      hint={line && !line.failed ? line.text : undefined}
+-      error={line?.failed ? line.text : undefined}
++    <View
++      style={{
++        paddingHorizontal: 16,
++        paddingVertical: 14,
++        borderTopWidth: first ? 0 : 1,
++        borderTopColor: theme.colors.border,
++        gap: 8,
++      }}
      >
 -      <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 }}>
-+      <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, width: 440, maxWidth: "100%" }}>
-         {children}
-         <Pressable
-           accessibilityRole="button"
-           accessibilityLabel={`Remove ${name}`}
-           onPress={onRemove}
+-        {children}
+-        <Pressable
+-          accessibilityRole="button"
+-          accessibilityLabel={`Remove ${name}`}
+-          onPress={onRemove}
 -          style={{
 -            borderWidth: 1,
 -            borderColor: theme.colors.border,
@@ -173,49 +228,80 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
 -            paddingHorizontal: 12,
 -            paddingVertical: 7,
 -          }}
-+          hitSlop={8}
-+          style={{ padding: 6, marginTop: 4 }}
-         >
+-        >
 -          <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Remove</Text>
-+          <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
-         </Pressable>
-       </View>
-     </SettingsRow>
-@@ -307,7 +334,29 @@
+-        </Pressable>
+-      </View>
+-    </SettingsRow>
++      {compact ? (
++        <>
++          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
++            <View style={{ flex: 1, minWidth: 0 }}>{nameText}</View>
++            {cross}
++          </View>
++          <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 0 }}>
++            {pill}
++            {slot}
++          </View>
++          {status}
++        </>
++      ) : (
++        <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
++          <View style={{ width: 200, paddingTop: 9 }}>{nameText}</View>
++          {pill}
++          {slot}
++          <View style={{ marginTop: 4 }}>{cross}</View>
++        </View>
++      )}
++      {!compact ? status : null}
++    </View>
+   );
+ }
+ 
+@@ -307,7 +374,30 @@
          ...vaultChoices({ vaults, vaultIds }, draft.vault),
        ]
      : [];
 -  const refOptions = (refs.data?.refs ?? []).map((r) => ({ label: r, value: r }));
-+  const canList = current?.state === "ok" && vaultReadable;
++  const FIX_CONNECTION = "Close this list, fix the 1Password connection on this page, then open it again.";
++  const list: VaultList = refs.isError
++    ? { status: "error", message: (refs.error as Error).message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""), hint: FIX_CONNECTION }
++    : refs.data
++      ? { status: "ready", refs: refs.data.refs, skipped: refs.data.skipped }
++      : current && current.state !== "ok"
++        ? { status: "error", message: tokenText.label, hint: tokenText.hint + " " + FIX_CONNECTION }
++        : { status: "loading" };
 +  const [picking, setPicking] = useState<string | null>(null);
-+  const [typed, setTyped] = useState("");
-+  const [typing, setTyping] = useState(false);
++  const pickingVariable = draft.variables.find((v) => v.name === picking);
++  const [vaultWanted, setVaultWanted] = useState(false);
++  const loadVault = () => {
++    if (refs.isError) refs.reset();
++    setVaultWanted(true);
++  };
++  useEffect(() => {
++    if (vaultWanted && !refs.data && !refs.isPending && !refs.isError && current?.state === "ok" && vaultReadable) {
++      refs.mutate();
++    }
++  }, [vaultWanted, refs, current?.state, vaultReadable]);
 +  useEffect(() => {
 +    refs.reset();
++    setVaultWanted(false);
 +  }, [account, draft.vault]);
-+  const openPicker = (name: string) => {
-+    setTyped("");
-+    setTyping(false);
-+    setPicking(name);
-+  };
-+  useEffect(() => {
-+    if (picking !== null && canList && !refs.data && !refs.isPending && !refs.error) refs.mutate();
-+  }, [picking, canList, refs]);
-+  const pickedRef = (ref: string) => {
-+    if (picking !== null) setRef(picking, ref);
-+    setPicking(null);
-+  };
-+  const typedError = typed.trim() === "" ? null : typedRefError(typed);
-+  const pickingVariable = draft.variables.find((v) => v.name === picking);
-+  const unavailable = tokenText.label;
-+  const unavailableHint = tokenText.hint;
  
    return (
      <>
-@@ -403,37 +452,12 @@
-               result={testResults?.find((r) => r.name === v.name)}
-               onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
-             >
+@@ -395,47 +485,32 @@
+ 
+       <SettingsSection title="Environment variables">
+         <SettingsCard>
+-          {draft.variables.map((v) => (
+-            <VariableRow
+-              key={v.name}
+-              variable={v}
+-              theme={theme}
+-              result={testResults?.find((r) => r.name === v.name)}
+-              onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
+-            >
 -              {refOptions.length > 0 ? (
 -                <RefPicker
 -                  name={v.name}
@@ -247,16 +333,38 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
 -                  }}
 -                />
 -              )}
-+              <FieldPill
-+                name={v.name}
-+                view={pillView(v.ref, v.name, draft.vault)}
+-            </VariableRow>
+-          ))}
++          {draft.variables.map((v, i) => {
++            const result = testResults?.find((r) => r.name === v.name);
++            return (
++              <VariableRow
++                key={v.name}
++                variable={v}
++                first={i === 0}
++                failed={result?.ok === false}
 +                theme={theme}
-+                onOpen={() => openPicker(v.name)}
++                result={result}
++                onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
++                pill={
++                  <FieldPill
++                    name={v.name}
++                    view={pillView(v.ref, v.name, draft.vault)}
++                    failed={result?.ok === false}
++                    theme={theme}
++                    onOpen={() => {
++                      loadVault();
++                      setPicking(v.name);
++                    }}
++                  />
++                }
 +              />
-             </VariableRow>
-           ))}
++            );
++          })}
            {draft.variables.length > 0 ? (
-@@ -470,17 +494,6 @@
+             <SettingsAction
+               label="Check the variables"
+@@ -470,17 +545,6 @@
              }}
            />
            <SettingsAction
@@ -274,112 +382,32 @@ diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
              label="Import names and prompt from Conductor"
              hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
              actionLabel={doImport.isPending ? "Importing…" : "Import"}
-@@ -489,6 +502,102 @@
+@@ -489,6 +553,22 @@
            />
          </SettingsCard>
        </SettingsSection>
 +
-+      <Modal
++      <FieldPicker
 +        title={`Field for ${picking ?? ""}`}
 +        open={picking !== null}
 +        onOpenChange={(o) => !o && setPicking(null)}
-+      >
-+        <Modal.Content>
-+          {canList ? <Text style={muted}>Fields in {draft.vault}</Text> : null}
-+          {canList && refs.isPending ? (
-+            <>
-+              <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-+                <ActivityIndicator size="small" color={theme.colors.foregroundMuted} />
-+                <Text style={text}>Reading the vault…</Text>
-+              </View>
-+              <Text style={muted}>Names only, never values. A large vault can take a while.</Text>
-+            </>
-+          ) : null}
-+          {canList && refs.error ? (
-+            <SettingsAction
-+              label={`Could not read the vault: ${rpcReason((refs.error as Error).message)}`}
-+              actionLabel="Read again"
-+              onPress={() => refs.mutate()}
-+            />
-+          ) : null}
-+          {canList && refs.data
-+            ? refs.data.refs.map((r) => {
-+                const view = pillView(r, picking ?? "", draft.vault);
-+                return (
-+                  <Pressable
-+                    key={r}
-+                    accessibilityRole="button"
-+                    onPress={() => pickedRef(r)}
-+                    style={{ paddingVertical: 8 }}
-+                  >
-+                    <Text style={{ color: r === pickingVariable?.ref ? theme.colors.accent : theme.colors.foreground, fontSize: 14 }}>
-+                      {view.kind === "ref" ? `${view.item} › ${view.field}` : r}
-+                    </Text>
-+                  </Pressable>
-+                );
-+              })
-+            : null}
-+          {canList && refs.data ? (
-+            <SettingsAction
-+              label="Changed something in 1Password?"
-+              actionLabel="Read again"
-+              onPress={() => refs.mutate()}
-+            />
-+          ) : null}
-+          {canList && refs.data
-+            ? refs.data.skipped.map((x, i) => (
-+                <Text key={`${i}-${x.item}`} style={muted}>
-+                  {x.item}: not listed, {x.reason}
-+                </Text>
-+              ))
-+            : null}
-+          {!canList ? (
-+            <>
-+              <Text style={text}>The vault cannot be listed yet: {unavailable}.</Text>
-+              {unavailableHint ? <Text style={muted}>On the settings page: {unavailableHint}</Text> : null}
-+              <SettingsAction label="Fixed it?" actionLabel="Check again" onPress={check} />
-+            </>
-+          ) : null}
-+          {canList && !refs.error && !typing ? (
-+            <Pressable accessibilityRole="button" onPress={() => setTyping(true)}>
-+              <Text style={{ color: theme.colors.accent, fontSize: 14 }}>Type a reference instead</Text>
-+            </Pressable>
-+          ) : null}
-+          {!canList || refs.error || typing ? (
-+            <>
-+              <HostInput
-+                defaultValue=""
-+                placeholder="op://vault/item/field"
-+                placeholderTextColor={theme.colors.foregroundMuted}
-+                autoCapitalize="none"
-+                autoCorrect={false}
-+                onChangeText={setTyped}
-+                style={{
-+                  color: theme.colors.foreground,
-+                  backgroundColor: theme.colors.surface2,
-+                  borderRadius: 8,
-+                  paddingHorizontal: 12,
-+                  paddingVertical: 8,
-+                  fontSize: 14,
-+                }}
-+              />
-+              {typedError ? <Text style={{ color: theme.colors.statusDanger }}>{typedError}</Text> : null}
-+              <SettingsAction
-+                label="Typed reference"
-+                actionLabel="Use"
-+                disabled={typed.trim() === "" || typedError !== null}
-+                onPress={() => pickedRef(typed.trim())}
-+              />
-+            </>
-+          ) : null}
-+        </Modal.Content>
-+      </Modal>
++        name={picking}
++        vault={draft.vault}
++        current={pickingVariable?.ref ?? ""}
++        holders={draft.variables}
++        list={list}
++        theme={theme}
++        onPick={(ref) => {
++          if (picking !== null) setRef(picking, ref);
++          setPicking(null);
++        }}
++      />
  
        <SettingsSection title="Default prompt for new agents">
          <View>
 diff -ruN a/server/cause.ts b/server/cause.ts
---- a/server/cause.ts	2026-10-22 13:11:46
-+++ b/server/cause.ts	2026-10-22 13:11:46
+--- a/server/cause.ts	2026-10-22 16:04:56
++++ b/server/cause.ts	2026-10-22 16:04:56
 @@ -25,18 +25,8 @@
    return "unexpected";
  }
@@ -396,14 +424,14 @@ diff -ruN a/server/cause.ts b/server/cause.ts
 -  if (parts.length < 3 || parts.some((part) => part.trim() === "")) return null;
 -  return { vault: parts[0], item: parts[1], field: parts[parts.length - 1] };
 -}
-+export { parseRef } from "../shared/ref.ts";
 +import { parseRef } from "../shared/ref.ts";
++export { parseRef };
  
  export function isOutsideVault(ref: string, vault: string): boolean {
    const parsed = parseRef(ref);
 diff -ruN a/shared/config.ts b/shared/config.ts
---- a/shared/config.ts	2026-10-22 13:11:46
-+++ b/shared/config.ts	2026-10-22 13:11:46
+--- a/shared/config.ts	2026-10-22 16:04:56
++++ b/shared/config.ts	2026-10-22 16:04:56
 @@ -82,7 +82,7 @@
  ): { text: string; failed: boolean } | null {
    const reason = reservedReason(variable.name);
@@ -415,8 +443,10 @@ diff -ruN a/shared/config.ts b/shared/config.ts
  
 diff -ruN a/shared/ref.ts b/shared/ref.ts
 --- a/shared/ref.ts	1970-01-01 08:00:00
-+++ b/shared/ref.ts	2026-10-22 13:11:46
-@@ -0,0 +1,38 @@
++++ b/shared/ref.ts	2026-10-22 16:04:56
+@@ -0,0 +1,33 @@
++import { sameName } from "./field-picker.ts";
++
 +export interface ParsedRef {
 +  vault: string;
 +  item: string;
@@ -439,19 +469,12 @@ diff -ruN a/shared/ref.ts b/shared/ref.ts
 +  if (ref === "") return { kind: "empty" };
 +  const parsed = parseRef(ref);
 +  if (parsed === null) return { kind: "raw", text: ref };
++  const middle = ref.slice("op://".length).split("/").slice(1, -1).join("/");
 +  return {
 +    kind: "ref",
 +    vault: parsed.vault === vault ? null : parsed.vault,
-+    item: parsed.item,
-+    field: ref.slice("op://".length).split("/").slice(2).join(" / "),
-+    differs: parsed.field !== variableName,
++    item: middle,
++    field: parsed.field,
++    differs: !sameName(parsed.field, variableName),
 +  };
-+}
-+
-+export function typedRefError(text: string): string | null {
-+  return parseRef(text.trim()) === null ? "A reference looks like op://vault/item/field" : null;
-+}
-+
-+export function rpcReason(message: string): string {
-+  return message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, "").trim();
 +}
