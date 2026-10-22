@@ -16,7 +16,8 @@ const with_ = (change: Partial<Project>): Project => ({ ...base, ...change });
 
 it("counts what Save would write", () => {
   assert.equal(unsavedCount(base, base), 0);
-  assert.equal(unsavedCount(base, with_({ serviceAccount: " sa-a " })), 0);
+  assert.equal(unsavedCount(base, with_({ serviceAccount: " sa-a " })), 1);
+  assert.equal(unsavedCount(with_({ serviceAccount: " sa-a " }), base), 1);
   assert.equal(unsavedCount(base, with_({ serviceAccount: "sa-b" })), 1);
   assert.equal(unsavedCount(base, with_({ vault: "Prod" })), 1);
   assert.equal(unsavedCount(base, with_({ prompt: "x" })), 1);

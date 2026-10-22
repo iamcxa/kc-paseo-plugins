@@ -159,7 +159,7 @@ export const importConductor = defineRpc({
 
 export function unsavedCount(saved: Project, draft: Project): number {
   let n = 0;
-  if (saved.serviceAccount.trim() !== draft.serviceAccount.trim()) n++;
+  if (saved.serviceAccount !== draft.serviceAccount) n++;
   if (saved.vault !== draft.vault) n++;
   if (saved.prompt !== draft.prompt) n++;
   const before = new Map(saved.variables.map((v) => [v.name, v.ref]));
