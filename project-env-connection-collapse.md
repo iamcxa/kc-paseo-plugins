@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-connection-collapse:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-connection-collapse-validation-1
+              briefing:
+                id: briefing:project-env-connection-collapse:validation:attempt-1:revision-1
+                digest: sha256:367c7e25ab842f16ff5b56efb02117bee118a9992d27b42300016c54916b4671
+                room-ref: ./project-env-connection-collapse/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-connection-collapse:validation:1
+                briefing: briefing:project-env-connection-collapse:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T10:51:11.240682Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — approves delivery of PR #25 at 8b02d11 per the gate question (this PR only; he did not choose the standing-merge option).'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:17:06Z
 ---
 

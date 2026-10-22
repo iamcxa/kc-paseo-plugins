@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-connection-collapse:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#25 at head 8b02d1159f109cd90fb0d4bee012fa0e06b750fe? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-connection-collapse:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/3dc791b07a787b40d955fcc47468510ecc680945/project-env-connection-collapse.md",
+      "rev": "sha256:d7517a9dc82bbeda271f2c61a8d0f63652ea1ea9dab2aaaf2898234432397533",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 2 PASSED at 8b02d11 (main af6aaec merged; Change in the openProject store; Change reachable by screen readers); the validator's acceptance script 18 PASS 0 FAIL with merged save-bar steps; 185/185 tests. delivery_gate.py check exit 0 at 8b02d11. External rounds: Codex 2 (round 1 one P2, fixed; round 2 clean at 8b02d11). Local roborev gate leaves one known limit (a resize during Save token loses it). Deferred to the Captain: footer Save still saves while Change is open, as before this rework. Owed: real 1Password, desktop app, a real screen reader; Kent's own use."
+    }
+  ]
+}
