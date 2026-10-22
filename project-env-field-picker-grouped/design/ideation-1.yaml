@@ -1,0 +1,83 @@
+design_review:
+  preview: project-env-field-picker-grouped/design/preview-desktop-picker-suggested.png
+  findings:
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-picker-suggested.png vs preview-desktop-picker-used-by.png
+      seen: The field the variable holds is ticked under "Suggested" with no "Current" heading in the suggested picture, but ticked under a "Current" heading in used-by, so the same state sits under two different headings.
+      fix: Always show the held field under "Current" (and drop it from "Suggested"), or always tick it in place, but not both.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-picker-not-in-vault.png vs preview-desktop-picker-used-by.png
+      seen: The "not in vault" note is red text pushed to the right edge of the row, while "used by ..." is a grey line under the row, so the two row notes sit in different places and the tick turns into a red circle icon.
+      fix: Put both notes in the same place, a second line under the field label.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-picker-used-by.png and preview-desktop-picker-bottom.png
+      seen: The Current row for TWILIO_AUTH_TOKEN says "used by TWILIO_ACCOUNT_SID" (the edited variable left out), while the same field in the list for SENTRY_AUTH_TOKEN says "used by TWILIO_AUTH_TOKEN, TWILIO_ACCOUNT_SID", and nothing says whether the list includes the variable being edited.
+      fix: Make "used by" mean one thing everywhere, or word it "also used by" on the Current row.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-picker-suggested.png
+      seen: "Suggested", "Current" and "Not listed" are small grey regular text, while item names such as "Algolia" are bold white, so the section headings read quieter than the item headings under them.
+      fix: Give the section headings a distinct treatment (for example small caps or a divider) that sits above the bold item headings.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-picker-bottom.png, "Not listed" block
+      seen: "Deploy key" and "Notary scan" are drawn like selectable rows but are not selectable, are regular weight unlike the bold item headings, and sit at the panel edge instead of in the 24 px indented field column.
+      fix: Draw unreadable items dimmed and non-interactive, in the same item-heading style and indent as readable items.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-picker-bottom.png, preview-400-picker-bottom.png, preview-desktop-picker-load-failed.png
+      seen: "Type a reference…" is plain grey text with no icon or chevron, looks like a placeholder rather than a control, and is only reachable after scrolling through the whole list.
+      fix: Give the row a visible control cue (for example a leading icon or link colour) and keep it in view, or put it next to the search box.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-picker-type-reference.png, preview-desktop-picker-type-reference-bad.png, preview-400-picker-type-reference-bad.png
+      seen: The op:// box is shown only inside the load-failed state; its placement under a loaded list, and at 400 px with the on-screen keyboard open, is not shown.
+      fix: Add previews of the op:// box opened from a loaded list at both sizes.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-picker-type-reference-bad.png
+      seen: The op:// input keeps a green focus ring while the red hint "Use op://Dev/item/field" is shown, and the hint gives the format but does not say which part of "op://Dev/Notary scan" is wrong.
+      fix: Turn the ring red on error and say what is missing, for example "Add a field: op://Dev/Notary scan/field".
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-picker-load-failed.png and preview-400-picker-load-failed.png
+      seen: The error tells the person to "fix the 1Password connection above" but that part of the page is hidden behind the dialog or sheet, and there is no Retry control.
+      fix: Say "on the settings page" instead of "above", and add a Retry button in the dialog.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-picker-loading.png, preview-400-picker-loading.png
+      seen: Loading shows only the words "Loading the vault…" with no search box, no spinner and no "Type a reference…" row, and the desktop dialog stays full height around one line of text.
+      fix: Keep the search box in place while loading so nothing jumps, add a spinner, and shrink the empty and short states.
+    - severity: MINOR
+      dimension: states
+      where: preview-400-picker-used-by.png and preview-400-picker-bottom.png
+      seen: At 400 px the longest "used by" line fits only barely (TWILIO_ACCOUNT_SID near the right edge), the three-variable Linear line is about 350 px wide at desktop and not shown at 400, and a long variable name in the "Field for NAME" title is not shown at either size.
+      fix: Add previews of a long "used by" list and a long title at 400 px to prove they wrap.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-picker-bottom.png and preview-desktop-picker-used-by.png
+      seen: There is no scrollbar or fade; the list is clipped at the panel bottom (a half-cut heading at the bottom of used-by), and when scrolled, rows slide directly under the search box with no divider and lose their group heading (a bare OPENAI_API_KEY row at the top of bottom).
+      fix: Add a divider under the search box, keep the group heading visible while scrolling, and show a scrollbar.
+    - severity: MINOR
+      dimension: platform
+      where: preview-400-picker-suggested.png
+      seen: Field rows are about 36 px apart and the close X is a small glyph, under the usual 44 px (iOS) or 48 dp (Android) touch target.
+      fix: Raise row height and the close button hit area to at least 44 px at the 400 px size.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-picker-suggested.png
+      seen: The title "Field for SENTRY_AUTH_TOKEN" does not say which vault the fields come from; the vault name appears only in the op://Dev error text, and "Nothing readable in this vault" names no vault.
+      fix: Put the vault name in the title or under the search box.
+    - severity: MINOR
+      dimension: theme-size
+      where: light previews
+      seen: Light previews exist only for used-by and not-in-vault, at both sizes; suggested, loading, load-failed, empty-field, search, no-match, bottom, empty-vault, type-reference and type-reference-bad are shown dark only.
+      fix: Add light previews at desktop and 400 px for the missing states, especially the red error text, the focus ring and the disabled Use button.
+  limitations:
+    - Only static images were seen; hover, focus, pressed and keyboard behaviour, animations, and whether a tap on a row commits or closes immediately could not be seen.
+    - Rows past the visible window in each state are not shown, so what is hidden between Cloudflare and OpenAI at 400 px, and the ordering of long lists, could not be checked.
+    - I read the desktop suggested, bottom, used-by, not-in-vault, empty-field, search, no-match, load-failed, type-reference and type-reference-bad previews, the 400 suggested, bottom, used-by, search, loading, empty-vault and not-in-vault previews, and the desktop light used-by preview. I did not open the 400 no-match, 400 empty-field, 400 load-failed, 400 type-reference, the other light previews, or the four page previews.
+    - Sizes of controls are estimated from the pictures, not measured.
