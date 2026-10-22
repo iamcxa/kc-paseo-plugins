@@ -1,7 +1,7 @@
 ---
 id:
 title: Unsaved edits survive the settings screen re-mounting
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -66,8 +66,11 @@ gates:
                 reason: 'Captain 2026-10-22: 「准。先做完讓我試試看好了，我暫時沒有時間看得太仔細」 — approves delivery of PR iamcxa/kc-paseo-plugins#22 at head 8831beb37a6019519e8954f964b0cb9be8630e74 by squash after the clean Codex round (summary:6335926273).'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-22T04:16:26Z
+verdict: PASSED
+completed: 2026-10-22T08:56:37Z
+archived: 2026-10-22T08:56:37Z
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
