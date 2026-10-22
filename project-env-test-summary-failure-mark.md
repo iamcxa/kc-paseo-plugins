@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-test-summary-failure-mark:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-test-summary-failure-mark-ideation-1
+              briefing:
+                id: briefing:project-env-test-summary-failure-mark:ideation:attempt-1:revision-1
+                digest: sha256:d2bd165b77248ca78a04ec7a71f650572d3beb3c79e46cb468082b4c13830dc3
+                room-ref: ./project-env-test-summary-failure-mark/review/ideation/briefing-1
 started: 2026-10-22T04:16:52Z
 ---
 
