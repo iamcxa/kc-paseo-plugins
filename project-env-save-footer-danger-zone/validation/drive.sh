@@ -57,8 +57,12 @@ check "Stop managing: project removed at once" 0 "$(nproj)"
 # new, not yet saved project: no Danger zone
 ab click "@$(ref 'button "Add a project')" >/dev/null; ab wait 800 >/dev/null
 ab click "@$(ref 'menuitem "billing-api"')" >/dev/null; ab wait 1500 >/dev/null
-check "unsaved project: editor opened (bar says no changes)" "No unsaved changes" "$(ab get text body | grep 'unsaved changes')"
+check "unsaved project: editor opened (bar says not saved yet)" 1 "$(has 'New project, not saved yet')"
+check "unsaved project: bar offers Discard" 1 "$(ab snapshot -i | grep -c 'button "Discard"')"
+check "unsaved project: Save is on" 0 "$(ab snapshot -i | grep 'button "Save"' | grep -c disabled)"
 check "unsaved project: no Danger zone" 0 "$(has 'Danger zone')"
 ab screenshot "$S/shots/acc-new-project.png" >/dev/null
+ab click "@$(ref 'button "Save"')" >/dev/null; ab wait 1500 >/dev/null
+check "unsaved project: Save with no edits writes the project" 1 "$(nproj)"
 echo "screenshots: $S/shots/acc-*.png"
 [ "$FAILS" = 0 ] && echo "ALL PASS" || { echo "$FAILS FAILED"; exit 1; }

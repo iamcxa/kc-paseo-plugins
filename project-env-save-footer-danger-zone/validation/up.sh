@@ -1,11 +1,11 @@
 #!/bin/sh
-# Builds candidate aded5429 into /tmp/sfdz-val and starts an isolated Paseo daemon on port 6911.
+# Builds candidate af522579 into /tmp/sfdz-val and starts an isolated Paseo daemon on port 6911.
 # Touches nothing under ~/.paseo; fake op/security/git; no secret is read.
 set -e
 HERE=$(cd "$(dirname "$0")" && pwd)
 S=/tmp/sfdz-val
 WT=${WT:-/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-save-footer-danger-zone}
-CAND=aded5429f8ac5e24c8e722f7109c22ecbaa7a994
+CAND=af52257964ada675516e0ee1aa317f1e1111d711
 rm -rf "$S"; mkdir -p "$S/plugin" "$S/home" "$S/shots" "$S/demo-app" "$S/billing-api"
 git -C "$S/demo-app" init -q; git -C "$S/billing-api" init -q
 git -C "$WT" archive "$CAND" project-env | tar -x -C "$S/plugin" --strip-components=1

@@ -247,3 +247,11 @@ None Material. Polish only: a trailing space counts as a change (above); when a 
 ### Summary
 
 The candidate meets AC-1 and AC-2 at the exact PR head on a rebuilt isolated Paseo: the count, Save write, toast, Discard no-op, Danger zone only for a saved project and a red confirm all observed, and the count tests and the acceptance script both fail when a counted behaviour is removed. The raw service-account compare is correct against Save's write. Verdict PASSED; limits are the phone app, the "Saving…" label, a refused Stop managing and the sibling-merge page. The isolated daemon, browser session and `/tmp/sfdz-val` are removed; `~/.paseo` and the live plugin were not touched.
+
+### Feedback cycle 1 (Codex P2)
+
+Fix: a project not yet saved counts as pending, so Save is on with no edits. New head `af52257964ada675516e0ee1aa317f1e1111d711` (commits e1792c5, af52257), pushed to the PR branch. `unsavedCount(saved, draft)` stays pure; `hasPendingSave(count, isSaved)` in `shared/config.ts` is the rule the bar uses, and `SaveBar` takes `isSaved`.
+Wording for a new project with no edits: "New project, not saved yet", button "Discard" (goes straight to the list, nothing to confirm), Save on. With edits it reads "N unsaved changes" as before. A refused Save with no edits reads "This new project is still not saved. Discard drops it and reloads the settings."; for a saved project with no edits (failed Stop managing) it reads "No unsaved changes. Close reloads the settings." (second roborev finding, fixed in af52257).
+Test: `test/unsaved-count.test.ts` "a project not saved yet can be saved with no changes" asserts `hasPendingSave(0,false)` true, `(0,true)` false, `(2,true)` true; it fails if the rule is `count > 0` alone. Wiring: validation `drive.sh` on a build of af52257 (isolated Paseo, port 6911): all 16 steps pass, including new-project "bar says not saved yet", Discard offered, Save on, no Danger zone, and Save with no edits writes the project (1 project in the file). `npm test` 177 pass, 0 fail; `npm run typecheck` clean.
+roborev (`--base d61e243`): e1792c5 `evidence=roborev:1037` one Low (fixed); final `clean on af5225796; evidence=roborev:1039`.
+Validation scripts updated in `validation/`: `CAND` in `up.sh` is the new head, the new-project step in `drive.sh` expects the new behaviour, and `acc-new-project.png` is retaken.
