@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-field-pill-one-control:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-field-pill-one-control-validation-1
+              briefing:
+                id: briefing:project-env-field-pill-one-control:validation:attempt-1:revision-1
+                digest: sha256:88ad6f56b5e334dca7c77dcea19bf6fbe7dd963229cbe102c1193863eec67dda
+                room-ref: ./project-env-field-pill-one-control/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-field-pill-one-control:validation:1
+                briefing: briefing:project-env-field-pill-one-control:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T11:28:34.409947Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — approves delivery of PR #24 at d6e5c10 per the gate question.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:16:32Z
 ---
 

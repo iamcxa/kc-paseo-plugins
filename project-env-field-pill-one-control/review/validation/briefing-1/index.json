@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-field-pill-one-control:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#24 at head d6e5c10620af09bf66f82d553567eeff322735cc? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-field-pill-one-control:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/29443b0d50fb99a8d6d956a6282a767df65bfe2e/project-env-field-pill-one-control.md",
+      "rev": "sha256:5f7359e3759f467f0a1fdf321165bb814f2b11d2cbbb0199e8d82de61365afe7",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 3 PASSED at d6e5c10 (mains af6aaec and 681f861 merged); accept.sh, merged.sh (38 checks), p2.sh and conn.sh pass; 191/191 tests. delivery_gate.py check exit 0 at d6e5c10. External rounds: Codex 3 (round 1 one P2 fixed; round 2 one P2 in the stand-in picker file, routed to project-env-field-picker-grouped; round 3 no new finding). Deferred to the Captain: no refresh of the loaded vault list (a fixed rejected token does list fields; a token swapped for one reading other data does not until reload). Owed: touch, light theme, real 1Password; Kent's own use."
+    }
+  ]
+}
