@@ -1,7 +1,7 @@
 ---
 id:
 title: The field picker is grouped, searchable and suggests the matching field
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
