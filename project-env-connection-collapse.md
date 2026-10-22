@@ -180,6 +180,18 @@ A working connection is one row with Change; Change opens today's controls plus 
 - DONE: `/tmp/cc-accept.sh` and the script copy in the validation report now use `git archive 3fe658d`; fresh run: 7 PASS, 0 FAIL (the first two attempts failed on a cold-start browser timing and a stale daemon from the aborted run, not on the code).
 - FINDINGS for FO: roborev gate `evidence=roborev:1041` exited 1 with two Medium findings, both outside this polish and not fixed: (1) a resize during a token save loses the pending save and its result (typed token and `store.isPending` are component state; known limit already stated); (2) project Save (the footer) still saves the draft while Change is open and Done is disabled, which belongs to project-env-save-footer-danger-zone. The earlier gate runs on 4dc1123 were clean (roborev:1036).
 
+### Main merge (af6aaec)
+
+- DONE: merged origin/main af6aaec (the save bar, PR #23) into the branch with a merge commit (96f8e93), no rebase, no force-push. One conflicted file, `settings-screen.tsx`, three hunks: imports (kept both: `Platform`, `useToast` from main and `useWindowDimensions` from the branch); the component area (kept `ConnectionLineRow` whole, then main's `barButton` and save-bar helpers); the top of `ProjectEditor` (kept both state groups: `changing`/`view`/`backToLine` and `confirmDiscard`/`toast`). `open-project.ts` merged without conflict; main's Discard goes through `onDone`, which closes the store and so clears `changing`.
+- DONE: `npm test` 185 pass 0 fail; `npm run typecheck` clean on the merge.
+- Known, deferred to the Captain by FO and not fixed: the footer Save still saves while Change is open (roborev 1041 finding 2).
+
+### Feedback cycle 2 (Codex P2)
+
+- DONE: `ConnectionLineRow` no longer groups the whole row as one accessible element: the status (dot, headline, account, vault) is its own `accessible` View carrying the label, and the Change Pressable is a sibling, so Change takes accessibility focus. Commit 8b02d11, pushed.
+- DONE: `/tmp/cc-accept.sh` (and the copy above) uses `git archive 8b02d11` and asserts that the Change button is not inside the labelled status element, at 1280 and 400 px. The assertion fails on the previous build (3fe658d: both FAIL) and passes on 8b02d11. Fresh run: 9 PASS 0 FAIL, 6 unit-test passes, typecheck ok.
+- Roborev on 8b02d11 with `--base af6aaec` (evidence=roborev:1045): exit 1, one Medium finding, the known limit already reported (a resize during Save token loses the pending save and its result). Not fixed; no new finding.
+
 ## Stage Report: validation
 
 - DONE: Independently check candidate 4dc112307ded792890fab8d7886359c2ca6dd01b (PR iamcxa/kc-paseo-plugins#25, base main d61e243) against AC-1 and the approved design on an isolated Paseo; give a verdict.
@@ -206,7 +218,7 @@ git -C $WT rev-parse HEAD
 ( cd $WT/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/connection-line.test.ts 2>&1 | grep -E "^. (pass|fail) " ; npm run typecheck >/dev/null 2>&1 && echo "typecheck ok" || echo "typecheck FAIL" )
 echo "== 2. isolated Paseo with fake op/security/git (own home, port $PORT, plugin id ccaccept)"
 rm -rf $S; mkdir -p $S/plugin $S/world $S/home/plugin-settings/ccaccept $S/repos $S/shots
-git -C $WT archive 3fe658d project-env | tar -x -C $S/plugin --strip-components=1
+git -C $WT archive 8b02d11 project-env | tar -x -C $S/plugin --strip-components=1
 cd $S/plugin && ln -s $WT/project-env/node_modules node_modules && mkdir server/fakes && cp test/fakes/* server/fakes/
 echo '{"id":"ccaccept","media":[],"requirements":{"paseo":">=0.12.0"},"name":"Project environment (acceptance)"}' > paseo-plugin.json
 for t in op security git; do printf '#!/bin/sh\nexec %s %s/plugin/server/fakes/%s.mjs %s/world "$@"\n' "$(command -v node)" $S $t $S > $S/world/$t; chmod +x $S/world/$t; done
@@ -227,6 +239,7 @@ agent-browser set viewport 1280 1500 >/dev/null
 openproj 0
 chk "ci-app: line reads Connected, demo-ok, Dev with a Change button" 'text | grep -q Connected && text | grep -q "demo-ok" && snap | grep -q "Change the 1Password connection"'
 chk "ci-app: no account textbox while collapsed" '! snap | grep -q "textbox \"1Password service account\""'
+chk "status element and Change are separate: Change is not inside the labelled status element (1280)" 'agent-browser eval "(()=>{const s=[...document.querySelectorAll(\"[aria-label]\")].find(e=>/^(Connected|Checking|.*), service account /.test(e.getAttribute(\"aria-label\")));const b=document.querySelector(\"[aria-label=\\\"Change the 1Password connection\\\"]\");return !!s&&!!b&&!s.contains(b)})()" | grep -q true'
 agent-browser screenshot --full $S/shots/1-connected-1280.png >/dev/null
 press "Change the 1Password connection"
 chk "Change: account, Check, token, Save token, Vault, Done, Cancel shown" 'S1=$(snap); for w in "textbox \"1Password service account\"" "button \"Check\"" "textbox \"Service account token\"" "button \"Save token\"" "button \"Vault: Dev\"" "button \"Done\"" "button \"Cancel\""; do echo "$S1" | grep -q "$w" || exit 1; done'
@@ -242,7 +255,8 @@ openproj 1
 chk "legacy-api: line says 1Password rejected the token, demo-revoked, with Change" 'text | grep -q "1Password rejected the token" && snap | grep -q "Change the 1Password connection"'
 agent-browser screenshot --full $S/shots/3-problem-1280.png >/dev/null
 echo "== 5. 400 px"
-agent-browser set viewport 400 1500 >/dev/null; openproj 0; agent-browser screenshot --full $S/shots/4-connected-400.png >/dev/null
+agent-browser set viewport 400 1500 >/dev/null; openproj 0; chk "status element and Change are separate: Change is not inside the labelled status element (400)" 'agent-browser eval "(()=>{const s=[...document.querySelectorAll(\"[aria-label]\")].find(e=>/^(Connected|Checking|.*), service account /.test(e.getAttribute(\"aria-label\")));const b=document.querySelector(\"[aria-label=\\\"Change the 1Password connection\\\"]\");return !!s&&!!b&&!s.contains(b)})()" | grep -q true'
+agent-browser screenshot --full $S/shots/4-connected-400.png >/dev/null
 echo "screenshots: $S/shots/ (open them: the dot is green with Connected, account muted, vault normal; at 400 px the second line holds account and vault)"
 echo "== teardown"
 pkill -f "daemon run --home $S/home"; agent-browser close >/dev/null 2>&1; rm -rf $S/plugin $S/home $S/world $S/repos
