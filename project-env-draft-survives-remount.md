@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-draft-survives-remount:validation:attempt-1:revision-1
                 digest: sha256:143b5319777ce97d26a75f09af1261c5fb5997e1b9ff92878295b203ea6a2554
                 room-ref: ./project-env-draft-survives-remount/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-draft-survives-remount:validation:1
+                briefing: briefing:project-env-draft-survives-remount:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T08:46:31.893778Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准。先做完讓我試試看好了，我暫時沒有時間看得太仔細」 — approves delivery of PR iamcxa/kc-paseo-plugins#22 at head 8831beb37a6019519e8954f964b0cb9be8630e74 by squash after the clean Codex round (summary:6335926273).'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:16:26Z
 ---
 
