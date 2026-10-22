@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-save-footer-danger-zone
-pr: iamcxa/kc-paseo-plugins#23
+pr: pr-merge:23
 gates:
     version: 1
     records:
@@ -95,6 +95,7 @@ Direction alignment with the Captain: done — the Captain chose direction A5 an
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 ## Design
 
 ### PRFAQ
@@ -308,3 +309,8 @@ None Material. Polish: Save on an untouched new project writes a project with no
 ### Summary
 
 The fix for Codex's P2 works at the exact PR head on a rebuilt isolated Paseo: an unsaved project with no edits can be saved, a saved project with no edits stays Close with Save off, both refused-Save wordings are right, and nothing validated at aded542 regressed. The helper test and the runtime script both fail when the rule is `count > 0` alone. Verdict PASSED; the isolated daemon, browser session and `/tmp` dirs are removed.
+
+## FO records
+
+Review rounds at the validation gate: roborev 3 (final clean, roborev:1039); Codex 2 (round 1 one P2, fixed in feedback cycle 1; round 2 clean at af52257).
+Process note: FO prepared the validation gate before running delivery_gate.py; the check then held on the moved head, validation cycle 2 revalidated af52257, and the check passed before the merge.
