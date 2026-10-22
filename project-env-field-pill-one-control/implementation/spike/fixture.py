@@ -17,6 +17,8 @@ proj = {"root": S + "/work/demo-app", "serviceAccount": "demo-read", "vault": V,
 if scenario == "failed":
     vars_[2]["ref"] = "op://%s/stripe/old-key" % V
     vars_[4]["ref"] = "op://%s/POSTHOG/POSTHOG_CLI_HOST" % V
+if scenario == "novault":
+    proj["vault"] = ""
 if scenario == "nokey":
     proj["serviceAccount"] = "not-stored"
 json.dump({"version": 1, "values": {"projects": [proj]}},
