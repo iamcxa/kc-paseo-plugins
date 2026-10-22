@@ -1,7 +1,7 @@
 ---
 id:
 title: Test shows a summary line and marks failed rows with a red border and (!)
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-22: 「准」 — accepts this A5 rework design and its acceptance criteria into implementation, including the recommendation stated in this gate''s question.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-22T04:16:52Z
 ---
 
