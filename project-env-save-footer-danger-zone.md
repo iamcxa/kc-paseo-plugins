@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-save-footer-danger-zone:ideation:attempt-1:revision-1
                 digest: sha256:46d86c9f2283cbaa6186e42a8aa6d71aa91a3dbd85fe3b47fb507324fe9382de
                 room-ref: ./project-env-save-footer-danger-zone/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-save-footer-danger-zone:ideation:1
+                briefing: briefing:project-env-save-footer-danger-zone:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-22T07:45:01.945507Z"
+                decision: approve
+                reason: 'Captain 2026-10-22: 「准」 — accepts this A5 rework design and its acceptance criteria into implementation, including the recommendation stated in this gate''s question.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-22T04:16:59Z
 ---
 
