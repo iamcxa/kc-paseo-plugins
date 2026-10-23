@@ -110,3 +110,8 @@ Isolated after-proof used ports 7061/7062 and a fresh HOME/profile, captured PID
 ### Summary
 
 Applied only the authorized next-card name constraint and added a long-name screenshot case with measured badge containment. Evidence is in fleet-hides-closed-fos/evidence/cycle-2*; external review remains with the FO.
+
+### FO findings before the gate
+
+- Pre-gate team on 03b96fb9f3dc: design partner SATISFIED; picky users A and B both NOT SATISFIED with the same two items: (1) "Closed" beside pending approvals and "N waiting" reads as finished work — "Tab closed" says what closed; (2) opening a decision for a closed FO drops the badge, so the card does not say its FO's tab is closed. Design partner's cosmetic item: the next card's badge should use the same outlined treatment as elsewhere. FO authorizes a repair of these three; the two-line name limit in By FO is deferred to a later round.
+- Validation-1 on 03b96fb9f3dc was canceled by the FO before it reported, because the repair changes the head; its partial evidence folder was removed; validation reruns on the repaired head.
