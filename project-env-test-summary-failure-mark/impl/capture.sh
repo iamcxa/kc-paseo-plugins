@@ -11,6 +11,7 @@ reopen
 shot before-test
 btn Test; sleep 0.6; shot testing; sleep 7
 shot results
+echo "$P $SCHEME name-only row POSTHOG_CLI_HOST after Test: pill=$($A snapshot -i 2>&1 | grep -c 'Field for POSTHOG_CLI_HOST: no field picked') marks-on-it=$($A snapshot -i 2>&1 | grep -c 'POSTHOG_CLI_HOST failed') summary=[$($A snapshot 2>&1 | grep -o '[0-9] failed · [0-9] set · [0-9] no field' | head -1)]"
 mark SENTRY_PROJECT; shot tip-open-first; measure first-SENTRY_PROJECT
 mark STRIPE_KEY; echo "$P $SCHEME another (!) closes the first: alerts=$(alerts)"; measure middle-STRIPE_KEY
 mark POSTHOG_CLI_API_KEY; shot tip-open; measure last-POSTHOG_CLI_API_KEY-unexpected

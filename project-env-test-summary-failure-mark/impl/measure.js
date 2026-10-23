@@ -3,7 +3,7 @@
   const hit = (a, b) => a.l < b.r && b.l < a.r && a.t < b.b && b.t < a.b;
   const alert = document.querySelector('[role="alert"]');
   if (!alert) return JSON.stringify({ open: false });
-  let el = alert, own = null; while (el && !(own = el.querySelector('[aria-label*=" failed. "]'))) el = el.parentElement;
+  const own = [...document.querySelectorAll('[aria-label*=" failed. "]')].find((e) => e.getAttribute('aria-label').endsWith(' failed. ' + alert.textContent));
   const ownName = (own.getAttribute('aria-label').split(' failed. ')[0]);
   const a = rect(alert);
   const NAMES = ["SENTRY_PROJECT","SENTRY_AUTH_TOKEN","STRIPE_KEY","TWILIO_ACCOUNT_SID","POSTHOG_CLI_HOST","POSTHOG_CLI_API_KEY"];

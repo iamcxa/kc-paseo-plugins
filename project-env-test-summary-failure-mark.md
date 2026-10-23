@@ -240,3 +240,37 @@ Captain: 「改 hover 泡泡」 (chat, choosing between the two options FO put)
 Asked: "回「改 hover 泡泡」或「維持下方一行」" — after FO's recommendation: "改回 hover 浮動泡泡，同時把 AC-1 放寬成「可以暫時蓋住鄰列，但不能蓋住這一列自己的欄位名稱」".
 Effect: the reason opens as a floating bubble (hover at 1280 px, click or tap at both widths), not as a line under the field. AC-1's "overlapping no other row's name, (!), field control or Remove button" is relaxed to: the open bubble may cover neighbouring rows while open, and never covers its own row's field name. The falsifier "a reason that covers another row" is withdrawn; "covers its own row's field name" replaces it.
 Supersedes: the implementation's line-under-the-field departure (candidate cad3e89).
+
+### Feedback cycle 1 (Captain amendment 1)
+
+- DONE: The reason opens as a floating bubble: hover at 1280 px, click or tap at both widths; it may cover neighbouring rows and never covers its own row's field name.
+  The bubble draws under the whole field (below the row's field control, however many lines it wraps to), above the rows below it. `shared/test-marks.ts` `nextMark` holds one open reason (hover shows, press pins, a second press closes while the pointer stays, another (!) replaces it); `client/failure-mark.tsx` `MarkBubble` is drawn in an overlay at the end of the Variables section because host rows each paint their own layer and a bubble inside its row went under the next row's text (seen in a screenshot).
+- DONE: One bubble open at a time; a second click on the (!) closes it even while the pointer stays; Tab then Enter opens it (validation Polish 1).
+  `test/test-marks.test.ts` "which (!) shows its reason" (4 tests), falsified by never closing on the second press and by a hover that keeps the old reason; `impl/out/cap-*.out` "second press closes while the pointer stays on the (!): alerts=0" at 1280 and 400 px, dark and light; `out/keys-*.out` Tab lands on the (!) and Enter opens then closes it.
+- DONE: Remove the comment in shared/test-marks.ts that restates `rowReason` (Polish 2).
+  Removed; `comment_ratio.py 0314c91 HEAD`: "code lines 387, comment lines 1, 0.3%", max 5% met.
+- DONE: Update measure.js and the tests to the amended AC-1.
+  `impl/measure.js` reports `coversOwnName`, `ownFieldTextCoveredByReason`, `statusTextOnRows` (status text such as "set" or "failed: …" on any row), `inViewport`, and lists covered neighbours as allowed. All 14 measurements (first, middle, last failed rows, the `unexpected` sentence, hover; 1280 and 400 px; dark and light): false, 0, [], true. Neighbour coverage is allowed and reported only.
+- DONE: Retake the open-reason screenshots at 1280 and 400 px, dark and light.
+  `impl/shots/{desktop,compact}-{dark,light}-tip-open*.png`, retaken at the merged head 782ac4c (30 PNGs).
+- DONE: Rerun `npm test` and typecheck; run the roborev gate with --base d197f9d.
+  After amendment: 206 of 206 and typecheck clean. Gate on that range found three real defects, each fixed and rerun: a pinned bubble left behind when rows move (now closes when the variables or a row's size change), a hover measured after the pointer left reopening it (a hover flag guards the late measurement), and the bubble placed from the (!) centre instead of below the field. Evidence lines: roborev:1061, 1062, 1063 (findings, then fixed); the final gate is the one in the main-merge note below.
+
+### Main merge (0314c91)
+
+- DONE: Merge origin/main (0314c91, PR #28 on top of #27's picker) into the branch with a merge commit.
+  a67eef3, no rebase or force-push; one conflicted file, `client/settings-screen.tsx`, resolved by hand. `shared/config.ts` merged cleanly with `variableLine` still removed.
+- DONE: Variables header reads summary, Test, "+ Add".
+  `impl/shots/desktop-dark-tip-open.png`: "3 failed · 2 set · 1 no field", Test, "+ Add"; at 400 px the summary drops under the title and Test and "+ Add" stay on it. Section title is "Variables" with the Test explanation behind the (i), as designed; #28's Add flow, name-only rows and save-bar blocking are kept. The "Check the variables" row is gone (Test is in the header).
+- DONE: Settle the save-bar note.
+  #28's "N without a field will read failed until you pick one" now reads "N with no field picked yet", matching the summary's "no field". Rows still being named (empty name) are ignored by the summary and are not a change since Test (`test-marks.test.ts` "ignores a row that is still being named"); Test sends only named rows.
+- DONE: After Test, confirm that a name-only row shows the no-field treatment.
+  `impl/out/cap-*.out`: after Test, POSTHOG_CLI_HOST (name, no field) shows the dashed "no field picked" control (pill=1), no (!) (marks-on-it=0), and the header reads "3 failed · 2 set · 1 no field"; fixing every row then reads "All 6 set".
+- DONE: Rerun `npm test` and typecheck; run the roborev gate with --base 0314c91.
+  `npm test` 256 of 256, typecheck clean. Gate: `clean on 782ac4cf1; evidence=roborev:1065`.
+- DONE: Push; point the acceptance scripts at the new head.
+  Branch pushed (782ac4c). `impl/run.sh` builds from the worktree head, so every script in `impl/` ran against 782ac4c; outputs and 30 screenshots are in `impl/out` and `impl/shots`. comment_ratio against 0314c91: 0.3%. doc_impact lists only ADR 0004: unaffected (a saved reserved name still shows "Not applied" with its reason, now in the (!)).
+
+### Summary
+
+The reason is a bubble again as the Captain ruled, drawn in an overlay so it sits above the rows below it. Main is merged; the header, the Add flow and the save-bar note agree with the summary. Limits unchanged: no hover-open screenshot (the screenshot tool hangs with the pointer on the (!); hover is measured), and after a remount the Test run is gone so the header shows nothing until Test is pressed again.
