@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { FlatList, Icon, Modal, TextInput } from "@getpaseo/plugin/client/react-native";
 import type { PluginSurfaceProps } from "@getpaseo/plugin/client";
-import { type Holder, type PickerRow, type Skipped, hasFields, pickerRows } from "../shared/field-picker";
+import { addNote, nameFromLabel } from "../shared/config";
+import { type Holder, type PickerRow, type Skipped, hasFields, pickerRows, splitRef } from "../shared/field-picker";
 import { usableReference } from "../shared/ref";
 
 type Theme = PluginSurfaceProps["theme"];
@@ -16,6 +17,8 @@ export type VaultList =
   | { status: "ready"; refs: readonly string[]; skipped: readonly Skipped[] };
 
 const usedByText = (names: readonly string[]) => `used by ${names.join(", ")}`;
+
+export type PickedField = { ref: string; item: string; label: string };
 
 function TypeReference({ vault, theme, onUse }: { vault: string; theme: Theme; onUse(ref: string): void }) {
   const [open, setOpen] = useState(false);
@@ -66,7 +69,8 @@ type PickerProps = {
   holders: readonly Holder[];
   list: VaultList;
   theme: Theme;
-  onPick(ref: string): void;
+  onPick(field: PickedField): void;
+  onAddByName?(text: string): void;
 };
 
 export function FieldPicker({
@@ -84,17 +88,39 @@ export function FieldPicker({
   );
 }
 
-function PickerBody({ name, vault, current, holders, list, theme, onPick, onClose }: PickerProps & { onClose(): void }) {
+function PickerBody({
+  name,
+  vault,
+  current,
+  holders,
+  list,
+  theme,
+  onPick,
+  onAddByName,
+  onClose,
+}: PickerProps & { onClose(): void }) {
   const [query, setQuery] = useState("");
   const c = theme.colors;
   const rowHeight = useWindowDimensions().width < 500 ? 44 : 36;
+  const adding = onAddByName !== undefined;
+  const taken = useMemo(() => holders.map((h) => h.name).filter((n) => n !== ""), [holders]);
   const rows = useMemo(
     () =>
       list.status === "ready"
-        ? pickerRows({ vault, refs: list.refs, skipped: list.skipped, name, current, holders, query })
+        ? pickerRows({
+            vault,
+            refs: list.refs,
+            skipped: list.skipped,
+            name,
+            current,
+            holders,
+            query,
+            fieldNote: adding ? (label) => addNote(label, taken) : undefined,
+          })
         : [],
-    [list, vault, name, current, holders, query],
+    [list, vault, name, current, holders, query, adding, taken],
   );
+  const typed = adding && query.trim() !== "" ? nameFromLabel(query, taken) : null;
   const note = (text: string, color = c.foregroundMuted) => (
     <Text style={{ color, fontSize: 14, paddingVertical: 16, textAlign: "center" }}>{text}</Text>
   );
@@ -127,7 +153,7 @@ function PickerBody({ name, vault, current, holders, list, theme, onPick, onClos
             accessibilityRole="button"
             accessibilityLabel={`${row.item} ${row.field}`}
             onPress={() => {
-              onPick(row.ref);
+              onPick({ ref: row.ref, item: row.item, label: row.field });
               onClose();
             }}
             style={{ flexDirection: "row", alignItems: "center", gap: 8, minHeight: rowHeight, paddingVertical: 5 }}
@@ -141,6 +167,7 @@ function PickerBody({ name, vault, current, holders, list, theme, onPick, onClos
               {row.usedBy.length > 0 ? (
                 <Text style={{ color: c.foregroundMuted, fontSize: 12 }}>{usedByText(row.usedBy)}</Text>
               ) : null}
+              {row.note ? <Text style={{ color: c.foregroundMuted, fontSize: 12 }}>{row.note}</Text> : null}
             </View>
           </Pressable>
         );
@@ -159,7 +186,8 @@ function PickerBody({ name, vault, current, holders, list, theme, onPick, onClos
       vault={vault}
       theme={theme}
       onUse={(ref) => {
-        onPick(ref);
+        const parts = splitRef(ref, vault);
+        onPick({ ref, item: parts?.item ?? "", label: parts?.field ?? "" });
         onClose();
       }}
     />
@@ -167,11 +195,11 @@ function PickerBody({ name, vault, current, holders, list, theme, onPick, onClos
   const searching = query.trim() !== "";
   return (
     <>
-      {list.status !== "error" ? (
+      {list.status !== "error" || adding ? (
         <TextInput
           value={query}
           onChangeText={setQuery}
-          placeholder="Search fields"
+          placeholder={adding ? "Search fields, or type a name" : "Search fields"}
           placeholderTextColor={c.foregroundMuted}
           autoCapitalize="none"
           autoCorrect={false}
@@ -185,6 +213,24 @@ function PickerBody({ name, vault, current, holders, list, theme, onPick, onClos
             fontSize: 14,
           }}
         />
+      ) : null}
+      {typed?.state === "refused" ? (
+        <Text style={{ color: c.statusDanger, fontSize: 13 }}>{typed.reason}</Text>
+      ) : typed ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Add ${typed.name} and pick the field later`}
+          onPress={() => {
+            onAddByName?.(query);
+            onClose();
+          }}
+          style={{ flexDirection: "row", alignItems: "center", gap: 8, minHeight: rowHeight }}
+        >
+          <Icon name="Plus" size={14} color={c.foreground} />
+          <Text style={{ flex: 1, color: c.foreground, fontSize: 14, ...BREAK }}>
+            Add <Text style={{ fontWeight: "600" }}>{typed.name}</Text> and pick the field later
+          </Text>
+        </Pressable>
       ) : null}
       {list.status === "loading" ? note("Loading the vault…") : null}
       {list.status === "error" ? (
