@@ -162,3 +162,29 @@ Run `/bin/bash --noprofile --norc /Users/kent/Project/kc-paseo-plugins/docs/dev2
 ### Summary
 
 Applied the authorized one-line Status repair; it does not activate the grant before the Captain merges its PR. Evidence: `flywheel-grant-adr/evidence/cycle-4-checks-6a0bd08d889f.txt`; exact prior-byte comparison rejects any additional change, and required-record/section removal fails ADR lint. FO owns RoboRev and validation recheck; the worker ran no RoboRev, made no PR-ready or merge action, and changed no frontmatter or prior report.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Revalidate PR #38 at the repaired head: the only change since the validated head 987698fa90a7ec7b05c672872b8b5ba8a7888aa0 is ADR 0008's Status "Proposed" to "Accepted"; the Context sentence that the grant takes effect only when the Captain merges the PR is unchanged; AC-1 still holds (quotes byte-match, adr_lint exit 0)
+  PASSED at `81096c60d65655610ae5c83ca2899fb708d12e0b`: full-file equality permits only the Status replacement and preserves all Context bytes; ten quote spans byte-match; ADR lint with `--since e4f95aee269cf14df571fb8f14e4d82d6cb9da45 --require 0008` exits 0 (7 records, 0 legacy). Any extra changed byte/path, mismatched quotation or missing required ADR/section fails; evidence: `flywheel-grant-adr/evidence/validation-2/`.
+- DONE: An updated minimal acceptance script for this head the FO can rerun as written in a fresh shell
+  `validation-2/acceptance.sh` ran unchanged in fresh Bash from `/`, exit 0; it verifies exact clean head/single ADR/one-line repair, ten quotes with rejecting counterexamples, and ADR lint. `acceptance-output.txt` and `checks.json` record output and command arguments; old status, altered effectiveness and changed quoted bytes are rejected.
+- DONE: Material findings and limits, if any
+  No new Material or Needs decision findings; `validation-2/assessment.md` reuses validation-1's unchanged-content assessment and supersedes its Proposed status. GitHub independently reports PR #38 OPEN, Draft and unmerged at the exact head (`pr38.json`); no operational or delivery proof is claimed.
+
+### Summary
+
+PASSED for the authorized one-line repair: Accepted removes the recorded post-merge status ambiguity, while the Captain-only merge condition remains unchanged. Goal sufficiency and minimal necessity inherit the prior Scope comparison and are preserved by exact-byte equivalence outside the repair; no product code, workflow, prior ADR or candidate-branch commit was made by validation.
+
+### Findings and limits
+
+No new findings. RoboRev 1117 clean is a dispatch fact, not a rerun or new review-round credit. Future flywheel execution, team satisfaction, reload and end cleanup remain unproven; this document validation creates no runtime boundary crossing. The Captain still owns this task's gate and merge; Accepted alone does not activate the grant.
+
+SKIPPED: `design_surfaces.py check` acceptance enforcement: observed exit 1 for missing Surfaces/Visible change, known package gap 2, per dispatch.
+SKIPPED: `number_guards.py check` R4 acceptance enforcement: observed exit 1 for no ADR reservation, known package gap 3, per dispatch; no new guard failure. No migration changed.
+
+Other checks: document impact exit 0, zero listed documents; comment ratio exit 0, zero code/comment lines; dispatch records exit 0, six complete; whitespace exit 0. Package scripts use the loaded Codex skill root, as required by Dispatch facts. Full command evidence and inherited provenance limits are in `validation-2/assessment.md` and `checks.json`.
+
+### Minimal acceptance script
+
+Run `/bin/bash --noprofile --norc /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr/evidence/validation-2/acceptance.sh` unchanged. Three steps, under one minute, declared checkout/package/Python/Git prerequisites; no screen changed. FO reruns and presents every step with observed output before the Captain's gate; the script proves exact artifact, quote and lint properties, not semantic authorization, runtime success, adoption or merge.

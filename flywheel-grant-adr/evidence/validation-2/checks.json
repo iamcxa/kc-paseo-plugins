@@ -1,0 +1,100 @@
+[
+  {
+    "name": "acceptance",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr/evidence/validation-2/acceptance.sh"
+    ],
+    "cwd": "/",
+    "exit_code": 0,
+    "stdout": "PASS only Proposed -> Accepted; Context and all other bytes unchanged\nPASS repair counterexamples rejected: old status; changed effectiveness condition\nPASS exact candidate 81096c60d65655610ae5c83ca2899fb708d12e0b; clean worktree; only ADR 0008 added\nPASS 10 nested/outer quotation spans byte-match accepted task source\nPASS counterexample: changing quoted full-width B to ASCII B is rejected\n7 ADR file(s) checked, 0 legacy\nPASS adr_lint exit 0\n",
+    "stderr": ""
+  },
+  {
+    "name": "doc_impact",
+    "argv": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/doc_impact.py",
+      "e4f95aee269cf14df571fb8f14e4d82d6cb9da45",
+      "81096c60d65655610ae5c83ca2899fb708d12e0b"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+    "exit_code": 0,
+    "stdout": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n",
+    "stderr": ""
+  },
+  {
+    "name": "comment_ratio",
+    "argv": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/comment_ratio.py",
+      "e4f95aee269cf14df571fb8f14e4d82d6cb9da45",
+      "81096c60d65655610ae5c83ca2899fb708d12e0b",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr/docs/dev2-poc"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+    "exit_code": 0,
+    "stdout": "code lines 0, comment lines 0, 0.0%\nmaximum 5% (package default) not enforced: 0 code lines added, fewer than 20\n",
+    "stderr": ""
+  },
+  {
+    "name": "dispatch_records",
+    "argv": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+    "exit_code": 0,
+    "stdout": "6 dispatch record(s) complete\n",
+    "stderr": ""
+  },
+  {
+    "name": "design_surfaces",
+    "argv": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr.md"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+    "exit_code": 1,
+    "stdout": "flywheel-grant-adr.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nflywheel-grant-adr.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is validation, not ideation\n",
+    "stderr": ""
+  },
+  {
+    "name": "number_guards",
+    "argv": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr.md"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+    "exit_code": 1,
+    "stdout": "migration guard skipped: no migrations-path declared\nFAIL R4: docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md: number 0008 is not in the task's ADR: lines\nbase c143dc73cdb8 head 81096c60d656 merge-base e4f95aee269c\n",
+    "stderr": ""
+  },
+  {
+    "name": "whitespace",
+    "argv": [
+      "git",
+      "-C",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+      "diff",
+      "--check",
+      "e4f95aee269cf14df571fb8f14e4d82d6cb9da45",
+      "81096c60d65655610ae5c83ca2899fb708d12e0b"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-flywheel-grant-adr",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

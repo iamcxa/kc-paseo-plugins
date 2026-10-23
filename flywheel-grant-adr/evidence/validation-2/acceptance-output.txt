@@ -1,0 +1,7 @@
+PASS only Proposed -> Accepted; Context and all other bytes unchanged
+PASS repair counterexamples rejected: old status; changed effectiveness condition
+PASS exact candidate 81096c60d65655610ae5c83ca2899fb708d12e0b; clean worktree; only ADR 0008 added
+PASS 10 nested/outer quotation spans byte-match accepted task source
+PASS counterexample: changing quoted full-width B to ASCII B is rejected
+7 ADR file(s) checked, 0 legacy
+PASS adr_lint exit 0
