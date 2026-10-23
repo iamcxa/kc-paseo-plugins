@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createElement, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, Pressable, Text, TextInput, useWindowDimensions, View } from "react-native";
 import { Icon, Modal, TextInput as HostInput, useToast } from "@getpaseo/plugin/client/react-native";
 import {
@@ -32,6 +32,7 @@ import {
   testProject,
   tokenStatus,
   hasPendingSave,
+  nextFieldless,
   replaceProject,
   saveRule,
   unsavedCount,
@@ -55,7 +56,7 @@ import {
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
 
-const DIFFERS = "The field name differs from the variable name.";
+const DIFFERS = "The field name differs from the variable name. Check it is the field you mean.";
 const WRAP = { overflowWrap: "anywhere" } as object;
 const NAME_THIS = "Name this variable";
 
@@ -76,6 +77,7 @@ function FieldPill({
 }) {
   const [shown, setShown] = useState(false);
   const [hover, setHover] = useState(false);
+  const [focused, setFocused] = useState(false);
   const muted = theme.colors.foregroundMuted;
   const dashed = view.kind === "empty" || view.kind === "raw";
   const label =
@@ -90,6 +92,8 @@ function FieldPill({
         accessibilityRole="button"
         accessibilityLabel={`Field for ${name || "this variable"}: ${label}`}
         onPress={onOpen}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -97,7 +101,7 @@ function FieldPill({
           backgroundColor: view.kind === "empty" ? "transparent" : theme.colors.surface2,
           borderWidth: 1,
           borderStyle: dashed ? "dashed" : "solid",
-          borderColor: failed || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
+          borderColor: focused ? theme.colors.foreground : failed || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
           borderRadius: 8,
           paddingHorizontal: 12,
           paddingVertical: 8,
@@ -143,6 +147,12 @@ function FieldPill({
   );
 }
 
+// A line may break after an underscore; the wbr adds no text, so copying the name still gives the name.
+function breakAfterUnderscores(name: string): ReactNode {
+  if (Platform.OS !== "web" || !name.includes("_")) return name;
+  return name.split(/(?<=_)/).flatMap((part, i) => (i === 0 ? [part] : [createElement("wbr", { key: i }), part]));
+}
+
 function VariableRow({
   variable,
   first,
@@ -156,6 +166,7 @@ function VariableRow({
   note,
   others,
   reveal,
+  clearance,
   onName,
   onRevealed,
   onRemove,
@@ -171,7 +182,8 @@ function VariableRow({
   naming: boolean;
   note: string | null;
   others: readonly string[];
-  reveal: boolean;
+  reveal: { focus: boolean } | null;
+  clearance: number;
   onName(name: string, note: string | null): void;
   onRevealed(): void;
   onRemove(): void;
@@ -183,8 +195,13 @@ function VariableRow({
   const box = useRef<View>(null);
   useEffect(() => {
     if (!reveal) return;
-    // react-native-web gives the View a DOM scrollIntoView; the native View types do not list it.
-    (box.current as unknown as { scrollIntoView?(options: object): void } | null)?.scrollIntoView?.({ block: "nearest" });
+    // react-native-web gives the View DOM methods; the native View types do not list them.
+    const dom = box.current as unknown as {
+      scrollIntoView?(options: object): void;
+      querySelector?(selector: string): { focus(options: object): void } | null;
+    } | null;
+    dom?.scrollIntoView?.({ block: "nearest" });
+    if (reveal.focus) dom?.querySelector?.('[aria-label^="Field for"]')?.focus({ preventScroll: true });
     onRevealed();
   }, [reveal, onRevealed]);
   const commit = () => {
@@ -224,7 +241,7 @@ function VariableRow({
       ) : null}
     </View>
   ) : (
-    <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
+    <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{breakAfterUnderscores(name)}</Text>
   );
   const cross = (
     <Pressable
@@ -257,6 +274,7 @@ function VariableRow({
         borderTopWidth: first ? 0 : 1,
         borderTopColor: theme.colors.border,
         gap: 8,
+        ...(Platform.OS === "web" ? ({ scrollMarginBottom: clearance } as object) : null),
       }}
     >
       {compact ? (
@@ -405,6 +423,8 @@ function SaveBar({
   theme,
   onDiscard,
   onSave,
+  onReach,
+  onHeight,
 }: {
   count: number;
   unnamed: number;
@@ -416,11 +436,14 @@ function SaveBar({
   theme: Theme;
   onDiscard(): void;
   onSave(): void;
+  onReach(): void;
+  onHeight(height: number): void;
 }) {
   const pending = hasPendingSave(count, isSaved);
   const { canSave, reason } = saveRule({ pending, saving, unnamed, changing });
   return (
     <View
+      onLayout={(e) => onHeight(e.nativeEvent.layout.height)}
       style={[
         {
           flexDirection: "row",
@@ -465,12 +488,21 @@ function SaveBar({
                 : "No unsaved changes"}
         </Text>
         {reason ? <Text style={{ fontSize: 13, color: theme.colors.foreground }}>{reason}</Text> : null}
-        {unnamed > 0 || fieldless > 0 ? (
+        {unnamed > 0 ? (
           <Text style={{ fontSize: 13, color: theme.colors.foregroundMuted }}>
-            {unnamed > 0
-              ? `Name ${unnamed} ${unnamed === 1 ? "variable" : "variables"} first`
-              : `${fieldless} with no field picked yet`}
+            {`Name ${unnamed} ${unnamed === 1 ? "variable" : "variables"} first`}
           </Text>
+        ) : fieldless > 0 ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`${fieldless} with no field picked yet. Go to the next one.`}
+            onPress={onReach}
+            hitSlop={6}
+          >
+            <Text style={{ fontSize: 13, color: theme.colors.foreground, textDecorationLine: "underline" }}>
+              {`${fieldless} with no field picked yet`}
+            </Text>
+          </Pressable>
         ) : null}
       </View>
       <View style={{ flexDirection: "row", gap: 8, marginLeft: "auto" }}>
@@ -507,7 +539,9 @@ function ProjectEditor({
   const { draft, initial, revision } = open;
   const [naming, setNaming] = useState<number | null>(null);
   const [reasons, setReasons] = useState<Record<number, string>>({});
-  const [added, setAdded] = useState<number | null>(null);
+  const [reveal, setReveal] = useState<{ index: number; focus: boolean } | null>(null);
+  const [barHeight, setBarHeight] = useState(0);
+  const reached = useRef<string | null>(null);
   const [removals, setRemovals] = useState(0);
   const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
@@ -593,9 +627,13 @@ function ProjectEditor({
     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
   });
   const test = useMutation({
-    mutationFn: async (sent: Project): Promise<Run> => ({ sent, results: (await testRpc({ project: sent })).results }),
+    mutationFn: async (sent: Project): Promise<Run> => {
+      const run = { sent, results: (await testRpc({ project: sent })).results };
+      openProject.setRun(run, open.session);
+      return run;
+    },
   });
-  const run = test.data;
+  const run = open.run;
   const [markView, setMarkView] = useState<MarkView>(null);
   const [bubbleAt, setBubbleAt] = useState({ left: 0, top: 0 });
   const bubbleOrigin = useRef<View>(null);
@@ -741,7 +779,7 @@ function ProjectEditor({
   const addVariable = (variable: Variable, selectName: boolean, reason?: string) => {
     const index = draft.variables.length;
     openProject.update((d) => ({ ...d, variables: [...d.variables, variable] }), true, open.session);
-    setAdded(index);
+    setReveal({ index, focus: false });
     setNaming(selectName ? index : null);
     if (reason) setReasons((r) => ({ ...r, [index]: reason }));
   };
@@ -966,9 +1004,10 @@ function ProjectEditor({
                 naming={naming === i}
                 note={reasons[i] ?? null}
                 others={names.filter((_, j) => j !== i)}
-                reveal={added === i}
+                reveal={reveal?.index === i ? reveal : null}
+                clearance={barHeight + 20}
                 onName={(name, reason) => nameRow(i, name, reason)}
-                onRevealed={() => setAdded(null)}
+                onRevealed={() => setReveal(null)}
                 onRemove={() => removeRow(i)}
                 pill={
                   <FieldPill
@@ -1102,6 +1141,13 @@ function ProjectEditor({
         theme={theme}
         onDiscard={() => (count > 0 ? setConfirmDiscard(true) : onDone())}
         onSave={save}
+        onReach={() => {
+          const index = nextFieldless(draft.variables, reached.current);
+          if (index < 0) return;
+          reached.current = draft.variables[index].name;
+          setReveal({ index, focus: true });
+        }}
+        onHeight={setBarHeight}
       />
     </>
   );

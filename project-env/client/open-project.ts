@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import type { Project } from "../shared/config";
+import type { Run } from "../shared/test-marks";
 
 export type OpenProject = {
   session: number;
@@ -8,6 +9,7 @@ export type OpenProject = {
   edits: number;
   revision: string;
   changing: Pick<Project, "serviceAccount" | "vault"> | null;
+  run: Run | undefined;
 };
 
 // Paseo re-mounts the settings screen when the window crosses 720 px, which drops
@@ -23,7 +25,7 @@ const set = (next: OpenProject | null) => {
 
 export const openProject = {
   begin(initial: Project, revision: string) {
-    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null });
+    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null, run: undefined });
   },
   update(change: (draft: Project) => Project, countsAsEdit: boolean, session?: number) {
     if (!current || (session !== undefined && session !== current.session)) return;
@@ -32,6 +34,10 @@ export const openProject = {
   setChanging(before: OpenProject["changing"], session?: number) {
     if (!current || (session !== undefined && session !== current.session)) return;
     set({ ...current, changing: before });
+  },
+  setRun(run: Run, session?: number) {
+    if (!current || (session !== undefined && session !== current.session)) return;
+    set({ ...current, run });
   },
   close(session?: number) {
     if (session !== undefined && session !== current?.session) return;
