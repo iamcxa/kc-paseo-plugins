@@ -1,0 +1,16 @@
+{
+  "class": "other",
+  "head": "e5e41ccdd9bea76d09d12fe0cb8c58106eb18f8d",
+  "model": "not run",
+  "necessity": "Kent, the only user; without it the footer Save writes a half-changed 1Password connection over a working one, which both picky-user reviewers reproduced as a blocker.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: '- No finding reaches Material or'",
+    "point: acceptance-not-run: 'The candidate does what AC-1 to'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#29",
+  "sufficiency": "AC-1 (Save disabled with its reason while Change is open; projects.json unchanged; works after Done or Cancel; survives a 720 px round trip), AC-2 (list order unchanged after Save) and AC-3 (a stored ",
+  "time": "2026-10-23T07:35:22Z",
+  "verdict": "ask"
+}
