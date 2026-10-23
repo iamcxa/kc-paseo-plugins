@@ -1,0 +1,6 @@
+PASS exact candidate 987698fa90a7ec7b05c672872b8b5ba8a7888aa0; clean worktree; only ADR 0008 added
+PASS 10 nested/outer quotation spans byte-match accepted task source
+PASS counterexample: changing quoted full-width B to ASCII B is rejected
+7 ADR file(s) checked, 0 legacy
+PASS adr_lint exit 0
+exit=0

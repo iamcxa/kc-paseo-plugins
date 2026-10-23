@@ -123,3 +123,29 @@ Review finding `roborev:1113` identified the omitted interim lifecycle for unmer
 Evidence: `flywheel-grant-adr/evidence/cycle-3-checks-0111e2613161.txt` (lint exit 0, quote comparison, whitespace check exit 0); `flywheel-grant-adr/evidence/cycle-3-doc-checks-fc50b4295c66.txt` (`comment_ratio.py`: exit 0, `code lines 0, comment lines 0, 0.0%`; `doc_impact.py`: exit 0, `0 document(s) mention what changed`, no listed-document dispositions owed); `flywheel-grant-adr/evidence/cycle-3-pr-body-f51acc495e60.md` (updated PR body). The quote comparison fails for any changed quoted byte; lint fails for a missing required record/section. At prior head `7d3babeb9e52c5f61146092931459771be6e3c36`, the interim lifecycle paragraph is absent.
 
 The FO runs RoboRev after this push; the worker did not run it and claims no new review verdict. No runtime, README, prior ADR, main branch, task frontmatter or earlier report was changed; no actual round task or round PR was closed, and PR #38 was neither marked ready nor merged. Independent validation and the Captain's gates remain.
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1 and Captain amendment 1 for PR #38 at the candidate head: every 「…」 quote in ADR 0008 byte-matches the task file; each Scope bullet's terms, the push and stacked-PR grant of amendment 1 and the interim round-task lifecycle are present and nothing beyond them; ADR 0006 is named as superseded; no merge is granted
+  PASSED at `987698fa90a7ec7b05c672872b8b5ba8a7888aa0`: ten nested/outer spans byte-match accepted source; changing quoted full-width B to ASCII B is rejected; every Scope term and both authorized follow-ups map to candidate lines in `flywheel-grant-adr/evidence/validation-1/assessment.md`.
+- DONE: adr_lint run with its exit code (--since e4f95aee269cf14df571fb8f14e4d82d6cb9da45 --require 0008), and a minimal acceptance script the FO can rerun as written in a fresh shell
+  `python3 /Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since e4f95aee269cf14df571fb8f14e4d82d6cb9da45 --require 0008` ran from the assigned code worktree: exit 0, 7 ADR files checked, 0 legacy; a missing required ADR/section fails. The three-step `acceptance.sh` ran in a fresh shell from `/`, exit 0; output and exact check arguments are saved beside it.
+- DONE: Material findings and limits, including whether the ADR is consistent with the dev2-poc README now at kc-dev-flow-2 0.28.0 (main c143dc7) and with docs/dev2-poc/_mods/pr-merge.md
+  No Material or Needs decision findings. Current README authority/delivery terms are unchanged; pr-merge is byte-identical at candidate and c143dc7; explicit push/PR permission, no-merge limits and pending terminal/closed-PR cleanup respect both. Evidence: `assessment.md`, `sources.json`, `checks.json`, `pr38.json` under `flywheel-grant-adr/evidence/validation-1/`.
+
+### Summary
+
+PASSED for this document-only POC: one Proposed ADR captures the accepted grant, amendment 1 and interim lifecycle without activating the grant. Goal sufficiency and minimal necessity are supported by the scope comparison and historical candidates that lack the amendment or lifecycle; no runtime, prior ADR or workflow file changes are included. PR #38 was independently observed OPEN, Draft and unmerged at the exact candidate; the Captain still owns this task's gates and merge.
+
+### Findings and limits
+
+No new findings. The interim design's chat provenance is supplied by the committed dispatch/report, not independently authenticated chat. RoboRev 1115 clean is a dispatch fact, not a review rerun or new review-round credit. Future flywheel execution, hook behavior, team satisfaction, reload and end-of-POC cleanup remain unproven; this validation creates no runtime boundary crossing.
+
+SKIPPED: `design_surfaces.py check` acceptance enforcement: observed exit 1 for missing Surfaces/Visible change, known package gap 2 in `_l3-dogfood/rounds.md`, Round 0, as directed by dispatch.
+SKIPPED: `number_guards.py check` R4 acceptance enforcement: observed exit 1 for ADR 0008 lacking reservation, known package gap 3 in that round (POC reserves no number); no new guard failure. Migration checks report skipped because migrations-path is undeclared; no migration changed.
+
+Other observed checks: document impact exit 0, zero listed documents (implementation dispositions complete); comment ratio exit 0, zero code/comment lines; dispatch records exit 0, four complete records; whitespace exit 0. The scripts use the loaded Codex skill's package root, per Dispatch facts, instead of the dispatch's Claude cache path. Candidate worktree and main remained untouched; evidence/report are split-root state only.
+
+### Minimal acceptance script
+
+Run `/bin/bash --noprofile --norc /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr/evidence/validation-1/acceptance.sh` unchanged. It declares required Python/Git, candidate/state checkouts and package paths, with three steps: exact clean candidate/single added ADR; ten byte-exact quotes plus a rejecting counterexample; ADR lint exit 0. Expected output is `acceptance-output.txt`; `assessment.md` states limits. No screen changed. FO must rerun and present every step and observed output before the Captain's gate; passing does not prove semantic authorization, operational success, adoption or merge.
