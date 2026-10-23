@@ -1,7 +1,7 @@
 ---
 id:
 title: ADR 0005 records how agent vaults, items and fields are named
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
