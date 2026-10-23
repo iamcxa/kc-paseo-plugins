@@ -1,0 +1,26 @@
+[
+  {
+    "check": "comment_ratio",
+    "chunk_id": "341154",
+    "wall_time_seconds": 1.015990958,
+    "exit_code": 0,
+    "original_token_count": 18,
+    "output": "code lines 53, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+  },
+  {
+    "check": "doc_impact_and_adr_lint",
+    "chunk_id": "6650b4",
+    "wall_time_seconds": 2.22212575,
+    "exit_code": 0,
+    "original_token_count": 29,
+    "output": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n7 ADR file(s) checked, 0 legacy\n"
+  },
+  {
+    "check": "number_guards",
+    "chunk_id": "2a9fb9",
+    "wall_time_seconds": 1.225564042,
+    "exit_code": 0,
+    "original_token_count": 33,
+    "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 78ce6c1cbcf1 head 713ae00fef28 merge-base 78ce6c1cbcf1\n"
+  }
+]

@@ -1,0 +1,5 @@
+Known Paseo tabs that are all closed add a neutral **Tab closed** badge beside the owning first officer in By FO, decision rows, the next card and an opened decision card. All locations use the same outlined treatment. Missing labels, any open client tab, and running agents stay unbadged; grouping, actions and the archived/offline path are preserved. The web composer suppresses its rectangular browser outline while retaining the rounded border's hover and focus colors.
+
+Verified with 78 passing tests, TypeScript checking, live read-only tab-label observations and isolated Paseo screenshots. The latest screenshots check the exact badge text, matching 1px solid outlines across all views, the badge beside the decision-card owner, and long-name truncation with badge containment. Task evidence is on the split-root state branch at `fleet-hides-closed-fos/evidence/cycle-3/`, outside the product branch.
+
+First unmerged layer of the POC flywheel under ADR 0008, based on main. Keep this PR Draft; external review rounds belong to the First Officer. No live installation or daemon was changed. Native appearance and Captain acceptance remain unverified.

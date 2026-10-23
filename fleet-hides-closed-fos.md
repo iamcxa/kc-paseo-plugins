@@ -115,3 +115,23 @@ Applied only the authorized next-card name constraint and added a long-name scre
 
 - Pre-gate team on 03b96fb9f3dc: design partner SATISFIED; picky users A and B both NOT SATISFIED with the same two items: (1) "Closed" beside pending approvals and "N waiting" reads as finished work — "Tab closed" says what closed; (2) opening a decision for a closed FO drops the badge, so the card does not say its FO's tab is closed. Design partner's cosmetic item: the next card's badge should use the same outlined treatment as elsewhere. FO authorizes a repair of these three; the two-line name limit in By FO is deferred to a later round.
 - Validation-1 on 03b96fb9f3dc was canceled by the FO before it reported, because the repair changes the head; its partial evidence folder was removed; validation reruns on the repaired head.
+
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: The badge text reads "Tab closed" (not "Closed") everywhere it appears, with tests and screenshots updated
+  Commit 713ae00fef28e0c30a182f6671fc22380bbfc38e shares one badge component across the views; cycle-3/capture-1 asserts exact new text, no standalone old label, and the existing rule test descriptions are updated.
+- DONE: The decision card for an item whose FO is tab-closed shows the same "Tab closed" badge beside the FO's name, with a screenshot
+  cycle-3/capture-1/closed-fo-decision-open.png visually inspected; browser assertion requires one badge immediately after the FO-name sibling, with the same outline as the board.
+- DONE: The next card's badge uses the same outlined badge treatment as By FO and the rows; npm test and typecheck pass; push to PR #40 (still Draft); a short "## Stage Report: implementation (cycle 3)" section
+  cycle-3/tests-final.log: 78/78; typecheck.log: exit 0; capture-1/observed-states.json requires matching 1px solid borders across next/rows/By FO/decision; long-name geometry passes; PR #40 OPEN/Draft at 713ae00fef28, base main.
+
+### Findings
+
+Rule unchanged; only authorized presentation changed. The shared badge's foregroundMuted border remains visible on the next-card background, with a nonshrinking container. OVERVIEW.md updated; five changed product/test/doc files map to the three repairs. The deferred By FO two-line name limit remains deferred.
+cycle-3/checks.json: 53 code / 0 comment lines (0.0% <=5%); seven ADR records pass; document impact zero documents; number guards pass. No new ADR/migration. design_surfaces remains skipped for known gap 2; roborev remains FO-owned under gap 5.
+Initial tests.log records missing worktree tsx; npm ci restored declared dependencies, then all checks passed. Isolated screenshot proof used ports 7061/7062, separate HOME/--home and a fresh localhost-blocked browser; captured PID 56573 stopped and temporary root removed. No live daemon change, message, decision, ready transition or merge; native appearance and Captain acceptance remain unverified.
+
+### Summary
+
+Clarified every badge as Tab closed, retained it beside the owner in the opened decision card, and unified the outlined appearance. The branch and PR description are updated; full evidence is under fleet-hides-closed-fos/evidence/cycle-3/, and the FO owns the next review.
