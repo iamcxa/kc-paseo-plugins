@@ -34,6 +34,17 @@ gates:
                 id: briefing:l3-grant-adr:validation:attempt-1:revision-1
                 digest: sha256:5a6bfa11ff9bbed5267d24868cc416b6bc35a1320a04a6647017ab047cb20c16
                 room-ref: ./l3-grant-adr/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:l3-grant-adr:validation:1
+                briefing: briefing:l3-grant-adr:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T11:27:16.616505Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:5a6bfa11ff9b): approve ADR 0006 as validated at 4843bb7d; route to done; PR #36 waits for merge.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T10:36:38Z
 worktree: .worktrees/spacedock-ensign-l3-grant-adr
 ---
