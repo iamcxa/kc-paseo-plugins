@@ -1,0 +1,15 @@
+{
+  "class": "never",
+  "head": "099e7b790d89ca8b63b28afb65f98f3d71c6f30e",
+  "model": "not run",
+  "necessity": "Kent, the only user; he asked to remove the Conductor import at UAT on 2026-10-23 (\u300cimport from conductor \u529f\u80fd\u53ef\u4ee5\u79fb\u9664\u300d).",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: path: 'docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#41",
+  "sufficiency": "AC-1 (no import row in 8 of 8 pages at 1280 and 400 px; no project.import-conductor handler), AC-2 (journey-lint all pass with the two stories removed, r2 renamed and the newName repair) and AC-3 (ADR",
+  "time": "2026-10-23T15:30:54Z",
+  "verdict": "ask"
+}
