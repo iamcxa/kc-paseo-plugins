@@ -71,3 +71,24 @@ Verified by: the recorded real label values of existing FOs; screenshots of the 
 
 Alignment: not needed: the Captain chose this theme in round 1 UAT; the rule and display come from the design partner and chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+
+## Stage Report: implementation
+
+- DONE: First step: read the real paseo.open-agent-tab.* values of existing role=fo agents from the live daemon read-only (paseo ls --json -g --label role=fo and per-cwd list; no UI action, install or reload) and record which would be Closed under the rule; if they contradict the rule, stop and report
+  evidence/live-fo-labels.json: 13 FOs observed; OMP trial FO and recce PR review FO match Closed; Doc FO's mixed true/false does not; no contrary observation and no live mutation.
+- DONE: The Closed rule and badge (By FO name, By decision rows and next card; nothing hidden, faded or moved; archived/closed offline path unchanged) with npm test cases for all five rule cases (AC-1) and isolated-daemon screenshots (AC-2)
+  Candidate 66faf94de8777263478125ba2004b7a64a6d0bca; 78 tests pass, including all five cases plus unknown values; removing the Closed classifier fails the all-false test (negative-rule.txt); capture-3 shows every required badge, retaining groups/actions.
+- DONE: Composer TextInput sets outlineStyle none on web only, keeping the rounded border's hover and focus change, with a web screenshot after typing (AC-2); branch pushed and a Draft PR opened with base main; External review rounds left to the FO
+  capture-3/composer-typed-no-outline.png and observed-states.json prove focused typed input outline none and three distinct border colors; typecheck passes; Draft PR #40 targets main at 66faf94de877; external rounds left to FO.
+
+### Findings
+
+SKIPPED: design_surfaces — known package gap 2: missing Surfaces/Visible change seed markers; implementation cannot rewrite the approved seed. number_guards passed, so its known R4 gap 3 did not occur. Roborev not run — known package gap 5 and dispatch: FO runs the local gate and external review rounds on the pushed head.
+No new ADR or migration reserved/added. ADR 0008 read at base 78ce6c1cbcf1258a7ddd7223ea2c93e02d29cc6c; digest in evidence/README.md. All six changed files map to the rule, badge, outline, fixture compatibility, or user explanation; classifier mutation exposes the pre-change missing signal. No persistent-state boundary crossed.
+checks.json: comment_ratio 31 code lines, 0 comment lines, 0.0% <= 5%; adr_lint 7 records pass; doc_impact 0 documents listed; OVERVIEW.md updated to describe the new badge. npm/typecheck logs and harness are under this task's evidence directory, never in the candidate branch.
+Successful isolated proof used ports 7061/7062, separate HOME/--home and a fresh browser profile blocking localhost; captured PID 18043 stopped and its home removed. capture-2 retains the failed uppercase-heading wait and successful cleanup; capture-3 passed and its three required screenshots were visually inspected. Native appearance, live two-client tab actions, installed deployment and Captain acceptance remain unverified.
+
+### Summary
+
+Delivered Closed badges and the web-only composer outline fix in one committed, pushed branch with Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/40 (base main), using the accepted POC scope. Tests, typecheck, classifier counterexample and isolated web screenshots establish the implementation proof; live main stayed clean and no live daemon, Release PR #18, ready state or merge was changed. External reviews and the Captain's physical tab/phone trial remain the FO's next work.

@@ -1,0 +1,50 @@
+{
+  "base": "78ce6c1cbcf1258a7ddd7223ea2c93e02d29cc6c",
+  "candidate": "66faf94de8777263478125ba2004b7a64a6d0bca",
+  "package": "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0",
+  "tests": {
+    "command": "npm test",
+    "cwd": "spacedock-bridge",
+    "exitCode": 0,
+    "passed": 78,
+    "failed": 0
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "checks": [
+    {
+      "check": "comment_ratio",
+      "chunk_id": "532aff",
+      "wall_time_seconds": 0.656829708,
+      "exit_code": 0,
+      "original_token_count": 18,
+      "output": "code lines 31, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+    },
+    {
+      "check": "doc_impact_and_adr_lint",
+      "chunk_id": "943834",
+      "wall_time_seconds": 1.243914959,
+      "exit_code": 0,
+      "original_token_count": 29,
+      "output": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n7 ADR file(s) checked, 0 legacy\n"
+    },
+    {
+      "check": "number_guards",
+      "chunk_id": "3cf957",
+      "wall_time_seconds": 0.808283834,
+      "exit_code": 0,
+      "original_token_count": 33,
+      "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 78ce6c1cbcf1 head 66faf94de877 merge-base 78ce6c1cbcf1\n"
+    },
+    {
+      "check": "design_surfaces",
+      "chunk_id": "83fbba",
+      "wall_time_seconds": 0.677704709,
+      "exit_code": 1,
+      "original_token_count": 54,
+      "output": "fleet-hides-closed-fos.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nfleet-hides-closed-fos.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is implementation, not ideation\n"
+    }
+  ]
+}
