@@ -1,0 +1,28 @@
+== 1. candidate checkout
+PASS  checked out 099e7b790d89ca8b63b28afb65f98f3d71c6f30e
+== 2. Conductor symbols gone, map lints clean, ADR lint exits 0
+PASS  AC-1(b) grep empty, conductor.ts absent
+PASS  AC-2 journey-lint: all lints pass
+7 ADR file(s) checked, 0 legacy
+PASS  AC-3 adr_lint exit 0
+PASS  ADR 0004 carries the 2026-10-23 amendment
+== 3. typecheck and tests (273 expected)
+PASS  typecheck exit 0
+ℹ tests 273
+ℹ pass 273
+ℹ fail 0
+PASS  273 tests, 0 fail
+== 4. the plugin registers no project.import-conductor handler
+["project.test","token.status","token.store","vault.list-refs"]
+PASS  handlers listed, no import-conductor
+== 5. real page text at 1280 and 400 px (isolated Paseo on port 6981)
+[agent-browser] launched browser
+PASS  work @1280: no Conductor/Import line; Variables and Default prompt present
+PASS  work-empty @1280: no Conductor/Import line; Variables and Default prompt present
+PASS  work-many @1280: no Conductor/Import line; Variables and Default prompt present
+PASS  work-bare @1280: no Conductor/Import line; Variables and Default prompt present
+PASS  work @400: no Conductor/Import line; Variables and Default prompt present
+PASS  work-empty @400: no Conductor/Import line; Variables and Default prompt present
+PASS  work-many @400: no Conductor/Import line; Variables and Default prompt present
+PASS  work-bare @400: no Conductor/Import line; Variables and Default prompt present
+== result: 0 failing step(s)
