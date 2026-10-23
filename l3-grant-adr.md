@@ -85,3 +85,22 @@ Added ADR 0006 recording the L3 grant from the task's Scope, with the Captain's 
 
 - Roborev Medium (not repaired, outside Scope and Non-goals): `docs/dev2-poc/README.md` says "Authority, a gate approval, a merge, an outward-facing action, an irreversible change and money are always asked, whatever an ADR says, and an ADR on one of them is never a `Precedent:` line." ADR 0006 grants gate approval and merge by an ADR-recorded grant (ADR 0011's L3 conn path, not a `Precedent:` line). Whether that README sentence permits this, or needs a scoped exception, is the Captain's call; I did not edit the README.
 - `design_surfaces.py check` on this task file exits 1: `## FO alignment` lacks a `Surfaces:` line and a `Visible change:` line. That section is FO's; not repaired.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Captain amendment 1: ADR 0006 states that it is an exception, authorized by the Captain, to exactly one sentence of docs/dev2-poc/README.md (quote it verbatim: "Authority, a gate approval, a merge, an outward-facing action, an irreversible change and money are always asked, whatever an ADR says, and an ADR on one of them is never a `Precedent:` line."), limited to the three granted classes, and that the README itself is unchanged
+  Candidate 4843bb7d3f183a3203880f1da7aa18e207086868 changes only ADR 0006; the exception quotes the normalized README sentence verbatim. The Captain's four statements and original question match this task's bytes; the terms are explicitly distinguished from his words.
+- DONE: ADR 0006 states the time limit and revocation as presented to the Captain: the grant expires after round 10 or on 2026-11-06, whichever comes first, after which all three classes return to the Captain until he rules again (promote, change or drop); he can revoke it at any time with one sentence, after which FO adds one line to this ADR recording the revocation and every later gate returns to him; per-class demotion on a reversal or observer violation stays as written
+  Six document-content checks cover the exception, scope, expiry, return of authority, revocation and recording; prior candidate a0c94ca fails all six. The existing per-class demotion sentence is unchanged; these checks do not prove future FO behavior.
+- DONE: adr_lint passes (--since 012c91a5ddbc484661ff1646c117d7249789b493 --require 6), the roborev gate is rerun with its evidence= or incomplete: line in a new implementation report section, and PR #36 is updated
+  ADR lint exit 0: `6 ADR file(s) checked, 0 legacy`; RoboRev exit 0: `clean on 4843bb7d3; evidence=roborev:1102`. Candidate pushed to Draft https://github.com/iamcxa/kc-paseo-plugins/pull/36 and its body updated; job 1101's README conflict is resolved.
+- FAILED: Task design-surface declarations pass the required checker
+  `design_surfaces.py check` exit 1: FO alignment lacks `Surfaces:` and `Visible change:`; these pre-existing FO-owned declarations remain for FO, outside this ADR-only repair.
+- FAILED: Task ADR reservation passes the required number guard
+  `number_guards.py check` exit 1: `FAIL R4` because 0006 is not in this task's `ADR:` lines; base 012c91a5ddbc484661ff1646c117d7249789b493, head 4843bb7d3f183a3203880f1da7aa18e207086868. No number reserved by the worker; migration guard skipped because no migrations-path is declared.
+- DONE: Required comment-ratio and affected-document checks run on the committed candidate
+  `code lines 0, comment lines 0, 0.0%`; maximum 5% not enforced below 20 code lines. `doc_impact.py`: `0 document(s) mention what changed`; ADR 0006 updated, README unaffected by the explicitly scoped exception; `git diff --check` passes.
+
+### Summary
+
+Committed the Captain-authorized amendment to ADR 0006 and pushed 4843bb7 to PR #36, retaining the original grant and per-class demotion while adding the bounded README exception, exact expiry and one-sentence revocation. ADR lint and the rerun RoboRev gate pass; the two task-state declaration checks above require FO disposition before advancement, and independent validation and Captain approval remain pending. Profile reminder: POC, no plugin code or workflow README changed, no merge and no Release PR #18 mutation; ADR writing guidance targets 0.27.0, found dispatched package 0.26.0.
