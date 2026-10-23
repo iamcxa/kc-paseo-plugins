@@ -1,0 +1,39 @@
+design_review:
+  preview: project-env-every-row-findable/design/preview-desktop-dark-2-note-first-press.png
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-2-note-first-press.png
+      seen: The note reads "4 with no field picked yet" and the window shows only LINEAR_API_KEY as empty. Nothing says this is the first of 4, and the other 3 empty rows are off-screen below the bar.
+      fix: Add position to the note after a press (for example "1 of 4 with no field picked yet"), or keep the count and show the position some other way, so a person knows where in the cycle they are and that the wrap-around has happened.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-2-note-first-press.png, LINEAR_API_KEY pill
+      seen: The target pill has a dashed light border. This looks like the same dashed style used for an empty field, so the bright focus border the proposal promises is not distinguishable from the empty-state style.
+      fix: Show focus as a distinct solid bright ring on top of the dashed border, and show a picture with the empty row unfocused so the two states can be compared.
+    - severity: MINOR
+      dimension: platform
+      where: preview-desktop-dark-2-note-first-press.png, save bar
+      seen: The "4 with no field picked yet" button is a small line of underlined text, about 14 px tall. It sits about 19 px below "No unsaved changes", and the nearby Close and Save buttons are about 28 px tall.
+      fix: Give the link a hit area of at least 24 px height (padding, not a bigger font), and check it at the 400 px width where touch applies.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-2-note-first-press.png, LINEAR_API_KEY row against the bar
+      seen: The row's bottom divider meets the top edge of the bar with no gap. A strip of card or border is also visible below the bar (about y 788 to 800), so the bar is not flush with the bottom of the window.
+      fix: Leave a small scroll margin (about 16 px) above the bar, and make the bar sit flush at the window bottom with nothing showing beneath it.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-2-note-first-press.png, save bar left side
+      seen: "No unsaved changes" and the disabled Save both say there is nothing to save. The count note sits directly under it in the same small size, with the underline as its only difference.
+      fix: Keep only one of the two for the no-change state (drop the text and let the disabled Save speak) so the count button is the one thing on the left.
+    - severity: MINOR
+      dimension: system-fit
+      where: preview-desktop-dark-2-note-first-press.png, header and save bar
+      seen: Test and + Add in the header look about 32 px tall. Close and Save in the bar look about 28 px tall. They are the same outlined text-button kind but appear to be slightly different sizes.
+      fix: Use one button height for the page, or confirm the difference is intended.
+  limitations:
+    - I viewed only this one picture. I did not open the other 8 previews, so compact width, light theme, the wrap-around press, the open-connection state, the Test summary, the width crossing and the open ≠ explanation are not reviewed here.
+    - I could not tell whether the dashed border on the LINEAR_API_KEY pill is the focus ring or the empty-state style. No keyboard-focus or hover state is shown.
+    - The picture is scrolled, so the blocks above the Variables header (page title, profile, connection card) are not visible. I could not count blocks before the first content.
+    - The text sizes and pixel sizes above are estimates from a 1280x800 picture, not measured values.
+    - I saw no empty, loading, error or read-only state in this picture.

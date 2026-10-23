@@ -1,0 +1,24 @@
+== spike 1280 1400 700
+[1280] before Test: "(none)"
+[1280] after Test:  "1 failed · 7 set · 4 no field"
+[700] crossed:     "1 failed · 7 set · 4 no field"
+[1280] back:        "1 failed · 7 set · 4 no field"
+RESULT: summary survived the round trip
+== spike 400 900 1280
+[400] before Test: "(none)"
+[400] after Test:  "1 failed · 7 set · 4 no field"
+[1280] crossed:     "1 failed · 7 set · 4 no field"
+[400] back:        "1 failed · 7 set · 4 no field"
+RESULT: summary survived the round trip
+== base 1280 1400 700
+[1280] before Test: "(none)"
+[1280] after Test:  "1 failed · 7 set · 4 no field"
+[700] crossed:     "(none)"
+[1280] back:        "(none)"
+RESULT: summary did NOT survive
+== base 400 900 1280
+[400] before Test: "(none)"
+[400] after Test:  "1 failed · 7 set · 4 no field"
+[1280] crossed:     "(none)"
+[400] back:        "(none)"
+RESULT: summary did NOT survive
