@@ -407,7 +407,7 @@ export function Board({
                 {next.title}
               </Text>
               <View style={styles.owner}>
-                <Text style={styles.muted} numberOfLines={1}>
+                <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
                   {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
                 </Text>
                 {next.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
