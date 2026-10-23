@@ -1,6 +1,6 @@
 ---
 title: The review wake message to the comms officer carries no pull-request free text
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
