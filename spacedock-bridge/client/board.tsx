@@ -3,6 +3,7 @@ import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Platform, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
+import { TabClosedBadge } from "./tab-closed-badge";
 import {
   type BoardRow,
   type BoardStatus,
@@ -203,7 +204,6 @@ export function Board({
       addText: { color: colors.foregroundMuted, fontSize: 13 },
       name: { color: colors.foreground, fontSize: 14, fontWeight: "600" as const },
       owner: { flexDirection: "row" as const, alignItems: "center" as const, gap: 6 },
-      closed: { color: colors.foregroundMuted, fontSize: 11, borderWidth: 1, borderColor: colors.border, borderRadius: 4, paddingHorizontal: 4 },
       text: { color: colors.foreground, fontSize: 13, lineHeight: 18 },
       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
       footer: { color: colors.foregroundMuted, fontSize: 11, marginTop: 12 },
@@ -410,7 +410,7 @@ export function Board({
                 <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
                   {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
                 </Text>
-                {next.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
+                <TabClosedBadge closed={next.fo?.tabClosed} colors={colors} />
               </View>
               <View style={styles.nextButtons}>
                 <Pressable colors={colors} accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
@@ -451,7 +451,7 @@ export function Board({
                       <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
                         {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                       </Text>
-                      {item.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
+                      <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
                       <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                     </Pressable>
                     <Pressable colors={colors}
@@ -473,7 +473,7 @@ export function Board({
                     <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
                       {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                     </Text>
-                    {item.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
+                    <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
                     <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                   </Pressable>
                 )
@@ -579,7 +579,7 @@ export function Board({
                         </Text>
                       ) : null}
                     </Text>
-                    {row.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
+                    <TabClosedBadge closed={row.tabClosed} colors={colors} />
                   </View>
                   {row.offline && status !== "offline" ? (
                     <Text style={styles.muted}>FO offline · a message will reopen it</Text>

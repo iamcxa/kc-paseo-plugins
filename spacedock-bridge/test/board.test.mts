@@ -12,7 +12,7 @@ const base: BoardAgent = {
 
 const tab = "paseo.open-agent-tab.desktop";
 
-test("all known tabs false marks an idle or error FO Closed without moving or hiding it", () => {
+test("all known tabs false marks an idle or error FO Tab closed without moving or hiding it", () => {
   for (const status of ["idle", "error"]) {
     const agent = { ...base, status, labels: { ...base.labels, [tab]: "false", "paseo.open-agent-tab.phone": "false" } };
     const row = toRow(agent);
@@ -22,7 +22,7 @@ test("all known tabs false marks an idle or error FO Closed without moving or hi
   }
 });
 
-test("an FO with no tab labels is not Closed", () => {
+test("an FO with no tab labels is not Tab closed", () => {
   assert.equal(toRow(base).tabClosed, false);
   assert.equal(toRow({ ...base, labels: undefined }).tabClosed, false);
 });
@@ -31,13 +31,13 @@ test("one true tab keeps an FO open across clients", () => {
   assert.equal(toRow({ ...base, labels: { [tab]: "false", "paseo.open-agent-tab.phone": "true" } }).tabClosed, false);
 });
 
-test("a running FO is not Closed even when every tab is false", () => {
+test("a running FO is not Tab closed even when every tab is false", () => {
   const row = toRow({ ...base, status: "running", labels: { ...base.labels, [tab]: "false" } });
   assert.equal(row.tabClosed, false);
   assert.equal(row.status, "busy");
 });
 
-test("archived and lifecycle-closed FOs retain the offline path without a Closed badge", () => {
+test("archived and lifecycle-closed FOs retain the offline path without a Tab closed badge", () => {
   for (const over of [{ archivedAt: "2026-10-23T15:00:00Z" }, { status: "closed" }]) {
     const row = toRow({ ...base, ...over, labels: { ...base.labels, [tab]: "false" } });
     assert.equal(row.tabClosed, false);
