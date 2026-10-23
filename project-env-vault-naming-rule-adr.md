@@ -219,3 +219,7 @@ Candidate 6f44533 changes only the ADR 0005 file, lint exits 0, the Captain quot
 ### Feedback Cycles
 
 - Cycle 1 (validation-1, candidate 6f44533): two reason sentences are not supported by the reference page the ADR cites (rule 1 "`@` is not allowed", rule 2 "a title with a space needs quotation marks"). FO assessment: Material. Released workflow: a reader relies on ADR 0005 when naming vaults. Harm: the record states claims its own source does not make. Protected boundary: contract[docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md#decision]. Trigger evidence: the validator's fetch of the page on 2026-10-23. FO authorizes the wording fix as implementation-2, then validation-2.
+
+### Feedback cycle 1
+
+Validation-1 found two reasons the cited reference page does not support. Fixed in cf04532 (new head of spacedock-ensign/project-env-vault-naming-rule-adr, only the 0005 file changed vs base): rule 1 now attributes the alphabetical-vault-order observation to the 2026-10-23 hand-off and says the syntax page lists supported characters (letters, digits, `-`, `_`, `.`, whitespace) with `@` not among them; rule 2's quotation-marks sentence is dropped. `adr_lint.py docs/adr --since 60799d9 --require 5` exit 0; `clean on cf04532dc; evidence=roborev:1081`; pushed.
