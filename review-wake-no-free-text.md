@@ -15,6 +15,17 @@ gates:
                 id: briefing:review-wake-no-free-text:backlog:attempt-1:revision-1
                 digest: sha256:9c871828b441b5f07e94d756a68430ed40e3699a910148b33c5910a4ef2cfef4
                 room-ref: ./review-wake-no-free-text/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:review-wake-no-free-text:backlog:1
+                briefing: briefing:review-wake-no-free-text:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T09:29:50.478847Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:9c871828b441): approve the wake-message fix to enter implementation before release PR #18 ships.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 The review poller writes each pull request's title and author verbatim into the message that wakes the comms officer, an agent that can create agents and send them prompts, and agents it creates lose its tool restrictions; a title is free text set by whoever opened the pull request.
