@@ -1,6 +1,6 @@
 ---
 title: An ADR grants the Bridge FO a POC flywheel that stacks rounds as unmerged PRs until the Captain ends POC
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -44,10 +44,13 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:45842a5a5e56): approve ADR 0008 as validated at 81096c60; FO marks PR #38 ready, waits for the Codex verdict and runs delivery_gate.py; the Captain merges it himself.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T12:59:34Z
 worktree: .worktrees/spacedock-ensign-flywheel-grant-adr
 pr: pr-merge:38
+verdict: PASSED
+completed: 2026-10-23T14:56:10Z
+archived: 2026-10-23T14:56:10Z
 ---
 
 The Captain replaces the ADR 0006 grant with a POC flywheel for spacedock-bridge: the FO builds and improves the product in rounds, each round stacked as an unmerged PR on the previous one, the Captain only tries each round and gives feedback, and the stack is reference material for whatever he plans after he ends POC.
