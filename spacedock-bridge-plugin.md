@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 worktree: .worktrees/spacedock-ensign-spacedock-bridge-plugin
-pr: 31
+pr: pr-merge:31
 gates:
     version: 1
     records:
