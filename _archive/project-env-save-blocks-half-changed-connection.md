@@ -1,7 +1,7 @@
 ---
 id:
 title: Save never overwrites a working connection with a half-changed one
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -66,8 +66,11 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #29 at e5e41cc per the gate question; the save() guard stays as recommended.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T05:26:08Z
+verdict: PASSED
+completed: 2026-10-23T07:41:35Z
+archived: 2026-10-23T07:41:35Z
 ---
 
 Polish round after the A5 settings-screen rework of the project-env plugin (main 40849b4). Source: the picky-user pass (two reviewers on different models, `ux-review-a5-polish/astra-review.md` and `gemini-review.md`) and the Design Director's ruling (`ux-review-a5-polish/design-director.md`, Task A, rows R1, R11 and R2), approved by the Captain on 2026-10-23 with 「准」, including the Director's recommendation that storing a token refreshes the field list.
