@@ -1,6 +1,6 @@
 ---
 title: The review wake message to the comms officer carries no pull-request free text
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -25,7 +25,7 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:9c871828b441): approve the wake-message fix to enter implementation before release PR #18 ships.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 The review poller writes each pull request's title and author verbatim into the message that wakes the comms officer, an agent that can create agents and send them prompts, and agents it creates lose its tool restrictions; a title is free text set by whoever opened the pull request.
