@@ -153,3 +153,7 @@ Final isolated proof used ports 7061/7062, separate HOME/--home and a fresh loca
 ### Summary
 
 Repaired the narrow-row priority so the owner yields before the title loses its visible minimum, and all content stays clear of the external-link button. Evidence is under fleet-hides-closed-fos/evidence/cycle-4/; PR #40 stays Draft for the FO's next review.
+
+### FO declines
+
+- roborev Medium on e91b9755a0c3, `client/board.tsx` linked review rows: in a 320 px compact view, repo#number, the 64 px minimum title, the "Tab closed" badge, the age and gaps can exceed the width and overlap the ↗ button. Deferred risk: the 380 px column (the Captain's desktop layout) is verified by the cycle 4 screenshot; widths below it are the phone/compact layout, a stated non-goal of this and earlier rounds. Would become Material when the Captain uses the compact layout or a phone-layout round starts; added to next-round candidates. FO stops squeezing the one-line row a third time (circuit breaker) — a two-line compact row is the different approach for that round.
