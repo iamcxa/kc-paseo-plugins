@@ -187,3 +187,31 @@ Reconciling ADR 0005's title ("An agent lays out vault items; a person reviews t
 ### Summary
 
 ADR 0005 amended in place as drafted and approved; lint passes and only that file changed. Residuals recorded in the PR body: op 2.30.3 fact not re-run, reasons for rules 2-4 are drafted not Captain-quoted, and the ADR title still reads as present behaviour.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 6f445333ba5bfeb569e87ac48e71bf46dd32c342 (PR iamcxa/kc-paseo-plugins#30, base main 40849b4) against AC-1: the diff changes only docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md; the record carries the four recommended naming rules with their reasons, the statement that the guidance authorizes no agent to create, rename or edit a vault or item, the advisory status until a dedicated skill exists, and the three verified facts, each matching the approved draft in the task file; the Captain's words are quoted exactly; code citations (`sameName`, `splitRef`, `find-generic-password -s`) match main; give a verdict.
+  Diff: `git diff --name-only 40849b4 6f44533` prints only the 0005 file (14 insertions, 2 deletions). Four rules, guidance-authorizes-no-agent sentence, advisory sentence, and three facts all present; Consequences bullets and rule text match the Design draft. Quotes 「同意」, 「可以，就這樣做規則」 and 「注意應該是建議守則…完全不外洩」 each occur exactly once in the ADR and in the entity file. Citations on main: `sameName` (project-env/shared/field-picker.ts:29), `splitRef` (same file:20, prefix match `op://${vault}/`), `find-generic-password ... -s serviceAccount` (project-env/server/secrets.ts:120) — all match.
+  Two reason sentences are not supported by the page the ADR cites (see Unverified / defects below). Verdict: AC-1 structure PASS; AC-1 not yet PASS as drafted because of the two reason sentences. Needs one correction pass in implementation, not a new ADR.
+- DONE: Run `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9 --require 5` at the candidate and record its exit code, and write the minimal acceptance script FO will rerun.
+  Run in the implementer's worktree with HEAD = 6f44533 and a clean tree: "5 ADR file(s) checked, 0 legacy", exit 0. Read-only; no branch switched, nothing written. Minimal acceptance script (run from a clean candidate checkout):
+  ```
+  set -e
+  python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.26.0/scripts/adr_lint.py docs/adr --since 60799d9 --require 5
+  test "$(git diff --name-only 40849b4 HEAD)" = "docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md"
+  git show HEAD:docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md | grep -q -F '注意應該是建議守則不是強迫性的'
+  ```
+- DONE: Record every unverified obligation.
+  Unverified or defective items:
+  1. Fact 1 (`op item create --category "Secure Note"` with `NAME[password]=` gives an empty password field, op 2.30.3): not re-run; needs the Captain's 1Password sign-in and forbids op here. Taken from the hand-off.
+  2. Fact 2 (references case-insensitive): verified against https://www.1password.dev/cli/secret-reference-syntax/ ("Secret references are case-insensitive").
+  3. Fact 3 (rename breaks name-keyed mappings): verified in code by `splitRef` prefix match; not run against a live vault.
+  4. Rule 1 reason, "@ is not allowed in an op:// reference": the page never names @; it lists supported characters (a-z, A-Z, 0-9, `-`, `_`, `.`, whitespace) and says unsupported characters need the ID. The ADR cites the page for a claim the page only implies. Fix the attribution or the wording.
+  5. Rule 2 reason, "a title with a space needs quotation marks in a reference": the same page lists the whitespace character as supported. The claim is unsupported as stated and contradicted by the cited page's list. Drop it or source it.
+  6. Rule 1 reason, "1Password lists vaults alphabetically with no manual order": no source checked; unverified.
+  7. Rules 2-4 reasons were drafted by the implementer, not quoted from the Captain (already noted in the implementation report); Captain reads them at the gate.
+  8. Title "An agent lays out vault items…" still reads as present behaviour (already a stated residual).
+
+### Summary
+
+Candidate 6f44533 changes only the ADR 0005 file, lint exits 0, the Captain quotes and the three code citations match, and the rules, guidance-authorizes-no-agent sentence, advisory sentence and three facts are all present. It is not yet a pass: the rule 1 `@` attribution and the rule 2 "quotation marks" reason are not supported by the 1Password page the ADR cites (the page lists whitespace as supported). Fact 1 remains not re-run by design. Recommend one correction commit to the ADR reasons, then re-run the acceptance script above.
