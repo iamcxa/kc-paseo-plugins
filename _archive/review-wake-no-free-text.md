@@ -1,6 +1,6 @@
 ---
 title: The review wake message to the comms officer carries no pull-request free text
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -44,10 +44,13 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:7f0aa389c337): approve the fix as validated at 24268cee; route to done; PR #35 waits for merge ahead of release PR #18.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T09:32:41Z
 worktree: .worktrees/spacedock-ensign-review-wake-no-free-text
 pr: pr-merge:35
+verdict: PASSED
+completed: 2026-10-23T10:10:46Z
+archived: 2026-10-23T10:10:46Z
 ---
 
 The review poller writes each pull request's title and author verbatim into the message that wakes the comms officer, an agent that can create agents and send them prompts, and agents it creates lose its tool restrictions; a title is free text set by whoever opened the pull request.
