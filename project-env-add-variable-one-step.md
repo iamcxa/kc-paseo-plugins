@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-add-variable-one-step:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-add-variable-one-step-validation-1
+              briefing:
+                id: briefing:project-env-add-variable-one-step:validation:attempt-1:revision-1
+                digest: sha256:ba6ff42180b9aecbe925b0bd1234d6c4ed8431d52032422db1e05406ad9a23fa
+                room-ref: ./project-env-add-variable-one-step/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-add-variable-one-step:validation:1
+                briefing: briefing:project-env-add-variable-one-step:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T03:11:32.096339Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准 for #28」 — approves delivery of PR #28 at d231c68 per the gate question.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:16:46Z
 ---
 

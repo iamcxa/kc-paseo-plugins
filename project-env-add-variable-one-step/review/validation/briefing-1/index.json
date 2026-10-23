@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-add-variable-one-step:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#28 at head d231c68dd3c28cdd3c1a60912cec1ec5e7e728cc? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-add-variable-one-step:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/38dbf48cae3f11e4959ee0603c340dc7285bdcb0/project-env-add-variable-one-step.md",
+      "rev": "sha256:c9ccf0c400ebdd7b002755827a725d94426561260c8f9ad82059f83f09eb4d88",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at d231c68: accept.sh at 1280 and 400 px; 240/240 tests; removals each fail a named test. delivery_gate.py check exit 0 at d231c68. External rounds: Codex 1, code review clean at d231c68. FO declines recorded: the no-field row's Test line belongs to PR #27; a name being typed is lost on a remount (deferred, matches the draft-store design); the new row's lower edge under the save bar at 1280 px (deferred to UAT). Expect a one-hunk merge with PR #27 in the Variables header. Owed: real 1Password, light theme, on-screen keyboard; Kent's own use."
+    }
+  ]
+}
