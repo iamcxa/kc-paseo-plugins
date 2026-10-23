@@ -135,3 +135,21 @@ Initial tests.log records missing worktree tsx; npm ci restored declared depende
 ### Summary
 
 Clarified every badge as Tab closed, retained it beside the owner in the opened decision card, and unified the outlined appearance. The branch and PR description are updated; full evidence is under fleet-hides-closed-fos/evidence/cycle-3/, and the FO owns the next review.
+
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: In the 380 px board, a one-line row (review rows included) keeps the title visible when the row also shows repo#number, the owner, the "Tab closed" badge, the age and the ↗ button: the owner text shrinks and truncates before the title does, the title keeps a visible minimum width, and nothing overflows into the ↗ button; isolated screenshot at 380 px of a review row with a long owner name and the badge
+  e91b9755a0c3444ebf4390f5396499ddf2070457 changes only board.tsx row layout; cycle-4/after-final geometry: title 64px, owner 45.42px with ellipsis, ref 65.03px, badge 66.66px, 8px clear gap before ↗; direct 380px PNG visually inspected; row still opens.
+- DONE: npm test and typecheck pass; push to PR #40 (still Draft); a short "## Stage Report: implementation (cycle 4)" section
+  cycle-4/tests-final.log: 78/78; typecheck-final.log: exit 0; branch pushed and PR #40 verified OPEN/Draft, base main, head e91b9755a0c3.
+
+### Findings
+
+The runtime counterexample is real: baseline 713ae00f gives the review title 9.14px while the owner keeps 100px. The first repair 05dfcbf5 was rejected by the geometry check because it shrank the repo ref instead of the owner; both captures and cleanup receipts are retained. Final geometry requires a >=64px title, smaller truncated owner, visible badge, ordered nonoverlapping children and clearance from ↗; it fails on the baseline and first repair.
+Shared one-line styles protect review and plain decision rows; owner gets a finite 100px basis and can shrink to zero, title has minimum 64px, row content can shrink, reference is capped at 96px, age/badge keep their space. No rule/text change. cycle-4/checks.json: comment ratio 0.0% (60 code / 0 comment, maximum 5%); seven ADR records pass; doc impact zero; number guards pass. No new ADR/migration; design-surfaces remains skipped for gap 2 and roborev is left to FO under gap 5.
+Final isolated proof used ports 7061/7062, separate HOME/--home and a fresh localhost-blocked profile; captured PID 25800 stopped and temporary root removed. No live daemon mutation, message, decision, main push, ready transition or merge. Native and Captain acceptance remain unverified.
+
+### Summary
+
+Repaired the narrow-row priority so the owner yields before the title loses its visible minimum, and all content stays clear of the external-link button. Evidence is under fleet-hides-closed-fos/evidence/cycle-4/; PR #40 stays Draft for the FO's next review.
