@@ -1,6 +1,6 @@
 ---
 title: An ADR grants the Bridge FO a POC flywheel that stacks rounds as unmerged PRs until the Captain ends POC
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -25,7 +25,7 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:fccadfc1b915): approve the flywheel grant ADR task to enter implementation; he merges its PR himself.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 The Captain replaces the ADR 0006 grant with a POC flywheel for spacedock-bridge: the FO builds and improves the product in rounds, each round stacked as an unmerged PR on the previous one, the Captain only tries each round and gives feedback, and the stack is reference material for whatever he plans after he ends POC.
