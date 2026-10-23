@@ -137,3 +137,24 @@ Needs node, npm, paseo 0.12.0, git; touches only a temp dir; never `~/.paseo`. R
     paseo daemon stop --home $H/paseo; rm -rf $H
 
 Does not cover: screen rendering, the fleet MCP server actually starting (blocked by 6787 while the POC runs), review polling against real GitHub, the comms officer's behaviour, the injection path.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Run the roborev gate on the committed candidate against base 40849b49bc727dae0731e797e2b207370946c5c2 and put its evidence= or incomplete: line in a new implementation stage report section
+  `roborev_gate.py --repo <worktree> --base 40849b49...` exited 1: `findings on 78eef814c; evidence=roborev:1084`.
+- DONE: Report every roborev finding to FO; change no code, because this task's scope is a move with no behaviour change
+  Seven findings below; no code changed, nothing committed to the candidate branch (HEAD stays 78eef81).
+
+### Roborev findings (roborev:1084), all in moved code that is byte-identical to source at dbee7baf
+
+- High, `server/decisions.ts:29`: decision claims keyed only by `briefingId`; two repos sharing an ID block each other as "already sent". Fix: scope by canonical workflow state identity.
+- High, `shared/board.ts:154`: gate owner matched by task slug before workflow; unrelated workflows reusing a slug attach the gate to the wrong FO. Fix: match slug within the same repo/workflow.
+- Medium, `server/tasks.ts:141`: gate dedup key is slug+title only; same-named tasks in two workflows lose a gate. Fix: add workflow identity to the key.
+- Medium, `client/decision-card.tsx:144`: coordinator open happens after the claim is persisted but outside the release-on-error block; a failed open leaves the claim stuck as "already sent". Fix: guard the open and release on failure.
+- Medium, `client/bridge.tsx:86`: compact-layout tab switch unmounts the inactive pane, dropping chat drafts and coordinator monitoring. Fix: keep both mounted or hold state in the parent.
+- Medium, `client/co-chat.tsx:202`: working state follows live turn events only; opening a chat mid-turn (or reconnecting) shows idle and hides stop. Fix: init/reconcile from agent snapshots.
+- Low, `shared/board.ts:157`: attaching gates drops `preparedAt`, so queue ordering and waiting ages use activity timestamps. Fix: preserve `preparedAt`; test the attach-to-queue path.
+
+### Summary
+
+The gate found real behaviour defects, but every one is already in the POC source this task moved unchanged; none was introduced by the move. Fixing any of them changes behaviour, which this task's scope excludes, so FO decides whether to open follow-up work; I made no change.
