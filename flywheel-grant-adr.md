@@ -15,6 +15,17 @@ gates:
                 id: briefing:flywheel-grant-adr:backlog:attempt-1:revision-1
                 digest: sha256:fccadfc1b91502eacf8328adec5ce0a8dbc901febdf3e5006426366a095a54e6
                 room-ref: ./flywheel-grant-adr/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:flywheel-grant-adr:backlog:1
+                briefing: briefing:flywheel-grant-adr:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T12:59:05.786846Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:fccadfc1b915): approve the flywheel grant ADR task to enter implementation; he merges its PR himself.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 The Captain replaces the ADR 0006 grant with a POC flywheel for spacedock-bridge: the FO builds and improves the product in rounds, each round stacked as an unmerged PR on the previous one, the Captain only tries each round and gives feedback, and the stack is reference material for whatever he plans after he ends POC.
