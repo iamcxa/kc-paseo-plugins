@@ -287,3 +287,4 @@ Does not cover: the phone app, a remount during a running Test, light theme, the
 ### Summary
 
 Candidate fc4b095 passes AC-1 to AC-3 on a fresh isolated Paseo at 400x900, 1280x1400 and 1280x800, and each clause fails on its own one-line mutant. Verdict PASSED; no defect found. The worktree has since advanced past fc4b095, so FO should decide whether a later candidate needs a recheck.
+FO note: the repairs for feedback cycles 1 and 2 were dispatched into the same worktree while validation-1 ran on it, so its HEAD moved under the validator; validation-1's verdict covers fc4b095 only. Later repairs wait for a running validation to finish, or the validator works from `git archive` of the candidate as this one did.
