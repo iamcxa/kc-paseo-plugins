@@ -15,6 +15,20 @@ gates:
                 id: briefing:r1-hover-and-row-owner:backlog:attempt-1:revision-1
                 digest: sha256:f8353a435da4aed6de76ee8a7838b2d1dea9c4073775a9541af62c8dc01f0175
                 room-ref: ./r1-hover-and-row-owner/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r1-hover-and-row-owner:backlog:1
+                briefing: briefing:r1-hover-and-row-owner:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-23T11:36:08.796108Z"
+                decision: approve
+                reason: 'L3 class 1 (spacedock-bridge POC backlog gate) under ADR 0006: scope traces to the Captain UAT words of 2026-10-23 quoted in the task; no security, permission, relay/recording, release or outward change.'
+                conn:
+                    quote: 同意，就用這個方式。但改成每一輪摘要寫到一個 dev2 fo 可以存取的地方，不要讓它一直被你們打斷
+                    source: 'docs/adr/0006-the-bridge-fo-decides-three-classes-of-poc-gates-by-record.md (ADR 0006, merged in PR #36, f849058), Captain chat 2026-10-23'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 1 of the L3 dogfood (ADR 0006): the Captain's UAT of PR #34 found that nothing on the Bridge shows it can be clicked, the three decision buttons look alike, the By decision rows do not say which FO an item belongs to, and an FO's question disappears from By decision when that FO also has a gate.
