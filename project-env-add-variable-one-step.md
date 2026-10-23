@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-add-variable-one-step
-pr: iamcxa/kc-paseo-plugins#28
+pr: pr-merge:28
 gates:
     version: 1
     records:
@@ -92,6 +92,7 @@ Direction alignment with the Captain: done — the Captain chose direction A5 an
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 ## Design
 
 ### PRFAQ
@@ -261,3 +262,8 @@ PASSED. Both criteria hold on a rebuilt candidate at 1280 and 400 px, and removi
 - Validation finding (a), the no-field row after Test shows the mark but no "field not found in the vault" line: declined here. Released workflow: Add a name-only row, then Test. Harm: none observed; the server result `missing-field` is proven by test. Criterion: value-ac[AC-2]'s falsifier does not name the line. Evidence: validation-1 on d231c68. Owner: project-env-test-summary-failure-mark (PR #27) owns the row marks and counts a no-field row as "N no field"; FO settles the save-bar note wording ("N without a field will read failed until you pick one") against #27's when #27 merges main.
 - roborev:1058 / validation finding (b), a typed name and its naming focus are lost on a remount at 720 px: deferred. Harm: keystrokes in progress are lost; the row, its count and "Name this variable" survive. Criterion: the approved draft-store design (project-env-draft-survives-remount) does not store naming focus or reason text. Material if a ruling requires a name in progress to survive a remount; candidate revision: keep the typed name in the `openProject` store.
 - Validation polish, at 1280 px in a 12-variable project the new row's lower edge sits under the sticky save bar: deferred to the Captain's UAT together with the same save-bar overlap noted on the Danger zone.
+
+## FO records
+
+External review rounds at the validation gate: Codex 1 (code review clean at d231c68). The local roborev gate is not an external round.
+delivery_gate.py check passed at d231c68 before the ask (merge/ask-1.json); the Captain approved with 「准 for #28」 on 2026-10-23 and FO merged as 0314c91. The save-bar note wording is settled in project-env-test-summary-failure-mark's main merge (its implementation-3).
