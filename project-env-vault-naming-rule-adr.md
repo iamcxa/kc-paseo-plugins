@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-vault-naming-rule-adr:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-vault-naming-rule-adr-validation-1
+              briefing:
+                id: briefing:project-env-vault-naming-rule-adr:validation:attempt-1:revision-1
+                digest: sha256:b64ec6bbf648b80f9e9f02cb249526e065487b1671a6ccf5442b32e2ac877b6b
+                room-ref: ./project-env-vault-naming-rule-adr/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-naming-rule-adr:validation:1
+                briefing: briefing:project-env-vault-naming-rule-adr:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T08:25:32.884681Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #30 at d5a53fc per the gate question.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T05:48:10Z
 ---
 

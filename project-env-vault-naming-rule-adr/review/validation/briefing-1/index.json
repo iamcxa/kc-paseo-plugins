@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-naming-rule-adr:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#30 at head d5a53fc65430bfe1f01a4e8fb95e1f8730c3fb3f? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-naming-rule-adr:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/d6c1f2911fe47da9fde69717108038bcc0be2e3b/project-env-vault-naming-rule-adr.md",
+      "rev": "sha256:0ea01f25714190bd5434b85299a927c69df6c4c6142df9ed60f4b8ff88da2cdc",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 3 PASSED at d5a53fc; Codex 2 rounds (round 1 one P2 on case-insensitivity, fixed; round 2 clean at d5a53fc); local roborev gate clean (roborev:1083), no RoboRev review posted on the PR. Residuals: the op 2.30.3 empty-password-field fact is from the hand-off, not re-run; rules 2 to 4 reasons were drafted from code and the reference page; the ADR title still reads as present behaviour. delivery_gate.py check exit 0."
+    }
+  ]
+}
