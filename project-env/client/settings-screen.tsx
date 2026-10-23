@@ -492,6 +492,8 @@ function SaveBar({
           <Text style={{ fontSize: 13, color: theme.colors.foregroundMuted }}>
             {`Name ${unnamed} ${unnamed === 1 ? "variable" : "variables"} first`}
           </Text>
+        ) : fieldless > 0 && Platform.OS !== "web" ? (
+          <Text style={{ fontSize: 13, color: theme.colors.foregroundMuted }}>{`${fieldless} with no field picked yet`}</Text>
         ) : fieldless > 0 ? (
           <Pressable
             accessibilityRole="button"
