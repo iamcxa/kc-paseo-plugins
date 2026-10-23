@@ -34,6 +34,17 @@ gates:
                 id: briefing:review-wake-no-free-text:validation:attempt-1:revision-1
                 digest: sha256:7f0aa389c3375170153f85b3eb40ae82d3f66e23ebdee245156f37140c1d2f9f
                 room-ref: ./review-wake-no-free-text/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:review-wake-no-free-text:validation:1
+                briefing: briefing:review-wake-no-free-text:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T09:58:43.593051Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:7f0aa389c337): approve the fix as validated at 24268cee; route to done; PR #35 waits for merge ahead of release PR #18.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T09:32:41Z
 worktree: .worktrees/spacedock-ensign-review-wake-no-free-text
 ---
