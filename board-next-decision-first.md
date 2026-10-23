@@ -60,6 +60,14 @@ Verified by: `npm test` in `spacedock-bridge/` with a test that the next card is
 Alignment: not needed: the Captain chose the layout himself from a side-by-side mockup on 2026-10-23.
 Release review: not needed: spacedock-bridge has no journey map yet.
 
+## Captain amendments
+
+### Amendment 1 — 2026-10-23, chat
+Captain: 「add the button to the top card。能夠偵測是 github or gitlab or 其他的嗎？或是，就顯示 PR↗ or MR↗？」 (chat, after the implementation report)
+Asked: Should I add the button to the top card?
+Supersedes: none
+Design:   - Removed from the rows: the "NEW" mark, the detail line, the FO title, and the "GitHub ↗" button (still reachable from the decision card or the FO chat).
+
 ## Stage Report: implementation
 
 - DONE: The By decision view renders the chosen layout: a larger next card on top for the first buildQueue item, the rest as one-line rows grouped under Comms officer / Reviews / Gates / Questions with counts and the wait time on the right, with a screenshot from an isolated Paseo daemon (AC-1)
