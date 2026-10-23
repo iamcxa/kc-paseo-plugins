@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r1-hover-and-row-owner:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #37 at dd7c9e04 (hover/press states, distinct decision chips, FO names on By decision rows, a gate and a separate question both kept) so it routes to done and merges?",
+  "artifacts": [
+    {
+      "id": "artifact:r1-hover-and-row-owner:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b61658daf588f62dadd220c8e9c0e21b2a3712be/r1-hover-and-row-owner.md",
+      "rev": "sha256:0bfd88fb13a7ecfe77724bbf469d1aa37b6b791a6d2869ecfa740c2d552c678e",
+      "mediaType": "text/markdown",
+      "summary": "Codex gpt-6-astra validation PASSED AC-1/AC-2 at dd7c9e04, no new Material finding; relay/decision/decide/server files unchanged. FO reran all three acceptance steps in a fresh shell: 72/72 tests; capture PASS (16 press checks, composer borders, chip colors); cleanup PASS; OMP FO shown on both its gate and its separate question. FO declines (roborev:1107, two Deferred risk) stand. Roborev rounds: 2 (1106/1107 on implementation heads)."
+    }
+  ]
+}

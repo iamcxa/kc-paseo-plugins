@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r1-hover-and-row-owner:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r1-hover-and-row-owner-validation-1
+              briefing:
+                id: briefing:r1-hover-and-row-owner:validation:attempt-1:revision-1
+                digest: sha256:85e51a318038a7a1b83fe79b01d2a55c940d75356185177bacd13236d6323923
+                room-ref: ./r1-hover-and-row-owner/review/validation/briefing-1
 started: 2026-10-23T11:36:35Z
 worktree: .worktrees/spacedock-ensign-r1-hover-and-row-owner
 ---
