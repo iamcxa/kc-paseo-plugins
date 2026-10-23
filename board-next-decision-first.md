@@ -47,6 +47,7 @@ gates:
                 state: pending
 started: 2026-10-23T08:02:45Z
 worktree: .worktrees/spacedock-ensign-board-next-decision-first
+pr: 32
 ---
 
 The Captain finds the Fleet board's "By decision" view too dense to scan: every waiting item is drawn as an equal three-to-five-line card, so nothing tells him where to start. He compared three mockups side by side (current board, a two-line card variant, and a "next up" variant) and chose the "next up" variant.
