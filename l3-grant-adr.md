@@ -60,3 +60,21 @@ Verified by: the ADR file quoting the Captain's three messages verbatim, listing
 
 Alignment: not needed: the Captain approved the design in chat on 2026-10-23; this task only records it.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: One ADR file in docs/adr/ at the next free number records the grant: the Captain's three messages verbatim from the task, the three granted classes, the kept-with-Captain list, the per-round records, the judgement numbers and the round-log location, adding nothing the task's Scope does not contain (AC-1)
+  `docs/adr/0006-the-bridge-fo-decides-three-classes-of-poc-gates-by-record.md`, commit a0c94ca on spacedock-ensign/l3-grant-adr. 0006 was free on origin/main and on the other open PR's branch at push time (no renumbering). Every 「…」 quote matched the task file by exact substring.
+- DONE: python3 <package>/scripts/adr_lint.py docs/adr --since <base> exits 0, with its output in the report
+  `6 ADR file(s) checked, 0 legacy`, exit 0, also with `--require 6`; base 012c91a5ddbc484661ff1646c117d7249789b493.
+- DONE: Roborev gate run with its evidence= or incomplete: line, and a Draft PR open
+  `findings on a0c94ca29; evidence=roborev:1101` (exit 1, one Medium, out of scope, run once, see Findings). Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/36.
+
+### Summary
+
+Added ADR 0006 recording the L3 grant from the task's Scope, with the Captain's words verbatim and nothing added; the Decision's options line says only the one presented design was approved. No code, kc-dev-flow-2 file or workflow README was touched; Release PR #18 untouched. comment_ratio: 0 code lines, 0 comment lines, not enforced. doc_impact: 0 documents mention what changed. Profile reminder: POC, no boundary crossed.
+
+### Findings for FO
+
+- Roborev Medium (not repaired, outside Scope and Non-goals): `docs/dev2-poc/README.md` says "Authority, a gate approval, a merge, an outward-facing action, an irreversible change and money are always asked, whatever an ADR says, and an ADR on one of them is never a `Precedent:` line." ADR 0006 grants gate approval and merge by an ADR-recorded grant (ADR 0011's L3 conn path, not a `Precedent:` line). Whether that README sentence permits this, or needs a scoped exception, is the Captain's call; I did not edit the README.
+- `design_surfaces.py check` on this task file exits 1: `## FO alignment` lacks a `Surfaces:` line and a `Visible change:` line. That section is FO's; not repaired.
