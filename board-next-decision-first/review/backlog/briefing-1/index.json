@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:board-next-decision-first:backlog:attempt-1:revision-1",
+  "question": "Approve the backlog for the Fleet board's By decision redesign (next decision on top, every other item on one grouped line, as the Captain chose from the third mockup column) to enter implementation in an isolated worktree with a PR?",
+  "artifacts": [
+    {
+      "id": "artifact:board-next-decision-first:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/7fbe0ffe70cd408f203f60962e2e332e1719c407/board-next-decision-first.md",
+      "rev": "sha256:8dc62d62a884a65362f90d74a220fa9e8c09c6814bf4c654f3ddadf2813d26e5",
+      "mediaType": "text/markdown",
+      "summary": "Captain chose the third mockup column on 2026-10-23. Scope: only the By decision branch of client/board.tsx (plus shared/queue.ts if needed) in spacedock-bridge/, now merged as PR #31. Out: Skip button, briefing question instead of task title, item collection, mobile layout. AC-1 screenshot of the layout; AC-2 tests that ordering and taps are unchanged."
+    }
+  ]
+}
