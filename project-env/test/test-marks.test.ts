@@ -103,6 +103,11 @@ describe("the summary beside Test", () => {
     assert.equal(text(project(draft.variables, { serviceAccount: "sb" }), run), says);
     assert.equal(text(draft, run), "2 failed · 2 set · 1 no field");
   });
+  it("ignores a row that is still being named: not counted, not a change", () => {
+    const withUnnamed = project([...draft.variables, { name: "", ref: "op://V/NEW/x" }]);
+    assert.equal(text(withUnnamed, run), "2 failed · 2 set · 1 no field");
+    assert.equal(rowReason(withUnnamed, run, { name: "", ref: "op://V/NEW/x" }), null);
+  });
   it("reads Testing… while a Test runs", () => {
     assert.equal(text(draft, run, true), "Testing…");
   });

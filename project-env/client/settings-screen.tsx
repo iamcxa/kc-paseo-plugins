@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, Pressable, Text, TextInput, useWindowDimensions, View } from "react-native";
-import { Icon, Modal, useToast } from "@getpaseo/plugin/client/react-native";
+import { Icon, Modal, TextInput as HostInput, useToast } from "@getpaseo/plugin/client/react-native";
 import {
   type PluginSurfaceProps,
   type SettingsState,
@@ -23,6 +23,7 @@ import {
   listRefs,
   type Project,
   type Variable,
+  nameFromLabel,
   newVariable,
   refusal,
   splitImported,
@@ -35,7 +36,7 @@ import {
 } from "../shared/config";
 import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
 import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
-import { FieldPicker, type VaultList } from "./field-picker";
+import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
 import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
 import {
@@ -54,6 +55,9 @@ type Theme = PluginSurfaceProps["theme"];
 
 const DIFFERS = "The field name differs from the variable name.";
 const WRAP = { overflowWrap: "anywhere" } as object;
+const NAME_THIS = "Name this variable";
+
+type Picker = { mode: "add" } | { mode: "row"; index: number };
 
 function FieldPill({
   name,
@@ -82,7 +86,7 @@ function FieldPill({
     <View style={{ flex: 1, minWidth: 0 }}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`Field for ${name}: ${label}`}
+        accessibilityLabel={`Field for ${name || "this variable"}: ${label}`}
         onPress={onOpen}
         style={{
           flexDirection: "row",
@@ -113,7 +117,7 @@ function FieldPill({
         {view.kind === "ref" && view.differs ? (
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={`Why ${name} is marked different`}
+            accessibilityLabel={`Why ${name || "this variable"} is marked different`}
             hitSlop={12}
             onPress={() => setShown((v) => !v)}
             onHoverIn={() => setHover(true)}
@@ -146,6 +150,12 @@ function VariableRow({
   pill,
   onMark,
   onResize,
+  naming,
+  note,
+  others,
+  reveal,
+  onName,
+  onRevealed,
   onRemove,
 }: {
   variable: Variable;
@@ -156,17 +166,68 @@ function VariableRow({
   pill: ReactNode;
   onMark(event: MarkEvent["type"], anchor: Anchor): void;
   onResize(): void;
+  naming: boolean;
+  note: string | null;
+  others: readonly string[];
+  reveal: boolean;
+  onName(name: string, note: string | null): void;
+  onRevealed(): void;
   onRemove(): void;
 }) {
   const { name } = variable;
   const compact = useWindowDimensions().width < 600;
-  const nameText = (
+  const editing = naming || name === "";
+  const [typedName, setTypedName] = useState(name);
+  const box = useRef<View>(null);
+  useEffect(() => {
+    if (!reveal) return;
+    // react-native-web gives the View a DOM scrollIntoView; the native View types do not list it.
+    (box.current as unknown as { scrollIntoView?(options: object): void } | null)?.scrollIntoView?.({ block: "nearest" });
+    onRevealed();
+  }, [reveal, onRevealed]);
+  const commit = () => {
+    const wanted = typedName.trim();
+    if (wanted === "" && name === "") return;
+    const refused = wanted === "" ? NAME_THIS : refusal(wanted, others);
+    if (refused) onName("", refused);
+    else onName(wanted, null);
+  };
+  const nameText = editing ? (
+    <View>
+      <HostInput
+        value={typedName}
+        onChangeText={setTypedName}
+        autoFocus={naming}
+        selectTextOnFocus
+        autoCapitalize="none"
+        autoCorrect={false}
+        accessibilityLabel="Variable name"
+        placeholder="VARIABLE_NAME"
+        placeholderTextColor={theme.colors.foregroundMuted}
+        onSubmitEditing={commit}
+        onBlur={commit}
+        style={{
+          color: theme.colors.foreground,
+          backgroundColor: theme.colors.surface2,
+          borderRadius: 8,
+          paddingHorizontal: 10,
+          paddingVertical: 6,
+          fontSize: 14,
+        }}
+      />
+      {note ?? (name === "" ? NAME_THIS : null) ? (
+        <Text accessibilityRole="alert" style={{ color: theme.colors.statusDanger, fontSize: 12, paddingTop: 3, ...WRAP }}>
+          {note ?? NAME_THIS}
+        </Text>
+      ) : null}
+    </View>
+  ) : (
     <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
   );
   const cross = (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`Remove ${name}`}
+      accessibilityLabel={`Remove ${name || "this variable"}`}
       hitSlop={10}
       onPress={onRemove}
       style={{ padding: 6 }}
@@ -187,6 +248,7 @@ function VariableRow({
   return (
     <View
       onLayout={onResize}
+      ref={box}
       style={{
         paddingHorizontal: 16,
         paddingVertical: 14,
@@ -208,13 +270,26 @@ function VariableRow({
         </>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
-          <View style={{ width: 200, paddingTop: 9 }}>{nameText}</View>
+          <View style={{ width: 200, paddingTop: editing ? 0 : 9 }}>{nameText}</View>
           {pill}
           {mark}
           <View style={{ marginTop: 4 }}>{cross}</View>
         </View>
       )}
     </View>
+  );
+}
+
+function AddVariableButton({ theme, onPress }: { theme: Theme; onPress(): void }) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
+      onPress={onPress}
+      style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 7 }}
+    >
+      <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>+ Add</Text>
+    </Pressable>
   );
 }
 
@@ -319,6 +394,8 @@ const barText = (theme: Theme, tone: "plain" | "primary" | "danger" | "dangerSol
 
 function SaveBar({
   count,
+  unnamed,
+  fieldless,
   isSaved,
   saving,
   error,
@@ -327,6 +404,8 @@ function SaveBar({
   onSave,
 }: {
   count: number;
+  unnamed: number;
+  fieldless: number;
   isSaved: boolean;
   saving: boolean;
   error: string | null;
@@ -335,7 +414,7 @@ function SaveBar({
   onSave(): void;
 }) {
   const pending = hasPendingSave(count, isSaved);
-  const canSave = pending && !saving;
+  const canSave = pending && !saving && unnamed === 0;
   return (
     <View
       style={[
@@ -381,6 +460,13 @@ function SaveBar({
                 ? "New project, not saved yet"
                 : "No unsaved changes"}
         </Text>
+        {unnamed > 0 || fieldless > 0 ? (
+          <Text style={{ fontSize: 13, color: theme.colors.foregroundMuted }}>
+            {unnamed > 0
+              ? `Name ${unnamed} ${unnamed === 1 ? "variable" : "variables"} first`
+              : `${fieldless} with no field picked yet`}
+          </Text>
+        ) : null}
       </View>
       <View style={{ flexDirection: "row", gap: 8, marginLeft: "auto" }}>
         <Pressable accessibilityRole="button" onPress={onDiscard} style={barButton(theme, "plain")}>
@@ -414,8 +500,10 @@ function ProjectEditor({
   onDone(): void;
 }) {
   const { draft, initial, revision } = open;
-  const [newName, setNewName] = useState("");
-  const nameInput = useRef<SettingsInputHandle>(null);
+  const [naming, setNaming] = useState<number | null>(null);
+  const [reasons, setReasons] = useState<Record<number, string>>({});
+  const [added, setAdded] = useState<number | null>(null);
+  const [removals, setRemovals] = useState(0);
   const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
   const resumed = open.changing;
@@ -559,10 +647,11 @@ function ProjectEditor({
   const patch = useCallback((change: Partial<Project>) => {
     openProject.update((d) => ({ ...d, ...change }), true);
   }, []);
-  const setRef = (name: string, ref: string) =>
-    patch({ variables: draft.variables.map((v) => (v.name === name ? { ...v, ref } : v)) });
+  const setRef = (index: number, ref: string) =>
+    patch({ variables: draft.variables.map((v, i) => (i === index ? { ...v, ref } : v)) });
 
   const save = async () => {
+    if (unnamed > 0) return;
     const others = settings.values.projects.filter((p) => p.root !== draft.root);
     if (await settings.save({ projects: [...others, draft] }, revision)) {
       toast.show(`Saved ${basename(draft.root)}`, { variant: "success" });
@@ -576,7 +665,9 @@ function ProjectEditor({
     if (await settings.save({ projects: others }, revision)) onDone();
   };
 
-  const nameRefusal = refusal(newName, draft.variables.map((v) => v.name));
+  const names = draft.variables.map((v) => v.name);
+  const unnamed = names.filter((n) => n === "").length;
+  const fieldless = draft.variables.filter((v) => v.name !== "" && v.ref === "").length;
   const current = account === checked && !token.isFetching ? token.data : undefined;
   const vaults = current?.vaults ?? [];
   const vaultIds = current?.vaultIds ?? [];
@@ -636,16 +727,51 @@ function ProjectEditor({
       : unusable
         ? { status: "error", ...unusable }
         : { status: "loading" };
-  const [picking, setPicking] = useState<string | null>(null);
-  const pickingVariable = draft.variables.find((v) => v.name === picking);
+  const [picker, setPicker] = useState<Picker | null>(null);
+  const pickingVariable = picker?.mode === "row" ? draft.variables[picker.index] : undefined;
+  const openPicker = (next: Picker) => {
+    if (refs.isError) refs.reset();
+    setPicker(next);
+  };
+  const addVariable = (variable: Variable, selectName: boolean, reason?: string) => {
+    const index = draft.variables.length;
+    openProject.update((d) => ({ ...d, variables: [...d.variables, variable] }), true, open.session);
+    setAdded(index);
+    setNaming(selectName ? index : null);
+    if (reason) setReasons((r) => ({ ...r, [index]: reason }));
+  };
+  const addFromField = (field: PickedField) => {
+    const r = nameFromLabel(field.label, names);
+    addVariable({ name: r.name, ref: field.ref }, r.state !== "kept", r.state === "refused" ? r.reason : undefined);
+  };
+  const addByName = (typed: string) => {
+    const r = nameFromLabel(typed, names);
+    if (r.state !== "refused") addVariable(newVariable(r.name), false);
+  };
+  const nameRow = (index: number, name: string, reason: string | null) => {
+    if (name !== draft.variables[index]?.name) {
+      patch({ variables: draft.variables.map((v, i) => (i === index ? { ...v, name } : v)) });
+    }
+    setReasons(({ [index]: _dropped, ...rest }) => (reason ? { ...rest, [index]: reason } : rest));
+    setNaming(reason ? index : null);
+  };
+  const removeRow = (index: number) => {
+    patch({ variables: draft.variables.filter((_, i) => i !== index) });
+    const shift = (at: number) => (at > index ? at - 1 : at);
+    setReasons((r) =>
+      Object.fromEntries(Object.entries(r).filter(([at]) => Number(at) !== index).map(([at, text]) => [shift(Number(at)), text])),
+    );
+    setNaming((at) => (at === null || at === index ? null : shift(at)));
+    setRemovals((n) => n + 1);
+  };
   useEffect(() => {
     refs.reset();
   }, [account, draft.vault]);
   useEffect(() => {
-    if (picking !== null && !refs.data && !refs.isPending && !refs.isError && current?.state === "ok" && vaultReadable) {
+    if (picker !== null && !refs.data && !refs.isPending && !refs.isError && current?.state === "ok" && vaultReadable) {
       refs.mutate();
     }
-  }, [picking, refs, current?.state, vaultReadable]);
+  }, [picker, refs, current?.state, vaultReadable]);
 
   return (
     <>
@@ -793,7 +919,7 @@ function ProjectEditor({
                 disabled={test.isPending}
                 onPress={() => {
                   setMarkView(null);
-                  test.mutate(draft);
+                  test.mutate({ ...draft, variables: draft.variables.filter((v) => v.name !== "") });
                 }}
                 style={{
                   borderWidth: 1,
@@ -807,16 +933,24 @@ function ProjectEditor({
                 <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Test</Text>
               </Pressable>
             ) : null}
+            <AddVariableButton theme={theme} onPress={() => openPicker({ mode: "add" })} />
           </View>
         }
       >
         {compactHeader && summary.length > 0 ? <View style={{ paddingBottom: 8 }}>{summaryNode}</View> : null}
         <SettingsCard>
+          {draft.variables.length === 0 ? (
+            <View style={{ paddingHorizontal: 16, paddingVertical: 14 }}>
+              <Text style={{ color: theme.colors.foregroundMuted, fontSize: 14 }}>
+                No variables yet. Press + Add to pick a field from the vault.
+              </Text>
+            </View>
+          ) : null}
           {draft.variables.map((v, i) => {
             const reason = rowReason(draft, run, v);
             return (
               <VariableRow
-                key={v.name}
+                key={`${removals}-${i}`}
                 variable={v}
                 first={i === 0}
                 reason={reason}
@@ -824,46 +958,25 @@ function ProjectEditor({
                 theme={theme}
                 onMark={(type, anchor) => markEvent(v.name, type, anchor)}
                 onResize={() => setMarkView(null)}
-                onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
+                naming={naming === i}
+                note={reasons[i] ?? null}
+                others={names.filter((_, j) => j !== i)}
+                reveal={added === i}
+                onName={(name, reason) => nameRow(i, name, reason)}
+                onRevealed={() => setAdded(null)}
+                onRemove={() => removeRow(i)}
                 pill={
                   <FieldPill
                     name={v.name}
                     view={pillView(v.ref, v.name, draft.vault)}
                     failed={reason !== null}
                     theme={theme}
-                    onOpen={() => {
-                      if (refs.isError) refs.reset();
-                      setPicking(v.name);
-                    }}
+                    onOpen={() => openPicker({ mode: "row", index: i })}
                   />
                 }
               />
             );
           })}
-          <SettingsInput
-            ref={nameInput}
-            label="New variable name"
-            initialValue=""
-            placeholder="LINEAR_API_KEY"
-            onChangeText={setNewName}
-            error={nameRefusal ?? undefined}
-          />
-          <SettingsAction
-            label="Add variable"
-            actionLabel="Add"
-            disabled={newName === "" || nameRefusal !== null}
-            onPress={() => {
-              if (nameRefusal !== null) return;
-              patch({
-                variables: [
-                  ...draft.variables,
-                  newVariable(newName),
-                ],
-              });
-              nameInput.current?.replaceText("");
-              setNewName("");
-            }}
-          />
           <SettingsAction
             label="Import names and prompt from Conductor"
             hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
@@ -880,19 +993,21 @@ function ProjectEditor({
       </SettingsSection>
 
       <FieldPicker
-        title={`Field for ${picking ?? ""}`}
-        open={picking !== null}
-        onOpenChange={(o) => !o && setPicking(null)}
-        name={picking}
+        title={picker?.mode === "add" ? "Add a variable" : `Field for ${pickingVariable?.name || "this variable"}`}
+        open={picker !== null}
+        onOpenChange={(o) => !o && setPicker(null)}
+        name={pickingVariable?.name || null}
         vault={draft.vault}
         current={pickingVariable?.ref ?? ""}
         holders={draft.variables}
         list={list}
         theme={theme}
-        onPick={(ref) => {
-          if (picking !== null) setRef(picking, ref);
-          setPicking(null);
+        onPick={(field) => {
+          if (picker?.mode === "row") setRef(picker.index, field.ref);
+          else addFromField(field);
+          setPicker(null);
         }}
+        onAddByName={picker?.mode === "add" ? addByName : undefined}
       />
 
       <SettingsSection title="Default prompt for new agents">
@@ -973,6 +1088,8 @@ function ProjectEditor({
 
       <SaveBar
         count={count}
+        unnamed={unnamed}
+        fieldless={fieldless}
         isSaved={isSaved}
         saving={settings.saving}
         error={settings.saveError}

@@ -13,6 +13,7 @@ export type PickerRow =
       showItem: boolean;
       current: boolean;
       usedBy: string[];
+      note: string | null;
     }
   | { kind: "not-listed"; item: string; reason: string };
 
@@ -37,8 +38,9 @@ export function pickerRows(input: {
   current: string;
   holders: readonly Holder[];
   query: string;
+  fieldNote?: (label: string) => string | null;
 }): PickerRow[] {
-  const { vault, refs, skipped, name, current, holders } = input;
+  const { vault, refs, skipped, name, current, holders, fieldNote } = input;
   const q = input.query.trim().toLowerCase();
   const fields = refs.flatMap((ref) => {
     const parts = splitRef(ref, vault);
@@ -46,16 +48,21 @@ export function pickerRows(input: {
   });
   const matches = (item: string, field: string) =>
     q === "" || item.toLowerCase().includes(q) || field.toLowerCase().includes(q);
-  const usedBy = (ref: string) => holders.filter((h) => h.name !== name && h.ref === ref).map((h) => h.name);
-  const fieldRow = (f: (typeof fields)[number], showItem: boolean): PickerRow => ({
-    kind: "field",
-    ref: f.ref,
-    item: f.item,
-    field: f.field,
-    showItem,
-    current: f.ref === current,
-    usedBy: usedBy(f.ref),
-  });
+  const usedBy = (ref: string) =>
+    holders.filter((h) => h.name !== "" && h.name !== name && h.ref === ref).map((h) => h.name);
+  const fieldRow = (f: (typeof fields)[number], showItem: boolean): PickerRow => {
+    const used = usedBy(f.ref);
+    return {
+      kind: "field",
+      ref: f.ref,
+      item: f.item,
+      field: f.field,
+      showItem,
+      current: f.ref === current,
+      usedBy: used,
+      note: used.length > 0 ? null : (fieldNote?.(f.field) ?? null),
+    };
+  };
 
   const rows: PickerRow[] = [];
 

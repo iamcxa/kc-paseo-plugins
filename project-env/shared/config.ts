@@ -49,6 +49,33 @@ export function refusal(name: string, existing: readonly string[]): string | nul
   return null;
 }
 
+export type NameFromLabel =
+  | { name: string; state: "kept" | "converted" }
+  | { name: ""; state: "refused"; why: "reserved" | "used" | "shape"; reason: string };
+
+// ADR 0005 puts the field label equal to the variable name, so a label that is already a name is kept.
+export function nameFromLabel(label: string, existing: readonly string[]): NameFromLabel {
+  const text = label.trim();
+  let candidate = text;
+  if (!NAME_SHAPE.test(text)) {
+    candidate = text.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "").toUpperCase();
+    if (/^[0-9]/.test(candidate)) candidate = `_${candidate}`;
+  }
+  if (candidate === "") {
+    const reason = text === "" ? "Name this variable" : `"${text}" has no letters or digits to make a name from`;
+    return { name: "", state: "refused", why: "shape", reason };
+  }
+  const reason = refusal(candidate, existing);
+  if (reason) return { name: "", state: "refused", why: reservedReason(candidate) ? "reserved" : "used", reason };
+  return { name: candidate, state: candidate === text ? "kept" : "converted" };
+}
+
+export function addNote(label: string, existing: readonly string[]): string | null {
+  const r = nameFromLabel(label, existing);
+  if (r.state !== "refused") return null;
+  return r.why === "reserved" ? "reserved; you name it" : r.why === "used" ? "name in use; you name it" : "you name it";
+}
+
 export function splitImported(names: readonly string[], existing: readonly string[]) {
   const have = new Set(existing);
   const add: string[] = [];
@@ -152,7 +179,9 @@ export function unsavedCount(saved: Project, draft: Project): number {
   if (saved.vault !== draft.vault) n++;
   if (saved.prompt !== draft.prompt) n++;
   const before = new Map(saved.variables.map((v) => [v.name, v.ref]));
-  const after = new Map(draft.variables.map((v) => [v.name, v.ref]));
+  const named = draft.variables.filter((v) => v.name !== "");
+  const after = new Map(named.map((v) => [v.name, v.ref]));
+  n += draft.variables.length - named.length;
   for (const [name, ref] of after) if (before.get(name) !== ref) n++;
   for (const name of before.keys()) if (!after.has(name)) n++;
   return n;

@@ -23,10 +23,17 @@ export function rowReason(draft: Project, run: Run | undefined, v: Variable): st
   return result && !result.ok ? causeSentence(result.cause) : null;
 }
 
-const unchanged = (draft: Project, run: Run) =>
-  sameInputs(draft, run.sent) &&
-  draft.variables.length === run.sent.variables.length &&
-  draft.variables.every((v, i) => v.name === run.sent.variables[i].name && v.ref === run.sent.variables[i].ref);
+const named = (project: Project) => project.variables.filter((v) => v.name !== "");
+
+const unchanged = (draft: Project, run: Run) => {
+  const now = named(draft);
+  const sent = named(run.sent);
+  return (
+    sameInputs(draft, run.sent) &&
+    now.length === sent.length &&
+    now.every((v, i) => v.name === sent[i].name && v.ref === sent[i].ref)
+  );
+};
 
 export type SummaryPart = { text: string; tone: "bad" | "muted" };
 
@@ -36,12 +43,12 @@ export function summaryParts(
   testing: boolean,
 ): SummaryPart[] {
   if (testing) return [{ text: "Testing…", tone: "muted" }];
-  if (!run || draft.variables.length === 0) return [];
+  if (!run || named(draft).length === 0) return [];
   if (!unchanged(draft, run)) return [{ text: "Not tested since changes", tone: "muted" }];
   let failed = 0;
   let set = 0;
   let noField = 0;
-  for (const v of draft.variables) {
+  for (const v of named(draft)) {
     if (rowReason(draft, run, v) !== null) failed += 1;
     else if (v.ref === "") noField += 1;
     else set += 1;
