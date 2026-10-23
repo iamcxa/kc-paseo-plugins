@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-every-row-findable
-pr:
+pr: iamcxa/kc-paseo-plugins#33
 gates:
     version: 1
     records:
@@ -191,3 +191,7 @@ Teardown: all three daemons and browser sessions stopped, `/tmp/pe-rowi` removed
 ### Summary
 
 The spike diff landed unchanged as one commit on main cad57e0 and passes AC-1 to AC-3 on a build run through Paseo's own web client at 400 and 1280 px; each clause fails on its own one-line mutant, including the scroll margin. Tests, typecheck and the design check pass; the roborev gate left one Deferred-risk finding for FO.
+
+### FO declines
+
+- roborev:1089 (Medium): if the window crosses 720 px while a Test call runs, a second Test can start and the older call, finishing last, overwrites the newer run. Deferred risk. Released workflow: press Test, resize across 720 px, press Test again before the first returns. Harm: none observed; each stored run carries the draft it was sent with, so a stale run never shows against rows it was not run on (implementation report, fc4b095). Criterion: value-ac[AC-3] covers a summary across a resize, not two overlapping runs. Trigger evidence: roborev:1089 read in code only. Material if the Captain sees an older Test result replace a newer one; candidate revision: tag each run with a sequence number in the `openProject` store and drop a result older than the stored run.
