@@ -92,7 +92,8 @@ Web/desktop interactions were exercised; native-device hover/press, live deliver
   The original report line now says SKIPPED with the supplied reason; entity frontmatter and approved scope are unchanged.
 - DONE: Rerun npm test and the roborev gate on the new head, update the report and PR #37, and finish with a final reply starting "Done:"
   npm test: 72 passed, 0 failed on dd7c9e043; the required 0.26.0 gate was run exactly with base f849058121e61120d91e460bedca081c71a1aaea and returned exit 1: findings on dd7c9e043; evidence=roborev:1107. PR #37 remains Draft and now links the committed task-state evidence and names these findings.
-- FAILED: roborev clean verdict on the follow-up head
+- SKIPPED: roborev clean verdict on the follow-up head
+  FO declined both roborev:1107 Medium findings as Deferred risk under "### FO declines" in this task file
   Medium, shared/queue.ts:58: review says reply-derived questions with an empty next label still disappear with a gate. Needs FO scope disposition: the accepted rule specifically covers next-owner=captain with a next label; no broader repair was authorized here.
   Medium, client/board.tsx:391: review says the accessible next-card wrapper groups its nested GitHub link on iOS. Returned as a review finding; native VoiceOver behavior has not been reproduced. Repair would change client code forbidden by this follow-up.
 - DONE: Preserve the follow-up's code boundary
