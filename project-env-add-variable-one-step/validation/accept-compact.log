@@ -1,0 +1,38 @@
+[1] picking a field names the row from its label (project 'work')
+  ok   picker opens with a search box that also takes a name
+  ok   kept name shown as plain text
+  ok   no name input for a kept name
+  ok   converted name is in an editable input
+  ok   Enter commits the converted name
+  ok   reserved label leaves the name empty with the reason
+  ok   Save blocked note
+  ok   used label: reason
+  ok   two unnamed rows counted
+  ok   Save disabled while rows are unnamed
+[2] a named row with no field shows 'Pick a field', saves, and Test says field not found (project 'work-empty')
+  ok   row named NEW_API_KEY
+  ok   dashed pill reads Pick a field
+  ok   fieldless note under Save
+  ok   no red 'No field picked' before Test
+  saved variables: [{"name": "NEW_API_KEY", "ref": ""}]
+  ok   settings file holds the row with an empty ref
+  (after Test: text 'field not found in the vault' present? 0)
+[3] typed text: refused shows the reason, nothing to press
+  ok   no letters reason
+  ok   no add button for refused text
+  ok   typed name that is used is refused
+[4] the field pill still picks a field for a name-only row, and Save then writes the reference (project 'work-empty')
+  ok   row-mode picker is titled for the variable
+  ok   row-mode picker has no add-by-name row
+  ok   pill now shows the picked field
+  ok   save bar counts one unsaved change
+  saved variables: [{"name": "NEW_API_KEY", "ref": "op://Dev/stripe/STRIPE_WEBHOOK_SECRET"}]
+  ok   settings file holds the picked reference
+[5] a 12-variable project: the new row is added and scrolled into view (project 'work-many')
+  ok   converted name row exists with an input
+  rows on screen: 13 (12 variables plus the new one)
+  new name input: in-view
+  ok   new row in view
+[6] no vault connection: + Add still opens, typing a name still offers add (project 'work-bare')
+  ok   name-only add is offered while the vault is unavailable
+RESULT: PASS (compact)
