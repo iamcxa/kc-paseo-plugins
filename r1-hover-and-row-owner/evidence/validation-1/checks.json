@@ -1,0 +1,81 @@
+[
+  {
+    "check": "typecheck",
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner/spacedock-bridge",
+    "exit": 0
+  },
+  {
+    "check": "tests",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner/spacedock-bridge",
+    "exit": 1
+  },
+  {
+    "check": "adr",
+    "command": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "f849058121e61120d91e460bedca081c71a1aaea"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner",
+    "exit": 0
+  },
+  {
+    "check": "docs",
+    "command": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/doc_impact.py",
+      "f849058121e61120d91e460bedca081c71a1aaea",
+      "HEAD"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner",
+    "exit": 0
+  },
+  {
+    "check": "comments",
+    "command": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/comment_ratio.py",
+      "f849058121e61120d91e460bedca081c71a1aaea",
+      "HEAD",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner",
+    "exit": 0
+  },
+  {
+    "check": "numbers",
+    "command": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r1-hover-and-row-owner.md"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner",
+    "exit": 0
+  },
+  {
+    "check": "dispatch",
+    "command": [
+      "python3",
+      "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r1-hover-and-row-owner"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r1-hover-and-row-owner",
+    "exit": 0
+  }
+]

@@ -107,3 +107,27 @@ Moved per-task evidence into the task state branch, dropped the unused one-off s
 
 - roborev:1107 Medium, `shared/queue.ts` (`buildQueue`), candidate dd7c9e043a24: a reply-derived question with an empty `next` label is not listed separately when the FO also has a gate. Deferred risk: the gate row still opens that FO's card, whose Discussion shows the reply; no accepted criterion or Captain ruling covers label-less questions (the round 1 rule names `next-owner=captain` with a `next` label). Would become Material if the Captain misses such a question in UAT. Added to next-round candidates.
 - roborev:1107 Medium, `client/board.tsx` next-card wrapper, candidate dd7c9e043a24: on iOS VoiceOver the accessible wrapper may group the nested PR link. Deferred risk: native screen-reader use is unobserved and the phone layout is a non-goal of this and earlier tasks. Would become Material on an observed VoiceOver user or a phone-layout task. Added to next-round candidates.
+
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1 and AC-2 for PR #37 at the candidate head, from your own npm ci / typecheck / test run and your own isolated-daemon screenshots of hover, pressed and focused states, the three decision chips, and By decision rows with FO titles including an FO that has both a gate and a question
+  PASSED on dd7c9e043a24085f15086ba0f3508a7fd9977938 (base f849058121e61120d91e460bedca081c71a1aaea): npm ci exit 0, typecheck exit 0, npm test 72/72. Own seven screenshots and observed-states.json: r1-hover-and-row-owner/evidence/validation-1/capture-2/.
+  AC-1: 16 cancelled presses show hover background change and pressed opacity 0.65; composer borders differ normal/hover/focus; three chip colors differ and reason-required dashes disappear only with text. Removing those feedback styles or handlers fails capture assertions.
+  AC-2: same FO has gates plus its separate question, all labelled OMP FO; unmatched review says no FO. Queue tests catch loss of that question, duplicate gate restatements and FO-owned steps promoted into Captain asks; prior base counterexample is documented in the evidence README.
+- DONE: A minimal acceptance script the FO can rerun as written in a fresh shell, with each step's expected output
+  r1-hover-and-row-owner/evidence/validation-1/ACCEPTANCE.md: three exact steps, declared local dependencies, about two minutes; install/check/test, fresh isolated capture, screenshot/cleanup inspection. capture.py retains the existing harness with candidate/output/ownership assertions for rerun.
+- DONE: Material findings and limits, including that decision relay and recording files are unchanged, and whether the two FO-declined roborev:1107 items stay Deferred risk
+  No new Material findings; shared/relay.ts, shared/decisions.ts, shared/decide.ts and server/ have empty base-to-candidate diffs. Both prior FO declines remain Deferred risk without new trigger evidence. All seven net changed files serve AC-1/AC-2; no POC boundary crossing found.
+
+### Findings and limits
+
+No new findings. The existing design-surfaces failure stays the FO-dispositioned package gap 2, intentionally skipped; no extra checklist obligation was added. Native VoiceOver, label-less questions, live relay/recording, light theme, conditional controls absent from the fixture, deployment and Captain acceptance are not proved by this web fixture.
+
+Package checks used the actually loaded kc-dev-flow-2 0.28.0, as the stage's package rule requires. From the candidate worktree, `python3 /Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since f849058121e61120d91e460bedca081c71a1aaea` exited 0 (6 records); doc_impact 0 affected documents, comment_ratio 0.0%, number_guards PASS, dispatch_records 4 complete, diff --check exit 0. Exact commands/logs: evidence/validation-1/checks.json. No new/reserved ADR or migration.
+
+Initial sandbox attempts could not bind local sockets (tsx IPC and isolated daemon); authorized reruns passed. The temporary daemon used HOME/--home with ports 7051/7052 and localhost-blocked fresh browser; only its throwaway fleet port changed. Captured PID stopped, ports closed, home/profile deleted and no active browser session remained (cleanup-verified.json); no message/decision was sent.
+
+### Summary
+
+Independent validation recommends PASSED for both accepted criteria at this POC's web/desktop depth; it does not approve delivery. PR #37 remains Draft at the specified candidate, main and candidate trees remain clean, and the FO still owns the exact acceptance-script rerun and gate/delivery decision.
