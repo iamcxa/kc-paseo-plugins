@@ -223,3 +223,21 @@ Candidate 6f44533 changes only the ADR 0005 file, lint exits 0, the Captain quot
 ### Feedback cycle 1
 
 Validation-1 found two reasons the cited reference page does not support. Fixed in cf04532 (new head of spacedock-ensign/project-env-vault-naming-rule-adr, only the 0005 file changed vs base): rule 1 now attributes the alphabetical-vault-order observation to the 2026-10-23 hand-off and says the syntax page lists supported characters (letters, digits, `-`, `_`, `.`, whitespace) with `@` not among them; rule 2's quotation-marks sentence is dropped. `adr_lint.py docs/adr --since 60799d9 --require 5` exit 0; `clean on cf04532dc; evidence=roborev:1081`; pushed.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Revalidate candidate cf04532dca0991a0762a20b831a9df34efa45149 (PR iamcxa/kc-paseo-plugins#30), which changes only rule 1's and rule 2's reason sentences on top of 6f44533 to fix validation-1's two defects. Confirm the diff since 6f44533 touches only those sentences; rule 1 now says the reference syntax page lists the supported characters and `@` is not among them, and attributes the alphabetical vault listing to the hand-off's observation; rule 2 no longer claims a title with a space needs quotation marks; every remaining claim with a source is supported by it (fetch https://www.1password.dev/cli/secret-reference-syntax/ again); give a verdict.
+  Diff `git diff 6f44533 cf04532` touches only docs/adr/0005-…md, 2 insertions and 2 deletions, on the rule 1 and rule 2 lines; nothing else changed. Rule 1 now reads "the hand-off observed on 2026-10-23 that 1Password lists vaults alphabetically"; "the secret reference syntax page lists the characters a reference supports (letters, digits, `-`, `_`, `.` and whitespace), and `@` is not among them". Re-fetched the page: the supported list is exactly "alphanumeric characters (a-z, A-Z, 0-9)" plus "`-`, `_`, `.` and the whitespace character", so the `@` statement is supported as an inference from that list. The page's only `@` is in an example JSON value, not in a reference. Rule 2 no longer has the quotation-mark claim; its remaining reason ("the vault name already carries the project") is design rationale with no outside source. Case-insensitivity (Consequences) is confirmed by the page. Rename breakage (Consequences) remains a code fact (`splitRef` prefix match, project-env/shared/field-picker.ts), unchanged on main.
+  Verdict: AC-1 PASS for cycle 2. The four rules, reasons, guidance-authorizes-no-agent sentence, advisory sentence and three facts are present; the two cycle-1 defects are fixed; sourced claims are supported by the cited page or by code on main.
+- DONE: Run `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9 --require 5` at the candidate and record its exit code; carry the cycle-1 acceptance script forward.
+  Run in the implementer's worktree, HEAD = cf04532, clean tree: "5 ADR file(s) checked, 0 legacy", exit 0. Cycle-1 acceptance script carried forward unchanged, its three steps re-run piecewise: lint exit 0; `git diff --name-only 40849b4 HEAD` prints only the 0005 file; the `注意應該是建議守則不是強迫性的` quote is found once in HEAD's ADR. The full `set -e` script was not re-run as one block.
+- DONE: Record every unverified obligation, and append your result as a validation stage report for this cycle.
+  1. Fact 1 (`op item create --category "Secure Note"` with `NAME[password]=` gives an empty password field, op 2.30.3): not re-run; needs the Captain's 1Password sign-in and op is forbidden here. Taken from the hand-off.
+  2. Alphabetical vault listing in rule 1: now attributed to the hand-off's observation; not checked by me. Acceptable as an attributed claim, not a sourced one.
+  3. Fact 3 (vault rename breaks name-keyed mappings): verified in code only, not against a live vault.
+  4. Rules 2-4 reasons were drafted by the implementer, not quoted from the Captain; the Captain reads them at the gate.
+  5. ADR title still reads as present behaviour (stated residual from cycle 1).
+
+### Summary
+
+Cycle 2 candidate cf04532 fixes both cycle-1 defects, touches only the rule 1 and rule 2 reason lines, and passes lint (exit 0). The remaining unverified items are fact 1 (needs the Captain's sign-in), the attributed vault-order observation, and the implementer-drafted reasons for rules 2-4 that the Captain reads at the gate.
