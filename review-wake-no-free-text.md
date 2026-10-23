@@ -47,6 +47,7 @@ gates:
                 state: pending
 started: 2026-10-23T09:32:41Z
 worktree: .worktrees/spacedock-ensign-review-wake-no-free-text
+pr: 35
 ---
 
 The review poller writes each pull request's title and author verbatim into the message that wakes the comms officer, an agent that can create agents and send them prompts, and agents it creates lose its tool restrictions; a title is free text set by whoever opened the pull request.
