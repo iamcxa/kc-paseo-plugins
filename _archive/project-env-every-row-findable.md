@@ -1,7 +1,7 @@
 ---
 id:
 title: You can find and read every variable row
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -66,8 +66,11 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #33 at fd59224 per the gate question, including its stated recommendation to keep the note button''s accessibilityLabel and hitSlop.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T07:37:00Z
+verdict: PASSED
+completed: 2026-10-23T10:06:57Z
+archived: 2026-10-23T10:06:57Z
 ---
 
 Polish round after the A5 settings-screen rework of the project-env plugin. Source: the picky-user pass (`ux-review-a5-polish/astra-review.md`, `gemini-review.md`) and the Design Director's ruling (`ux-review-a5-polish/design-director.md`, Task B, rows R3b, R4, R5, R6 and R7), approved by the Captain on 2026-10-23 with 「准」, including the Director's recommendation to add "Check it is the field you mean." to the ≠ explanation.
