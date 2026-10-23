@@ -37,6 +37,8 @@ generalize. The route remains the dev2 POC profile.
 5. 「注意你應該要用中文討論，且注意我們要走 dev2 poc profile」
 6. 「同意照這個「POC 堆疊版」做」, answering the question 「你同意照這個「POC 堆疊版」做嗎？」 after the design below was presented in chat.
 
+**Captain amendment 1, 2026-10-23:** 「可以，我授權你在飛輪過程中推送及開 ＰＲ」 — Captain, in chat, answering whether to authorize pushing each round's branch and opening stacked PRs (never merge), added to this ADR. No acceptance criterion is superseded.
+
 **Options considered:**
 - the POC stacked design presented in chat and approved by words 6 (chosen)
 - the earlier validation-then-merge suggestion in words 1, replaced by the unmerged
@@ -51,6 +53,20 @@ reinstalls or reloads the Captain's spacedock-bridge from the top of the stack. 
 Captain tries it from a play card and answers the FO's option questions; his feedback
 feeds the next round. By words 6, he accepts that his spacedock-bridge runs code the FO
 stacked without his review.
+
+**Push and stacked-PR authority within the flywheel.** Captain amendment 1 grants
+the FO authority to push each round's branch and open its PR stacked with `gh stack`
+on the previous round. A round PR may be marked ready for review so Codex reviews it.
+Never merge any PR, never push main or any branch in use, and never rewrite an
+already stacked round: fixes go on top. This authority applies only within the
+flywheel; it does not allow this grant's own PR to be marked ready or merged by the FO.
+
+This amendment satisfies the `pr-merge` mod sentence:
+
+> A standing conn counts as that approval only when the captain's own words grant push or PR authority. A conn for gates is not one.
+
+The standing conn (recorded Captain authorization) for gates alone is not push or PR
+authority; the Captain's words in amendment 1 supply that authority for the flywheel.
 
 **Team satisfaction.** Before a validation gate is recorded, a fresh validation worker,
 the design partner and two picky users on the candidate, and the observer must all be
@@ -75,7 +91,8 @@ class recurred. A process repair means running the relevant script and committin
 output, not a prose checklist.
 
 **Always the Captain's.** Security and permissions; how decisions are relayed and
-recorded; releases and anything outward; data deletion; leaving POC; any merge.
+recorded; releases and anything outward except the flywheel push and stacked-PR
+authority in amendment 1; data deletion; leaving POC; any merge.
 
 **Captain-authorized exception.** As ADR 0006 did, this record is an explicit exception,
 authorized by the Captain through words 6, to exactly this sentence in
@@ -83,8 +100,10 @@ authorized by the Captain through words 6, to exactly this sentence in
 
 > Authority, a gate approval, a merge, an outward-facing action, an irreversible change and money are always asked, whatever an ADR says, and an ADR on one of them is never a `Precedent:` line.
 
-The exception is limited to the flywheel's backlog and validation gates; it grants
-no merge. The README remains unchanged and its requirements apply outside those gates.
+The gate exception is limited to the flywheel's backlog and validation gates;
+amendment 1 separately grants the flywheel push and stacked-PR authority above.
+Neither grants any merge. The README remains unchanged and its requirements apply
+outside these explicitly granted flywheel actions.
 
 ## Consequences
 
