@@ -65,3 +65,22 @@ Verified by: a screenshot of the empty and the typed composer; `npm test` with t
 
 Alignment: not needed: the Captain chose the board, the card and the composer from mockups himself on 2026-10-23.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: Review next card and review rows show repo#number with a working ↗ PR link, with an isolated-daemon screenshot of two review requests and a test or stubbed-open check of each URL (AC-1)
+  Draft PR #34, head aaade9a. `evidence/ac1-board-two-reviews.png` (next card `gadget#41 ↗`, row `widget#7` + ↗). On screen with `window.open` stubbed: the two ↗ passed `https://github.com/acme/gadget/pull/41` and `.../widget/pull/7`. Test "each review item carries its own repo#number and URL" fails when one item's link points at another's URL (mutation run).
+- DONE: The decision card shows label line, question, FO line, summary and Read full briefing with a one-line hint, then a Discussion divider with only the latest message and Show N earlier messages, with a screenshot (AC-2)
+  `evidence/ac2-decision-card.png` (and `ac2-discussion-expanded.png`): `GATE · BACKLOG · OMP-TRIAL`, question, `OMP trial FO · waiting 18m`, summary, "Read full briefing ›" + hint, DISCUSSION, "Show 9 earlier messages", latest FO message. `discussionWindow` tests fail if it never collapses.
+- DONE: The Paseo-style composer keeps ↑/Enter to the FO and holds the decision chips left of ↑, with tests for the three send paths and screenshots empty and typed (AC-3); roborev gate run with its evidence= or incomplete: line, and a Draft PR open
+  Screenshots `ac3-composer-empty.png` (dashed 要求修改/暫緩), `ac3-composer-typed.png` (hint line, ↑ active), `ac3-reason-required.png`. `npm test` 66 pass (base 44), typecheck clean. Tests: `composer.test.mts` (Enter, ↑ with footer, Shift+Enter/IME/empty no-send, chip passes typed text), `decide.test.mts` (要求修改/暫緩 refuse an empty reason before any claim, chip sends typed text as the reason, repeat refused, failed send releases claim). Each fails under its mutation (reason check removed, send on any key, footer dropped). roborev: `evidence=roborev:1097` (clean on aaade9a45); the earlier `roborev:1096` Low (attachGates dropped preparedAt) was real and fixed in aaade9a with a test. PR https://github.com/iamcxa/kc-paseo-plugins/pull/34 (Draft).
+
+### Summary
+
+Built on 3 commits (75c2558, 54c1b21, aaade9a) on spacedock-ensign/review-ids-and-decision-card; send/chip/decision logic moved into `shared/composer.ts` and `shared/decide.ts` with injected ports so the three send paths are testable, relay text and claim/release unchanged. comment_ratio: 417 code lines, 5 comment lines, 1.2%, exit 0; doc_impact: 0 documents; no db surface, no ADR, number guards not applicable; profile poc, boundary-crossed: none, cleanup done (isolated daemon on 6840 stopped, its home, browser profile and scripts deleted; the live `~/.paseo` and the source checkout untouched).
+
+### Findings for FO
+
+- `design_surfaces.py check` exits 1 on the FO section: "'## FO alignment' needs a non-empty 'Surfaces:' line" and "needs a 'Visible change:' line". I did not edit the FO section.
+- Limits: Enter/↑ are proven by handler tests, not by sending to a live FO, and the on-screen decision relay was not run (no Claude login in the isolated HOME). The app in my headless browser auto-registered the live daemon (localhost:6767) as a host on its own; I took no action against it (board URL only for my server id).
+- Behaviour change beyond scope text: gate wait time on the board queue now uses `preparedAt` (the intended source) because of the attachGates fix.
