@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:board-next-decision-first:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #32 at 22f75e63 (By decision: next decision on top, other items one line each, PR ↗ on a review next card) so the task routes to done and PR #32 waits for the Captain's merge?",
+  "artifacts": [
+    {
+      "id": "artifact:board-next-decision-first:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/102baa8a22a185ae3f5faa9047e56af9bf127f52/board-next-decision-first.md",
+      "rev": "sha256:b98b52bd1905d46db252b88f6f9bffceb5e0e4ad8979adc678315452adc51151",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED AC-1, AC-2 and amendment 1 at 22f75e63; FO reran build, daemon, open and teardown of the acceptance script in a fresh shell with matching output (44/44 tests). Roborev:1087 Medium (reviews below the next card have no PR link in By decision) is the stated cost the Captain accepted. Limits: permission and comms officer rows not seen on screen; a real new tab from PR ↗ not observed; design_surfaces check fails on Surfaces/Visible change lines the README requires only on the five-stage route."
+    }
+  ]
+}

@@ -26,6 +26,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:board-next-decision-first:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:board-next-decision-first-validation-1
+              briefing:
+                id: briefing:board-next-decision-first:validation:attempt-1:revision-1
+                digest: sha256:d64b04a77f16afff3ab61b10c4e5cffab65ff4e107f1f2e8e7c21c9ceef2528b
+                room-ref: ./board-next-decision-first/review/validation/briefing-1
 started: 2026-10-23T08:02:45Z
 worktree: .worktrees/spacedock-ensign-board-next-decision-first
 ---
