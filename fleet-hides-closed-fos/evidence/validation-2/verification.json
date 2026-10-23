@@ -1,0 +1,35 @@
+{
+  "candidate": "e91b9755a0c3444ebf4390f5396499ddf2070457",
+  "base": "78ce6c1cbcf1258a7ddd7223ea2c93e02d29cc6c",
+  "branch": "spacedock-ensign/fleet-hides-closed-fos",
+  "candidate_clean": true,
+  "protected_code": "All server files, server entrypoint, boardStatus and attachGates unchanged; decision-card only owner presentation and co-chat only input outline/type import changed.",
+  "screenshots": "Reused cycle-3/cycle-4 harnesses, independently executed against this head. Only throwaway server fleet port altered.",
+  "versions": {
+    "node": "v24.18.0",
+    "paseo": "0.12.0",
+    "agent-browser": "0.32.0"
+  },
+  "pr": {
+    "number": 40,
+    "state": "OPEN",
+    "isDraft": true,
+    "baseRefName": "main",
+    "headRefOid": "e91b9755a0c3444ebf4390f5396499ddf2070457",
+    "source": "gh pr view live read 2026-10-23"
+  },
+  "exit_codes": {
+    "npm_ci": 0,
+    "typecheck": 0,
+    "npm_test_sandbox": 1,
+    "npm_test_with_local_pipe_permission": 0,
+    "badge_composer": 0,
+    "narrow_row": 0,
+    "live_rule_check": 0,
+    "bash_n_acceptance": 0
+  },
+  "harness_sha256": {
+    "cycle-3": "921c4ee6578209267f675c955d877175d73a5caa35d5ff38d93af7b82c534dc4",
+    "cycle-4": "cf39e7c2ba0b9d72110faf40aae15e393952a917ca12f0cccd1c408836ba0307"
+  }
+}

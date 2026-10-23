@@ -157,3 +157,29 @@ Repaired the narrow-row priority so the owner yields before the title loses its 
 ### FO declines
 
 - roborev Medium on e91b9755a0c3, `client/board.tsx` linked review rows: in a 320 px compact view, repo#number, the 64 px minimum title, the "Tab closed" badge, the age and gaps can exceed the width and overlap the ↗ button. Deferred risk: the 380 px column (the Captain's desktop layout) is verified by the cycle 4 screenshot; widths below it are the phone/compact layout, a stated non-goal of this and earlier rounds. Would become Material when the Captain uses the compact layout or a phone-layout round starts; added to next-round candidates. FO stops squeezing the one-line row a third time (circuit breaker) — a two-line compact row is the different approach for that round.
+
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1 and AC-2 for PR #40 at the candidate head, from your own npm ci / typecheck / test run, your own reading of the live FO tab labels (read-only), and your own isolated-daemon screenshots of the Closed badge in By FO, By decision rows and the next card (including a long FO name) and of the composer after typing on web
+  PASSED at e91b9755a0c3444ebf4390f5396499ddf2070457: own clean install/typecheck exit 0, tests 78/78, 13 real FO label cases match (2 Tab closed); validation-2/badge-composer and narrow-row contain independently captured, visually inspected screenshots and cleanup receipts.
+- DONE: A minimal acceptance script the FO can rerun as written in a fresh shell, with each step's expected output
+  evidence/validation-2/acceptance.sh has five explicit steps, prerequisites and expected outputs; bash -n passes and substantive commands were run independently; FO still runs the whole script as written before the gate.
+- DONE: Material findings and limits, including that archived/closed offline handling and decision relay/recording files are unchanged
+  No new Material finding; verification.json records unchanged boardStatus/attachGates and all server/relay/recording files; archived/lifecycle-closed tests pass. Scope and remaining obligations are below and in evidence/validation-2/README.md.
+
+### Findings
+
+Verdict: PASSED for AC-1 and AC-2 within the accepted desktop/web POC. Live GitHub read confirms PR #40 OPEN/Draft, base main, exact head e91b9755a0c3; no PR edit or candidate commit.
+Rule tests detect all-false, absent/mixed labels, running, offline and unknown-value errors; existing negative-rule.txt proves returning false breaks the classifier test. Candidate classification matched all 13 independently read live label cases; observing labels does not prove physical tab actions.
+Own screenshot assertions require exact Tab closed wording at By FO, next card, decision rows and opened decision; removing a badge or restoring Closed fails. Long-name ellipsis/containment passes. The 380px row keeps a 64px title and clears the external-link button; the existing baseline's 9.14px title fails those checks.
+Typed focused web input has outlineStyle none, with distinct normal/hover/focus rounded-border colors; restoring the browser outline or removing border feedback fails the capture assertions. Both existing harnesses were independently rerun at this head with declared synthetic agents/gates/reviews; only the throwaway fleet port changes.
+checks.json: python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since 78ce6c1cbcf1258a7ddd7223ea2c93e02d29cc6c --require 8 exits 0 (7 records); comment ratio 60 code / 0 comment, 0.0% <=5%; doc impact 0 documents; number guards passes; 6 dispatch records complete. OVERVIEW.md agrees with the new behavior. No new ADR/migration or reserved number.
+SKIPPED: design_surfaces exits 1 for known package gap 2 (approved seed has no Surfaces/Visible change markers); number_guards R4 gap 3 did not occur. Roborev not run per package gap 5/dispatch: FO owns review rounds. The settled 320px FO decline has no new contradictory evidence and is not re-reported.
+Goal sufficiency: accepted rule and desktop presentation work at this head. Retained classifier/field, shared badge/display sites, outline style, row sizing, test fixtures and overview map to that goal; 380px sizing has a concrete counterexample. Explicit next-card flexShrink had no observed baseline web failure and remains the already-recorded consistency constraint. No persistent state or new external seam was introduced; no POC boundary crossing found.
+Initial npm test could not start because sandbox denied tsx IPC; authorized local-pipe rerun passes 78/78. Captured isolated PIDs 47338 and 50407 exited, fresh browser sessions closed and temporary homes deleted (7081/7082 and 7083/7084). Live daemon was only read; main and candidate remain clean.
+Native/compact/phone appearance, physical two-client tab interaction, live deployment, actual decision relay/recording and Captain acceptance remain unverified. FO must rerun acceptance.sh, complete its gate review and own any authorized stack delivery; approval is not merge and this round remains unmerged.
+
+### Summary
+
+Independent validation passes AC-1 and AC-2 at the specified candidate without changing product code or task frontmatter. Evidence and the five-step acceptance script are under fleet-hides-closed-fos/evidence/validation-2/; the FO retains gate and delivery decisions.

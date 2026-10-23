@@ -1,0 +1,75 @@
+{
+  "adr_lint": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "78ce6c1cbcf1258a7ddd7223ea2c93e02d29cc6c",
+      "--require",
+      "8"
+    ],
+    "exit": 0,
+    "stdout": "7 ADR file(s) checked, 0 legacy\n",
+    "stderr": ""
+  },
+  "comment_ratio": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/comment_ratio.py",
+      "78ce6c1c",
+      "e91b9755",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ],
+    "exit": 0,
+    "stdout": "code lines 60, comment lines 0, 0.0%\nmaximum 5% (package default) met\n",
+    "stderr": ""
+  },
+  "doc_impact": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/doc_impact.py",
+      "78ce6c1c",
+      "e91b9755"
+    ],
+    "exit": 0,
+    "stdout": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n",
+    "stderr": ""
+  },
+  "design_surfaces": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/fleet-hides-closed-fos.md"
+    ],
+    "exit": 1,
+    "stdout": "fleet-hides-closed-fos.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nfleet-hides-closed-fos.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is validation, not ideation\n",
+    "stderr": ""
+  },
+  "number_guards": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/fleet-hides-closed-fos.md"
+    ],
+    "exit": 0,
+    "stdout": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 78ce6c1cbcf1 head e91b9755a0c3 merge-base 78ce6c1cbcf1\n",
+    "stderr": ""
+  },
+  "dispatch_records": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/fleet-hides-closed-fos"
+    ],
+    "exit": 0,
+    "stdout": "6 dispatch record(s) complete\n",
+    "stderr": ""
+  }
+}
