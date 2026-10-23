@@ -24,6 +24,20 @@ gates:
                 id: briefing:fleet-hides-closed-fos:backlog:attempt-2:revision-1
                 digest: sha256:e0def32c46dafe670cd332551bb106194f799a662ceaba8fd8749dc86c053510
                 room-ref: ./fleet-hides-closed-fos/review/backlog/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:fleet-hides-closed-fos:backlog:2
+                briefing: briefing:fleet-hides-closed-fos:backlog:attempt-2:revision-1
+                by: agent:first-officer
+                at: "2026-10-23T14:58:25.605778Z"
+                decision: approve
+                reason: 'Flywheel round 2 backlog gate under ADR 0008: theme chosen by the Captain in round 1 UAT; rule and display from design-partner and chief-engineer triage; no security, permission, relay/recording, release, outward or merge change.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 2 of the POC flywheel under ADR 0008: the Captain cannot tell a live FO from one whose Paseo tab he closed, and a rectangular browser focus outline appears around the composer input after he types.
