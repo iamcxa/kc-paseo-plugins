@@ -1,7 +1,7 @@
 ---
 id:
 title: The variables card no longer offers a Conductor import
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
