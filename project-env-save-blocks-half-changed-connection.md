@@ -1,7 +1,7 @@
 ---
 id:
 title: Save never overwrites a working connection with a half-changed one
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
