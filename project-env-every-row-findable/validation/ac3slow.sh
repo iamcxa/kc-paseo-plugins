@@ -9,12 +9,12 @@ echo "[$W] before Test: $(summary), Test button $(testbtn)"
 jsclick Test >/dev/null; sleep 2
 echo "[$W] Test running: $(summary), Test button $(testbtn)"
 view $X $H; sleep 2
-echo "[$X] crossed while running: $(summary), Test button $(testbtn)"
+C1="$(summary), Test button $(testbtn)"; echo "[$X] crossed while running: $C1"
 jsclick Test >/dev/null; sleep 1
 echo "[$X] second press ignored: $(summary)"
 view $W $H; sleep 2
-echo "[$W] back while running: $(summary), Test button $(testbtn)"
+C2="$(summary), Test button $(testbtn)"; echo "[$W] back while running: $C2"
 sleep 10
 R=$(summary); echo "[$W] after the run ends: $R, Test button $(testbtn)"
 view $X $H; sleep 3; R2=$(summary); echo "[$X] after the run, crossed again: $R2"
-[ "$R" = "1 failed · 7 set · 4 no field" ] && [ "$R2" = "$R" ] && echo "RESULT: remount during a running Test kept Testing… and ended with the run" || echo "RESULT: FAIL"
+[ "$C1" = "Testing…, Test button disabled" ] && [ "$C2" = "$C1" ] && [ "$R" = "1 failed · 7 set · 4 no field" ] && [ "$R2" = "1 failed · 7 set · 4 no field" ] && echo "RESULT: remount during a running Test kept Testing… and ended with the run" || echo "RESULT: FAIL"

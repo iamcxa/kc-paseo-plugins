@@ -289,3 +289,70 @@ Does not cover: the phone app, a remount during a running Test, light theme, the
 Candidate fc4b095 passes AC-1 to AC-3 on a fresh isolated Paseo at 400x900, 1280x1400 and 1280x800, and each clause fails on its own one-line mutant. Verdict PASSED; no defect found. The worktree has since advanced past fc4b095, so FO should decide whether a later candidate needs a recheck.
 FO note: the repairs for feedback cycles 1 and 2 were dispatched into the same worktree while validation-1 ran on it, so its HEAD moved under the validator; validation-1's verdict covers fc4b095 only. Later repairs wait for a running validation to finish, or the validator works from `git archive` of the candidate as this one did.
 - Cycle 3 (Codex round 2 on cd9f1c9, P2): a failed Test keeps showing "Test failed" after the user edits a variable, the account or the vault, because a failure stores only a string; a successful run stores what it sent and becomes "Not tested since changes". FO assessment: Material. Workflow: Test fails, the user edits the failing row. Harm: the screen implies the edited inputs were tested and failed. Protected boundary: value-ac[AC-3] (a Test summary the user can trust). Trigger evidence: Codex finding at project-env/shared/test-marks.ts near line 47. FO authorizes the fix (store what was sent with the failure, or clear it when inputs change) as implementation-4, dispatched after validation-2 reports so the worktree does not move under the validator.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Revalidate candidate cd9f1c924d14b6a87a535fbc868c1104fb5a1b1a (PR iamcxa/kc-paseo-plugins#33), which adds 455d20d, 781c356 and cd9f1c9 on top of the validated fc4b095.
+  Worked only from `git archive cd9f1c9` in a temp dir, never the shared worktree. `npm run typecheck` clean, `npm test` 272 of 272 pass; the new test file has 10 tests, all pass.
+- DONE: Rerun validation/accept.sh (update CAND to the candidate) in a fresh shell.
+  `accept.sh` now has CAND=cd9f1c9, expects "pass 10", starts a second isolated daemon whose fake vault answers each field lookup after 8 s (delayMs), and adds the remount-while-running check to step 4. Run from `env -i`, 3 min 58 s, every expected line: AC-1 and AC-2 PASS at 400x900, 1280x1400, 1280x800 with the same gaps as cycle 1; summary survived both round trips; long name and ≠ sentence as before. Run twice (second after I hardened the slow check's RESULT line).
+- DONE: Confirm AC-3's summary clause still holds across 720 px round trips, including a remount while a Test is running.
+  `validation/ac3slow.sh` on the delayed daemon, 1280 to 700 and 400 to 1280: Test pressed, "Testing…" with the Test button disabled before, after crossing and after crossing back; a second press while crossed is ignored; after about 8 s the summary reads "1 failed · 7 set · 4 no field" with the button enabled, and again after one more crossing.
+- DONE: Show a failed retry if you can make the Test call fail in the fake world, else say why not.
+  The fake world cannot make the Test call itself fail: `resolveProject` turns every vault or Keychain failure into per-row results and never throws, and stopping the daemon unmounts the screen ("Connect to this host"). So I injected the fault in the throwaway plugin copy only (one `throw new Error("simulated vault outage")` in the `project.test` handler behind a flag file; `validation/inject-fail.sh`): summary reads "Test failed: simulated vault outage" (screen `validation/screens/cycle2-test-failed-1280.png`), unchanged across a 720 px crossing; with the fault removed, pressing Test shows "Testing…" then "1 failed · 6 set · 4 no field" (`cycle2-retry-ok-1280.png`), so a successful retry replaces the failure.
+- DONE: Confirm the new unit tests fail under their mutants.
+  One-line mutants of the archive (`validation/mutate-cycle2.py`), test file alone: run not cleared by a new Test, failure not stored, an older result accepted, `testing` never set, `testing` never cleared each fail exactly one test; runtime mutant "testing never set" fails `ac3slow.sh` (summary "(none)" and button enabled after the crossing). One mutant survives: a new Test not clearing the earlier failure fails no unit test; at runtime it is visible (retry after the outage ended still showed "Test failed: simulated vault outage"), so the behaviour is true on the candidate but guarded only by the runtime check.
+- DONE: Run adr_lint.py docs/adr --since 60799d9 and record its exit code.
+  Exit 0 ("5 ADR file(s) checked, 0 legacy"; the candidate adds no ADR). Also comment_ratio exit 0 (194 code lines, 2 comment lines, 1.0%; no comment added since cycle 1), dispatch_records exit 0 (6 complete), design_surfaces exit 0, doc_impact lists ADR 0004 (implementation report carries `unaffected`).
+- DONE: Record every unverified obligation, and give a verdict.
+  Verdict: PASSED for cd9f1c9 against AC-1 to AC-3 and the checklist, with one observation below. Unverified: the native note (the `Platform.OS !== "web"` branch is a one-line ternary read in the diff and covered by typecheck; no phone app run, no unit test); a Test RPC failure from a real transport error (injected fault only); phone app; light theme; real 1Password and Keychain; "no failure cleared by a new Test" has no unit test.
+
+### Findings for FO
+- Observation, same as your cycle 3 item: with the injected failure shown, removing a row left "Test failed: simulated vault outage" in place (the summary did not become "Not tested since changes"). I did not rerun it after your cycle 3 note.
+- Unit gap above (failure not cleared by a new Test survives all unit tests).
+
+### Acceptance script (`project-env-every-row-findable/validation/accept.sh`, run with `bash`; helper scripts `setup-slow.sh` and `ac3slow.sh` sit beside it)
+
+```
+#!/bin/bash
+# Acceptance for candidate cd9f1c9 of iamcxa/kc-paseo-plugins#33, run on two throwaway Paseos (ports 6971 and 6972, plugin ids pe-accept and pe-accept-slow).
+# Needs: Paseo CLI /Users/kent/.local/bin/paseo, agent-browser, node, python3, and the repo checkout below (its project-env/node_modules is linked for the unit tests).
+set -u
+REPO=/Users/kent/Project/kc-paseo-plugins
+CAND=cd9f1c924d14b6a87a535fbc868c1104fb5a1b1a
+V=$REPO/docs/dev2/.spacedock-state/project-env-every-row-findable/validation
+H=$REPO/docs/dev2/.spacedock-state/project-env-every-row-findable/implementation/harness
+T=$(mktemp -d /tmp/pe-accept.XXXXXX)
+trap 'S=$T/s PORT=6971 PLUGIN_ID=pe-accept SESSION=pe-accept bash "$H/teardown.sh" >/dev/null 2>&1; S=$T/slow PORT=6972 PLUGIN_ID=pe-accept-slow SESSION=pe-accept-slow bash "$H/teardown.sh" >/dev/null 2>&1; rm -rf "$T"' EXIT
+
+echo "== 1 build the exact candidate and run its new unit tests (expect: pass 10, fail 0)"
+git -C $REPO archive $CAND project-env | tar -x -C $T
+ln -s $REPO/.worktrees/spacedock-ensign-project-env-every-row-findable/project-env/node_modules $T/project-env/node_modules
+(cd $T/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/every-row-findable.test.ts 2>&1 | grep -E '^ℹ (pass|fail)')
+
+echo "== 2 start two isolated Paseos with the candidate plugin: normal, and one whose fake vault answers each field lookup after 8 s"
+(export CHECKOUT=$T S=$T/s PORT=6971 PLUGIN_ID=pe-accept SESSION=pe-accept; bash $H/setup.sh >/dev/null 2>&1 && bash $H/clearstore.sh >/dev/null 2>&1 && echo "normal daemon up on $PORT")
+(export CHECKOUT=$T S=$T/slow PORT=6972 PLUGIN_ID=pe-accept-slow SESSION=pe-accept-slow SETUP_COPY=$T/setup-slow.sh; bash $V/setup-slow.sh >/dev/null 2>&1 && bash $H/clearstore.sh >/dev/null 2>&1 && echo "slow daemon up on $PORT")
+(export S=$T/slow PORT=6972 PLUGIN_ID=pe-accept-slow SESSION=pe-accept-slow; bash $V/ac3slow.sh 1280 1400 700 > $T/slow-1280.out 2>&1; bash $V/ac3slow.sh 400 900 1280 > $T/slow-400.out 2>&1) &
+SLOW=$!
+
+echo "== 3 AC-1 and AC-2 at 400x900, 1280x1400, 1280x800 (expect every line PASS; order LINEAR_API_KEY RESEND_API_KEY SLACK_BOT_TOKEN SLACK_SIGNING_SECRET LINEAR_API_KEY)"
+export S=$T/s PORT=6971 PLUGIN_ID=pe-accept SESSION=pe-accept
+for sz in "400 900" "1280 1400" "1280 800"; do set -- $sz; bash $H/ac12.sh $1 $2 2>&1 | grep -E '^\[.*(PASS|FAIL)'; done
+
+echo "== 4 AC-3 Test summary across 720 px (expect 'RESULT: summary survived the round trip' twice), then the slow daemon: crossing 720 px while a Test runs (expect 'RESULT: remount during a running Test kept Testing… and ended with the run' twice)"
+bash $H/ac3.sh 1280 1400 700 2>&1 | grep RESULT
+bash $H/ac3.sh 400 900 1280 2>&1 | grep RESULT
+wait $SLOW; grep -h -E 'Testing…|RESULT' $T/slow-1280.out $T/slow-400.out
+
+echo "== 5 AC-3 long name and the not-equal explanation (expect copiedTextEqualsName=true everyLineStartsAfterUnderscore=true, and the sentence ending 'Check it is the field you mean.')"
+bash $H/ac3wrap.sh 1280 1400 2>&1 | grep -E '^\['
+bash $H/ac3wrap.sh 400 900 2>&1 | grep -E '^\['
+echo "== done"
+```
+
+Does not cover: the phone app, light theme, a real Test call failure (only an injected one, by hand), the real 1Password or Keychain, any commit after cd9f1c9.
+
+### Summary
+
+Candidate cd9f1c9 passes AC-1 to AC-3 on isolated Paseos at three sizes, keeps "Testing…" and the disabled Test button when a Test is running across a 720 px crossing, shows and clears "Test failed: ..." on retry, and its new tests fail under their mutants except one. Verdict PASSED; the failure-after-edit behaviour is already your cycle 3.
