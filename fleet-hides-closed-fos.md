@@ -1,38 +1,37 @@
 ---
-title: The Fleet board stops listing FOs whose Paseo tab is closed on every device
+title: Flywheel round 2 — FOs whose Paseo tab is closed carry a Closed badge, and the composer has no web focus outline
 status: backlog
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
 ---
 
-FOs the Captain has closed in Paseo still appear on the Fleet board, because closing a conversation closes its tab without archiving the agent, and the board hides only archived agents.
+Round 2 of the POC flywheel under ADR 0008: the Captain cannot tell a live FO from one whose Paseo tab he closed, and a rectangular browser focus outline appears around the composer input after he types.
 
-Captain, 2026-10-23: 「已經在 passeo 內關閉的 FO 對話，仍會出現在 fleet 內，該怎麼辦？怎樣偵測才合理？」. He received the proposed detection below in chat and approved the move PR in the next message; the detection itself is not yet approved — this task's backlog gate is where he rules on it.
+Captain, 2026-10-23: 「已經在 passeo 內關閉的 FO 對話，仍會出現在 fleet 內，該怎麼辦？怎樣偵測才合理？」; in UAT of PR #34: 「我覺得可能要可以區分 FO 是否已經 inactive 例如已經把 tab 關閉」; round 1 UAT option answers: most bothersome 「關閉的 FO 分不出來」, next 「區分關閉的 FO (Recommended)」; and 「這個奇怪的綠色框線可以移除嗎？輸入文字後才出現的」.
 
-bite: on 2026-10-23, `mcp__paseo__list_agents` (cwd `~/.local/share/paseo-fo-coordinator`, includeArchived) showed role=fo agents with `archivedAt: null` and status `error` or `idle` whose `paseo.open-agent-tab.<client>` label was `"false"`; the board's `boardStatus` in `shared/board.ts` treats only `archivedAt` or status `closed` as offline, so they stay listed.
-consumer: the Captain, reading the Fleet board.
+bite: on 2026-10-23, `mcp__paseo__list_agents` showed role=fo agents with `archivedAt: null`, status `error` or `idle`, and every `paseo.open-agent-tab.<client>` label `"false"`; `boardStatus` in `shared/board.ts` treats only `archivedAt` or status `closed` as offline, so they look live. The composer `TextInput` in `client/co-chat.tsx` sets no outline style, so react-native-web draws the browser focus outline outside the rounded border (Captain's screenshot, 2026-10-23).
+consumer: the Captain, reading the Bridge.
 
 ## Scope
 
-- Depends on the move task `spacedock-bridge-plugin` (PR #31): work in `spacedock-bridge/` after it merges.
-- Signal: Paseo stores a per-client label `paseo.open-agent-tab.<client-id>` = `"true"`/`"false"` on each agent, and its own app code defines `hasOpenAgentTab(labels)` as "any such label equals true" (seen in the Paseo 0.12.0 app bundle, 2026-10-23). It is not in the plugin SDK documentation, so a Paseo upgrade may rename it.
-- Proposed rule (for the Captain's ruling at the backlog gate):
-  - Every `paseo.open-agent-tab.*` label is `"false"` and the agent is not running → closed: hidden from the Fleet board.
-  - A closed FO that still has a gate, permission or question waiting on the Captain stays visible, in a collapsed "Closed" group.
-  - No `paseo.open-agent-tab.*` label at all (never opened, e.g. started by the comms officer) → shown as today.
-  - Archived → hidden as today.
-- Non-goals: archiving or stopping agents from the board; changing Paseo.
+- Signal: Paseo stores `paseo.open-agent-tab.<client-id>` = "true"/"false" per agent; Paseo's own app code defines `hasOpenAgentTab(labels)` as any such label being "true" (Paseo 0.12 app bundle, 2026-10-23; not in plugin SDK docs).
+- Rule (design partner Astra, 2026-10-23; chief-engineer agreed): an FO is "Closed" only when at least one such label exists, every such label is "false", and the agent is not running. No label (never opened) is not Closed; one "true" is not Closed; running is not Closed. Archived and status `closed` keep today's offline path, unchanged.
+- Display: a neutral "Closed" badge beside the FO's name in By FO and on the owning FO in By decision rows and the next card. The FO keeps its group, position, contrast and tap behavior; nothing is faded, hidden or collapsed.
+- Composer: on web only, the `TextInput` sets no browser outline (`outlineStyle: "none"`), keeping the rounded border's hover and focus change; native is unchanged; send and decision buttons keep their focus indicators.
+- First implementation step (chief-engineer): observe the real label values by closing one live FO's tab on this Mac's Paseo app and record them; if they contradict the rule, stop and report without tuning the rule. The phone half of the two-client check is the Captain's, at play time.
+- Flywheel delivery (ADR 0008): the worker pushes its branch and opens a Draft PR with base `main` (first layer of the stack); nothing merges.
+- Non-goals: hiding closed FOs, archiving agents, the By FO layout beyond the badge, board loading/error states (round 3 candidate).
 
 ## Acceptance criteria
 
-**AC-1**: The board classifies closed FOs by the rule above.
-Verified by: `npm test` in `spacedock-bridge/` with cases for all-false labels, one true label, no labels, running with all-false labels, and closed-with-gate.
+**AC-1**: The Closed rule is right on its cases.
+Verified by: `npm test` with cases: labels present, all "false", not running → Closed; no label → not Closed; one "true" and one "false" → not Closed; running with all "false" → not Closed; archived → offline path unchanged.
 
-**AC-2**: A real closed FO disappears from the Captain's board.
-Verified by: the Captain's own check after install, or a screenshot from an isolated daemon with one FO whose tab label is false.
+**AC-2**: The Captain can see which FOs are closed, and the composer has no outline.
+Verified by: the recorded real label values from one closed tab; screenshots of the badge in By FO and on the owning FO in By decision; a web screenshot of the composer after typing with no rectangular outline.
 
 ## FO alignment
 
-Alignment: needed at the backlog gate: the rule above is FO-proposed, not yet the Captain's.
+Alignment: not needed: the Captain chose this theme in round 1 UAT; the rule and display come from the design partner and chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
