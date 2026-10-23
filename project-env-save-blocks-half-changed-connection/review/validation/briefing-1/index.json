@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-save-blocks-half-changed-connection:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#29 at head e5e41ccdd9bea76d09d12fe0cb8c58106eb18f8d? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-save-blocks-half-changed-connection:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/6123b7e3a0468fc1e273e9d1aed0a3d1080b86aa/project-env-save-blocks-half-changed-connection.md",
+      "rev": "sha256:559c53656b243856d89e87e974ca874feb8522a624c7c7fa11d6ec4799c38660",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at e5e41cc: Save is disabled with 'Finish or cancel the connection change first' while Change is open and projects.json stays byte-identical; list order unchanged after Save; a stored token re-reads the field list and a refused token changes nothing. FO reran validation/accept.sh: 20 PASS, 0 failures. 262/262 tests. delivery_gate.py check exit 0. External rounds: Codex 1, clean. Without-it unanswered: the guard inside save() has no individual falsifier (the disabled button already stops the press). Owed: phone app, real 1Password; Kent's own use."
+    }
+  ]
+}

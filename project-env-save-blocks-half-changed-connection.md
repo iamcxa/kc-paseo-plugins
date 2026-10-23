@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-save-blocks-half-changed-connection:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-save-blocks-half-changed-connection-validation-1
+              briefing:
+                id: briefing:project-env-save-blocks-half-changed-connection:validation:attempt-1:revision-1
+                digest: sha256:e9fc662258c56c02d5b0280a5a9ec1291a7268ec77887292564794524b8ddcd2
+                room-ref: ./project-env-save-blocks-half-changed-connection/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-save-blocks-half-changed-connection:validation:1
+                briefing: briefing:project-env-save-blocks-half-changed-connection:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T07:36:25.393397Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #29 at e5e41cc per the gate question; the save() guard stays as recommended.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T05:26:08Z
 ---
 
