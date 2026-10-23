@@ -5,7 +5,7 @@ status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
-worktree:
+worktree: .worktrees/spacedock-ensign-spacedock-bridge-plugin
 pr:
 gates:
     version: 1
@@ -38,6 +38,7 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-23T07:16:56Z
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.
