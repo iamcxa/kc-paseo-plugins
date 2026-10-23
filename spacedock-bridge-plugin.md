@@ -1,7 +1,7 @@
 ---
 id:
 title: Spacedock Bridge is a kc-paseo-plugins plugin that installs and runs from this repo
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -37,7 +37,7 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-2 (sha256:b7ec0ba36edd): approve to enter implementation in an isolated worktree with a PR.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.
