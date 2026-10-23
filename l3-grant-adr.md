@@ -61,6 +61,13 @@ Verified by: the ADR file quoting the Captain's three messages verbatim, listing
 Alignment: not needed: the Captain approved the design in chat on 2026-10-23; this task only records it.
 Release review: not needed: spacedock-bridge has no journey map yet.
 
+## Captain amendments
+
+### Amendment 1 — 2026-10-23, chat
+Captain: 「授權」 (chat, after the implementation report)
+Asked: Can the ADR be written as an exception to that README sentence, with this time limit and right to revoke added?
+Supersedes: none
+
 ## Stage Report: implementation
 
 - DONE: One ADR file in docs/adr/ at the next free number records the grant: the Captain's three messages verbatim from the task, the three granted classes, the kept-with-Captain list, the per-round records, the judgement numbers and the round-log location, adding nothing the task's Scope does not contain (AC-1)
