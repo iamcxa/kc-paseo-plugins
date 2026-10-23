@@ -37,6 +37,8 @@ consumer: the Captain, who uses the Bridge screen and the Fleet panel daily; the
 - Into a new top-level directory `spacedock-bridge/`, beside `project-env/`, following this repo's conventions (project-env's layout, package scripts, `files` list and an `OVERVIEW.md`).
 - Rename the plugin: `paseo-plugin.json` `id` `paseo-spacedock-bridge`, `name` `Spacedock Bridge`; package name to match. No behaviour change. The data directory `~/.local/share/paseo-fo-coordinator` (decisions, review requests, fleet token) keeps its path, so the Captain's live state carries over.
 - Register the component in `release-please-config.json` and `.release-please-manifest.json` the way `project-env` is registered, under the repo's `initial-version: 0.1.0` policy, and add one line for it to the root `README.md`.
+- Release PR #18 is open in this repo; a new package entry changes what that release PR carries. Merging it stays the Captain's call.
+- Work only in a worktree: `/Users/kent/Project/kc-paseo-plugins` on `main` is the live source of the Captain's installed project-env plugin; never switch its branch or leave it dirty (kc-paseo-plugins dev2 FO, 2026-10-23).
 - Non-goals: new features or UI changes; publishing to the Paseo registry; removing the old POC directory from kc-claude-plugins; changing Paseo config; switching the Captain's installed plugin over (that happens after merge, by hand).
 - Stop condition: the plugin typechecks, its tests pass and it installs and runs from this repo's checkout. Budget: one implementation round; a second only to fix what validation finds.
 
@@ -46,7 +48,7 @@ consumer: the Captain, who uses the Bridge screen and the Fleet panel daily; the
 Verified by: `npm ci`, `npm run typecheck` and `npm test` in `spacedock-bridge/`, with their output; the test count is not lower than the 42 that pass at `dbee7baf`.
 
 **AC-2**: The plugin installs and starts from this repository under its new id.
-Verified by: `paseo plugin install <worktree>/spacedock-bridge --id paseo-spacedock-bridge-check` against the local daemon, `paseo plugin ls` showing it `running` with no error, `paseo plugin logs` showing `Plugin ready`, then `paseo plugin remove paseo-spacedock-bridge-check`. Limit: this proves it loads, not that the screens render; rendering is the Captain's check after merge.
+Verified by: an isolated Paseo daemon (its own `--home` and its own `HOME` for the daemon process, listening on a port outside 6767, 6787 and 6860–6935), with plugins enabled there; `paseo plugin install <worktree>/spacedock-bridge --home <isolated>`, `paseo plugin ls` showing `paseo-spacedock-bridge` `running` with no error, `paseo plugin logs` showing `Plugin ready`; then stop that daemon and delete its home. Never install into the Captain's live daemon (`~/.paseo`): it already runs the POC copy, which holds port 6787 and the shared data directory, and a second copy would start a second review poller. Limit: this proves it loads, not that the screens render; rendering is the Captain's check after merge.
 
 **AC-3**: Release tooling knows the new component.
 Verified by: the diff of `release-please-config.json`, `.release-please-manifest.json` and `README.md`, matching how `project-env` is registered.
