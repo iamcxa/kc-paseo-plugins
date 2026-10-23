@@ -1,6 +1,6 @@
 ---
 title: Clickable things on the Bridge respond to hover and press, decisions look distinct, and By decision rows say which FO
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
