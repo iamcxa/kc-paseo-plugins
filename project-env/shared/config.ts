@@ -1,6 +1,6 @@
 import { defineRpc, defineSettings } from "@getpaseo/plugin";
 import { z } from "zod";
-import { cause, type Cause, rowHint } from "./cause.ts";
+import { cause } from "./cause.ts";
 
 const NAME_SHAPE = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
@@ -101,17 +101,6 @@ export const project = z.object({
 });
 export type Project = z.infer<typeof project>;
 export type Variable = z.infer<typeof variable>;
-
-// The one line under a variable's name: why it does nothing, or what the last Test said.
-export function variableLine(
-  variable: Variable,
-  result: { ok: boolean; cause?: Cause } | undefined,
-): { text: string; failed: boolean } | null {
-  const reason = reservedReason(variable.name);
-  if (reason !== null) return { text: `Not applied: ${reason}`, failed: true };
-  if (variable.ref === "") return null;
-  return result ? { text: rowHint(result), failed: !result.ok } : null;
-}
 
 export const newVariable = (name: string): Variable => ({ name, ref: "" });
 

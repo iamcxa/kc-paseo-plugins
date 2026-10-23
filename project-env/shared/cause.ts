@@ -42,3 +42,8 @@ export function causeWords(id: string): string {
 export function missingVariablesTitle(count: number): string {
   return count === 1 ? "Started without 1 project variable" : `Started without ${count} project variables`;
 }
+
+export function causeSentence(cause: Cause | undefined): string {
+  const text = causeText[cause ?? "unexpected"];
+  return `${text[0].toUpperCase()}${text.slice(1)}.`;
+}

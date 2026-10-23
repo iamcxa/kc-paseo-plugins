@@ -27,7 +27,6 @@ import {
   newVariable,
   refusal,
   splitImported,
-  variableLine,
   projectEnv,
   storeToken,
   testProject,
@@ -35,7 +34,8 @@ import {
   hasPendingSave,
   unsavedCount,
 } from "../shared/config";
-import type { Cause } from "../shared/cause";
+import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
+import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
 import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
 import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
@@ -53,11 +53,8 @@ import {
 type Ready = Extract<SettingsState<typeof projectEnv.schema>, { status: "ready" }>;
 type Theme = PluginSurfaceProps["theme"];
 
-type Result = { name: string; ok: boolean; cause?: Cause };
-
 const DIFFERS = "The field name differs from the variable name.";
 const WRAP = { overflowWrap: "anywhere" } as object;
-const SLOT = 32;
 const NAME_THIS = "Name this variable";
 
 type Picker = { mode: "add" } | { mode: "row"; index: number };
@@ -147,10 +144,12 @@ function FieldPill({
 function VariableRow({
   variable,
   first,
-  failed,
-  result,
+  reason,
+  shown,
   theme,
   pill,
+  onMark,
+  onResize,
   naming,
   note,
   others,
@@ -161,10 +160,12 @@ function VariableRow({
 }: {
   variable: Variable;
   first: boolean;
-  failed: boolean;
-  result: Result | undefined;
+  reason: string | null;
+  shown: boolean;
   theme: Theme;
   pill: ReactNode;
+  onMark(event: MarkEvent["type"], anchor: Anchor): void;
+  onResize(): void;
   naming: boolean;
   note: string | null;
   others: readonly string[];
@@ -174,7 +175,6 @@ function VariableRow({
   onRemove(): void;
 }) {
   const { name } = variable;
-  const line = variableLine(variable, result);
   const compact = useWindowDimensions().width < 600;
   const editing = naming || name === "";
   const [typedName, setTypedName] = useState(name);
@@ -235,22 +235,19 @@ function VariableRow({
       <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
     </Pressable>
   );
-  const slot = (
-    <View style={{ width: SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
-      {failed ? (
-        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: theme.colors.statusDanger, alignItems: "center", justifyContent: "center" }}>
-          <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>!</Text>
-        </View>
-      ) : null}
-    </View>
+  const mark = (
+    <FailureMark
+      name={name}
+      reason={reason}
+      shown={shown}
+      theme={theme}
+      onPress={(anchor) => onMark("press", anchor)}
+      onHover={(on, anchor) => onMark(on ? "hoverIn" : "hoverOut", anchor)}
+    />
   );
-  const status = line ? (
-    <Text style={{ color: line.failed ? theme.colors.statusDanger : theme.colors.foregroundMuted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
-      {line.text}
-    </Text>
-  ) : null;
   return (
     <View
+      onLayout={onResize}
       ref={box}
       style={{
         paddingHorizontal: 16,
@@ -268,19 +265,17 @@ function VariableRow({
           </View>
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 0 }}>
             {pill}
-            {slot}
+            {mark}
           </View>
-          {status}
         </>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
           <View style={{ width: 200, paddingTop: editing ? 0 : 9 }}>{nameText}</View>
           {pill}
-          {slot}
+          {mark}
           <View style={{ marginTop: 4 }}>{cross}</View>
         </View>
       )}
-      {!compact ? status : null}
     </View>
   );
 }
@@ -469,7 +464,7 @@ function SaveBar({
           <Text style={{ fontSize: 13, color: theme.colors.foregroundMuted }}>
             {unnamed > 0
               ? `Name ${unnamed} ${unnamed === 1 ? "variable" : "variables"} first`
-              : `${fieldless} without a field will read failed until you pick one`}
+              : `${fieldless} with no field picked yet`}
           </Text>
         ) : null}
       </View>
@@ -504,7 +499,7 @@ function ProjectEditor({
   theme: Theme;
   onDone(): void;
 }) {
-  const { draft, edits, initial, revision } = open;
+  const { draft, initial, revision } = open;
   const [naming, setNaming] = useState<number | null>(null);
   const [reasons, setReasons] = useState<Record<number, string>>({});
   const [added, setAdded] = useState<number | null>(null);
@@ -592,9 +587,39 @@ function ProjectEditor({
     mutationFn: () => refsRpc({ serviceAccount: account, vault: draft.vault }),
   });
   const test = useMutation({
-    mutationFn: ({ project }: { project: Project; edits: number }) => testRpc({ project }),
+    mutationFn: async (sent: Project): Promise<Run> => ({ sent, results: (await testRpc({ project: sent })).results }),
   });
-  const testResults = test.variables?.edits === edits ? test.data?.results : undefined;
+  const run = test.data;
+  const [markView, setMarkView] = useState<MarkView>(null);
+  const [bubbleAt, setBubbleAt] = useState({ left: 0, top: 0 });
+  const bubbleOrigin = useRef<View>(null);
+  const placeBubble = (anchor: Anchor) =>
+    bubbleOrigin.current?.measure((_x, _y, _w, _h, originX, originY) =>
+      setBubbleAt({
+        left: anchor.pageX + anchor.width - BUBBLE_WIDTH - originX,
+        top: anchor.pageY + anchor.height + 4 - originY,
+      }),
+    );
+  const markEvent = (name: string, type: MarkEvent["type"], anchor: Anchor) => {
+    if (type !== "hoverOut") placeBubble(anchor);
+    setMarkView((view) => nextMark(view, { type, name }));
+  };
+  const summary = summaryParts(draft, run, test.isPending);
+  const width = useWindowDimensions().width;
+  const compactHeader = width < 600;
+  useEffect(() => setMarkView(null), [width, draft.variables]);
+  const shownVariable = draft.variables.find((v) => v.name === markView?.name);
+  const shownReason = shownVariable ? rowReason(draft, run, shownVariable) : null;
+  const summaryNode = (
+    <Text accessibilityLiveRegion="polite" numberOfLines={1} style={{ fontSize: 13 }}>
+      {summary.map((p, i) => (
+        <Text key={p.text} style={{ color: p.tone === "bad" ? theme.colors.statusDanger : theme.colors.foregroundMuted }}>
+          {i > 0 ? " · " : ""}
+          {p.text}
+        </Text>
+      ))}
+    </Text>
+  );
   const doImport = useMutation({
     mutationFn: () => importRpc({ root: draft.root }),
     onSuccess: ({ names, prompt }) => {
@@ -882,9 +907,37 @@ function ProjectEditor({
       </SettingsSection>
 
       <SettingsSection
-        title="Environment variables"
-        trailing={<AddVariableButton theme={theme} onPress={() => openPicker({ mode: "add" })} />}
+        title="Variables"
+        info="Test resolves every variable now and never shows a value. Set means a value came back from 1Password; it does not prove the service accepts that key."
+        trailing={
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+            {compactHeader ? null : summaryNode}
+            {draft.variables.length > 0 ? (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Test"
+                disabled={test.isPending}
+                onPress={() => {
+                  setMarkView(null);
+                  test.mutate({ ...draft, variables: draft.variables.filter((v) => v.name !== "") });
+                }}
+                style={{
+                  borderWidth: 1,
+                  borderColor: theme.colors.border,
+                  borderRadius: 8,
+                  paddingHorizontal: 12,
+                  paddingVertical: 7,
+                  opacity: test.isPending ? 0.5 : 1,
+                }}
+              >
+                <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Test</Text>
+              </Pressable>
+            ) : null}
+            <AddVariableButton theme={theme} onPress={() => openPicker({ mode: "add" })} />
+          </View>
+        }
       >
+        {compactHeader && summary.length > 0 ? <View style={{ paddingBottom: 8 }}>{summaryNode}</View> : null}
         <SettingsCard>
           {draft.variables.length === 0 ? (
             <View style={{ paddingHorizontal: 16, paddingVertical: 14 }}>
@@ -894,15 +947,17 @@ function ProjectEditor({
             </View>
           ) : null}
           {draft.variables.map((v, i) => {
-            const result = testResults?.find((r) => r.name === v.name);
+            const reason = rowReason(draft, run, v);
             return (
               <VariableRow
                 key={`${removals}-${i}`}
                 variable={v}
                 first={i === 0}
-                failed={result?.ok === false}
+                reason={reason}
+                shown={markView?.name === v.name && reason !== null}
                 theme={theme}
-                result={result}
+                onMark={(type, anchor) => markEvent(v.name, type, anchor)}
+                onResize={() => setMarkView(null)}
                 naming={naming === i}
                 note={reasons[i] ?? null}
                 others={names.filter((_, j) => j !== i)}
@@ -914,7 +969,7 @@ function ProjectEditor({
                   <FieldPill
                     name={v.name}
                     view={pillView(v.ref, v.name, draft.vault)}
-                    failed={result?.ok === false}
+                    failed={reason !== null}
                     theme={theme}
                     onOpen={() => openPicker({ mode: "row", index: i })}
                   />
@@ -922,17 +977,6 @@ function ProjectEditor({
               />
             );
           })}
-          {draft.variables.length > 0 ? (
-            <SettingsAction
-              label="Check the variables"
-              hint="Resolves every variable now and shows the result on its row; never the value. Set means a value came back from 1Password; it does not prove the service accepts that key."
-              actionLabel={test.isPending ? "Testing…" : "Test"}
-              disabled={test.isPending}
-              onPress={() =>
-                test.mutate({ project: { ...draft, variables: draft.variables.filter((v) => v.name !== "") }, edits })
-              }
-            />
-          ) : null}
           <SettingsAction
             label="Import names and prompt from Conductor"
             hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
@@ -941,6 +985,11 @@ function ProjectEditor({
             onPress={() => doImport.mutate()}
           />
         </SettingsCard>
+        <View ref={bubbleOrigin} pointerEvents="none" style={{ position: "absolute", top: 0, left: 0, width: 0, height: 0, zIndex: 20 }}>
+          {markView !== null && shownReason !== null ? (
+            <MarkBubble reason={shownReason} left={bubbleAt.left} top={bubbleAt.top} theme={theme} />
+          ) : null}
+        </View>
       </SettingsSection>
 
       <FieldPicker
