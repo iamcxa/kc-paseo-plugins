@@ -38,6 +38,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-23T14:58:54Z
+worktree: .worktrees/spacedock-ensign-fleet-hides-closed-fos
 ---
 
 Round 2 of the POC flywheel under ADR 0008: the Captain cannot tell a live FO from one whose Paseo tab he closed, and a rectangular browser focus outline appears around the composer input after he types.
