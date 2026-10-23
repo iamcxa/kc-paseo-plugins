@@ -27,6 +27,17 @@ gates:
                 id: briefing:spacedock-bridge-plugin:backlog:attempt-2:revision-1
                 digest: sha256:b7ec0ba36edd7fb7f7a6ef72ea92746ba2763d387abdba5c37bd375a1726fbd2
                 room-ref: ./spacedock-bridge-plugin/review/backlog/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:spacedock-bridge-plugin:backlog:2
+                briefing: briefing:spacedock-bridge-plugin:backlog:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-23T07:13:34.866838Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-2 (sha256:b7ec0ba36edd): approve to enter implementation in an isolated worktree with a PR.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.
