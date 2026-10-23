@@ -37,3 +37,14 @@ Per-round section format:
 - UAT (Captain, 2026-10-23): feedback — 「可以按的東西應該要有 hover 高亮反應之類的提示？」 and 「本輪有個問題，但不是真的很嚴重，就是gate briefing 可以是中文嗎？目前應該是讀取檔案來的對嗎？所以理論上都是英文？以及，我覺得可能要可以區分 FO 是否已經 inactive 例如已經把 tab 關閉。此外，輸入pan 也要hover高亮，三個決策按鈕應該要有某種區分？截圖二裡面的 FO 跟圖三的為何差異那麼多？我意思是 by descision 跟 by FO 有差異」
 - UAT caught, validation missed: no hover/press feedback on clickable elements and the composer; the three decision buttons look alike; one-line rows do not say which FO; an FO's question is dropped from By decision when the same FO also has a gate (buildQueue adds an ask only when the FO has no gates). Not a validation miss: briefing language (English by repo convention), inactive FOs (already filed as fleet-hides-closed-fos).
 - Cost: not measured for pre-grant tasks.
+
+## Round 1 — 2026-10-23 — r1-hover-and-row-owner (PR #37, merged e4f95aee)
+- Gates: backlog by agent:first-officer (class 1), validation by agent:first-officer (class 2), both with conn quote and source ADR 0006; ledger rows `amended_after: 0`, `override: null`. Merge and reload by FO (class 3).
+- UAT (Captain, 2026-10-23): feedback — option answers: changes that are what he wanted 「hover／按下反應, 三個決策按鈕分色, 列顯示 FO 名」 (not ticked: 「問題不再被吃掉」); most bothersome 「關閉的 FO 分不出來」; next 「區分關閉的 FO (Recommended)」. Words: 「這個奇怪的綠色框線可以移除嗎？輸入文字後才出現的」
+- Overrides: none (his next-round choice matched FO's recommended option).
+- UAT caught, validation missed: a rectangular focus outline on the composer text input after typing (validation-1 of PR #34 noted it as Polish; round 1 validation did not re-flag it). Unconfirmed: whether a gate-plus-question FO now shows its question for him (not ticked; check at next UAT).
+- Observer: pending (Codex gpt-6-astra, started after merge).
+- Cost: Captain messages for this round: 2 (UAT screenshot message, option answers); worker tokens not measured (Codex agents via Paseo report no token totals to FO).
+- Package gaps: none new.
+- Next-round candidates: distinguish closed FOs — Captain (UAT option); remove the composer focus outline — Captain (UAT words); confirm the kept question shows — FO (unticked option); briefing language — Captain (earlier UAT); label-less question with a gate, iOS VoiceOver grouping — roborev:1107 declines; scroll position after expanding earlier messages — validation PR #34; virtual office — Captain idea.
+- Triage: theme chosen by the Captain's answer (distinguish closed FOs); FO adds the focus-outline fix to the same round because it is small and his own words. Picky-user, Astra and chief-engineer passes skipped this round: the Captain picked the theme directly and the closed-FO task already carries an FO-proposed rule; recorded as a deviation from the working rule.
