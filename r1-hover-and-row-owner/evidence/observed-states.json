@@ -1,0 +1,305 @@
+{
+  "composer-normal": "rgb(37, 43, 42)",
+  "composer-hover": "rgb(161, 165, 164)",
+  "composer-focused": "rgb(32, 116, 74)",
+  "board-controls": [
+    {
+      "label": "By decision",
+      "role": "tab",
+      "normal": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "By FO",
+      "role": "tab",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "NEXT",
+      "role": "button",
+      "normal": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "bridge#41",
+      "role": "link",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "Open",
+      "role": "button",
+      "normal": {
+        "background": "rgb(32, 116, 74)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "unowned#42",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "\u2197",
+      "role": "link",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "Approve adapter proof",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "Does OMP",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "+ New FO",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "Open full view",
+      "role": "link",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    }
+  ],
+  "chips-empty": [
+    {
+      "border": "rgb(108, 177, 123)",
+      "style": "solid",
+      "text": "rgb(108, 177, 123)",
+      "word": "\u51c6"
+    },
+    {
+      "border": "rgb(192, 150, 100)",
+      "style": "dashed",
+      "text": "rgb(192, 150, 100)",
+      "word": "\u8981\u6c42\u4fee\u6539"
+    },
+    {
+      "border": "rgb(161, 165, 164)",
+      "style": "dashed",
+      "text": "rgb(161, 165, 164)",
+      "word": "\u66ab\u7de9"
+    }
+  ],
+  "chips-with-reason": [
+    {
+      "border": "rgb(108, 177, 123)",
+      "style": "solid",
+      "text": "rgb(108, 177, 123)",
+      "word": "\u51c6"
+    },
+    {
+      "border": "rgb(192, 150, 100)",
+      "style": "solid",
+      "text": "rgb(192, 150, 100)",
+      "word": "\u8981\u6c42\u4fee\u6539"
+    },
+    {
+      "border": "rgb(161, 165, 164)",
+      "style": "solid",
+      "text": "rgb(161, 165, 164)",
+      "word": "\u66ab\u7de9"
+    }
+  ],
+  "decision-controls": [
+    {
+      "label": "\u2190 Bridge",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "Read full briefing",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "\u51c6",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "\u8981\u6c42\u4fee\u6539",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    },
+    {
+      "label": "\u66ab\u7de9",
+      "role": "button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      "hover": {
+        "background": "rgb(37, 43, 42)",
+        "opacity": "1"
+      },
+      "pressed": {
+        "background": "rgb(39, 42, 41)",
+        "opacity": "0.65"
+      }
+    }
+  ]
+}
