@@ -217,3 +217,43 @@ The spike diff landed unchanged as one commit on main cad57e0 and passes AC-1 to
 
 - Cycle 1 (Codex round 1 on fc4b095, two P2): (a) after a successful Test, a failed retry leaves the old summary and marks showing as its result. FO assessment: Material. Workflow: press Test again after a change upstream. Harm: an old "All N set" reads as the outcome of a failed retry. Protected boundary: value-ac[AC-3] (a Test summary the user can trust across a resize). Trigger evidence: Codex finding, settings-screen.tsx near line 636. (b) An older Test result overwrites a newer one after a remount; the same as roborev:1089, which FO had deferred under FO declines. FO now authorizes both fixes as implementation-2, superseding that deferral, because the Codex finding shows the harm is the visible marks, not only stored state.
 - Cycle 2 (roborev:1091 on 781c356): on native the no-field note renders as a button whose reveal and focus use DOM methods native lacks, so a press does nothing. FO assessment: Material. Workflow: the Paseo phone app opens the settings screen. Harm: a control that looks pressable does nothing. Protected boundary: value-ac[AC-2] promises the note moves you to each row; on native it cannot. Trigger evidence: roborev:1091, read in code. FO authorizes the one-line fallback (plain text on native, as before this task) as implementation-3; the web design is unchanged.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate fc4b095610925af7ea32e1402fbaf74659317d81 (PR iamcxa/kc-paseo-plugins#33, base main cad57e0) against AC-1 to AC-3 and the approved design: rebuild and run it yourself on an isolated Paseo.
+  Candidate extracted with `git archive fc4b095` and diffed equal to the plugin the daemon served (client and shared); own daemon port 6961, plugin id pe-rowv, own agent-browser session. `npm run typecheck` clean, `npm test` 269 of 269 pass at fc4b095 (the worktree HEAD moved during validation, see Findings for FO; nothing below ran on it).
+- DONE: Confirm a newly added row and each row reached through the note end above the save bar at 400x900, 1280x1400 and 1280x800.
+  `ac12.sh` at each size: added by name ends 8, 85 and 8 px above the bar; from the picker 276, 83 and 277 px; the five note presses end above the bar with the plain bar (57 px) and with the Change reason line (120 px at 400, 75 px at 1280): all PASS.
+- DONE: The note's five presses visit LINEAR_API_KEY, RESEND_API_KEY, SLACK_BOT_TOKEN, SLACK_SIGNING_SECRET and back to the first.
+  Same script, document.activeElement after each press, at all three sizes and with the Change reason line open: order matches, PASS.
+- DONE: The Test summary survives a 720 px round trip.
+  `ac3.sh` 1280 -> 700 -> 1280 and 400 -> 1280 -> 400 reads "1 failed · 7 set · 4 no field" after Test, while crossed and back.
+- DONE: The 54-character name breaks only after underscores and copies exactly.
+  `ac3wrap.sh`: 3 lines at 1280 (starts PRODUCTION_, READ_ONLY_), 2 at 400 (REPLICA_); every start follows an underscore. Separate probe: a Selection over the name element returns the exact 54 characters with 8 `<wbr>` present.
+- DONE: The ≠ explanation has the new sentence.
+  Open explanation reads "The field name differs from the variable name. Check it is the field you mean." at 1280 and 400.
+- DONE: Task A's Save block and reason line still work beside the note.
+  With a mistyped service account Checked: bar reads "1 unsaved change | Finish or cancel the connection change first | 4 with no field picked yet | Discard | Save", Save stays disabled before and after pressing the note and after pressing Save (projects.json unchanged, 3/0/12/1 variables).
+- DONE: Confirm the new tests fail when their behaviour is removed.
+  One-line mutants of fc4b095 on a second isolated daemon: margin removed -> AC-1 FAIL (400x900 and 1280x800 added row -69 px, note rows FAIL; at 1280x1400 only the Change-reason walk fails because the page fits); wrap-around removed -> AC-2 order stops after four; pill focus removed -> AC-2 order empty; `run` not stored and `run` read from component state -> summary "(none)" after the crossing; `<wbr>` removed -> lines start "ODUCTION_REP", "NLY_USER", "EPLICA_READ_"; old ≠ sentence -> explanation lacks the new sentence. Unit: wrap-around mutant fails 2 tests, `setRun` mutant fails 1.
+- DONE: Give a verdict.
+  PASSED for fc4b095: AC-1 to AC-3 and the design hold at the three sizes; no defect found; roborev:1089 not reported (no user-visible change found; FO declined).
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 .../adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  Script `validation/accept.sh` (below), run by me from `env -i` in 3 min 58 s with every expected line. adr_lint exit 0 ("5 ADR file(s) checked, 0 legacy"; the candidate adds no ADR). Also: comment_ratio exit 0 (131 code lines, 2 comment lines, 1.5%; both read, both carry a fact); dispatch_records exit 0 (5 complete); design_surfaces exit 0; doc_impact lists ADR 0004 and the implementation report carries `unaffected: <reason>`; no `## Number guards` section.
+- DONE: Look at the whole-page screenshots at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  `validation/screens/test-1280.png`, `test-400.png` (whole page after Test), `note-1280.png`, `note-400.png`. Captain sees: header "1 failed · 7 set · 4 no field"; one red-bordered row with a red mark; the 54-character name on 3 lines at 1280 and 2 at 400, broken after underscores; amber ≠ on two rows; the save bar reading "No unsaved changes / 4 with no field picked yet" with the second part underlined; after a note press the row sits fully above the floating bar (8 px gap). Weak point: the focused pill's border is a brighter dashed line beside three muted dashed ones (RESEND vs LINEAR at 1280); it is visible when you look for it but not strong (design finding 2, declined by the ideation worker). Unverified: phone app (sticky bar and `<wbr>` are web-only); remount while a Test call runs; a name with no underscore (source returns the string unchanged); the new-row clause at 1280x1400 is not falsified by removing the margin (page fits); `accessibilityLabel` and `hitSlop` on the note are not named by an AC (without-it unanswered in the PR body); light theme not re-viewed.
+
+### Findings for FO
+- The worktree `.worktrees/spacedock-ensign-project-env-every-row-findable` did not stay at the candidate: during validation HEAD moved from fc4b095 to 455d20d and later 781c356 and cd9f1c9 (per `git log`), with uncommitted edits to `open-project.ts`, `settings-screen.tsx` and the test file in between. These repair roborev:1089 and the note outside the web client. This verdict is for fc4b095 only; a candidate with those commits needs its own validation (the new `startTest`/`failTest` and `testing` changes touch the Test summary clause).
+- Harness caveat: `implementation/harness/mutate.sh` writes to `/tmp/pe-rowi`; it is removed. `ac12.sh` and `ac3wrap.sh` take width and height as separate arguments (a quoted "400 900" mis-labels the output but the viewport still follows).
+
+### Acceptance script (`validation/accept.sh`, run with `bash`)
+
+```
+```
+
+Does not cover: the phone app, a remount during a running Test, light theme, the real 1Password or Keychain (fake `op`, `security`, `git`), any commit after fc4b095.
+
+### Summary
+
+Candidate fc4b095 passes AC-1 to AC-3 on a fresh isolated Paseo at 400x900, 1280x1400 and 1280x800, and each clause fails on its own one-line mutant. Verdict PASSED; no defect found. The worktree has since advanced past fc4b095, so FO should decide whether a later candidate needs a recheck.
