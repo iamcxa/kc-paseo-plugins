@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-vault-naming-rule-adr
-pr: iamcxa/kc-paseo-plugins#30
+pr: pr-merge:30
 gates:
     version: 1
     records:
@@ -283,3 +283,5 @@ The case-insensitivity fact now says it is a property of 1Password's resolver an
 ### Summary
 
 Cycle 3 candidate d5a53fc changes only the case-insensitivity bullet; its added claim that project-env matches the vault spelling exactly holds on main (`isOutsideVault` uses `!==`, and the vault-boundary test has the different-letter-case row). Lint exits 0. Remaining unverified items are the same as cycle 2.
+External review rounds at the validation gate: Codex 2 (round 1 one P2, fixed in feedback cycle 2; round 2 clean at d5a53fc after one re-request, the first request having stayed "running" for over 50 minutes). The local roborev gate is not an external round; no RoboRev review was posted on the PR, which the gate summary named.
+delivery_gate.py check passed at d5a53fc before the ask (merge/ask-1.json); the Captain approved with 「准」 on 2026-10-23 and FO merged as 516bd3e.
