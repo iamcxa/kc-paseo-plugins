@@ -16,3 +16,11 @@ Per-round section format:
 - Observer: <result>
 - Cost: Captain messages <n>, worker tokens <n>
 - Package gaps: <none | items>
+
+## Round 0 — 2026-10-23 — bootstrap (l3-grant-adr, gates still the Captain's)
+- Gates: none recorded under the grant (the grant is not in force until ADR 0006 merges).
+- Package gaps found while writing the grant:
+  1. README (Gate decisions) says "Authority, a gate approval, a merge … are always asked, whatever an ADR says", while kc-dev-flow-2 ADR 0011 L3 grants a decision class by ADR. Resolved locally by a Captain-authorized exception in ADR 0006 (「授權」, 2026-10-23); the package should reconcile the two (roborev:1101).
+  2. `design_surfaces.py check` requires `Surfaces:` and `Visible change:` on every task, but README (backlog) asks for them only "on the five-stage route"; every POC task here fails it (seen on board-next-decision-first, review-ids-and-decision-card, l3-grant-adr).
+  3. `number_guards.py check` fails R4 when a task lands an ADR without an `ADR:` reservation line, but README (Number guards, POC bullet) says a POC task "reserves no number"; a POC task that writes an ADR cannot pass both (l3-grant-adr, ADR 0006).
+- Dispatch note: first Codex ensign dispatched from the Claude FO via `spacedock dispatch build --host codex` plus Paseo `create_agent` (codex/gpt-6.1-sol, high, auto-review): it read the dispatch file, committed, pushed, ran roborev and wrote its stage report; completion arrived as Paseo's finish notification (no SendMessage on Codex).
