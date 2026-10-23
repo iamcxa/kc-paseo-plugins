@@ -63,8 +63,11 @@ export async function checkReviews(paseo: PaseoApi | null): Promise<void> {
     }));
     const fresh = newRequests(current, store.seen).slice(0, MAX_PER_WAKE);
     if (fresh.length && paseo) {
-      const { agentId } = await ensureCoordinator(paseo);
-      await paseo.agents.ref(agentId).send(wakeMessage(fresh));
+      const text = wakeMessage(fresh);
+      if (text) {
+        const { agentId } = await ensureCoordinator(paseo);
+        await paseo.agents.ref(agentId).send(text);
+      }
       for (const request of fresh) store.seen[request.url] = now;
     }
     await save({ ...store, requests: current, checkedAt: now, error: null });
