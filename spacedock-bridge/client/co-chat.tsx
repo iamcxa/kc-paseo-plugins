@@ -5,7 +5,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, Pressable, ScrollView, Text, View } from "react-native";
 import { nextStepIsCaptains, parseEnvelope, replyPreview } from "../shared/preview";
 import { MarkdownView } from "./markdown-view";
-import { type KeyLike, isSendKey } from "../shared/markdown";
+import { discussionWindow } from "../shared/card";
+import { type KeyPressEvent, composerHandlers } from "../shared/composer";
+import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
 
 const VISIBLE = 30;
@@ -55,6 +57,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   onSent?: (text: string) => void;
   onChip?: (word: string, draft: string) => Promise<string | null>;
   seed?: { text: string; nonce: number } | null;
+  discussion?: boolean;
 };
 
 export function CoChat({
@@ -71,6 +74,7 @@ export function CoChat({
   onSent,
   onChip,
   seed,
+  discussion,
 }: Props) {
   const paseo = usePaseo();
   const [lines, setLines] = useState<Line[]>([]);
@@ -167,15 +171,47 @@ export function CoChat({
         backgroundColor: colors.accent,
       },
       sendIdle: { backgroundColor: colors.surface2 },
-      chips: { flexDirection: "row" as const, gap: 8, paddingHorizontal: pad, paddingTop: 8 },
+      inputWithRow: { paddingRight: 14, minHeight: 40 },
+      hint: { color: colors.foregroundMuted, fontSize: 12, paddingHorizontal: 14, paddingTop: 6, paddingBottom: 6 },
+      boxRow: {
+        flexDirection: "row" as const,
+        alignItems: "flex-end" as const,
+        gap: 8,
+        paddingLeft: 12,
+        paddingRight: 7,
+        paddingBottom: 7,
+      },
+      boxChips: {
+        flex: 1,
+        flexDirection: "row" as const,
+        alignItems: "center" as const,
+        columnGap: 8,
+        rowGap: 6,
+        flexWrap: "wrap" as const,
+        paddingBottom: 2,
+      },
+      chipGroup: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+      sendInline: { position: "relative" as const, right: 0, bottom: 0 },
+      rowDivider: { width: 1, height: 18, marginBottom: 6, backgroundColor: colors.border },
       chip: {
-        paddingVertical: 6,
+        paddingVertical: 5,
         paddingHorizontal: 12,
         borderRadius: 14,
         borderWidth: 1,
         borderColor: colors.border,
       },
+      chipDashed: { borderStyle: "dashed" as const },
       chipText: { color: colors.foreground, fontSize: 13 },
+      divider: {
+        flexDirection: "row" as const,
+        alignItems: "center" as const,
+        gap: 10,
+        paddingHorizontal: pad,
+        paddingVertical: 10,
+      },
+      dividerLabel: { color: colors.foregroundMuted, fontSize: 11, fontWeight: "600" as const, letterSpacing: 0.6 },
+      dividerRule: { flex: 1, height: 1, backgroundColor: colors.border },
+      toggle: { color: colors.accent, fontSize: 13 },
     };
   }, [colors, layout.compact, mono]);
 
@@ -235,54 +271,74 @@ export function CoChat({
     const result = await callStop({ agentId });
     if (!result.stopped) setError(result.error ?? "Could not stop the agent.");
   };
-  const send = async () => {
-    const text = draft.trim();
-    if (!text || sending) return;
-    setSending(true);
-    try {
-      const refusal = beforeSend ? await beforeSend() : null;
-      if (refusal) return setError(refusal);
-      await paseo.agents.ref(agentId).send(footer ? `${text}\n\n${footer}` : text);
-      setDraft("");
-      setError("");
-      onSent?.(text);
-    } catch (e) {
-      setError(String(e));
-    } finally {
-      setSending(false);
-    }
-  };
+  const { send, chip, onKeyPress } = composerHandlers({
+    draft: () => draft,
+    setDraft,
+    setError,
+    sending: () => sending,
+    setSending,
+    sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
+    footer,
+    beforeSend,
+    onSent,
+    onChip,
+  });
+  const [showEarlier, setShowEarlier] = useState(false);
+  const { shown, earlier } = discussion ? discussionWindow(lines, showEarlier) : { shown: lines, earlier: 0 };
+  const hasChips = Boolean(chips?.length);
 
-  const chip = async (word: string) => {
-    if (!onChip) return setDraft((current) => (current.trim() ? `${word}，${current.trim()}` : word));
-    if (sending) return;
-    setSending(true);
-    try {
-      const refusal = await onChip(word, draft);
-      if (refusal) setError(refusal);
-      else {
-        setDraft("");
-        setError("");
-      }
-    } catch (e) {
-      setError(String(e));
-    } finally {
-      setSending(false);
-    }
-  };
+  const sendStyle = [styles.send, hasChips ? styles.sendInline : null];
+  const sendButton =
+    working && !draft.trim() ? (
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Stop the agent's current turn"
+        style={sendStyle}
+        onPress={() => void stop()}
+      >
+        <Icon name="Square" size={12} color={colors.accentForeground} />
+      </Pressable>
+    ) : (
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Send"
+        style={[...sendStyle, draft.trim() && !sending ? null : styles.sendIdle]}
+        disabled={sending || !draft.trim()}
+        onPress={() => void send()}
+      >
+        <Icon
+          name="ArrowUp"
+          size={16}
+          color={draft.trim() && !sending ? colors.accentForeground : colors.foregroundMuted}
+        />
+      </Pressable>
+    );
 
   return (
     <View style={styles.screen}>
-      <View style={styles.header}>
-        <Text style={styles.muted}>
-          {title} · {working ? "working…" : "idle"}
-        </Text>
-        {navigation ? (
-          <Pressable accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
-            <Text style={styles.muted}>Open full view</Text>
-          </Pressable>
-        ) : null}
-      </View>
+      {discussion ? (
+        <View style={styles.divider}>
+          <Text style={styles.dividerLabel}>DISCUSSION</Text>
+          <View style={styles.dividerRule} />
+          {working ? <Text style={styles.muted}>working…</Text> : null}
+          {navigation ? (
+            <Pressable accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
+              <Text style={styles.muted}>Open full view</Text>
+            </Pressable>
+          ) : null}
+        </View>
+      ) : (
+        <View style={styles.header}>
+          <Text style={styles.muted}>
+            {title} · {working ? "working…" : "idle"}
+          </Text>
+          {navigation ? (
+            <Pressable accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
+              <Text style={styles.muted}>Open full view</Text>
+            </Pressable>
+          ) : null}
+        </View>
+      )}
       <ScrollView
         ref={scroller}
         style={styles.list}
@@ -290,7 +346,14 @@ export function CoChat({
         onContentSizeChange={() => scroller.current?.scrollToEnd({ animated: false })}
       >
         {lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
-        {lines.map((line, index) =>
+        {earlier > 0 ? (
+          <Pressable accessibilityRole="button" onPress={() => setShowEarlier((value) => !value)}>
+            <Text style={styles.toggle}>
+              {showEarlier ? "Hide earlier messages" : `Show ${earlier} earlier ${earlier === 1 ? "message" : "messages"}`}
+            </Text>
+          </Pressable>
+        ) : null}
+        {shown.map((line, index) =>
           line.role === "agent" ? (
             <AgentNote key={line.key} theme={theme} label={line.label} from={line.from} text={line.text} />
           ) : line.role === "tools" ? (
@@ -318,55 +381,46 @@ export function CoChat({
         )}
       </ScrollView>
       {error ? <Text style={styles.danger}>{error}</Text> : null}
-      {chips?.length ? (
-        <View style={styles.chips}>
-          <Text style={[styles.muted, { alignSelf: "center" as const }]}>Decide via comms officer</Text>
-          {chips.map((word) => (
-            <Pressable key={word} accessibilityRole="button" style={styles.chip} disabled={sending} onPress={() => void chip(word)}>
-              <Text style={styles.chipText}>{word}</Text>
-            </Pressable>
-          ))}
-        </View>
-      ) : null}
       <View style={styles.composer}>
         <View style={styles.box}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, hasChips ? styles.inputWithRow : null]}
             value={draft}
             onChangeText={setDraft}
             placeholder={placeholder}
             placeholderTextColor={colors.foregroundMuted}
             multiline
-            onKeyPress={(event) => {
-              if (isSendKey(event.nativeEvent as KeyLike)) {
-                (event as unknown as { preventDefault?: () => void }).preventDefault?.();
-                void send();
-              }
-            }}
+            onKeyPress={(event) => void onKeyPress(event as unknown as KeyPressEvent)}
           />
-          {working && !draft.trim() ? (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Stop the agent's current turn"
-              style={styles.send}
-              onPress={() => void stop()}
-            >
-              <Icon name="Square" size={12} color={colors.accentForeground} />
-            </Pressable>
+          {hasChips ? (
+            <>
+              {draft.trim() ? <Text style={styles.hint}>A decision button sends this text as the reason.</Text> : null}
+              <View style={styles.boxRow}>
+                <View style={styles.boxChips}>
+                  <Text style={styles.muted}>Decide via comms officer</Text>
+                  <View style={styles.chipGroup}>
+                    {chips!.map((word) => {
+                      const dashed = word in DECISION_CHIPS && needsReason(word as ChipWord) && !draft.trim();
+                      return (
+                        <Pressable
+                          key={word}
+                          accessibilityRole="button"
+                          style={[styles.chip, dashed ? styles.chipDashed : null]}
+                          disabled={sending}
+                          onPress={() => void chip(word)}
+                        >
+                          <Text style={styles.chipText}>{word}</Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </View>
+                <View style={styles.rowDivider} />
+                {sendButton}
+              </View>
+            </>
           ) : (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Send"
-              style={[styles.send, draft.trim() && !sending ? null : styles.sendIdle]}
-              disabled={sending || !draft.trim()}
-              onPress={() => void send()}
-            >
-              <Icon
-                name="ArrowUp"
-                size={16}
-                color={draft.trim() && !sending ? colors.accentForeground : colors.foregroundMuted}
-              />
-            </Pressable>
+            sendButton
           )}
         </View>
       </View>

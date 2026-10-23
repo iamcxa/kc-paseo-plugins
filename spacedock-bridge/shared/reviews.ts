@@ -106,3 +106,12 @@ export function reviewOwner<T extends ReviewOwnerCandidate>(
     live.find((row) => row.repo.split(",").map((repo) => repo.trim()).includes(review.repo))
   );
 }
+
+// The owner joins the label only when another request has the same repository name under a different owner.
+export function reviewRef(
+  review: Pick<ReviewRequestData, "owner" | "repo" | "number">,
+  all: readonly Pick<ReviewRequestData, "owner" | "repo">[],
+): string {
+  const clash = all.some((other) => other.repo === review.repo && other.owner !== review.owner);
+  return `${clash ? `${review.owner}/` : ""}${review.repo}#${review.number}`;
+}

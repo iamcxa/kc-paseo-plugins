@@ -154,7 +154,12 @@ export function attachGates(
       rows.find((row) => row.task === gate.slug) ??
       rows.find((row) => row.workflowDir === gate.workflowDir);
     if (!owner) continue;
-    byId.get(owner.id)?.gates.push({ slug: gate.slug, title: gate.title, stage: gate.stage });
+    byId.get(owner.id)?.gates.push({
+      slug: gate.slug,
+      title: gate.title,
+      stage: gate.stage,
+      preparedAt: gate.preparedAt,
+    });
   }
   return [...byId.values()]
     .filter((row) => !row.offline || row.gates.length > 0)

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { AUTOMATED_MARKER, newRequests, parseSearch, reviewOwner, wakeMessage } from "../shared/reviews";
+import { AUTOMATED_MARKER, newRequests, parseSearch, reviewOwner, reviewRef, wakeMessage } from "../shared/reviews";
 
 const output = JSON.stringify([
   {
@@ -105,4 +105,15 @@ test("a review goes to the FO whose next step names it, else to the FO whose rep
   assert.equal(reviewOwner({ repo: "recce-cloud-infra", number: 1471 }, rows)?.id, "review-fo");
   assert.equal(reviewOwner({ repo: "a", number: 1 }, rows)?.id, "multi");
   assert.equal(reviewOwner({ repo: "recce-claude-plugin", number: 47 }, rows), undefined);
+});
+
+test("a review ref is repo#number, with the owner only when another request shares the repo name under a different owner", () => {
+  const a = { owner: "DataRecce", repo: "web", number: 1 };
+  const b = { owner: "iamcxa", repo: "web", number: 2 };
+  const c = { owner: "DataRecce", repo: "web", number: 3 };
+  const d = { owner: "DataRecce", repo: "api", number: 4 };
+  assert.equal(reviewRef(a, [a, c, d]), "web#1");
+  assert.equal(reviewRef(d, [a, b, d]), "api#4");
+  assert.equal(reviewRef(a, [a, b]), "DataRecce/web#1");
+  assert.equal(reviewRef(b, [a, b]), "iamcxa/web#2");
 });

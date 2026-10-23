@@ -164,3 +164,11 @@ test("an idle FO whose next step is the Captain's waits on him even after its re
     "waiting on Kent",
   );
 });
+
+test("a gate keeps the time it started waiting when it is attached to its FO", () => {
+  const rows = toRows([{ ...base, id: "kc", title: "kc FO", labels: { role: "fo", "workflow-dir": "/kc/docs/dev2" } }]);
+  const grouped = attachGates(rows, [
+    { workflowDir: "/kc/docs/dev2", slug: "g1", title: "G1", stage: "ideation", preparedAt: "2026-10-23T05:00:00Z" },
+  ]);
+  assert.equal(grouped[0].gates[0].preparedAt, "2026-10-23T05:00:00Z");
+});
