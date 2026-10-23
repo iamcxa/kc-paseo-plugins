@@ -22,6 +22,11 @@ gates:
                 by: agent:first-officer
                 at: "2026-10-23T06:14:38.379607Z"
                 reason: 'Seed amended before decision: AC-2 must install into an isolated Paseo daemon, not the live one (the live daemon already runs the POC copy, which holds port 6787 and the shared data directory); and the release PR #18 interaction is recorded.'
+            - id: gate-attempt:spacedock-bridge-plugin-backlog-2
+              briefing:
+                id: briefing:spacedock-bridge-plugin:backlog:attempt-2:revision-1
+                digest: sha256:b7ec0ba36edd7fb7f7a6ef72ea92746ba2763d387abdba5c37bd375a1726fbd2
+                room-ref: ./spacedock-bridge-plugin/review/backlog/briefing-2
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.
