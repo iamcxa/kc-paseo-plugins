@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:flywheel-grant-adr:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #38 at 81096c60 (ADR 0008: your POC flywheel grant with stacked unmerged round PRs, push and PR authority within the flywheel, interim round-task lifecycle, superseding ADR 0006), after which FO marks it ready, waits for Codex's verdict and runs delivery_gate.py, and you merge it yourself?",
+  "artifacts": [
+    {
+      "id": "artifact:flywheel-grant-adr:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/79942cdbe8a084fdbb6e03a7a321e3c673d06e8f/flywheel-grant-adr.md",
+      "rev": "sha256:acd6f2ef7e565074e32c50bb971becaa6cfd6c890fcec24a26a20e8a497fc268",
+      "mediaType": "text/markdown",
+      "summary": "Codex gpt-6-astra validation PASSED at 987698fa and revalidation PASSED at 81096c60 (only Status Proposed→Accepted). FO reran both acceptance scripts in a fresh shell: one ADR only, 10 quotes byte-match with counterexamples rejected, adr_lint 7 files exit 0. Roborev rounds run by FO: 1110 and 1113 repaired (push/PR authority, interim lifecycle), 1115 and 1117 clean. Codex GitHub review not yet on the head (PR is Draft)."
+    }
+  ]
+}

@@ -26,6 +26,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:flywheel-grant-adr:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:flywheel-grant-adr-validation-1
+              briefing:
+                id: briefing:flywheel-grant-adr:validation:attempt-1:revision-1
+                digest: sha256:45842a5a5e56f1c381f2e96601c25b3a9f4fef938f1b3fe7272248728091e1fc
+                room-ref: ./flywheel-grant-adr/review/validation/briefing-1
 started: 2026-10-23T12:59:34Z
 worktree: .worktrees/spacedock-ensign-flywheel-grant-adr
 ---
