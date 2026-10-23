@@ -1,0 +1,58 @@
+design_review:
+  preview: project-env-save-blocks-half-changed-connection/design/preview-desktop-dark-3-change-typed-checked.png
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-desktop-dark-3-change-typed-checked.png and preview-compact-dark-3-change-typed-checked.png
+      seen: "\"1 unsaved change\" and \"Finish or cancel the connection change first\" are stacked about 4 px apart in near-identical size and colour, so they read as one two-line title, not a count plus a blocker."
+      fix: Give the blocker line a clearly smaller size or a leading warning mark, or add more space above it, so it reads as the reason Save is off.
+    - severity: MINOR
+      dimension: flow
+      where: preview-desktop-dark-3-change-typed-checked.png and preview-desktop-dark-5-change-open-with-row-edit.png
+      seen: The blocker line names "the connection change", but Done and Cancel sit about 750 px above the pinned bar, and Discard sits right next to the dimmed Save with no cue whether it also drops the typed connection draft.
+      fix: Make the line say what Discard covers (for example "Discard also cancels the connection change"), or scroll to the card on click of the line.
+    - severity: MINOR
+      dimension: states
+      where: preview-desktop-dark-2-change-open-untouched.png
+      seen: The card is open through Change, yet the bar shows "No unsaved changes", a Close button and no blocker line, so the Save bar here looks the same as a closed page and the proposal wording ("line is present while the card is open") is not drawn.
+      fix: Either draw the line in this state as well, or state in the proposal that the line shows only once the connection draft differs from the saved one.
+    - severity: MINOR
+      dimension: states
+      where: whole set
+      seen: "No picture shows the blocker while Check is running or has failed (Done stays dimmed), none shows a connection draft together with a variable or prompt edit (what the count reads), and the bar is not shown with a long blocker line at 400 px with three lines of text plus the buttons wrapped in a separate row."
+      fix: Add previews for Check failed or running with the bar, and for connection draft plus another edit, and state the expected count.
+    - severity: MINOR
+      dimension: consistency
+      where: preview-desktop-dark-3-change-typed-checked.png vs preview-desktop-dark-2-change-open-untouched.png
+      seen: The Vault control is a plain filled field "Dev" with no chevron in picture 3, but a bordered "Dev" with a chevron in picture 2 and 12.
+      fix: Draw the Vault control the same way in both states, with the chevron and dimmed when it is not usable.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-compact-dark-7-many-change-typed.png
+      seen: With three text lines plus a button row the pinned bar is about 100 px tall (about 90 px with two lines), and the buttons sit on their own right-aligned row on compact but beside the text on desktop.
+      fix: Keep the compact bar to two lines by joining the muted note to the count, or put Discard and Save on the same row as the count.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-desktop-dark-3-change-typed-checked.png
+      seen: The bar text starts at about x=469 while text in the cards above starts at about x=473, and the compact bar text starts about 4 px left of the card text too.
+      fix: Use the same left inset as the card rows.
+    - severity: MINOR
+      dimension: platform
+      where: preview-compact-dark-3-change-typed-checked.png
+      seen: Discard, Save, Done, Cancel and Check are about 32 px tall on the 400 px layout, below the usual 44 px touch target, and the dimmed Save label is very faint in dark and especially in light.
+      fix: Raise button height to 44 px on compact and lift the dimmed label contrast to a readable level (about 3:1 or better).
+    - severity: MINOR
+      dimension: hierarchy
+      where: all desktop previews
+      seen: The left rail has a "Back" button at the very top and the page has "Back to plugins" two blocks below the title, so the same exit is offered twice, and four blocks (title, back link, project name and path, section label) pass before the first card at about 250 px of 1750 px.
+      fix: Drop one of the two back controls, or merge the project name and path into the title row.
+    - severity: MINOR
+      dimension: theme-size
+      where: set coverage
+      seen: Light is shown only for picture 3, and compact only for 1 to 8 and 12, so the blocker in light with many rows or the first-setup state in light, and compact 9 and 11, are not shown.
+      fix: Add light previews for the many-rows and first-setup states, and compact previews for 9 and 11.
+  limitations:
+    - "Looked at the main desktop and compact pictures plus desktop 2, 5, 6, 7, 11, 12, light 3 and compact 7 and light 3; did not open compact 1, 2, 4, 5, 6, 8, 10, 12 or desktop 1, 4, 8, 9, 10 (the picker pictures)."
+    - Static captures only, so I could not judge hover, focus, pinned-bar overlap on scroll, or the exact text colour values; the claim that the blocker is in normal text colour is judged by eye.
+    - Pictures are scaled (400x2300 shown at 348 px, 1280x2300 shown at 1113 px), so pixel sizes are approximate.
+    - Inventory (pass 1) of the main desktop picture, in order, from the 1280 px capture. Blocks above the first content: page title "pe-save · Project environment", link "Back to plugins" (about 100x16 px), project name "work" and path line, section label "1Password". Controls in order: icon-plus-text Back (top-left), link Back to plugins, text input (about 185x36), Check (about 67x32), password-style field (about 180x32), Save token (about 97x32, dimmed), Vault field (about 180x32), Done (about 60x32, dimmed), Cancel (about 70x32), Test (about 53x32), + Add (about 63x32), three field pills with chevron (about 358x38) and a not-equal chip (about 20x20), three icon X buttons (about 20 px), Import (about 68x32), textarea, Stop managing (about 123x32, red outline), Discard (about 75x32), Save (about 57x32, dimmed). Compact (400 px) has the same controls in the same order with variable rows stacked in two lines and the Save bar buttons on their own row.

@@ -1,0 +1,97 @@
+diff --git a/project-env/client/settings-screen.tsx b/project-env/client/settings-screen.tsx
+index 8c481a0..2ab2826 100644
+--- a/project-env/client/settings-screen.tsx
++++ b/project-env/client/settings-screen.tsx
+@@ -32,6 +32,8 @@ import {
+   testProject,
+   tokenStatus,
+   hasPendingSave,
++  replaceProject,
++  saveRule,
+   unsavedCount,
+ } from "../shared/config";
+ import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
+@@ -398,6 +400,7 @@ function SaveBar({
+   fieldless,
+   isSaved,
+   saving,
++  changing,
+   error,
+   theme,
+   onDiscard,
+@@ -408,13 +411,14 @@ function SaveBar({
+   fieldless: number;
+   isSaved: boolean;
+   saving: boolean;
++  changing: boolean;
+   error: string | null;
+   theme: Theme;
+   onDiscard(): void;
+   onSave(): void;
+ }) {
+   const pending = hasPendingSave(count, isSaved);
+-  const canSave = pending && !saving && unnamed === 0;
++  const { canSave, reason } = saveRule({ pending, saving, unnamed, changing });
+   return (
+     <View
+       style={[
+@@ -460,6 +464,7 @@ function SaveBar({
+                 ? "New project, not saved yet"
+                 : "No unsaved changes"}
+         </Text>
++        {reason ? <Text style={{ fontSize: 13, color: theme.colors.foreground }}>{reason}</Text> : null}
+         {unnamed > 0 || fieldless > 0 ? (
+           <Text style={{ fontSize: 13, color: theme.colors.foregroundMuted }}>
+             {unnamed > 0
+@@ -565,6 +570,7 @@ function ProjectEditor({
+         tokenInput.current?.replaceText("");
+         setTokenDraft("");
+       }
++      refs.reset();
+       check();
+     },
+     onError: (error, { token: pasted }) => {
+@@ -651,9 +657,8 @@ function ProjectEditor({
+     patch({ variables: draft.variables.map((v, i) => (i === index ? { ...v, ref } : v)) });
+ 
+   const save = async () => {
+-    if (unnamed > 0) return;
+-    const others = settings.values.projects.filter((p) => p.root !== draft.root);
+-    if (await settings.save({ projects: [...others, draft] }, revision)) {
++    if (unnamed > 0 || open.changing !== null) return;
++    if (await settings.save({ projects: replaceProject(settings.values.projects, draft) }, revision)) {
+       toast.show(`Saved ${basename(draft.root)}`, { variant: "success" });
+       onDone();
+     }
+@@ -1092,6 +1097,7 @@ function ProjectEditor({
+         fieldless={fieldless}
+         isSaved={isSaved}
+         saving={settings.saving}
++        changing={open.changing !== null}
+         error={settings.saveError}
+         theme={theme}
+         onDiscard={() => (count > 0 ? setConfirmDiscard(true) : onDone())}
+diff --git a/project-env/shared/config.ts b/project-env/shared/config.ts
+index 539a4d2..3a363b7 100644
+--- a/project-env/shared/config.ts
++++ b/project-env/shared/config.ts
+@@ -188,3 +188,19 @@ export function unsavedCount(saved: Project, draft: Project): number {
+ }
+ 
+ export const hasPendingSave = (count: number, isSaved: boolean) => count > 0 || !isSaved;
++
++export const connectionOpenReason = "Finish or cancel the connection change first";
++
++export function saveRule(input: { pending: boolean; saving: boolean; unnamed: number; changing: boolean }) {
++  const { pending, saving, unnamed, changing } = input;
++  return {
++    canSave: pending && !saving && unnamed === 0 && !changing,
++    reason: pending && changing ? connectionOpenReason : null,
++  };
++}
++
++export function replaceProject(projects: Project[], draft: Project): Project[] {
++  return projects.some((p) => p.root === draft.root)
++    ? projects.map((p) => (p.root === draft.root ? draft : p))
++    : [...projects, draft];
++}
