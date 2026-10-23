@@ -93,6 +93,7 @@ Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
 Map footprints: not needed: no journey story or open map question is attached to this rework task.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-10-23: the replacing amendment's effect was ruled by the Captain at validation, judged by validation cycle 2 at 782ac4c, and approved by him for delivery after he saw the result; the task is merged (40849b4), so a review of whether it withdraws what he approved would not change the build. Raised again at his UAT.
 ## Design
 
 ### PRFAQ
@@ -345,3 +346,4 @@ PASSED at 782ac4c: AC-1 as amended and AC-2 reproduce on my own isolated Paseo a
 
 External review rounds at the validation gate: Codex 1 (code review clean at 782ac4c, after Captain amendment 1 and the main merge). The local roborev gate is not an external round.
 delivery_gate.py check passed at 782ac4c before the ask (merge/ask-1.json); the Captain approved with 「准」 on 2026-10-23 and FO merged as 40849b4.
+FO response to observer.md: the amendment entry carries an FO-written Effect line and names no AC id under Supersedes, and the worker did not move AC-1 under a Superseded text line; the record stays as written and AC-1 is read with amendment 1. The Design FAQ on the in-row bubble is withdrawn by amendment 1. The OpenProject.edits item is a without-it question for the Captain, not a decline. Later amendments follow the template.
