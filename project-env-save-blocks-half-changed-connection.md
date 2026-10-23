@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-save-blocks-half-changed-connection
-pr: iamcxa/kc-paseo-plugins#29
+pr: pr-merge:29
 gates:
     version: 1
     records:
@@ -259,3 +259,8 @@ Not covered: the phone app, a real Keychain or 1Password, Kent's live Paseo, lig
 ### Summary
 
 The candidate does what AC-1 to AC-3 promise on a rebuilt isolated Paseo at 1280 and 400 px, including the refused-token path the implementer had not run, and the new unit tests and the runtime script both fail when the behaviour is removed. Recommend PASSED; delivery (merge) stays with the Captain.
+
+## FO records
+
+External review rounds at the validation gate: Codex 1 (code review clean at e5e41cc). The local roborev gate is not an external round.
+delivery_gate.py check passed at e5e41cc before the ask (merge/ask-1.json); FO reran validation/accept.sh before the ask (20 PASS, 0 failures). The Captain approved with 「准」 on 2026-10-23, keeping the save() guard the without-it item named, and FO merged as d540a04.
