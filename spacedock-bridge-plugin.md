@@ -7,6 +7,17 @@ profile: poc
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:spacedock-bridge-plugin:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:spacedock-bridge-plugin-backlog-1
+              briefing:
+                id: briefing:spacedock-bridge-plugin:backlog:attempt-1:revision-1
+                digest: sha256:868cd146b00d9a84b86831de32e71623afad82aa5bf0efde7fe6f09b52c2036b
+                room-ref: ./spacedock-bridge-plugin/review/backlog/briefing-1
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.

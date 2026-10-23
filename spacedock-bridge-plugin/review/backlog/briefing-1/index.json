@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:spacedock-bridge-plugin:backlog:attempt-1:revision-1",
+  "question": "Admit spacedock-bridge-plugin (POC) to implementation: move the Bridge POC into kc-paseo-plugins as spacedock-bridge, id paseo-spacedock-bridge, with no behaviour change?",
+  "artifacts": [
+    {
+      "id": "artifact:spacedock-bridge-plugin:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/994466a3a9a5af089b5c1e14cb03b0edbb01c164/spacedock-bridge-plugin.md",
+      "rev": "sha256:0e2cf981378f8cd27d2aca4c9c98ef6a4aa2aa12d180423f12db19ce00855f19",
+      "mediaType": "text/markdown",
+      "summary": "Seed task: move the Bridge POC from a local-only kc-claude-plugins worktree (dbee7baf) into a new kc-paseo-plugins plugin, register it in release-please and the README; POC profile, one implementation round, three ACs (build+tests, installs and runs, release registration)."
+    }
+  ]
+}
