@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:flywheel-grant-adr:backlog:attempt-1:revision-1",
+  "question": "Approve the backlog for the ADR that records your POC flywheel grant (stacked unmerged round PRs, FO records backlog and validation gates after its team is satisfied, you only try and give feedback, 10 rounds or 2026-11-06, superseding ADR 0006) to enter implementation, with its PR merged by you?",
+  "artifacts": [
+    {
+      "id": "artifact:flywheel-grant-adr:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/86a8873b98ca132d7cb41ac04bead34207dba1b8/flywheel-grant-adr.md",
+      "rev": "sha256:e6ad0e95ca5e82738afa7af2b2426d658f632e9e6ba28467748fb509319acc5b",
+      "mediaType": "text/markdown",
+      "summary": "Records the 「POC 堆疊版」 design approved in chat on 2026-10-23, Captain words verbatim. Never merges any round; ends with an outcome report for his planning (POC profile). FO keeps only backlog and validation gates; every merge and everything security, recording, release or outward stays his. He merges this ADR PR himself so the grantee does not make its own grant effective."
+    }
+  ]
+}
