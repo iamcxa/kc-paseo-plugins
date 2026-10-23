@@ -47,6 +47,7 @@ gates:
                 state: pending
 started: 2026-10-23T12:59:34Z
 worktree: .worktrees/spacedock-ensign-flywheel-grant-adr
+pr: 38
 ---
 
 The Captain replaces the ADR 0006 grant with a POC flywheel for spacedock-bridge: the FO builds and improves the product in rounds, each round stacked as an unmerged PR on the previous one, the Captain only tries each round and gives feedback, and the stack is reference material for whatever he plans after he ends POC.
