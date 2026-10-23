@@ -1,0 +1,19 @@
+{
+  "class": "other",
+  "head": "fd592248dbf8059f94fe08ea9ef57a859975b13a",
+  "model": "not run",
+  "necessity": "Kent, the only user; without it rows hide under the save bar, the no-field count leads nowhere, a resize erases the Test result and long names break mid-word, which both picky-user reviewers reported.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: 'PASSED for fc4b095: AC-1 to AC-3'",
+    "point: deferred: '`validation/screens/test-1280.png`, `test-400.png` (whole page after Test),'",
+    "point: fo-decline: '- roborev:1089 (Medium): if the window'",
+    "point: fo-decline: '- roborev:1092 (Medium): with two no-field'",
+    "point: fo-decline: '- roborev:1099 (Medium): `startTest` runs inside'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#33",
+  "sufficiency": "AC-1 (rows end above the save bar at 400x900, 1280x1400, 1280x800), AC-2 (the note visits the four no-field rows and wraps) and AC-3 (Test summary across 720 px including a running Test and a failed T",
+  "time": "2026-10-23T09:56:23Z",
+  "verdict": "ask"
+}
