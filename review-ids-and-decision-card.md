@@ -26,6 +26,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:review-ids-and-decision-card:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:review-ids-and-decision-card-validation-1
+              briefing:
+                id: briefing:review-ids-and-decision-card:validation:attempt-1:revision-1
+                digest: sha256:87ef04989e74c9e18a00e1a5a3f57867f18141e7e712e72de5ff57edcb94c857
+                room-ref: ./review-ids-and-decision-card/review/validation/briefing-1
 started: 2026-10-23T09:07:35Z
 worktree: .worktrees/spacedock-ensign-review-ids-and-decision-card
 ---

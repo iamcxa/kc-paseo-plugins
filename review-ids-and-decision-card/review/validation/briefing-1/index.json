@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:review-ids-and-decision-card:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #34 at a8d871d8 (review repo#number links, decision card with decision before discussion, Paseo-style composer with decisions left of send) so the task routes to done and PR #34 waits for merge?",
+  "artifacts": [
+    {
+      "id": "artifact:review-ids-and-decision-card:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/d5e93ffa1c5e893f2a1f34977950d05e6af1181d/review-ids-and-decision-card.md",
+      "rev": "sha256:ff2ae420f255d0f11a7151b95a60a23f64d30c1c500d5514fda6da671216240b",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED AC-1..AC-3 at a8d871d8 with no Material finding; FO reran steps 1-4 in a fresh shell (69/69 tests; removing the reason check fails 1 test). Relay text, reason rules, claim/release unchanged (relay.ts and decisions.ts untouched). Extra: gate wait time now from briefing preparation. Polish: focus outline wider than the box; expanding earlier messages stays scrolled to newest. Not run: live send to an FO."
+    }
+  ]
+}
