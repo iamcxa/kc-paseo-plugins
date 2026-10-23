@@ -182,3 +182,27 @@ Add opens the picker and the row is named from the field by one pure rule built 
 - The preview opens the picker before the connection check finishes and then never loads the vault; the picker's contract (Interfaces) requires loading when the check finishes. Not built in the preview.
 - The `preview:` field of both review files was corrected from `design/...` to `project-env-add-variable-one-step/design/...` after the review, because my brief gave the checker's wrong path; no finding was edited.
 - Machine dependencies: Paseo.app 0.12.0 CLI and `app-dist`, Node 24, `agent-browser`, python3; scripts hardcode `/tmp/pe-add-step` and port 6897. Teardown: daemon stopped, browser session closed, `/tmp/pe-add-step` removed; Kent's live `paseo-project-env` plugin and `~/.paseo` were not touched (listed only). No secret was read and no op or security command was run outside the fakes.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, including every interface it names for its sibling tasks and the ruled recommendation (a name is editable only while it is being added).
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/28, branch `spacedock-ensign/project-env-add-variable-one-step` on base 28e2b17 (commits 505de94, d231c68). `nameFromLabel` and `addNote` in `shared/config.ts` build on `refusal`; picker add mode (`onPick({ref,item,label})`, `onAddByName`, field note, search box live while loading or unavailable); rows addressed by position; Save off with "Name N variables first"; Test sends named rows; "+ Add" is the only change to the section header's trailing slot (title, summary and Test left to #27). Every change to the draft goes through `openProject.update`.
+- DONE: Land tests so each acceptance criterion passes with the evidence its clause names and fails when its behaviour is removed, plus whole-page screenshots of the built change at desktop and 400 px.
+  AC-1 `test/name-from-label.test.ts`: kept, converted, refused (reserved, used, converted-to-reserved or used, no letters) tables. Falsified: conversion removed fails 11, check before conversion fails 11, returning the refused candidate fails 6. AC-2 `test/add-variable.test.ts`: a name-only row passes the settings schema; `resolveProject` gives `missing-field` and makes no 1Password read call. Also: an unnamed row is its own unsaved change (dropping that count fails 1), the picker note yields to "used by". Screenshots: 33 whole-page pictures from an isolated Paseo 0.12.0 (own home, port 6899, fake op/security/git) in `project-env-add-variable-one-step/implementation/`, `build-{desktop,compact}-01..15` numbered like the design previews, plus `build-desktop-16..18` (refused row named by Enter and Save on; name-only row before and after Test). A name-only row saved `{"name":"NEW_API_KEY","ref":""}` to the settings file.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, `design_surfaces.py check` and `doc_impact.py`, then open the Draft PR.
+  `npm test` 240 pass, 0 fail; typecheck clean; `design_surfaces.py check`: "design surfaces presentable". Roborev gate (exit 1, not rerun: no fix in scope): `findings on d231c68dd; evidence=roborev:1058`. `comment_ratio.py`: "code lines 404, comment lines 2, 0.5%; maximum 5% met". `doc_impact.py` lists one document: `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md`: unaffected: the reserved set and `isReservedName` are unchanged; Add refuses through the same `refusal`. No ADR added; no Number guards section.
+
+### Summary
+
+"+ Add" opens the picker; picking a field adds a row named by one rule (kept, converted and selected, or empty with the reason), and typed text can add a name with no field. Names are not editable after commit, as recommended.
+
+### Findings for FO
+
+- roborev:1058 (Medium), declined as design scope: the typed name and the naming focus are lost when Paseo remounts the screen at 720 px. The approved design (`project-env-draft-survives-remount`) stores neither; a converted name is already in the draft, so the row keeps it as text.
+- AC-2 gap: after Test a row with no field shows the red mark but not "field not found in the vault". `variableLine` returns no line for an empty reference and `test/variable-name.test.ts` pins that; the marks belong to #27. The server result (`missing-field`) is proven in `test/add-variable.test.ts`.
+- Merge with #27: both set `trailing` on the same `SettingsSection`; one-hunk conflict in `client/settings-screen.tsx`. The Test action row is still in the card on this branch.
+
+### Limits and teardown
+
+- Dark theme only; light, 768 px and the on-screen keyboard not drawn. The browser run used throwaway agent-browser scripts removed with the temp dir, so it is not repeatable from the repo; machine dependencies: Paseo.app 0.12.0 CLI and `app-dist` (needs `features.webUi.enabled`), Node 24, `agent-browser`, python3.
+- Teardown: daemon stopped, browser session closed, temp dirs removed. Kent's live plugin and `~/.paseo` were not touched; no secret read; no 1Password or Keychain command ran outside the fakes. Comment lines added: 2, each states a fact the code cannot.
