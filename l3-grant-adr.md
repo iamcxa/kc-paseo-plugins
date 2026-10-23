@@ -4,6 +4,17 @@ status: backlog
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
+gates:
+    version: 1
+    records:
+        - id: gate:l3-grant-adr:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:l3-grant-adr-backlog-1
+              briefing:
+                id: briefing:l3-grant-adr:backlog:attempt-1:revision-1
+                digest: sha256:3aa03a547939589e41f143a0de52cff5b9bf57eb26c03a18500a85992214bb3c
+                room-ref: ./l3-grant-adr/review/backlog/briefing-1
 ---
 
 The Captain grants the Bridge FO authority to decide three classes of spacedock-bridge POC decisions by record, under kc-dev-flow-2 ADR 0011's L3 rule ("A class of decisions moves to L3 only by a Captain grant recorded as its own ADR"), as the first dogfood of what should become dev2's authorization framework.

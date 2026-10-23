@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:l3-grant-adr:backlog:attempt-1:revision-1",
+  "question": "Approve the backlog for the ADR that records your L3 grant over spacedock-bridge POC gates (three classes, kept-with-Captain list, per-round records, judgement numbers, round log on the state branch) to enter implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:l3-grant-adr:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/dd302c6f623a3cfdf3622fabc84adb10d4a79821/l3-grant-adr.md",
+      "rev": "sha256:69dceb32e22c5f131baa9227165bb5a50f1afc04a2f822286ca242f4aefe5017",
+      "mediaType": "text/markdown",
+      "summary": "Records the dogfood design the Captain approved on 2026-10-23 as a local ADR under kc-dev-flow-2 ADR 0011 L3. The grant takes effect only when the ADR PR merges; this task's own gates stay with the Captain. Round summaries go to _l3-dogfood/rounds.md on spacedock-state/dev2-poc for the dev2 FO to read, with no per-round messages."
+    }
+  ]
+}
