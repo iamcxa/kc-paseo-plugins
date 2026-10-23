@@ -193,3 +193,50 @@ Save is blocked with a one-line reason in the save bar from the press on Change 
 ### Summary
 
 Save is off with a reason line while Change is open, a saved project is replaced where it sits, and storing a token resets the field list; all three behave on the built branch as in the spike, at 1280 and 400 px. No design change, no new store field or RPC. Limits: the refused-token path and the phone app are not run. Note: the 400 px ac1 run first hit a stale browser session (Paseo "Connect to this host" page) and was rerun on a fresh one; the reported run is the clean one.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate e5e41ccdd9bea76d09d12fe0cb8c58106eb18f8d (PR #29, base main 40849b4) against AC-1 to AC-3 and the approved design on an isolated Paseo built with the ux-review-a5-polish harness; give a verdict.
+  Verdict: PASSED (recommended). Built the candidate (plugin copy byte-identical to the worktree's client and shared) on the harness plus its fake account b (`spike/harness/setup.sh`), own S `/tmp/pe-val-save`, port 6951, own agent-browser session; torn down, port closed, `/tmp/pe-astra` and 6920 untouched. Worktree clean at e5e41cc.
+- DONE: Save disabled with its reason while Change is open; projects.json unchanged after pressing Save then; stays disabled across a 720 px round trip; works after Done and after Cancel.
+  Observed at 1280 and 400 px: Change open untouched and with an unchecked name typed, Save disabled and "Finish or cancel the connection change first" in the bar; pressing Save left the projects.json shasum equal (both sizes, both states); disabled after 1280-700-1280 and 400-1000-400-1100-400 resizes with the typed text kept; enabled with no reason after Cancel and after Done, and Save then wrote the file. Nothing to save: Save dim and no reason line. Never-connected project (work-bare) with an edit: Save enabled, no reason.
+- DONE: A saved project keeps its place in the list.
+  Saved the first, third and second of four projects (one run each at 1280/400): order stayed `work, work-empty, work-many, work-bare` every time; screenshots of the list after Save at both widths.
+- DONE: After a token is stored the next field press reads the vault again.
+  Fake op call log: first press 1 `item list`; second press with no token change 0 new reads (cached); store token b under `sa-a` then press: list ROTATED not SENTRY, a new read; store token a again, press: SENTRY, a new read. A refused token (unknown account, "Not saved: 1Password rejected the token", keychain unchanged) left the list and the read count unchanged: the refused path the implementer left unrun is now run.
+- DONE: Confirm the new unit tests fail when their behaviour is removed; check the rest of the screen still works.
+  `save-rule.test.ts` 6 of 6 pass; mutation on a scratch copy of `shared/config.ts`, each restored: drop `&& !changing` fails "blocks Save with a reason while the connection change is open"; `reason: null` fails the same test; reason without `pending` fails "gives no reason when nothing is pending"; filter-and-append in `replaceProject` fails "keeps a saved project where it was". Full `npm test` 262 of 262, `npm run typecheck` clean. The three wiring sites (the `changing` prop, the `save` guard, `refs.reset()`) have no unit test; with all three removed together in a scratch build, the runtime script showed Save enabled during Change, projects.json changed by pressing Save, and the stale SENTRY list after token b. Smoke on the rest of the screen: Test summary "All 3 set", the field picker opens, Discard asks "Discard 1 unsaved change?", Done on an untouched Change returns to Connected.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run adr_lint with exit code.
+  Script below, run once from a fresh `env -i` shell: 0 failures (20 checks incl. unit and typecheck). `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9`: "5 ADR file(s) checked, 0 legacy", exit 0 (run in the worktree and at the repo root). Also: comment_ratio 40849b4..e5e41cc "code lines 55, comment lines 0, 0.0%" exit 0; dispatch_records "3 dispatch record(s) complete" exit 0; design_surfaces check "presentable" exit 0; doc_impact lists ADR 0004 and the implementation report records `unaffected: <reason>` for it (the reason holds: the diff does not touch reserved names).
+- DONE: Look at the whole-page screenshots at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  Screenshots `evidence/validation-{desktop,compact}-dark-*.png` (6 plus `validation-compact-dark-many-change-open.png`). See the two sections below.
+
+### Minimal acceptance script
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-save-blocks-half-changed-connection/validation/accept.sh` (needs node, npm, python3, `agent-browser` and the `paseo` CLI on PATH; builds an isolated Paseo on port 6961 under `/tmp/pe-accept` with fake op/security/git; real Keychain, 1Password and `~/.paseo` untouched; ran longer than my 120 s foreground limit, not otherwise timed). It prints PASS or FAIL per check and ends `failures: 0`, exit 0:
+1. Unit tests `test/save-rule.test.ts` print `pass 6`, `fail 0`; typecheck prints PASS.
+2. It builds the candidate into the isolated Paseo.
+3. At 1280 and at 400 px, with Change open and an unchecked account name typed: Save disabled with the reason line; pressing Save leaves projects.json unchanged; still disabled after a window-size round trip; after Cancel and after Done Save is enabled and writes the file.
+4. Saving the first project and then the third of four leaves the list order `work, work-empty, work-many, work-bare`.
+5. Token b stored under account name `sa-a`: the next field list shows ROTATED not SENTRY; a refused token leaves the list as it was. It then removes the isolated Paseo.
+Not covered: the phone app, a real Keychain or 1Password, Kent's live Paseo, light theme, the 720 px breakpoint itself (resizes go 1280-700-1280 and 400-1000-400), CI on PR #29.
+
+### What the Captain should see
+
+- 1280 px, Change open with `sa-typo` typed and checked ("No token in Keychain"): the connection card is open at the top, the variable rows and prompt are unchanged, and the pinned bar reads "2 unsaved changes" with the second line "Finish or cancel the connection change first"; Discard is live, Save is dim.
+- 400 px, same state: one column, the reason line sits under the count in the bar, Discard and Save wrap to a row below it. On a long project (work-many) the bar shows three text lines (count, reason, "4 with no field picked yet") then the buttons; nothing overlaps.
+- After Cancel the connection card collapses to "Connected, sa-a · Dev", the bar reads "No unsaved changes" or the count, no reason line, Save lit when there is a change. After Save the list shows the four projects in their old order.
+- Two things a reader may trip on: the count under Change shows 1 when only the typed name differs and 2 with a prompt edit as well (consistent, not a defect); and Save looks the same dim style as a Save with nothing to save, only the reason line tells them apart.
+
+### Unverified obligations
+
+- Phone app (sticky bar skipped there), real 1Password and Keychain, Kent's own Paseo and plugin: not run.
+- The 720 px remount is exercised by resizes across it, not observed as a remount; the typed text and the block survived.
+- The `open.changing !== null` guard inside `save()` has no individual falsifier: the disabled button already stops the press, and my mutation removed it together with the prop. Without-it unanswered: Kent rules (the design keeps it so a stale press cannot write).
+- Light theme: not rerun by me (implementer's `built-*-light-3` screenshots only).
+- PR #29 CI and review state: not checked.
+- No finding reaches Material or Deferred risk; no Polish finding is raised.
+
+### Summary
+
+The candidate does what AC-1 to AC-3 promise on a rebuilt isolated Paseo at 1280 and 400 px, including the refused-token path the implementer had not run, and the new unit tests and the runtime script both fail when the behaviour is removed. Recommend PASSED; delivery (merge) stays with the Captain.
