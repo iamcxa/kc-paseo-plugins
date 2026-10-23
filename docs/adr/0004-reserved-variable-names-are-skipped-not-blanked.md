@@ -43,6 +43,12 @@ is now a table of exact names and one prefix, still behind one predicate,
 `isReservedName` in `project-env/shared/config.ts`, which has a reason for each class,
 `reservedReason`.
 
+**Amendment, 2026-10-23** (Captain, polish round 2, 「准」): the Conductor import is removed,
+so a name enters a project only through Add or an edit of the variables card. Add and the
+variables card still use the same table, and a reserved variable already saved stays, shows
+"Not applied" and is skipped at session open; the Consequences line that names the import
+no longer applies.
+
 ## Consequences
 
 - A reserved name never reaches `op`, and the agent keeps the value it already has.
