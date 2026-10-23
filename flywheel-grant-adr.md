@@ -67,6 +67,13 @@ Verified by: every 「…」 quote in the ADR byte-matches this task file; the A
 Alignment: not needed: the Captain approved the design in chat on 2026-10-23; this task records it.
 Release review: not needed: spacedock-bridge has no journey map yet.
 
+## Captain amendments
+
+### Amendment 1 — 2026-10-23, chat
+Captain: 「可以，我授權你在飛輪過程中推送及開 ＰＲ」 (chat, after roborev:1110)
+Asked: Do you authorize me to "push each round's branch and open stacked PRs (never merge)", added to this ADR?
+Supersedes: none
+
 ## Stage Report: implementation
 
 - DONE: One ADR in docs/adr/ at the next free number (0008 unless taken; 0007 is held by the project-env FO's local branch) records the flywheel grant: every 「…」 quote byte-matches the task file, each Scope bullet's terms are present and nothing they do not contain, ADR 0006 is named as superseded, and the README exception is limited to the flywheel's backlog and validation gates with no merge granted (AC-1)
