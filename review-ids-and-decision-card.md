@@ -84,3 +84,16 @@ Built on 3 commits (75c2558, 54c1b21, aaade9a) on spacedock-ensign/review-ids-an
 - `design_surfaces.py check` exits 1 on the FO section: "'## FO alignment' needs a non-empty 'Surfaces:' line" and "needs a 'Visible change:' line". I did not edit the FO section.
 - Limits: Enter/↑ are proven by handler tests, not by sending to a live FO, and the on-screen decision relay was not run (no Claude login in the isolated HOME). The app in my headless browser auto-registered the live daemon (localhost:6767) as a host on its own; I took no action against it (board URL only for my server id).
 - Behaviour change beyond scope text: gate wait time on the board queue now uses `preparedAt` (the intended source) because of the attachGates fix.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Merge origin/main (012c91a, which includes the review wake fix PR #35 in spacedock-bridge/shared/reviews.ts) into spacedock-ensign/review-ids-and-decision-card with a merge commit, not a rebase; resolve any conflict keeping both the wake fix (wakeMessage, routableLine) and this task's reviewRef
+  Merge commit a8d871d, no conflict; `shared/reviews.ts` carries both `routableLine`/`wakeMessage` and `reviewRef`. No other change.
+- DONE: npm test and npm run typecheck in spacedock-bridge/ pass on the merged head, with the counts
+  `npm test` 69 pass, 0 fail (66 on the branch plus 3 from main's reviews tests); `tsc --noEmit` exit 0.
+- DONE: Roborev gate rerun on the merged head against base 012c91a5ddbc484661ff1646c117d7249789b493 with its evidence= or incomplete: line in a new implementation report section, and the merged head pushed to PR #34
+  `clean on a8d871d8e; evidence=roborev:1100`. Pushed; PR #34 head a8d871d, still Draft, mergeable.
+
+### Summary
+
+Branch update only; no behaviour change beyond what main brings.
