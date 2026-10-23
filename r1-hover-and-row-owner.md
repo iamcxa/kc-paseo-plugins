@@ -4,6 +4,17 @@ status: backlog
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
+gates:
+    version: 1
+    records:
+        - id: gate:r1-hover-and-row-owner:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r1-hover-and-row-owner-backlog-1
+              briefing:
+                id: briefing:r1-hover-and-row-owner:backlog:attempt-1:revision-1
+                digest: sha256:f8353a435da4aed6de76ee8a7838b2d1dea9c4073775a9541af62c8dc01f0175
+                room-ref: ./r1-hover-and-row-owner/review/backlog/briefing-1
 ---
 
 Round 1 of the L3 dogfood (ADR 0006): the Captain's UAT of PR #34 found that nothing on the Bridge shows it can be clicked, the three decision buttons look alike, the By decision rows do not say which FO an item belongs to, and an FO's question disappears from By decision when that FO also has a gate.

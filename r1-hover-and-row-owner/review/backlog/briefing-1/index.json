@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r1-hover-and-row-owner:backlog:attempt-1:revision-1",
+  "question": "Approve the backlog for round 1 (hover/press states, distinct decision buttons, FO names on By decision rows, keep an FO's question when it also has a gate) to enter implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:r1-hover-and-row-owner:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/0554569ae7e77256bac5ea8ca657c2b135c84237/r1-hover-and-row-owner.md",
+      "rev": "sha256:2b75c652377132f5894d6b61120c741f0131f1f48abca48eb603182a155fa1fb",
+      "mediaType": "text/markdown",
+      "summary": "L3 round 1 under ADR 0006, from the Captain's PR #34 UAT. Client styling plus one buildQueue rule; AC-1 screenshots of states, AC-2 a test that a gate and a separate question both appear. Non-goals: briefing language, closed FOs, virtual office."
+    }
+  ]
+}
