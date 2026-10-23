@@ -597,7 +597,7 @@ function ProjectEditor({
     bubbleOrigin.current?.measure((_x, _y, _w, _h, originX, originY) =>
       setBubbleAt({
         left: anchor.pageX + anchor.width - BUBBLE_WIDTH - originX,
-        top: anchor.pageY + anchor.height / 2 + 18 - originY,
+        top: anchor.pageY + anchor.height + 4 - originY,
       }),
     );
   const markEvent = (name: string, type: MarkEvent["type"], anchor: Anchor) => {

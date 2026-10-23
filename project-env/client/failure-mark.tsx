@@ -28,10 +28,9 @@ export function FailureMark({
   const measured = (use: (anchor: Anchor) => void) =>
     target.current?.measure((_x, _y, width, height, pageX, pageY) => use({ pageX, pageY, width, height }));
   return (
-    <View style={{ width: MARK_SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
+    <View ref={target} style={{ width: MARK_SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
       {reason !== null ? (
         <Pressable
-          ref={target}
           accessibilityRole="button"
           accessibilityLabel={`${name} failed. ${reason}`}
           onPress={() => measured(onPress)}
