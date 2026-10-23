@@ -170,3 +170,26 @@ Teardown (2026-10-23): daemon on port 6931 stopped, browser session closed, `/tm
 ### Summary
 
 Save is blocked with a one-line reason in the save bar from the press on Change until Done or Cancel, a saved project is replaced where it sits, and a stored token drops the loaded field list; all three were built as a spike on main 40849b4 (about 30 changed lines, no new store field or RPC), drawn at 1280 and 400 px, and shown to fail on unpatched main. The design review found no MAJOR finding; the reason slot is one line under the count so Task B's no-field note sits beside it. No Captain decision remains.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, starting from the spike diff in this task's spike/ folder.
+  Spike diff and `save-rule.test.ts` applied unchanged on main 40849b4; commit e5e41cc on `spacedock-ensign/project-env-save-blocks-half-changed-connection` (3 files, +66/-4).
+- DONE: AC-1 While Change is open with an unchecked account name typed, Save is disabled and the save bar says why; after Done or Cancel, Save works again, also after the window crosses 720 px.
+  `save-rule.test.ts` "blocks Save with a reason while the connection change is open" fails when `&& !changing` is removed (mutation run, 1 failed). `evidence/ac1-run-1280.txt` and `ac1-run-400.txt`: Save disabled with the reason line, `projects.json` unchanged after pressing Save, still disabled after a 700 px round trip, enabled after Cancel, file changed after Save.
+- DONE: AC-2 Saving any project leaves the project list in the same order.
+  `replaceProject` "keeps a saved project where it was" fails when the entry is filtered and appended (mutation run, 1 failed). Both ac1 runs: order `work, work-empty, work-many, work-bare` before and after saving the second.
+- DONE: AC-3 After a token is stored, the next press on a field opens a list read again from the vault.
+  `evidence/ac3-run.txt`: list held SENTRY (old) before; after storing a token for fake account b under `sa-a` it held ROTATED and not SENTRY. Falsified by removing `refs.reset()` (unpatched main kept SENTRY in the spike run). Refused-token path: by source only, not run.
+- DONE: Whole-page screenshots of the built change at desktop and 400 px, saved in the task folder.
+  `evidence/built-{desktop,compact}-dark-1..8`, `built-desktop-dark-9/10` (picker before and after token), `built-*-light-3`; isolated Paseo 0.12.0 on own S `/tmp/pe-save-impl`, port 6941, torn down (removed, port closed); not /tmp/pe-astra or 6920.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, design_surfaces check and doc_impact.
+  `npm test` 262 of 262 (incl. 6 new); typecheck clean; roborev `clean on e5e41ccdd; evidence=roborev:1078`; design_surfaces: "design surfaces presentable"; comment_ratio: "code lines 55, comment lines 0, 0.0%", max 5% met.
+- DONE: Affected documents (doc_impact base 40849b4 vs e5e41cc).
+  `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md`: unaffected: it records reserved variable names in `isReservedName`; this change touches the Save rule, project order and field-list reset only.
+- DONE: Open the Draft PR.
+  https://github.com/iamcxa/kc-paseo-plugins/pull/29 (Draft, base main, from 40849b4; the Captain's standing grant quoted in the dispatch).
+
+### Summary
+
+Save is off with a reason line while Change is open, a saved project is replaced where it sits, and storing a token resets the field list; all three behave on the built branch as in the spike, at 1280 and 400 px. No design change, no new store field or RPC. Limits: the refused-token path and the phone app are not run. Note: the 400 px ac1 run first hit a stale browser session (Paseo "Connect to this host" page) and was rerun on a fresh one; the reported run is the clean one.

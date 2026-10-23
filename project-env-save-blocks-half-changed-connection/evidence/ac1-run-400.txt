@@ -1,0 +1,12 @@
+[agent-browser] launched browser
+✓ Done
+order before: [('work', 3, ''), ('work-empty', 0, ''), ('work-many', 12, ''), ('work-bare', 1, '')]
+[400] Change open, typo checked: Save disabled=1  bar: "es its variables and default prompt now, without Save. The Keychain token stays. | Stop managing | 2 unsaved changes | Finish or cancel the connection change first | Discard | Save"
+[400] after pressing Save during Change: projects.json unchanged=yes
+✓ Done
+✓ Done
+[400] after crossing 720 px: Save disabled=1  bar: "es its variables and default prompt now, without Save. The Keychain token stays. | Stop managing | 2 unsaved changes | Finish or cancel the connection change first | Discard | Save"
+[400] after Cancel: Save disabled=0  bar: ". | Danger zone | Stop managing this project | Deletes its variables and default prompt now, without Save. The Keychain token stays. | Stop managing | 1 unsaved change | Discard | Save"
+[400] after Save: projects.json changed=yes
+order after:  [('work', 3, ''), ('work-empty', 0, 'Use the stag'), ('work-many', 12, ''), ('work-bare', 1, '')]
+Projects|work|3 variables · sa-a|Edit|work-empty|0 variables · sa-a|Edit|work-many|12 variables · sa-a|Edit|work-bare|1 variables · no service account|Edit|
