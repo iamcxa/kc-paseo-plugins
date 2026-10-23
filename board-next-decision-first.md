@@ -59,3 +59,21 @@ Verified by: `npm test` in `spacedock-bridge/` with a test that the next card is
 
 Alignment: not needed: the Captain chose the layout himself from a side-by-side mockup on 2026-10-23.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: The By decision view renders the chosen layout: a larger next card on top for the first buildQueue item, the rest as one-line rows grouped under Comms officer / Reviews / Gates / Questions with counts and the wait time on the right, with a screenshot from an isolated Paseo daemon (AC-1)
+  Commit abba4df on spacedock-ensign/board-next-decision-first (PR #32). Screenshot: `board-next-decision-first/ac1-by-decision.png` in this state checkout (isolated daemon, own --home and HOME, port 6790, stopped and home deleted afterwards; live daemon untouched). It shows the next card, Reviews 1, Gates 3, Questions 2; tapping a gate row opened its decision card. No Permission or Comms officer row in the shot: the isolated HOME has no Claude login, so no agent could raise either. Those two paths are verified by typecheck only. "Permissions" is a section I added so a second permission item is not dropped; it is not in the mockup.
+- DONE: npm test in spacedock-bridge/ passes, with a new test that the next card is the first buildQueue item and the remaining rows keep its order inside each section (AC-2)
+  `npm test`: 44 pass, 0 fail (was 42); `npm run typecheck` clean. Test "the next card is the first queue item..." asserts `next === queue[0]`, section order and that `sections.flatMap(items)` deep-equals `queue.slice(1)`; it fails if `splitQueue` reorders, drops or duplicates an item. Second new test covers the empty and single-item queue. `isNew` and its assertions were removed with the NEW mark (its only consumer).
+- DONE: Roborev gate run on the committed candidate with its evidence= or incomplete: line in the report, and a Draft PR open
+  `findings on abba4dfb9; evidence=roborev:1086`. Run once; the one finding is a spec conflict, not fixed (below). Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/32. comment_ratio: code lines 97, comment lines 0, 0.0% (max 5% met). doc_impact: 0 documents mention what changed. number_guards/ADR: not applicable (no db surface, no decision record).
+
+### Summary
+
+Only the `decision` branch of `client/board.tsx` changed, plus `splitQueue` in `shared/queue.ts` and its tests; the By FO view and decision card are unchanged. profile poc: no boundary-crossed; cleanup done (isolated daemon stopped, its home and fixtures deleted).
+
+### Findings for FO
+
+- Needs decision (roborev:1086, Medium): the scope says the removed "GitHub ↗" button is "still reachable from the decision card or the FO chat". In code it is not: `client/decision-card.tsx` has no PR link and `openItem` passes no review to it. The only remaining link is on the By FO view's Review requests list. Options: accept as is, or add a link to the decision card (outside the stated scope). I built what the scope says and did not add it.
+- Browser note: the gstack headless browser used for the screenshot now has a saved host entry localhost:6790 (dead); harmless, not removed.
