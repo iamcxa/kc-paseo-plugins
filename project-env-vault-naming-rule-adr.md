@@ -1,7 +1,7 @@
 ---
 id:
 title: ADR 0005 records how agent vaults, items and fields are named
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 — approves the ADR 0005 amendment draft into implementation and, as the gate question stated, confirms the relayed words 「注意應該是建議守則不是強迫性的，直到我們設計一個 skill 讓獨立的 agent 做這件事，且可以確保完全保密完全不外洩」 as his.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-23T05:48:10Z
 ---
 
