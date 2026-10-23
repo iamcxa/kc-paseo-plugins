@@ -172,3 +172,18 @@ Reconciling ADR 0005's title ("An agent lays out vault items; a person reviews t
 ### Summary
 
 (Revised after the relayed Captain input above: rules are advisory, eight-row table.) The rule lands as an amendment inside ADR 0005 (rules in Decision, facts in Consequences), with no new number. Two of three facts were re-checked in this stage (`@` not allowed and case-insensitivity against the 1Password reference page; rename breakage against `splitRef`); the `op` empty-password-field fact (op 2.30.3) is taken from the 2026-10-23 hand-off and not re-run, since this task forbids `op`. Limits: the connective wording of rule 1's reason and the reasons for rules 2 to 4 are mine, for the Captain to read at the gate.
+
+## Stage Report: implementation
+
+- DONE: Apply the approved draft (Edit 1 and Edit 2 under "Draft text for ADR 0005") to docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md exactly; change no other file.
+  Commit 6f44533 on spacedock-ensign/project-env-vault-naming-rule-adr: Amendment paragraph + rules 1-4 + closing paragraph after "(one API Credential item per service).", and the Consequences bullet replaced, text as drafted; 14 insertions, 2 deletions.
+- DONE: Prove the acceptance criterion with its evidence steps (adr_lint exit 0, diff lists only the 0005 file, eight-row table ticked).
+  `adr_lint.py docs/adr --since 60799d9 --require 5` -> "5 ADR file(s) checked, 0 legacy", exit 0; `git diff --name-only 40849b4` -> only the 0005 file. Table: rows 1-4 = rules 1-4 with reason, 5-7 = three facts in Consequences, 8 = guidance/no-agent-authority/independent-skill sentences; all present. Re-checked `sameName`, `splitRef`, `find-generic-password -s` in code (still match). Op 2.30.3 fact not re-run (needs Captain sign-in).
+- DONE: Run doc_impact.py <base> <candidate>, then open the Draft PR with a conventional title scoped project-env (docs).
+  doc_impact: "0 document(s) mention what changed", exit 0. Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/30 titled "docs(project-env): ADR 0005 records how agent vaults, items and fields are named".
+- DONE: roborev gate.
+  `clean on 6f445333b; evidence=roborev:1079`
+
+### Summary
+
+ADR 0005 amended in place as drafted and approved; lint passes and only that file changed. Residuals recorded in the PR body: op 2.30.3 fact not re-run, reasons for rules 2-4 are drafted not Captain-quoted, and the ADR title still reads as present behaviour.
