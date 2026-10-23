@@ -7,6 +7,12 @@ Reader: the kc-dev-flow-2 maintainer FO reads this file when it chooses; the Bri
 Granted classes (in force only after the grant ADR merges): (1) spacedock-bridge POC backlog gate; (2) POC validation gate with no Material finding; (3) merge and plugin reload after an approved validation.
 Window: 10 rounds or 2 weeks, whichever first. Demote a class to L0 on any reversal or observer violation on a conn-recorded gate. Promote to a package ADR only with at least 5 decisions per class, 0 reversals, 0 violations. Drop if two classes demote, or if UAT keeps catching what validation missed at the pre-grant rate.
 
+Working rule: UAT probing and triage. Captain, 2026-10-23: 「就這樣做」, answering 「要不要採用這個 UAT 和分診流程？」 after this was presented:
+- At each UAT, after the UAT card, FO asks at most three option questions (AskUserQuestion): one per change ("is this what you wanted"), one on what bothers him most (options mined from validation limits, roborev polish, open gaps, plus his own words), one on what to fix next.
+- His words, his option answers and his screenshots go into "Next-round candidates" in that round's section, each with its source.
+- Between rounds: two picky-user personas on different models, Astra for a concrete approach and cost per candidate, and chief-engineer for order by value and size; FO then picks the next theme under the grant and writes why in the round section.
+- Cost of triage is recorded per round; if too high, triage drops to every other round.
+
 Per-round section format:
 ## Round N — <date> — <task slug>
 - Gates: <gate> by <actor>, ledger row <...>
@@ -16,6 +22,8 @@ Per-round section format:
 - Observer: <result>
 - Cost: Captain messages <n>, worker tokens <n>
 - Package gaps: <none | items>
+- Next-round candidates: <item — source>
+- Triage: <roles run, their ranking, theme picked and why, cost>
 
 ## Round 0 — 2026-10-23 — bootstrap (l3-grant-adr, gates still the Captain's)
 - Gates: none recorded under the grant (the grant is not in force until ADR 0006 merges).
