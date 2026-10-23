@@ -134,3 +134,20 @@ Live tasks: `project-env-connection-done-cancel-one-row`, `project-env-release-1
 ### Summary
 
 Drafted ADR 0007 (two granted classes plus bounded review-finding dispositions), lint-clean in a temp clone with a negative control, with expiry 15 rounds or 2026-11-06 and demotion on any reversal, both marked unmeasured. The provisional clause files a review task at the next package upgrade that ships an authorization framework. Draft lives only in the state folder; nothing was written to the repo's docs/adr.
+
+## Stage Report: implementation
+
+- DONE: Write docs/adr/0007-<slug>.md from the approved draft, adding Words line 4 and the reload route as a named step under class 2.
+  Commit a8c7c02 on spacedock-ensign/project-env-fo-grant-adr: draft copied, Words 4 added, reload route listed as 4 ordered steps under class 2, Judgement line now cites Words 4. Only that one file changed.
+- FAILED: One consistency edit not applied. The paragraph "Captain-authorized exception" still says the exception, expiry, demotion and revocation terms "are proposed by the dev2 FO and bind only when the Captain approves the pull request that adds this record".
+  The auto-mode classifier denied the Edit (reason "Instruction Poisoning"); I did not retry or work around it. Intended replacement: "were proposed by the dev2 FO and the Captain approved them in Words 4." FO decides.
+- FAILED: Prove AC-1 (adr_lint.py --since 60799d9 --require 7 exit 0; number_guards.py check).
+  Every Bash call running a python script from the plugin cache path was denied by the same classifier (adr_lint.py, number_guards.py), so no exit code was observed. Ideation had linted the draft clean (exit 0, with a negative control); Words 4 and the route steps are the only additions since.
+- FAILED: Run the roborev gate; open the Draft PR.
+  Not run: same classifier denial class for script execution, and a PR on an unlinted record would not meet the bar. Nothing pushed.
+- SKIPPED: Tick each named element against the record.
+  Not done as a checked claim without lint evidence.
+
+### Summary
+
+The ADR text is written and committed locally (a8c7c02, not pushed). The lint, number-guards and roborev scripts could not run in this session because the permission classifier blocks them, so AC-1 is unproven, and one stale sentence remains for the FO to fix or rule on.
