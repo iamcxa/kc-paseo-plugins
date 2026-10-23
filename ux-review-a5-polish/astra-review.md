@@ -206,3 +206,128 @@ The claimed field-list refresh after storing a token remains **unverified**: the
 Final fake data: work has five variables, including the two unpicked additions and the manually restored STRIPE_KEY at the end, with `sa-a` unchanged. work-bare has `sa-a` / Dev and OLD_VAR mapped to POSTHOG_CLI_API_KEY. work-empty remains empty; work-many retains its original twelve mappings, including four unpicked fields and the deliberately broken SENTRY_PROJECT reference. Browser session `astra2` was closed successfully. No code edits, commits, real credential commands, access to `~/.paseo`, or test-daemon shutdown were performed.
 
 I would recommend this screen to an experienced colleague today, with the remaining annoyances disclosed; a recurrence of unchecked connection saving or disappearing Test results would change my answer.
+
+
+## Re-review on main c46720f
+
+**The critical connection-save blocker is fixed. Four original complaints are fixed, three are better but not fixed, four are not fixed, and three were not addressed. No new blockers were found.**
+
+Reviewed on 2026-10-23 in the private test Paseo at `http://127.0.0.1:6920/settings/hosts/srv_tgN_YkcmCjVf/plugins/pe-astra/projects` driven with `agent-browser --session gemini2` at 1280 × 1400 px and 400 × 900 px. I retested all fourteen complaints from my initial newcomer review, re-executed the whole-screen workflow, and evaluated the two shipped polish batches. Screenshot paths are relative to this folder and located in `gemini-shots/` with the `r3-` prefix.
+
+---
+
+### Retesting the fourteen original complaints
+
+1. **Global Save commits unverified connection drafts while Done is disabled — fixed.**
+   - **Status:** **fixed**.
+   - **Observed:** In `work`, I opened "Change the 1Password connection", entered the unverified draft name `sa-draft`, and left it unchecked. Both "Done" and the sticky footer "Save" button were immediately disabled. The save bar explicitly displayed: *"Finish or cancel the connection change first"*. Clicking "Cancel" cleanly reverted the account name back to `sa-a · Dev` while preserving all draft variables. Saving unverified connection drafts is now impossible.
+   - **Screenshot:** [Save blocked on unverified draft](gemini-shots/r3-01-save-blocked.png)
+
+2. **Picker offers vault fields that Test immediately claims "do not exist" — fixed in this test app.**
+   - **Status:** **fixed**.
+   - **Observed:** With the fixture vault populated with readable fake values, running Test on the initial 3 mapped variables in `work` reported `3 set · 2 no field`. When I deliberately pointed `SENTRY_AUTH_TOKEN` to `SENTRY › SENTRY_PROJECT` (the single deliberately failing field), Test isolated the failure (`1 failed · 2 set · 2 no field`) and clearly explained: *"Field not found in the vault."* Reselecting `SENTRY_AUTH_TOKEN` and clicking Test immediately repaired the state back to `3 set · 2 no field`.
+   - **Screenshots:** [Isolated failure on SENTRY_PROJECT](gemini-shots/r3-02-test-failure-isolated.png), [Repaired test pass](gemini-shots/r3-02-test-repair-success.png)
+
+3. **No row-level Undo; accidental deletion forces full draft discard or tedious manual recreation — not fixed.**
+   - **Status:** **not fixed**.
+   - **Observed:** In `work`, clicking the trash icon next to `STRIPE_KEY` deleted the row instantly without confirmation or an inline Undo toast/button. The only way to reverse this without discarding other additions (`LINEAR_API_KEY`, `LATER_API_KEY`) was manually clicking "+ Add", picking `stripe > secret-key`, renaming the generated `SECRET_KEY` back to `STRIPE_KEY`, and pressing Enter. The restored row was appended to the bottom, losing its original table placement.
+   - **Screenshots:** [Row removed without Undo](gemini-shots/r3-03-remove-no-undo.png), [Restored row appended to bottom](gemini-shots/r3-03-restored-at-bottom.png)
+
+4. **Sticky footer bar covers content and obscures text at narrow viewports — better but not fixed.**
+   - **Status:** **better but not fixed**.
+   - **Observed:** The target positioning bug is fixed: newly added rows and rows visited via the missing-field navigation button reliably appear completely above the sticky Save bar without occlusion. However, on initial load at 400 px, the fixed Save footer still overlaps and cuts off the explanatory text under Danger zone (*"Deletes its variables and default prompt now..."*) in `work-empty` and clips bottom controls in `work-bare` until manually scrolled.
+   - **Screenshots:** [Initial empty narrow overlap](gemini-shots/r3-04-empty-narrow.png), [Danger zone explanation after scrolling](gemini-shots/r3-04-empty-narrow-dangerzone.png), [New row placed above Save bar](gemini-shots/r3-04-new-row-narrow.png), [Bare initial narrow view](gemini-shots/r3-04-bare-narrow.png)
+
+5. **Missing-field count in footer provides no navigation, filtering, or jump action — fixed.**
+   - **Status:** **fixed**.
+   - **Observed:** The static missing-field counter is now an active button: *"N with no field picked yet. Go to the next one."* In `work-many` at 400 px, clicking this button sequentially navigated to `LINEAR_API_KEY`, `RESEND_API_KEY`, `SLACK_BOT_TOKEN`, and `SLACK_SIGNING_SECRET`, scrolling each directly into view above the save bar with a blue focus indicator, and cycling back to the first item on the fifth click.
+   - **Screenshots:** [Jump to first missing row](gemini-shots/r3-05-jump-linear.png), [Jump to second missing row](gemini-shots/r3-05-jump-resend.png), [Wrap back to first missing row](gemini-shots/r3-05-jump-wrap-linear.png)
+
+6. **Connection configuration conflates 1Password accounts with local Keychain item names — not addressed.**
+   - **Status:** **not addressed**.
+   - **Observed:** The connection form terminology and dual inputs remain unchanged. The main input is labeled *"1Password service account"* with helper text *"Keychain item name holding its token, e.g. relay-dev-read"*, accompanied by a second input for *"Service account token"* with a *"Save token"* button. A newcomer still has to decipher local macOS Keychain storage mechanics versus 1Password account identities.
+   - **Screenshot:** [Keychain jargon in connection editor](gemini-shots/r3-06-keychain-jargon.png)
+
+7. **Extremely long variable names wrap mid-word and distort table rows — better but not fixed.**
+   - **Status:** **better but not fixed**.
+   - **Observed:** Mid-word breaking is fixed: `DATABASE_URL_FOR_THE_PRODUCTION_REPLICA_READ_ONLY_USER` now breaks strictly after underscores (`DATABASE_URL_FOR_`, `THE_PRODUCTION_`, etc.). However, long variable names still span 3 to 4 lines at both 1280 px and 400 px, making those table rows significantly taller and visually unbalanced compared to neighboring rows.
+   - **Screenshots:** [Wide layout breaking at underscores](gemini-shots/r3-07-long-name-wide.png), [Narrow layout breaking at underscores](gemini-shots/r3-07-long-name-narrow.png)
+
+8. **Header "Back" button navigates completely out of Projects instead of back to Projects list — not fixed.**
+   - **Status:** **not fixed**.
+   - **Observed:** Clicking the header "Back" arrow (or "Back to plugins") in any project view navigates all the way back to the host plugin settings page (`.../plugins`), bypassing the projects list (`.../plugins/pe-astra/projects`) entirely. To return to the projects overview, the user must look for the "Close" button in the footer bar.
+   - **Screenshot:** [Header Back navigates to plugins](gemini-shots/r3-08-back-leaves-projects.png)
+
+9. **Amber ≠ badge looks like a broken warning rather than a benign alias — better but not fixed.**
+   - **Status:** **better but not fixed**.
+   - **Observed:** Clicking the ≠ button now provides an improved explanatory popover: *"The field name differs from the variable name. Check it is the field you mean."* While the hint explains why the badge is present, the badge still uses an amber warning color and mathematical unequal sign, continuing to make benign, intentional aliasing feel like a pending error.
+   - **Screenshot:** [Updated ≠ popover explanation](gemini-shots/r3-09-not-equal-explanation.png)
+
+10. **Saving a project alters project ordering on the main screen — fixed.**
+    - **Status:** **fixed**.
+    - **Observed:** In `work`, after making and saving variable edits, returning to the projects overview verified that `work` remained firmly in its first position at the top of the list. Saving a project no longer demotes it to the bottom.
+    - **Screenshot:** [Project list order remains stable after save](gemini-shots/r3-10-project-order-stable.png)
+
+11. **Test resolution results disappear upon Save and reload — not addressed.**
+    - **Status:** **not addressed**.
+    - **Observed:** Running Test shows resolution status (e.g. `3 set · 2 no field`), but clicking "Close" and immediately reopening the project wipes the result completely. The re-opened project shows only "Variables" and "Test", with no timestamp, history, or persistent indicator of whether the project's secrets were previously tested and healthy.
+    - **Screenshot:** [Test results wiped after reopening project](gemini-shots/r3-11-test-wiped-on-reload.png)
+
+12. **Failure hover bubble physically covers the row below — not fixed.**
+    - **Status:** **not fixed**.
+    - **Observed:** When hovering the red `!` failure badge on `SENTRY_AUTH_TOKEN`, the failure tooltip opens downwards, covering the variable name and field button of `TWILIO_AUTH_TOKEN` in the next row.
+    - **Screenshot:** [Failure hover bubble overlapping row below](gemini-shots/r3-12-failure-hover.png)
+
+13. **Conductor import and agent prompt clutter the env variable configuration space — not addressed.**
+    - **Status:** **not addressed** (knowingly deferred).
+    - **Observed:** The large "Import names and prompt from Conductor" panel and the "Default prompt for new agents" textarea continue to occupy the bottom half of the project settings page directly underneath the environment variables table.
+    - **Screenshot:** [Conductor import and prompt boxes](gemini-shots/r3-13-conductor-prompt-clutter.png)
+
+14. **Searching for unmapped services gives raw "Type a reference…" without syntax guidance — not addressed.**
+    - **Status:** **not addressed**.
+    - **Observed:** Searching for absent services like Linear or Resend displays `No field matches "Linear"` and a `Type a reference…` button. Clicking it reveals an empty `Reference` input with no placeholder formatting examples, syntax hints (`op://vault/item/field`), or autocomplete assistance.
+    - **Screenshot:** [Linear search with raw reference input](gemini-shots/r3-14-linear-no-match.png)
+
+---
+
+### Whole-screen walkthrough and observations
+
+1. **First-look inspection:** Evaluated all 4 projects (`work`, `work-empty`, `work-many`, `work-bare`) at 1280 × 1400 px and 400 × 900 px ([overview wide](gemini-shots/r3-projects-overview-wide.png), [overview narrow](gemini-shots/r3-projects-overview-narrow.png)). The layout is legible, but the header navigation hierarchy remains confusing when jumping between projects and host plugins.
+2. **Variable management & Test-and-repair flow:** In `work`, tested existing mappings (`3 set · 2 no field`), switched `SENTRY_AUTH_TOKEN` to `SENTRY_PROJECT` to trigger and observe a localized resolution error, and restored it back to `SENTRY_AUTH_TOKEN`, re-verifying a successful Test. Resizing the viewport during an active Test proved that the test state survives viewport changes without dropping results ([resize test survival](gemini-shots/r3-test-resize-survival.png)).
+3. **Connection guardrails:** Modified the service account name in `work` to `sa-draft`, verified that Save was disabled and explained by the save bar, and safely backed out with Cancel to restore `sa-a · Dev`.
+4. **Row deletion and reconstruction:** Deleted `STRIPE_KEY`, verified the absence of row-level Undo, and manually recreated it via "+ Add", re-mapping `stripe > secret-key` and renaming it back to `STRIPE_KEY`.
+5. **Persistence and list stability:** Saved `work`, returned to the projects overview, and confirmed that the 5 variables persisted and `work` preserved its top ordering in the list.
+
+---
+
+### New complaints from whole-screen usage, ranked
+
+#### 1. "N set" status overstates validation when variable names differ completely from the mapped credential semantic — Annoying
+- **Screen / Width:** `work` and `work-many`, 1280 px & 400 px.
+- **Did:** Ran Test on `work`, where `TWILIO_AUTH_TOKEN` is mapped to `TWILIO_ACCOUNT_SID`.
+- **Expected:** The status summary should indicate secret readability rather than implying functional correctness (e.g. "3 resolved" rather than "All 3 set").
+- **Happened:** The summary confidently proclaims "All 3 set" (or "3 set"), masking a dangerous misconfiguration where an authentication token is mapped to an account SID. While the ≠ badge hints at a name mismatch, the green-sounding "set" message provides false confidence that the environment is ready for production agents.
+- **Severity:** Annoying.
+- **Screenshot:** [r3-09-not-equal-explanation.png](gemini-shots/r3-09-not-equal-explanation.png)
+
+#### 2. Top-level header navigation "Back" / "Back to plugins" bypasses the Projects list entirely — Annoying
+- **Screen / Width:** All projects, 1280 px & 400 px.
+- **Did:** Finished reviewing a project and instinctively clicked the prominent "Back" button in the upper header.
+- **Expected:** Return to the Projects list overview (`/projects`).
+- **Happened:** Navigated all the way out of the project environment section to the host Plugins management screen (`/plugins`). A user must remember to ignore standard top navigation conventions and instead use the footer "Close" button.
+- **Severity:** Annoying.
+- **Screenshot:** [r3-08-back-leaves-projects.png](gemini-shots/r3-08-back-leaves-projects.png)
+
+#### 3. Disabled footer Save button lacks a tooltip explaining why it is inactive — Nitpick
+- **Screen / Width:** `work`, 1280 px.
+- **Did:** Reopened a saved project and hovered the grayed-out "Save" button in the sticky footer.
+- **Expected:** A tooltip or hover explanation indicating "No unsaved changes" (similar to the helpful explanation shown when connection edits block saving).
+- **Happened:** The cursor changes to not-allowed with no tooltip. While "No unsaved changes" is printed in the footer text, explicit button tooltips prevent second-guessing.
+- **Severity:** Nitpick.
+- **Screenshot:** [r3-10-project-order-stable.png](gemini-shots/r3-10-project-order-stable.png)
+
+---
+
+### Final recommendation
+
+I would recommend this screen to a colleague today for configuring project secrets, provided they are warned about the lack of row-level undo and the misleading header Back button; resolving those two remaining workflow pitfalls would make my recommendation unconditional.
