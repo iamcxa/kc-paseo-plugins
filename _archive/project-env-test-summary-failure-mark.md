@@ -1,7 +1,7 @@
 ---
 id:
 title: Test shows a summary line and marks failed rows with a red border and (!)
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -66,8 +66,11 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #27 at 782ac4c per the gate question.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-22T04:16:52Z
+verdict: PASSED
+completed: 2026-10-23T04:12:52Z
+archived: 2026-10-23T04:12:52Z
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
