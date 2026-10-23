@@ -60,3 +60,25 @@ Verified by: `npm test` with a test that an FO with one gate and a separate `nex
 
 Alignment: not needed: the Captain named each change in his UAT on 2026-10-23.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+
+## Stage Report: implementation
+
+- DONE: Every pressable element in spacedock-bridge/client/ shows a hover and a pressed state, and the composer box highlights on hover and focus, with isolated-daemon screenshots of normal, hover and pressed/focused states (AC-1)
+  c3c818e27146ac13e66a91f1a9241cfa55ea1c40 uses one native Pressable feedback wrapper throughout the client; docs/evidence/r1-hover-and-row-owner contains seven screenshots, measurements and capture.py. Its real isolated-daemon run passed 16 cancelled-press checks and three distinct composer border states; removing the feedback styles or focus handlers fails those checks.
+- DONE: 准, 要求修改 and 暫緩 are visually distinct with theme status colors while keeping the dashed needs-a-reason state, with a screenshot (AC-1)
+  decision-colors.png and decision-with-reason.png show statusSuccess/statusWarning/foregroundMuted; capture.py asserts three distinct text colors, solid/dashed/dashed without a reason and all solid with a reason, without sending any decision.
+- DONE: By decision rows show the owning FO's short title, and buildQueue keeps an FO's separate question when it also has a gate, with a test and a screenshot (AC-2); roborev gate run with its evidence= or incomplete: line; Draft PR open
+  board-normal.png shows OMP FO beside both gates and its separate question, plus no FO on an unmatched review. npm test passed 72 tests; the added gate-plus-question test fails against f849058 because only the gate remains; the attachment test catches an FO-owned next step being misclassified as a Captain ask; blank/exact gate restatements stay deduplicated.
+  Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/37 at c3c818e27146ac13e66a91f1a9241cfa55ea1c40. roborev exit 0: clean on c3c818e27; evidence=roborev:1106. The initial sandbox-only incomplete result was superseded by this socket-enabled review.
+- DONE: Required implementation checks and affected documents
+  npm run typecheck and git diff --check passed; comment_ratio.py: code lines 319, comment lines 1, 0.3%, maximum 5% met; number_guards.py: PASS, base f849058121e6, head c3c818e27146, no migrations; adr_lint.py: 6 records checked, 0 legacy, none added or changed.
+  doc_impact.py lists docs/evidence/r1-hover-and-row-owner/README.md: updated with observed states, declared local tools, reproduction and cleanup. spacedock-bridge/OVERVIEW.md unaffected: deployment, storage, relay and installed fleet port behavior are unchanged.
+- FAILED: Workflow design-surface metadata check
+  design_surfaces.py check exits 1 because the FO-owned ## FO alignment lacks nonempty Surfaces: and Visible change: lines. Returned for FO disposition; no approved scope or entity frontmatter was rewritten. All package scripts used the loaded implementation skill's 0.28.0 root as required by Dispatch facts when it differs from the older scope-note path.
+
+### Summary
+
+Implemented the approved POC UI feedback and ownership/queue corrections in the assigned branch, committed and pushed them, and opened Draft PR #37; decision relay and recording files have no diff. The reproducible synthetic proof used separate HOME/--home, ports 7043/7044 and a new browser profile with localhost blocked; its captured daemon and browser stopped, all proof homes were removed, and manual proof ports 7041/7042 are also closed.
+
+Web/desktop interactions were exercised; native-device hover/press, live delivery and Captain acceptance remain unproven. No persistent schema, release or installed-daemon change was made; validation and the missing FO metadata remain with the First Officer.
