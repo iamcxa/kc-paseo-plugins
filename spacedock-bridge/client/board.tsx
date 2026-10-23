@@ -234,8 +234,8 @@ export function Board({
         gap: 8,
       },
       nextTitle: { color: colors.foreground, fontSize: 15, fontWeight: "600" as const, lineHeight: 21 },
+      nextButtons: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
       nextButton: {
-        alignSelf: "flex-start" as const,
         paddingVertical: 6,
         paddingHorizontal: 12,
         borderRadius: 6,
@@ -387,9 +387,21 @@ export function Board({
               <Text style={styles.muted} numberOfLines={1}>
                 {next.fo ? next.fo.title : "no FO"}
               </Text>
-              <Pressable accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
-                <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
-              </Pressable>
+              <View style={styles.nextButtons}>
+                <Pressable accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
+                  <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
+                </Pressable>
+                {next.review ? (
+                  <Pressable
+                    accessibilityRole="link"
+                    accessibilityLabel="Open the pull request"
+                    style={styles.external}
+                    onPress={() => void openExternalUrl(next.review!.url)}
+                  >
+                    <Text style={styles.externalText}>PR ↗</Text>
+                  </Pressable>
+                ) : null}
+              </View>
             </View>
           ) : null}
           {coAsk ? (
