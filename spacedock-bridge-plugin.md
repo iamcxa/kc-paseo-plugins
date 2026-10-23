@@ -46,6 +46,17 @@ gates:
                 id: briefing:spacedock-bridge-plugin:validation:attempt-1:revision-1
                 digest: sha256:5bc47dab1812657a4481fa2b7eac81bfee4967ee151658b6ac07dac75203d5ed
                 room-ref: ./spacedock-bridge-plugin/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:spacedock-bridge-plugin:validation:1
+                briefing: briefing:spacedock-bridge-plugin:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T07:48:14.707254Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:5bc47dab1812): approve the move as validated at 78eef814; route to done; PR #31 waits for the Captain to merge.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T07:16:56Z
 ---
 
