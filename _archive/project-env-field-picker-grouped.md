@@ -1,7 +1,7 @@
 ---
 id:
 title: The field picker is grouped, searchable and suggests the matching field
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -66,8 +66,11 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 — answers the PR #26 validation gate (the latest question put); approves delivery at 57540cc per the gate question.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-22T04:16:39Z
+verdict: PASSED
+completed: 2026-10-23T02:19:06Z
+archived: 2026-10-23T02:19:06Z
 ---
 
 Settings-screen rework of release r1.5 of the project-env plugin. Design reference: the design-director review (ux-review-r1.5/index.html) and direction A5 (ux-review-r1.5/direction-a5.html, shots/a5-*.png) in the state checkout; Captain approved A5 on 2026-10-22 (「就這樣」) after 「這個 UX 完全不行」, and the Add flow on 2026-10-22 (「可以」).
