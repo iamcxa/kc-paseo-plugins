@@ -1,7 +1,7 @@
 ---
 id:
 title: Add opens the field picker and names the variable from the field
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
