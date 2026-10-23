@@ -19,6 +19,11 @@ gates:
                 by: agent:first-officer
                 at: "2026-10-23T14:57:43.084643Z"
                 reason: 'Seed amended before decision: the first step must read real tab labels read-only from the live daemon, not close a tab in the Captain''s app.'
+            - id: gate-attempt:fleet-hides-closed-fos-backlog-2
+              briefing:
+                id: briefing:fleet-hides-closed-fos:backlog:attempt-2:revision-1
+                digest: sha256:e0def32c46dafe670cd332551bb106194f799a662ceaba8fd8749dc86c053510
+                room-ref: ./fleet-hides-closed-fos/review/backlog/briefing-2
 ---
 
 Round 2 of the POC flywheel under ADR 0008: the Captain cannot tell a live FO from one whose Paseo tab he closed, and a rectangular browser focus outline appears around the composer input after he types.

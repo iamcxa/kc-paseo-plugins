@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:fleet-hides-closed-fos:backlog:attempt-2:revision-1",
+  "question": "Flywheel round 2 backlog: admit the Closed badge for FOs whose Paseo tab is closed on every client (not running), and removal of the web focus outline on the composer input, to implementation as the first stacked layer?",
+  "artifacts": [
+    {
+      "id": "artifact:fleet-hides-closed-fos:backlog:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/f124ed8de190642a2f7ba00650152716a40d8fb8/fleet-hides-closed-fos.md",
+      "rev": "sha256:b5dfee8277a755145c2b9dbbb9d14cf3d48cefbb6555e97f3de6e38c60587bd3",
+      "mediaType": "text/markdown",
+      "summary": "Captain chose this theme in round 1 UAT and asked to remove the green outline. Rule and display from Astra and chief-engineer triage: badge, no hiding or fading; archived path unchanged. First step reads real tab labels read-only from the live daemon and stops if they contradict the rule. Draft PR on base main as the stack's first layer; nothing merges."
+    }
+  ]
+}
