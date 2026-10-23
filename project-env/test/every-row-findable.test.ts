@@ -71,7 +71,7 @@ describe("the last Test run lives in the open project", () => {
     assert.equal(shown(), "All 1 set");
     const retry = openProject.startTest();
     assert.equal(openProject.get()?.run, undefined);
-    openProject.failTest("1Password is not reachable", retry);
+    openProject.failTest({ sent: project([v("A", "op://V/a/x")]), message: "1Password is not reachable" }, retry);
     assert.equal(shown(), "Test failed: 1Password is not reachable");
   });
 
@@ -83,8 +83,28 @@ describe("the last Test run lives in the open project", () => {
     assert.equal(summaryText(summaryParts(open.draft, open.run, open.testing, open.failure)), "Testing…");
     openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, test);
     assert.equal(openProject.get()!.testing, false);
-    openProject.failTest("late", openProject.startTest());
+    openProject.failTest({ sent: project(), message: "late" }, openProject.startTest());
     assert.equal(openProject.get()!.testing, false);
+  });
+
+  it("reads Not tested since changes once the draft is edited after a failed Test", () => {
+    const sent = project([v("A", "op://V/a/x")]);
+    openProject.begin(sent, "rev");
+    openProject.failTest({ sent, message: "1Password is not reachable" }, openProject.startTest());
+    assert.equal(shown(), "Test failed: 1Password is not reachable");
+    openProject.update((d) => ({ ...d, variables: [v("A", "op://V/b/x")] }), true);
+    assert.equal(shown(), "Not tested since changes");
+    openProject.update((d) => ({ ...d, variables: sent.variables, vault: "W" }), true);
+    assert.equal(shown(), "Not tested since changes");
+  });
+
+  it("clears an earlier failure when a new Test starts", () => {
+    const sent = project([v("A", "op://V/a/x")]);
+    openProject.begin(sent, "rev");
+    openProject.failTest({ sent, message: "down" }, openProject.startTest());
+    assert.equal(openProject.get()?.failure?.message, "down");
+    openProject.startTest();
+    assert.equal(openProject.get()?.failure, undefined);
   });
 
   it("drops a result that finishes after a newer Test started", () => {
@@ -96,7 +116,7 @@ describe("the last Test run lives in the open project", () => {
     assert.equal(openProject.get()?.run, undefined);
     openProject.setRun({ sent, results: [{ name: "A", ok: true }] }, newer);
     openProject.setRun({ sent, results: [{ name: "A", ok: false }] }, older);
-    openProject.failTest("late", older);
+    openProject.failTest({ sent: project(), message: "late" }, older);
     assert.equal(shown(), "All 1 set");
   });
 });

@@ -3,6 +3,7 @@ import { reservedReason, type Project, type Variable } from "./config.ts";
 
 export type Result = { name: string; ok: boolean; cause?: Cause };
 export type Run = { sent: Project; results: Result[] };
+export type Failure = { sent: Project; message: string };
 
 const sameInputs = (draft: Project, sent: Project) =>
   draft.serviceAccount === sent.serviceAccount && draft.vault === sent.vault;
@@ -25,7 +26,7 @@ export function rowReason(draft: Project, run: Run | undefined, v: Variable): st
 
 const named = (project: Project) => project.variables.filter((v) => v.name !== "");
 
-const unchanged = (draft: Project, run: Run) => {
+const unchanged = (draft: Project, run: { sent: Project }) => {
   const now = named(draft);
   const sent = named(run.sent);
   return (
@@ -41,10 +42,14 @@ export function summaryParts(
   draft: Project,
   run: Run | undefined,
   testing: boolean,
-  failure?: string,
+  failure?: Failure,
 ): SummaryPart[] {
   if (testing) return [{ text: "Testing…", tone: "muted" }];
-  if (failure !== undefined) return [{ text: `Test failed: ${failure}`, tone: "bad" }];
+  if (failure !== undefined) {
+    return unchanged(draft, failure)
+      ? [{ text: `Test failed: ${failure.message}`, tone: "bad" }]
+      : [{ text: "Not tested since changes", tone: "muted" }];
+  }
   if (!run || named(draft).length === 0) return [];
   if (!unchanged(draft, run)) return [{ text: "Not tested since changes", tone: "muted" }];
   let failed = 0;

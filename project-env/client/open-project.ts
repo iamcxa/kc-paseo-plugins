@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 import type { Project } from "../shared/config";
-import type { Run } from "../shared/test-marks";
+import type { Failure, Run } from "../shared/test-marks";
 
 export type OpenProject = {
   session: number;
@@ -10,7 +10,7 @@ export type OpenProject = {
   revision: string;
   changing: Pick<Project, "serviceAccount" | "vault"> | null;
   run: Run | undefined;
-  failure: string | undefined;
+  failure: Failure | undefined;
   tests: number;
   testing: boolean;
 };
@@ -48,7 +48,7 @@ export const openProject = {
     if (!current || test !== current.tests || (session !== undefined && session !== current.session)) return;
     set({ ...current, run, testing: false });
   },
-  failTest(failure: string, test: number, session?: number) {
+  failTest(failure: Failure, test: number, session?: number) {
     if (!current || test !== current.tests || (session !== undefined && session !== current.session)) return;
     set({ ...current, failure, testing: false });
   },

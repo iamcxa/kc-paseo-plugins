@@ -637,7 +637,8 @@ function ProjectEditor({
         return run;
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        openProject.failTest(message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""), ticket, open.session);
+        const cleaned = message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, "");
+        openProject.failTest({ sent, message: cleaned }, ticket, open.session);
         throw error;
       }
     },
