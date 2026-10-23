@@ -37,6 +37,20 @@ gates:
                 id: briefing:r1-hover-and-row-owner:validation:attempt-1:revision-1
                 digest: sha256:85e51a318038a7a1b83fe79b01d2a55c940d75356185177bacd13236d6323923
                 room-ref: ./r1-hover-and-row-owner/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r1-hover-and-row-owner:validation:1
+                briefing: briefing:r1-hover-and-row-owner:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-23T12:26:44.051837Z"
+                decision: approve
+                reason: 'L3 class 2 (POC validation gate with no Material finding) under ADR 0006: validation PASSED at dd7c9e04, FO rerun of all three acceptance steps matched, no new Material finding, relay/recording files unchanged.'
+                conn:
+                    quote: 同意，就用這個方式。但改成每一輪摘要寫到一個 dev2 fo 可以存取的地方，不要讓它一直被你們打斷
+                    source: 'docs/adr/0006-the-bridge-fo-decides-three-classes-of-poc-gates-by-record.md (ADR 0006, merged in PR #36, f849058), Captain chat 2026-10-23'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T11:36:35Z
 worktree: .worktrees/spacedock-ensign-r1-hover-and-row-owner
 ---
