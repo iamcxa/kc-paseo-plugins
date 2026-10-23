@@ -516,7 +516,7 @@ function ProjectEditor({
   const summary = summaryParts(draft, run, test.isPending);
   const width = useWindowDimensions().width;
   const compactHeader = width < 600;
-  useEffect(() => setMarkView(null), [width]);
+  useEffect(() => setMarkView(null), [width, draft.variables]);
   const shownVariable = draft.variables.find((v) => v.name === markView?.name);
   const shownReason = shownVariable ? rowReason(draft, run, shownVariable) : null;
   const summaryNode = (
