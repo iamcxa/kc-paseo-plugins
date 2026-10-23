@@ -98,11 +98,10 @@ Limits: the fleet MCP port 6787 is hard-coded, so a second copy cannot start the
   Script below, run by me under `env -i` bash with the expected outputs shown; also saved at /tmp/bridge-pr31-acceptance.sh.
 - DONE: Material findings and limits, including the fleet port 6787 collision with the live POC copy and the unproven screen rendering
   See Findings below. Implementer's claims re-checked from `git archive dbee7baf` vs `git archive 78eef81`: client/, server/, shared/, coordinator/, index.client.tsx, index.server.ts, tsconfig.json byte-identical (`diff -rq`); package.json differs only in name, `files` + OVERVIEW.md, `probe` script removed, `test` glob; paseo-plugin.json only id/name; the 8 test files identical (probe/run.mts left behind); package-lock.json differs from the source's untracked lockfile in 2 name lines only. `comment_ratio.py main 78eef81` exit 0 (0.4%, all verbatim source comments); `adr_lint.py docs/adr --since main` exit 0; no `## Number guards`; no `boundary-crossed:` found (state stays under the existing data dir, no new seam or duty).
-- FAILED: `dispatch_records.py <task folder>` exit 1
-  The task folder has no `dispatch/` directory (`no dispatch records under dispatch/`, confirmed with `rtk proxy find`); a missing record is a finding for FO, not a product defect.
 
 ### Findings
 
+- Needs FO: `dispatch_records.py <task folder>` exit 1; the task folder has no `dispatch/` directory (`no dispatch records under dispatch/`, confirmed with `rtk proxy find`). A missing record is an FO finding, not a product defect; no checklist item failed.
 - Fleet port 6787 collision (limit, observed): `fleet MCP server did not start: ... EADDRINUSE 127.0.0.1:6787` in the isolated run because the live POC copy holds 6787 (lsof: Paseo process). Plugin still reports `running`, so the failure is visible only in `plugin logs`. While both copies are installed the new copy's comms officer starts without `fleet_status`. The Captain must remove the POC copy when switching over.
 - Screen rendering unproven: AC-2 proves load and `Plugin ready` only; Bridge screen, Fleet panel and chat were not opened. No screenshot was taken, so no claim about what the Captain sees.
 - Prompt-injection path (pre-existing, not introduced by the move; classification Needs decision, not Material by the stage's four-field rule because no AC, ruling or contract protects it and the task scope is "No behaviour change"):
@@ -128,6 +127,7 @@ Needs node, npm, paseo 0.12.0, git; touches only a temp dir; never `~/.paseo`. R
                                                    # ℹ tests 42 / ℹ pass 42 / ℹ fail 0
     git -C $WT diff 78eef81^ 78eef81 -- release-please-config.json .release-please-manifest.json README.md | grep -E '^\+[^+]'
                                                    # adds "spacedock-bridge": "0.0.0", its package block, one README line
+    lsof -nP -iTCP:17891 -sTCP:LISTEN                # expect no output (port free)
     H=$(mktemp -d); mkdir -p $H/paseo $H/user; export HOME=$H/user
     printf '{"version":1,"daemon":{"listen":"127.0.0.1:17891","mcp":{"injectIntoAgents":false},"browserTools":{"enabled":false},"relay":{"enabled":false}},"pluginsEnabled":true}\n' > $H/paseo/config.json
     paseo daemon start --home $H/paseo; paseo plugin install $WT/spacedock-bridge --home $H/paseo; sleep 6
