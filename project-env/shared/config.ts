@@ -188,3 +188,19 @@ export function unsavedCount(saved: Project, draft: Project): number {
 }
 
 export const hasPendingSave = (count: number, isSaved: boolean) => count > 0 || !isSaved;
+
+export const connectionOpenReason = "Finish or cancel the connection change first";
+
+export function saveRule(input: { pending: boolean; saving: boolean; unnamed: number; changing: boolean }) {
+  const { pending, saving, unnamed, changing } = input;
+  return {
+    canSave: pending && !saving && unnamed === 0 && !changing,
+    reason: pending && changing ? connectionOpenReason : null,
+  };
+}
+
+export function replaceProject(projects: Project[], draft: Project): Project[] {
+  return projects.some((p) => p.root === draft.root)
+    ? projects.map((p) => (p.root === draft.root ? draft : p))
+    : [...projects, draft];
+}
