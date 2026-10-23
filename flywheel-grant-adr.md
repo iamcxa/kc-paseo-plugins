@@ -153,3 +153,12 @@ Run `/bin/bash --noprofile --norc /Users/kent/Project/kc-paseo-plugins/docs/dev2
 ### FO findings before the gate
 
 - FO, candidate 987698fa90a7, ADR 0008 `## Status` reads "Proposed" while the record says it takes effect when the Captain merges its PR; after his merge the status line would still say Proposed and a reader could take the grant as not in force (ADR 0006 used "Accepted"). FO authorizes a one-line repair: Status "Accepted", keeping the sentence that it takes effect only when he merges the PR. Repair goes back through validation.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: Change only ADR 0008's Status from "Proposed" to "Accepted", keeping the Context sentence that the grant takes effect only when the Captain merges this record's pull request; adr_lint (--since e4f95aee269cf14df571fb8f14e4d82d6cb9da45 --require 0008) exit 0; push to PR #38 (still Draft) and write a short "## Stage Report: implementation (cycle 4)" section
+  Commit `81096c60d65655610ae5c83ca2899fb708d12e0b` changes exactly one line, Proposed to Accepted; all other bytes match prior candidate `987698fa90a7ec7b05c672872b8b5ba8a7888aa0`, preserving the Captain-merge effectiveness condition. ADR lint: exit 0, `7 ADR file(s) checked, 0 legacy`; `git diff --check`: exit 0. PR #38 verified OPEN, Draft and unmerged at this commit.
+
+### Summary
+
+Applied the authorized one-line Status repair; it does not activate the grant before the Captain merges its PR. Evidence: `flywheel-grant-adr/evidence/cycle-4-checks-6a0bd08d889f.txt`; exact prior-byte comparison rejects any additional change, and required-record/section removal fails ADR lint. FO owns RoboRev and validation recheck; the worker ran no RoboRev, made no PR-ready or merge action, and changed no frontmatter or prior report.
