@@ -89,3 +89,51 @@ Release review: not needed: spacedock-bridge has no journey map yet, and this is
 Moved the plugin from `dbee7baf` into `spacedock-bridge/`; client/server/shared/coordinator/index/tsconfig and the 8 test files are byte-identical to source (`diff -r`), `probe/` renamed `test/`, `probe/run.mts` and the `probe` script left behind. Comment ratio: 5% maximum met (`comment_ratio.py main HEAD`). `doc_impact.py main HEAD`: 0 documents listed, nothing to mark. No ADR, no number guards, no boundary-crossed.
 
 Limits: the fleet MCP port 6787 is hard-coded, so a second copy cannot start the fleet server while the live POC copy holds it; observed as a caught `EADDRINUSE` in the isolated run, plugin still ready. The Captain must remove the POC plugin from the live daemon before or when switching over, or the new copy has no `fleet_status`. Screen rendering is unproven (Captain's check after merge). `coordinator/EXTENSION.md` still says it lives in the POC directory (kept verbatim). The `package-lock.json` came from the source worktree's untracked file, changed only in root name/version.
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1..AC-3 for PR #31 at head 78eef81, from my own run of npm ci / typecheck / test (count not below 42) and my own isolated-daemon install (never the live ~/.paseo)
+  Verdict PASSED for AC-1, AC-2, AC-3 at 78eef814cc5ac4c9f243b904a5eb948d6d573628 (PR head confirmed by `gh pr view 31`, Draft, only check GitGuardian SUCCESS). AC-1: from a clean `git archive` of 78eef81, `npm ci` 0, `tsc --noEmit` 0, `npm test` = tests 42, pass 42, fail 0 (the reviews test asserts only the marker prefix, not the title content). AC-2: isolated daemon (own --home and HOME, 127.0.0.1:17891, relay and MCP injection off), `plugin install <worktree>/spacedock-bridge` -> `paseo-spacedock-bridge running yes`, logs `Plugin ready`; daemon stopped, homes deleted; live daemon 6767 pid 10060 untouched, `~/.paseo` not written. AC-3: manifest `"spacedock-bridge": "0.0.0"` and the package entry mirror project-env as registered in bdebd38 (also `0.0.0`); README line added.
+- DONE: A minimal acceptance script the FO can rerun as written in a fresh shell, with each step's expected output
+  Script below, run by me under `env -i` bash with the expected outputs shown; also saved at /tmp/bridge-pr31-acceptance.sh.
+- DONE: Material findings and limits, including the fleet port 6787 collision with the live POC copy and the unproven screen rendering
+  See Findings below. Implementer's claims re-checked from `git archive dbee7baf` vs `git archive 78eef81`: client/, server/, shared/, coordinator/, index.client.tsx, index.server.ts, tsconfig.json byte-identical (`diff -rq`); package.json differs only in name, `files` + OVERVIEW.md, `probe` script removed, `test` glob; paseo-plugin.json only id/name; the 8 test files identical (probe/run.mts left behind); package-lock.json differs from the source's untracked lockfile in 2 name lines only. `comment_ratio.py main 78eef81` exit 0 (0.4%, all verbatim source comments); `adr_lint.py docs/adr --since main` exit 0; no `## Number guards`; no `boundary-crossed:` found (state stays under the existing data dir, no new seam or duty).
+- FAILED: `dispatch_records.py <task folder>` exit 1
+  The task folder has no `dispatch/` directory (`no dispatch records under dispatch/`, confirmed with `rtk proxy find`); a missing record is a finding for FO, not a product defect.
+
+### Findings
+
+- Fleet port 6787 collision (limit, observed): `fleet MCP server did not start: ... EADDRINUSE 127.0.0.1:6787` in the isolated run because the live POC copy holds 6787 (lsof: Paseo process). Plugin still reports `running`, so the failure is visible only in `plugin logs`. While both copies are installed the new copy's comms officer starts without `fleet_status`. The Captain must remove the POC copy when switching over.
+- Screen rendering unproven: AC-2 proves load and `Plugin ready` only; Bridge screen, Fleet panel and chat were not opened. No screenshot was taken, so no claim about what the Captain sees.
+- Prompt-injection path (pre-existing, not introduced by the move; classification Needs decision, not Material by the stage's four-field rule because no AC, ruling or contract protects it and the task scope is "No behaviour change"):
+  1. Identity: `cmp` shows shared/reviews.ts, shared/coordinator.ts, server/coordinator.ts, index.server.ts byte-identical to dbee7baf; server/reviews.ts also identical (`diff -rq` lists no difference). The live POC copy carries the same exposure today.
+  2. Path: server/reviews.ts `checkReviews` sends `wakeMessage(fresh)` to the comms officer; `wakeMessage` interpolates `r.title` and `r.author` verbatim from `gh search prs --review-requested=@me`. Titles are free text set by whoever opened the PR (author logins are GitHub-restricted).
+  3. Tools: `COORDINATOR_OPTIONS.allowedTools` includes `mcp__paseo__create_agent` and `send_agent_prompt`, `list_agents`, `get_agent_activity`, plus `mcp__fleet__fleet_status`; denied: Bash/Read/Edit/Write/Agent/Task and permission, terminal, kill, schedule tools.
+  4. Hook: `server.before("agent.create")` in index.server.ts deletes `allowedTools` and `settings` and the fleet MCP server from any agent whose providerOptions settings contain `mcp__paseo__respond_to_permission` (the comms officer's deny list), so an agent the comms officer creates has full tools; this is deliberate so FOs are fully tooled, but it makes `create_agent` the escalation step.
+  5. Marker: AUTOMATED_MARKER plus the COORDINATOR_PROMPT line and the message's closing sentence say the message is plugin data, not the Captain's ruling, and forbid "outward action because of it". It does not cover: delimiting or escaping the title (it sits inside text the prompt tells the CO to "follow its routing steps" from); defining whether create_agent counts as an outward action (the prompt elsewhere lets the CO start FOs); any technical enforcement (prompt-only).
+  Not exercised: I did not craft a title or run a comms officer, so the end-to-end steer is unproven; the hook's behaviour on a CO-created agent and Paseo's copying of providerOptions (comment in index.server.ts) were read, not run. Trigger needs someone able to request the Captain's review on a PR (I believe GitHub limits this to repo collaborators; not verified). Would become Material if the Captain rules the comms officer's tool boundary a protected boundary, or an observed steered agent creation.
+- Necessity: OVERVIEW.md and committed package-lock.json match project-env's layout; no surface without a brief-named consumer found.
+
+### Summary
+
+PASSED: AC-1, AC-2, AC-3 hold at 78eef81 from my own runs; the move is byte-identical to dbee7baf except the recorded rename and test move. Open for FO: missing dispatch record, port 6787 cutover, unproven rendering, and the pre-existing wakeMessage injection path needing the Captain's call on whether to fix it before or after the move (a fix is a behaviour change).
+
+### Acceptance script
+
+Needs node, npm, paseo 0.12.0, git; touches only a temp dir; never `~/.paseo`. Run `bash /tmp/bridge-pr31-acceptance.sh` or paste:
+
+    WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-spacedock-bridge-plugin
+    git -C $WT rev-parse HEAD                      # 78eef814cc5ac4c9f243b904a5eb948d6d573628
+    cd $WT/spacedock-bridge && npm ci --silent && npm run typecheck && npm test 2>&1 | grep -E '^ℹ (tests|pass|fail) '
+                                                   # ℹ tests 42 / ℹ pass 42 / ℹ fail 0
+    git -C $WT diff 78eef81^ 78eef81 -- release-please-config.json .release-please-manifest.json README.md | grep -E '^\+[^+]'
+                                                   # adds "spacedock-bridge": "0.0.0", its package block, one README line
+    H=$(mktemp -d); mkdir -p $H/paseo $H/user; export HOME=$H/user
+    printf '{"version":1,"daemon":{"listen":"127.0.0.1:17891","mcp":{"injectIntoAgents":false},"browserTools":{"enabled":false},"relay":{"enabled":false}},"pluginsEnabled":true}\n' > $H/paseo/config.json
+    paseo daemon start --home $H/paseo; paseo plugin install $WT/spacedock-bridge --home $H/paseo; sleep 6
+    paseo plugin ls --home $H/paseo                # paseo-spacedock-bridge  running  yes
+    paseo plugin logs paseo-spacedock-bridge --home $H/paseo | grep -E 'Plugin ready|EADDRINUSE'
+                                                   # "Plugin ready"; EADDRINUSE on 6787 while the POC copy runs
+    paseo daemon stop --home $H/paseo; rm -rf $H
+
+Does not cover: screen rendering, the fleet MCP server actually starting (blocked by 6787 while the POC runs), review polling against real GitHub, the comms officer's behaviour, the injection path.
