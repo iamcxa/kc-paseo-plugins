@@ -1,6 +1,6 @@
 ---
 title: The Fleet board's By decision view puts the next decision first and every other item on one line
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -25,7 +25,7 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:a6868466f264): approve to enter implementation in an isolated worktree with a PR.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 The Captain finds the Fleet board's "By decision" view too dense to scan: every waiting item is drawn as an equal three-to-five-line card, so nothing tells him where to start. He compared three mockups side by side (current board, a two-line card variant, and a "next up" variant) and chose the "next up" variant.
