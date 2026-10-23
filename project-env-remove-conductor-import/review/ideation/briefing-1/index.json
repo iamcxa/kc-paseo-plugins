@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-remove-conductor-import:ideation:attempt-1:revision-1",
+  "question": "Approve this removal design and its acceptance criteria into implementation? Approving also accepts the recommendation to fold the one-line journey repair (story add-remove-variable's stale evidence 'newName' becomes 'nameFromLabel') into this task so AC-2 passes clean, and the added AC-3 (ADR 0004 records the removal); say if you object.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-remove-conductor-import:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/d441a477a32b6edbe071a0ee97fe338a614b375f/project-env-remove-conductor-import.md",
+      "rev": "sha256:00ebfa25ceb5d0a62134391d969f19bbb3aa7a9f14b2a13ab7cee18ab416d3af",
+      "mediaType": "text/markdown",
+      "summary": "Removal of 105 lines across client, server, shared and one test; server/conductor.ts deleted. Saved variables and prompts stay; the Default prompt section stays. Journey map: two import stories deleted, r2 renamed 'Standing instructions', q9 answer drops import. ADR 0004 gains a dated amendment. Rehearsed on a copy of f849058: 273/273 tests, typecheck clean, the Conductor row gone from 8 of 8 pages at 1280 and 400 px, every page 116 px shorter at 400 px and work-empty no longer overflows. Before/after previews in shots/compare-*.png. Design review: 8 minor, none caused by the removal. Main already fails journey-lint on one stale evidence symbol."
+    }
+  ]
+}

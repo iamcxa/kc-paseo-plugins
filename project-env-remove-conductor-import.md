@@ -29,6 +29,25 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-remove-conductor-import:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-remove-conductor-import-ideation-1
+              briefing:
+                id: briefing:project-env-remove-conductor-import:ideation:attempt-1:revision-1
+                digest: sha256:673bfe6f362b4ad4f4c87705dcde75529c845ad5b79bf29382333733c44df4e4
+                room-ref: ./project-env-remove-conductor-import/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-remove-conductor-import:ideation:1
+                briefing: briefing:project-env-remove-conductor-import:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T15:03:41.761477Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 (decision d-1mybcg, relayed by the Comms Officer and checked on its [User] line) — approves this removal design and its acceptance criteria into implementation, including the gate question''s stated recommendations (fold the newName to nameFromLabel journey repair into this task; add AC-3 that ADR 0004 records the removal).'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-23T12:22:37Z
 ---
 
