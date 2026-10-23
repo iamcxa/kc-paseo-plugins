@@ -29,6 +29,25 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-every-row-findable:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-every-row-findable-ideation-1
+              briefing:
+                id: briefing:project-env-every-row-findable:ideation:attempt-1:revision-1
+                digest: sha256:d37d35915e5c03e4baace619ee73350039730934a99faa43f65effc61a1f7a9a
+                room-ref: ./project-env-every-row-findable/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-every-row-findable:ideation:1
+                briefing: briefing:project-env-every-row-findable:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T08:11:54.372173Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves this Task B design and its acceptance criteria into implementation.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-23T07:37:00Z
 ---
 
