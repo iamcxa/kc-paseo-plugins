@@ -1,6 +1,6 @@
 ---
 title: An ADR grants the Bridge FO L3 authority over spacedock-bridge POC gates as a dev2 authorization dogfood
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
