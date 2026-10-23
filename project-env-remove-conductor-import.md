@@ -187,3 +187,20 @@ Recommended order: this task, then project-env-connection-done-cancel-one-row, t
 ### Summary
 
 The removal is 105 deleted lines in 5 code files plus 4 map edits and one ADR 0004 amendment, rehearsed in a throwaway copy (tests, typecheck, search, lint, page text all as the criteria require). At 400 px every editor page is 116 px shorter and the work-empty 400 x 900 overlap of the save bar over the Danger zone disappears. Needs decision: AC-2's literal "no citation failure" cannot pass on main's existing `newName` violation. Not touched: no repository file, branch or commit. Disposable copies live in /tmp/pe-rci-src; the harness daemons and browser sessions are stopped.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved removal exactly (Design section of the task file): delete the Conductor import from client, server, shared and tests; apply the journey map edits, including the approved repair of story add-remove-variable's stale evidence newName to nameFromLabel; add the dated ADR 0004 amendment.
+  Candidate 099e7b7 on spacedock-ensign/project-env-remove-conductor-import (base 78ce6c1): 7 files, 9 insertions, 109 deletions; the diff has no hunk in the `project` schema. Journey edits are the four in AC-2 plus `evidence: nameFromLabel`. ADR 0004 amendment sits after the 2026-10-21 one.
+- DONE: Land evidence for AC-1 to AC-3 with the clauses they name, plus whole-page screenshots of the built change at desktop and 400 px, under this task's state folder.
+  `project-env-remove-conductor-import/evidence/implementation/`: `after-<project>-{1280,400}.{png,txt}` for work, work-empty, work-many, work-bare (viewports 1280x1400 and 400x2600, isolated Paseo port 6961 built from the candidate) and `main-*-*.txt` from main 78ce6c1 (port 6962). AC-1(a): `grep -ci conductor` and `grep -cx Import` are 0 in 8 of 8 after pages (each has Variables, Default prompt and Danger zone, so the check reads real editors); main gives 2 and 1 in 8 of 8. Falsifier: re-adding the row fails it.
+- DONE: Run `npm test`, `npm run typecheck`, the journey lint, adr_lint, the roborev gate, design_surfaces check, doc_impact, then open the Draft PR.
+  `npm test` 273 pass 0 fail; `npm run typecheck` clean; AC-1(b) grep prints nothing and `server/conductor.ts` is gone; journey-lint prints "all lints pass" (the `newName` violation is gone, no `importConductor` line), which fails if a deleted story's evidence remains; `adr_lint.py docs/adr --since 60799d9` exit 0 (7 ADR files); `design_surfaces.py check` "design surfaces presentable"; roborev `clean on 099e7b790; evidence=roborev:1125`; comment_ratio 0 code and 0 comment lines added. Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/41
+
+### Affected documents
+
+doc_impact printed one document: `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md` updated (amendment). ADRs added or changed: 0004 (amended, not a new number).
+
+### Summary
+
+The removal is as designed with no deviation. AC-2 was met stronger than the ideation draft: the approved `newName` repair makes journey-lint fully clean rather than "no new violation". The load-sensitive session-open test did not fail. The two isolated Paseo daemons, browser sessions and /tmp copies are removed; no secret was read and no op or security command was run.
