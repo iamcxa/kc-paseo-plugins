@@ -289,7 +289,6 @@ function AddVariableButton({ theme, onPress }: { theme: Theme; onPress(): void }
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel="Add a variable"
       hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
       onPress={onPress}
       style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 7 }}
