@@ -1,7 +1,8 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { PanResponder, Pressable, ScrollView, Text, View } from "react-native";
+import { PanResponder, ScrollView, Text, View } from "react-native";
+import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import type { BoardRow } from "../shared/board";
 import { openCoordinator } from "../shared/coordinator";
 import { type GateBriefingData, readGateBriefing } from "../shared/gate";
@@ -253,7 +254,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         contentContainerStyle={styles.topContent}
         onContentSizeChange={(_width, height) => setContentHeight(height)}
       >
-        <Pressable accessibilityRole="button" onPress={onBack}>
+        <Pressable colors={colors} accessibilityRole="button" onPress={onBack}>
           <Text style={styles.back}>← Bridge</Text>
         </Pressable>
         <Text style={styles.label}>{cardLabel(gate, fo.repo)}</Text>
@@ -271,7 +272,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
             ))}
             {briefing ? (
               <View style={styles.briefingRow}>
-                <Pressable accessibilityRole="button" onPress={() => setShowEvidence((v) => !v)}>
+                <Pressable colors={colors} accessibilityRole="button" onPress={() => setShowEvidence((v) => !v)}>
                   <Text style={styles.toggle}>{showEvidence ? "Hide briefing" : "Read full briefing ›"}</Text>
                 </Pressable>
                 <Text style={styles.hint}>preview · full view in Spacedock Review</Text>
@@ -296,7 +297,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         accessibilityLabel="Drag to resize the briefing; tap the grip to fit it to its content"
         style={styles.handle}
       >
-        <Pressable onPress={() => setDragged(null)} hitSlop={8}>
+        <Pressable colors={colors} onPress={() => setDragged(null)} hitSlop={8}>
           <View style={styles.grip} />
         </Pressable>
       </View>

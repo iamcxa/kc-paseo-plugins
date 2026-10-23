@@ -1,7 +1,8 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { Platform, ScrollView, Text, View } from "react-native";
+import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import {
   type BoardRow,
   type BoardStatus,
@@ -11,6 +12,7 @@ import {
   observeBoard,
   withReplies,
 } from "../shared/board";
+import { foName } from "../shared/card";
 import { createFo } from "../shared/fo";
 import { lastReply, nextStepIsCaptains, replyPreview } from "../shared/preview";
 import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
@@ -317,7 +319,10 @@ export function Board({
       navigation?.openAgent({ agentId });
     });
 
-  const queue = useMemo(() => buildQueue(grouped, reviews), [grouped, reviews]);
+  const queue = useMemo(
+    () => buildQueue(grouped, reviews, withReplies(rows, replies)),
+    [grouped, reviews, rows, replies],
+  );
   const kindLabel: Record<QueueKind, string> = {
     permission: "PERMISSION",
     review: "REVIEW REQUEST",
@@ -367,7 +372,7 @@ export function Board({
       ) : null}
       <View style={styles.toggle}>
         {(["decision", "fo"] as const).map((id) => (
-          <Pressable
+          <Pressable colors={colors}
             key={id}
             accessibilityRole="tab"
             onPress={() => setView(id)}
@@ -383,15 +388,15 @@ export function Board({
         <>
           {queue.length === 0 && !coAsk ? <Text style={styles.muted}>Nothing is waiting on you.</Text> : null}
           {next ? (
-            <View style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
+            <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(next)} style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
               <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
                 NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
               </Text>
               {next.link ? (
-                <Pressable
+                <Pressable colors={colors}
                   accessibilityRole="link"
                   accessibilityLabel={`Open ${next.link.ref} on GitHub`}
-                  onPress={() => openLink(next, openExternalUrl)}
+                  onPress={(event) => { event.stopPropagation(); openLink(next, openExternalUrl); }}
                 >
                   <Text style={styles.ref}>{next.link.ref} ↗</Text>
                 </Pressable>
@@ -400,14 +405,14 @@ export function Board({
                 {next.title}
               </Text>
               <Text style={styles.muted} numberOfLines={1}>
-                {next.fo ? next.fo.title : "no FO"}
+                {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
               </Text>
               <View style={styles.nextButtons}>
-                <Pressable accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
+                <Pressable colors={colors} accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
                   <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
                 </Pressable>
               </View>
-            </View>
+            </Pressable>
           ) : null}
           {coAsk ? (
             <>
@@ -415,7 +420,7 @@ export function Board({
                 <Text style={styles.group}>Comms officer</Text>
                 <Text style={styles.group}>1</Text>
               </View>
-              <Pressable accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
+              <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
                 <View style={[styles.dot, { backgroundColor: colors.statusWarning }]} />
                 <Text style={styles.lineTitle} numberOfLines={1}>
                   {coAsk.text}
@@ -432,14 +437,18 @@ export function Board({
               {section.items.map((item) => (
                 item.link ? (
                   <View key={item.key} style={styles.line}>
-                    <Pressable accessibilityRole="button" onPress={() => openItem(item)} style={styles.lineMain}>
+                    <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(item)} style={styles.lineMain}>
                       <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
                       <Text style={styles.ref}>{item.link.ref}</Text>
                       <Text style={styles.lineTitle} numberOfLines={1}>
                         {item.title}
                       </Text>
+                      <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
+                        {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
+                      </Text>
+                      <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                     </Pressable>
-                    <Pressable
+                    <Pressable colors={colors}
                       accessibilityRole="link"
                       accessibilityLabel={`Open ${item.link.ref} on GitHub`}
                       hitSlop={6}
@@ -450,10 +459,13 @@ export function Board({
                     </Pressable>
                   </View>
                 ) : (
-                  <Pressable key={item.key} accessibilityRole="button" onPress={() => openItem(item)} style={styles.line}>
+                  <Pressable colors={colors} key={item.key} accessibilityRole="button" onPress={() => openItem(item)} style={styles.line}>
                     <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
                     <Text style={styles.lineTitle} numberOfLines={1}>
                       {item.title}
+                    </Text>
+                    <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
+                      {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                     </Text>
                     <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                   </Pressable>
@@ -471,7 +483,7 @@ export function Board({
             const owner = reviewOwner(review, grouped);
             return (
               <View key={review.url} style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
-                <Pressable
+                <Pressable colors={colors}
                   accessibilityRole="button"
                   style={{ flex: 1, gap: 4 }}
                   onPress={() =>
@@ -489,7 +501,7 @@ export function Board({
                     {ago(new Date(review.firstSeenAt).toISOString())}
                   </Text>
                 </Pressable>
-                <Pressable
+                <Pressable colors={colors}
                   accessibilityRole="link"
                   accessibilityLabel="Open the pull request on GitHub"
                   hitSlop={6}
@@ -512,7 +524,7 @@ export function Board({
         if (group.length + pinned === 0) return null;
         return (
           <View key={status} style={{ gap: 8 }}>
-            <Pressable
+            <Pressable colors={colors}
               accessibilityRole="button"
               disabled={status !== "idle"}
               onPress={() => setShowIdle((value) => !value)}
@@ -523,7 +535,7 @@ export function Board({
               </Text>
             </Pressable>
             {status === "waiting on Kent" && coAsk ? (
-              <Pressable
+              <Pressable colors={colors}
                 accessibilityRole="button"
                 onPress={coAsk.onPress}
                 style={[styles.row, { borderLeftColor: colors.statusWarning }]}
@@ -541,7 +553,7 @@ export function Board({
                 .join(" · ");
               const waitingFor = row.permission || row.next || replies[row.id]?.preview || "";
               return (
-                <Pressable
+                <Pressable colors={colors}
                   key={row.id}
                   accessibilityRole="button"
                   onPress={() =>
@@ -573,7 +585,7 @@ export function Board({
                         {row.gates.length === 1 ? "1 gate waiting" : `${row.gates.length} gates waiting`}
                       </Text>
                       {row.gates.slice(0, 3).map((gate) => (
-                        <Pressable
+                        <Pressable colors={colors}
                           key={gate.slug}
                           accessibilityRole="button"
                           onPress={() => setOpen({ id: row.id, gate })}
@@ -605,7 +617,7 @@ export function Board({
               </>
       )}
       <View style={styles.bar}>
-        <Pressable
+        <Pressable colors={colors}
           accessibilityRole="button"
           disabled={busy}
           onPress={() => (workspaces ? setWorkspaces(null) : void showWorkspaces())}
@@ -618,7 +630,7 @@ export function Board({
         <View style={styles.row}>
           <Text style={styles.group}>Start an FO in</Text>
           {workspaces.map((w) => (
-            <Pressable
+            <Pressable colors={colors}
               key={w.id}
               accessibilityRole="button"
               disabled={busy}
