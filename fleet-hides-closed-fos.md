@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 2 — FOs whose Paseo tab is closed carry a Closed badge, and the composer has no web focus outline
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
