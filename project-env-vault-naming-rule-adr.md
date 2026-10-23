@@ -215,3 +215,7 @@ ADR 0005 amended in place as drafted and approved; lint passes and only that fil
 ### Summary
 
 Candidate 6f44533 changes only the ADR 0005 file, lint exits 0, the Captain quotes and the three code citations match, and the rules, guidance-authorizes-no-agent sentence, advisory sentence and three facts are all present. It is not yet a pass: the rule 1 `@` attribution and the rule 2 "quotation marks" reason are not supported by the 1Password page the ADR cites (the page lists whitespace as supported). Fact 1 remains not re-run by design. Recommend one correction commit to the ADR reasons, then re-run the acceptance script above.
+
+### Feedback Cycles
+
+- Cycle 1 (validation-1, candidate 6f44533): two reason sentences are not supported by the reference page the ADR cites (rule 1 "`@` is not allowed", rule 2 "a title with a space needs quotation marks"). FO assessment: Material. Released workflow: a reader relies on ADR 0005 when naming vaults. Harm: the record states claims its own source does not make. Protected boundary: contract[docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md#decision]. Trigger evidence: the validator's fetch of the page on 2026-10-23. FO authorizes the wording fix as implementation-2, then validation-2.
