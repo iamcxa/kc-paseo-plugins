@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-naming-rule-adr:ideation:attempt-1:revision-1",
+  "question": "Approve this ADR 0005 amendment draft into implementation? Approving also confirms the relayed words 「注意應該是建議守則不是強迫性的，直到我們設計一個 skill 讓獨立的 agent 做這件事，且可以確保完全保密完全不外洩」 as yours; say if you object.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-naming-rule-adr:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/1d2d86d34642cb1ff68b74cc40415e3f1fbc425c/project-env-vault-naming-rule-adr.md",
+      "rev": "sha256:af3c32d6a424ebb12d17fc630081c227d649984a9108d1a825d774734ce7055e",
+      "mediaType": "text/markdown",
+      "summary": "Docs only. ADR 0005 is amended in place (as ADR 0002 and 0004 were): four recommended naming rules for a person laying out a vault, each with its reason; the guidance authorizes no agent to create, rename or edit a vault or item; agent layout waits for a dedicated skill run by an independent agent with no secret exposure. Consequences gain three facts verified 2026-10-23 (empty password field creation, case-insensitive references, a vault rename breaks name-based mappings). adr_lint --require 5 exits 0 on a temp copy. Residual: the ADR title still says an agent lays out items, now described as the unbuilt target."
+    }
+  ]
+}

@@ -29,6 +29,25 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-vault-naming-rule-adr:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-vault-naming-rule-adr-ideation-1
+              briefing:
+                id: briefing:project-env-vault-naming-rule-adr:ideation:attempt-1:revision-1
+                digest: sha256:b35f2383056c7810ecfdec1839a19705c474fa1c29abc36d56cee579deb8a9ab
+                room-ref: ./project-env-vault-naming-rule-adr/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-naming-rule-adr:ideation:1
+                briefing: briefing:project-env-vault-naming-rule-adr:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T07:13:11.306201Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves the ADR 0005 amendment draft into implementation and, as the gate question stated, confirms the relayed words 「注意應該是建議守則不是強迫性的，直到我們設計一個 skill 讓獨立的 agent 做這件事，且可以確保完全保密完全不外洩」 as his.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-23T05:48:10Z
 ---
 
