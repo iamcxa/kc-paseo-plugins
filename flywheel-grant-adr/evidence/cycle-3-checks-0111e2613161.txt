@@ -1,0 +1,9 @@
+PASS: all 10 nested/outer quoted spans byte-match task bytes; Proposed status preserved.
+python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since e4f95aee269cf14df571fb8f14e4d82d6cb9da45 --require 0008
+EXIT 0
+7 ADR file(s) checked, 0 legacy
+
+git diff --check
+EXIT 0
+
+Human comparison: pending terminal approval; approved/awaiting merge; round-log stacked, not merged marker; no merge guard --rework or forced terminal status; joint closure at journey end; closed-without-merge hook prompt to Captain cleanup decision; missing terminal logged as package gap for dev2 FO. All checklist terms present, no extra authority.
