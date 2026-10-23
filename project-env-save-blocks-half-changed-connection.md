@@ -7,6 +7,28 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-save-blocks-half-changed-connection:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-save-blocks-half-changed-connection-backlog-1
+              briefing:
+                id: briefing:project-env-save-blocks-half-changed-connection:backlog:attempt-1:revision-1
+                digest: sha256:68cd0349e206be3d459bf6f1958ab5472ef4db855b689196ff52ca7ef67971e9
+                room-ref: ./project-env-save-blocks-half-changed-connection/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-save-blocks-half-changed-connection:backlog:1
+                briefing: briefing:project-env-save-blocks-half-changed-connection:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T05:25:30.795084Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — answers the backlog question put in chat: approves Design Director Tasks A and B, A first, with both stated recommendations (token store refreshes the field list; the ≠ explanation adds ''Check it is the field you mean.'').'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Polish round after the A5 settings-screen rework of the project-env plugin (main 40849b4). Source: the picky-user pass (two reviewers on different models, `ux-review-a5-polish/astra-review.md` and `gemini-review.md`) and the Design Director's ruling (`ux-review-a5-polish/design-director.md`, Task A, rows R1, R11 and R2), approved by the Captain on 2026-10-23 with 「准」, including the Director's recommendation that storing a token refreshes the field list.
