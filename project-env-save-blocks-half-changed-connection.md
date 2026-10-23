@@ -1,7 +1,7 @@
 ---
 id:
 title: Save never overwrites a working connection with a half-changed one
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 — approves this Task A design and its acceptance criteria into implementation.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-23T05:26:08Z
 ---
 
