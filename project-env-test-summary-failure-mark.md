@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-test-summary-failure-mark
-pr: iamcxa/kc-paseo-plugins#27
+pr: pr-merge:27
 gates:
     version: 1
     records:
@@ -92,6 +92,7 @@ Direction alignment with the Captain: done — the Captain chose direction A5 an
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 ## Design
 
 ### PRFAQ
@@ -339,3 +340,8 @@ PASSED at 782ac4c: AC-1 as amended and AC-2 reproduce on my own isolated Paseo a
 - Validation cycle 2 Polish 1 (at 1280 px the open bubble half-hides the Import label or the top of the next control): declined; Captain amendment 1 allows a bubble to cover neighbouring rows, and the bubble ignores pointer events so Import stays clickable (validation cycle 2, crop-1280-bubble.png at 782ac4c).
 - Validation cycle 2 Polish 2 (AC-1's text under Acceptance criteria still reads "overlapping no other row"): declined; the amendment rule appends Captain amendments and changes nothing else in the criteria, so AC-1 is read with amendment 1.
 - Without-it unanswered for the Captain: `OpenProject.edits` in client/open-project.ts has no reader in the screen after this change; open-project.test.ts still asserts it (named in the PR body).
+
+## FO records
+
+External review rounds at the validation gate: Codex 1 (code review clean at 782ac4c, after Captain amendment 1 and the main merge). The local roborev gate is not an external round.
+delivery_gate.py check passed at 782ac4c before the ask (merge/ask-1.json); the Captain approved with 「准」 on 2026-10-23 and FO merged as 40849b4.
