@@ -17,7 +17,7 @@ import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../sha
 import { DecisionCard, wasSent } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
 import { type ReviewRequestData, readReviews, reviewOwner } from "../shared/reviews";
-import { type QueueItem, type QueueKind, buildQueue, isNew } from "../shared/queue";
+import { type QueueItem, type QueueKind, buildQueue, splitQueue } from "../shared/queue";
 
 interface WorkspaceChoice {
   id: string;
@@ -224,6 +224,35 @@ export function Board({
         borderColor: colors.border,
       },
       externalText: { color: colors.foregroundMuted, fontSize: 11 },
+      next: {
+        padding: 12,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderLeftWidth: 3,
+        borderColor: colors.border,
+        backgroundColor: colors.surface2,
+        gap: 8,
+      },
+      nextTitle: { color: colors.foreground, fontSize: 15, fontWeight: "600" as const, lineHeight: 21 },
+      nextButton: {
+        alignSelf: "flex-start" as const,
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 6,
+        backgroundColor: colors.accent,
+      },
+      nextButtonText: { color: colors.accentForeground, fontSize: 12, fontWeight: "600" as const },
+      sectionHead: { flexDirection: "row" as const, justifyContent: "space-between" as const },
+      line: {
+        flexDirection: "row" as const,
+        alignItems: "center" as const,
+        gap: 8,
+        paddingVertical: 7,
+        paddingHorizontal: 6,
+      },
+      dot: { width: 7, height: 7, borderRadius: 4 },
+      lineTitle: { flex: 1, color: colors.foreground, fontSize: 13 },
+      lineAge: { color: colors.foregroundMuted, fontSize: 11 },
     }),
     [colors, layout.compact],
   );
@@ -295,6 +324,13 @@ export function Board({
     gate: colors.statusWarning,
     ask: colors.statusWarning,
   };
+  const { next, sections } = useMemo(() => splitQueue(queue), [queue]);
+  const sectionTitle: Record<QueueKind, string> = {
+    permission: "Permissions",
+    review: "Reviews",
+    gate: "Gates",
+    ask: "Questions",
+  };
   const waitingCount = (id: string) => queue.filter((item) => item.fo?.id === id).length;
   const openItem = (item: QueueItem) => {
     if (item.kind === "permission" && item.fo) return navigation?.openAgent({ agentId: item.fo.id });
@@ -339,48 +375,54 @@ export function Board({
       </View>
       {view === "decision" ? (
         <>
-      {coAsk ? (
-        <Pressable
-          accessibilityRole="button"
-          onPress={coAsk.onPress}
-          style={[styles.row, { borderLeftColor: colors.statusWarning }]}
-        >
-          <Text style={styles.kind}>COMMS OFFICER</Text>
-          <Text style={styles.name} numberOfLines={2}>
-            {coAsk.text}
-          </Text>
-        </Pressable>
-      ) : null}
-      {queue.length === 0 && !coAsk ? <Text style={styles.muted}>Nothing is waiting on you.</Text> : null}
-      {queue.map((item) => (
-        <View key={item.key} style={[styles.row, styles.reviewRow, { borderLeftColor: kindColor[item.kind] }]}>
-          <Pressable accessibilityRole="button" style={{ flex: 1, gap: 4 }} onPress={() => openItem(item)}>
-            <Text style={styles.kind}>
-              {kindLabel[item.kind]}
-              {isNew(item, Date.now()) ? "  · NEW" : ""}
-            </Text>
-            <Text style={styles.name} numberOfLines={2}>
-              {item.title}
-            </Text>
-            <Text style={styles.muted} numberOfLines={2}>
-              {[item.detail, item.fo ? item.fo.title : "no FO", `waiting ${ago(item.since)}`]
-                .filter(Boolean)
-                .join(" · ")}
-            </Text>
-          </Pressable>
-          {item.review ? (
-            <Pressable
-              accessibilityRole="link"
-              accessibilityLabel="Open the pull request on GitHub"
-              hitSlop={6}
-              style={styles.external}
-              onPress={() => void openExternalUrl(item.review!.url)}
-            >
-              <Text style={styles.externalText}>GitHub ↗</Text>
-            </Pressable>
+          {queue.length === 0 && !coAsk ? <Text style={styles.muted}>Nothing is waiting on you.</Text> : null}
+          {next ? (
+            <View style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
+              <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
+                NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
+              </Text>
+              <Text style={styles.nextTitle} numberOfLines={3}>
+                {next.title}
+              </Text>
+              <Text style={styles.muted} numberOfLines={1}>
+                {next.fo ? next.fo.title : "no FO"}
+              </Text>
+              <Pressable accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
+                <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
+              </Pressable>
+            </View>
           ) : null}
-        </View>
-      ))}
+          {coAsk ? (
+            <>
+              <View style={styles.sectionHead}>
+                <Text style={styles.group}>Comms officer</Text>
+                <Text style={styles.group}>1</Text>
+              </View>
+              <Pressable accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
+                <View style={[styles.dot, { backgroundColor: colors.statusWarning }]} />
+                <Text style={styles.lineTitle} numberOfLines={1}>
+                  {coAsk.text}
+                </Text>
+              </Pressable>
+            </>
+          ) : null}
+          {sections.map((section) => (
+            <View key={section.kind} style={{ gap: 2 }}>
+              <View style={styles.sectionHead}>
+                <Text style={styles.group}>{sectionTitle[section.kind]}</Text>
+                <Text style={styles.group}>{section.items.length}</Text>
+              </View>
+              {section.items.map((item) => (
+                <Pressable key={item.key} accessibilityRole="button" onPress={() => openItem(item)} style={styles.line}>
+                  <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
+                  <Text style={styles.lineTitle} numberOfLines={1}>
+                    {item.title}
+                  </Text>
+                  <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
+                </Pressable>
+              ))}
+            </View>
+          ))}
         </>
       ) : (
         <>

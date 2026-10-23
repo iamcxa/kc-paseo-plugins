@@ -53,6 +53,18 @@ export function buildQueue(rows: readonly QueueRow[], reviews: readonly ReviewRe
   return items.sort((a, b) => TIER[a.kind] - TIER[b.kind] || a.since.localeCompare(b.since));
 }
 
-export function isNew(item: QueueItem, now: number, windowMs = 15 * 60_000): boolean {
-  return now - Date.parse(item.since) < windowMs;
+export interface QueueSection {
+  kind: QueueKind;
+  items: QueueItem[];
+}
+
+export function splitQueue(queue: readonly QueueItem[]): { next: QueueItem | null; sections: QueueSection[] } {
+  const [next = null, ...rest] = queue;
+  const sections: QueueSection[] = [];
+  for (const item of rest) {
+    const last = sections[sections.length - 1];
+    if (last?.kind === item.kind) last.items.push(item);
+    else sections.push({ kind: item.kind, items: [item] });
+  }
+  return { next, sections };
 }
