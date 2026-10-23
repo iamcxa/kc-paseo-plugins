@@ -8,8 +8,10 @@
   const a = rect(alert);
   const NAMES = ["SENTRY_PROJECT","SENTRY_AUTH_TOKEN","STRIPE_KEY","TWILIO_ACCOUNT_SID","POSTHOG_CLI_HOST","POSTHOG_CLI_API_KEY"];
   const covered = [];
+  let coversOwnName = false;
   for (const e of document.querySelectorAll('div,span')) {
     if (e.children.length === 0 && NAMES.includes(e.textContent.trim()) && e.textContent.trim() !== ownName && hit(a, rect(e))) covered.push('name ' + e.textContent.trim());
+    if (e.children.length === 0 && e.textContent.trim() === ownName && hit(a, rect(e))) coversOwnName = true;
   }
   for (const e of document.querySelectorAll('[aria-label*=" failed. "]')) if (e !== own && hit(a, rect(e))) covered.push('mark ' + e.getAttribute('aria-label').split(' ')[0]);
   for (const e of document.querySelectorAll('[aria-label^="Field for "]')) if (e.getAttribute('aria-label') !== 'Field for ' + ownName && hit(a, rect(e))) covered.push('pill ' + e.getAttribute('aria-label'));
@@ -20,5 +22,6 @@
   const lines = new Set([...r.getClientRects()].map((x) => Math.round(x.top))).size;
   const pillText = [...ownPillEl.querySelectorAll('div,span')].filter((e) => e.children.length === 0 && e.textContent.trim()).map((e) => rect(e));
   const pillTextCovered = pillText.filter((t) => hit(a, t)).length;
-  return JSON.stringify({ open: true, own: ownName, text: alert.textContent, reason: a, ownPill, lines, ownFieldTextCoveredByReason: pillTextCovered, coversOtherRows: covered });
+  const statusTextOnRows = [...document.querySelectorAll('div,span')].filter((e) => e.children.length === 0 && !alert.contains(e) && /^(set|failed: .+|Not applied: .+)$/i.test(e.textContent.trim())).map((e) => e.textContent.trim());
+  return JSON.stringify({ open: true, own: ownName, text: alert.textContent, reason: a, ownPill, lines, ownFieldTextCoveredByReason: pillTextCovered, coversOwnName, coversOtherRowsAllowed: covered, inViewport: a.l >= 0 && a.r <= innerWidth, statusTextOnRows });
 })()
