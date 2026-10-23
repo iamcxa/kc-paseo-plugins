@@ -15,7 +15,6 @@ function currentResult(draft: Project, run: Run | undefined, v: Variable): Resul
   return run.results.find((r) => r.name === v.name);
 }
 
-// The one-sentence reason a row carries on its (!), or null when it carries none.
 export function rowReason(draft: Project, run: Run | undefined, v: Variable): string | null {
   const reserved = reservedReason(v.name);
   if (reserved !== null) return `Not applied: ${reserved}.`;
@@ -56,3 +55,13 @@ export function summaryParts(
 }
 
 export const summaryText = (parts: SummaryPart[]) => parts.map((p) => p.text).join(" · ");
+
+export type MarkView = { name: string; pinned: boolean } | null;
+export type MarkEvent = { type: "hoverIn" | "hoverOut" | "press"; name: string };
+
+export function nextMark(view: MarkView, event: MarkEvent): MarkView {
+  const same = view?.name === event.name;
+  if (event.type === "hoverIn") return { name: event.name, pinned: same && view.pinned };
+  if (event.type === "hoverOut") return same && !view.pinned ? null : view;
+  return same && view.pinned ? null : { name: event.name, pinned: true };
+}

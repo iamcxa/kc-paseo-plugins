@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import { CAUSES, causeSentence } from "../shared/cause.ts";
 import type { Project } from "../shared/config.ts";
 import { reservedReason } from "../shared/config.ts";
-import { rowReason, summaryText, summaryParts, type Run } from "../shared/test-marks.ts";
+import { nextMark, type MarkView, rowReason, summaryText, summaryParts, type Run } from "../shared/test-marks.ts";
 
 const v = (name: string, ref = `op://V/${name}/x`) => ({ name, ref });
 const project = (variables: Project["variables"], over: Partial<Project> = {}): Project => ({
@@ -105,5 +105,27 @@ describe("the summary beside Test", () => {
   });
   it("reads Testing… while a Test runs", () => {
     assert.equal(text(draft, run, true), "Testing…");
+  });
+});
+
+describe("which (!) shows its reason", () => {
+  const apply = (events: [string, string][], from: MarkView = null) =>
+    events.reduce((v, [type, name]) => nextMark(v, { type: type as "hoverIn", name }), from);
+  it("opens on hover and closes when the pointer leaves", () => {
+    assert.deepEqual(apply([["hoverIn", "A"]]), { name: "A", pinned: false });
+    assert.equal(apply([["hoverIn", "A"], ["hoverOut", "A"]]), null);
+  });
+  it("keeps a pressed reason open when the pointer leaves, and a second press closes it while the pointer stays", () => {
+    assert.deepEqual(apply([["hoverIn", "A"], ["press", "A"], ["hoverOut", "A"]]), { name: "A", pinned: true });
+    assert.equal(apply([["hoverIn", "A"], ["press", "A"], ["press", "A"]]), null);
+  });
+  it("opens on a press with no hover, as on a touch screen, and closes on the second", () => {
+    assert.deepEqual(apply([["press", "A"]]), { name: "A", pinned: true });
+    assert.equal(apply([["press", "A"], ["press", "A"]]), null);
+  });
+  it("shows one reason at a time: another (!) replaces the open one", () => {
+    assert.deepEqual(apply([["press", "A"], ["hoverIn", "B"]]), { name: "B", pinned: false });
+    assert.deepEqual(apply([["press", "A"], ["press", "B"]]), { name: "B", pinned: true });
+    assert.deepEqual(apply([["hoverIn", "A"], ["hoverIn", "B"], ["hoverOut", "A"]]), { name: "B", pinned: false });
   });
 });

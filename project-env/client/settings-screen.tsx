@@ -33,8 +33,8 @@ import {
   hasPendingSave,
   unsavedCount,
 } from "../shared/config";
-import { rowReason, summaryParts, type Run } from "../shared/test-marks";
-import { FailureMark, MARK_SLOT } from "./failure-mark";
+import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
+import { FailureMark } from "./failure-mark";
 import { FieldPicker, type VaultList } from "./field-picker";
 import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
@@ -141,24 +141,23 @@ function VariableRow({
   variable,
   first,
   reason,
-  open,
+  shown,
   theme,
   pill,
-  onToggleMark,
+  onMark,
   onRemove,
 }: {
   variable: Variable;
   first: boolean;
   reason: string | null;
-  open: boolean;
+  shown: boolean;
   theme: Theme;
   pill: ReactNode;
-  onToggleMark(): void;
+  onMark(event: MarkEvent["type"]): void;
   onRemove(): void;
 }) {
   const { name } = variable;
   const compact = useWindowDimensions().width < 600;
-  const [hover, setHover] = useState(false);
   const nameText = (
     <Text style={{ color: theme.colors.foreground, fontSize: 14, ...WRAP }}>{name}</Text>
   );
@@ -173,18 +172,16 @@ function VariableRow({
       <Icon name="X" size={16} color={theme.colors.foregroundMuted} />
     </Pressable>
   );
-  const shown = reason !== null && (open || (!compact && hover));
   const mark = (
-    <FailureMark name={name} reason={reason} active={shown} theme={theme} onToggle={onToggleMark} onHover={setHover} />
+    <FailureMark
+      name={name}
+      reason={reason}
+      shown={shown}
+      theme={theme}
+      onPress={() => onMark("press")}
+      onHover={(on) => onMark(on ? "hoverIn" : "hoverOut")}
+    />
   );
-  const line = shown ? (
-    <Text
-      accessibilityRole="alert"
-      style={{ color: theme.colors.statusDanger, fontSize: 13, paddingHorizontal: 4, marginLeft: compact ? 0 : 212, marginRight: MARK_SLOT + (compact ? 0 : 40) }}
-    >
-      {reason}
-    </Text>
-  ) : null;
   return (
     <View
       style={{
@@ -205,7 +202,6 @@ function VariableRow({
             {pill}
             {mark}
           </View>
-          {line}
         </>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
@@ -215,7 +211,6 @@ function VariableRow({
           <View style={{ marginTop: 4 }}>{cross}</View>
         </View>
       )}
-      {!compact ? line : null}
     </View>
   );
 }
@@ -504,7 +499,7 @@ function ProjectEditor({
     mutationFn: async (sent: Project): Promise<Run> => ({ sent, results: (await testRpc({ project: sent })).results }),
   });
   const run = test.data;
-  const [openMark, setOpenMark] = useState<string | null>(null);
+  const [markView, setMarkView] = useState<MarkView>(null);
   const summary = summaryParts(draft, run, test.isPending);
   const compactHeader = useWindowDimensions().width < 600;
   const summaryNode = (
@@ -777,7 +772,7 @@ function ProjectEditor({
                 accessibilityLabel="Test"
                 disabled={test.isPending}
                 onPress={() => {
-                  setOpenMark(null);
+                  setMarkView(null);
                   test.mutate(draft);
                 }}
                 style={{
@@ -805,9 +800,9 @@ function ProjectEditor({
                 variable={v}
                 first={i === 0}
                 reason={reason}
-                open={openMark === v.name}
+                shown={markView?.name === v.name}
                 theme={theme}
-                onToggleMark={() => setOpenMark((n) => (n === v.name ? null : v.name))}
+                onMark={(type) => setMarkView((view) => nextMark(view, { type, name: v.name }))}
                 onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
                 pill={
                   <FieldPill
