@@ -1,6 +1,6 @@
 ---
 title: An ADR grants the Bridge FO L3 authority over spacedock-bridge POC gates as a dev2 authorization dogfood
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -44,10 +44,13 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:5a6bfa11ff9b): approve ADR 0006 as validated at 4843bb7d; route to done; PR #36 waits for merge.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T10:36:38Z
 worktree: .worktrees/spacedock-ensign-l3-grant-adr
 pr: pr-merge:36
+verdict: PASSED
+completed: 2026-10-23T11:29:13Z
+archived: 2026-10-23T11:29:13Z
 ---
 
 The Captain grants the Bridge FO authority to decide three classes of spacedock-bridge POC decisions by record, under kc-dev-flow-2 ADR 0011's L3 rule ("A class of decisions moves to L3 only by a Captain grant recorded as its own ADR"), as the first dogfood of what should become dev2's authorization framework.
