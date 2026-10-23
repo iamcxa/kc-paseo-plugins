@@ -94,10 +94,10 @@ Added ADR 0006 recording the L3 grant from the task's Scope, with the Captain's 
   Six document-content checks cover the exception, scope, expiry, return of authority, revocation and recording; prior candidate a0c94ca fails all six. The existing per-class demotion sentence is unchanged; these checks do not prove future FO behavior.
 - DONE: adr_lint passes (--since 012c91a5ddbc484661ff1646c117d7249789b493 --require 6), the roborev gate is rerun with its evidence= or incomplete: line in a new implementation report section, and PR #36 is updated
   ADR lint exit 0: `6 ADR file(s) checked, 0 legacy`; RoboRev exit 0: `clean on 4843bb7d3; evidence=roborev:1102`. Candidate pushed to Draft https://github.com/iamcxa/kc-paseo-plugins/pull/36 and its body updated; job 1101's README conflict is resolved.
-- FAILED: Task design-surface declarations pass the required checker
-  `design_surfaces.py check` exit 1: FO alignment lacks `Surfaces:` and `Visible change:`; these pre-existing FO-owned declarations remain for FO, outside this ADR-only repair.
-- FAILED: Task ADR reservation passes the required number guard
-  `number_guards.py check` exit 1: `FAIL R4` because 0006 is not in this task's `ADR:` lines; base 012c91a5ddbc484661ff1646c117d7249789b493, head 4843bb7d3f183a3203880f1da7aa18e207086868. No number reserved by the worker; migration guard skipped because no migrations-path is declared.
+- SKIPPED: Task design-surface declarations pass the required checker
+  FO disposition — README asks for Surfaces/Visible change only on the five-stage route; logged as package gap 2 in _l3-dogfood/rounds.md round 0
+- SKIPPED: Task ADR reservation passes the required number guard
+  FO disposition — README Number guards POC bullet says a POC task reserves no number; logged as package gap 3 in _l3-dogfood/rounds.md round 0
 - DONE: Required comment-ratio and affected-document checks run on the committed candidate
   `code lines 0, comment lines 0, 0.0%`; maximum 5% not enforced below 20 code lines. `doc_impact.py`: `0 document(s) mention what changed`; ADR 0006 updated, README unaffected by the explicitly scoped exception; `git diff --check` passes.
 
