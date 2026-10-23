@@ -1,6 +1,6 @@
 ---
 title: Clickable things on the Bridge respond to hover and press, decisions look distinct, and By decision rows say which FO
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -28,7 +28,7 @@ gates:
                     source: 'docs/adr/0006-the-bridge-fo-decides-three-classes-of-poc-gates-by-record.md (ADR 0006, merged in PR #36, f849058), Captain chat 2026-10-23'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Round 1 of the L3 dogfood (ADR 0006): the Captain's UAT of PR #34 found that nothing on the Bridge shows it can be clicked, the three decision buttons look alike, the By decision rows do not say which FO an item belongs to, and an FO's question disappears from By decision when that FO also has a gate.
