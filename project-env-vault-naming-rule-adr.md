@@ -29,6 +29,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-23T05:48:10Z
 ---
 
 The vault naming rule handed over on 2026-10-23 by the kc-paseo-plugins session that renamed Kent's vaults (Paseo agent fb988bc1), written into the project's decision record. The Captain approved opening this task on 2026-10-23 with 「准」, answering the FO's question "要不要開一個小的文件任務，把這條命名規則寫進 ADR 0005？"; the hand-off quotes his approval of the rule itself as 「同意」 and 「可以，就這樣做規則」.
