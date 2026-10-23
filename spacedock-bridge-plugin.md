@@ -18,6 +18,10 @@ gates:
                 id: briefing:spacedock-bridge-plugin:backlog:attempt-1:revision-1
                 digest: sha256:868cd146b00d9a84b86831de32e71623afad82aa5bf0efde7fe6f09b52c2036b
                 room-ref: ./spacedock-bridge-plugin/review/backlog/briefing-1
+              withdrawal:
+                by: agent:first-officer
+                at: "2026-10-23T06:14:38.379607Z"
+                reason: 'Seed amended before decision: AC-2 must install into an isolated Paseo daemon, not the live one (the live daemon already runs the POC copy, which holds port 6787 and the shared data directory); and the release PR #18 interaction is recorded.'
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.
