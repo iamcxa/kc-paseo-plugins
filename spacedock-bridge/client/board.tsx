@@ -202,6 +202,8 @@ export function Board({
       add: { paddingVertical: 6, paddingHorizontal: 4 },
       addText: { color: colors.foregroundMuted, fontSize: 13 },
       name: { color: colors.foreground, fontSize: 14, fontWeight: "600" as const },
+      owner: { flexDirection: "row" as const, alignItems: "center" as const, gap: 6 },
+      closed: { color: colors.foregroundMuted, fontSize: 11, borderWidth: 1, borderColor: colors.border, borderRadius: 4, paddingHorizontal: 4 },
       text: { color: colors.foreground, fontSize: 13, lineHeight: 18 },
       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
       footer: { color: colors.foregroundMuted, fontSize: 11, marginTop: 12 },
@@ -404,9 +406,12 @@ export function Board({
               <Text style={styles.nextTitle} numberOfLines={3}>
                 {next.title}
               </Text>
-              <Text style={styles.muted} numberOfLines={1}>
-                {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
-              </Text>
+              <View style={styles.owner}>
+                <Text style={styles.muted} numberOfLines={1}>
+                  {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
+                </Text>
+                {next.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
+              </View>
               <View style={styles.nextButtons}>
                 <Pressable colors={colors} accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
                   <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
@@ -446,6 +451,7 @@ export function Board({
                       <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
                         {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                       </Text>
+                      {item.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
                       <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                     </Pressable>
                     <Pressable colors={colors}
@@ -467,6 +473,7 @@ export function Board({
                     <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
                       {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                     </Text>
+                    {item.fo?.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
                     <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                   </Pressable>
                 )
@@ -563,14 +570,17 @@ export function Board({
                   }
                   style={[styles.row, { borderLeftColor: statusColor(row.status) }]}
                 >
-                  <Text style={styles.name}>
-                    {row.title || row.id}
-                    {waitingCount(row.id) ? (
-                      <Text style={{ color: colors.statusWarning, fontWeight: "400" as const }}>
-                        {"  "}· {waitingCount(row.id)} waiting
-                      </Text>
-                    ) : null}
-                  </Text>
+                  <View style={styles.owner}>
+                    <Text style={[styles.name, { flexShrink: 1 }]}>
+                      {row.title || row.id}
+                      {waitingCount(row.id) ? (
+                        <Text style={{ color: colors.statusWarning, fontWeight: "400" as const }}>
+                          {"  "}· {waitingCount(row.id)} waiting
+                        </Text>
+                      ) : null}
+                    </Text>
+                    {row.tabClosed ? <Text style={styles.closed}>Closed</Text> : null}
+                  </View>
                   {row.offline && status !== "offline" ? (
                     <Text style={styles.muted}>FO offline · a message will reopen it</Text>
                   ) : null}
