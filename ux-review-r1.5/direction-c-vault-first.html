@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Direction C - vault first (mock)</title>
+<style>
+:root{--bg:#1a1c1c;--card:#202222;--line:#2c2e2e;--fg:#e6e6e6;--mut:#9a9a9a;--red:#e5735f;--grn:#3fae6a;--s2:#2a2c2c}
+*{box-sizing:border-box}body{margin:0;background:#111;color:var(--fg);font:14px/1.45 -apple-system,system-ui,sans-serif;padding:24px}
+h1{font-size:18px;margin:0 0 4px}.note{color:var(--mut);max-width:1100px;margin:0 0 18px}
+.wrap{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.frame{background:var(--bg);border:1px solid #333;border-radius:10px;padding:22px 26px;position:relative}.d{width:760px}.m{width:400px;padding:16px}
+.cap{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px}
+.sec{font-size:12px;color:var(--mut);margin:18px 2px 6px;display:flex;justify-content:space-between;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.item{border-top:1px solid var(--line);padding:9px 14px}.item:first-child{border-top:0}
+.ih{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mut)}
+.f{display:flex;gap:10px;align-items:center;padding:5px 0 5px 22px;font-size:13px}
+.cb{width:15px;height:15px;border:1px solid #666;border-radius:3px;display:inline-block;text-align:center;font-size:11px;line-height:13px}
+.cb.on{background:var(--grn);border-color:var(--grn);color:#111}
+.as{margin-left:auto;font-size:12px;color:var(--mut)}.as b{color:var(--fg);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px}
+.search{background:var(--s2);border-radius:8px;padding:7px 10px;color:var(--mut);font-size:13px;margin-bottom:8px}
+.btn{border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13px;white-space:nowrap}.btn.pri{background:var(--fg);color:#111}
+.ann{position:absolute;background:#3b3216;color:#f3d27a;border:1px solid #6b5a22;border-radius:6px;font-size:11.5px;padding:4px 8px;max-width:210px}
+.ann{position:static!important;display:block;max-width:none!important;margin:8px 0 0}
+</style></head><body>
+<h1>Direction C: vault first</h1>
+<p class="note">ADR 0005 lays out the vault as one Secure Note per service, with field labels equal to variable names. Given that layout, the vault is the list. Each field is a checkbox; a checked field is a variable, named after its label and renamable. Variables whose field is gone are listed at the top. There is no separate add, browse or pick step. Static mock.</p>
+<div class="wrap">
+<div class="frame d">
+<div class="cap">Desktop</div>
+<div style="font-size:20px">demo-app <span style="font-size:13px;color:var(--mut)">&middot; <span class="dot" style="background:var(--grn)"></span>demo-read &middot; demo-dev</span></div>
+<div class="sec"><span>Needs attention</span></div>
+<div class="card"><div class="item"><div class="f" style="padding-left:0"><span class="dot" style="background:var(--red)"></span>STRIPE_KEY points to stripe &rsaquo; secret-key, which is not in demo-dev<span class="as"><span class="btn">Repoint</span> <span class="btn">Remove</span></span></div></div></div>
+<div class="sec"><span>Fields in demo-dev &middot; 5 given to agents</span><span style="display:flex;gap:6px"><span class="btn">Test</span><span class="btn">Refresh</span></span></div>
+<div class="search">Filter fields</div>
+<div class="card">
+ <div class="item"><div class="ih">&#8964; SENTRY <span class="as">3 of 3</span></div>
+  <div class="f"><span class="cb on">&#10003;</span>SENTRY_AUTH_TOKEN<span class="as">as <b>SENTRY_AUTH_TOKEN</b> &middot; <span style="color:var(--grn)">set</span></span></div>
+  <div class="f"><span class="cb on">&#10003;</span>SENTRY_ORG<span class="as">as <b>SENTRY_ORG</b> &middot; <span style="color:var(--grn)">set</span></span></div>
+  <div class="f"><span class="cb on">&#10003;</span>SENTRY_PROJECT<span class="as">as <b>SENTRY_PROJECT</b> &middot; <span style="color:var(--red)">empty</span></span></div></div>
+ <div class="item"><div class="ih">&#8964; POSTHOG <span class="as">1 of 3</span></div>
+  <div class="f"><span class="cb"></span>POSTHOG_CLI_API_KEY</div>
+  <div class="f"><span class="cb"></span>POSTHOG_CLI_PROJECT_ID</div>
+  <div class="f"><span class="cb on">&#10003;</span>POSTHOG_CLI_HOST<span class="as">as <b>POSTHOG_CLI_HOST</b> &middot; not tested</span></div></div>
+ <div class="item"><div class="ih">&rsaquo; TWILIO <span class="as">0 of 4</span></div></div>
+ <div class="item"><div class="ih">&rsaquo; clerk-development <span class="as">1 of 2 &middot; renamed: secret-key as <b style="color:var(--fg)">CLERK_SECRET_KEY</b></span></div></div>
+ <div class="item"><div class="ih" style="color:#777">deploy-key &middot; could not be read (ssh key)</div></div>
+</div>
+<div style="margin-top:16px;display:flex;justify-content:flex-end;gap:8px"><span style="margin-right:auto;align-self:center;font-size:12px;color:var(--mut)">2 unsaved changes</span><span class="btn">Discard</span><span class="btn pri">Save</span></div>
+<div class="ann" style="left:560px;top:100px">References that no longer match a field surface first</div>
+<div class="ann" style="left:560px;top:300px">Checking a field creates the variable; the name defaults to the label</div>
+<div class="ann" style="left:560px;top:560px">Labels that are not valid names (publishable-key) need a rename before they can be checked</div>
+</div>
+<div class="frame m">
+<div class="cap">400 px</div>
+<div style="font-size:18px">demo-app</div>
+<div class="search" style="margin-top:12px">Filter fields</div>
+<div class="card">
+ <div class="item"><div class="ih">&#8964; SENTRY <span class="as">3 of 3</span></div>
+  <div class="f"><span class="cb on">&#10003;</span>SENTRY_AUTH_TOKEN<span class="as" style="color:var(--grn)">set</span></div>
+  <div class="f"><span class="cb on">&#10003;</span>SENTRY_ORG<span class="as" style="color:var(--grn)">set</span></div>
+  <div class="f"><span class="cb on">&#10003;</span>SENTRY_PROJECT<span class="as" style="color:var(--red)">empty</span></div></div>
+ <div class="item"><div class="ih">&rsaquo; POSTHOG <span class="as">1 of 3</span></div></div>
+ <div class="item"><div class="ih">&rsaquo; TWILIO <span class="as">0 of 4</span></div></div>
+</div>
+</div>
+</div>
+<h2 style="font-size:15px;margin-top:26px">Cost</h2>
+<p class="note">This is the largest change. The vault must load before the screen is usable, so a slow, rate-limited or partly unreadable vault makes the whole screen fail, not one picker. Field labels that are not valid variable names need a rename step. Variables saved before ADR 0005 become exceptions to manage. Most of it is custom React Native (tree, checkboxes, rename), and it changes what an "add" means in the journey stories. Best fit for Kent's own vault only once it follows the ADR 0005 layout, which has not been checked here.</p>
+</body></html>

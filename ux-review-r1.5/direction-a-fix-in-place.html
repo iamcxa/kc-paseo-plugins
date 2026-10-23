@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Direction A - fix in place (mock)</title>
+<style>
+:root{--bg:#1a1c1c;--card:#202222;--line:#2c2e2e;--fg:#e6e6e6;--mut:#9a9a9a;--red:#e5735f;--grn:#3fae6a;--amb:#d9a640;--s2:#2a2c2c}
+*{box-sizing:border-box}body{margin:0;background:#111;color:var(--fg);font:14px/1.45 -apple-system,system-ui,sans-serif;padding:24px}
+h1{font-size:18px;margin:0 0 4px}.note{color:var(--mut);max-width:1100px;margin:0 0 18px}
+.wrap{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.frame{background:var(--bg);border:1px solid #333;border-radius:10px;padding:22px 26px;position:relative}
+.d{width:760px}.m{width:400px;padding:16px}
+.cap{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px}
+.sec{font-size:12px;color:var(--mut);margin:18px 2px 6px;display:flex;justify-content:space-between;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}.row:first-child{border-top:0}
+.grow{flex:1;min-width:0}.lbl{font-size:14px}.hint{font-size:12px;color:var(--mut)}
+.btn{border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13px;background:transparent;color:var(--fg);white-space:nowrap}
+.btn.pri{background:var(--fg);color:#111;border-color:var(--fg)}.btn.ghost{border-color:transparent;color:var(--mut)}.btn.dng{color:var(--red);border-color:#5a2621}
+.pick{display:flex;align-items:center;gap:6px;background:var(--s2);border-radius:8px;padding:6px 10px;width:300px;font-size:13px}
+.pick .it{color:var(--mut)}.pick .chev{margin-left:auto;color:var(--mut)}.pick.empty{color:var(--mut);border:1px dashed #444;background:transparent}
+.st{font-size:12px;display:flex;align-items:center;gap:5px}.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.ok .dot{background:var(--grn)}.bad{color:var(--red)}.bad .dot{background:var(--red)}.nt{color:var(--mut)}.nt .dot{background:#666}
+.fixlink{color:#7fb7ff;font-size:12px;margin-left:6px}
+.warn{color:var(--amb);font-size:12px}
+.footer{margin-top:16px;background:#262828;border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.modal{position:absolute;left:150px;top:300px;width:440px;background:#232525;border:1px solid #3a3c3c;border-radius:12px;box-shadow:0 20px 60px #000c}
+.mh{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.search{margin:10px 14px;background:var(--s2);border-radius:8px;padding:7px 10px;color:var(--mut);font-size:13px}
+.grp{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;padding:8px 16px 2px}
+.opt{padding:6px 16px;font-size:13px;display:flex;gap:8px;align-items:center}.opt.sel{background:#2d3a31}.opt .u{margin-left:auto;font-size:11px;color:var(--mut)}
+.opt .sug{font-size:10px;background:#2d3a31;color:#8fd6a5;padding:1px 6px;border-radius:8px}
+.mf{border-top:1px solid var(--line);padding:9px 16px;font-size:12px;color:var(--mut)}
+.ann{position:absolute;z-index:5;background:#3b3216;color:#f3d27a;border:1px solid #6b5a22;border-radius:6px;font-size:11.5px;padding:4px 8px;max-width:210px}
+.m .pick{width:100%}.m .row{flex-wrap:wrap}
+.legend{margin:14px 0 0;padding-left:18px;color:#f3d27a;font-size:12.5px}.legend li{margin:2px 0}.n{display:inline-block;background:#6b5a22;color:#111;border-radius:50%;width:16px;height:16px;font-size:10px;text-align:center;line-height:16px;margin-left:6px;vertical-align:middle}
+</style></head><body>
+<h1>Direction A: fix in place (recommended)</h1>
+<p class="note">Same page, same order, same plugin kit. Each variable row has one control in every state, a field picker that loads the vault the first time it opens, so the separate Browse vault row is gone. The picker is grouped and searchable and suggests the field named like the variable. Add is one action. Save lives in a sticky footer with a dirty count. Stop managing moves to a danger section. Static mock: nothing is clickable. Yellow notes mark each change.</p>
+<div class="wrap">
+
+<div class="frame d">
+<div class="cap">Desktop, connected project with an edit in progress</div>
+<div style="font-size:20px;margin-bottom:4px">demo-app</div><div class="hint">/Users/kent/Project/demo-app</div>
+
+<div class="sec"><span>1Password</span></div>
+<div class="card"><div class="row"><div class="grow"><div class="lbl"><span class="st ok" style="display:inline-flex"><span class="dot"></span></span> Connected &middot; demo-read &middot; vault demo-dev<span class="n">1</span></div><div class="hint">Token checked 2 min ago, stored in the Keychain on the Mac running Paseo</div></div><span class="btn">Change</span></div></div>
+
+<div class="sec"><span>Environment variables &nbsp;<span title="Test resolves each variable now; set means 1Password returned a value, not that the service accepts it." style="border:1px solid #555;border-radius:50%;padding:0 5px;font-size:10px">i</span></span><span style="display:flex;gap:6px"><span class="btn">Test all</span><span class="btn">+ Add variable</span><span class="n">2</span></span></div>
+<div class="card">
+ <div class="row"><div class="grow"><div class="lbl">SENTRY_AUTH_TOKEN</div><div class="st ok"><span class="dot"></span>set</div></div><div class="pick"><span class="it">SENTRY &rsaquo;</span> SENTRY_AUTH_TOKEN<span class="chev">&#8964;</span></div><span class="btn ghost">&#10005;</span></div>
+ <div class="row"><div class="grow"><div class="lbl">SENTRY_PROJECT</div><div class="st bad"><span class="dot"></span>failed: the 1Password field is empty <span class="fixlink">Fill it in 1Password, then Test</span></div></div><div class="pick"><span class="it">SENTRY &rsaquo;</span> SENTRY_PROJECT<span class="chev">&#8964;</span></div><span class="btn ghost">&#10005;</span></div>
+ <div class="row"><div class="grow"><div class="lbl">TWILIO_AUTH_TOKEN</div><div class="st nt"><span class="dot"></span>changed, not tested<span class="n">3</span></div><div class="warn">Field label differs from the variable name</div></div><div class="pick"><span class="it">TWILIO &rsaquo;</span> TWILIO_ACCOUNT_SID<span class="n">4</span><span class="chev">&#8964;</span></div><span class="btn ghost">&#10005;</span></div>
+ <div class="row"><div class="grow"><div class="lbl">STRIPE_KEY</div><div class="st bad"><span class="dot"></span>failed: field not found in the vault <span class="fixlink">Pick another field</span><span class="n">5</span></div></div><div class="pick" style="border:1px solid #5a2621"><span class="it">stripe &rsaquo;</span> secret-key<span class="chev">&#8964;</span></div><span class="btn ghost">&#10005;</span></div>
+ <div class="row"><div class="grow"><div class="lbl">POSTHOG_CLI_HOST</div><div class="st nt"><span class="dot"></span>new, not tested</div></div><div class="pick empty">Pick a field<span class="chev">&#8964;</span></div><span class="btn ghost">&#10005;</span></div>
+</div>
+<div class="hint" style="margin:6px 2px">Import names from Conductor &middot; Agents receive these values in their environment and can read them.</div>
+
+<div class="sec"><span>Default prompt for new agents</span></div>
+<div class="card" style="padding:10px 12px;min-height:60px;color:var(--mut)">Appended to the system prompt of every new agent in this project</div>
+
+<div class="sec"><span>Danger zone</span></div>
+<div class="card"><div class="row"><div class="grow"><div class="lbl">Stop managing this project</div><div class="hint">Deletes its variables and prompt now. The Keychain token stays.</div></div><span class="btn dng">Stop managing</span></div></div>
+
+<div class="footer"><span class="hint grow">3 unsaved changes<span class="n">6</span></span><span class="btn">Discard</span><span class="btn pri">Save</span></div>
+
+<ol class="legend">
+<li>Connection collapses to one line once the token works.</li>
+<li>Test and Add move to the section header; the Test disclaimer moves behind the info mark.</li>
+<li>Only the edited row resets to "changed, not tested"; other results stay.</li>
+<li>Same control before and after the vault loads; it shows item and field, never the vault. A label that differs from the name gets a soft warning.</li>
+<li>A failure carries its next step.</li>
+<li>Sticky footer with a dirty count; Stop managing sits in its own danger section.</li>
+</ol>
+</div>
+
+<div class="frame d">
+<div class="cap">Desktop, field picker open for TWILIO_AUTH_TOKEN</div>
+<div style="opacity:.25">
+ <div style="font-size:20px">demo-app</div>
+ <div class="card" style="margin-top:20px;height:420px"></div>
+</div>
+<div class="modal" style="left:160px;top:40px">
+ <div class="mh"><b>Field for TWILIO_AUTH_TOKEN</b><span class="hint">&#10005;</span></div>
+ <div class="search">Search fields in demo-dev</div>
+ <div class="grp">Suggested</div>
+ <div class="opt"><span class="sug">same name</span>TWILIO &rsaquo; TWILIO_AUTH_TOKEN</div>
+ <div class="grp">TWILIO</div>
+ <div class="opt sel">&#10003; TWILIO_ACCOUNT_SID <span class="u">current</span></div>
+ <div class="opt">TWILIO_AUTH_TOKEN</div>
+ <div class="opt">TWILIO_FROM_NUMBER</div>
+ <div class="opt">TWILIO_TO_NUMBER</div>
+ <div class="grp">SENTRY</div>
+ <div class="opt" style="color:var(--mut)">SENTRY_AUTH_TOKEN <span class="u">used by SENTRY_AUTH_TOKEN</span></div>
+ <div class="opt">SENTRY_ORG</div>
+ <div class="opt" style="color:var(--mut)">SENTRY_PROJECT <span class="u">used by SENTRY_PROJECT</span></div>
+ <div class="grp">POSTHOG &middot; 3 fields &rsaquo;</div>
+ <div class="grp">clerk-development &middot; 2 fields &rsaquo;</div>
+ <div class="mf">Not listed: deploy-key (1Password could not read this item, ssh key) &middot; <span style="color:#7fb7ff">Type a reference instead</span></div>
+</div>
+<div class="ann" style="left:612px;top:120px">The exact label match comes first (ADR 0005 layout)</div>
+<div class="ann" style="left:612px;top:300px">Grouped by item; fields used by another variable are marked</div>
+<div class="ann" style="left:612px;top:470px">Unreadable items and manual entry live here, not in the variables card</div>
+</div>
+
+<div class="frame m">
+<div class="cap">400 px, same state</div>
+<div style="font-size:18px">demo-app</div>
+<div class="sec"><span>1Password</span></div>
+<div class="card"><div class="row"><div class="grow"><div class="lbl"><span class="dot" style="background:var(--grn)"></span> Connected &middot; demo-dev</div><div class="hint">demo-read</div></div><span class="btn">Change</span></div></div>
+<div class="sec"><span>Variables</span><span style="display:flex;gap:6px"><span class="btn">Test</span><span class="btn">+ Add</span></span></div>
+<div class="card">
+ <div class="row"><div class="grow"><div class="lbl">SENTRY_AUTH_TOKEN</div><div class="st ok"><span class="dot"></span>set</div></div><span class="btn ghost">&#10005;</span><div class="pick"><span class="it">SENTRY &rsaquo;</span> SENTRY_AUTH_TOKEN<span class="chev">&#8964;</span></div></div>
+ <div class="row"><div class="grow"><div class="lbl">SENTRY_ORG</div><div class="st ok"><span class="dot"></span>set</div></div><span class="btn ghost">&#10005;</span><div class="pick"><span class="it">SENTRY &rsaquo;</span> SENTRY_ORG<span class="chev">&#8964;</span></div></div>
+ <div class="row"><div class="grow"><div class="lbl">SENTRY_PROJECT</div><div class="st bad"><span class="dot"></span>failed: field is empty</div></div><span class="btn ghost">&#10005;</span><div class="pick"><span class="it">SENTRY &rsaquo;</span> SENTRY_PROJECT<span class="chev">&#8964;</span></div></div>
+</div>
+<div class="footer"><span class="hint grow">1 unsaved change</span><span class="btn">Discard</span><span class="btn pri">Save</span></div>
+<div class="ann" style="position:static;margin-top:10px">At 400 px the three SENTRY rows now differ; today they all read "op://.../SENTRY/SENTR..."</div>
+</div>
+
+<div class="frame m">
+<div class="cap">400 px, new project, not connected</div>
+<div style="font-size:18px">new-app</div>
+<div class="sec"><span>Connect to 1Password</span></div>
+<div class="card">
+ <div class="row"><div class="grow"><div class="lbl">1 &middot; Name the service account</div><div class="hint">Its Keychain label, e.g. relay-dev-read</div><div class="pick" style="margin-top:6px;width:100%">new-read</div></div></div>
+ <div class="row"><div class="grow"><div class="lbl">2 &middot; Paste its token</div><div class="hint">Checked with 1Password before it is stored</div><div class="pick" style="margin-top:6px;width:100%;color:var(--mut)">ops_...</div></div><span class="btn pri">Check and store</span></div>
+ <div class="row" style="opacity:.45"><div class="grow"><div class="lbl">3 &middot; Vault</div><div class="hint">Available after the token works</div></div></div>
+</div>
+<div class="sec"><span>Variables</span></div>
+<div class="card"><div class="row"><div class="grow hint">Connect first, then add variables from the vault.</div></div></div>
+<div class="ann" style="position:static;margin-top:10px">Steps only while not connected. No Save, Discard or Stop managing until the project has something to save.</div>
+</div>
+
+</div>
+<h2 style="font-size:15px;margin-top:26px">Cost</h2>
+<p class="note">Built with what the plugin kit already provides: SettingsSection <code>trailing</code> and <code>info</code>, SettingsRow, Modal (with <code>scrollable=false</code> for the search plus list), <code>useToast</code>, Icon. The existing RefPicker grows into the grouped picker. Custom React Native work is small: the sticky footer, the grouped list, and the status dot. No server change except returning item and field as separate parts from listRefs (or splitting them in the client). What gets worse: the page stays one long column, and the picker must handle a slow vault on first open, where today the delay happens once on Browse.</p>
+</body></html>

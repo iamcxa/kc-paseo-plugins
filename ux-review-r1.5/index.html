@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>project-env settings screen - design critique r1.5</title>
+<style>
+body{background:#1a1c1c;color:#e6e6e6;font:14px/1.5 -apple-system,system-ui,sans-serif;margin:0;padding:32px 48px;max-width:1180px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:32px 0 8px;border-bottom:1px solid #2c2e2e;padding-bottom:6px}
+.muted{color:#9a9a9a}a{color:#7fb7ff}
+table{border-collapse:collapse;width:100%;margin:8px 0}td,th{border-top:1px solid #2c2e2e;padding:8px 10px;vertical-align:top;text-align:left}
+th{color:#9a9a9a;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.sev{font-size:11px;font-weight:600;padding:2px 7px;border-radius:9px;white-space:nowrap}
+.blocking{background:#5a2621;color:#ffb3a8}.confusing{background:#4d3f17;color:#f3d27a}.polish{background:#23363f;color:#9fd3ea}
+td img{width:150px;border:1px solid #2c2e2e;border-radius:4px;display:block;margin-top:4px}
+code{background:#262828;padding:1px 4px;border-radius:3px;font-size:12.5px}
+.box{background:#202222;border:1px solid #2c2e2e;border-radius:10px;padding:14px 18px;margin:10px 0}
+li{margin:3px 0}
+</style></head><body>
+<h1>Project environment settings: design critique</h1>
+<div class="muted">Reviewed 2026-10-22 on main 1adf630, isolated Paseo 0.12.0 daemon, fake op/security/git, fake vault laid out per ADR 0005. Method: design:design-critique, one walk through the whole screen. Screenshots in <a href="shots/">shots/</a>.</div>
+
+<h2>Overall impression</h2>
+<div class="box">
+The screen is honest but it is shaped like the code, not the task. Every capability is a row of equal weight in a single long column, so the eye has no starting point and no finish line. Kent's complaint is real: <b>Browse vault</b> sounds like "show me the vault" but it actually changes how every variable row works, from a free-text box to a dropdown, and it does this far below the rows it changes, with nothing on screen saying so. The reference shown on each row is the raw <code>op://vault/item/field</code> path cut off at 260 px. The vault prefix repeats on every row, so the item and field, the only parts that tell rows apart, are the parts that get cut off. Two defects also put work at risk. A layout change throws away the unsaved draft without a word. And a wrong field can read <i>set</i> while its name is hidden by the cut-off.
+</div>
+
+<h2>The walk, as Kent meets it</h2>
+<ol>
+<li><b>Add a project</b>: a dropdown labelled "Choose..." (<a href="shots/01-projects-list.png">01</a>). The editor opens with Save, Discard and Stop managing already active, for a project that does not exist yet (<a href="shots/02-new-project-empty.png">02</a>).</li>
+<li><b>Connect</b>: six rows: name, a status row whose label changes, token, Save token, Vault. Vault is a text box until a check succeeds, then it becomes a dropdown (<a href="shots/02-new-project-empty.png">02</a> vs <a href="shots/09-token-works-vault-picked.png">09</a>). Refusals are clear (<a href="shots/05-token-bad-shape.png">05</a>, <a href="shots/06-token-rejected.png">06</a>).</li>
+<li><b>Add a variable</b>: type a name in one row, press Add in the next row. The new row turns red at once with "No field picked" and offers a text box for a raw path (<a href="shots/12-added-row-no-field.png">12</a>).</li>
+<li><b>Browse vault</b>: a button four rows below. When pressed, every row's text box silently becomes a dropdown (<a href="shots/13-test-before-browse.png">13</a> to <a href="shots/15-after-browse.png">15</a>). An unreadable item appears as a row inside the variables card and looks like a variable (<a href="shots/15-after-browse.png">15</a>).</li>
+<li><b>Pick</b>: a modal list of full paths, in vault order (<a href="shots/16-picker-open.png">16</a>).</li>
+<li><b>Test</b>: results land on rows. A deliberately wrong pick (an auth-token variable given the account-SID field) reads <i>set</i>, and the cut-off shows only "TWILIO/TWILIO..." (<a href="shots/18-tested.png">18</a>).</li>
+<li><b>Fix a failing row</b>: picking a new field for one row wipes every row's result, including an unrelated failure (<a href="shots/27-failing-before-fix.png">27</a> to <a href="shots/28-after-pick-results-cleared.png">28</a>). A full re-Test is the only confirmation (<a href="shots/29-retested.png">29</a>).</li>
+<li><b>Save</b> closes the editor with no confirmation (<a href="shots/19-after-save.png">19</a>). <b>Stop managing</b> asks first, but the destructive button looks the same as Keep (<a href="shots/25-stop-dialog.png">25</a>).</li>
+</ol>
+
+<h2>Findings</h2>
+<table>
+<tr><th>#</th><th>Severity</th><th>What I saw</th><th>Why it fails Kent</th><th>Fix</th></tr>
+
+<tr><td>1</td><td><span class="sev blocking">blocking</span></td>
+<td><b>Browse vault is a hidden mode switch.</b> Before it, each row is a text box that clips mid-path with no ellipsis. After it, each row is a dropdown. The trigger sits below Add, far from the rows it changes, and keeps its label after loading.<img src="shots/21-demo-app-tested.png"><img src="shots/22-demo-app-browsed.png"></td>
+<td>A button that reads as "look" acts as "change every row". The rows Kent already filled in change kind under his hand. This is exactly his 2026-10-22 complaint. Two ways to set the same value, depending on whether a button was pressed earlier, means two mental models for one field.</td>
+<td>One control per row, in every state: a field picker that loads the vault the first time it opens. Remove the card-level Browse row. Manual <code>op://</code> entry becomes a "Type a reference" choice inside the picker.</td></tr>
+
+<tr><td>2</td><td><span class="sev blocking">blocking</span></td>
+<td><b>The reference hides what tells rows apart.</b> It is 260 px wide, with the vault prefix repeated on every row, then cut off. At 400 px, three different rows read the same "op://.../SENTRY/SENTR..." (<a href="shots/m03-browsed-400.png">m03</a>). A wrong field is hidden by the same cut-off.<img src="shots/18-tested.png"><img src="shots/m03-browsed-400.png"></td>
+<td>Kent cannot check his mapping by reading the screen, and the only proof, Test, says <i>set</i> for a wrong field. A mis-mapped secret reaches agents looking correct.</td>
+<td>Show <code>ITEM &rsaquo; field</code> without the vault, which is already shown once above. Never cut off the field label. Put the full path in a muted second line or a tooltip. Flag "field label differs from variable name" as a soft warning.</td></tr>
+
+<tr><td>3</td><td><span class="sev blocking">blocking</span></td>
+<td><b>A layout change throws away the draft.</b> Resizing the window across a width between 700 and 800 px returns to the project list. The added row, picks, typed prompt, and an unsaved new project are all lost. It is not a reload: a page marker survived and the daemon saw no new connection.<img src="shots/30a-draft-before-resize.png"><img src="shots/30b-draft-lost-after-resize-700.png"></td>
+<td>Silent loss of work. It is worse than the r3 "unsaved warning" gap because Kent did nothing to leave. Split-screen, a narrow window or rotating a phone triggers it.</td>
+<td>Keep the draft and the open project outside the component that the host remounts, for example in a module-level store keyed by root. Restore it when the screen mounts again. Pair this with the leave guard.</td></tr>
+
+<tr><td>4</td><td><span class="sev blocking">blocking</span></td>
+<td><b>The field picker is a flat list of raw paths.</b> No grouping by item, no search, no mark on fields another variable already uses. The current choice is shown only by text colour. A reference that is not in the vault is placed first and coloured as the current choice, with no "not found".<img src="shots/16-picker-open.png"><img src="shots/23-picker-stale-ref.png"></td>
+<td>With ADR 0005's layout (one Secure Note per service, label equals variable name) the right answer is nearly always "the field named like this variable". Kent still has to scan every path. A broken reference looks like a valid, selected one.</td>
+<td>Group by item, show labels only, add search, put the exact label match first as "Suggested", show "used by X", a check mark on the current choice, and "not in vault" in red for a stale reference. Move unreadable items into the picker's footer.</td></tr>
+
+<tr><td>5</td><td><span class="sev confusing">confusing</span></td>
+<td><b>Adding a variable takes three separated steps.</b> Name in one row, Add in another, then a field elsewhere. The new row is red at once.<img src="shots/12-added-row-no-field.png"></td>
+<td>The layout forces an order, then marks the row as an error for following it. The name is typed by hand even though the field label usually is the name.</td>
+<td>One "+ Add variable" action opens the picker. Picking a field creates the row, with the name taken from the label and still editable. "Name only" stays as a secondary choice.</td></tr>
+
+<tr><td>6</td><td><span class="sev confusing">confusing</span></td>
+<td><b>One edit wipes every result.</b> Re-picking one field cleared an unrelated failure on another row.<img src="shots/28-after-pick-results-cleared.png"></td>
+<td>The rule "results match the draft" is right, but applying it to the whole card hides failures Kent has not fixed yet.</td>
+<td>Clear only the edited row's result. Other rows keep theirs, marked as from the last Test.</td></tr>
+
+<tr><td>7</td><td><span class="sev confusing">confusing</span></td>
+<td><b>Failures give no next step.</b> "the 1Password field is empty" and "field not found in the vault" sit in red with nothing to press.<img src="shots/21-demo-app-tested.png"></td>
+<td>Kent knows it failed, not what to do. The empty-field fix happens in 1Password, and the screen does not say so.</td>
+<td>One action per cause: "Pick another field" for not found or outside the vault; "Fill it in 1Password, then Test" for empty; "Check token" for token causes.</td></tr>
+
+<tr><td>8</td><td><span class="sev confusing">confusing</span></td>
+<td><b>The connection card is six rows of equal weight for a one-time setup.</b> A status shown as a row label; token and its Save on separate rows; Vault changes kind after the check; "1Password service account" is really a Keychain item label.<img src="shots/09-token-works-vault-picked.png"></td>
+<td>After the first day this card is noise above what Kent edits most. On the first day it reads as a form, not as steps.</td>
+<td>Once connected, collapse to one line: "<span style="color:#3fae6a">&#9679;</span> Connected &middot; new-read &middot; demo-dev &middot; Change". When not connected, show numbered steps: name, paste token (check + store in one action), vault.</td></tr>
+
+<tr><td>9</td><td><span class="sev confusing">confusing</span></td>
+<td><b>Save, Discard and Stop managing are equal siblings at the bottom.</b> Save is enabled with no changes and closes the editor silently. Stop managing shows for an unsaved project. The confirm dialog styles the destructive button like Keep.<img src="shots/02-new-project-empty.png"><img src="shots/25-stop-dialog.png"></td>
+<td>No dirty state, no success signal, and a destructive action next to the main one.</td>
+<td>A sticky footer: "3 unsaved changes &middot; Discard &middot; Save". Show a "Saved" toast (<code>useToast</code> is in the plugin kit and unused). Move Stop managing to its own danger section, hide it for an unsaved project, and colour it red.</td></tr>
+
+<tr><td>10</td><td><span class="sev confusing">confusing</span></td>
+<td><b>Notes posing as rows.</b> An unreadable item ("deploy-key") and import notes appear inside the variables card.<img src="shots/15-after-browse.png"></td>
+<td>They read as variables, or as rows that need an action.</td>
+<td>Unreadable items go into the picker's footer. The import result becomes a toast.</td></tr>
+
+<tr><td>11</td><td><span class="sev polish">polish</span></td>
+<td>The Test disclaimer is two sentences of permanent hint, four lines at 400 px (<a href="shots/m03-browsed-400.png">m03</a>).</td>
+<td>It pushes the content down and is read once.</td>
+<td>Put Test in the section header (<code>SettingsSection trailing</code>), and the disclaimer behind its <code>info</code>.</td></tr>
+
+<tr><td>12</td><td><span class="sev polish">polish</span></td>
+<td>Success "set" is muted grey, in the same style as a hint. Paseo's own Providers screen uses a dot plus a word (<a href="shots/p02-paseo-providers.png">p02</a>).</td>
+<td>Success and silence look alike, and the screen does not match the host's style.</td>
+<td>Use a status dot plus a word: green "set", red "failed: ...", grey "not tested".</td></tr>
+
+<tr><td>13</td><td><span class="sev polish">polish</span></td>
+<td>The project list shows a count, not health. Paseo's Projects screen uses rows with a chevron (<a href="shots/p01-paseo-projects.png">p01</a>). "Add a project" is a dropdown labelled "Choose...".</td>
+<td>Kent cannot see which project is broken without opening each one.</td>
+<td>Rows with a chevron: "demo-app &middot; <span style="color:#e5735f">&#9679;</span> 1 of 7 failing at last test". "+ Add project" opens a list.</td></tr>
+
+<tr><td>14</td><td><span class="sev polish">polish</span></td>
+<td>The placeholder "LINEAR_API_KEY" is close in contrast to real values. In the picker at 400 px, paths wrap as "op://demo-" / "dev/..." (<a href="shots/m04-picker-400.png">m04</a>). The closing sentence about agents reading values floats unstyled under the cards.</td>
+<td>These small frictions add to the feeling that the screen is unfinished.</td>
+<td>Use "e.g. LINEAR_API_KEY". Show labels in the picker, not paths, which removes the wrap. Move the sentence into the variables section's <code>info</code>.</td></tr>
+</table>
+
+<h2>What works</h2>
+<ul>
+<li>Results on each row, never a value. Refusal copy is plain and specific ("Not saved: 1Password rejected the token", the reserved-name reasons).</li>
+<li>The token is checked before it is stored. Stop managing asks first and states the consequence precisely.</li>
+<li>One reason per failure class, never raw tool output.</li>
+</ul>
+
+<h2>Three directions</h2>
+<ul>
+<li><a href="direction-a-fix-in-place.html">A. Fix in place</a> (recommended): same page and order; one field picker per row; grouped, searchable picker; one-step add; sticky save footer.</li>
+<li><a href="direction-a2-status-in-pill.html">A2. Status inside the field pill</a> (revision of A after Kent's 2026-10-22 review).</li>
+<li><a href="direction-b.html">B. Connection line and variable table</a>: connection collapses to a Providers-style status line; variables become a Name / Field / Status table.</li>
+<li><a href="direction-c-vault-first.html">C. Vault first</a>: the vault is a checklist; a checked field is a variable.</li>
+</ul>
+<h2>Proposed split of direction A (one concern per task)</h2>
+<table>
+<tr><th>Task</th><th>Concern</th><th>Story served</th></tr>
+<tr><td>draft-survives-remount</td><td>The draft and the open project survive a host remount (finding 3). Do this first; it loses work today.</td><td>unsaved-warning (r3), pulled forward</td></tr>
+<tr><td>ref-cell-one-control</td><td>Each row's field is always a picker that loads the vault on first open. The Browse vault row is removed, and manual entry moves into the picker (finding 1).</td><td>pick-field, add-remove-variable</td></tr>
+<tr><td>ref-shows-item-field</td><td>The row shows ITEM &rsaquo; field, without the vault, never cut off at the field. A label that differs from the name gets a soft warning (finding 2).</td><td>pick-field</td></tr>
+<tr><td>picker-grouped-search</td><td>The picker groups by item, has search, a suggested label match, "used by", a check mark on the current choice, "not in vault" for a stale reference, and unreadable items in its footer (findings 4, 10).</td><td>pick-field</td></tr>
+<tr><td>add-variable-one-step</td><td>"+ Add variable" opens the picker; the name comes from the label and stays editable (finding 5).</td><td>add-remove-variable</td></tr>
+<tr><td>test-result-per-row</td><td>An edit clears only that row's result; each failure cause names its next step (findings 6, 7).</td><td>test-each-variable, plain-failure-reason</td></tr>
+<tr><td>save-footer-danger-zone</td><td>Sticky footer with a dirty count, a Saved toast, and Stop managing in a red danger section, hidden while unsaved (finding 9).</td><td>add-remove-variable/q7, unsaved-warning</td></tr>
+<tr><td>connection-collapse (optional)</td><td>One status line when connected; numbered steps when not (finding 8).</td><td>token-works, paste-token, pick-vault</td></tr>
+</table>
+<p class="muted">Side note: journey question add-remove-variable/q8 still describes a guessed reference (op://&lt;vault&gt;/&lt;name&gt;/credential); the code at 1adf630 uses an empty reference (newVariable).</p>
+</body></html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direction A2 - status inside the field pill (mock)</title>
+<style>
+:root{--bg:#1a1c1c;--card:#202222;--line:#2c2e2e;--fg:#e6e6e6;--mut:#9a9a9a;--red:#e5735f;--grn:#3fae6a;--amb:#d9a640;--s2:#2a2c2c;--link:#7fb7ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 -apple-system,system-ui,sans-serif}
+.page{max-width:720px;margin:0 auto;padding:28px 24px 40px}
+.mock{font-size:11px;color:#666;margin-bottom:14px}
+h1{font-size:20px;font-weight:500;margin:0 0 18px}
+.sec{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--mut);margin:20px 2px 6px}
+.sec .acts{display:flex;gap:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 14px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.name{flex:1;min-width:0;font-size:14px;overflow-wrap:anywhere}
+.btn{border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13px;color:var(--fg);background:transparent;white-space:nowrap}
+.btn.pri{background:var(--fg);color:#111;border-color:var(--fg)}
+.btn.dng{color:var(--red);border-color:#5a2621}
+.x{color:var(--mut);padding:4px 6px;font-size:15px}
+.pill{width:320px;flex:none;background:var(--s2);border:1px solid transparent;border-radius:9px;padding:6px 10px 6px 11px;display:grid;grid-template-columns:1fr auto;column-gap:8px}
+.pill .ref{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill .ref .it{color:var(--mut)}
+.pill .chev{grid-row:1/3;grid-column:2;align-self:center;color:var(--mut);font-size:12px}
+.pill .st{font-size:12px;color:var(--mut);display:flex;align-items:center;gap:5px;margin-top:1px}
+.dot{width:7px;height:7px;border-radius:50%;background:#666;flex:none}
+.ok .dot{background:var(--grn)}.ok{color:var(--grn)!important}
+.bad .dot{background:var(--red)}.bad{color:var(--red)!important}
+.pill.err{border-color:#5a2621}
+.pill.empty{background:transparent;border:1px dashed #4a4a4a}.pill.empty .ref{color:var(--mut)}
+.st a{color:var(--link);text-decoration:none;margin-left:auto}
+.ne{display:inline-block;margin-left:5px;color:var(--amb);border:1px solid #6b5a22;border-radius:4px;font-size:10px;line-height:13px;padding:0 3px;cursor:help;vertical-align:1px}
+.spin{width:9px;height:9px;border:1.5px solid #555;border-top-color:var(--fg);border-radius:50%;flex:none;animation:r 1s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+.conn{display:flex;align-items:center;gap:8px;padding:11px 14px}
+.conn .t{flex:1}
+.conn .m{color:var(--mut)}
+textarea{width:100%;min-height:64px;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--mut);font:13px -apple-system,system-ui,sans-serif;padding:10px 12px;resize:none}
+.foot{position:sticky;bottom:12px;margin-top:20px;background:#262828;border:1px solid var(--line);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px}
+.foot .n{flex:1;font-size:12px;color:var(--mut)}
+.danger{margin-top:26px;display:flex;justify-content:flex-end}
+@media (max-width:520px){
+  .page{padding:16px 12px 28px}
+  .row{flex-wrap:wrap;gap:6px 8px;padding:10px 10px 10px 12px}
+  .name{flex:1 1 calc(100% - 40px);order:1}
+  .x{order:2}
+  .pill{order:3;width:100%}
+  .conn .m{display:none}
+}
+</style></head><body>
+<div class="page">
+<div class="mock">Mock A2: status inside the field pill. Static; hover the &ne; mark for detail.</div>
+<h1>demo-app</h1>
+
+<div class="sec"><span>1Password</span></div>
+<div class="card"><div class="conn"><span class="dot" style="background:var(--grn)"></span><span class="t">Connected <span class="m">&middot; demo-read</span> &middot; demo-dev</span><span class="btn">Change</span></div></div>
+
+<div class="sec"><span>Variables</span><span class="acts"><span class="btn">Test</span><span class="btn">+ Add</span></span></div>
+<div class="card">
+ <div class="row"><div class="name">SENTRY_AUTH_TOKEN</div>
+  <div class="pill"><div class="ref"><span class="it">SENTRY &rsaquo;</span> SENTRY_AUTH_TOKEN</div><span class="chev">&#8964;</span><div class="st ok"><span class="dot"></span>set</div></div>
+  <span class="x" title="Remove">&#10005;</span></div>
+
+ <div class="row"><div class="name">SENTRY_PROJECT</div>
+  <div class="pill err"><div class="ref"><span class="it">SENTRY &rsaquo;</span> SENTRY_PROJECT</div><span class="chev">&#8964;</span><div class="st bad"><span class="dot"></span>failed &middot; empty<a href="#">Fill in 1Password</a></div></div>
+  <span class="x" title="Remove">&#10005;</span></div>
+
+ <div class="row"><div class="name">STRIPE_KEY</div>
+  <div class="pill err"><div class="ref"><span class="it">stripe &rsaquo;</span> secret-key</div><span class="chev">&#8964;</span><div class="st bad"><span class="dot"></span>failed &middot; not in vault<a href="#">Repick</a></div></div>
+  <span class="x" title="Remove">&#10005;</span></div>
+
+ <div class="row"><div class="name">TWILIO_AUTH_TOKEN</div>
+  <div class="pill"><div class="ref"><span class="it">TWILIO &rsaquo;</span> TWILIO_ACCOUNT_SID<span class="ne" title="Field label differs from the variable name">&ne;</span></div><span class="chev">&#8964;</span><div class="st"><span class="dot"></span>changed</div></div>
+  <span class="x" title="Remove">&#10005;</span></div>
+
+ <div class="row"><div class="name">POSTHOG_CLI_HOST</div>
+  <div class="pill empty"><div class="ref">Pick a field</div><span class="chev">&#8964;</span><div class="st"><span class="dot" style="background:transparent;border:1px solid #666"></span>not picked</div></div>
+  <span class="x" title="Remove">&#10005;</span></div>
+
+ <div class="row"><div class="name">POSTHOG_CLI_API_KEY</div>
+  <div class="pill"><div class="ref"><span class="it">POSTHOG &rsaquo;</span> POSTHOG_CLI_API_KEY</div><span class="chev">&#8964;</span><div class="st"><span class="spin"></span>testing&hellip;</div></div>
+  <span class="x" title="Remove">&#10005;</span></div>
+</div>
+
+<div class="sec"><span>Prompt for new agents</span></div>
+<textarea placeholder="Added to every new agent's system prompt"></textarea>
+
+<div class="danger"><span class="btn dng" title="Deletes this project's variables and prompt now. The Keychain token stays.">Stop managing</span></div>
+
+<div class="foot"><span class="n">3 unsaved</span><span class="btn">Discard</span><span class="btn pri">Save</span></div>
+</div>
+</body></html>

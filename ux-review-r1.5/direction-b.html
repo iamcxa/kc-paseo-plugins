@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Direction B - connection line and variable table (mock)</title>
+<style>
+:root{--bg:#1a1c1c;--card:#202222;--line:#2c2e2e;--fg:#e6e6e6;--mut:#9a9a9a;--red:#e5735f;--grn:#3fae6a;--s2:#2a2c2c}
+*{box-sizing:border-box}body{margin:0;background:#111;color:var(--fg);font:14px/1.45 -apple-system,system-ui,sans-serif;padding:24px}
+h1{font-size:18px;margin:0 0 4px}.note{color:var(--mut);max-width:1100px;margin:0 0 18px}
+.wrap{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.frame{background:var(--bg);border:1px solid #333;border-radius:10px;padding:22px 26px;position:relative}.d{width:780px}.m{width:400px;padding:16px}
+.cap{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px}
+.sec{font-size:12px;color:var(--mut);margin:18px 2px 6px;display:flex;justify-content:space-between;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}.row:first-child{border-top:0}
+.grow{flex:1;min-width:0}.hint{font-size:12px;color:var(--mut)}
+.btn{border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13px;color:var(--fg);white-space:nowrap}.btn.pri{background:var(--fg);color:#111}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
+table{width:100%;border-collapse:collapse;font-size:13px}th{font-size:11px;color:var(--mut);text-align:left;font-weight:500;padding:8px 14px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.04em}
+td{padding:9px 14px;border-top:1px solid var(--line)}td.f{color:var(--fg)}td.f span{color:var(--mut)}
+tr.bad td{background:#2a201f}.chev{color:var(--mut);margin-right:6px}
+.exp{background:#1d1f1f;padding:12px 14px 14px 34px;border-top:1px solid var(--line);font-size:13px}
+.ann{position:absolute;background:#3b3216;color:#f3d27a;border:1px solid #6b5a22;border-radius:6px;font-size:11.5px;padding:4px 8px;max-width:210px}
+.list .row{padding:9px 12px}
+.ann{position:static!important;display:block;max-width:none!important;margin:8px 0 0}
+</style></head><body>
+<h1>Direction B: connection line and variable table</h1>
+<p class="note">Borrows Paseo's own idiom. On the project list each project is a row with a chevron and a health dot. The Providers screen shows status as a dot plus a word, with an expandable row. The connection becomes one expandable status row. Variables become a table: Name, Field, Status. "+ Add variable" opens the picker first and names the variable from the field label. The project list shows health before you open a project. Static mock.</p>
+<div class="wrap">
+<div class="frame d">
+<div class="cap">Desktop, project list</div>
+<div class="card list">
+ <div class="row"><div class="grow">demo-app <span class="hint">&middot; 7 variables</span></div><span style="color:var(--red);font-size:12px"><span class="dot" style="background:var(--red)"></span>2 failing at last test</span><span class="chev">&rsaquo;</span></div>
+ <div class="row"><div class="grow">new-app <span class="hint">&middot; 3 variables</span></div><span style="color:var(--grn);font-size:12px"><span class="dot" style="background:var(--grn)"></span>all set</span><span class="chev">&rsaquo;</span></div>
+ <div class="row"><div class="grow hint">+ Add a project from Paseo's list</div></div>
+</div>
+
+<div class="cap" style="margin-top:26px">Desktop, project detail</div>
+<div style="font-size:20px">demo-app</div>
+<div class="sec"><span>1Password</span></div>
+<div class="card">
+ <div class="row"><span class="chev">&#8964;</span><div class="grow">demo-read &middot; <span style="color:var(--grn)"><span class="dot" style="background:var(--grn)"></span>Token works</span> &middot; vault demo-dev</div><span class="btn">Check</span></div>
+ <div class="exp"><div class="hint">Expanded only when changing the account, replacing the token or switching the vault.</div></div>
+</div>
+<div class="sec"><span>Environment variables</span><span style="display:flex;gap:6px"><span class="btn">Test all</span><span class="btn pri">+ Add variable</span></span></div>
+<div class="card">
+<table>
+<tr><th>Name</th><th>Field in demo-dev</th><th>Last test</th><th></th></tr>
+<tr><td>SENTRY_AUTH_TOKEN</td><td class="f"><span>SENTRY &rsaquo;</span> SENTRY_AUTH_TOKEN</td><td style="color:var(--grn)"><span class="dot" style="background:var(--grn)"></span>set</td><td class="hint">&middot;&middot;&middot;</td></tr>
+<tr><td>SENTRY_ORG</td><td class="f"><span>SENTRY &rsaquo;</span> SENTRY_ORG</td><td style="color:var(--grn)"><span class="dot" style="background:var(--grn)"></span>set</td><td class="hint">&middot;&middot;&middot;</td></tr>
+<tr class="bad"><td>SENTRY_PROJECT</td><td class="f"><span>SENTRY &rsaquo;</span> SENTRY_PROJECT</td><td style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>field is empty</td><td class="hint">&middot;&middot;&middot;</td></tr>
+<tr><td>POSTHOG_CLI_HOST</td><td class="f"><span>POSTHOG &rsaquo;</span> POSTHOG_CLI_HOST</td><td style="color:var(--grn)"><span class="dot" style="background:var(--grn)"></span>set</td><td class="hint">&middot;&middot;&middot;</td></tr>
+<tr class="bad"><td>STRIPE_KEY</td><td class="f"><span>stripe &rsaquo;</span> secret-key</td><td style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>not in vault</td><td class="hint">&middot;&middot;&middot;</td></tr>
+</table>
+</div>
+<div style="margin-top:16px;display:flex;justify-content:flex-end;gap:8px"><span class="hint" style="margin-right:auto;align-self:center">2 unsaved changes</span><span class="btn">Discard</span><span class="btn pri">Save</span></div>
+<div class="ann" style="left:560px;top:40px">Health on the list, like Paseo's Providers rows</div>
+<div class="ann" style="left:560px;top:330px">The connection is one row; expand to edit</div>
+<div class="ann" style="left:560px;top:590px">Clicking a Field cell opens the same grouped picker as A; the row menu holds Rename and Remove</div>
+</div>
+
+<div class="frame m">
+<div class="cap">400 px: the table becomes stacked rows</div>
+<div style="font-size:18px">demo-app</div>
+<div class="sec"><span>1Password</span></div>
+<div class="card"><div class="row"><div class="grow"><span class="dot" style="background:var(--grn)"></span>Token works &middot; demo-dev</div><span class="chev">&#8964;</span></div></div>
+<div class="sec"><span>Variables</span><span class="btn pri">+ Add</span></div>
+<div class="card">
+ <div class="row"><div class="grow">SENTRY_AUTH_TOKEN<div class="hint">SENTRY &rsaquo; SENTRY_AUTH_TOKEN</div></div><span style="color:var(--grn);font-size:12px"><span class="dot" style="background:var(--grn)"></span>set</span></div>
+ <div class="row" style="background:#2a201f"><div class="grow">SENTRY_PROJECT<div class="hint">SENTRY &rsaquo; SENTRY_PROJECT</div></div><span style="color:var(--red);font-size:12px"><span class="dot" style="background:var(--red)"></span>empty</span></div>
+ <div class="row" style="background:#2a201f"><div class="grow">STRIPE_KEY<div class="hint">stripe &rsaquo; secret-key</div></div><span style="color:var(--red);font-size:12px"><span class="dot" style="background:var(--red)"></span>not in vault</span></div>
+</div>
+</div>
+</div>
+<h2 style="font-size:15px;margin-top:26px">Cost</h2>
+<p class="note">The kit has no table, no expandable row and no list-row chevron. The table, the expandable connection row and the list health badge are custom React Native views that must also match Paseo's theme at both widths. The project list needs a cheap health summary, which means storing the last Test result per project or running a test on open; that is a new decision about what the plugin stores. It is closest to Paseo's look, and it costs more than A, mostly in custom layout. What gets worse: more custom UI to keep in step with the host as Paseo changes.</p>
+</body></html>
