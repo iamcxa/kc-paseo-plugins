@@ -41,8 +41,10 @@ export function summaryParts(
   draft: Project,
   run: Run | undefined,
   testing: boolean,
+  failure?: string,
 ): SummaryPart[] {
   if (testing) return [{ text: "Testing…", tone: "muted" }];
+  if (failure !== undefined) return [{ text: `Test failed: ${failure}`, tone: "bad" }];
   if (!run || named(draft).length === 0) return [];
   if (!unchanged(draft, run)) return [{ text: "Not tested since changes", tone: "muted" }];
   let failed = 0;

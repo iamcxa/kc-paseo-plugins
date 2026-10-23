@@ -628,9 +628,16 @@ function ProjectEditor({
   });
   const test = useMutation({
     mutationFn: async (sent: Project): Promise<Run> => {
-      const run = { sent, results: (await testRpc({ project: sent })).results };
-      openProject.setRun(run, open.session);
-      return run;
+      const ticket = openProject.startTest(open.session);
+      try {
+        const run = { sent, results: (await testRpc({ project: sent })).results };
+        openProject.setRun(run, ticket, open.session);
+        return run;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        openProject.failTest(message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""), ticket, open.session);
+        throw error;
+      }
     },
   });
   const run = open.run;
@@ -648,7 +655,7 @@ function ProjectEditor({
     if (type !== "hoverOut") placeBubble(anchor);
     setMarkView((view) => nextMark(view, { type, name }));
   };
-  const summary = summaryParts(draft, run, test.isPending);
+  const summary = summaryParts(draft, run, test.isPending, open.failure);
   const width = useWindowDimensions().width;
   const compactHeader = width < 600;
   useEffect(() => setMarkView(null), [width, draft.variables]);

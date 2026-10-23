@@ -43,21 +43,48 @@ describe("nextFieldless", () => {
 describe("the last Test run lives in the open project", () => {
   afterEach(() => openProject.close());
   const run: Run = { sent: project(), results: [{ name: "A", ok: true }] };
+  const shown = () => {
+    const open = openProject.get()!;
+    return summaryText(summaryParts(open.draft, open.run, false, open.failure));
+  };
 
   it("is kept by setRun, survives edits and is read back as the same summary", () => {
     openProject.begin(project([v("A", "op://V/a/x")]), "rev");
-    openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, undefined);
+    const test = openProject.startTest();
+    openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, test);
     openProject.update((d) => ({ ...d, prompt: "x" }), false);
-    const open = openProject.get();
-    assert.equal(summaryText(summaryParts(open!.draft, open!.run, false)), "All 1 set");
+    assert.equal(shown(), "All 1 set");
   });
 
   it("starts empty for a newly opened project and ignores a run from a closed session", () => {
     openProject.begin(project(), "rev");
     const stale = openProject.get()!.session;
     openProject.begin(project(), "rev");
+    const test = openProject.startTest();
+    openProject.setRun(run, test, stale);
     assert.equal(openProject.get()?.run, undefined);
-    openProject.setRun(run, stale);
+  });
+
+  it("drops the earlier run when a new Test starts, and shows the failure of a Test that fails", () => {
+    openProject.begin(project([v("A", "op://V/a/x")]), "rev");
+    openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, openProject.startTest());
+    assert.equal(shown(), "All 1 set");
+    const retry = openProject.startTest();
     assert.equal(openProject.get()?.run, undefined);
+    openProject.failTest("1Password is not reachable", retry);
+    assert.equal(shown(), "Test failed: 1Password is not reachable");
+  });
+
+  it("drops a result that finishes after a newer Test started", () => {
+    openProject.begin(project([v("A", "op://V/a/x")]), "rev");
+    const older = openProject.startTest();
+    const newer = openProject.startTest();
+    const sent = project([v("A", "op://V/a/x")]);
+    openProject.setRun({ sent, results: [{ name: "A", ok: false }] }, older);
+    assert.equal(openProject.get()?.run, undefined);
+    openProject.setRun({ sent, results: [{ name: "A", ok: true }] }, newer);
+    openProject.setRun({ sent, results: [{ name: "A", ok: false }] }, older);
+    openProject.failTest("late", older);
+    assert.equal(shown(), "All 1 set");
   });
 });

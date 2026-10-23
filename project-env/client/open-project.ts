@@ -10,6 +10,8 @@ export type OpenProject = {
   revision: string;
   changing: Pick<Project, "serviceAccount" | "vault"> | null;
   run: Run | undefined;
+  failure: string | undefined;
+  tests: number;
 };
 
 // Paseo re-mounts the settings screen when the window crosses 720 px, which drops
@@ -25,7 +27,7 @@ const set = (next: OpenProject | null) => {
 
 export const openProject = {
   begin(initial: Project, revision: string) {
-    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null, run: undefined });
+    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null, run: undefined, failure: undefined, tests: 0 });
   },
   update(change: (draft: Project) => Project, countsAsEdit: boolean, session?: number) {
     if (!current || (session !== undefined && session !== current.session)) return;
@@ -35,9 +37,19 @@ export const openProject = {
     if (!current || (session !== undefined && session !== current.session)) return;
     set({ ...current, changing: before });
   },
-  setRun(run: Run, session?: number) {
-    if (!current || (session !== undefined && session !== current.session)) return;
+  startTest(session?: number): number {
+    if (!current || (session !== undefined && session !== current.session)) return 0;
+    const tests = current.tests + 1;
+    set({ ...current, run: undefined, failure: undefined, tests });
+    return tests;
+  },
+  setRun(run: Run, test: number, session?: number) {
+    if (!current || test !== current.tests || (session !== undefined && session !== current.session)) return;
     set({ ...current, run });
+  },
+  failTest(failure: string, test: number, session?: number) {
+    if (!current || test !== current.tests || (session !== undefined && session !== current.session)) return;
+    set({ ...current, failure });
   },
   close(session?: number) {
     if (session !== undefined && session !== current?.session) return;
