@@ -255,14 +255,15 @@ export function Board({
         paddingHorizontal: 6,
       },
       dot: { width: 7, height: 7, borderRadius: 4 },
-      lineTitle: { flex: 1, color: colors.foreground, fontSize: 13 },
-      lineAge: { color: colors.foregroundMuted, fontSize: 11 },
+      lineTitle: { flex: 1, minWidth: 64, color: colors.foreground, fontSize: 13 },
+      lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
+      lineOwner: { maxWidth: 100, minWidth: 0, flexShrink: 1 },
       ref: {
         color: colors.foregroundMuted,
         fontSize: 12,
         fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
       },
-      lineMain: { flex: 1, flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+      lineMain: { flex: 1, minWidth: 0, flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
     }),
     [colors, layout.compact],
   );
@@ -444,11 +445,11 @@ export function Board({
                   <View key={item.key} style={styles.line}>
                     <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(item)} style={styles.lineMain}>
                       <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
-                      <Text style={styles.ref}>{item.link.ref}</Text>
+                      <Text style={[styles.ref, { maxWidth: 96, minWidth: 0, flexShrink: 1 }]} numberOfLines={1}>{item.link.ref}</Text>
                       <Text style={styles.lineTitle} numberOfLines={1}>
                         {item.title}
                       </Text>
-                      <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
+                      <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>
                         {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                       </Text>
                       <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
@@ -470,7 +471,7 @@ export function Board({
                     <Text style={styles.lineTitle} numberOfLines={1}>
                       {item.title}
                     </Text>
-                    <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
+                    <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>
                       {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                     </Text>
                     <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
