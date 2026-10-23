@@ -1,6 +1,6 @@
 ---
 title: An ADR grants the Bridge FO a POC flywheel that stacks rounds as unmerged PRs until the Captain ends POC
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
