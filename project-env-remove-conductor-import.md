@@ -1,7 +1,7 @@
 ---
 id:
 title: The variables card no longer offers a Conductor import
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-23: 「准」 (decision d-1mybcg, relayed by the Comms Officer and checked on its [User] line) — approves this removal design and its acceptance criteria into implementation, including the gate question''s stated recommendations (fold the newName to nameFromLabel journey repair into this task; add AC-3 that ADR 0004 records the removal).'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-23T12:22:37Z
 ---
 
