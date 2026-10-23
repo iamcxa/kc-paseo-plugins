@@ -1,0 +1,8 @@
+[mutant keeprun]   ✖ drops the earlier run when a new Test starts, and shows the failure of a Test that fails (0.987417ms)
+[mutant keeprun] ℹ fail 1
+[mutant older]   ✖ drops a result that finishes after a newer Test started (1.327042ms)
+[mutant older] ℹ fail 1
+[mutant nofailure]   ✖ drops the earlier run when a new Test starts, and shows the failure of a Test that fails (0.624709ms)
+[mutant nofailure] ℹ fail 1
+[mutant testing]   ✖ keeps saying Testing until the running Test finishes, however often the screen is rebuilt (0.6345ms)
+[mutant testing] ℹ fail 1
