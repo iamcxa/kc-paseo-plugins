@@ -136,12 +136,10 @@ None. The in-place amendment follows ADR 0002 and ADR 0004; the Captain's 「准
 - DONE: Decide how the naming rule lands under this repository's ADR conventions (amend ADR 0005 in place, or a new record that supersedes or extends it), with the reason, and draft the exact text of the four rules, their reasons and the three verified facts.
   Amend 0005 in place (precedent: ADR 0002 and 0004 amendments; `Superseded by` would falsely retire 0005). Exact text under `### Draft text for ADR 0005`; applied to a temp copy of docs/adr, `adr_lint.py <copy> --require 5` exit 0. Reasons for rules 2 to 4 are drafted from the reference page and code (`sameName`, `find-generic-password -s`), Scope gave one only for rule 1.
 - DONE: Keep the acceptance criterion and give it a reproducible evidence clause; if a new ADR number is needed, say so so FO can reserve it under the README's number guards.
+  AC-1 current evidence: the draft passes lint on a temp copy; repo `docs/adr` untouched; the candidate edit, its lint run and the reviewer read are not yet done (implementation and validation). `design_surfaces.py check` on this task: "design surfaces presentable", exit 0.
   AC-1 kept, with four numbered evidence steps (lint with `--since 60799d9 --require 5`, diff shows only 0005, seven-row reviewer table, secret-free re-checks). No new ADR number: FO runs no `reserve`; `number_guards.py` R4/R5 read only added ADR files, so editing 0005 trips neither (read from `added_changed`, not run).
 - DONE: Name any decision the Captain must make (at most one), with a recommendation.
   None needed; `## Decisions for the Captain` says why. `Override:` grep (2026-10-23) finds only archived prose about other areas.
-
-AC-1 current evidence: draft passes lint on a temp copy; the repo's `docs/adr` is untouched (`git status` clean). The candidate edit, its lint run and the reviewer read are not yet done (implementation and validation).
-`design_surfaces.py check` on this task: "design surfaces presentable", exit 0.
 
 ### Summary
 
