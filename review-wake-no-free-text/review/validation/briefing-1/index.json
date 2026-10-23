@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:review-wake-no-free-text:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #35 at 24268cee (the review wake message carries only validated owner/repo#number and URL) so the task routes to done and PR #35 waits for merge, ahead of release PR #18?",
+  "artifacts": [
+    {
+      "id": "artifact:review-wake-no-free-text:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b4fb2e070c06bf370ebb5f4743bddf5dd10b5412/review-wake-no-free-text.md",
+      "rev": "sha256:e6a664597736d517be9b111e7effb3818bf24d5dfb5de7e8f9eb0257a4254c22",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED AC-1, AC-2 at 24268cee; FO reran the acceptance script in a fresh shell: 47/47 tests, hostile title/author never sent (LEAKED=false), malformed URL left out and logged, base code leaks the same probe (LEAKED=true). Left open by scope: comms officer keeps create_agent/send_agent_prompt and the restriction-stripping hook; FOs still read PR text themselves."
+    }
+  ]
+}

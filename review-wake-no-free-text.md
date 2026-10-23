@@ -26,6 +26,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:review-wake-no-free-text:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:review-wake-no-free-text-validation-1
+              briefing:
+                id: briefing:review-wake-no-free-text:validation:attempt-1:revision-1
+                digest: sha256:7f0aa389c3375170153f85b3eb40ae82d3f66e23ebdee245156f37140c1d2f9f
+                room-ref: ./review-wake-no-free-text/review/validation/briefing-1
 started: 2026-10-23T09:32:41Z
 worktree: .worktrees/spacedock-ensign-review-wake-no-free-text
 ---
