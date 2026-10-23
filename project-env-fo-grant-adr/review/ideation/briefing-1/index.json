@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-fo-grant-adr:ideation:attempt-1:revision-1",
+  "question": "Approve the ADR 0007 draft into implementation, written as an exception to the one README sentence (authority, a gate approval, a merge are always asked), with: expiry after round 15 or 2026-11-06; a class demoted to L0 on a UAT revert, an Override on an FO-decided gate or an observer violation; class 3 (finding dispositions within scope) kept; the kept-with-Captain list as drafted; and the reload route named as back up the settings file, git merge --ff-only, npm ci in project-env, paseo plugin reload paseo-project-env? Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-fo-grant-adr:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/0b0ccf2ed3b2cf7dc3e7752fd282945f678f716a/project-env-fo-grant-adr.md",
+      "rev": "sha256:ff4179cb7983c3f20525a08df069f045b89a0358011e17a8febd5b86a1137e78",
+      "mediaType": "text/markdown",
+      "summary": "Draft in project-env-fo-grant-adr/draft/. Grants the FO: (1) the validation gate with no Material or Needs decision finding; (2) merge and plugin reload after an approved validation, gated on delivery_gate.py, --match-head-commit, green checks and no open P1; (3) review-finding dispositions within scope. Keeps with the Captain: backlog, design preview, UAT, any secret read/store/inject/log change, edits to his live settings file, releases, anything outward, data deletion, leaving pilot, a Needs decision, a revert PR. Provisional: reviewed when a dev2 release ships an authorization framework. adr_lint --require 7 exits 0 on a temp copy. Evidence: 23 validation gates in 3 days, 0 Override lines (not proof of agreement). Open: ADR 0011 says merge is never delegated and also defines L3; the draft names the tension for the dev2 FO."
+    }
+  ]
+}

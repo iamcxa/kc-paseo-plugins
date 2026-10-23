@@ -29,6 +29,25 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-fo-grant-adr:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-fo-grant-adr-ideation-1
+              briefing:
+                id: briefing:project-env-fo-grant-adr:ideation:attempt-1:revision-1
+                digest: sha256:43577279230d14d92ab4490303b005212d5348951c0d4158faccce301fec428b
+                room-ref: ./project-env-fo-grant-adr/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-fo-grant-adr:ideation:1
+                briefing: briefing:project-env-fo-grant-adr:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T12:36:28.646864Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准，授權你合併」 — approves the ADR 0007 draft into implementation with every part the gate question stated (the README-sentence exception, expiry round 15 or 2026-11-06, demotion rules, class 3, the kept list, the reload route), and authorizes FO to merge this task''s PR.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-23T12:25:39Z
 ---
 
