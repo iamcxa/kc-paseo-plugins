@@ -15,6 +15,17 @@ gates:
                 id: briefing:review-ids-and-decision-card:backlog:attempt-1:revision-1
                 digest: sha256:abdd2bba433af1d1ca93297ca521f73aec84b05f0fa56cd94867da7fbabe3633
                 room-ref: ./review-ids-and-decision-card/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:review-ids-and-decision-card:backlog:1
+                briefing: briefing:review-ids-and-decision-card:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T09:06:58.807587Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:abdd2bba433a): approve to enter implementation in an isolated worktree with a PR.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 The Captain cannot tell which repository and pull request a review item is, a second review request has no link, and the decision card he opens from the board makes him read the FO's conversation and a three-line instruction note before he can decide.
