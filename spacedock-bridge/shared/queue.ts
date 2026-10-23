@@ -1,5 +1,5 @@
 import type { BoardRow } from "./board";
-import { type ReviewRequestData, reviewOwner } from "./reviews";
+import { type ReviewRequestData, reviewOwner, reviewRef } from "./reviews";
 import type { AwaitingGate } from "./tasks";
 
 export type QueueKind = "permission" | "review" | "gate" | "ask";
@@ -15,6 +15,11 @@ export interface QueueItem {
   fo: BoardRow | null;
   gate?: AwaitingGate;
   review?: ReviewRequestData;
+  link?: { ref: string; url: string };
+}
+
+export function openLink(item: Pick<QueueItem, "link">, open: (url: string) => unknown): void {
+  if (item.link) void open(item.link.url);
 }
 
 export interface QueueRow extends BoardRow {
@@ -46,6 +51,7 @@ export function buildQueue(rows: readonly QueueRow[], reviews: readonly ReviewRe
       kind: "review",
       title: review.title,
       detail: `${review.owner}/${review.repo}#${review.number} · by ${review.author}`,
+      link: { ref: reviewRef(review, reviews), url: review.url },
       since: new Date(review.firstSeenAt).toISOString(),
       fo: reviewOwner(review, rows) ?? null,
       review,

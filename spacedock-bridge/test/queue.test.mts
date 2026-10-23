@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { BoardRow } from "../shared/board";
-import { buildQueue, splitQueue } from "../shared/queue";
+import { buildQueue, openLink, splitQueue } from "../shared/queue";
 
 const row = (over: Partial<BoardRow> & { attentionAt?: string }): BoardRow & { attentionAt?: string } => ({
   id: "x",
@@ -92,4 +92,29 @@ test("an empty queue has no next card and one item has no rows", () => {
   assert.deepEqual(splitQueue([]), { next: null, sections: [] });
   const one = buildQueue([row({ id: "c", permission: "P" })], []);
   assert.deepEqual(splitQueue(one), { next: one[0], sections: [] });
+});
+
+test("each review item carries its own repo#number and URL, and opening it passes that URL", () => {
+  const reviews = [
+    { url: "https://github.com/o/relay/pull/331", repo: "relay", owner: "o", number: 331, title: "fix(relay)", author: "w", firstSeenAt: 1 },
+    { url: "https://github.com/o/infra/pull/1471", repo: "infra", owner: "o", number: 1471, title: "test(agent)", author: "w", firstSeenAt: 2 },
+  ];
+  const { next, sections } = splitQueue(buildQueue([], reviews));
+  const opened: string[] = [];
+  for (const item of [next!, ...sections.flatMap((section) => section.items)]) {
+    openLink(item, (url) => opened.push(url));
+    assert.equal(item.link?.url, item.review?.url);
+  }
+  assert.deepEqual(
+    [next, ...sections.flatMap((section) => section.items)].map((item) => item!.link!.ref),
+    ["relay#331", "infra#1471"],
+  );
+  assert.deepEqual(opened, ["https://github.com/o/relay/pull/331", "https://github.com/o/infra/pull/1471"]);
+});
+
+test("a gate or question has no link to open", () => {
+  const items = buildQueue([row({ id: "a", status: "waiting on Kent", next: "pick A" })], []);
+  const opened: string[] = [];
+  openLink(items[0], (url) => opened.push(url));
+  assert.deepEqual(opened, []);
 });

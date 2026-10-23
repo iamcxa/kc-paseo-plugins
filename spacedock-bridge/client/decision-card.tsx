@@ -6,15 +6,9 @@ import type { BoardRow } from "../shared/board";
 import { openCoordinator } from "../shared/coordinator";
 import { type GateBriefingData, readGateBriefing } from "../shared/gate";
 import { type DecisionRecordData, claimDecision, readDecision, releaseDecision } from "../shared/decisions";
-import {
-  type ChipWord,
-  DECISION_CHIPS,
-  captainWords,
-  deliveryState,
-  gateDecisionMessage,
-  needsReason,
-  newDecisionId,
-} from "../shared/relay";
+import { type ChipWord, DECISION_CHIPS, deliveryState } from "../shared/relay";
+import { cardLabel, foName, waiting } from "../shared/card";
+import { decideGate } from "../shared/decide";
 import type { AwaitingGate } from "../shared/tasks";
 import { CoChat } from "./co-chat";
 import { MarkdownView } from "./markdown-view";
@@ -86,6 +80,11 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
 
   const paseo = usePaseo();
 
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(timer);
+  }, []);
+
   const checkRelay = useCallback(async () => {
     if (!claim) return;
     const page = await paseo.agents
@@ -123,53 +122,25 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const onChip = useCallback(
-    async (word: string, draft: string) => {
-      if (!gate || !briefing) return "The briefing has not loaded yet.";
-      if (needsReason(word as ChipWord) && !draft.trim())
-        return `${word} needs your reason first: type it, then press ${word} again.`;
-      const refusal = await beforeSend();
-      if (refusal) return refusal;
-      const decisionId = newDecisionId();
-      const { claimed, record } = await callClaim({
-        decisionId,
-        briefingId: briefing.briefingId,
-        slug: gate.slug,
-        foId: fo.id,
-        decision: DECISION_CHIPS[word as ChipWord],
-        words: captainWords(word as ChipWord, draft),
-      });
-      setClaim(record);
-      if (!claimed)
-        return `You already sent ${record.decision} 「${record.words}」 for this briefing (${record.decisionId}). Its delivery is shown above.`;
-      const { agentId: coId } = await callOpenCoordinator({});
-      const text = gateDecisionMessage(
+    (word: string, draft: string) =>
+      decideGate(
         {
-          foTitle: fo.title || fo.id,
-          foId: fo.id,
-          slug: gate.slug,
-          stage: briefing.stage,
-          briefingId: briefing.briefingId,
-          digest: briefing.digest,
+          beforeSend,
+          claim: callClaim,
+          setClaim,
+          openCoordinator: () => callOpenCoordinator({}),
+          sendToCoordinator: (agentId, text) => paseo.agents.ref(agentId).send(text),
+          release: (decisionId) => callRelease({ decisionId }),
+          markSent: ({ text }) => {
+            if (!briefing || !gate) return;
+            sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: gate.slug });
+            setNow(Date.now());
+          },
         },
-        word as ChipWord,
+        { gate, briefing, fo: { id: fo.id, title: fo.title || fo.id } },
+        word,
         draft,
-        decisionId,
-      );
-      try {
-        await paseo.agents.ref(coId).send(text);
-      } catch (error) {
-        await callRelease({ decisionId });
-        setClaim(null);
-        throw error;
-      }
-      sentByBriefing.set(briefing.briefingId, {
-        at: Date.now(),
-        text: `${record.words} (${decisionId}, via comms officer)`,
-        slug: gate.slug,
-      });
-      setNow(Date.now());
-      return null;
-    },
+      ),
     [gate, briefing, beforeSend, callClaim, callRelease, callOpenCoordinator, fo.title, fo.id, paseo],
   );
 
@@ -220,6 +191,14 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       topContent: { padding: pad, gap: 8 },
       back: { color: colors.foregroundMuted, fontSize: 13 },
       fo: { color: colors.foregroundMuted, fontSize: 12 },
+      label: { color: colors.accent, fontSize: 11, fontWeight: "600" as const, letterSpacing: 0.6 },
+      briefingRow: {
+        flexDirection: "row" as const,
+        alignItems: "center" as const,
+        justifyContent: "space-between" as const,
+        gap: 8,
+      },
+      hint: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 1, textAlign: "right" as const },
       question: { color: colors.foreground, fontSize: 15, fontWeight: "600" as const, lineHeight: 21 },
       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
       summary: { color: colors.foreground, fontSize: 13, lineHeight: 19 },
@@ -261,6 +240,12 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
             ? { color: colors.foregroundMuted, text: `Sent: ${sent.text}` }
             : null;
 
+  const foLine = (
+    <Text style={styles.fo}>
+      {foName(fo.title || fo.id)} · {waiting(gate?.preparedAt || fo.lastActivityAt, now)}
+    </Text>
+  );
+
   return (
     <View style={styles.screen} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
       <ScrollView
@@ -271,23 +256,26 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         <Pressable accessibilityRole="button" onPress={onBack}>
           <Text style={styles.back}>← Bridge</Text>
         </Pressable>
-        <Text style={styles.fo}>
-          {[fo.title, fo.repo, gate ? `gate · ${gate.stage}` : "question"].filter(Boolean).join(" · ")}
-        </Text>
+        <Text style={styles.label}>{cardLabel(gate, fo.repo)}</Text>
+        {gate ? null : foLine}
         {gate ? (
           <>
             <Text style={styles.question} selectable>
               {briefing?.question || gate.title}
             </Text>
+            {foLine}
             {briefing?.artifacts.map((artifact, index) => (
               <Text key={index} style={styles.summary} selectable>
                 {artifact.summary}
               </Text>
             ))}
             {briefing ? (
-              <Pressable accessibilityRole="button" onPress={() => setShowEvidence((v) => !v)}>
-                <Text style={styles.toggle}>{showEvidence ? "Hide briefing" : "Show briefing"}</Text>
-              </Pressable>
+              <View style={styles.briefingRow}>
+                <Pressable accessibilityRole="button" onPress={() => setShowEvidence((v) => !v)}>
+                  <Text style={styles.toggle}>{showEvidence ? "Hide briefing" : "Read full briefing ›"}</Text>
+                </Pressable>
+                <Text style={styles.hint}>preview · full view in Spacedock Review</Text>
+              </View>
             ) : null}
             {showEvidence
               ? briefing?.artifacts.map((artifact, index) => (
@@ -297,11 +285,6 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
                   </View>
                 ))
               : null}
-            <Text style={styles.muted}>
-              Preview. Diagrams and some formatting show fully only in Spacedock Review. 准, 要求修改 and 暫緩
-              send your decision through the comms officer, with anything you typed as part of your words; Enter
-              sends typed text straight to the FO.
-            </Text>
           </>
         ) : null}
         {problem ? <Text style={{ color: colors.statusDanger, fontSize: 12 }}>{problem}</Text> : null}
@@ -324,7 +307,8 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           navigation={navigation}
           agentId={fo.id}
           title={fo.title || "FO"}
-          placeholder={`Message ${fo.title || "the FO"} directly`}
+          placeholder={`Message ${foName(fo.title || "the FO")} directly${gate ? ", or add a reason to your decision" : ""}`}
+          discussion
           chips={gate ? CHIPS : undefined}
           footer={footer}
           beforeSend={gate ? beforeSend : undefined}

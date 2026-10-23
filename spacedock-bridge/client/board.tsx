@@ -1,7 +1,7 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Platform, Pressable, ScrollView, Text, View } from "react-native";
 import {
   type BoardRow,
   type BoardStatus,
@@ -17,7 +17,7 @@ import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../sha
 import { DecisionCard, wasSent } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
 import { type ReviewRequestData, readReviews, reviewOwner } from "../shared/reviews";
-import { type QueueItem, type QueueKind, buildQueue, splitQueue } from "../shared/queue";
+import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
 
 interface WorkspaceChoice {
   id: string;
@@ -253,6 +253,12 @@ export function Board({
       dot: { width: 7, height: 7, borderRadius: 4 },
       lineTitle: { flex: 1, color: colors.foreground, fontSize: 13 },
       lineAge: { color: colors.foregroundMuted, fontSize: 11 },
+      ref: {
+        color: colors.foregroundMuted,
+        fontSize: 12,
+        fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
+      },
+      lineMain: { flex: 1, flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
     }),
     [colors, layout.compact],
   );
@@ -381,6 +387,15 @@ export function Board({
               <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
                 NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
               </Text>
+              {next.link ? (
+                <Pressable
+                  accessibilityRole="link"
+                  accessibilityLabel={`Open ${next.link.ref} on GitHub`}
+                  onPress={() => openLink(next, openExternalUrl)}
+                >
+                  <Text style={styles.ref}>{next.link.ref} ↗</Text>
+                </Pressable>
+              ) : null}
               <Text style={styles.nextTitle} numberOfLines={3}>
                 {next.title}
               </Text>
@@ -391,16 +406,6 @@ export function Board({
                 <Pressable accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
                   <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
                 </Pressable>
-                {next.review ? (
-                  <Pressable
-                    accessibilityRole="link"
-                    accessibilityLabel="Open the pull request"
-                    style={styles.external}
-                    onPress={() => void openExternalUrl(next.review!.url)}
-                  >
-                    <Text style={styles.externalText}>PR ↗</Text>
-                  </Pressable>
-                ) : null}
               </View>
             </View>
           ) : null}
@@ -425,13 +430,34 @@ export function Board({
                 <Text style={styles.group}>{section.items.length}</Text>
               </View>
               {section.items.map((item) => (
-                <Pressable key={item.key} accessibilityRole="button" onPress={() => openItem(item)} style={styles.line}>
-                  <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
-                  <Text style={styles.lineTitle} numberOfLines={1}>
-                    {item.title}
-                  </Text>
-                  <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
-                </Pressable>
+                item.link ? (
+                  <View key={item.key} style={styles.line}>
+                    <Pressable accessibilityRole="button" onPress={() => openItem(item)} style={styles.lineMain}>
+                      <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
+                      <Text style={styles.ref}>{item.link.ref}</Text>
+                      <Text style={styles.lineTitle} numberOfLines={1}>
+                        {item.title}
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      accessibilityRole="link"
+                      accessibilityLabel={`Open ${item.link.ref} on GitHub`}
+                      hitSlop={6}
+                      style={styles.external}
+                      onPress={() => openLink(item, openExternalUrl)}
+                    >
+                      <Text style={styles.externalText}>↗</Text>
+                    </Pressable>
+                  </View>
+                ) : (
+                  <Pressable key={item.key} accessibilityRole="button" onPress={() => openItem(item)} style={styles.line}>
+                    <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
+                    <Text style={styles.lineTitle} numberOfLines={1}>
+                      {item.title}
+                    </Text>
+                    <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
+                  </Pressable>
+                )
               ))}
             </View>
           ))}
