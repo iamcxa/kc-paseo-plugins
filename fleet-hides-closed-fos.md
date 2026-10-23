@@ -4,6 +4,17 @@ status: backlog
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
+gates:
+    version: 1
+    records:
+        - id: gate:fleet-hides-closed-fos:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:fleet-hides-closed-fos-backlog-1
+              briefing:
+                id: briefing:fleet-hides-closed-fos:backlog:attempt-1:revision-1
+                digest: sha256:6b2959fe21ea3a51a815bdb3b60cfe530c08b699b67229dfe419d0f22e12185c
+                room-ref: ./fleet-hides-closed-fos/review/backlog/briefing-1
 ---
 
 Round 2 of the POC flywheel under ADR 0008: the Captain cannot tell a live FO from one whose Paseo tab he closed, and a rectangular browser focus outline appears around the composer input after he types.
