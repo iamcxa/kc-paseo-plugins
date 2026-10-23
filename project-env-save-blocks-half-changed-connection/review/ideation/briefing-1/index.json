@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-save-blocks-half-changed-connection:ideation:attempt-1:revision-1",
+  "question": "Approve this design and its acceptance criteria into implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-save-blocks-half-changed-connection:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/3e6f777ee8b26019e2a49fb8220faebc39d6828a/project-env-save-blocks-half-changed-connection.md",
+      "rev": "sha256:923efb4b3045a1db975aa27c9bb799d882679b1516862ea42873c102997a5eab",
+      "mediaType": "text/markdown",
+      "summary": "Design for Task A (about 30 lines, no new store field): Save is disabled from Change until Done or Cancel, with 'Finish or cancel the connection change first' under the count only when there is something to save; a saved project is replaced in place in the list; storing a token resets the loaded field list. Spike on 40849b4: 262/262 tests; on an isolated Paseo at 1280 and 400 px, Save during Change left projects.json byte-identical, list order unchanged after Save, the field list changed after a token store; the same scripts fail on unpatched main. Design review: 10 minor findings, 2 fixed, 8 declined. No Captain decision."
+    }
+  ]
+}

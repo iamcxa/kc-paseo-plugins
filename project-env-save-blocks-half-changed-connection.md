@@ -29,6 +29,25 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-save-blocks-half-changed-connection:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-save-blocks-half-changed-connection-ideation-1
+              briefing:
+                id: briefing:project-env-save-blocks-half-changed-connection:ideation:attempt-1:revision-1
+                digest: sha256:646e2600975060d36683adf86e3850abda580cbd5f84db5db3f230adfd7b92e3
+                room-ref: ./project-env-save-blocks-half-changed-connection/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-save-blocks-half-changed-connection:ideation:1
+                briefing: briefing:project-env-save-blocks-half-changed-connection:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T06:10:53.023547Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves this Task A design and its acceptance criteria into implementation.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-23T05:26:08Z
 ---
 
