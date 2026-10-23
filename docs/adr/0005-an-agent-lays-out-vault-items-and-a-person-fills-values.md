@@ -54,7 +54,7 @@ The guidance authorizes no agent to create, rename or edit a vault or an item. T
 - No secret value passes through the agent: fields are created empty and the person fills them.
 - Whether a 1Password MCP exists for this is unverified. Three facts were verified on 2026-10-23:
   - `op item create --category "Secure Note"` with `NAME[password]=` creates an empty password field (op 2.30.3), which settles the point this record left open.
-  - Secret references are case-insensitive.
+  - Secret references are case-insensitive. That is a property of 1Password's resolver: project-env still requires a mapping's vault segment to match the saved vault's spelling exactly (`isOutsideVault` in `project-env/server/cause.ts` compares with `!==`, and `project-env/test/vault-boundary.test.ts` covers a different letter case), so `op://dev/...` under a saved vault `Dev` is blanked as outside the vault.
   - Renaming a vault breaks project-env mappings stored by vault name, because a reference is matched by the prefix `op://<saved vault>/`.
 - The plugin checks none of the four names, and they bind no one: they are advice to a person until that skill exists.
 - Secure Notes with typed custom fields, and items laid out before this convention, still
