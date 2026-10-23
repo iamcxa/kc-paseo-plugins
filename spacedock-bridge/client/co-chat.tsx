@@ -2,7 +2,7 @@ import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, ScrollView, Text, View } from "react-native";
+import { Platform, ScrollView, Text, View, type TextStyle } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { nextStepIsCaptains, parseEnvelope, replyPreview } from "../shared/preview";
 import { MarkdownView } from "./markdown-view";
@@ -391,7 +391,7 @@ export function CoChat({
           style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
         >
           <TextInput
-            style={[styles.input, hasChips ? styles.inputWithRow : null]}
+            style={[styles.input, hasChips ? styles.inputWithRow : null, Platform.OS === "web" ? ({ outlineStyle: "none" } as unknown as TextStyle) : null]}
             value={draft}
             onChangeText={setDraft}
             onFocus={() => setBoxFocused(true)}

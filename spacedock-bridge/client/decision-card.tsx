@@ -3,6 +3,7 @@ import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PanResponder, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
+import { TabClosedBadge } from "./tab-closed-badge";
 import type { BoardRow } from "../shared/board";
 import { openCoordinator } from "../shared/coordinator";
 import { type GateBriefingData, readGateBriefing } from "../shared/gate";
@@ -192,6 +193,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       topContent: { padding: pad, gap: 8 },
       back: { color: colors.foregroundMuted, fontSize: 13 },
       fo: { color: colors.foregroundMuted, fontSize: 12 },
+      owner: { flexDirection: "row" as const, alignItems: "center" as const, gap: 6 },
       label: { color: colors.accent, fontSize: 11, fontWeight: "600" as const, letterSpacing: 0.6 },
       briefingRow: {
         flexDirection: "row" as const,
@@ -242,9 +244,13 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
             : null;
 
   const foLine = (
-    <Text style={styles.fo}>
-      {foName(fo.title || fo.id)} · {waiting(gate?.preparedAt || fo.lastActivityAt, now)}
-    </Text>
+    <View style={styles.owner}>
+      <Text style={[styles.fo, { flexShrink: 1 }]} numberOfLines={1}>
+        {foName(fo.title || fo.id)}
+      </Text>
+      <TabClosedBadge closed={fo.tabClosed} colors={colors} />
+      <Text style={styles.fo}>{waiting(gate?.preparedAt || fo.lastActivityAt, now)}</Text>
+    </View>
   );
 
   return (
