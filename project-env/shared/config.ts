@@ -199,6 +199,15 @@ export function saveRule(input: { pending: boolean; saving: boolean; unnamed: nu
   };
 }
 
+export function nextFieldless(variables: Variable[], after: string | null): number {
+  const from = after === null ? 0 : variables.findIndex((v) => v.name === after) + 1;
+  for (let step = 0; step < variables.length; step++) {
+    const i = (from + step) % variables.length;
+    if (variables[i].name !== "" && variables[i].ref === "") return i;
+  }
+  return -1;
+}
+
 export function replaceProject(projects: Project[], draft: Project): Project[] {
   return projects.some((p) => p.root === draft.root)
     ? projects.map((p) => (p.root === draft.root ? draft : p))
