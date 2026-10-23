@@ -1,7 +1,7 @@
 ---
 id:
 title: Spacedock Bridge is a kc-paseo-plugins plugin that installs and runs from this repo
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
