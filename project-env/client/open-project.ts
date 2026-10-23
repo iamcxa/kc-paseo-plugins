@@ -12,6 +12,7 @@ export type OpenProject = {
   run: Run | undefined;
   failure: string | undefined;
   tests: number;
+  testing: boolean;
 };
 
 // Paseo re-mounts the settings screen when the window crosses 720 px, which drops
@@ -27,7 +28,7 @@ const set = (next: OpenProject | null) => {
 
 export const openProject = {
   begin(initial: Project, revision: string) {
-    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null, run: undefined, failure: undefined, tests: 0 });
+    set({ session: ++sessions, initial, draft: initial, edits: 0, revision, changing: null, run: undefined, failure: undefined, tests: 0, testing: false });
   },
   update(change: (draft: Project) => Project, countsAsEdit: boolean, session?: number) {
     if (!current || (session !== undefined && session !== current.session)) return;
@@ -40,16 +41,16 @@ export const openProject = {
   startTest(session?: number): number {
     if (!current || (session !== undefined && session !== current.session)) return 0;
     const tests = current.tests + 1;
-    set({ ...current, run: undefined, failure: undefined, tests });
+    set({ ...current, run: undefined, failure: undefined, tests, testing: true });
     return tests;
   },
   setRun(run: Run, test: number, session?: number) {
     if (!current || test !== current.tests || (session !== undefined && session !== current.session)) return;
-    set({ ...current, run });
+    set({ ...current, run, testing: false });
   },
   failTest(failure: string, test: number, session?: number) {
     if (!current || test !== current.tests || (session !== undefined && session !== current.session)) return;
-    set({ ...current, failure });
+    set({ ...current, failure, testing: false });
   },
   close(session?: number) {
     if (session !== undefined && session !== current?.session) return;

@@ -655,7 +655,7 @@ function ProjectEditor({
     if (type !== "hoverOut") placeBubble(anchor);
     setMarkView((view) => nextMark(view, { type, name }));
   };
-  const summary = summaryParts(draft, run, test.isPending, open.failure);
+  const summary = summaryParts(draft, run, test.isPending || open.testing, open.failure);
   const width = useWindowDimensions().width;
   const compactHeader = width < 600;
   useEffect(() => setMarkView(null), [width, draft.variables]);
@@ -966,7 +966,7 @@ function ProjectEditor({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Test"
-                disabled={test.isPending}
+                disabled={test.isPending || open.testing}
                 onPress={() => {
                   setMarkView(null);
                   test.mutate({ ...draft, variables: draft.variables.filter((v) => v.name !== "") });
@@ -977,7 +977,7 @@ function ProjectEditor({
                   borderRadius: 8,
                   paddingHorizontal: 12,
                   paddingVertical: 7,
-                  opacity: test.isPending ? 0.5 : 1,
+                  opacity: test.isPending || open.testing ? 0.5 : 1,
                 }}
               >
                 <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>Test</Text>

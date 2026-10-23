@@ -75,6 +75,18 @@ describe("the last Test run lives in the open project", () => {
     assert.equal(shown(), "Test failed: 1Password is not reachable");
   });
 
+  it("keeps saying Testing until the running Test finishes, however often the screen is rebuilt", () => {
+    openProject.begin(project([v("A", "op://V/a/x")]), "rev");
+    const test = openProject.startTest();
+    const open = openProject.get()!;
+    assert.equal(open.testing, true);
+    assert.equal(summaryText(summaryParts(open.draft, open.run, open.testing, open.failure)), "Testing…");
+    openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, test);
+    assert.equal(openProject.get()!.testing, false);
+    openProject.failTest("late", openProject.startTest());
+    assert.equal(openProject.get()!.testing, false);
+  });
+
   it("drops a result that finishes after a newer Test started", () => {
     openProject.begin(project([v("A", "op://V/a/x")]), "rev");
     const older = openProject.startTest();
