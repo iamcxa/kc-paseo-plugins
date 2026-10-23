@@ -1,0 +1,7 @@
+Candidate: b6a1ffbb0f598af8aa0d5db743a689a56c28658c
+PASS: six numbered source statements match byte for byte, including attribution and the question answered.
+PASS: all nine nested/outer corner-bracket quote spans match task bytes.
+PASS: status Proposed; only new ADR 0008 changed.
+Human Scope comparison: flywheel, team satisfaction, no merges/end POC, limits/stops, per-round records, retained Captain decisions, unreviewed reload acceptance, README exception all appear in corresponding Decision paragraphs; task gates/effectiveness are in Context; non-goals in Consequences. No additional delegated class, merge permission, automatic downstream task, or profile selection added.
+Base falsifier: git ls-tree at e4f95aee269cf14df571fb8f14e4d82d6cb9da45 contains no ADR 0008; the prior grant allows merges. Quote check fails for any changed numbered statement or quoted byte; ADR lint fails for a missing required record/section.
+ADR 0006 at base: Accepted, SHA-256 2149fb2c4c0934bb2fd871862758f36cff1e8981b0b10381369818ab21b66326. Unchanged.

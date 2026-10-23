@@ -1,0 +1,28 @@
+COMMAND ["python3", "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py", "docs/adr", "--since", "e4f95aee269cf14df571fb8f14e4d82d6cb9da45", "--require", "0008"]
+EXIT 0
+7 ADR file(s) checked, 0 legacy
+
+COMMAND ["python3", "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/comment_ratio.py", "e4f95aee269cf14df571fb8f14e4d82d6cb9da45", "HEAD", "--workflow-dir", "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"]
+EXIT 0
+code lines 0, comment lines 0, 0.0%
+maximum 5% (package default) not enforced: 0 code lines added, fewer than 20
+
+COMMAND ["python3", "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/doc_impact.py", "e4f95aee269cf14df571fb8f14e4d82d6cb9da45", "HEAD"]
+EXIT 0
+0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'
+
+COMMAND ["python3", "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/design_surfaces.py", "check", "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr.md"]
+EXIT 1
+flywheel-grant-adr.md: '## FO alignment' needs a non-empty 'Surfaces:' line
+flywheel-grant-adr.md: '## FO alignment' needs a 'Visible change:' line
+scope check not run: stage is implementation, not ideation
+
+COMMAND ["python3", "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/number_guards.py", "check", "--workflow-dir", "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc", "--task", "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr.md"]
+EXIT 1
+migration guard skipped: no migrations-path declared
+FAIL R4: docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md: number 0008 is not in the task's ADR: lines
+base e4f95aee269c head b6a1ffbb0f59 merge-base e4f95aee269c
+
+COMMAND ["git", "diff", "--check", "e4f95aee269cf14df571fb8f14e4d82d6cb9da45", "HEAD"]
+EXIT 0
+

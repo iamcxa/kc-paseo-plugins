@@ -66,3 +66,23 @@ Verified by: every 「…」 quote in the ADR byte-matches this task file; the A
 
 Alignment: not needed: the Captain approved the design in chat on 2026-10-23; this task records it.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: One ADR in docs/adr/ at the next free number (0008 unless taken; 0007 is held by the project-env FO's local branch) records the flywheel grant: every 「…」 quote byte-matches the task file, each Scope bullet's terms are present and nothing they do not contain, ADR 0006 is named as superseded, and the README exception is limited to the flywheel's backlog and validation gates with no merge granted (AC-1)
+  ADR 0008: `docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md`, candidate `b6a1ffbb0f598af8aa0d5db743a689a56c28658c`; six numbered statements and all nine quote spans byte-match; Scope compared paragraph by paragraph. Evidence: `flywheel-grant-adr/evidence/acceptance-fd53341a6b38.txt`. A changed quoted byte fails the comparison; the base has no flywheel ADR.
+- DONE: python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since <base> exits 0 with its output in the report; roborev gate run with its evidence= or incomplete: line
+  ADR lint (`--since e4f95aee269cf14df571fb8f14e4d82d6cb9da45 --require 0008`): exit 0, `7 ADR file(s) checked, 0 legacy`; a missing required record/section fails. RoboRev was attempted: exit 3, `incomplete: the roborev daemon is not running` (not a clean review). Evidence: `flywheel-grant-adr/evidence/checks-b763980e2b60.txt`, `flywheel-grant-adr/evidence/roborev-fdaa464a7e71.txt`.
+- DONE: A Draft PR is open whose body says the Captain merges it himself; the worker does not mark it ready and nothing merges
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/38 targets main at candidate `b6a1ffbb0f598af8aa0d5db743a689a56c28658c`; body: "The Captain merges this PR himself." Created with `--draft`; no ready or merge action taken.
+
+### Summary
+
+Drafted one Proposed ADR for the approved dev2 POC stacked design. It becomes effective, superseding ADR 0006, only when the Captain merges this task's PR himself; the grant's exception covers only flywheel backlog and validation gates, with no merge granted. No runtime, README, prior ADR or project-env change; this document does not prove the flywheel works, and independent validation and the Captain's gates remain.
+
+SKIPPED: `design_surfaces.py check` exits 1 for missing `Surfaces:` / `Visible change:` on a POC task; known package gap 2 in `_l3-dogfood/rounds.md`, Round 0. No checklist item or task requirement was rewritten.
+SKIPPED: `number_guards.py check` exits 1, R4: ADR 0008 has no task reservation; known package gap 3 in the same round (POC says to reserve no number). The dispatch assigns the next free number: 0007 is held by the project-env branch; 0008 was unused across local/remote refs checked. Base: `e4f95aee269cf14df571fb8f14e4d82d6cb9da45`.
+
+Other checks: `comment_ratio.py`: exit 0, `code lines 0, comment lines 0, 0.0%` (minimum-code threshold not met); `doc_impact.py`: exit 0, `0 document(s) mention what changed`, so no listed-document dispositions owed; `git diff --check`: exit 0. The existing ADR 0006 is unaffected: Accepted at the base, SHA-256 `2149fb2c4c0934bb2fd871862758f36cff1e8981b0b10381369818ab21b66326`; it is not edited by this proposal.
+
+Review findings: no RoboRev verdict was obtained; daemon unavailable, so independent review remains unproven. No extra review round or clean-review credit claimed. Only the new ADR is in the candidate; evidence is under `flywheel-grant-adr/evidence/` in split-root state. Candidate worktree and main were clean on the final local check. No CI change, deployment, plugin reload, downstream task or merge; Release PR #18 untouched.
