@@ -1,6 +1,6 @@
 ---
 title: The Fleet board's By decision view puts the next decision first and every other item on one line
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -44,10 +44,13 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:d64b04a77f16): approve as validated at 22f75e63; route to done; PR #32 waits for the Captain to merge.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T08:02:45Z
 worktree: .worktrees/spacedock-ensign-board-next-decision-first
 pr: pr-merge:32
+verdict: PASSED
+completed: 2026-10-23T08:53:09Z
+archived: 2026-10-23T08:53:09Z
 ---
 
 The Captain finds the Fleet board's "By decision" view too dense to scan: every waiting item is drawn as an equal three-to-five-line card, so nothing tells him where to start. He compared three mockups side by side (current board, a two-line card variant, and a "next up" variant) and chose the "next up" variant.
