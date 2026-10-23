@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:l3-grant-adr:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #36 at 4843bb7d (ADR 0006: your L3 grant over three spacedock-bridge POC gate classes, as an exception to one README sentence, expiring after round 10 or on 2026-11-06, revocable by one sentence) so it routes to done and PR #36 waits for merge, after which the grant takes effect?",
+  "artifacts": [
+    {
+      "id": "artifact:l3-grant-adr:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/419460d55223987cc6c3b749e651e78756890224/l3-grant-adr.md",
+      "rev": "sha256:62c1669cc64f6491a65bf18cdf6c55052f413eb6ec0507a155345320c59d8182",
+      "mediaType": "text/markdown",
+      "summary": "Validation (Codex gpt-6-astra) PASSED at 4843bb7d: all Captain quotes byte-match the task; terms match Scope and amendment 1; nothing added. FO reran the three acceptance steps in fresh shells: scope = one ADR file, digest and 6 quotes match, adr_lint 6 files exit 0. Two dev2 checks fail on package-rule conflicts logged as round 0 gaps. Limit: Codex used kc-dev-flow-2 0.28.0, the Claude side 0.26.0."
+    }
+  ]
+}

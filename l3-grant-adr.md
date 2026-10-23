@@ -26,6 +26,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:l3-grant-adr:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:l3-grant-adr-validation-1
+              briefing:
+                id: briefing:l3-grant-adr:validation:attempt-1:revision-1
+                digest: sha256:5a6bfa11ff9bbed5267d24868cc416b6bc35a1320a04a6647017ab047cb20c16
+                room-ref: ./l3-grant-adr/review/validation/briefing-1
 started: 2026-10-23T10:36:38Z
 worktree: .worktrees/spacedock-ensign-l3-grant-adr
 ---
