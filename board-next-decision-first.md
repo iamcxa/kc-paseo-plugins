@@ -15,6 +15,17 @@ gates:
                 id: briefing:board-next-decision-first:backlog:attempt-1:revision-1
                 digest: sha256:a6868466f264730356e77f8a2733696e129673bd34a9821921fed3fb0d83b570
                 room-ref: ./board-next-decision-first/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:board-next-decision-first:backlog:1
+                briefing: briefing:board-next-decision-first:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T08:02:05.302148Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the backlog gate review for briefing attempt-1 (sha256:a6868466f264): approve to enter implementation in an isolated worktree with a PR.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 The Captain finds the Fleet board's "By decision" view too dense to scan: every waiting item is drawn as an equal three-to-five-line card, so nothing tells him where to start. He compared three mockups side by side (current board, a two-line card variant, and a "next up" variant) and chose the "next up" variant.
