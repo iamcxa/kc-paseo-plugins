@@ -19,7 +19,10 @@ def main():
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--port", type=int, default=7051)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--long-name", action="store_true")
+    parser.add_argument("--expect-overflow", action="store_true")
     args = parser.parse_args()
+    fo_title = "OMP FO (test model)" if not args.long_name else "OMP FO " + "Very long first officer name for the narrow next card " * 5
     worktree = args.worktree.resolve()
     dest = args.output.resolve()
     dest.mkdir(parents=True, exist_ok=False)
@@ -125,7 +128,7 @@ def main():
                 f"        - briefing:\n            id: proof:{slug}\n            digest: sha256:proof\n"
                 f"            room-ref: ./{slug}/review/validation/briefing-1\n---\n")
         for title, labels in (("Comms officer", {"role": "comms-officer"}),
-                              ("OMP FO (test model)", {"role": "fo", "repo": "bridge", "task": "adapter-proof",
+                              (fo_title, {"role": "fo", "repo": "bridge", "task": "adapter-proof",
                                "workflow-dir": str(root / "workflow"), "next-owner": "captain",
                                "next": "Does OMP need its own Spacedock host adapter?",
                                "paseo.open-agent-tab.desktop": "false", "paseo.open-agent-tab.phone": "false"})):
@@ -167,10 +170,20 @@ def main():
         browser("mouse", "move", 700, 100)
         owners = evaluate('Array.from(document.querySelectorAll("[role=button]")).map(e=>e.textContent.trim()).filter(t=>t.startsWith("NEXT") || t.startsWith("Approve adapter proof") || t.startsWith("Does OMP"))')
         assert len(owners) == 3 and all("OMP FO" in t and "Closed" in t for t in owners), owners
+        if args.long_name:
+            geometry = evaluate('(()=>{const card=Array.from(document.querySelectorAll("[role=button]")).find(e=>e.textContent.trim().startsWith("NEXT"));const badge=Array.from(card.querySelectorAll("*")).find(e=>e.textContent==="Closed" && !e.children.length);const owner=badge.previousElementSibling,row=badge.parentElement;const rect=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width}};return {card:rect(card),row:rect(row),badge:rect(badge),owner:rect(owner),scrollWidth:owner.scrollWidth,clientWidth:owner.clientWidth,flexShrink:getComputedStyle(owner).flexShrink,textOverflow:getComputedStyle(owner).textOverflow}})()')
+            (dest / "long-name-geometry.json").write_text(json.dumps(geometry, indent=2) + "\n")
+            shot("long-name-next-card.png")
+            if args.expect_overflow:
+                assert geometry["badge"]["right"] > geometry["row"]["right"], geometry
+                print("PASS: baseline reproduced Closed badge overflow with a long owner name")
+                return
+            assert geometry["badge"]["width"] > 0 and geometry["badge"]["right"] <= geometry["row"]["right"] + 1, geometry
+            assert geometry["scrollWidth"] > geometry["clientWidth"] and geometry["flexShrink"] == "1" and geometry["textOverflow"] == "ellipsis", geometry
         shot("by-decision-closed.png")
         click("By FO", "tab")
-        wait_for(lambda: evaluate(f"Boolean({element('OMP FO (test model)')})"))
-        fo = evaluate('Array.from(document.querySelectorAll("[role=button]")).find(e=>e.textContent.trim().startsWith("OMP FO (test model)")).textContent')
+        wait_for(lambda: evaluate(f"Boolean({element(fo_title)})"))
+        fo = evaluate(f"{element(fo_title)}.textContent")
         assert "Closed" in fo, fo
         shot("by-fo-closed.png")
         click("By decision", "tab")

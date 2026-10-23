@@ -1,0 +1,11 @@
+# Long next-card owner name
+
+Authorized finding: roborev:1123 Low. Base 66faf94de8777263478125ba2004b7a64a6d0bca; delivered 03b96fb9f3dcef4e8f22910b1cce04bd46b28903. Product change is one line: explicit flexShrink 1 on the next-card owner Text, matching the agent card's name.
+
+Baseline observation matters: `cycle-2-before/long-name-geometry.json` and its screenshot show that this Paseo web runtime already computed flexShrink 1 through dependency defaults; it truncated the name and kept the badge visible before the explicit style. The harness's attempted `--expect-overflow` assertion therefore failed. No baseline web overflow was reproduced; this is an explicit layout constraint authorized by the FO, not evidence of repaired observable web harm. Baseline captured PID 67940 was stopped and its temporary HOME/profile removed.
+
+`cycle-2-after/long-name-next-card.png` was visually inspected. Its 348px next card contains a 267.66px name with ellipsis, and the complete 46.34px Closed badge ends at x=1411 inside the card's x=1424 right edge. The harness asserts badge containment, nonzero width, owner scrollWidth 1527 > clientWidth 268, textOverflow ellipsis, and computed flexShrink 1; it fails if the name does not truncate or the badge exceeds the owner row. The normal badge/composer/Closed-FO-open checks also pass at the new commit; no message or decision was sent.
+
+Rerun the existing `capture.py` command documented in README.md with `--long-name` and a new output directory. Both captures use a fresh browser profile and isolated HOME/--home on ports 7061/7062 with localhost resolution blocked, and modify only the throwaway server fleet port. `cycle-2-after/cleanup.json` records captured PID 75212 stopped and the temporary root removed. Main and the live Paseo daemon were unchanged; no native layout claim is made.
+
+`cycle-2-tests.log`: npm test passes 78/78. `cycle-2-typecheck.log`: typecheck exits 0. `cycle-2-checks.json`: comment ratio 0.0% <=5%, ADR lint seven records pass, doc impact zero listed documents, number guards pass. No new ADR/migration or document impact. Design-surfaces remains the previously dispositioned package gap 2; roborev remains the FO's responsibility under package gap 5. Draft PR #40 was updated on its existing branch, never marked ready or merged.

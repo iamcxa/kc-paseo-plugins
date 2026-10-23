@@ -92,3 +92,21 @@ Successful isolated proof used ports 7061/7062, separate HOME/--home and a fresh
 ### Summary
 
 Delivered Closed badges and the web-only composer outline fix in one committed, pushed branch with Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/40 (base main), using the accepted POC scope. Tests, typecheck, classifier counterexample and isolated web screenshots establish the implementation proof; live main stayed clean and no live daemon, Release PR #18, ready state or merge was changed. External reviews and the Captain's physical tab/phone trial remain the FO's next work.
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: roborev:1123 Low: the owner name next to the Closed badge (spacedock-bridge/client/board.tsx, the next-card owner row) gets flexShrink 1 like the names in the agent cards, so a long FO name truncates instead of pushing the badge offscreen; add a long-name case to the isolated screenshot capture showing the badge still visible
+  Commit 03b96fb9f3dcef4e8f22910b1cce04bd46b28903 makes the one-line explicit style change; cycle-2-after/long-name-next-card.png and geometry assert ellipsis, shrink 1 and badge containment; screenshot visually inspected.
+- DONE: npm test and typecheck pass; push to the same branch (PR #40 stays Draft); a short "## Stage Report: implementation (cycle 2)" section
+  cycle-2-tests.log: 78/78 pass; cycle-2-typecheck.log: exit 0; PR #40 verified OPEN/Draft, base main, head 03b96fb9f3dc; branch pushed.
+
+### Findings
+
+Baseline web overflow was not reproduced: the dependency already computed flexShrink 1 and kept the badge visible. The baseline overflow-expectation assertion failed accordingly; cycle-2.md records the observation without claiming observed web harm was repaired. The authorized explicit constraint is now in product code.
+cycle-2-checks.json: comment ratio 0.0% (maximum 5%); ADR lint seven pass; doc impact zero documents; number guards pass. No new ADR/migration. Roborev not run per dispatch; FO owns its next review. Prior design-surfaces gap 2 remains skipped.
+Isolated after-proof used ports 7061/7062 and a fresh HOME/profile, captured PID 75212 stopped and temporary root removed; no live install/reload, main write, ready transition or merge. Native layout remains unverified.
+
+### Summary
+
+Applied only the authorized next-card name constraint and added a long-name screenshot case with measured badge containment. Evidence is in fleet-hides-closed-fos/evidence/cycle-2*; external review remains with the FO.
