@@ -47,7 +47,11 @@ Out: any vault, item or settings change; storing vault IDs instead of names (a s
 ## Acceptance criteria
 
 **AC-1**: The decision record states the four naming rules, their reasons and the three verified facts, and passes the repository's ADR lint.
-Verified by: `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9` exits 0; a reviewer reads each of the four rules and three facts in the record against this task's Scope.
+Verified by, from the repository root of the candidate (`<package>` is the kc-dev-flow-2 package root):
+1. `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9 --require 5` exits 0.
+2. `git diff --name-only <base>..<candidate> -- docs/adr` prints only `docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md`: the rule lands as an amendment, with no new ADR file.
+3. A reviewer reads the amendment against the seven-row table under `## Design` and ticks each row; wording of rules 1 to 4 and facts 1 to 3 matches this task's Scope.
+4. Re-checkable without a secret: the `@` and case-insensitivity statements against https://www.1password.dev/cli/secret-reference-syntax/; fact 3 against `splitRef` in `project-env/shared/field-picker.ts`. Fact 1 (op 2.30.3) is taken from the 2026-10-23 hand-off and not re-run, because it needs the Captain's own 1Password sign-in and write access to a vault; validation marks it not run.
 
 ## FO alignment
 
@@ -60,3 +64,85 @@ Map footprints: not needed: no journey story or open map question is attached to
 ## FO records
 
 The backlog gate was recorded before design_surfaces.py passed: the first draft carried `Surfaces: docs` and a sentence under `Visible change:`; both were corrected to `none` after the approval, with no change to scope or criteria.
+
+## Design
+
+**Ruling:** the naming rule lands as an in-place amendment of ADR 0005, `An agent lays out vault items; a person reviews them and fills the values` (file `docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md`). No new ADR, so FO reserves no number.
+
+**Why in place, not a new record.** Three reasons, none of which needs the Captain:
+- This repository already amends in place when a ruling refines an accepted one: ADR 0002 and ADR 0004 each carry a dated `**Amendment, <date>**` paragraph in Decision (checked by reading both files, 2026-10-23).
+- The rule refines ADR 0005's own convention (an item "titled with the service name") and settles its stated unverified point; a second record would split one vault layout across two files.
+- `Superseded by NNNN` (the only supersede status `adr_lint.py` accepts) would mark all of ADR 0005 replaced, which is false: the structure-only, person-fills-values ruling stands.
+`number_guards.py check` rules R4 and R5 read only ADR files added by the candidate (`added_changed` returns them first), so an edit to 0005 trips neither; I did not run `reserve`.
+
+### PRFAQ
+
+Press release: from the next release, anyone who sets up a vault for an agent finds one written rule for what to call vaults, items and fields, and the rule says why. Renaming a vault later is known to break saved mappings.
+FAQ:
+- Does the plugin enforce it? No. The vault setting is `z.string()` (`project-env/shared/config.ts`), so any name is accepted; the rule binds the person and the layout skill ADR 0005 describes, which is not in this repository yet (no skill file in `git ls-files`, 2026-10-23).
+- Does it change ADR 0001 (one vault per repository)? No. A repository still reads one vault at a time; `<env>` only names which one.
+- Does it touch code, vaults or settings? No.
+
+```mermaid
+flowchart LR
+  A[Implementation edits ADR 0005: amendment in Decision, facts in Consequences] --> B[adr_lint --since 60799d9 --require 5]
+  B -->|exit 0| C[Reviewer ticks the seven rows against Scope]
+  B -->|exit 1| A
+  C -->|row differs from Scope| A
+  C -->|all rows match| D[Captain gate: approve and merge]
+```
+
+### Draft text for ADR 0005
+
+Edit 1, in `## Decision`, after the paragraph ending "Credential item per service).", add:
+
+> **Amendment, 2026-10-23** (「同意」 and 「可以，就這樣做規則」 — Captain, 2026-10-23, quoted in the hand-off of the session that renamed his vaults): vaults, items and fields are named by four rules.
+>
+> 1. A vault an agent reads through a service account is named `agent-<project>-<env>`, for example `agent-relay-dev`. The vault that holds service account tokens, read only by a person, is `agent-tokens`. Reason: 1Password lists vaults alphabetically with no manual order, so a shared prefix keeps them together, and `@` is not allowed in an `op://` reference (https://www.1password.dev/cli/secret-reference-syntax/), so `-` joins the parts.
+> 2. An item's title is the service name, lowercase, words joined by hyphens (`netlify`, `posthog`). It takes a `-<qualifier>` only when one vault holds two accounts of one service, and never a project prefix. Reason: the vault name already carries the project, and a title with a space needs quotation marks in a reference. This refines "titled with the service name" above.
+> 3. A field label is the environment variable name the agent receives (`NETLIFY_AUTH_TOKEN`). Reason: the field picker suggests the field whose label equals the variable name (`sameName` in `project-env/shared/field-picker.ts`), so the mapping needs no choice.
+> 4. A service account token item in `agent-tokens` is titled with the service account name, the same string as its Keychain service name. Reason: the plugin looks the token up in the login Keychain by that name (`find-generic-password ... -s <service account>` in `project-env/server/secrets.ts`), so one string finds it in both places.
+
+Edit 2, in `## Consequences`, replace the two-line bullet beginning "Whether `op` can create an empty password field" and ending "proves it before building." with:
+
+> - Whether a 1Password MCP exists for this is unverified. Three facts were verified on 2026-10-23:
+>   - `op item create --category "Secure Note"` with `NAME[password]=` creates an empty password field (op 2.30.3), which settles the point this record left open.
+>   - Secret references are case-insensitive.
+>   - Renaming a vault breaks project-env mappings stored by vault name, because a reference is matched by the prefix `op://<saved vault>/`.
+> - The plugin checks none of the four names; the rule is followed by the person creating vaults and by the layout skill.
+
+(Reasons for rules 2 to 4 are drafted here from verified code and the reference page; Scope gave a reason only for rule 1. The Captain reads them at the gate; they add no new rule.)
+
+Seven-row table for the reviewer (Scope source in the right column):
+
+| # | Record carries | Scope source |
+| --- | --- | --- |
+| 1 | rule 1, reason | Scope item 1 |
+| 2 | rule 2 | Scope item 2 |
+| 3 | rule 3 | Scope item 3 |
+| 4 | rule 4 | Scope item 4 |
+| 5 | fact: empty password field, op 2.30.3 | Scope, verified-facts sentence |
+| 6 | fact: references case-insensitive | same |
+| 7 | fact: vault rename breaks mappings by name | same |
+
+Existing-code check (ideation principle): no code change is proposed, so no capability change to justify. Out of scope and untouched: vault IDs instead of names (note: `canReadVault` in `project-env/shared/token.ts` already accepts an ID, so that candidate is not blank ground).
+
+## Decisions for the Captain
+
+None. The in-place amendment follows ADR 0002 and ADR 0004; the Captain's 「准」 already named ADR 0005 as the home. No past `Override:` applies: `git -C docs/dev2/.spacedock-state grep -n 'Override:'` (2026-10-23) finds only archived prose about other areas.
+
+## Stage Report: ideation
+
+- DONE: Decide how the naming rule lands under this repository's ADR conventions (amend ADR 0005 in place, or a new record that supersedes or extends it), with the reason, and draft the exact text of the four rules, their reasons and the three verified facts.
+  Amend 0005 in place (precedent: ADR 0002 and 0004 amendments; `Superseded by` would falsely retire 0005). Exact text under `### Draft text for ADR 0005`; applied to a temp copy of docs/adr, `adr_lint.py <copy> --require 5` exit 0. Reasons for rules 2 to 4 are drafted from the reference page and code (`sameName`, `find-generic-password -s`), Scope gave one only for rule 1.
+- DONE: Keep the acceptance criterion and give it a reproducible evidence clause; if a new ADR number is needed, say so so FO can reserve it under the README's number guards.
+  AC-1 kept, with four numbered evidence steps (lint with `--since 60799d9 --require 5`, diff shows only 0005, seven-row reviewer table, secret-free re-checks). No new ADR number: FO runs no `reserve`; `number_guards.py` R4/R5 read only added ADR files, so editing 0005 trips neither (read from `added_changed`, not run).
+- DONE: Name any decision the Captain must make (at most one), with a recommendation.
+  None needed; `## Decisions for the Captain` says why. `Override:` grep (2026-10-23) finds only archived prose about other areas.
+
+AC-1 current evidence: draft passes lint on a temp copy; the repo's `docs/adr` is untouched (`git status` clean). The candidate edit, its lint run and the reviewer read are not yet done (implementation and validation).
+`design_surfaces.py check` on this task: "design surfaces presentable", exit 0.
+
+### Summary
+
+The rule lands as an amendment inside ADR 0005 (rules in Decision, facts in Consequences), with no new number. Two of three facts were re-checked in this stage (`@` not allowed and case-insensitivity against the 1Password reference page; rename breakage against `splitRef`); the `op` empty-password-field fact (op 2.30.3) is taken from the 2026-10-23 hand-off and not re-run, since this task forbids `op`. Limits: the connective wording of rule 1's reason and the reasons for rules 2 to 4 are mine, for the Captain to read at the gate.
