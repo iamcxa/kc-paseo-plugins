@@ -101,3 +101,8 @@ Web/desktop interactions were exercised; native-device hover/press, live deliver
 ### Summary
 
 Moved per-task evidence into the task state branch, dropped the unused one-off script, applied the FO's SKIPPED disposition, and pushed the evidence-only removal commit to Draft PR #37. Tests pass; the rerun review produced two medium findings returned to the FO under the explicit no-client/shared-change boundary, so this report does not claim a clean review or validation approval.
+
+### FO declines
+
+- roborev:1107 Medium, `shared/queue.ts` (`buildQueue`), candidate dd7c9e043a24: a reply-derived question with an empty `next` label is not listed separately when the FO also has a gate. Deferred risk: the gate row still opens that FO's card, whose Discussion shows the reply; no accepted criterion or Captain ruling covers label-less questions (the round 1 rule names `next-owner=captain` with a `next` label). Would become Material if the Captain misses such a question in UAT. Added to next-round candidates.
+- roborev:1107 Medium, `client/board.tsx` next-card wrapper, candidate dd7c9e043a24: on iOS VoiceOver the accessible wrapper may group the nested PR link. Deferred risk: native screen-reader use is unobserved and the phone layout is a non-goal of this and earlier tasks. Would become Material on an observed VoiceOver user or a phone-layout task. Added to next-round candidates.
