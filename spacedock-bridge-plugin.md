@@ -74,3 +74,18 @@ Verified by: the diff of `release-please-config.json`, `.release-please-manifest
 
 Alignment: not needed: the Captain set the profile, the name and the scope's intent himself on 2026-10-23, and the work moves code without changing behaviour.
 Release review: not needed: spacedock-bridge has no journey map yet, and this is a move, not a story.
+
+## Stage Report: implementation
+
+- DONE: spacedock-bridge/ builds and its tests pass (npm ci, typecheck, test), test count not below 42 (AC-1)
+  In `spacedock-bridge/` at 78eef81: `npm ci` ok; `npm run typecheck` no errors; `npm test` = tests 42, pass 42, fail 0. The tests assert the moved board/gate/relay/reviews/queue/tasks/markdown/preview logic; each fails if that logic's output changes.
+- DONE: The plugin installs and reports Plugin ready under id paseo-spacedock-bridge in an isolated Paseo daemon, never the live ~/.paseo (AC-2)
+  Isolated daemon (own --home and HOME, 127.0.0.1:6950): `plugin ls` showed `paseo-spacedock-bridge running yes`, empty ERROR; `plugin logs` showed `Plugin ready`. Daemon stopped, home deleted, live daemon on 6767 still listening.
+- DONE: release-please config, manifest and root README register spacedock-bridge the same way as project-env, with a Draft PR open (AC-3)
+  Manifest entry `0.0.0` and package.json `0.0.0`, as project-env was registered in bdebd38; README line added. Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/31; Release PR #18 untouched.
+
+### Summary
+
+Moved the plugin from `dbee7baf` into `spacedock-bridge/`; client/server/shared/coordinator/index/tsconfig and the 8 test files are byte-identical to source (`diff -r`), `probe/` renamed `test/`, `probe/run.mts` and the `probe` script left behind. Comment ratio: 5% maximum met (`comment_ratio.py main HEAD`). `doc_impact.py main HEAD`: 0 documents listed, nothing to mark. No ADR, no number guards, no boundary-crossed.
+
+Limits: the fleet MCP port 6787 is hard-coded, so a second copy cannot start the fleet server while the live POC copy holds it; observed as a caught `EADDRINUSE` in the isolated run, plugin still ready. The Captain must remove the POC plugin from the live daemon before or when switching over, or the new copy has no `fleet_status`. Screen rendering is unproven (Captain's check after merge). `coordinator/EXTENSION.md` still says it lives in the POC directory (kept verbatim). The `package-lock.json` came from the source worktree's untracked file, changed only in root name/version.
