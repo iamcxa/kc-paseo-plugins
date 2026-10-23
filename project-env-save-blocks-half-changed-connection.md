@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-save-blocks-half-changed-connection
-pr:
+pr: iamcxa/kc-paseo-plugins#29
 gates:
     version: 1
     records:
