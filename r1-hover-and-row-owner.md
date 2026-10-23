@@ -82,3 +82,22 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 Implemented the approved POC UI feedback and ownership/queue corrections in the assigned branch, committed and pushed them, and opened Draft PR #37; decision relay and recording files have no diff. The reproducible synthetic proof used separate HOME/--home, ports 7043/7044 and a new browser profile with localhost blocked; its captured daemon and browser stopped, all proof homes were removed, and manual proof ports 7041/7042 are also closed.
 
 Web/desktop interactions were exercised; native-device hover/press, live delivery and Captain acceptance remain unproven. No persistent schema, release or installed-daemon change was made; validation remains with the First Officer; the design-surface check is skipped under the FO disposition above.
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Move the evidence out of the PR: remove docs/evidence/r1-hover-and-row-owner/ from the branch in a new commit, and keep the screenshots and observed-states.json under the task's state folder /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r1-hover-and-row-owner/evidence/ (committed with spacedock state commit), where earlier tasks keep evidence; drop capture.py unless a test needs it
+  dd7c9e043a24085f15086ba0f3508a7fd9977938 removes the ten per-task files from the branch; seven PNGs and observed-states.json were hash-checked byte-identical after relocation. State commit 1a57cd13235fa6ee5f73112ce79290a683074980 commits the evidence folder and provenance README; capture.py was dropped because no test consumes it.
+- DONE: Re-mark the "Workflow design-surface metadata check" report line SKIPPED with the reason: FO disposition — README asks for Surfaces/Visible change only on the five-stage route; package gap 2 in _l3-dogfood/rounds.md round 0
+  The original report line now says SKIPPED with the supplied reason; entity frontmatter and approved scope are unchanged.
+- DONE: Rerun npm test and the roborev gate on the new head, update the report and PR #37, and finish with a final reply starting "Done:"
+  npm test: 72 passed, 0 failed on dd7c9e043; the required 0.26.0 gate was run exactly with base f849058121e61120d91e460bedca081c71a1aaea and returned exit 1: findings on dd7c9e043; evidence=roborev:1107. PR #37 remains Draft and now links the committed task-state evidence and names these findings.
+- FAILED: roborev clean verdict on the follow-up head
+  Medium, shared/queue.ts:58: review says reply-derived questions with an empty next label still disappear with a gate. Needs FO scope disposition: the accepted rule specifically covers next-owner=captain with a next label; no broader repair was authorized here.
+  Medium, client/board.tsx:391: review says the accessible next-card wrapper groups its nested GitHub link on iOS. Returned as a review finding; native VoiceOver behavior has not been reproduced. Repair would change client code forbidden by this follow-up.
+- DONE: Preserve the follow-up's code boundary
+  git diff c3c818e..dd7c9e0 -- spacedock-bridge/client spacedock-bridge/shared is empty. The net PR has seven code/test files, 139 additions and 41 deletions; comment ratio is 0.0% (maximum 5%), doc_impact.py lists 0 affected documents, and git diff --check passes.
+
+### Summary
+
+Moved per-task evidence into the task state branch, dropped the unused one-off script, applied the FO's SKIPPED disposition, and pushed the evidence-only removal commit to Draft PR #37. Tests pass; the rerun review produced two medium findings returned to the FO under the explicit no-client/shared-change boundary, so this report does not claim a clean review or validation approval.
