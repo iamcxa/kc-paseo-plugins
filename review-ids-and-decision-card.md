@@ -26,6 +26,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-23T09:07:35Z
+worktree: .worktrees/spacedock-ensign-review-ids-and-decision-card
 ---
 
 The Captain cannot tell which repository and pull request a review item is, a second review request has no link, and the decision card he opens from the board makes him read the FO's conversation and a three-line instruction note before he can decide.
