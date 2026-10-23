@@ -1,7 +1,7 @@
 ---
 id:
 title: Spacedock Bridge is a kc-paseo-plugins plugin that installs and runs from this repo
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -56,8 +56,11 @@ gates:
                 reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:5bc47dab1812): approve the move as validated at 78eef814; route to done; PR #31 waits for the Captain to merge.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T07:16:56Z
+verdict: PASSED
+completed: 2026-10-23T07:53:48Z
+archived: 2026-10-23T07:53:49Z
 ---
 
 The Captain runs his FOs from the Spacedock Bridge, a Paseo plugin that today exists only as a proof of concept in another repository's local worktree, installed from a path that disappears when that worktree is cleaned. Moving it into this monorepo gives it a durable home, a release line, and the POC workflow it will grow in until he decides to polish it.
