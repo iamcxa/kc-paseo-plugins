@@ -233,7 +233,7 @@ The spike diff landed unchanged as one commit on main cad57e0 and passes AC-1 to
 - DONE: The ≠ explanation has the new sentence.
   Open explanation reads "The field name differs from the variable name. Check it is the field you mean." at 1280 and 400.
 - DONE: Task A's Save block and reason line still work beside the note.
-  With a mistyped service account Checked: bar reads "1 unsaved change | Finish or cancel the connection change first | 4 with no field picked yet | Discard | Save", Save stays disabled before and after pressing the note and after pressing Save (projects.json unchanged, 3/0/12/1 variables).
+  With a mistyped service account entered and Check pressed: bar reads "1 unsaved change | Finish or cancel the connection change first | 4 with no field picked yet | Discard | Save", Save stays disabled before and after pressing the note and after pressing Save (projects.json unchanged, 3/0/12/1 variables).
 - DONE: Confirm the new tests fail when their behaviour is removed.
   One-line mutants of fc4b095 on a second isolated daemon: margin removed -> AC-1 FAIL (400x900 and 1280x800 added row -69 px, note rows FAIL; at 1280x1400 only the Change-reason walk fails because the page fits); wrap-around removed -> AC-2 order stops after four; pill focus removed -> AC-2 order empty; `run` not stored and `run` read from component state -> summary "(none)" after the crossing; `<wbr>` removed -> lines start "ODUCTION_REP", "NLY_USER", "EPLICA_READ_"; old ≠ sentence -> explanation lacks the new sentence. Unit: wrap-around mutant fails 2 tests, `setRun` mutant fails 1.
 - DONE: Give a verdict.
@@ -247,9 +247,39 @@ The spike diff landed unchanged as one commit on main cad57e0 and passes AC-1 to
 - The worktree `.worktrees/spacedock-ensign-project-env-every-row-findable` did not stay at the candidate: during validation HEAD moved from fc4b095 to 455d20d and later 781c356 and cd9f1c9 (per `git log`), with uncommitted edits to `open-project.ts`, `settings-screen.tsx` and the test file in between. These repair roborev:1089 and the note outside the web client. This verdict is for fc4b095 only; a candidate with those commits needs its own validation (the new `startTest`/`failTest` and `testing` changes touch the Test summary clause).
 - Harness caveat: `implementation/harness/mutate.sh` writes to `/tmp/pe-rowi`; it is removed. `ac12.sh` and `ac3wrap.sh` take width and height as separate arguments (a quoted "400 900" mis-labels the output but the viewport still follows).
 
-### Acceptance script (`validation/accept.sh`, run with `bash`)
+### Acceptance script (`project-env-every-row-findable/validation/accept.sh`, run with `bash`)
 
 ```
+#!/bin/bash
+# Acceptance for candidate fc4b095 of iamcxa/kc-paseo-plugins#33, run on its own throwaway Paseo (port 6971, plugin id pe-accept).
+# Needs: Paseo CLI /Users/kent/.local/bin/paseo, agent-browser, node, python3, and the repo checkout below (its project-env/node_modules is linked for the unit tests).
+set -u
+REPO=/Users/kent/Project/kc-paseo-plugins
+CAND=fc4b095610925af7ea32e1402fbaf74659317d81
+H=$REPO/docs/dev2/.spacedock-state/project-env-every-row-findable/implementation/harness
+T=$(mktemp -d /tmp/pe-accept.XXXXXX)
+export CHECKOUT=$T S=$T/s PORT=6971 PLUGIN_ID=pe-accept SESSION=pe-accept
+trap 'bash "$H/teardown.sh" >/dev/null 2>&1; rm -rf "$T"' EXIT
+
+echo "== 1 build the exact candidate and run its new unit tests (expect: pass 7, fail 0)"
+git -C $REPO archive $CAND project-env | tar -x -C $T
+ln -s $REPO/.worktrees/spacedock-ensign-project-env-every-row-findable/project-env/node_modules $T/project-env/node_modules
+(cd $T/project-env && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/every-row-findable.test.ts 2>&1 | grep -E '^ℹ (pass|fail)')
+
+echo "== 2 start the isolated Paseo with the candidate plugin"
+bash $H/setup.sh >/dev/null 2>&1 && bash $H/clearstore.sh >/dev/null 2>&1 && echo "daemon up on $PORT"
+
+echo "== 3 AC-1 and AC-2 at 400x900, 1280x1400, 1280x800 (expect every line PASS; order LINEAR_API_KEY RESEND_API_KEY SLACK_BOT_TOKEN SLACK_SIGNING_SECRET LINEAR_API_KEY)"
+for sz in "400 900" "1280 1400" "1280 800"; do set -- $sz; bash $H/ac12.sh $1 $2 2>&1 | grep -E '^\[.*(PASS|FAIL)'; done
+
+echo "== 4 AC-3 Test summary across 720 px (expect 'RESULT: summary survived the round trip' twice)"
+bash $H/ac3.sh 1280 1400 700 2>&1 | grep RESULT
+bash $H/ac3.sh 400 900 1280 2>&1 | grep RESULT
+
+echo "== 5 AC-3 long name and the not-equal explanation (expect copiedTextEqualsName=true everyLineStartsAfterUnderscore=true, and the sentence ending 'Check it is the field you mean.')"
+bash $H/ac3wrap.sh 1280 1400 2>&1 | grep -E '^\['
+bash $H/ac3wrap.sh 400 900 2>&1 | grep -E '^\['
+echo "== done"
 ```
 
 Does not cover: the phone app, a remount during a running Test, light theme, the real 1Password or Keychain (fake `op`, `security`, `git`), any commit after fc4b095.
