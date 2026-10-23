@@ -24,3 +24,8 @@ Per-round section format:
   2. `design_surfaces.py check` requires `Surfaces:` and `Visible change:` on every task, but README (backlog) asks for them only "on the five-stage route"; every POC task here fails it (seen on board-next-decision-first, review-ids-and-decision-card, l3-grant-adr).
   3. `number_guards.py check` fails R4 when a task lands an ADR without an `ADR:` reservation line, but README (Number guards, POC bullet) says a POC task "reserves no number"; a POC task that writes an ADR cannot pass both (l3-grant-adr, ADR 0006).
 - Dispatch note: first Codex ensign dispatched from the Claude FO via `spacedock dispatch build --host codex` plus Paseo `create_agent` (codex/gpt-6.1-sol, high, auto-review): it read the dispatch file, committed, pushed, ran roborev and wrote its stage report; completion arrived as Paseo's finish notification (no SendMessage on Codex).
+
+## Pre-grant baseline — 2026-10-23 — review-ids-and-decision-card (PR #34, gates the Captain's)
+- UAT (Captain, 2026-10-23): feedback — 「可以按的東西應該要有 hover 高亮反應之類的提示？」 and 「本輪有個問題，但不是真的很嚴重，就是gate briefing 可以是中文嗎？目前應該是讀取檔案來的對嗎？所以理論上都是英文？以及，我覺得可能要可以區分 FO 是否已經 inactive 例如已經把 tab 關閉。此外，輸入pan 也要hover高亮，三個決策按鈕應該要有某種區分？截圖二裡面的 FO 跟圖三的為何差異那麼多？我意思是 by descision 跟 by FO 有差異」
+- UAT caught, validation missed: no hover/press feedback on clickable elements and the composer; the three decision buttons look alike; one-line rows do not say which FO; an FO's question is dropped from By decision when the same FO also has a gate (buildQueue adds an ask only when the FO has no gates). Not a validation miss: briefing language (English by repo convention), inactive FOs (already filed as fleet-hides-closed-fos).
+- Cost: not measured for pre-grant tasks.
