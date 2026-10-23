@@ -97,3 +97,7 @@ Built on 3 commits (75c2558, 54c1b21, aaade9a) on spacedock-ensign/review-ids-an
 ### Summary
 
 Branch update only; no behaviour change beyond what main brings.
+
+### Dispatch Retries
+
+- Retry 1: validation — agent-error (API rate limit, session limit reset 20:10 Asia/Taipei); nudged
