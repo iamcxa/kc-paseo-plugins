@@ -1,7 +1,7 @@
 ---
 id:
 title: ADR 0007 records which project-env decisions the FO makes by record
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-23: 「准，授權你合併」 — approves the ADR 0007 draft into implementation with every part the gate question stated (the README-sentence exception, expiry round 15 or 2026-11-06, demotion rules, class 3, the kept list, the reload route), and authorizes FO to merge this task''s PR.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-23T12:25:39Z
 ---
 
