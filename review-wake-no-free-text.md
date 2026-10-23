@@ -56,3 +56,18 @@ Verified by: a test that a well-formed request produces one line with `<owner>/<
 
 Alignment: needed at the backlog gate: the fix shape (drop free text from the wake, leave the comms officer's tools as they are) is FO-proposed.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: wakeMessage carries only validated <owner>/<repo>#<number> and the rebuilt PR URL, never the title or author; malformed items are left out and logged, with tests feeding prompt-like titles and authors with newlines and quotes (AC-1)
+  Commit 24268cee9 on spacedock-ensign/review-wake-no-free-text. `routableLine` checks owner/repo against `^[A-Za-z0-9._-]+$`, number is a positive safe integer, url equals the rebuilt URL; skipped items log the url only. Test "a title and an author with prompt-like text..." asserts none of the injected pieces appear; test "a malformed owner, repo, number or url..." covers 8 bad shapes. With shared/reviews.ts reverted to base, these fail (mutation run: 3 fail, 44 pass).
+- DONE: A well-formed request still produces one routable line and the existing reviews tests pass (AC-2)
+  Test "a well-formed request is exactly one routable line" deepEquals the single `- owner/repo#n — url` line; `npm test` 47 pass, 0 fail, `npm run typecheck` clean. server/reviews.ts now sends nothing when wakeMessage returns "" (all items malformed).
+- DONE: Roborev gate run with its evidence= or incomplete: line, and a Draft PR open
+  `clean on 24268cee9; evidence=roborev:1098`. Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/35 (not merged; PR #31 thread and release PR #18 untouched).
+
+### Summary
+
+The wake message no longer includes title or author; only validated owner/repo/number and a rebuilt URL. The routing instruction text is unchanged. Limits: code-path fix only, the comms officer's tools and the `before("agent.create")` hook are unchanged per scope; a "." or ".." owner/repo passes the specified regex but still requires the URL to match exactly. `npm ci` was run in the worktree (node_modules untracked, not committed).
+
+comment_ratio: `code lines 24, comment lines 1, 4.2%; maximum 5% (package default) met` (exit 0). doc_impact: `0 document(s) mention what changed`. Number guards: none (no Number guards section; POC adds no migration). Base SHA 2c60f172e7f35c39396c8b9eab963319326e2d23.
