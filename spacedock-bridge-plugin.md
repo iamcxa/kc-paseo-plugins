@@ -38,6 +38,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:spacedock-bridge-plugin:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:spacedock-bridge-plugin-validation-1
+              briefing:
+                id: briefing:spacedock-bridge-plugin:validation:attempt-1:revision-1
+                digest: sha256:5bc47dab1812657a4481fa2b7eac81bfee4967ee151658b6ac07dac75203d5ed
+                room-ref: ./spacedock-bridge-plugin/review/validation/briefing-1
 started: 2026-10-23T07:16:56Z
 ---
 

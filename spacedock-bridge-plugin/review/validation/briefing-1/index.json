@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:spacedock-bridge-plugin:validation:attempt-1:revision-1",
+  "question": "Approve validation of PR #31 at 78eef814 (the Spacedock Bridge plugin moved into spacedock-bridge/ with no behaviour change) so the task routes to done and PR #31 waits for the Captain's merge?",
+  "artifacts": [
+    {
+      "id": "artifact:spacedock-bridge-plugin:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9f949f8cf6c33b66b54053c840eb74b657d51e73/spacedock-bridge-plugin.md",
+      "rev": "sha256:b90d4df1606e2a9dcd870a7e874f0d2912d98be664958da8817a83175ee8230f",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED AC-1..AC-3 at 78eef814; FO reran the acceptance script in a fresh shell with the same output. Roborev (roborev:1084) and a push security review found 2 High, 4 Medium, 1 Low and one prompt-injection path, all in code byte-identical to the POC at dbee7baf, so none is introduced by the move. Limits: screen rendering unproven; fleet port 6787 held by the live POC copy until it is removed."
+    }
+  ]
+}
