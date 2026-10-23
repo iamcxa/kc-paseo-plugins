@@ -34,7 +34,7 @@ import {
   unsavedCount,
 } from "../shared/config";
 import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
-import { FailureMark } from "./failure-mark";
+import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
 import { FieldPicker, type VaultList } from "./field-picker";
 import { type PillView, pillView } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
@@ -153,7 +153,7 @@ function VariableRow({
   shown: boolean;
   theme: Theme;
   pill: ReactNode;
-  onMark(event: MarkEvent["type"]): void;
+  onMark(event: MarkEvent["type"], anchor: Anchor): void;
   onRemove(): void;
 }) {
   const { name } = variable;
@@ -178,8 +178,8 @@ function VariableRow({
       reason={reason}
       shown={shown}
       theme={theme}
-      onPress={() => onMark("press")}
-      onHover={(on) => onMark(on ? "hoverIn" : "hoverOut")}
+      onPress={(anchor) => onMark("press", anchor)}
+      onHover={(on, anchor) => onMark(on ? "hoverIn" : "hoverOut", anchor)}
     />
   );
   return (
@@ -500,8 +500,25 @@ function ProjectEditor({
   });
   const run = test.data;
   const [markView, setMarkView] = useState<MarkView>(null);
+  const [bubbleAt, setBubbleAt] = useState({ left: 0, top: 0 });
+  const bubbleOrigin = useRef<View>(null);
+  const placeBubble = (anchor: Anchor) =>
+    bubbleOrigin.current?.measure((_x, _y, _w, _h, originX, originY) =>
+      setBubbleAt({
+        left: anchor.pageX + anchor.width - BUBBLE_WIDTH - originX,
+        top: anchor.pageY + anchor.height / 2 + 18 - originY,
+      }),
+    );
+  const markEvent = (name: string, type: MarkEvent["type"], anchor: Anchor) => {
+    if (type !== "hoverOut") placeBubble(anchor);
+    setMarkView((view) => nextMark(view, { type, name }));
+  };
   const summary = summaryParts(draft, run, test.isPending);
-  const compactHeader = useWindowDimensions().width < 600;
+  const width = useWindowDimensions().width;
+  const compactHeader = width < 600;
+  useEffect(() => setMarkView(null), [width]);
+  const shownVariable = draft.variables.find((v) => v.name === markView?.name);
+  const shownReason = shownVariable ? rowReason(draft, run, shownVariable) : null;
   const summaryNode = (
     <Text accessibilityLiveRegion="polite" numberOfLines={1} style={{ fontSize: 13 }}>
       {summary.map((p, i) => (
@@ -800,9 +817,9 @@ function ProjectEditor({
                 variable={v}
                 first={i === 0}
                 reason={reason}
-                shown={markView?.name === v.name}
+                shown={markView?.name === v.name && reason !== null}
                 theme={theme}
-                onMark={(type) => setMarkView((view) => nextMark(view, { type, name: v.name }))}
+                onMark={(type, anchor) => markEvent(v.name, type, anchor)}
                 onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
                 pill={
                   <FieldPill
@@ -851,6 +868,11 @@ function ProjectEditor({
             onPress={() => doImport.mutate()}
           />
         </SettingsCard>
+        <View ref={bubbleOrigin} pointerEvents="none" style={{ position: "absolute", top: 0, left: 0, width: 0, height: 0, zIndex: 20 }}>
+          {markView !== null && shownReason !== null ? (
+            <MarkBubble reason={shownReason} left={bubbleAt.left} top={bubbleAt.top} theme={theme} />
+          ) : null}
+        </View>
       </SettingsSection>
 
       <FieldPicker

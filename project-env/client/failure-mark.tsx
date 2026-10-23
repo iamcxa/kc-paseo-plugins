@@ -1,10 +1,12 @@
+import { useRef } from "react";
 import { Pressable, Text, View } from "react-native";
 import type { PluginSurfaceProps } from "@getpaseo/plugin/client";
 
 type Theme = PluginSurfaceProps["theme"];
 
 export const MARK_SLOT = 32;
-const BUBBLE_WIDTH = 280;
+export const BUBBLE_WIDTH = 280;
+export type Anchor = { pageX: number; pageY: number; width: number; height: number };
 
 export function FailureMark({
   name,
@@ -18,18 +20,22 @@ export function FailureMark({
   reason: string | null;
   shown: boolean;
   theme: Theme;
-  onPress(): void;
-  onHover(on: boolean): void;
+  onPress(anchor: Anchor): void;
+  onHover(on: boolean, anchor: Anchor): void;
 }) {
+  const target = useRef<View>(null);
+  const measured = (use: (anchor: Anchor) => void) =>
+    target.current?.measure((_x, _y, width, height, pageX, pageY) => use({ pageX, pageY, width, height }));
   return (
     <View style={{ width: MARK_SLOT, alignItems: "center", justifyContent: "center", alignSelf: "stretch" }}>
       {reason !== null ? (
         <Pressable
+          ref={target}
           accessibilityRole="button"
           accessibilityLabel={`${name} failed. ${reason}`}
-          onPress={onPress}
-          onHoverIn={() => onHover(true)}
-          onHoverOut={() => onHover(false)}
+          onPress={() => measured(onPress)}
+          onHoverIn={() => measured((anchor) => onHover(true, anchor))}
+          onHoverOut={() => onHover(false, { pageX: 0, pageY: 0, width: 0, height: 0 })}
           style={{
             width: MARK_SLOT + 8,
             height: 44,
@@ -55,34 +61,29 @@ export function FailureMark({
           </View>
         </Pressable>
       ) : null}
-      {shown && reason !== null ? (
-        <View
-          pointerEvents="none"
-          style={{
-            position: "absolute",
-            top: "100%",
-            marginTop: 4,
-            right: 0,
-            width: BUBBLE_WIDTH,
-            alignItems: "flex-end",
-            zIndex: 10,
-          }}
-        >
-          <View
-            accessibilityRole="alert"
-            style={{
-              backgroundColor: theme.colors.surface1,
-              borderColor: theme.colors.border,
-              borderWidth: 1,
-              borderRadius: 8,
-              paddingHorizontal: 10,
-              paddingVertical: 6,
-            }}
-          >
-            <Text style={{ color: theme.colors.foreground, fontSize: 13 }}>{reason}</Text>
-          </View>
-        </View>
-      ) : null}
+    </View>
+  );
+}
+
+export function MarkBubble({ reason, left, top, theme }: { reason: string; left: number; top: number; theme: Theme }) {
+  return (
+    <View
+      pointerEvents="none"
+      style={{ position: "absolute", left, top, width: BUBBLE_WIDTH, alignItems: "flex-end" }}
+    >
+      <View
+        accessibilityRole="alert"
+        style={{
+          backgroundColor: theme.colors.surface2,
+          borderColor: theme.colors.border,
+          borderWidth: 1,
+          borderRadius: 8,
+          paddingHorizontal: 10,
+          paddingVertical: 6,
+        }}
+      >
+        <Text style={{ color: theme.colors.foreground, fontSize: 13 }}>{reason}</Text>
+      </View>
     </View>
   );
 }
