@@ -1,7 +1,7 @@
 ---
 id:
 title: You can find and read every variable row
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
