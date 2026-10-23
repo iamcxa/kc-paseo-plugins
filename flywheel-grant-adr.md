@@ -149,3 +149,7 @@ Other observed checks: document impact exit 0, zero listed documents (implementa
 ### Minimal acceptance script
 
 Run `/bin/bash --noprofile --norc /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/flywheel-grant-adr/evidence/validation-1/acceptance.sh` unchanged. It declares required Python/Git, candidate/state checkouts and package paths, with three steps: exact clean candidate/single added ADR; ten byte-exact quotes plus a rejecting counterexample; ADR lint exit 0. Expected output is `acceptance-output.txt`; `assessment.md` states limits. No screen changed. FO must rerun and present every step and observed output before the Captain's gate; passing does not prove semantic authorization, operational success, adoption or merge.
+
+### FO findings before the gate
+
+- FO, candidate 987698fa90a7, ADR 0008 `## Status` reads "Proposed" while the record says it takes effect when the Captain merges its PR; after his merge the status line would still say Proposed and a reader could take the grant as not in force (ADR 0006 used "Accepted"). FO authorizes a one-line repair: Status "Accepted", keeping the sentence that it takes effect only when he merges the PR. Repair goes back through validation.
