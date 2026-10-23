@@ -78,6 +78,19 @@ report for his next planning decision: the stack as reference, what was learned 
 what is not proven. The FO creates no downstream task and preselects no profile.
 The stack's PRs are closed after that.
 
+**Interim round-task lifecycle.** The design accepted by words 6 keeps round tasks
+at the pending terminal approval, approved and awaiting merge, until dev2 adds an
+ending where delivery to the stack counts as done. The FO records them as
+`stacked, not merged` in `_l3-dogfood/rounds.md`; it does not run
+`merge guard --rework` or force a terminal status. The missing stack-delivery
+terminal is a package gap logged in that round log for the dev2 FO.
+
+Round tasks are closed together when the Captain ends the journey. When a round PR
+is closed at the end, the FO brings the `pr-merge` hook's closed-without-merge
+prompt to the Captain as part of his end-of-POC cleanup decision. This interim
+lifecycle records the already approved design; it adds no authority or automatic
+terminal transition.
+
 **Limits and stops.** The grant lasts 10 rounds or until 2026-11-06, whichever comes
 first. Stop and ask the Captain when the team is unsatisfied twice on one theme,
 when observer violations occur in two consecutive rounds, or when work would cross
