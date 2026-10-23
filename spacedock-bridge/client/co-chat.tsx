@@ -172,18 +172,27 @@ export function CoChat({
       },
       sendIdle: { backgroundColor: colors.surface2 },
       inputWithRow: { paddingRight: 14, minHeight: 40 },
-      hint: { color: colors.foregroundMuted, fontSize: 12, paddingHorizontal: 14, paddingBottom: 4 },
+      hint: { color: colors.foregroundMuted, fontSize: 12, paddingHorizontal: 14, paddingTop: 6, paddingBottom: 6 },
       boxRow: {
         flexDirection: "row" as const,
-        alignItems: "center" as const,
+        alignItems: "flex-end" as const,
         gap: 8,
         paddingLeft: 12,
         paddingRight: 7,
         paddingBottom: 7,
       },
-      boxChips: { flex: 1, flexDirection: "row" as const, alignItems: "center" as const, gap: 8, flexWrap: "wrap" as const },
+      boxChips: {
+        flex: 1,
+        flexDirection: "row" as const,
+        alignItems: "center" as const,
+        columnGap: 8,
+        rowGap: 6,
+        flexWrap: "wrap" as const,
+        paddingBottom: 2,
+      },
+      chipGroup: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
       sendInline: { position: "relative" as const, right: 0, bottom: 0 },
-      rowDivider: { width: 1, height: 18, backgroundColor: colors.border },
+      rowDivider: { width: 1, height: 18, marginBottom: 6, backgroundColor: colors.border },
       chip: {
         paddingVertical: 5,
         paddingHorizontal: 12,
@@ -389,20 +398,22 @@ export function CoChat({
               <View style={styles.boxRow}>
                 <View style={styles.boxChips}>
                   <Text style={styles.muted}>Decide via comms officer</Text>
-                  {chips!.map((word) => {
-                    const dashed = word in DECISION_CHIPS && needsReason(word as ChipWord) && !draft.trim();
-                    return (
-                      <Pressable
-                        key={word}
-                        accessibilityRole="button"
-                        style={[styles.chip, dashed ? styles.chipDashed : null]}
-                        disabled={sending}
-                        onPress={() => void chip(word)}
-                      >
-                        <Text style={styles.chipText}>{word}</Text>
-                      </Pressable>
-                    );
-                  })}
+                  <View style={styles.chipGroup}>
+                    {chips!.map((word) => {
+                      const dashed = word in DECISION_CHIPS && needsReason(word as ChipWord) && !draft.trim();
+                      return (
+                        <Pressable
+                          key={word}
+                          accessibilityRole="button"
+                          style={[styles.chip, dashed ? styles.chipDashed : null]}
+                          disabled={sending}
+                          onPress={() => void chip(word)}
+                        >
+                          <Text style={styles.chipText}>{word}</Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
                 </View>
                 <View style={styles.rowDivider} />
                 {sendButton}
