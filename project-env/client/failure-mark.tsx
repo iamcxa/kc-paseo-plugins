@@ -24,6 +24,7 @@ export function FailureMark({
   onHover(on: boolean, anchor: Anchor): void;
 }) {
   const target = useRef<View>(null);
+  const hovering = useRef(false);
   const measured = (use: (anchor: Anchor) => void) =>
     target.current?.measure((_x, _y, width, height, pageX, pageY) => use({ pageX, pageY, width, height }));
   return (
@@ -34,8 +35,14 @@ export function FailureMark({
           accessibilityRole="button"
           accessibilityLabel={`${name} failed. ${reason}`}
           onPress={() => measured(onPress)}
-          onHoverIn={() => measured((anchor) => onHover(true, anchor))}
-          onHoverOut={() => onHover(false, { pageX: 0, pageY: 0, width: 0, height: 0 })}
+          onHoverIn={() => {
+            hovering.current = true;
+            measured((anchor) => hovering.current && onHover(true, anchor));
+          }}
+          onHoverOut={() => {
+            hovering.current = false;
+            onHover(false, { pageX: 0, pageY: 0, width: 0, height: 0 });
+          }}
           style={{
             width: MARK_SLOT + 8,
             height: 44,
