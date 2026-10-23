@@ -1,0 +1,20 @@
+{
+  "class": "other",
+  "head": "d231c68dd3c28cdd3c1a60912cec1ec5e7e728cc",
+  "model": "not run",
+  "necessity": "Kent, the only user; without it adding a variable takes a typed name, a separate Add button and a separate field pick, which the Captain's A5 Add flow replaces with one step.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text.",
+  "points": [
+    "point: deferred: 'Reproduced (type `MY_PA` into an unnamed'",
+    "point: deferred: 'PASSED. Both criteria hold on a'",
+    "point: deferred: '- Validation finding (a), the no-field'",
+    "point: fo-decline: '- Validation finding (a), the no-field'",
+    "point: fo-decline: '- roborev:1058 / validation finding (b),'",
+    "point: fo-decline: '- Validation polish, at 1280 px'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#28",
+  "sufficiency": "AC-1 (a picked field names the row from its label, converted, or empty with a reason) and AC-2 (a name-only row shows Pick a field and saves with an empty reference) pass in validation/accept.sh at 12",
+  "time": "2026-10-23T03:04:32Z",
+  "verdict": "ask"
+}
