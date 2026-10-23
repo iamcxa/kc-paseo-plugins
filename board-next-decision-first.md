@@ -34,6 +34,17 @@ gates:
                 id: briefing:board-next-decision-first:validation:attempt-1:revision-1
                 digest: sha256:d64b04a77f16afff3ab61b10c4e5cffab65ff4e107f1f2e8e7c21c9ceef2528b
                 room-ref: ./board-next-decision-first/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:board-next-decision-first:validation:1
+                briefing: briefing:board-next-decision-first:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T08:48:35.792481Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:d64b04a77f16): approve as validated at 22f75e63; route to done; PR #32 waits for the Captain to merge.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T08:02:45Z
 worktree: .worktrees/spacedock-ensign-board-next-decision-first
 ---
