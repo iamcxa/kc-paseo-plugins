@@ -457,3 +457,4 @@ Candidate fd59224 passes AC-1 to AC-3 on isolated Paseos, and a failed Test now 
 
 External review rounds at the validation gate: Codex 3 (rounds 1 and 2 raised three P2s, fixed in feedback cycles 1 and 3; round 3 clean at fd59224). The local roborev gate is not an external round; its open items are under FO declines.
 delivery_gate.py check passed at fd59224 before the ask (merge/ask-1.json); FO reran validation/accept.sh before the ask with every expected line. The Captain approved with 「准」 on 2026-10-23, including the stated recommendation to keep the note's accessibilityLabel and hitSlop, and FO merged as c46720f.
+FO response to observer.md: the roborev:1089 decline is superseded by feedback cycle 1, which fixed it at 455d20d; the FO note and the cycle 3 entry were appended at the file's end and so landed under validation-1's Summary, and later FO notes go under their own headings.
