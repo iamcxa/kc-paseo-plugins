@@ -145,6 +145,7 @@ function VariableRow({
   theme,
   pill,
   onMark,
+  onResize,
   onRemove,
 }: {
   variable: Variable;
@@ -154,6 +155,7 @@ function VariableRow({
   theme: Theme;
   pill: ReactNode;
   onMark(event: MarkEvent["type"], anchor: Anchor): void;
+  onResize(): void;
   onRemove(): void;
 }) {
   const { name } = variable;
@@ -184,6 +186,7 @@ function VariableRow({
   );
   return (
     <View
+      onLayout={onResize}
       style={{
         paddingHorizontal: 16,
         paddingVertical: 14,
@@ -820,6 +823,7 @@ function ProjectEditor({
                 shown={markView?.name === v.name && reason !== null}
                 theme={theme}
                 onMark={(type, anchor) => markEvent(v.name, type, anchor)}
+                onResize={() => setMarkView(null)}
                 onRemove={() => patch({ variables: draft.variables.filter((x) => x.name !== v.name) })}
                 pill={
                   <FieldPill
