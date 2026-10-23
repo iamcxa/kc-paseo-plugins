@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-remove-conductor-import
-pr:
+pr: iamcxa/kc-paseo-plugins#41
 gates:
     version: 1
     records:
