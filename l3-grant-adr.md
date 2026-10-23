@@ -104,3 +104,49 @@ Added ADR 0006 recording the L3 grant from the task's Scope, with the Captain's 
 ### Summary
 
 Committed the Captain-authorized amendment to ADR 0006 and pushed 4843bb7 to PR #36, retaining the original grant and per-class demotion while adding the bounded README exception, exact expiry and one-sentence revocation. ADR lint and the rerun RoboRev gate pass; the two task-state declaration checks above require FO disposition before advancement, and independent validation and Captain approval remain pending. Profile reminder: POC, no plugin code or workflow README changed, no merge and no Release PR #18 mutation; ADR writing guidance targets 0.27.0, found dispatched package 0.26.0.
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1 and Captain amendment 1 for PR #36 at the candidate head: every Captain quote in ADR 0006 matches the task file byte for byte; the ADR contains the three classes, kept-with-Captain list, per-round records, judgement numbers, round-log location, the README exception limited to the three classes, the expiry (round 10 or 2026-11-06), revocation by one sentence; and nothing the task Scope and amendment do not contain
+  PASSED at 4843bb7d3f183a3203880f1da7aa18e207086868: all 91 lines reviewed against Scope and amendment dispatch; four Captain statements, the original question and UAT placeholder match task bytes. Only ADR 0006 changed; unchanged README sentence matches after line-wrap normalization. Classes, exclusions, recording actor/flags, expiry, independent demotion and revocation match; no added authority found.
+- DONE: adr_lint (--since 012c91a5ddbc484661ff1646c117d7249789b493 --require 6) run with its exit code, and a minimal acceptance script the FO can rerun as written in a fresh shell
+  Exit 0: `6 ADR file(s) checked, 0 legacy`; three rerunnable steps below. The digest rejects pre-amendment a0c94ca29; an in-memory change to a Captain quote fails byte comparison. Digest verification freezes this independently reviewed document; it is not a semantic validator.
+- DONE: Material findings and limits; FO disposition of the two FAILED report lines: design_surfaces (Surfaces/Visible change asked only on the five-stage route) and number_guards R4 (POC reserves no number) are logged as package gaps in _l3-dogfood/rounds.md round 0, not candidate defects; judge whether you agree
+  Agree: design_surfaces exits 1 for the two missing declarations, but README:120-130 restricts them to five-stage routes; number_guards exits 1 only for R4 (unreserved ADR 0006), conflicting with README:407-408 POC prohibition. Both reproduced and match round 0 gaps 2/3; neither check passed or establishes a candidate repair.
+- DONE: Required supporting checks and dispatch authority checked
+  comment_ratio exit 0 (0 code, 0 comments; threshold not enforced); doc_impact exit 0 (0 documents); dispatch_records exit 0 (4 complete records); diff --check exit 0. ADR updated; README unaffected by explicit exception. Implementation dispatch terms trace to Scope/amendment. GitHub confirms PR #36 OPEN/Draft at the same head.
+
+### Summary
+
+Recommend PASSED for the recorded documentary outcome: one ADR is sufficient and each retained term maps to Scope/amendment; the prior version lacks the bounded exception and expiry/revocation, and the base contains no grant. POC reminder: no executable persistence, external seam or profile-boundary crossing was introduced; no candidate, PR, README or Release PR #18 mutation occurred. Gate approval, merge and real delegated-gate behavior remain unverified and with the Captain for this task.
+
+### Limits and package provenance
+
+All package commands used `/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0`, resolved from the invoked skill, per the stage's package-precedence rule; dispatch names Claude cache 0.26.0, so these are not a reproduction with that older package. Number guard used current local trunk 5eb0ba4e8ac7 and merge-base 012c91a5ddbc; the exact-base ADR lint and diff used the dispatched base. No material candidate finding; package gaps remain open. Prior RoboRev evidence was read from the report, not independently rerun. No UI changed; these commands prove documentary identity/quotes/lint, not future FO compliance, automatic expiry/revocation enforcement, UAT or release readiness.
+
+### Minimal acceptance script
+
+Prerequisites: this dispatched checkout and state checkout, Git, Python 3, and the named installed package. Run each block unchanged in a fresh shell; no secrets, network or mutation. Expected total under five minutes.
+
+1. Verify candidate identity and scope; expect exactly one added ADR path and `PASS candidate identity and scope`.
+```sh
+bash -e -c 'cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-l3-grant-adr; test "$(git rev-parse HEAD)" = 4843bb7d3f183a3203880f1da7aa18e207086868; test -z "$(git status --porcelain)"; test "$(git diff --name-only 012c91a5ddbc484661ff1646c117d7249789b493 HEAD)" = docs/adr/0006-the-bridge-fo-decides-three-classes-of-poc-gates-by-record.md; git diff --name-status 012c91a5ddbc484661ff1646c117d7249789b493 HEAD; git diff --check 012c91a5ddbc484661ff1646c117d7249789b493 HEAD; echo "PASS candidate identity and scope"'
+```
+2. Verify the reviewed bytes and original quotes; expect `PASS reviewed ADR digest and 6 exact quote/template matches`.
+```sh
+python3 - <<'CHECK'
+from pathlib import Path
+import hashlib, re
+w = Path('/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-l3-grant-adr')
+a = (w / 'docs/adr/0006-the-bridge-fo-decides-three-classes-of-poc-gates-by-record.md').read_bytes()
+t = Path('/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/l3-grant-adr.md').read_bytes().split(b'## Stage Report:')[0]
+assert hashlib.sha256(a).hexdigest() == '2149fb2c4c0934bb2fd871862758f36cff1e8981b0b10381369818ab21b66326'
+q = re.findall('「[^」]*」', a.decode('utf-8'))
+assert len(q) == 6 and all(x.encode('utf-8') in t for x in q)
+print('PASS reviewed ADR digest and 6 exact quote/template matches')
+CHECK
+```
+3. Validate required ADR 0006; expect `6 ADR file(s) checked, 0 legacy`, exit 0.
+```sh
+bash -e -c 'cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-l3-grant-adr; python3 /Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since 012c91a5ddbc484661ff1646c117d7249789b493 --require 6'
+```
