@@ -4,6 +4,17 @@ status: backlog
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
+gates:
+    version: 1
+    records:
+        - id: gate:review-wake-no-free-text:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:review-wake-no-free-text-backlog-1
+              briefing:
+                id: briefing:review-wake-no-free-text:backlog:attempt-1:revision-1
+                digest: sha256:9c871828b441b5f07e94d756a68430ed40e3699a910148b33c5910a4ef2cfef4
+                room-ref: ./review-wake-no-free-text/review/backlog/briefing-1
 ---
 
 The review poller writes each pull request's title and author verbatim into the message that wakes the comms officer, an agent that can create agents and send them prompts, and agents it creates lose its tool restrictions; a title is free text set by whoever opened the pull request.

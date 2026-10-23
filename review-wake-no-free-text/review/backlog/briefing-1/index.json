@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:review-wake-no-free-text:backlog:attempt-1:revision-1",
+  "question": "Approve the backlog for the review wake fix (wake message carries only validated owner/repo#number and URL, no title or author) to enter implementation before release PR #18 ships?",
+  "artifacts": [
+    {
+      "id": "artifact:review-wake-no-free-text:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/de0c4b67b7cefb08d9c6cb11e9c2d971f595a7e4/review-wake-no-free-text.md",
+      "rev": "sha256:a46395f79afc5478be29b573b8838dd8f1f3d4583342945e11e8f12d32539880",
+      "mediaType": "text/markdown",
+      "summary": "Verified on main 2c60f172 and the live install: wakeMessage sends PR title and author verbatim to the comms officer, which can create_agent; created agents lose its restrictions. Code-path concern, no exploit attempted. Fix removes the free text and validates the remaining fields; leaves the comms officer's tools unchanged (separate decision)."
+    }
+  ]
+}
