@@ -101,3 +101,42 @@ Branch update only; no behaviour change beyond what main brings.
 ### Dispatch Retries
 
 - Retry 1: validation — agent-error (API rate limit, session limit reset 20:10 Asia/Taipei); nudged
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1, AC-2 and AC-3 for PR #34 at the candidate head, from your own npm ci / typecheck / test run and your own isolated-daemon screenshots of two review requests, a gate decision card (collapsed and expanded discussion) and the composer empty and typed
+  Candidate a8d871d8ec5b5b4c3db015507a4319bec21573df, clean clone: `npm ci`, `tsc --noEmit` exit 0, `npm test` 69 pass / 0 fail. AC-1, AC-2, AC-3 all PASS. Screenshots in `evidence/validation-1/` (ac1-board-two-reviews, ac2-decision-card, ac2-discussion-expanded, ac3-composer-empty, ac3-composer-typed, ac3-reason-required, ac3-repeat-refused, 380-card, 380-board), from my own isolated daemon on 6951 with fixture data.
+- DONE: A minimal acceptance script the FO can rerun as written in a fresh shell, with each step's expected output
+  Script below, steps 1-4 runnable; step 5 is Captain-only.
+- DONE: Material findings and limits, including whether the move of send, chip and decision logic into shared/composer.ts and shared/decide.ts left the decision relay text, reason rules, claim/release and delivery states unchanged, the preparedAt wait-time change, and the decision row wrapping at 380 px
+  Findings and limits in the Summary; no Material finding, two Polish items.
+
+### Summary
+
+Verdict PASSED for AC-1/2/3 at a8d871d; no Material finding.
+
+- AC-1: two fixture review requests render `gadget#41 ↗` (next card) and `widget#7` + separate ↗ (row), no wait time on the row. With `window.open` stubbed, clicking each ↗ passed `https://github.com/acme/gadget/pull/41` and `.../widget/pull/7`, each its own. Mutation: replacing the URL `openLink` passes makes the queue test fail (5 pass / 1 fail).
+- AC-2: card shows `GATE · BACKLOG · OMP-TRIAL`, question, `OMP trial FO · waiting 3h` (model name stripped), summary, "Read full briefing ›" with the one-line hint, DISCUSSION divider, only the latest of 12 messages, and "Show 11 earlier messages" (expands to "Hide earlier messages").
+- AC-3: empty composer has 要求修改/暫緩 dashed (computed `border-style: dashed`, 准 solid), decision row left of ↑; typed composer shows "A decision button sends this text as the reason." and chips turn solid. On screen: empty 暫緩 refused with "暫緩 needs your reason first"; 要求修改 with text sent the relay to the comms officer and showed "Sent to the comms officer · revise 「…」 · waiting for the relay"; a second chip refused with "You already sent revise …". Tests: Enter, ↑, chip-with-text, reason-required exist; mutations (reason check off in decide.ts, send-key check off in composer.ts) each fail one test.
+- Move into shared/composer.ts and shared/decide.ts: `shared/relay.ts` and `shared/decisions.ts` are not in the diff, so relay text, `captainWords`, `needsReason`, `DECISION_CHIPS` are unchanged; `decideGate` keeps the base `onChip` order (no-briefing refusal, reason check, beforeSend, claim, setClaim, already-sent refusal, open coordinator, relay text, send, release + clear claim on failure, record sent). The relay text I saw on screen is the unchanged `gateDecisionMessage` template. One benign difference: the no-`onChip` chip path reads the draft through a port instead of a functional state update.
+- preparedAt: `attachGates` now copies `preparedAt`, so the board's gate row shows time since the briefing was prepared (fixture: 3h) instead of the FO's last activity. A behaviour change beyond the scope text, correct, and the card already used it.
+- 380 px: in the compact layout the label "Decide via comms officer" sits on its own line, chips, divider and ↑ on the next line, nothing clipped or overflowing (380-card.png).
+- Checks run: comment_ratio 1.2% (423 code, 5 comment lines, exit 0); adr_lint 0 files needed (exit 0); dispatch_records 3 complete (exit 0); doc_impact 0 documents; number_guards PASS (no migrations-path); design_surfaces exit 1 on `## FO alignment` missing `Surfaces:` and `Visible change:`, an FO-owned section, not a candidate defect.
+- Polish: (1) in the web client the focused input shows a rectangular green outline wider than the rounded box (also in the implementation screenshots; whether the base composer does the same was not checked); (2) expanding earlier messages leaves the list scrolled to the newest message.
+- Limits: Enter/↑ sending to the FO is proven by handler tests and mutation, not by a live send (no Claude login in the isolated home; the comms officer answered "Not logged in"). The phone layout was only looked at, not judged (a stated non-goal). The pointer used the web client (Paseo.app's bundled app-dist served from a throwaway localhost server, with `localhost` blocked so the live 6767 daemon was never added). The board ↗ was checked by stubbed `window.open`, not by a real browser tab. Cleanup: isolated daemon stopped (`paseo --home <isolated> daemon stop`), its home, browser profile, clone and temp files deleted; live ~/.paseo, 6767, 6787 and the source checkout (main, clean) untouched.
+
+### Minimal acceptance script
+
+Run in a fresh shell; needs git, node 22+, npm, network for `npm ci`; about 2 minutes.
+
+1. `D=$(mktemp -d /tmp/pr34-accept-XXXXXX) && git clone -q --no-checkout /Users/kent/Project/kc-paseo-plugins "$D/repo" && cd "$D/repo" && git fetch -q /Users/kent/Project/kc-paseo-plugins a8d871d8ec5b5b4c3db015507a4319bec21573df && git checkout -q --detach a8d871d8ec5b5b4c3db015507a4319bec21573df && git rev-parse HEAD`
+   Expected: prints `a8d871d8ec5b5b4c3db015507a4319bec21573df`.
+2. `cd "$D/repo/spacedock-bridge" && npm ci >/dev/null 2>&1; npm run typecheck >/dev/null 2>&1; echo typecheck=$?`
+   Expected: `typecheck=0`.
+3. `npm test 2>&1 | grep -E '^ℹ (tests|pass|fail)'`
+   Expected: `ℹ tests 69`, `ℹ pass 69`, `ℹ fail 0`.
+4. `perl -0pi -e 's/if \(needsReason\(chip\) && !draft\.trim\(\)\)/if (false)/' shared/decide.ts && npx tsx --test test/decide.test.mts 2>&1 | grep -E '^ℹ fail'; git checkout shared/decide.ts`
+   Expected: `ℹ fail 1` (the empty-reason refusal test catches the removed check); then the file is restored.
+5. Captain only, not run by FO: install the PR #34 branch into your own Paseo (your decision, it changes your live install), open Bridge with at least two GitHub review requests and one waiting gate. Expected: next card and the row show `repo#number`, each ↗ opens its own PR, the gate card shows the decision above a "Discussion" divider, and 要求修改/暫緩 are dashed until you type.
+
+Does not cover: the screens (evidence is the screenshots, not step 1-4), a live send to an FO, the By FO view, the phone layout.
