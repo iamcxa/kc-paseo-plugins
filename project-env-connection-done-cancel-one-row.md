@@ -7,6 +7,28 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-connection-done-cancel-one-row:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-connection-done-cancel-one-row-backlog-1
+              briefing:
+                id: briefing:project-env-connection-done-cancel-one-row:backlog:attempt-1:revision-1
+                digest: sha256:c33390948f4dcb7c3991563a2b4968b4b2d3f53caa6a940a480cbd2a10c51c2f
+                room-ref: ./project-env-connection-done-cancel-one-row/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-connection-done-cancel-one-row:backlog:1
+                briefing: briefing:project-env-connection-done-cancel-one-row:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T12:22:04.513444Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — answers the backlog question put in chat: approves Design Director round-2 Tasks 1 to 3 in order, with option A, the re-point behaviour and the r2 rename as stated.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Polish round 2 of the project-env settings screen. Source: the Captain's UAT on 2026-10-23 (「這個 use this connection 按鈕是否可以放在 vault 選擇的後面？或是換個方式重新設計儲存跟取消」, 「import from conductor 功能可以移除」, and the qnow vault rename that blanked five variables live) and the Design Director's ruling in `ux-review-polish-2/design-director.md`, approved by the Captain on 2026-10-23 with 「准」, including option A, the re-point behaviour and the r2 wording.
