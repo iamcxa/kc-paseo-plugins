@@ -4,6 +4,17 @@ status: backlog
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
+gates:
+    version: 1
+    records:
+        - id: gate:review-ids-and-decision-card:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:review-ids-and-decision-card-backlog-1
+              briefing:
+                id: briefing:review-ids-and-decision-card:backlog:attempt-1:revision-1
+                digest: sha256:abdd2bba433af1d1ca93297ca521f73aec84b05f0fa56cd94867da7fbabe3633
+                room-ref: ./review-ids-and-decision-card/review/backlog/briefing-1
 ---
 
 The Captain cannot tell which repository and pull request a review item is, a second review request has no link, and the decision card he opens from the board makes him read the FO's conversation and a three-line instruction note before he can decide.

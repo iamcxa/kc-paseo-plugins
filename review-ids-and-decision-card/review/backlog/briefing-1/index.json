@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:review-ids-and-decision-card:backlog:attempt-1:revision-1",
+  "question": "Approve the backlog for review repo#number links and the decision card redesign (board column 2, card column 4, Paseo-style composer with decisions left of send) to enter implementation in an isolated worktree with a PR?",
+  "artifacts": [
+    {
+      "id": "artifact:review-ids-and-decision-card:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9bf247c50d4bd69aff89ae781d7c7939e1537654/review-ids-and-decision-card.md",
+      "rev": "sha256:983c445d4f8c5270c945f9c2cd21910be864114227298eb2d52ef1126bf56b5f",
+      "mediaType": "text/markdown",
+      "summary": "Captain chose the designs from mockups on 2026-10-23. Scope: review next card and rows show repo#number with a PR link; decision card shows label, question, FO line, summary and briefing link before a Discussion with only the latest message; composer keeps the Paseo box and ↑, with 准/要求修改/暫緩 left of ↑ and a cue when text is typed. Out: relay changes, By FO view, phone layout, PR/MR host detection. AC-1..AC-3 are screenshots plus tests."
+    }
+  ]
+}
