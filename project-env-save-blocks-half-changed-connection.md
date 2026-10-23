@@ -264,3 +264,4 @@ The candidate does what AC-1 to AC-3 promise on a rebuilt isolated Paseo at 1280
 
 External review rounds at the validation gate: Codex 1 (code review clean at e5e41cc). The local roborev gate is not an external round.
 delivery_gate.py check passed at e5e41cc before the ask (merge/ask-1.json); FO reran validation/accept.sh before the ask (20 PASS, 0 failures). The Captain approved with 「准」 on 2026-10-23, keeping the save() guard the without-it item named, and FO merged as d540a04.
+FO response to observer.md: in chat, FO put the save() guard to the Captain with its recommendation ("要留還是拿掉，交給你決定。我建議保留"), and he answered 「准」; the committed briefing question did not carry that sentence, so the record's "stays as recommended" is FO's reading of that chat exchange. Later merge asks carry each without-it item and its recommendation in the gate question itself, and name the roborev review status.
