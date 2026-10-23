@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-field-picker-grouped
-pr: iamcxa/kc-paseo-plugins#26
+pr: pr-merge:26
 gates:
     version: 1
     records:
@@ -94,6 +94,7 @@ Direction alignment with the Captain: done — the Captain chose direction A5 an
 Result: direction A5 (ux-review-r1.5/direction-a5.html); every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: a rework of the r1.5 settings screen the Captain ruled on 2026-10-22; it adds no journey story.
 
+Map footprints: not needed: no journey story or open map question is attached to this rework task.
 ## Design
 
 ### PRFAQ
@@ -324,3 +325,8 @@ Not covered: a real 1Password vault (no `op` run), the Paseo desktop and phone a
 
 ### Summary
 The candidate adds two test cases that pin the item-title search branch; both cycle-1 survivors now fail, the suite is 215 of 215 green, and the product is byte-identical to 76e1675, so cycle 1's runtime results stand and were rerun through verify.sh. Recommend PASSED; delivery stays the Captain's decision.
+
+## FO records
+
+External review rounds at the validation gate: Codex 1 (code review clean at 57540cc). The local roborev gate is not an external round.
+delivery_gate.py check passed at 57540cc before the ask (merge/ask-2.json); the Captain approved with 「准」 on 2026-10-23 and FO merged as 28e2b17.
