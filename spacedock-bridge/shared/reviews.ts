@@ -45,10 +45,30 @@ export function newRequests(
   return current.filter((request) => !(request.url in seen));
 }
 
+const NAME_PART = /^[A-Za-z0-9._-]+$/;
+
+function routableLine(r: ReviewRequestData): string | null {
+  const ok =
+    NAME_PART.test(r.owner) &&
+    NAME_PART.test(r.repo) &&
+    Number.isSafeInteger(r.number) &&
+    r.number > 0 &&
+    r.url === `https://github.com/${r.owner}/${r.repo}/pull/${r.number}`;
+  return ok ? `- ${r.owner}/${r.repo}#${r.number} — ${r.url}` : null;
+}
+
+// Returns "" when no request is routable, so the caller sends nothing.
 export function wakeMessage(requests: readonly ReviewRequestData[]): string {
+  const lines: string[] = [];
+  for (const r of requests) {
+    const line = routableLine(r);
+    if (line) lines.push(line);
+    else console.error("review request left out of the wake: malformed owner, repo, number or url", JSON.stringify(r.url));
+  }
+  if (!lines.length) return "";
   return [
     `${AUTOMATED_MARKER} New GitHub review requests for the Captain:`,
-    ...requests.map((r) => `- ${r.owner}/${r.repo}#${r.number} "${r.title}" by ${r.author} — ${r.url}`),
+    ...lines,
     "Route each one: find the live FO whose repo label equals the repository name. Ask that FO to prepare a " +
       "local review brief for the Captain (what changed, risks, its recommendation), to post nothing on GitHub, " +
       "and to set next-owner=captain when the brief is ready. If no FO has that repo, do not start one; tell the " +
