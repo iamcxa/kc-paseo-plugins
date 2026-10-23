@@ -50,8 +50,12 @@ Verified by: `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9` ex
 
 ## FO alignment
 
-Surfaces: docs
+Surfaces: none
 Visible change: none
 Direction alignment with the Captain: done — the Captain approved writing the rule into ADR 0005 on 2026-10-23 (「准」).
 Release review: not needed: a decision-record update with no journey story or product behaviour change.
 Map footprints: not needed: no journey story or open map question is attached to this docs task.
+
+## FO records
+
+The backlog gate was recorded before design_surfaces.py passed: the first draft carried `Surfaces: docs` and a sentence under `Visible change:`; both were corrected to `none` after the approval, with no change to scope or criteria.
