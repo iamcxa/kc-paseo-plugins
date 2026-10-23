@@ -34,7 +34,7 @@ consumer: the Captain, reading the Bridge.
 - Rule (design partner Astra, 2026-10-23; chief-engineer agreed): an FO is "Closed" only when at least one such label exists, every such label is "false", and the agent is not running. No label (never opened) is not Closed; one "true" is not Closed; running is not Closed. Archived and status `closed` keep today's offline path, unchanged.
 - Display: a neutral "Closed" badge beside the FO's name in By FO and on the owning FO in By decision rows and the next card. The FO keeps its group, position, contrast and tap behavior; nothing is faded, hidden or collapsed.
 - Composer: on web only, the `TextInput` sets no browser outline (`outlineStyle: "none"`), keeping the rounded border's hover and focus change; native is unchanged; send and decision buttons keep their focus indicators.
-- First implementation step (chief-engineer): observe the real label values by closing one live FO's tab on this Mac's Paseo app and record them; if they contradict the rule, stop and report without tuning the rule. The phone half of the two-client check is the Captain's, at play time.
+- First implementation step (chief-engineer): read the real `paseo.open-agent-tab.*` values of existing role=fo agents from the live daemon, read-only (`paseo ls`/`list_agents`; no UI action, no install, no reload), and record which agents would be Closed; if they contradict the rule, stop and report without tuning the rule. Closing a tab and the phone half of the two-client check are the Captain's, at play time.
 - Flywheel delivery (ADR 0008): the worker pushes its branch and opens a Draft PR with base `main` (first layer of the stack); nothing merges.
 - Non-goals: hiding closed FOs, archiving agents, the By FO layout beyond the badge, board loading/error states (round 3 candidate).
 
@@ -44,7 +44,7 @@ consumer: the Captain, reading the Bridge.
 Verified by: `npm test` with cases: labels present, all "false", not running → Closed; no label → not Closed; one "true" and one "false" → not Closed; running with all "false" → not Closed; archived → offline path unchanged.
 
 **AC-2**: The Captain can see which FOs are closed, and the composer has no outline.
-Verified by: the recorded real label values from one closed tab; screenshots of the badge in By FO and on the owning FO in By decision; a web screenshot of the composer after typing with no rectangular outline.
+Verified by: the recorded real label values of existing FOs; screenshots of the badge in By FO and on the owning FO in By decision; a web screenshot of the composer after typing with no rectangular outline.
 
 ## FO alignment
 
