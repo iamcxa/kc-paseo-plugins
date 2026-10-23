@@ -1,6 +1,7 @@
 import { useRpc } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { openCoordinator } from "../shared/coordinator";
 import { Board, type BoardProps } from "./board";
 import { CoChat } from "./co-chat";
@@ -71,7 +72,7 @@ export function Bridge(props: BoardProps) {
       <View style={styles.root}>
         <View style={styles.tabs}>
           {(["fos", "co"] as const).map((id) => (
-            <Pressable
+            <Pressable colors={colors}
               key={id}
               accessibilityRole="tab"
               onPress={() => setTab(id)}

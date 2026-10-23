@@ -2,7 +2,8 @@ import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { Platform, ScrollView, Text, View } from "react-native";
+import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { nextStepIsCaptains, parseEnvelope, replyPreview } from "../shared/preview";
 import { MarkdownView } from "./markdown-view";
 import { discussionWindow } from "../shared/card";
@@ -80,6 +81,8 @@ export function CoChat({
   const [lines, setLines] = useState<Line[]>([]);
   const [working, setWorking] = useState(false);
   const [draft, setDraft] = useState("");
+  const [boxHovered, setBoxHovered] = useState(false);
+  const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
   const scroller = useRef<ScrollView>(null);
   const colors = theme.colors;
@@ -290,7 +293,7 @@ export function CoChat({
   const sendStyle = [styles.send, hasChips ? styles.sendInline : null];
   const sendButton =
     working && !draft.trim() ? (
-      <Pressable
+      <Pressable colors={colors}
         accessibilityRole="button"
         accessibilityLabel="Stop the agent's current turn"
         style={sendStyle}
@@ -299,7 +302,7 @@ export function CoChat({
         <Icon name="Square" size={12} color={colors.accentForeground} />
       </Pressable>
     ) : (
-      <Pressable
+      <Pressable colors={colors}
         accessibilityRole="button"
         accessibilityLabel="Send"
         style={[...sendStyle, draft.trim() && !sending ? null : styles.sendIdle]}
@@ -322,7 +325,7 @@ export function CoChat({
           <View style={styles.dividerRule} />
           {working ? <Text style={styles.muted}>working…</Text> : null}
           {navigation ? (
-            <Pressable accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
+            <Pressable colors={colors} accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
               <Text style={styles.muted}>Open full view</Text>
             </Pressable>
           ) : null}
@@ -333,7 +336,7 @@ export function CoChat({
             {title} · {working ? "working…" : "idle"}
           </Text>
           {navigation ? (
-            <Pressable accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
+            <Pressable colors={colors} accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
               <Text style={styles.muted}>Open full view</Text>
             </Pressable>
           ) : null}
@@ -347,7 +350,7 @@ export function CoChat({
       >
         {lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
         {earlier > 0 ? (
-          <Pressable accessibilityRole="button" onPress={() => setShowEarlier((value) => !value)}>
+          <Pressable colors={colors} accessibilityRole="button" onPress={() => setShowEarlier((value) => !value)}>
             <Text style={styles.toggle}>
               {showEarlier ? "Hide earlier messages" : `Show ${earlier} earlier ${earlier === 1 ? "message" : "messages"}`}
             </Text>
@@ -382,11 +385,17 @@ export function CoChat({
       </ScrollView>
       {error ? <Text style={styles.danger}>{error}</Text> : null}
       <View style={styles.composer}>
-        <View style={styles.box}>
+        <View
+          onPointerEnter={() => setBoxHovered(true)}
+          onPointerLeave={() => setBoxHovered(false)}
+          style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
+        >
           <TextInput
             style={[styles.input, hasChips ? styles.inputWithRow : null]}
             value={draft}
             onChangeText={setDraft}
+            onFocus={() => setBoxFocused(true)}
+            onBlur={() => setBoxFocused(false)}
             placeholder={placeholder}
             placeholderTextColor={colors.foregroundMuted}
             multiline
@@ -401,15 +410,16 @@ export function CoChat({
                   <View style={styles.chipGroup}>
                     {chips!.map((word) => {
                       const dashed = word in DECISION_CHIPS && needsReason(word as ChipWord) && !draft.trim();
+                      const color = word === "准" ? colors.statusSuccess : word === "要求修改" ? colors.statusWarning : colors.foregroundMuted;
                       return (
-                        <Pressable
+                        <Pressable colors={colors}
                           key={word}
                           accessibilityRole="button"
-                          style={[styles.chip, dashed ? styles.chipDashed : null]}
+                          style={[styles.chip, { borderColor: color }, dashed ? styles.chipDashed : null]}
                           disabled={sending}
                           onPress={() => void chip(word)}
                         >
-                          <Text style={styles.chipText}>{word}</Text>
+                          <Text style={[styles.chipText, { color }]}>{word}</Text>
                         </Pressable>
                       );
                     })}
@@ -442,7 +452,7 @@ function AgentNote({
   const [open, setOpen] = useState(false);
   const colors = theme.colors;
   return (
-    <Pressable
+    <Pressable colors={colors}
       accessibilityRole="button"
       onPress={() => setOpen((value) => !value)}
       style={{

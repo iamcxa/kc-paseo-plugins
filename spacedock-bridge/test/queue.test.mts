@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import type { BoardRow } from "../shared/board";
+import { type BoardRow, attachGates, toRows } from "../shared/board";
 import { buildQueue, openLink, splitQueue } from "../shared/queue";
 
 const row = (over: Partial<BoardRow> & { attentionAt?: string }): BoardRow & { attentionAt?: string } => ({
@@ -117,4 +117,41 @@ test("a gate or question has no link to open", () => {
   const opened: string[] = [];
   openLink(items[0], (url) => opened.push(url));
   assert.deepEqual(opened, []);
+});
+
+
+test("a captain question survives alongside the same FO's gate", () => {
+  const gate = { slug: "adapter-proof", title: "Adapter proof", stage: "validation" };
+  const fo = row({ status: "waiting on Kent", hasNextOwner: true,
+    next: "Does OMP need its own Spacedock host adapter?", gates: [gate] });
+  const items = buildQueue([fo], []);
+  assert.deepEqual(items.map((item) => [item.kind, item.title, item.fo?.id]), [
+    ["gate", "Adapter proof", "x"],
+    ["ask", "Does OMP need its own Spacedock host adapter?", "x"],
+  ]);
+});
+
+test("a gate alone or its repeated label does not add an empty or duplicate question", () => {
+  const gate = { slug: "adapter-proof", title: "Adapter proof", stage: "validation" };
+  for (const next of ["", "  ", gate.title, gate.slug, "gate: Adapter proof", "validation · Adapter proof", "Review Adapter proof", "Approve Adapter proof", "Decide on adapter-proof"]) {
+    const items = buildQueue([row({ status: "waiting on Kent", next, gates: [gate] })], []);
+    assert.deepEqual(items.map((item) => item.kind), ["gate"], next);
+  }
+  const separate = "Adapter proof: should we keep a separate adapter?";
+  assert.equal(buildQueue([row({ status: "waiting on Kent", next: separate, gates: [gate] })], [])[1].title, separate);
+});
+
+
+test("attaching a gate does not promote an FO-owned next step into a Captain question", () => {
+  const original = toRows(["captain", "fo"].map((owner) => ({
+    id: owner, title: owner, cwd: "/proof", status: "idle", updatedAt: "2026-10-23T05:00:00Z",
+    labels: { role: "fo", task: `${owner}-gate`, "workflow-dir": `/proof/${owner}`,
+      "next-owner": owner, next: owner === "captain" ? "Choose a host adapter?" : "Implement the host adapter" },
+  })));
+  const grouped = attachGates(original, original.map((fo) => ({
+    workflowDir: fo.workflowDir, slug: fo.task, title: "Review the proof", stage: "validation",
+  })));
+  const queue = buildQueue(grouped, [], original);
+  assert.equal(queue.filter((item) => item.kind === "gate").length, 2);
+  assert.deepEqual(queue.filter((item) => item.kind === "ask").map((item) => item.fo?.id), ["captain"]);
 });

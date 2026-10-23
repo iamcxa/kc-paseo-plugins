@@ -26,8 +26,13 @@ export interface QueueRow extends BoardRow {
   attentionAt?: string | null;
 }
 
-export function buildQueue(rows: readonly QueueRow[], reviews: readonly ReviewRequestData[]): QueueItem[] {
+export function buildQueue(
+  rows: readonly QueueRow[],
+  reviews: readonly ReviewRequestData[],
+  questionRows: readonly QueueRow[] = rows,
+): QueueItem[] {
   const items: QueueItem[] = [];
+  const asking = new Set(questionRows.filter((row) => row.status === "waiting on Kent" && !row.permission).map((row) => row.id));
   for (const row of rows) {
     const since = row.attentionAt || row.lastActivityAt;
     if (row.permission)
@@ -42,7 +47,15 @@ export function buildQueue(rows: readonly QueueRow[], reviews: readonly ReviewRe
         fo: row,
         gate,
       });
-    if (row.status === "waiting on Kent" && !row.permission && row.gates.length === 0)
+    const next = row.next.trim();
+    const normalize = (text: string) => text.trim().replace(/\s+/g, " ").toLowerCase();
+    const restatesGate = next && row.gates.some((gate) =>
+      [gate.title, gate.slug].filter(Boolean).some((name) =>
+        [name, `gate: ${name}`, `${gate.stage} · ${name}`, `${name} · ${gate.stage}`, `review ${name}`, `approve ${name}`, `decide on ${name}`]
+          .some((label) => normalize(next) === normalize(label)),
+      ),
+    );
+    if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate)))
       items.push({ key: `a:${row.id}`, kind: "ask", title: row.next || "Has a question for you", detail: "", since, fo: row });
   }
   for (const review of reviews)
