@@ -34,6 +34,17 @@ gates:
                 id: briefing:flywheel-grant-adr:validation:attempt-1:revision-1
                 digest: sha256:45842a5a5e56f1c381f2e96601c25b3a9f4fef938f1b3fe7272248728091e1fc
                 room-ref: ./flywheel-grant-adr/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:flywheel-grant-adr:validation:1
+                briefing: briefing:flywheel-grant-adr:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T14:46:41.071892Z"
+                decision: approve
+                reason: 'Captain 「准」 (chat, 2026-10-23), answering the validation gate review for briefing attempt-1 (sha256:45842a5a5e56): approve ADR 0008 as validated at 81096c60; FO marks PR #38 ready, waits for the Codex verdict and runs delivery_gate.py; the Captain merges it himself.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T12:59:34Z
 worktree: .worktrees/spacedock-ensign-flywheel-grant-adr
 ---
