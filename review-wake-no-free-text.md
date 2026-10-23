@@ -137,7 +137,7 @@ HOME="$W/home" PATH="$W/bin:$PATH" npx tsx "$W/wire.mts" 2>&1 | grep -v minimum-
 git show 2c60f172e7f35c39396c8b9eab963319326e2d23:spacedock-bridge/shared/reviews.ts > shared/reviews.ts
 HOME="$W/home2" PATH="$W/bin:$PATH" npx tsx "$W/wire.mts" 2>&1 | grep -E "LEAKED|SENT_COUNT="
 git checkout -q -- shared/reviews.ts
-# expect: SENT_COUNT=2 (base also sends the malformed-url item) ; LEAKED=true
+# expect: SENT_COUNT=1 ; LEAKED=true (the base wake carries the title and author)
 
 # Step 5: clean up
 cd / && rm -rf "$W"
