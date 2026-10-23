@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-every-row-findable:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#33 at head fd592248dbf8059f94fe08ea9ef57a859975b13a? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds. Approving also accepts FO's recommendation to keep the note button's accessibilityLabel and hitSlop, the without-it item the PR names; say if you object.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-every-row-findable:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/4cb844fbce26ec2a883dd624b9431fecfe04966c/project-env-every-row-findable.md",
+      "rev": "sha256:7fedf0c0ced7aa1af3812e7861f7453cf620e38cf1bfd1d6acc6d20b50eb708a",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 3 PASSED at fd59224; FO reran validation/accept.sh (every expected line, including the failed-Test path); Codex 3 rounds (rounds 1 and 2 raised three P2s, all fixed; round 3 clean at fd59224); local roborev gate ran each cycle, its open items are under FO declines; no RoboRev review posted on the PR. Deferred under FO declines: duplicate variable names (roborev:1092) and an offline-paused Test (roborev:1099), each with its trigger and candidate revision. Without-it: the note button's accessibilityLabel and hitSlop. delivery_gate.py check exit 0. Owed: phone app, light theme, a real Test transport failure, real 1Password; Kent's own use."
+    }
+  ]
+}

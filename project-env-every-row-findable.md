@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-every-row-findable:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-every-row-findable-validation-1
+              briefing:
+                id: briefing:project-env-every-row-findable:validation:attempt-1:revision-1
+                digest: sha256:69309b17352db4d700644dc48f69aa94fce76d807171a8f9654b4d79f5e7b860
+                room-ref: ./project-env-every-row-findable/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-every-row-findable:validation:1
+                briefing: briefing:project-env-every-row-findable:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T09:58:23.817315Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #33 at fd59224 per the gate question, including its stated recommendation to keep the note button''s accessibilityLabel and hitSlop.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T07:37:00Z
 ---
 
