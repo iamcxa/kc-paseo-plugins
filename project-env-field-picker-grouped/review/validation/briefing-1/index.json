@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-field-picker-grouped:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#26 at head 57540cce4427cfe1cec504ebbbcbb4a875db7c64? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-field-picker-grouped:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/2ffeaca42ff0451be8842a07c89e821ca7f95426/project-env-field-picker-grouped.md",
+      "rev": "sha256:d4c0dfd623ded5410a315f21e96b630ebffc77dac6306aa4b898651e1221747d",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 2 PASSED at 57540cc (cycle 1 REJECTED for a test gap only: two mutants of the title search survived; one title-only test added, no product bytes changed). The two findings routed from PR #24 are fixed and proven in the browser (search text cleared after a pick; Use disabled for empty path segments). 215/215 tests. delivery_gate.py check exit 0 at 57540cc. External rounds: Codex 1, code review clean at 57540cc. Owed: real 1Password listing speed, keyboard and wheel, desktop and phone apps; Kent's own use."
+    }
+  ]
+}

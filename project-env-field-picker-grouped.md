@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-field-picker-grouped:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-field-picker-grouped-validation-1
+              briefing:
+                id: briefing:project-env-field-picker-grouped:validation:attempt-1:revision-1
+                digest: sha256:7187a25ceb9c958b67a30cf17a048e67ea089f65d4f2716623f8e986e2e53927
+                room-ref: ./project-env-field-picker-grouped/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-field-picker-grouped:validation:1
+                briefing: briefing:project-env-field-picker-grouped:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T02:12:42.355457Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — answers the PR #26 validation gate (the latest question put); approves delivery at 57540cc per the gate question.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:16:39Z
 ---
 
