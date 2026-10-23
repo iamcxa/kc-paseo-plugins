@@ -232,3 +232,11 @@ Row marks and the header summary are derived from the draft and the Test run in 
 ### Summary
 
 PASSED at cad3e89: AC-1 and AC-2 reproduce on my own isolated Paseo at 1280 and 400 px, the test-marks tests fail for each removed behaviour, and the line under the field is the right call because the bubble cannot keep the field name readable for the longest sentence on the last row. The line shifts rows below by one line (24 px) while open. Two Polish findings, no Material one; unverified obligations are listed above. The isolated daemon, `/tmp/pe-val-dir`, plugin id pe-val and browser session tsfmval are removed; Kent's ~/.paseo, live plugin and the main checkout branch were not touched.
+
+## Captain amendments
+
+### Amendment 1 — 2026-10-23, validation (design change)
+Captain: 「改 hover 泡泡」 (chat, choosing between the two options FO put)
+Asked: "回「改 hover 泡泡」或「維持下方一行」" — after FO's recommendation: "改回 hover 浮動泡泡，同時把 AC-1 放寬成「可以暫時蓋住鄰列，但不能蓋住這一列自己的欄位名稱」".
+Effect: the reason opens as a floating bubble (hover at 1280 px, click or tap at both widths), not as a line under the field. AC-1's "overlapping no other row's name, (!), field control or Remove button" is relaxed to: the open bubble may cover neighbouring rows while open, and never covers its own row's field name. The falsifier "a reason that covers another row" is withdrawn; "covers its own row's field name" replaces it.
+Supersedes: the implementation's line-under-the-field departure (candidate cad3e89).
