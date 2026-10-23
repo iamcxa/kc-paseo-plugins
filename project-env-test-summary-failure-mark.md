@@ -314,3 +314,9 @@ ALL PASS   (5:30.48)
 ### Summary
 
 PASSED at 782ac4c: AC-1 as amended and AC-2 reproduce on my own isolated Paseo at 1280 and 400 px, dark and light; the bubble never covers its own row's field name, the second press closes under a still pointer, and #28's Add flow, name-only rows and the "N with no field picked yet" note work beside the marks. Both cycle-1 Polish findings are fixed. The fresh-shell acceptance script passes all 32 checks in 5 min 30 s. The isolated daemon, /tmp/pe-val2-dir, plugin pe-val2 and browser session tsfmval2 are removed; Kent's ~/.paseo, live plugin and the main checkout branch (main) were not touched.
+
+### FO declines
+
+- Validation cycle 2 Polish 1 (at 1280 px the open bubble half-hides the Import label or the top of the next control): declined; Captain amendment 1 allows a bubble to cover neighbouring rows, and the bubble ignores pointer events so Import stays clickable (validation cycle 2, crop-1280-bubble.png at 782ac4c).
+- Validation cycle 2 Polish 2 (AC-1's text under Acceptance criteria still reads "overlapping no other row"): declined; the amendment rule appends Captain amendments and changes nothing else in the criteria, so AC-1 is read with amendment 1.
+- Without-it unanswered for the Captain: `OpenProject.edits` in client/open-project.ts has no reader in the screen after this change; open-project.test.ts still asserts it (named in the PR body).
