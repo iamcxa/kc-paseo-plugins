@@ -1,6 +1,6 @@
 ---
 title: Review items show repo#number with a link, and the decision card puts the decision before the discussion
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
