@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-test-summary-failure-mark:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#27 at head 782ac4cf190d4236aa76d7b57e3dc192ab4edf2e? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, and removing its clean pushed worktree, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-test-summary-failure-mark:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/234c9c5df1260f8e940efaa9df968f9588a33b2d/project-env-test-summary-failure-mark.md",
+      "rev": "sha256:1695866fc8f2aad4b097cee08aa63753e6ff0fbd033aeb066227fbf64039f2b2",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 2 PASSED at 782ac4c, judged against AC-1 as amended by Captain amendment 1 (hover bubble may cover neighbouring rows, never its own field name): acceptance.sh 32 checks ALL PASS at 1280 and 400 px, dark and light; 256/256 tests. Main 0314c91 (Add in one step) merged: header reads summary, Test, + Add; a name-only row counts as no field; save-bar note reads 'N with no field picked yet'. delivery_gate.py check exit 0 at 782ac4c. External rounds: Codex 1 (cycle-2 head), code review clean. Without-it unanswered: OpenProject.edits has no reader. Owed: real touch tap, screen reader, real 1Password; Kent's own use."
+    }
+  ]
+}

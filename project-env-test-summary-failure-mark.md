@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-test-summary-failure-mark:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-test-summary-failure-mark-validation-1
+              briefing:
+                id: briefing:project-env-test-summary-failure-mark:validation:attempt-1:revision-1
+                digest: sha256:6097dc877303707895c5c7d3f81e4ff3bacb3664098b0bf2216fd4d8b41732ff
+                room-ref: ./project-env-test-summary-failure-mark/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-test-summary-failure-mark:validation:1
+                briefing: briefing:project-env-test-summary-failure-mark:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-23T04:05:46.974405Z"
+                decision: approve
+                reason: 'Captain 2026-10-23: 「准」 — approves delivery of PR #27 at 782ac4c per the gate question.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-22T04:16:52Z
 ---
 
