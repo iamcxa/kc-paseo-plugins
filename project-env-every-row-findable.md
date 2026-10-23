@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-every-row-findable
-pr: iamcxa/kc-paseo-plugins#33
+pr: pr-merge:33
 gates:
     version: 1
     records:
@@ -452,3 +452,8 @@ Does not cover: the phone app, light theme, a real Test call failure (injected),
 ### Summary
 
 Candidate fd59224 passes AC-1 to AC-3 on isolated Paseos, and a failed Test now reads "Not tested since changes" once the draft differs from what it sent, returns to the failure when the draft matches again, and clears on a new Test. Its two new unit tests fail under their mutants, and the same runtime check fails on cd9f1c9. Verdict PASSED.
+
+## FO records
+
+External review rounds at the validation gate: Codex 3 (rounds 1 and 2 raised three P2s, fixed in feedback cycles 1 and 3; round 3 clean at fd59224). The local roborev gate is not an external round; its open items are under FO declines.
+delivery_gate.py check passed at fd59224 before the ask (merge/ask-1.json); FO reran validation/accept.sh before the ask with every expected line. The Captain approved with 「准」 on 2026-10-23, including the stated recommendation to keep the note's accessibilityLabel and hitSlop, and FO merged as c46720f.
