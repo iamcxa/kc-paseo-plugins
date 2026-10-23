@@ -1,6 +1,6 @@
 ---
 title: The Fleet board's By decision view puts the next decision first and every other item on one line
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
