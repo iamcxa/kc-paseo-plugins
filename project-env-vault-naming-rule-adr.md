@@ -246,3 +246,21 @@ Cycle 2 candidate cf04532 fixes both cycle-1 defects, touches only the rule 1 an
 ### Feedback cycle 2 (Codex P2)
 
 The case-insensitivity fact now says it is a property of 1Password's resolver and that project-env still requires the vault segment to match the saved vault exactly (`isOutsideVault` in `project-env/server/cause.ts` uses `!==`; `project-env/test/vault-boundary.test.ts` row "a different letter case" expects outside-vault). Re-read both before writing. New head d5a53fc; only the 0005 file differs from base. `adr_lint.py docs/adr --since 60799d9 --require 5` exit 0; `clean on d5a53fc65; evidence=roborev:1083`; pushed.
+
+## Stage Report: validation (cycle 3)
+
+- DONE: Revalidate candidate d5a53fc65430bfe1f01a4e8fb95e1f8730c3fb3f (PR iamcxa/kc-paseo-plugins#30), which changes only the case-insensitivity fact on top of cf04532 to fix Codex round 1's P2. Confirm the diff since cf04532 touches only that fact; it now says case-insensitivity is 1Password's resolver behaviour and that project-env requires a mapping's vault segment to match the saved vault's spelling exactly; check that claim against `isOutsideVault` and project-env/test/vault-boundary.test.ts on main 40849b4; give a verdict.
+  Diff `git diff cf04532 d5a53fc` touches only docs/adr/0005-…md, one bullet in Consequences ("Secret references are case-insensitive."), now followed by "That is a property of 1Password's resolver: project-env still requires a mapping's vault segment to match the saved vault's spelling exactly (`isOutsideVault` … compares with `!==`, and `project-env/test/vault-boundary.test.ts` covers a different letter case), so `op://dev/...` under a saved vault `Dev` is blanked as outside the vault." Checked on main 40849b4: `isOutsideVault` (project-env/server/cause.ts:31-34) returns `parsed !== null && parsed.vault !== vault`, a case-sensitive comparison; called from project-env/server/secrets.ts:240, which returns cause "outside-vault". vault-boundary.test.ts has the row ["a different letter case", "Dev", "op://dev/i/x", "outside-vault"], asserting no read and env.X blanked to "". The ADR's sentence matches that test row. The page-side claim ("Secret references are case-insensitive") was confirmed in cycle 2 and is unchanged.
+  Verdict: PASS for cycle 3. The change is one bullet, the attribution to resolver behaviour and the code-side exact-match claim both hold on main. Cycle-2 items (rules 1-2 reasons, alphabetical-listing attribution) are untouched by this diff.
+- DONE: Run `python3 <package>/scripts/adr_lint.py docs/adr --since 60799d9 --require 5` at the candidate and record its exit code; carry the acceptance script forward.
+  Run in the implementer's worktree, HEAD = d5a53fc, clean tree: "5 ADR file(s) checked, 0 legacy", exit 0. Acceptance script pieces carried forward: `git diff --name-only 40849b4 HEAD` prints only the 0005 file; the `注意應該是建議守則不是強迫性的` quote is found once in HEAD's ADR. Full set -e block not re-run as one.
+- DONE: Record every unverified obligation, and append your result as a validation stage report for this cycle.
+  1. Fact 1 (`op item create --category "Secure Note"` with `NAME[password]=` gives an empty password field, op 2.30.3): not re-run; needs the Captain's 1Password sign-in; op is forbidden here. Taken from the hand-off.
+  2. Alphabetical vault listing in rule 1: attributed to the hand-off's observation; not checked by me.
+  3. Fact 3 (vault rename breaks name-keyed mappings): code-verified only (`splitRef` prefix match), not against a live vault.
+  4. Rules 2-4 reasons were drafted by the implementer, not quoted from the Captain; the Captain reads them at the gate.
+  5. ADR title still reads as present behaviour (stated residual).
+
+### Summary
+
+Cycle 3 candidate d5a53fc changes only the case-insensitivity bullet; its added claim that project-env matches the vault spelling exactly holds on main (`isOutsideVault` uses `!==`, and the vault-boundary test has the different-letter-case row). Lint exits 0. Remaining unverified items are the same as cycle 2.
