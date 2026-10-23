@@ -1,0 +1,165 @@
+diff --color -ru -x n /tmp/pe-rci-src/orig/project-env/client/settings-screen.tsx ./client/settings-screen.tsx
+--- /tmp/pe-rci-src/orig/project-env/client/settings-screen.tsx	2026-10-23 19:29:02
++++ ./client/settings-screen.tsx	2026-10-23 20:29:01
+@@ -19,14 +19,12 @@
+   SettingsSelect,
+ } from "@getpaseo/plugin/client/ui";
+ import {
+-  importConductor,
+   listRefs,
+   type Project,
+   type Variable,
+   nameFromLabel,
+   newVariable,
+   refusal,
+-  splitImported,
+   projectEnv,
+   storeToken,
+   testProject,
+@@ -545,7 +543,6 @@
+   const [barHeight, setBarHeight] = useState(0);
+   const reached = useRef<string | null>(null);
+   const [removals, setRemovals] = useState(0);
+-  const [importNote, setImportNote] = useState<string | null>(null);
+   const [confirmStop, setConfirmStop] = useState(false);
+   const resumed = open.changing;
+   const [before, setBefore] = useState(resumed ?? { serviceAccount: draft.serviceAccount, vault: draft.vault });
+@@ -582,7 +579,6 @@
+   const [sharedWith, setSharedWith] = useState<string[] | null>(null);
+   const refsRpc = useRpc(listRefs);
+   const testRpc = useRpc(testProject);
+-  const importRpc = useRpc(importConductor);
+ 
+   const account = draft.serviceAccount.trim();
+   const [checked, setChecked] = useState(account);
+@@ -674,30 +670,6 @@
+       ))}
+     </Text>
+   );
+-  const doImport = useMutation({
+-    mutationFn: () => importRpc({ root: draft.root }),
+-    onSuccess: ({ names, prompt }) => {
+-      const { skipped } = splitImported(names, []);
+-      setImportNote(
+-        skipped.length === 0
+-          ? null
+-          : `Skipped ${skipped.map((x) => x.name).join(", ")}: reserved names, so the agent keeps its own value.`,
+-      );
+-      openProject.update(
+-        (d) => ({
+-          ...d,
+-          variables: [
+-            ...d.variables,
+-            ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
+-          ],
+-          prompt: d.prompt || prompt,
+-        }),
+-        true,
+-        open.session,
+-      );
+-    },
+-  });
+-
+   const patch = useCallback((change: Partial<Project>) => {
+     openProject.update((d) => ({ ...d, ...change }), true);
+   }, []);
+@@ -1031,13 +1003,6 @@
+               />
+             );
+           })}
+-          <SettingsAction
+-            label="Import names and prompt from Conductor"
+-            hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
+-            actionLabel={doImport.isPending ? "Importing…" : "Import"}
+-            disabled={doImport.isPending}
+-            onPress={() => doImport.mutate()}
+-          />
+         </SettingsCard>
+         <View ref={bubbleOrigin} pointerEvents="none" style={{ position: "absolute", top: 0, left: 0, width: 0, height: 0, zIndex: 20 }}>
+           {markView !== null && shownReason !== null ? (
+Only in /tmp/pe-rci-src/orig/project-env/server: conductor.ts
+diff --color -ru -x n /tmp/pe-rci-src/orig/project-env/server/contribute.ts ./server/contribute.ts
+--- /tmp/pe-rci-src/orig/project-env/server/contribute.ts	2026-10-23 19:29:02
++++ ./server/contribute.ts	2026-10-23 20:29:01
+@@ -2,7 +2,6 @@
+ import * as rpc from "../shared/config.ts";
+ import type { Project } from "../shared/config.ts";
+ import { failureLine } from "./cause.ts";
+-import { importConductor } from "./conductor.ts";
+ import { createNotices } from "./missing-variables-notice.ts";
+ import { createSecrets, type Tools } from "./secrets.ts";
+ import { openSession } from "./session-open.ts";
+@@ -64,7 +63,6 @@
+     secrets.clearCache();
+     return { results: (await secrets.resolveProject(project)).results };
+   });
+-  server.handle(rpc.importConductor, ({ root }) => importConductor(root));
+ 
+   return () => stopWatching();
+ }
+diff --color -ru -x n /tmp/pe-rci-src/orig/project-env/shared/config.ts ./shared/config.ts
+--- /tmp/pe-rci-src/orig/project-env/shared/config.ts	2026-10-23 19:29:02
++++ ./shared/config.ts	2026-10-23 20:29:01
+@@ -76,22 +76,6 @@
+   return r.why === "reserved" ? "reserved; you name it" : r.why === "used" ? "name in use; you name it" : "you name it";
+ }
+ 
+-export function splitImported(names: readonly string[], existing: readonly string[]) {
+-  const have = new Set(existing);
+-  const add: string[] = [];
+-  const skipped: { name: string; reason: string }[] = [];
+-  for (const name of names) {
+-    if (have.has(name)) continue;
+-    const reason = reservedReason(name);
+-    if (reason) skipped.push({ name, reason });
+-    else {
+-      add.push(name);
+-      have.add(name);
+-    }
+-  }
+-  return { add, skipped };
+-}
+-
+ export const project = z.object({
+   root: z.string().min(1),
+   serviceAccount: z.string().default(""),
+@@ -165,12 +149,6 @@
+   output: z.object({
+     results: z.array(z.object({ name: z.string(), ok: z.boolean(), cause: cause.optional() })),
+   }),
+-});
+-
+-export const importConductor = defineRpc({
+-  name: "project.import-conductor",
+-  input: z.object({ root: z.string().min(1) }),
+-  output: z.object({ names: z.array(z.string()), prompt: z.string() }),
+ });
+ 
+ export function unsavedCount(saved: Project, draft: Project): number {
+diff --color -ru -x n /tmp/pe-rci-src/orig/project-env/test/variable-name.test.ts ./test/variable-name.test.ts
+--- /tmp/pe-rci-src/orig/project-env/test/variable-name.test.ts	2026-10-23 19:29:02
++++ ./test/variable-name.test.ts	2026-10-23 20:29:01
+@@ -6,7 +6,6 @@
+   project,
+   refusal,
+   reservedReason,
+-  splitImported,
+ } from "../shared/config.ts";
+ 
+ const ADR_0004_NAMES = [
+@@ -51,15 +50,6 @@
+     assert.match(refusal("1A", []) ?? "", /not starting with a digit/);
+     assert.match(refusal("A-B", []) ?? "", /letters, digits and underscores/);
+     assert.equal(refusal("", ["A"]), null);
+-  });
+-});
+-
+-describe("Import", () => {
+-  it("skips and names reserved names, skips what the project has, adds the rest once", () => {
+-    const { add, skipped } = splitImported(["PATH", "X", "LD_PRELOAD", "Y", "X"], ["Y"]);
+-    assert.deepEqual(add, ["X"]);
+-    assert.deepEqual(skipped.map((s) => s.name), ["PATH", "LD_PRELOAD"]);
+-    assert.ok(skipped.every((s) => s.reason.length > 0));
+   });
+ });
+ 

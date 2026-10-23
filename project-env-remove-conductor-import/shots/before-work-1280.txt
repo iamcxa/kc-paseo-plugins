@@ -1,0 +1,54 @@
+Back
+App
+General
+Appearance
+Sidebar
+Chat
+Terminal
+Editor
+Diagnostics
+About
+Host
+KentMacBookPro (3)
+Overview
+Projects
+Connections
+Pair device
+Agents
+Metadata
+Workspaces
+Providers
+Usage
+Terminals
+Plugins
+pe-astra · Project environment
+Back to plugins
+work
+/tmp/pe-rci-before/work
+1Password
+Connected
+· sa-a · Dev
+Change
+Variables
+Test
++ Add
+SENTRY_AUTH_TOKEN
+SENTRY › SENTRY_AUTH_TOKEN
+STRIPE_KEY
+stripe › secret-key
+≠
+TWILIO_AUTH_TOKEN
+TWILIO › TWILIO_ACCOUNT_SID
+≠
+Import names and prompt from Conductor
+Reads variable names and the general prompt from .conductor settings; no values.
+Import
+Default prompt for new agents
+Values are injected into each agent's environment when its session opens, so the agent itself can read them.
+Danger zone
+Stop managing this project
+Deletes its variables and default prompt now, without Save. The Keychain token stays.
+Stop managing
+No unsaved changes
+Close
+Save

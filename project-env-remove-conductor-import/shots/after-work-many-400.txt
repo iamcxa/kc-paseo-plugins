@@ -1,0 +1,46 @@
+pe-astra · Project environment
+work-many
+/tmp/pe-rci-after/work-many
+1Password
+Connected
+sa-a · Dev
+Change
+Variables
+Test
++ Add
+SENTRY_AUTH_TOKEN
+SENTRY › SENTRY_AUTH_TOKEN
+SENTRY_PROJECT
+SENTRY › SENTRY_PROJECT
+STRIPE_KEY
+stripe › secret-key
+≠
+STRIPE_WEBHOOK_SECRET
+stripe › STRIPE_WEBHOOK_SECRET
+POSTHOG_CLI_API_KEY
+POSTHOG › POSTHOG_CLI_API_KEY
+POSTHOG_CLI_HOST
+POSTHOG › POSTHOG_CLI_HOST
+TWILIO_ACCOUNT_SID
+TWILIO › TWILIO_ACCOUNT_SID
+DATABASE_URL_FOR_THE_PRODUCTION_REPLICA_READ_ONLY_USER
+TWILIO › apiKey
+≠
+LINEAR_API_KEY
+Pick a field
+RESEND_API_KEY
+Pick a field
+SLACK_BOT_TOKEN
+Pick a field
+SLACK_SIGNING_SECRET
+Pick a field
+Default prompt for new agents
+Values are injected into each agent's environment when its session opens, so the agent itself can read them.
+Danger zone
+Stop managing this project
+Deletes its variables and default prompt now, without Save. The Keychain token stays.
+Stop managing
+No unsaved changes
+4 with no field picked yet
+Close
+Save

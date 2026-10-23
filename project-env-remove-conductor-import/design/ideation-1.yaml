@@ -1,0 +1,50 @@
+design_review:
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-remove-conductor-import/shots/
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: compare-work-1280.png, compare-work-400.png (right half; same in work-empty, work-many, work-bare)
+      seen: The grey placeholder inside the prompt box ("Appended to the system prompt of every new agent in this project") repeats what the label above it ("Default prompt for new agents") already says.
+      fix: Make the placeholder an example or drop it, so the label carries the meaning once.
+    - severity: MINOR
+      dimension: hierarchy
+      where: compare-work-1280.png, compare-work-many-400.png (right half)
+      seen: With the Import row gone, the note "Values are injected into each agent's environment when its session opens..." comes right after the prompt box, but it describes variable values, so it reads as help text for the prompt.
+      fix: Move the note up to the Variables header or the card, or reword it to say it is about variables.
+    - severity: MINOR
+      dimension: hierarchy
+      where: after-work-many-1280.png, after-work-bare-1280.png (compare-work-many-400, compare-work-bare-400 right half)
+      seen: The save bar says "No unsaved changes" and, right under it, the link "4 with no field picked yet" (or "1 with no field picked yet"), so one block reports both a clean and an incomplete state.
+      fix: Label the second line as a warning (for example "Incomplete: 4 variables have no field") or drop "No unsaved changes" while it is shown. This predates the proposal and is not changed by it.
+    - severity: MINOR
+      dimension: spacing
+      where: compare-work-bare-400.png (right half, full page)
+      seen: In the bare project at 400 px, the page header, 1Password label and the five-row service-account card (about 500 px) come before the "Variables" header, so more than half of the page height passes before any variable row.
+      fix: Collapse the service-account setup card when it is empty (for example behind a single "Set up 1Password" row), or move Variables above it. This predates the proposal and is not changed by it.
+    - severity: MINOR
+      dimension: platform
+      where: compare-work-400.png, compare-work-many-400.png (right half)
+      seen: The per-row delete "x" is a bare glyph of about 12 px at the top right of each row, far below a 44 px touch target; the 400 px layout is clearly a phone layout.
+      fix: Give the delete icon a hit area of at least 44 px (padding, not a larger glyph).
+    - severity: MINOR
+      dimension: states
+      where: all after-* and compare-* pictures
+      seen: Only the idle states are shown (3 variables, none, 11, and bare). I could not see loading, an error from Test or Check, Test results, a read-only state, or what happens when "Stop managing" is clicked.
+      fix: Add previews of the Test failure, a loading connection, and the confirm or result state of "Stop managing".
+    - severity: MINOR
+      dimension: flow
+      where: compare-work-1280.png (right half), Danger zone
+      seen: '"Stop managing" is a single outlined button, and its own hint says "Deletes its variables and default prompt now, without Save", yet no confirm step is drawn.'
+      fix: Show a confirm step (or an undo) before the delete, or say where it is. This predates the proposal and is not changed by it.
+    - severity: MINOR
+      dimension: theme-size
+      where: all pictures
+      seen: Every picture is dark theme at 1280 px or 400 px; there is no light theme and no tablet width.
+      fix: Add light-theme previews and one width between 400 and 1280 px.
+  limitations:
+    - I read only the compare-* pages (all eight) and did not open the separate after-* files, so after-<project>-400.png (viewport only) was not viewed. The right half of each compare page is the same design.
+    - The previews show only the dark theme.
+    - Text below about 10 px is hard to read at this scale. I could not check exact pixel sizes, contrast ratios or the colours of the "≠" chip.
+    - In the 1280 px compare pages the gap between "Connected" and "· sa-a · Dev" looks slightly wider on the right than on the left. I could not confirm this at this resolution, so I did not list it as a finding.
+    - Several compare pages show the proposed design on a white background beside today's UI, because the two sides are different heights. I treated that as page composition, not as part of the design.
+    - A person who relied on the Conductor import has no replacement path. That is the intent of the proposal, so I did not list it as a finding.
