@@ -1,0 +1,14 @@
+[mutant wrap]   ✖ wraps from the last such row back to the first (0.151334ms)
+[mutant wrap]   ✖ keeps returning the one row when only one has no field (0.553333ms)
+[mutant wrap] ✖ nextFieldless (3.321ms)
+[mutant wrap] ℹ pass 5
+[mutant wrap] ℹ fail 2
+[mutant wrap] ✖ failing tests:
+[mutant wrap] ✖ wraps from the last such row back to the first (0.151334ms)
+[mutant wrap] ✖ keeps returning the one row when only one has no field (0.553333ms)
+[mutant run]   ✖ is kept by setRun, survives edits and is read back as the same summary (1.002333ms)
+[mutant run] ✖ the last Test run lives in the open project (1.307417ms)
+[mutant run] ℹ pass 6
+[mutant run] ℹ fail 1
+[mutant run] ✖ failing tests:
+[mutant run] ✖ is kept by setRun, survives edits and is read back as the same summary (1.002333ms)

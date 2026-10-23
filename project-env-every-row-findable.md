@@ -171,3 +171,23 @@ Teardown (2026-10-23): both daemons stopped, browser sessions closed, `/tmp/pe-r
 ### Summary
 
 The note becomes an underlined button that visits the no-field rows in order and wraps, every revealed row clears the save bar by its measured height plus 20 px, the Test run moves into the `openProject` store, names break after underscores through `<wbr>`, and the ≠ text gains the approved sentence. All of it was built as a spike on main d540a04, drawn at 1280 and 400 px, and shown to fail on unpatched main (except the new-row clause at 1280 x 1400, which main already passes). The design review found no MAJOR finding; no Captain decision remains.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, starting from the spike diff and tests in this task's spike/ folder.
+  Spike diff applied unchanged to cad57e0 as commit fc4b095 on `spacedock-ensign/project-env-every-row-findable`; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/33. comment_ratio.py: 2 comment lines of 131 code lines, 1.5%, limit met.
+- DONE: Land tests so each acceptance criterion passes with the evidence its clause names and fails when its behaviour is removed (including a mutation that removes the scroll margin), plus whole-page screenshots of the built change at desktop and 400 px.
+  Runtime scripts (`implementation/harness/`, own daemon port 6951, mutants on 6952, outputs in `implementation/evidence/`) pass on the build and fail on six one-line mutants: margin removed (AC-1: added row 69 px under the bar at 400x900 and 1280x800, note rows fail at all three sizes: `ac12-mut-margin.txt`), wrap-around removed and pill focus removed (AC-2 order), run kept in component state and `setRun` dropped (AC-3 summary blank after the crossing: `ac3-mut-localrun.txt`, `ac3-mut-run.txt`), `<wbr>` removed (lines start at "ODUCTION_REP"), old ≠ sentence (`ac3wrap-mut-*.txt`). Unit tests: `nextFieldless` fails 2 when the wrap is removed, "is kept by setRun" fails 1 when `setRun` stores nothing (`unit-mutations.txt`). AC-1 clause "new row at 1280x1400" passes on every build (page fits), so only the 400x900, 1280x800 and note clauses falsify it. Screenshots: `implementation/screens/built-*.png`, whole page at 1280 and 400 px, dark, light for the first press.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, design_surfaces.py check and doc_impact.py, then open the Draft PR.
+  `npm test` 269 of 269 pass (53 s), typecheck clean, design_surfaces: "design surfaces presentable". roborev gate exit 1, `evidence=roborev:1089` on fc4b09561, one finding left open, see below. doc_impact.py lists one document: docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md: unaffected: it governs reserved-name skipping and names config.ts only as the home of `isReservedName`; this change adds `nextFieldless` and touches no name rule. Draft PR #33 open.
+
+### Findings for FO
+- roborev (Medium, settings-screen.tsx `test` mutation): a remount during a running Test lets a second Test start, and if the older call finishes last its run replaces the newer. Not repaired: Deferred risk. Trigger is press Test, cross 720 px mid-call, press Test again, older call last; and `Run` carries `sent`, so `summaryParts` and the row marks show a stored run only against rows whose field and the connection match what it was sent, so a stale run is never shown against a different draft. It would become Material if a Test run could be shown for a draft it did not run.
+- Also listed in the PR body: `accessibilityLabel` on the note and `hitSlop={6}` are not named by an acceptance criterion (without-it unanswered).
+- Not run: phone app; a remount while a Test call is running ("Testing…" text is lost).
+
+Teardown: all three daemons and browser sessions stopped, `/tmp/pe-rowi` removed; `~/.paseo`, the live plugin, `/tmp/pe-astra` and the branch of `/Users/kent/Project/kc-paseo-plugins` untouched. No secret read, no op or security command run.
+
+### Summary
+
+The spike diff landed unchanged as one commit on main cad57e0 and passes AC-1 to AC-3 on a build run through Paseo's own web client at 400 and 1280 px; each clause fails on its own one-line mutant, including the scroll margin. Tests, typecheck and the design check pass; the roborev gate left one Deferred-risk finding for FO.
