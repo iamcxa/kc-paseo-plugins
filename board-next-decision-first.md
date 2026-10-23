@@ -85,3 +85,21 @@ Only the `decision` branch of `client/board.tsx` changed, plus `splitQueue` in `
 
 - Needs decision (roborev:1086, Medium): the scope says the removed "GitHub ↗" button is "still reachable from the decision card or the FO chat". In code it is not: `client/decision-card.tsx` has no PR link and `openItem` passes no review to it. The only remaining link is on the By FO view's Review requests list. Options: accept as is, or add a link to the decision card (outside the stated scope). I built what the scope says and did not add it.
 - Browser note: the gstack headless browser used for the screenshot now has a saved host entry localhost:6790 (dead); harmless, not removed.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: When the next card's item is a review, the next card shows a second button labelled "PR ↗" beside its primary button, opening the review URL with openExternalUrl; other kinds show no such button (Captain amendment 1)
+  Commit 22f75e6 (PR #32). Isolated daemon (port 6790, own --home and HOME, stopped and deleted): `board-next-decision-first/ac-amend1-review-next-card.png` shows "Ask comms officer" with "PR ↗" beside it; `ac-amend1-gate-next-card.png` shows a gate next card with only "Open". Limit: clicking the button opened no tab in the headless browser, so the URL open itself was not observed; it calls the same `openExternalUrl(url)` as the By FO view button. The button is shown only when `next.review` is set.
+- DONE: npm test and npm run typecheck in spacedock-bridge/ pass, with a test or an isolated-daemon screenshot showing the button on a review next card
+  `npm test` 44 pass, 0 fail; `npm run typecheck` clean; screenshots above are the evidence for the button (no new unit test: the change is a render branch, no new logic). Removing the `next.review ?` branch makes the review screenshot lose the button.
+- DONE: Roborev gate rerun on the new head with its evidence= or incomplete: line in a new report section, and PR #32 updated
+  `findings on 22f75e633; evidence=roborev:1087`. PR #32 body updated, head pushed. comment_ratio 0 comment lines in 109 code lines.
+
+### Summary
+
+One render branch added to the next card in `client/board.tsx`; the label is "PR ↗" with no host detection, per the FO ruling. The earlier finding roborev:1086 is resolved by this amendment.
+
+### Findings for FO
+
+- Needs decision (roborev:1087, Medium): a review that is not first in the queue has no PR link in By decision (rows drop it, as scoped), and if a permission ranks first, every review loses its link here. The By FO view still has "GitHub ↗" on every review. Options: accept, or add a link to review rows or the decision card (outside the amendment, which names the top card only). Not built.
+- The gstack headless browser holds a dead saved host entry for localhost:6790 (a second one, new server id); harmless, not removed.
