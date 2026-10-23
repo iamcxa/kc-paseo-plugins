@@ -1,0 +1,6 @@
+PR head 81096c60d65655610ae5c83ca2899fb708d12e0b equals dispatched candidate 81096c60d65655610ae5c83ca2899fb708d12e0b; no second reviewer outcome is missing
+point: amendment: 'Amendment 1 dated 2026-10-23'
+point: path: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md'
+class: never (verdict ask)
+record: flywheel-grant-adr/merge/ask-1.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.

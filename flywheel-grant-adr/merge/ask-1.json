@@ -1,0 +1,15 @@
+{
+  "class": "never",
+  "head": "81096c60d65655610ae5c83ca2899fb708d12e0b",
+  "model": "not run",
+  "necessity": "the PR adds one ADR file and nothing else; without it the flywheel has no recorded grant and push/PR authority stays unrecorded.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: amendment: 'Amendment 1 dated 2026-10-23'",
+    "point: path: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#38",
+  "sufficiency": "validation PASSED at 987698fa and revalidation PASSED at 81096c60; every Captain quote byte-matches the task and the ADR records each Scope term and amendment 1.",
+  "time": "2026-10-23T14:49:46Z",
+  "verdict": "ask"
+}

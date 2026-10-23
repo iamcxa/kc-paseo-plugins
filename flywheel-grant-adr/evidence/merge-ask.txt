@@ -1,0 +1,4 @@
+Merge ask: PR #38 at 81096c60d65655610ae5c83ca2899fb708d12e0b adds ADR 0008, the Captain's POC flywheel grant, superseding ADR 0006; the Captain merges it himself.
+Sufficiency: validation PASSED at 987698fa and revalidation PASSED at 81096c60; every Captain quote byte-matches the task and the ADR records each Scope term and amendment 1.
+Necessity: the PR adds one ADR file and nothing else; without it the flywheel has no recorded grant and push/PR authority stays unrecorded.
+Reviews: roborev:1110 and roborev:1113 repaired; roborev:1115 and roborev:1117 clean; Codex summary:6367624084 clean on 81096c60d.
