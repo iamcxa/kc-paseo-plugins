@@ -31,7 +31,9 @@ unamended.
 1. 「這個專案我想給你更大的彈性，我想只抓backlog，設計預覽與uat，其他都授權你做。列一下哪些是我預授權的範圍」 — Captain, 2026-10-23
 2. 「准」 — Captain, 2026-10-23, answering 「要不要我照這個格式，幫 project-env 起草一份授權 ADR（會是 ADR 0007）交給你審？」, which approves drafting this record for his review, nothing more
 3. 「注意這一份 ADR 可能要在 dev2 更新流程後被更新或替換」 — Captain, 2026-10-23
-4. 「准，授權你合併」 — Captain, 2026-10-23, answering the ideation gate question that named the README-sentence exception, the expiry and demotion numbers, class 3, the kept list and the reload route
+4. 「准，授權你合併」 — Captain, 2026-10-23, answering the ideation gate question that named the README-sentence exception, the expiry and demotion numbers, class 3, the kept list and the reload route; his merge authorization covers later project-env pull requests under class 2, not this record's own pull request, which he merges himself (Words 6)
+5. 「准補」 — Captain, 2026-10-25, answering whether to add to the reload route a fetch of origin and a check that the checkout contains the pull request's merge commit
+6. 「准修，可以我合併」 — Captain, 2026-10-25, answering whether to name the two further README sentences in the exception, add Words 5, and state that he merges this record's pull request himself
 
 **Options considered:**
 - grant by record the decisions below and keep the rest with the Captain, as the Captain's split states (chosen)
@@ -41,15 +43,19 @@ unamended.
 **Recommended:** the grant as drafted, with the expiry and demotion numbers below; they were
 proposed by the dev2 FO and are unmeasured.
 
-**Captain-authorized exception.** This grant is an exception to exactly one sentence of
+**Captain-authorized exception.** This grant is an exception to exactly three sentences of
 `docs/dev2/README.md`:
 
 > Authority, a gate approval, a merge, an outward-facing action, an irreversible change and money are always asked, whatever an ADR says, and an ADR on one of them is never a `Precedent:` line.
 
+> Approval of a validation gate is not permission to push, create or merge a PR, except as follows.
+
+> Preserve manual merge authority.
+
 The exception is limited to the granted classes below. The README itself is unchanged;
 its requirements continue to apply outside those classes. This grant is recorded through the
 recording command below, never as a `Precedent:` line. Words 1 states the split; the
-exception, expiry, demotion and revocation terms were proposed by the dev2 FO and the Captain approved them in Words 4.
+exception, expiry, demotion and revocation terms were proposed by the dev2 FO and the Captain approved them in Words 4, 5 and 6. This record takes effect only when the Captain himself merges the pull request that adds it.
 
 **Granted classes.** The FO decides these classes of project-env decisions:
 1. the validation gate, when the validation report passes and has no Material finding and
