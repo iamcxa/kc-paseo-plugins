@@ -1,7 +1,7 @@
 ---
 id:
 title: Finishing or cancelling a connection change is one row right after the vault
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 'Captain 2026-10-24, in the FO chat: 「准」. Asked: approve the one-row Cancel/Done design (option A) and its acceptance criteria into implementation, also accepting the recommendation to leave the save bar unchanged in this task.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-24T01:18:38Z
 ---
 
