@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-connection-done-cancel-one-row
-pr: iamcxa/kc-paseo-plugins#44
+pr: pr-merge:44
 gates:
     version: 1
     records:
@@ -254,3 +254,8 @@ The candidate passes AC-1 and AC-2 on an independent build: one row after Vault 
 
 - Validation F1 (Polish): disabled Done at 0.5 opacity reads faint on the dark theme. Declined: it is the save bar's own disabled style, so both read alike; ideation declined the same finding (design/ideation-2.yaml). Material if the Captain cannot tell disabled Done from enabled at UAT; candidate revision: a stronger disabled colour shared by the save bar and this row.
 - Validation F2 (Deferred risk): a typed unsaved token shows "No unsaved changes" in the save bar, on main and on the candidate. Deferred by the Captain's ideation approval (save bar out of scope). Material if a typed token is lost by Close at UAT; candidate revision: count a typed unsaved token as an unsaved change.
+
+## FO records
+
+External review rounds at the validation gate: Codex 1 (code review clean at 88c49d4). The local roborev gate is not an external round.
+delivery_gate.py check passed at 88c49d4 before the ask and just before the merge (after the first prepared gate was withdrawn to add its declined items). FO reran evidence/validation-1/accept.sh before the ask (25 PASS, 0 FAIL). The Captain approved in the FO chat with 「准合併」 and FO merged as b20a949, then updated the live plugin (settings backed up and unchanged).
