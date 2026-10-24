@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-fo-grant-adr
-pr:
+pr: iamcxa/kc-paseo-plugins#47
 gates:
     version: 1
     records:
@@ -151,3 +151,7 @@ Drafted ADR 0007 (two granted classes plus bounded review-finding dispositions),
 ### Summary
 
 The ADR text is written and committed locally (a8c7c02, not pushed). The lint, number-guards and roborev scripts could not run in this session because the permission classifier blocks them, so AC-1 is unproven, and one stale sentence remains for the FO to fix or rule on.
+
+### FO completion of implementation (2026-10-25)
+
+The implementation worker was stopped by the host's auto-mode classifier ("Instruction Poisoning") on the lint runs and one edit. FO did not rerun them until the Captain gave explicit permission in the FO chat: 「我現在用手機不方便，所以這次准你跑」. FO then applied the one-sentence fix (the terms "were proposed by the dev2 FO and the Captain approved them in Words 4"), merged main b20a949, and ran adr_lint (exit 0, 8 files), number_guards (PASS) and roborev (roborev:1143, one Medium: the reload route never fetches). With the Captain's 「准補」 FO added the fetch-and-confirm steps to the reload route; roborev then read `clean on 94ec116de; evidence=roborev:1146`. Draft PR iamcxa/kc-paseo-plugins#47. The Captain merges it himself.
