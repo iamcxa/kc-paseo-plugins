@@ -29,6 +29,25 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-connection-done-cancel-one-row:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-connection-done-cancel-one-row-ideation-1
+              briefing:
+                id: briefing:project-env-connection-done-cancel-one-row:ideation:attempt-1:revision-1
+                digest: sha256:68e0041fa16999a10e54750dbb42b016d478a6e524ca4abe7ada711e0f511a5a
+                room-ref: ./project-env-connection-done-cancel-one-row/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-connection-done-cancel-one-row:ideation:1
+                briefing: briefing:project-env-connection-done-cancel-one-row:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-24T03:40:53.301159Z"
+                decision: approve
+                reason: 'Captain 2026-10-24, in the FO chat: 「准」. Asked: approve the one-row Cancel/Done design (option A) and its acceptance criteria into implementation, also accepting the recommendation to leave the save bar unchanged in this task.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-24T01:18:38Z
 ---
 

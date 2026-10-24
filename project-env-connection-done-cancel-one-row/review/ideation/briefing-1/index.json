@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-connection-done-cancel-one-row:ideation:attempt-1:revision-1",
+  "question": "Approve this one-row Cancel/Done design (option A) and its acceptance criteria into implementation? Approving also accepts the recommendation to leave the save bar unchanged in this task (a typed but unsaved token can still read 'No unsaved changes'; fixing that is a separate backlog item); say if you object.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-connection-done-cancel-one-row:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/69a96761b95973ed34694ddcc993dee04a136d39/project-env-connection-done-cancel-one-row.md",
+      "rev": "sha256:5e22a517bcb59f59343054a6a42f17f201c5ce8fdb885a7f43b057268b45e4d0",
+      "mediaType": "text/markdown",
+      "summary": "Option A spiked on main 4e22d4a: one 'Use this connection' row right after Vault with Cancel and Done on the right, the disabled-Done reason under the label; 76 lines in settings-screen.tsx reusing SettingsRow and the save-bar button style; 273/273 tests, typecheck clean, save-rule tests untouched. Measured: the two buttons share a top edge at 1280 and 400 and end above the save bar; main fails the shared edge. Cancel was under the bar on main only in the unchecked-account state at 400 x 900 (the backlog's claim for the picked state did not reproduce). The next task's re-point line sits in its own row above this one and leaves 11 px clearance at 400 x 900. Design review: two runs, 11 findings in run 2, 3 major dispositioned (one becomes the save-bar decision)."
+    }
+  ]
+}
