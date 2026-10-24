@@ -1,7 +1,7 @@
 ---
 id:
 title: Finishing or cancelling a connection change is one row right after the vault
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -75,8 +75,11 @@ gates:
                 reason: 'Captain 2026-10-24, in the FO chat: 「准合併」. Asked: approve delivery of PR #44 at 88c49d4 (squash merge after delivery_gate.py check, worktree removal, live plugin update).'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-24T01:18:38Z
+verdict: PASSED
+completed: 2026-10-24T16:03:57Z
+archived: 2026-10-24T16:03:57Z
 ---
 
 Polish round 2 of the project-env settings screen. Source: the Captain's UAT on 2026-10-23 (「這個 use this connection 按鈕是否可以放在 vault 選擇的後面？或是換個方式重新設計儲存跟取消」, 「import from conductor 功能可以移除」, and the qnow vault rename that blanked five variables live) and the Design Director's ruling in `ux-review-polish-2/design-director.md`, approved by the Captain on 2026-10-23 with 「准」, including option A, the re-point behaviour and the r2 wording.
