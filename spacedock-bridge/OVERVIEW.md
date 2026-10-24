@@ -4,6 +4,8 @@ The plugin creates one comms officer agent. It only starts FOs and passes messag
 
 The ↑ label names the reply's recipient; decision buttons send through the comms officer. Unsent drafts stay in memory per agent and gate while switching items or compact tabs. Edits and clears appear in every open composer for that target. A successful send or decision clears its submitted draft only if it has not changed; a refusal keeps it. Asking the comms officer keeps any existing draft. Drafts are lost on plugin or app reload.
 
+While a reply is sending, its ↑ and Enter stay disabled even after reopening that target. A failed send keeps the draft and enables sending again.
+
 Setup: Paseo 0.12.0 or later, and the `spacedock` command on your PATH. FOs are agents labelled `role=fo`. Task and gate data come from running `spacedock` against each FO's workflow directory.
 
 A neutral Tab closed badge beside an FO's name means it has known Paseo tab labels, all are false, and it is not running. It stays visible when opening a decision card. Missing tab labels or any open client tab leave it unbadged. The badge preserves the FO's group and actions; archived or lifecycle-closed agents keep the existing offline behavior.

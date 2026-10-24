@@ -1,4 +1,5 @@
 const drafts = new Map<string, string>();
+const sending = new Set<string>();
 const subscribers = new Map<string, Set<() => void>>();
 
 export function draftKey(agentId: string, gate?: { slug: string; stage: string } | null): string {
@@ -13,6 +14,21 @@ export function writeDraft(key: string, text: string): void {
   if (readDraft(key) === text) return;
   if (text) drafts.set(key, text);
   else drafts.delete(key);
+  notifyDraft(key);
+}
+
+export function readDraftSending(key: string): boolean {
+  return sending.has(key);
+}
+
+export function writeDraftSending(key: string, value: boolean): void {
+  if (readDraftSending(key) === value) return;
+  if (value) sending.add(key);
+  else sending.delete(key);
+  notifyDraft(key);
+}
+
+function notifyDraft(key: string): void {
   for (const changed of [...(subscribers.get(key) ?? [])]) changed();
 }
 

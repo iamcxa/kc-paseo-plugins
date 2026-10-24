@@ -10,7 +10,7 @@ import { discussionWindow } from "../shared/card";
 import { type KeyPressEvent, composerHandlers } from "../shared/composer";
 import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
-import { draftKey, readDraft, seedDraft } from "../shared/drafts";
+import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
 
 const VISIBLE = 30;
@@ -91,7 +91,7 @@ function Chat({
   const [lines, setLines] = useState<Line[]>([]);
   const [working, setWorking] = useState(false);
   const key = draftKey(agentId, gate);
-  const [draft, setDraft] = useDraft(key);
+  const [draft, setDraft, sending, setSending] = useDraft(key);
   const [boxHovered, setBoxHovered] = useState(false);
   const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
@@ -282,7 +282,6 @@ function Chat({
     }
   }, [seed?.nonce]);
 
-  const [sending, setSending] = useState(false);
   const callStop = useRpc(stopAgent);
   const stop = async () => {
     const result = await callStop({ agentId });
@@ -292,7 +291,7 @@ function Chat({
     draft: () => readDraft(key),
     setDraft,
     setError,
-    sending: () => sending,
+    sending: () => readDraftSending(key),
     setSending,
     sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
     footer,
@@ -404,7 +403,7 @@ function Chat({
           onPointerLeave={() => setBoxHovered(false)}
           style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
         >
-          <Text style={styles.hint}>↑ sends to {title}</Text>
+          <Text style={styles.hint}>↑ sends to {title}{sending ? " · sending…" : ""}</Text>
           <TextInput
             style={[styles.input, hasChips ? styles.inputWithRow : null, Platform.OS === "web" ? ({ outlineStyle: "none" } as unknown as TextStyle) : null]}
             value={draft}
