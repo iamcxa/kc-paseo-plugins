@@ -1,7 +1,8 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
+import { Modal } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { PanResponder, ScrollView, Text, View } from "react-native";
+import { Keyboard, PanResponder, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { TabClosedBadge } from "./tab-closed-badge";
 import type { BoardRow } from "../shared/board";
@@ -14,11 +15,13 @@ import { decideGate } from "../shared/decide";
 import type { AwaitingGate } from "../shared/tasks";
 import { CoChat } from "./co-chat";
 import { MarkdownView } from "./markdown-view";
+import { useKeyboardHeight } from "./use-composer-padding";
 
 const UNHANDLED_MS = 10 * 60_000;
 const CHIPS = Object.keys(DECISION_CHIPS) as ChipWord[];
 const MIN_TOP = 72;
 const MIN_CHAT = 180;
+const MIN_COMPACT_CHAT = 300;
 
 interface Sent {
   at: number;
@@ -47,6 +50,9 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const [recorded, setRecorded] = useState<{ decision: string; reason: string } | null>(null);
   const [showEvidence, setShowEvidence] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const keyboardHeight = useKeyboardHeight(layout.platform, Keyboard);
+  const briefingCollapsed = layout.compact && (collapsed || keyboardHeight > 0);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [now, setNow] = useState(Date.now());
   const [claim, setClaim] = useState<DecisionRecordData | null>(null);
   const [relayed, setRelayed] = useState(false);
@@ -159,7 +165,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const [contentHeight, setContentHeight] = useState(0);
   const [dragged, setDragged] = useState<number | null>(null);
   const dragStart = useRef(0);
-  const maxTop = Math.max(MIN_TOP, areaHeight - MIN_CHAT);
+  const maxTop = Math.max(MIN_TOP, areaHeight - (layout.compact ? MIN_COMPACT_CHAT : MIN_CHAT));
   const autoTop = Math.min(contentHeight, areaHeight ? areaHeight * 0.6 : contentHeight);
   const topHeight = Math.min(maxTop, Math.max(MIN_TOP, dragged ?? autoTop));
   const topRef = useRef(topHeight);
@@ -215,7 +221,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
       summary: { color: colors.foreground, fontSize: 13, lineHeight: 19 },
       toggle: { color: colors.accent, fontSize: 13 },
-      state: { fontSize: 12 },
+      state: { fontSize: 12, lineHeight: 16 },
     };
   }, [colors, layout.compact]);
 
@@ -238,19 +244,21 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const state =
     claim && delivery
       ? {
-          sent: { color: colors.foregroundMuted, text: `Sent to the comms officer · ${claim.decision} 「${claim.words}」 · waiting for the relay, ${minutes(claim.at)} min` },
-          relayed: { color: colors.foregroundMuted, text: `Relayed to ${fo.title || "the FO"} · ${claim.decision} 「${claim.words}」 · waiting for its record` },
-          recorded: { color: colors.statusSuccess, text: `Recorded: ${recorded?.decision} — ${recorded?.reason}` },
-          "recorded-elsewhere": { color: colors.statusWarning, text: `Recorded, but the reason does not carry both ${claim.decisionId} and your words: ${recorded?.decision} — ${recorded?.reason}. Check it.` },
-          check: { color: colors.statusWarning, text: `${relayed ? "Relayed" : "Not relayed yet"} after ${minutes(claim.at)} min, nothing recorded. Check the comms officer or the FO; do not resend.` },
+          sent: { color: colors.foregroundMuted, status: "Sent to the comms officer", detail: `${claim.decision} 「${claim.words}」 · waiting for the relay, ${minutes(claim.at)} min` },
+          relayed: { color: colors.foregroundMuted, status: `Relayed to ${fo.title || "the FO"}`, detail: `${claim.decision} 「${claim.words}」 · waiting for its record` },
+          recorded: { color: colors.statusSuccess, status: `Recorded: ${recorded?.decision}`, detail: recorded?.reason ?? "" },
+          "recorded-elsewhere": { color: colors.statusWarning, status: "Recorded · check it", detail: `The reason does not carry both ${claim.decisionId} and your words: ${recorded?.decision} — ${recorded?.reason}. Check it.` },
+          check: { color: colors.statusWarning, status: "Not recorded · do not resend", detail: `${relayed ? "Relayed" : "Not relayed yet"} after ${minutes(claim.at)} min, nothing recorded. Check the comms officer or the FO.` },
         }[delivery]
       : recorded
-        ? { color: colors.statusSuccess, text: `Recorded: ${recorded.decision} — ${recorded.reason}` }
+        ? { color: colors.statusSuccess, status: `Recorded: ${recorded.decision}`, detail: recorded.reason }
         : sent && now - sent.at > UNHANDLED_MS
-          ? { color: colors.statusWarning, text: `Sent ${minutes(sent.at)} min ago; not recorded yet` }
+          ? { color: colors.statusWarning, status: "Sent · not recorded yet", detail: `Sent ${minutes(sent.at)} min ago; not recorded yet` }
           : sent
-            ? { color: colors.foregroundMuted, text: `Sent: ${sent.text}` }
+            ? { color: colors.foregroundMuted, status: "Sent", detail: sent.text }
             : null;
+  const feedbackStatus = [state?.status, problem ? "Briefing error" : ""].filter(Boolean).join(" · ");
+  const feedbackDetail = [problem, state?.detail].filter(Boolean).join("\n\n");
 
   const foLine = (
     <View style={styles.owner}>
@@ -272,22 +280,28 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           <Pressable
             colors={colors}
             accessibilityRole="button"
-            accessibilityLabel={collapsed ? "Show briefing" : "Hide briefing"}
-            accessibilityState={{ expanded: !collapsed }}
-            onPress={() => setCollapsed((value) => !value)}
+            accessibilityLabel={briefingCollapsed ? "Show briefing" : "Hide briefing"}
+            accessibilityState={{ expanded: !briefingCollapsed }}
+            onPress={() => {
+              if (keyboardHeight > 0) Keyboard.dismiss();
+              setCollapsed(!briefingCollapsed);
+            }}
           >
-            <Text style={styles.toggle}>{collapsed ? "Show briefing ▾" : "Hide briefing ▴"}</Text>
+            <Text style={styles.toggle}>{briefingCollapsed ? "Show briefing ▾" : "Hide briefing ▴"}</Text>
           </Pressable>
         ) : null}
       </View>
       {problem || state ? (
         <View style={styles.feedback}>
-          {problem ? <Text style={{ color: colors.statusDanger, fontSize: 12 }}>{problem}</Text> : null}
-          {state ? <Text style={[styles.state, { color: state.color }]}>{state.text}</Text> : null}
+          <Text style={[styles.state, { color: problem ? colors.statusDanger : state?.color }]} numberOfLines={1}>{feedbackStatus}</Text>
+          <Text style={[styles.state, { color: colors.foregroundMuted }]} numberOfLines={2}>{feedbackDetail}</Text>
+          <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="More decision feedback" onPress={() => setFeedbackOpen(true)}>
+            <Text style={styles.toggle}>More</Text>
+          </Pressable>
         </View>
       ) : null}
       <View style={{ flex: 1 }} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
-      {layout.compact && collapsed ? (
+      {briefingCollapsed ? (
         <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, minHeight: 44 }}>
           <Text style={[styles.question, { flex: 1 }]} numberOfLines={1}>{briefing?.question || gate?.title || fo.title}</Text>
         </View>
@@ -360,6 +374,12 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         />
       </View>
       </View>
+      <Modal title="Decision feedback" open={feedbackOpen} onOpenChange={setFeedbackOpen}>
+        <Modal.Content>
+          <Text style={[styles.state, { color: state?.color ?? colors.statusDanger }]} selectable>{feedbackStatus}</Text>
+          <Text style={[styles.state, { color: colors.foreground }]} selectable>{feedbackDetail}</Text>
+        </Modal.Content>
+      </Modal>
     </View>
   );
 }
