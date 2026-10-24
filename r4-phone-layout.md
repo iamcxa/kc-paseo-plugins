@@ -130,3 +130,23 @@ The composer now has correct padding on its first render when keyboard metrics a
 ### Summary
 
 Decision feedback and errors now stay above the collapsible briefing, alongside a persistent card back control and explicit Show briefing ▾ / Hide briefing ▴ controls. Exact-candidate 360×780 browser regressions, 101 npm tests and typecheck pass; Draft PR #46 contains the repair. FO re-review and Captain Android UAT remain outside this worker's completion.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: roborev:1144 first finding: on compact native layouts, when the keyboard opens the briefing auto-collapses (and restores the user's previous state when it closes), so the keyboard padding never competes with an expanded briefing for the card's height; a test with the briefing expanded, keyboard shown, composer area at least the keyboard height plus the composer
+  Commit 3d1f176 shares native keyboard height with the card and derives temporary collapse without changing the user preference. cycle-4/final/observed-states.json: expanded→show(284)→collapsed, chat 516 >= keyboard 284 + composer 171, composer bottom 496=780−284; hide restores expanded, and a separate cycle restores collapsed. Parent red.log fails this test.
+- DONE: roborev:1144 second finding: the persistent delivery feedback outside the collapsible part is bounded (status line plus at most two lines of the reason or sent text, with a "more" control to see the rest); a 360x780 screenshot with a long multiline reason showing the discussion and composer still visible
+  cycle-4/final/long-reason-360x780.png: 40-line sent reason in a 32 px/two-line preview below one status line, discussion content and composer visible. More opens the host scrollable feedback dialog; scrolling reaches line 40 and backdrop dismisses it. Combined long-reason/keyboard screenshot also passes layout assertions. Parent feedback was 1204 px and pushed composer outside the viewport.
+- DONE: npm test and typecheck pass; push to PR #46 (still Draft); a short "## Stage Report: implementation (cycle 4)" section
+  cycle-4/tests-final.log: npm test 101 passed; typecheck-final.log: exit 0. Pushed 3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e; PR #46 remains OPEN/Draft with unchanged stack base (pr46.json).
+
+### Findings
+
+- Repaired the two FO-authorized Medium findings on 9fdc6ac: native keyboard padding competed with expanded briefing height, and unbounded delivery text displaced the composer. cycle-4/red records both failures; the exact candidate passes the same actual-client geometry tests.
+- comment_ratio.py: 50 code lines, 0 comments, 0.0% <= 5%; doc_impact.py: 0 documents; OVERVIEW.md updated. number_guards.py PASS; adr_lint.py: 7 records, 0 legacy. No new dependency, ADR, migration or POC boundary. Decision logic, relay payloads and draft code unchanged (checks.json).
+- SKIPPED: roborev — package gap 5; FO runs roborev_gate.py on pushed head. Design-surface package gap 2 remains skipped. The fake Android contract uses RN web rendering, not device evidence; Captain Android UAT remains unproven and the prior Android input-mode-resize decline remains settled.
+- Evidence/reproduction/diagnostic attempts/cleanup: r4-phone-layout/evidence/cycle-4/README.md. All five isolated test PIDs stopped, browser sessions closed and homes removed. No real message/decision sent; no ready, merge, release or live-install action.
+
+### Summary
+
+Compact native cards temporarily collapse the briefing while the keyboard is open, preserving the user's previous state for keyboard close. Persistent feedback is bounded with a More dialog for the full text; compact chat keeps enough discussion/composer space, and 360×780 fake-keyboard/long-reason regressions plus 101 tests/typecheck pass. Draft PR #46 contains the repair; FO re-review and Captain Android UAT remain.

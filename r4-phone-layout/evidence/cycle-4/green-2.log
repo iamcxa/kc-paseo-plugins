@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout/evidence/cycle-4/capture.py", line 319, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout/evidence/cycle-4/capture.py", line 272, in main
+    browser("find", "role", "button", "click", "--name", "Close")
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout/evidence/cycle-4/capture.py", line 57, in browser
+    return run([args.browser, "--session", session, "--config", config, *command],
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout/evidence/cycle-4/capture.py", line 51, in run
+    raise RuntimeError(result.stderr.strip() or result.stdout.strip())
+RuntimeError: ✗ Element '[data-agent-browser-located='true']' is covered by <button.css-g5y9jx.r-1loqt21 inside div#root> at its click point, so the input would land on that element instead. Dismiss or interact with the covering element first (it is often a dialog, banner, or sticky header).
