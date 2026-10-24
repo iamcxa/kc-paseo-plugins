@@ -32,6 +32,7 @@ gates:
                 state: consumed
 started: 2026-10-24T16:03:46Z
 worktree: .worktrees/spacedock-ensign-r4-phone-layout
+pr: 46
 ---
 
 Round 4 of the POC flywheel under ADR 0008: on the Captain's Android phone, a long briefing hides the discussion, typed text disappears under the keyboard, and the composer and buttons overlap the Android navigation bar.
@@ -178,3 +179,7 @@ Compact native cards temporarily collapse the briefing while the keyboard is ope
 
 Independent phone-collapse, persistent-feedback, long-feedback and fake-keyboard checks pass at the exact candidate; Android device acceptance remains UNPROVEN. REJECTED for unqualified acceptance until FO disposes F1's noncompact-web preservation mismatch; the report recommends an explicit narrowed claim rather than silently calling the wide layout unchanged. Report/evidence only; FO retains gate/delivery decisions and Captain retains Android UAT.
 - FO disposition of validation-2 F1 (Needs decision, candidate 3d1f176c0ca1): accepted as in scope. The cycle 3 repair the FO authorized puts decision feedback and "← Bridge" outside the collapsible part "in both states" (design partner's blocking item), and that applies to every layout; at 1440×1000 the discussion is 45 px shorter than base with the composer visible and unchanged. The preservation claim is narrowed: on non-compact web, collapse and keyboard padding are absent (padding zero, no collapse control); the persistent feedback and back toolbar is shared by all layouts. No AC-1/AC-2 harm; no Captain ruling or contract protects desktop pixel parity. FO reran acceptance.sh steps 1–4 in fresh shells: all PASS (101/101; compact collapse and feedback; fake keyboard and long feedback; records).
+
+### FO declines
+
+- roborev:1145 Medium, `client/use-composer-padding.ts`, candidate 3d1f176c0ca1 — restated here under the designated heading (observer, pre-gate): it was first written below the implementation cycle 4 summary. If the Android host window uses `adjustResize`, the plugin's keyboard padding doubles the clearance. Deferred risk: the Captain's 2026-10-24 Android screenshot shows typed text hidden under the keyboard, so the host does not resize the plugin screen today. Would become Material if his Android UAT shows a large empty gap above the keyboard. Its second finding repeats roborev:1141 (declined above; evidence unchanged).
