@@ -108,3 +108,7 @@ RoboRev 1131: Material; Captain's normal Bridge send → switch/back → edit lo
 checks.json: repair comment_ratio 7 code/0 comments, exit 0 (below the 20-line enforcement threshold); full stack comment ratio 46 code/0 comments, 0.0% <= 5%; doc_impact 0 documents, OVERVIEW.md updated directly; ADR lint 7 records passed; number guards PASS, gap 3 not triggered. No ADR/migration or new POC boundary.
 
 design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package gap 5; FO reruns the pushed head against e91b9755a0c3444ebf4390f5396499ddf2070457. Loaded Codex package absolute paths are in checks.json. No new daemon/browser walk or live install; prior screenshots are not claimed at this repair candidate.
+
+### FO findings before the gate
+
+- roborev:1131 (Medium, dae9b002) and roborev:1132 (Medium, 9bc63dc4) are the same class: the composer keeps its own copy of the draft, so a delayed send that completes after a remount and the visible composer disagree. Compare-and-clear closed one sequence and exposed the next. Circuit breaker: FO stops patching individual sequences and authorizes a different approach — the draft store is the single source of truth with change notification, and each mounted composer reads it through a subscription (e.g. React `useSyncExternalStore`), so any clear or restore is visible in whatever composer is mounted.
