@@ -171,3 +171,16 @@ Option A is drawn from a running build: one `SettingsRow` after Vault with `barB
 ### Batch overlap
 
 See `### Batch overlap` under `## Design`.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, starting from evidence/candidate-disposable.diff in this task's folder: one "Use this connection" row right after Vault with Cancel and Done on the right, the disabled-Done reason in the row; Cancel and Done keep their behaviour. Leave the save bar unchanged.
+  Commit 88c49d4 on `spacedock-ensign/project-env-connection-done-cancel-one-row`, the disposable diff applied unchanged: one file, `client/settings-screen.tsx`, 33 added, 20 removed; no test, save bar or first-setup code touched. Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/44.
+- DONE: Land evidence for AC-1 and AC-2 with the clauses they name (adapt evidence/drive.sh and measure.js to your own paths), plus whole-page screenshots at desktop and 400 px, under this task's state folder.
+  `evidence/candidate-88c49d4/` (`measure-after.txt`, `measure-before.txt`, `shots/`, `typecheck-and-tests.txt`), harness copy in `evidence/harness/` (S /tmp/pe-cdc-impl, ports 6964 main and 6965 candidate; torn down). AC-1 clause: tops 605/605 (1280) and 658/658 (400), tops below Vault bottom (570, 623), bottoms 638 and 691 above bar tops 1312 and 786; main fails the shared top (668 vs 603; 721 vs 656). Falsified by a two-row layout. AC-2 clause: unchecked `sa-x` reads "Available once the connection works." and Done is aria-disabled; typed token reads "Save the token or clear the field first." and Done is disabled; after Cancel from picked, unchecked and failed states at both widths the section reads "Connected · sa-a · Dev". Falsified by removing a hint or the Cancel reset from the row. Shots: `cand-{1280,400}-{picked,unchecked,token,failed}.png`, `cand-400-page-*.png`, `main-*` for before. Same numbers as the ideation run on the disposable build.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, `design_surfaces.py check` and `doc_impact.py <base> <candidate>`, then open the Draft PR.
+  `npm run typecheck` exit 0; `npm test` 273 of 273 (`test/save-rule.test.ts` untouched; asserts the save and unsaved-count rules, fails if Save/Discard logic changes). Roborev gate exit 0: `clean on 88c49d4cc; evidence=roborev:1136`. `design_surfaces.py check`: "design surfaces presentable". `doc_impact.py 4e22d4a HEAD`: 0 documents mention what changed, so none to record. `comment_ratio.py`: 0 comment lines of 33 code lines, under the 5% maximum. Draft PR #44 opened.
+
+### Summary
+
+The option-A row is in a Draft PR, built from the approved disposable diff with no changes. Measurements on an isolated Paseo built from the candidate reproduce the ideation numbers and main still fails the shared-top clause. Limits: no hover, focus, open-menu, real 1Password account or touch run; the typed-token "No unsaved changes" save bar behaviour is unchanged (Captain kept the bar out of scope). No ADR added; no number guards apply.
