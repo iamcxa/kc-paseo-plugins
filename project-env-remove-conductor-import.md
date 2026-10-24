@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-remove-conductor-import
-pr: iamcxa/kc-paseo-plugins#41
+pr: pr-merge:41
 gates:
     version: 1
     records:
@@ -246,3 +246,8 @@ Expect `== result: 0 failing step(s)` and exit 0. Steps: (1) clone and check out
 ### Summary
 
 The candidate meets AC-1 to AC-3 and the design with no finding; verdict PASSED. The runtime check on an isolated Paseo reproduced main's row in 8 of 8 pages and its absence in 8 of 8 on the candidate, and a seeded imported-style project loads, edits and saves intact. Limits are fake 1Password, dark theme only and no CI run of the tests.
+
+## FO records
+
+External review rounds at the validation gate: Codex 1 (code review clean at 099e7b7). The local roborev gate is not an external round.
+delivery_gate.py check passed at 099e7b7 before the ask and again just before the merge; FO reran evidence/validation/acceptance.sh before the ask (0 failing steps). The Captain approved with 「准」 (d-dd665o, relayed by the Comms Officer and checked on its [User] line) and FO merged as 4e22d4a, then updated the live plugin (settings backed up, fast-forward, npm ci, reload; settings unchanged; a new qnow agent reports its 5 variables set).
