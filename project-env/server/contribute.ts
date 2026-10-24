@@ -2,7 +2,6 @@ import type { PluginServerContext } from "@getpaseo/plugin/server";
 import * as rpc from "../shared/config.ts";
 import type { Project } from "../shared/config.ts";
 import { failureLine } from "./cause.ts";
-import { importConductor } from "./conductor.ts";
 import { createNotices } from "./missing-variables-notice.ts";
 import { createSecrets, type Tools } from "./secrets.ts";
 import { openSession } from "./session-open.ts";
@@ -64,7 +63,6 @@ export function contribute(server: PluginServerContext, tools: Tools) {
     secrets.clearCache();
     return { results: (await secrets.resolveProject(project)).results };
   });
-  server.handle(rpc.importConductor, ({ root }) => importConductor(root));
 
   return () => stopWatching();
 }

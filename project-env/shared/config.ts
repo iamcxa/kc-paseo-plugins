@@ -76,22 +76,6 @@ export function addNote(label: string, existing: readonly string[]): string | nu
   return r.why === "reserved" ? "reserved; you name it" : r.why === "used" ? "name in use; you name it" : "you name it";
 }
 
-export function splitImported(names: readonly string[], existing: readonly string[]) {
-  const have = new Set(existing);
-  const add: string[] = [];
-  const skipped: { name: string; reason: string }[] = [];
-  for (const name of names) {
-    if (have.has(name)) continue;
-    const reason = reservedReason(name);
-    if (reason) skipped.push({ name, reason });
-    else {
-      add.push(name);
-      have.add(name);
-    }
-  }
-  return { add, skipped };
-}
-
 export const project = z.object({
   root: z.string().min(1),
   serviceAccount: z.string().default(""),
@@ -165,12 +149,6 @@ export const testProject = defineRpc({
   output: z.object({
     results: z.array(z.object({ name: z.string(), ok: z.boolean(), cause: cause.optional() })),
   }),
-});
-
-export const importConductor = defineRpc({
-  name: "project.import-conductor",
-  input: z.object({ root: z.string().min(1) }),
-  output: z.object({ names: z.array(z.string()), prompt: z.string() }),
 });
 
 export function unsavedCount(saved: Project, draft: Project): number {

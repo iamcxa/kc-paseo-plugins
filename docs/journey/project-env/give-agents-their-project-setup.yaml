@@ -119,7 +119,7 @@ steps:
         card: "Add or remove a variable next to its field"
         release: r1.5
         status: gap
-        evidence: newName
+        evidence: nameFromLabel
         questions:
           - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1.5 puts each remove beside its field."}
           - {id: "q2", ask: "Which variable names are forbidden?", status: "answered", answer: "The 16 reserved names in isReservedName; session open skips them since release 1. Gap: the Add button checks only the name pattern and duplicates; release 1.5 refuses a reserved name on Add, using isReservedName.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md"}
@@ -129,8 +129,7 @@ steps:
           - {id: "q6", ask: "After a variable is removed, what value does the next agent get for that name?", status: "answered", answer: "Whatever the daemon passes: session open blanks only mapped names, so a same-named daemon value returns; open agents keep the value they had."}
           - {id: "q7", ask: "Should the project's Remove, which saves at once without asking, change once each variable has its own Remove?", status: "deferred", because: "Settled with the variable-row layout in project-env-variable-row-edit ideation (Captain 2026-10-21: 「可以」)."}
           - {id: "q8", ask: "What reference does a new variable get before a field is picked?", status: "answered", answer: "A guess, op://<vault>/<name>/credential, with VAULT when none is chosen; Test fails it as missing-field, or outside-vault with no vault, unless such an item exists."}
-          - {id: "q9", ask: "How are names that differ only in case, or duplicates in saved settings, handled?", status: "answered", answer: "Names are case-sensitive, like the environment. Add and import refuse exact duplicates only; the settings schema allows them, and then edits and Remove act on both and the later one wins at session open."}
-      - {id: import-conductor-names, card: "Bring variable names over from Conductor", release: r2, status: exists, evidence: importConductor}
+          - {id: "q9", ask: "How are names that differ only in case, or duplicates in saved settings, handled?", status: "answered", answer: "Names are case-sensitive, like the environment. Add refuses exact duplicates only; the settings schema allows them, and then edits and Remove act on both and the later one wins at session open."}
 
   - id: standing-instructions
     card: "Sets standing instructions for new agents"
@@ -143,7 +142,6 @@ steps:
         evidence: promptStyle
         questions:
           - {id: "q1", ask: "Release 2 features already exist in code; does release 1 hide them?", status: "answered", answer: "No: they stay for Kent's own use and are outside release 1 acceptance."}
-      - {id: import-conductor-prompt, card: "Bring the instructions over from Conductor", release: r2, status: exists, evidence: importConductor}
 
   - id: check
     card: "Checks it works before relying on it"
@@ -249,7 +247,7 @@ releases:
     ruling:
       - "「我短期要的是讓 recce team 也可用」 — Captain"
     slice_because: "Each story is a step a teammate new to the plugin meets and Kent's own setup already covers, and one teammate-Mac run accepts them together; the three 1Password stories carry no plugin code."
-  - {id: r2, name: "RELEASE 2 — Standing instructions and Conductor carry-over", goal: "New agents follow the repository's standing instructions, and a Conductor user brings names and instructions over."}
+  - {id: r2, name: "RELEASE 2 — Standing instructions", goal: "New agents follow the repository's standing instructions."}
   - {id: r3, name: "RELEASE 3 — Keep it working", goal: "Changed secrets reach agents promptly, unsaved edits are warned, and a teammate shares the setup without asking Kent."}
 
 rules:

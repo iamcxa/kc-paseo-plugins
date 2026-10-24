@@ -6,7 +6,6 @@ import {
   project,
   refusal,
   reservedReason,
-  splitImported,
 } from "../shared/config.ts";
 
 const ADR_0004_NAMES = [
@@ -51,15 +50,6 @@ describe("Add refuses a reserved name and says why", () => {
     assert.match(refusal("1A", []) ?? "", /not starting with a digit/);
     assert.match(refusal("A-B", []) ?? "", /letters, digits and underscores/);
     assert.equal(refusal("", ["A"]), null);
-  });
-});
-
-describe("Import", () => {
-  it("skips and names reserved names, skips what the project has, adds the rest once", () => {
-    const { add, skipped } = splitImported(["PATH", "X", "LD_PRELOAD", "Y", "X"], ["Y"]);
-    assert.deepEqual(add, ["X"]);
-    assert.deepEqual(skipped.map((s) => s.name), ["PATH", "LD_PRELOAD"]);
-    assert.ok(skipped.every((s) => s.reason.length > 0));
   });
 });
 
