@@ -10,7 +10,8 @@ import { discussionWindow } from "../shared/card";
 import { type KeyPressEvent, composerHandlers } from "../shared/composer";
 import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
-import { draftKey, readDraft, seedDraft, writeDraft } from "../shared/drafts";
+import { draftKey, readDraft, seedDraft } from "../shared/drafts";
+import { useDraft } from "./use-draft";
 
 const VISIBLE = 30;
 
@@ -90,11 +91,7 @@ function Chat({
   const [lines, setLines] = useState<Line[]>([]);
   const [working, setWorking] = useState(false);
   const key = draftKey(agentId, gate);
-  const [draft, setDraftState] = useState(() => readDraft(key));
-  const setDraft = (text: string) => {
-    writeDraft(key, text);
-    setDraftState(text);
-  };
+  const [draft, setDraft] = useDraft(key);
   const [boxHovered, setBoxHovered] = useState(false);
   const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
@@ -280,7 +277,7 @@ function Chat({
 
   useEffect(() => {
     if (seed) {
-      setDraft(seedDraft(key, seed.text));
+      seedDraft(key, seed.text);
       onSeeded?.();
     }
   }, [seed?.nonce]);
