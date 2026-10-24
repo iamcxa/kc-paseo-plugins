@@ -4,15 +4,20 @@ import type { Keyboard } from "react-native";
 
 export function useComposerPadding(
   layout: PluginScreenProps["layout"],
-  keyboard: { addListener(...args: Parameters<typeof Keyboard.addListener>): { remove(): void } },
+  keyboard: {
+    addListener(...args: Parameters<typeof Keyboard.addListener>): { remove(): void };
+    metrics?: typeof Keyboard.metrics;
+  },
 ) {
-  const [height, setHeight] = useState(0);
+  const readHeight = () => layout.platform === "web" ? 0 : keyboard.metrics?.()?.height ?? 0;
+  const [height, setHeight] = useState(readHeight);
   useEffect(() => {
-    setHeight(0);
+    setHeight(readHeight());
     if (layout.platform === "web") return;
     const show = keyboard.addListener("keyboardDidShow", (event) => setHeight(event.endCoordinates.height));
     const hide = keyboard.addListener("keyboardDidHide", () => setHeight(0));
-    return () => { show.remove(); hide.remove(); };
+    const frame = keyboard.addListener("keyboardDidChangeFrame", (event) => setHeight(event.endCoordinates.height));
+    return () => { show.remove(); hide.remove(); frame.remove(); };
   }, [layout.platform, keyboard]);
 
   if (layout.platform === "web") return 0;
