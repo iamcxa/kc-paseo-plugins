@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 3 — a reply shows where it goes, and an unfinished draft survives switching items or tabs
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
