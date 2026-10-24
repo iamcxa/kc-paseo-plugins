@@ -157,3 +157,57 @@ ADR 0007 is on the branch at 94ec116de, lint, number guards and roborev passed b
 ### FO completion of implementation (2026-10-25)
 
 The implementation worker was stopped by the host's auto-mode classifier ("Instruction Poisoning") on the lint runs and one edit. FO did not rerun them until the Captain gave explicit permission in the FO chat: 「我現在用手機不方便，所以這次准你跑」. FO then applied the one-sentence fix (the terms "were proposed by the dev2 FO and the Captain approved them in Words 4"), merged main b20a949, and ran adr_lint (exit 0, 8 files), number_guards (PASS) and roborev (roborev:1143, one Medium: the reload route never fetches). With the Captain's 「准補」 FO added the fetch-and-confirm steps to the reload route; roborev then read `clean on 94ec116de; evidence=roborev:1146`. Draft PR iamcxa/kc-paseo-plugins#47. The Captain merges it himself.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 94ec116def3c3fa3abd6f1ede60eacac80816b4d (PR iamcxa/kc-paseo-plugins#47) against AC-1: the diff since main b20a949 changes only docs/adr/0007-*.md; the record names the granted classes, the classes kept with the Captain, the exact docs/dev2/README.md sentence it excepts (verbatim), the recording command, per-round records, expiry, demotion, revocation, the provisional clause and the five-step reload route (backup, fetch and confirm the merge commit, fast-forward and confirm HEAD, npm ci, reload); the Captain's words are quoted verbatim against the task file; nothing in the record makes the grant effective before the Captain merges it; give a verdict.
+  Verdict: PASSED (recommended); every named element is present in `git archive` of 94ec116 (ADR lines 44-113), `git diff --name-only b20a949 94ec116` lists only the one ADR file, README sentence found once in the candidate README with whitespace folded, all five Captain quotes found verbatim in this task file; effect-on-merge is ADR lines 13-15 and the Recording command's `--conn-source "docs/adr/0007 on main"`. Findings F1 to F3 below, none Material.
+- DONE: Run `python3 .../0.29.0/scripts/adr_lint.py docs/adr --since 60799d9 --require 7` and `python3 .../0.29.0/scripts/number_guards.py check --repo <checkout of the candidate> --workflow-dir /Users/kent/Project/kc-paseo-plugins/docs/dev2 --task docs/dev2/.spacedock-state/project-env-fo-grant-adr.md`, recording exit codes, and write the minimal acceptance script FO will rerun.
+  In a detached clone of 94ec116 (/tmp/val-0007-clone): adr_lint exit 0 ("8 ADR file(s) checked, 0 legacy"), number_guards exit 0 ("PASS: no findings"; base 35ee0a6, merge-base b20a949); the same two with the loaded skill's 0.28.0 package also exit 0. Negative control: the clone minus the `**Recommended:**` line gives adr_lint exit 1, so the run tests the record. Also exit 0: comment_ratio (0 code, 0 comment lines), dispatch_records (3 complete), design_surfaces, doc_impact (0 documents listed). Acceptance script below ran clean in a fresh bash.
+- DONE: Record every unverified obligation.
+  Listed under "Unverified" below.
+
+### Findings
+
+- F1 Deferred risk: the ADR says it excepts "exactly one sentence" of docs/dev2/README.md, but README "Delivery authority" also says "Approval of a validation gate is not permission to push, create or merge a PR, except as follows" and "Preserve manual merge authority". Class 2 (FO merges after an FO-approved validation gate) departs from both and the record does not name them. Harm is unobserved; it becomes Material if an FO or reviewer refuses class 2 citing those lines, or an observer reports the merge as a README violation.
+- F2 Polish: Words 4 says the question "named ... the reload route", but the question the Captain answered (review/ideation/briefing-1/index.json) named a four-step route; the fetch-and-confirm steps (route steps 2 and the confirm half of 3) rest on 「准補」, which appears only in the FO implementation report, not as a verbatim quote with its question in the ADR or the task's Captain-facing sections. Additive and safer, so not a loss; add as Words 5 if the Captain wants every approved term traceable.
+- F3 Polish: Words 4 「准，授權你合併」 is quoted without saying what it authorizes. The dispatch record for implementation-1 says it authorizes FO to merge this task's PR; the implementation report says "The Captain merges it himself". The ADR is neutral (effective when the PR merges, whoever merges), so AC-1 is unaffected, but FO should settle who merges PR #47 before the gate.
+
+### Unverified
+
+- Ledger numbers in Context (72 rows, 23 validation resolutions, 0 Override, 2026-10-20 to 2026-10-23) were not re-derived; the ledger has grown since 2026-10-23 and I read only the current `--summary`.
+- Reload route steps were not executed (they touch the live plugin and ~/.paseo, forbidden here); that `paseo plugin reload paseo-project-env`, the settings path and `npm ci` in `project-env` work as written is unproven.
+- `delivery_gate.py check`, `--match-head-commit` merge and "required checks green" were not run; PR #47 shows only GitGuardian SUCCESS, is Draft, mergeable UNKNOWN. FO owns those before any merge.
+- roborev:1146 ("clean on 94ec116de") and FO's earlier lint runs were read, not rerun by me; my lint and number_guards runs are independent.
+- 「准補」 and the Captain's 「我現在用手機不方便，所以這次准你跑」 were not seen at source; only FO's report quotes them.
+- Candidate does not contain main 35ee0a6 (#48, after b20a949); the number_guards run saw it as base and passed. Package mismatch: dispatch named 0.29.0, the loaded skill is 0.28.0; both pass.
+- Whether expiry "round 15" counts from merge of this PR is implied by "a round is one task whose validation gate the FO decided under this record", not stated.
+
+### Acceptance script (Captain or FO, fresh bash, under 2 minutes, no secret)
+
+Save as a file and run `bash <file>`:
+
+    set -e
+    R=/Users/kent/Project/kc-paseo-plugins
+    P=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0
+    C=94ec116def3c3fa3abd6f1ede60eacac80816b4d
+    D=$(mktemp -d); git clone -q "$R" "$D/c"; git -C "$D/c" checkout -q --detach $C
+    echo "STEP 1"; git -C "$D/c" diff --name-only b20a949 $C
+    echo "STEP 2"; (cd "$D/c" && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9 --require 7; echo "exit=$?")
+    echo "STEP 3"; (cd "$R" && python3 $P/scripts/number_guards.py check --repo "$D/c" --workflow-dir "$R/docs/dev2" --task docs/dev2/.spacedock-state/project-env-fo-grant-adr.md; echo "exit=$?")
+    echo "STEP 4"; python3 -I - "$D/c" "$R/docs/dev2/.spacedock-state/project-env-fo-grant-adr.md" <<'PY'
+    import sys,re,glob
+    c,task=sys.argv[1:]
+    adr=open(glob.glob(c+'/docs/adr/0007-*.md')[0]).read(); t=open(task).read(); rd=open(c+'/docs/dev2/README.md').read()
+    f=lambda s:re.sub(r'\s+',' ',s)
+    print('README sentence verbatim in README:', f(re.search(r'^> (.+)$',adr,re.M).group(1)) in f(rd))
+    for q in re.findall(r'「[^」]*」',adr):
+        if '<' not in q: print('quote in task file:', q in t, q[:24])
+    PY
+    echo "STEP 5"; grep -nE '^   [1-5]\. |effect when|Revocation\.|Provisional\.|Recording command\.|Per-round records' "$D/c"/docs/adr/0007-*.md
+
+Expected: STEP 1 prints exactly `docs/adr/0007-the-project-env-fo-decides-by-record-the-decisions-the-captain-did-not-keep.md`; STEP 2 prints `8 ADR file(s) checked, 0 legacy` and `exit=0`; STEP 3 prints `PASS: no findings` and `exit=0`; STEP 4 prints `True` for the README line and for each of 5 quotes; STEP 5 prints the `effect when` line (14), five numbered reload steps (63-67), and the Recording command, Per-round records, Revocation and Provisional headings. Not covered: the Captain's merge, the effect after merge, the reload route working, the ledger numbers, F1 to F3.
+
+### Summary
+
+Recommend PASSED: the candidate changes only the ADR, lint and number guards pass (exit 0, negative control exit 1), every AC-1 element and the five-step reload route are present, the quotes are verbatim, and nothing makes the grant effective before the PR merges. No Material or Needs decision finding; F1 (second README rule not named) is a deferred risk, F2 and F3 are polish. Nothing in the repository was edited.
