@@ -61,9 +61,10 @@ exception, expiry, demotion and revocation terms were proposed by the dev2 FO an
    edits no live settings file; any other reload route returns to the Captain.
    Reload route, in order:
    1. back up `~/.paseo/plugin-settings/paseo-project-env/projects.json`;
-   2. `git merge --ff-only origin/main` on the clean main checkout;
-   3. `npm ci` in `project-env`;
-   4. `paseo plugin reload paseo-project-env`;
+   2. `git fetch origin`, then confirm `origin/main` contains the pull request's merge commit;
+   3. `git merge --ff-only origin/main` on the clean main checkout, then confirm `HEAD` is that commit or a descendant of it;
+   4. `npm ci` in `project-env`;
+   5. `paseo plugin reload paseo-project-env`;
 3. dispositions of review findings within the task's approved Scope: fix, defer to a backlog
    task that names its trigger, or decline with the reason recorded. Never a Material
    finding or a reviewer P1 (fixed and revalidated, or waived by the Captain), and never a
