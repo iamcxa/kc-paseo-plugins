@@ -72,3 +72,15 @@ Per-round section format:
 - Cost: Captain messages this round: 2 (「繼續」, option answers); worker tokens not measured.
 - Next-round candidates: reply clear and safe (reply target visible; draft kept across items/tabs) — Captain's choice; board tells the truth (loading/error states; question detection on any tab) — Captain's most bothersome; confirm the phone-tab case — FO (unticked); two-line name limit, drop row age before title — design partner; 320 px two-line rows — roborev decline; briefing language; virtual office.
 - Captain's phone feedback (2026-10-24, with an Android screenshot of a gate decision card): 「還有幾個手機問題，在手機上簡報面板應該要可以整個收合，不然比較長的健保會遮蔽到對話顯示空間，而且目前沒有偵測鍵盤開啟時ui要自動調整，導致看不到打字內容，按照截圖也可以發現，整個composer與按鈕太靠近底部，實際上有點蓋到android的底部的操作bar了」. Next-round candidates (phone): the briefing panel fully collapsible on phone; layout adjusts when the keyboard opens so typed text stays visible; composer and buttons clear the Android navigation bar (safe-area inset); with the earlier 320 px two-line rows and the phone-tab case.
+
+## Round 3 — 2026-10-24 — r3-reply-clear-and-safe (PR #42, stack layer 2 on #40, unmerged; GitHub stack #43)
+- Gates: backlog and validation by agent:first-officer under ADR 0008, grant quoted; push grant quoted in every pushing dispatch (round 2 repair held).
+- Team before the gate: picky user B NOT SATISFIED once (double send after back-and-reopen during a slow send — blocks), SATISFIED after repair; design partner and picky user A SATISFIED; validation-1 canceled by FO (head changed); validation-2 PASSED on 8d9a68b9; FO reran the acceptance steps, all PASS. Roborev by FO: 1131 and 1132 (same class, Medium) — circuit breaker after the second: FO changed approach to a single-source draft store with subscriptions; 1133 and 1134 clean.
+- Observer (pre-gate): 1 violation, package gap 2 only. No recurrence of round 2's repaired classes (push grant quoted; id present).
+- Delivery: PR #42 ready, "[flywheel, do not merge]", `gh stack link 40 42` → stack #43; Codex summary:6378729830 clean on 8d9a68b9 (External review rounds: 1); live worktree moved to 8d9a68b9 and plugin reloaded (Plugin ready).
+- UAT (Captain, 2026-10-24): OK — option answers: what he wanted 「看得出回覆送給誰, 草稿不會不見, 不會重複送出, 預填不蓋掉草稿」 (all four ticked); most bothersome 「手機版排版」; next 「手機版 (Recommended)」.
+- Overrides: none.
+- UAT caught, validation missed: none.
+- Cost: Captain messages this round: 1 (option answers); worker tokens not measured.
+- Next-round candidates: phone layout — collapsible briefing panel, keyboard avoidance, clear the Android navigation bar, 320 px two-line rows, phone-tab case (Captain's choice); board tells the truth; design-partner laters (↑ / Enter wording, "existing draft kept" notice, two-line names, drop row age before title); briefing language; virtual office.
+- Package: kc-dev-flow-2 0.29.0 landed on main via #45 (README only); stack unaffected (no spacedock-bridge files).
