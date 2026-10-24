@@ -110,3 +110,23 @@ The composer now has correct padding on its first render when keyboard metrics a
 
 - Pre-gate team on cd139fdea563: design partner NOT SATISFIED — blocks: delivery status, "Recorded" and "do not resend" warnings render only inside the expanded briefing, so collapsing hides decision feedback; annoys: "← Bridge" disappears when collapsed; cosmetic: "Expand" does not say what is hidden. Picky users A and B NOT SATISFIED — annoys: "← Bridge" hidden when collapsed; "blocks acceptance": no Android keyboard or navigation-bar evidence. FO authorizes a repair of the first three (feedback and back control outside the collapsible part; a "Show briefing ▾ / Hide briefing ▴" label). The device evidence is by design the Captain's Android UAT (AC-2: "unproven until the Captain's UAT"); no worker can produce it, so it is not a repair item and the recheck asks the picky users to judge the plugin-side work with that limit stated.
 - Validation-1 on cd139fdea563 was canceled by the FO before it reported because the head changes; its partial evidence folder was removed. An unrelated isolated daemon seen afterwards belongs to the project-env FO (/private/tmp/pe-vcr/…) and was left alone.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Decision feedback stays visible when the briefing is collapsed: delivery status, "Recorded", unresolved-delivery and "do not resend" warnings, and errors render outside the collapsible part, in both states
+  Commit 9fdc6ac moves feedback/errors outside the briefing branch. cycle-3/final/observed-states.json exercises sent, unresolved/do-not-resend, recorded, recording mismatch and error visibility in both states; red.log reproduces hidden feedback at cd139fd before repair.
+- DONE: The card's "← Bridge" back control stays visible when collapsed; the collapse control reads "Show briefing ▾" when collapsed and "Hide briefing ▴" when expanded; isolated screenshots at 360x780 of collapsed (with a delivery state shown) and expanded
+  cycle-3/final contains visually inspected collapsed-warning-360x780.png and expanded-warning-360x780.png, plus recorded/error screenshots. Browser checks confirm Show briefing ▾ / Hide briefing ▴, visible ← Bridge in both states, and its working return to the board.
+- DONE: npm test and typecheck pass; push to PR #46 (still Draft); a short "## Stage Report: implementation (cycle 3)" section
+  cycle-3/tests.log: npm test 101 passed; typecheck.log: exit 0. Pushed 9fdc6ac6923aa594f2cd0df67b501abaeca912ff; PR #46 remains OPEN/Draft with unchanged stack base (pr46.json).
+
+### Findings
+
+- Repaired the three FO-authorized findings: collapsing hid delivery/recorded/do-not-resend feedback, hid the card back control and left an unclear Expand label. red/observed-states.json records all three failing observations; the same real-plugin browser walk passes at the candidate.
+- comment_ratio.py: 35 code lines, 0 comments, 0.0% <= 5%; doc_impact.py: 0 documents; OVERVIEW.md updated for feedback/back/current labels. number_guards.py PASS; adr_lint.py: 7 records, 0 legacy. No new imports, dependencies, ADRs, migrations or POC boundaries; keyboard/bottom-padding code unchanged (checks.json).
+- SKIPPED: roborev — package gap 5; FO runs roborev_gate.py on pushed head. Design-surface package gap 2 remains skipped; no declarations invented. Captain Android UAT remains unproven; the FO decline on Android input-mode resizing is unchanged and fake frame events do not establish Android behavior.
+- Evidence/reproduction/cleanup: r4-phone-layout/evidence/cycle-3/README.md. All isolated test PIDs stopped, browser sessions closed and proof homes removed; no real message/decision sent. No ready, merge, release or live-install action.
+
+### Summary
+
+Decision feedback and errors now stay above the collapsible briefing, alongside a persistent card back control and explicit Show briefing ▾ / Hide briefing ▴ controls. Exact-candidate 360×780 browser regressions, 101 npm tests and typecheck pass; Draft PR #46 contains the repair. FO re-review and Captain Android UAT remain outside this worker's completion.

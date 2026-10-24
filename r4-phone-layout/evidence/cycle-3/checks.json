@@ -1,0 +1,55 @@
+{
+  "comment_ratio": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/comment_ratio.py",
+      "cd139fdea5636bd30a316be56c436b8aee58f72b",
+      "HEAD",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ],
+    "exit_code": 0,
+    "stdout": "code lines 35, comment lines 0, 0.0%\nmaximum 5% (package default) met\n",
+    "stderr": ""
+  },
+  "doc_impact": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/doc_impact.py",
+      "cd139fdea5636bd30a316be56c436b8aee58f72b",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n",
+    "stderr": ""
+  },
+  "number_guards": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout.md"
+    ],
+    "exit_code": 0,
+    "stdout": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase b20a94968029 head 9fdc6ac6923a merge-base 78ce6c1cbcf1\n",
+    "stderr": ""
+  },
+  "adr_lint": {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "cd139fdea5636bd30a316be56c436b8aee58f72b"
+    ],
+    "exit_code": 0,
+    "stdout": "7 ADR file(s) checked, 0 legacy\n",
+    "stderr": ""
+  },
+  "base": "cd139fdea5636bd30a316be56c436b8aee58f72b",
+  "candidate": "9fdc6ac6923aa594f2cd0df67b501abaeca912ff",
+  "keyboard_unchanged": true
+}

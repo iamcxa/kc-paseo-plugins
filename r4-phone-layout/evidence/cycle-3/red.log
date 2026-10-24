@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout/evidence/cycle-3/capture.py", line 329, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r4-phone-layout/evidence/cycle-3/capture.py", line 248, in main
+    assert observed['collapsed_warning_visible'], "Collapsing hides the unresolved-delivery / do-not-resend warning"
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Collapsing hides the unresolved-delivery / do-not-resend warning
