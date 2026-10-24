@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-change-repoints-refs:ideation:attempt-1:revision-1",
+  "question": "Approve this vault re-point design and its acceptance criteria into implementation?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-change-repoints-refs:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/4503810bc5daafd5eb99ce1c690f12c9527fadfb/project-env-vault-change-repoints-refs.md",
+      "rev": "sha256:ae6c5f4d33e9aeb40b88d81ff861acfea56d41eca50c3c65d052d5016a5329db",
+      "mediaType": "text/markdown",
+      "summary": "Spiked on main b20a949 (about 62 production lines, 12-row re-point test table, 287/287 tests): after another vault is picked, a line says how many variables point at the old vault and that Done points them at the new one; Done re-points exactly those, Cancel none; while Change is open pills are judged against the old vault, afterwards against the new; a reference outside the saved vault shows a red border and an outside line before Test; the focused pill gets a 2 px accent ring. Runtime: Done then Save writes op://agent-dev/... and Test reads All 3 set, where main writes op://Dev/... and Test reads 3 failed. ADR 0005 amendment drafted. Limit: at 400 x 900 with a two-vault token the one-row Cancel/Done ends 3.5 px under the sticky bar (the page scrolls; R3a, the A5 choice), 11.5 px clear with one vault. design_surfaces: 5 findings, 1 fixed, 4 declined and upheld, 0 decisions."
+    }
+  ]
+}

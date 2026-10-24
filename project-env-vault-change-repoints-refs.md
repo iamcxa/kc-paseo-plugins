@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-vault-change-repoints-refs:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-vault-change-repoints-refs-ideation-1
+              briefing:
+                id: briefing:project-env-vault-change-repoints-refs:ideation:attempt-1:revision-1
+                digest: sha256:4249266e09cbcf147d91a092d7f8e46732fe9f1af260f5c4e5ba171e7e07a38b
+                room-ref: ./project-env-vault-change-repoints-refs/review/ideation/briefing-1
 started: 2026-10-24T15:58:32Z
 ---
 
