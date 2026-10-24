@@ -60,6 +60,22 @@ gates:
                 by: agent:first-officer
                 at: "2026-10-24T04:06:24.177022Z"
                 reason: 'Re-prepare: the summary lacked the declined items delivery_gate.py requires.'
+            - id: gate-attempt:project-env-connection-done-cancel-one-row-validation-2
+              briefing:
+                id: briefing:project-env-connection-done-cancel-one-row:validation:attempt-2:revision-1
+                digest: sha256:7ca8be0fa2458feb817144211715f022a6eca5ea8d83a69f05367da10f5cc1d5
+                room-ref: ./project-env-connection-done-cancel-one-row/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-connection-done-cancel-one-row:validation:2
+                briefing: briefing:project-env-connection-done-cancel-one-row:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-24T15:57:18.095352Z"
+                decision: approve
+                reason: 'Captain 2026-10-24, in the FO chat: 「准合併」. Asked: approve delivery of PR #44 at 88c49d4 (squash merge after delivery_gate.py check, worktree removal, live plugin update).'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-24T01:18:38Z
 ---
 
