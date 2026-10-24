@@ -155,3 +155,29 @@ Evidence/rerun scope: r3-reply-clear-and-safe/evidence/cycle-4/README.md. The re
 checks.json: repair comment ratio 23 code/0 comments, stack 81/0, both 0.0% <= 5%; doc_impact 0 documents, OVERVIEW.md updated directly; ADR lint 7 records PASS; number guards PASS, gap 3 not triggered. No new dependency, ADR, migration or POC boundary; draft/pending state stays memory-only.
 
 design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package gap 5; FO reruns pushed head against e91b9755a0c3444ebf4390f5396499ddf2070457. Decision chip code, decideGate, claim/release and relay text unchanged. PR remains Draft; no ready, merge, release, live-install or protected-branch action. Workflow frontmatter/state was not advanced by this repair.
+
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1 and AC-2 for PR #42 at the candidate head, from your own npm ci / typecheck / test run and your own isolated-daemon walk with screenshots (wide: gate A typed, back, gate B empty, back to A restored; compact: comms officer and gate drafts survive tab switches; labels name the FO for ↑ and the comms officer for the decision row; the seed keeps a non-empty draft), including one delayed-send sequence and back-and-reopen during a slow send (no second send possible)
+  PASSED at 8d9a68b92389aab55c96595245dc85e887251dd5: validation-2 npm ci/typecheck exit 0, tests-unsandboxed.log 98/98; walk-1 screenshots and observed-states.json prove the required screen sequence plus pending reopen/one-send, delayed clear, newer-edit retention and refusal/re-enable; losing key isolation, notifications, compare-and-clear or shared pending state fails these assertions.
+- DONE: A minimal acceptance script the FO can rerun as written in a fresh shell, with each step's expected output
+  r3-reply-clear-and-safe/evidence/validation-2/README.md gives four exact steps, expected outputs, explicit machine prerequisites and a new-directory-only isolated walk; FO rerun and gate decision remain pending.
+- DONE: Material findings and limits, including that decision logic, relay text and claim/release are unchanged, that drafts never leave memory (POC boundary), and that no draft shows under another gate or FO
+  No material finding; scope.json plus inspected diff confirm unchanged decision/relay/claim/release behavior, keyed store tests assert other-FO/gate/stage isolation, and the browser proves gate separation. Product drafts stay in memory and are lost on reload; no boundary crossing found.
+
+### Summary
+
+Recommend PASSED for both accepted criteria on exact PR #42 head 8d9a68b92389aab55c96595245dc85e887251dd5, base e91b9755a0c3444ebf4390f5396499ddf2070457. Independent tests and visually inspected screenshots cover draft retention, recipient labels and slow-send remount safety; candidate and protected worktrees remain unchanged and clean.
+
+### Findings
+
+Evidence: r3-reply-clear-and-safe/evidence/validation-2/README.md. The browser used candidate client/shared bytes in an isolated Paseo 0.12.0 daemon, synthetic agents/gates and browser-memory interception of exactly three sends; no agent message or decision was delivered. Other-FO/stage isolation is unit/mounted proof; the browser fixture covers one FO and two gates. No live installation, real transport, native/mobile client, reload walk or Captain acceptance is claimed.
+
+Goal sufficiency: both accepted criteria pass at POC depth. Minimal necessity: reviewed existing baseline-1 draft-loss evidence and cycle-2/3/4 negative controls justify store isolation, compare-and-clear, subscriptions and shared pending state; these older controls are reused evidence, not claimed as new runs. Labels and seed consumption satisfy the accepted recipient/prefill behavior; four dev-only dependencies support mounted regression proof.
+
+checks.json: comment ratio 81 code/0 comments (0.0% <= 5%), doc impact zero references, OVERVIEW.md agrees with observed behavior, seven ADR records checked/zero legacy, number guards PASS, six dispatch records complete. ADR command: `python3 /Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since e91b9755a0c3444ebf4390f5396499ddf2070457`, exit 0 from the candidate root. No ADR/migration added or reserved.
+
+Design-surfaces: SKIPPED, known package gap 2, reproduced missing POC seed markers (exit 1). Number-guards R4 gap 3 was not triggered; check passed. RoboRev: SKIPPED, known package gap 5; FO owns its run. All package checks used the loaded Codex 0.28.0 absolute root per stage-definition precedence. Initial npm test was blocked by sandbox IPC before tests ran; exact npm test with IPC access passed 98/98.
+
+cleanup-final.json verifies captured PID absent, ports 7141/7142 closed, temporary HOME/profile removed, candidate/main/flywheel-live clean at their original heads. pr42.json confirms OPEN Draft with the unchanged stack base and exact candidate. No candidate commit, PR edit, merge or live-daemon mutation; FO rerun and delivery gate remain open.

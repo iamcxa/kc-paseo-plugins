@@ -1,0 +1,11 @@
+{
+  "unchanged": {
+    "spacedock-bridge/server": true,
+    "spacedock-bridge/shared/relay.ts": true,
+    "spacedock-bridge/shared/decide.ts": true,
+    "spacedock-bridge/shared/decisions.ts": true
+  },
+  "client_and_shared_copy": "capture.py copies candidate without edits; only server/fleet-mcp.ts port changed in the disposable fixture",
+  "transport": "send_agent_message_request held and settled in browser memory only; no send request passed to server",
+  "package": "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0"
+}
