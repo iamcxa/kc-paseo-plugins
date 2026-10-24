@@ -16,6 +16,20 @@ gates:
                 id: briefing:r3-reply-clear-and-safe:backlog:attempt-1:revision-1
                 digest: sha256:571e6bcca15d79dade79898c2bb0fa42af0f1d23d7972fb3edd31183533f9247
                 room-ref: ./r3-reply-clear-and-safe/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r3-reply-clear-and-safe:backlog:1
+                briefing: briefing:r3-reply-clear-and-safe:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-24T01:23:15.180261Z"
+                decision: approve
+                reason: 'Flywheel round 3 backlog gate under ADR 0008: theme chosen by the Captain in round 2 UAT; scope from chief-engineer triage; memory-only drafts stay inside the POC boundary; no security, permission, relay/recording, release, outward or merge change.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 3 of the POC flywheel under ADR 0008: the Captain chose 「回覆清楚又安全」 — the composer should say where a reply goes, and a half-typed reply should not vanish when he opens another item, goes back, or switches tabs.
