@@ -46,6 +46,20 @@ gates:
                 id: briefing:fleet-hides-closed-fos:validation:attempt-1:revision-1
                 digest: sha256:ad2570e98d19bbec444e7a727b25fabc33cb0d12cfbbd5b2b125483c14041531
                 room-ref: ./fleet-hides-closed-fos/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:fleet-hides-closed-fos:validation:1
+                briefing: briefing:fleet-hides-closed-fos:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-24T01:11:10.544041Z"
+                decision: approve
+                reason: 'Flywheel round 2 validation gate under ADR 0008: team satisfied on e91b9755 (validation-2 PASSED, design partner and both picky users SATISFIED), FO acceptance rerun all PASS, observer violations repaired and the Captain ruled 「繼續」 on the stop check; no merge.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T14:58:54Z
 worktree: .worktrees/spacedock-ensign-fleet-hides-closed-fos
 id: fleet-hides-closed-fos
