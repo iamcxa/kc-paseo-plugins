@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-24T01:23:34Z
+worktree: .worktrees/spacedock-ensign-r3-reply-clear-and-safe
 ---
 
 Round 3 of the POC flywheel under ADR 0008: the Captain chose 「回覆清楚又安全」 — the composer should say where a reply goes, and a half-typed reply should not vanish when he opens another item, goes back, or switches tabs.
