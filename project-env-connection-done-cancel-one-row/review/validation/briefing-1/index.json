@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-connection-done-cancel-one-row:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#44 at head 88c49d4ccccc02845d868fc8761e3e5156ecde2e? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, removing its clean pushed worktree, and updating your live plugin (back up the settings file, git merge --ff-only, npm ci, paseo plugin reload paseo-project-env), unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-connection-done-cancel-one-row:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b4e37c69a1d88ab081a2a5e3428ed968234cfdce/project-env-connection-done-cancel-one-row.md",
+      "rev": "sha256:d228ac076147a1f569a0d7fca19b286b0da3ee6654ddd4f71322c9b7e550fc12",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at 88c49d4 with no repair finding; FO reran evidence/validation-1/accept.sh (25 PASS, 0 FAIL; the same script fails 7 on main); Codex 1 round, clean; local roborev gate clean (roborev:1136), no RoboRev review posted on the PR. delivery_gate.py check exit 0. FO declines: disabled Done reads faint (save bar's style); a typed unsaved token still shows 'No unsaved changes' (save bar out of scope by your ideation approval). Owed: hover/focus states, light theme, real 1Password, touch; the next task re-measures the 11 px margin with its line."
+    }
+  ]
+}

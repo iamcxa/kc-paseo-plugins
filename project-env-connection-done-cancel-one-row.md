@@ -48,6 +48,18 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-connection-done-cancel-one-row:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-connection-done-cancel-one-row-validation-1
+              briefing:
+                id: briefing:project-env-connection-done-cancel-one-row:validation:attempt-1:revision-1
+                digest: sha256:354fa4d2a1e613ee2548ed3ff96eeae608f5345156a8ed080a508641e376e4f4
+                room-ref: ./project-env-connection-done-cancel-one-row/review/validation/briefing-1
+              withdrawal:
+                by: agent:first-officer
+                at: "2026-10-24T04:06:24.177022Z"
+                reason: 'Re-prepare: the summary lacked the declined items delivery_gate.py requires.'
 started: 2026-10-24T01:18:38Z
 ---
 

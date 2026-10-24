@@ -1,0 +1,22 @@
+{
+  "class": "other",
+  "head": "88c49d4ccccc02845d868fc8761e3e5156ecde2e",
+  "model": "not run",
+  "necessity": "Kent, the only user; he asked at UAT on 2026-10-23 to move Use this connection after the vault choice or rethink save and cancel (\u300c\u9019\u500b use this connection \u6309\u9215\u662f\u5426\u53ef\u4ee5\u653e\u5728 vault \u9078\u64c7\u7684\u5f8c\u9762\uff1f\u300d).",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: deferred: '- F1 Polish: with an unchecked'",
+    "point: deferred: '- F2 Deferred risk: with a'",
+    "point: deferred: 'The candidate passes AC-1 and AC-2'",
+    "point: deferred: '- Validation F1 (Polish): disabled Done'",
+    "point: deferred: '- Validation F2 (Deferred risk): a'",
+    "point: deferred: 'Validation PASSED at 88c49d4 with no'",
+    "point: fo-decline: '- Validation F1 (Polish): disabled Done'",
+    "point: fo-decline: '- Validation F2 (Deferred risk): a'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#44",
+  "sufficiency": "AC-1 (Cancel and Done share one row after Vault and end above the save bar at 1280x1400 and 400x900 in the picked, unchecked and token states) and AC-2 (the two hints with Done disabled; Cancel restor",
+  "time": "2026-10-24T04:06:24Z",
+  "verdict": "ask"
+}
