@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r4-phone-layout
+gates:
+    version: 1
+    records:
+        - id: gate:r4-phone-layout:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r4-phone-layout-backlog-1
+              briefing:
+                id: briefing:r4-phone-layout:backlog:attempt-1:revision-1
+                digest: sha256:25ddc8b232dd4fc1aeeea777908f7b3889f4a7d3fcabbf4f5a74b5648f62c289
+                room-ref: ./r4-phone-layout/review/backlog/briefing-1
 ---
 
 Round 4 of the POC flywheel under ADR 0008: on the Captain's Android phone, a long briefing hides the discussion, typed text disappears under the keyboard, and the composer and buttons overlap the Android navigation bar.

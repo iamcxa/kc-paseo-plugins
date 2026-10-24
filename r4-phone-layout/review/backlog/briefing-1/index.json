@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r4-phone-layout:backlog:attempt-1:revision-1",
+  "question": "Flywheel round 4 backlog: admit a fully collapsible briefing panel on compact layouts, keyboard-following composer padding on native, and a fixed Android bottom padding (Route A), to implementation as the third stacked layer on PR #42?",
+  "artifacts": [
+    {
+      "id": "artifact:r4-phone-layout:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/ab85b57640be5c46bfa26de46917897d38c863ff/r4-phone-layout.md",
+      "rev": "sha256:6f5ec4587d88eeb2fc4e0a73602b6efcb4efafd2816d88b6ac9153db8e29fffc",
+      "mediaType": "text/markdown",
+      "summary": "Captain chose 「手機版」 in round 3 UAT and listed three phone problems. Chief-engineer: (a) and (b) are plugin-only; (c) can only be approximate because the SDK exposes no insets; an exact fix needs a Paseo change, which stays his decision after UAT. Forbidden imports named. Stacked on #42; nothing merges."
+    }
+  ]
+}
