@@ -94,7 +94,7 @@ Visible change: The Import names and prompt from Conductor row is gone from ever
 Direction alignment with the Captain: done — the Captain approved the Design Director's Task 1 and the r2 wording on 2026-10-23 (「准」).
 Result: ux-review-polish-2/design-director.md, Task 1; every ui gate shows the Captain screenshots of the screen.
 Release review: not needed: the Captain ruled the removal and the r2 rename directly at backlog; the task carries the map edit itself.
-Map footprints: owed: this task deletes two journey stories and renames r2; its implementation report records the edits.
+Map footprints: not needed: the task edited the journey map directly in PR #41 (two stories deleted, r2 renamed, add-remove-variable's evidence repaired) and carries no journey fields, so no footprints.jsonl entry is owed.
 
 ## Design
 
@@ -251,3 +251,4 @@ The candidate meets AC-1 to AC-3 and the design with no finding; verdict PASSED.
 
 External review rounds at the validation gate: Codex 1 (code review clean at 099e7b7). The local roborev gate is not an external round.
 delivery_gate.py check passed at 099e7b7 before the ask and again just before the merge; FO reran evidence/validation/acceptance.sh before the ask (0 failing steps). The Captain approved with 「准」 (d-dd665o, relayed by the Comms Officer and checked on its [User] line) and FO merged as 4e22d4a, then updated the live plugin (settings backed up, fast-forward, npm ci, reload; settings unchanged; a new qnow agent reports its 5 variables set).
+FO response to observer.md: both relayed rulings were checked on the Comms Officer session's [User] line, which is the Captain's own typing in that session, not the Comms Officer's report: d-1mybcg read 「准」 on "Gate: project-env-remove-conductor-import · stage ideation · briefing:...:ideation:attempt-1:revision-1 · sha256:673bfe6f362b · Decision: approve · My words: 「准」", and d-dd665o the same for the validation briefing (sha256:7e542942dd80). Whether a Comms Officer relay of the Captain's own [User] text counts as a peer under the peers extension is a dev2 question, raised with the dev2 maintainer. The newName repair was an FO proposal the Captain accepted at the open ideation gate, so the Design text's "follow-up, not accepted scope" is superseded by that approval, not an amendment.
