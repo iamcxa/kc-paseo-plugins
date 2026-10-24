@@ -134,3 +134,24 @@ checks.json: comment_ratio repair 25 code/0 comments and stack 64/0, both 0.0% <
 
 design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package gap 5; FO reruns the pushed head against e91b9755a0c3444ebf4390f5396499ddf2070457. No new hosted browser walk/live install or Captain acceptance is claimed; prior screenshots are not claimed at this candidate. PR #42 remains Draft; no ready/merge/release or protected-branch action.
 - Pre-gate team on cb0fd5fa51ca: design partner SATISFIED (two "later" items: say ↑ / Enter; a notice when a prefill is skipped to keep a draft); picky user A SATISFIED; picky user B NOT SATISFIED, blocks: the sending state lives in the composer, so going back and reopening during a slow send re-enables ↑ and invites a double send. FO authorizes a repair in the same single-source direction: the pending-send state per draft key lives in the store, so any mounted composer shows it and ↑ stays disabled until that send settles. Validation-1 on cb0fd5fa51ca was canceled by the FO before it reported because the head changes; its partial evidence folder was removed.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: Keep the pending-send state per draft key in the shared store alongside the draft, so a composer mounted during a slow send shows it as sending and ↑ (and Enter) stay disabled until that send settles; on success the draft clears as today, on failure the draft stays and ↑ re-enables; regression tests for back-and-reopen during a slow send (no second send possible) and for failure re-enabling
+  Candidate 8d9a68b92389aab55c96595245dc85e887251dd5 stores pending per draft key, subscribes the mounted flag, and makes handler guards read it live. cycle-4/regression-red.log reproduces reopened active buttons with the old local flag; tests-final.log proves disabled ↑, Enter/button no second dispatch, independent targets, success clearing and failure re-enabling.
+- DONE: npm test and typecheck pass; push to PR #42 (still Draft); a short "## Stage Report: implementation (cycle 4)" section
+  cycle-4/tests-final.log: 98/98; typecheck-final.log: exit 0; pr42.json verifies OPEN Draft PR #42 at 8d9a68b92389aab55c96595245dc85e887251dd5 with unchanged stack base and reload-limit disclosure.
+
+### Summary
+
+Moved pending-send state into the existing keyed in-memory store, using its subscriptions so reopening retains the sending indicator and disabled controls. Success/failure releases the lock through existing finally behavior; compare-and-clear and decision delivery logic are unchanged.
+
+### Findings
+
+Picky user B's blocking flow is addressed: the Captain's slow send → back/reopen previously displayed an active send button before settlement. Real mounted regressions now assert one transport call after both button and Enter attempts, and failure preserves the visible draft and permits an explicit retry; losing the shared flag, handler guard or finally release fails the tests.
+
+Evidence/rerun scope: r3-reply-clear-and-safe/evidence/cycle-4/README.md. The red baseline mechanically extracts the former local sending flag into the hook boundary; final tests use real hook/store/handlers/React DOM and deferred transport, with roots/windows and deferred work cleaned up. No real message/decision or new hosted browser run was performed.
+
+checks.json: repair comment ratio 23 code/0 comments, stack 81/0, both 0.0% <= 5%; doc_impact 0 documents, OVERVIEW.md updated directly; ADR lint 7 records PASS; number guards PASS, gap 3 not triggered. No new dependency, ADR, migration or POC boundary; draft/pending state stays memory-only.
+
+design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package gap 5; FO reruns pushed head against e91b9755a0c3444ebf4390f5396499ddf2070457. Decision chip code, decideGate, claim/release and relay text unchanged. PR remains Draft; no ready, merge, release, live-install or protected-branch action. Workflow frontmatter/state was not advanced by this repair.
