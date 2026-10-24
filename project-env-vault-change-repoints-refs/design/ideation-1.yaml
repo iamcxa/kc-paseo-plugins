@@ -1,0 +1,37 @@
+design_review:
+  adrs_read:
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  preview: project-env-vault-change-repoints-refs/shots/
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: cand-outside-1280-focus-outside.png
+      seen: The file is byte-identical to cand-outside-1280-outside.png, so the dark 1280 set shows no focus ring on the outside pill. The 400 and light pictures do show the ring (green 2 px outline around the red border, both visible), so the dark 1280 focus-over-danger state is unproven.
+      fix: Recapture the dark 1280 focus-outside picture with the pill actually focused, so the ring and the red border can be seen together.
+    - severity: MINOR
+      dimension: flow
+      where: cand-long-400-picked.png (400 window, sticky bar)
+      seen: With the new row added, "Use this connection / Done" is pushed below the fold and the sticky bar ("Finish or cancel the connection change first") covers its place. The only control that finishes the change is not on screen when the bar tells the person to finish.
+      fix: Show a 400 window picture scrolled to Done, or keep the connection action row visible above the sticky bar while a connection change is open.
+    - severity: MINOR
+      dimension: flow
+      where: cand-rename-1280-after-done.png and cand-mixed-1280-after-done.png
+      seen: After Done the three re-pointed pills only lose their "Dev ·" prefix, with no cue on those rows. The only trace is the footer "4 unsaved changes". A value changed from its old setting has no mark where it changed.
+      fix: Accept the footer count as the cue (and say so in a criterion), or mark the re-pointed rows until Save.
+    - severity: MINOR
+      dimension: hierarchy
+      where: cand-mixed-1280-picked.png
+      seen: The pill warning says "Outside the chosen vault" while the Vault control reads agent-dev and the three Dev pills beside it are not flagged. "Chosen" could mean the vault being picked or the vault in force, and in this state the two differ.
+      fix: Reword to name the vault in force, for example "Not in <vault>. New agents get this variable blank.", or hold the pill warning until Done.
+    - severity: MINOR
+      dimension: states
+      where: cand-outside-1280-after-test.png
+      seen: After Test the outside pill carries the red border, the "Outside the chosen vault" text, a red "!" mark beside the pill, and the header "1 failed". The picture states no reason for the failure beyond the earlier text. Three red cues sit on one row, and the "!" falls between the pill and the remove X.
+      fix: Let the failed mark reuse the pill's own sentence as its reason, or drop the extra "!" when the pill already shows the outside-vault text.
+  limitations:
+    - Static pictures only. I could not see hover, pressed or open-dropdown states, a tooltip on the "!" mark, or how the focus ring is drawn when the pill is also hovered.
+    - I could not run a real Test, a real vault rename, or the Done re-point. The after-done and after-test pictures are as supplied.
+    - I opened the main-* pictures only for context. No 400 window (non-page) picture was opened for the outside or mixed scenarios, nor the light rename and long scenarios. Those were judged from the 1280, 400-page and light mixed or outside pictures.
+    - I did not check colour contrast numerically. The red 12 px text on both themes looked readable.
+    - ADR 0002 and ADR 0001 do not settle any open question here. The "New agents get this variable blank" wording agrees with ADR 0002.

@@ -1,0 +1,253 @@
+diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.tsx src-cand/project-env/client/settings-screen.tsx
+--- src-main/project-env/client/settings-screen.tsx	2026-10-24 23:57:41
++++ src-cand/project-env/client/settings-screen.tsx	2026-10-25 00:22:25
+@@ -38,7 +38,7 @@
+ import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
+ import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
+ import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
+-import { type PillView, pillView } from "../shared/ref";
++import { countPointingAt, markedOutside, type PillView, pillView, repointLine, settleConnection } from "../shared/ref";
+ import { type OpenProject, openProject, useOpenProject } from "./open-project";
+ import {
+   canReadVault,
+@@ -64,12 +64,14 @@
+   name,
+   view,
+   failed,
++  outside,
+   theme,
+   onOpen,
+ }: {
+   name: string;
+   view: PillView;
+   failed: boolean;
++  outside: boolean;
+   theme: Theme;
+   onOpen(): void;
+ }) {
+@@ -99,7 +101,10 @@
+           backgroundColor: view.kind === "empty" ? "transparent" : theme.colors.surface2,
+           borderWidth: 1,
+           borderStyle: dashed ? "dashed" : "solid",
+-          borderColor: focused ? theme.colors.foreground : failed || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
++          borderColor: failed || outside || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
++          ...(focused
++            ? ({ outlineWidth: 2, outlineStyle: "solid", outlineColor: theme.colors.accent, outlineOffset: 2 } as object)
++            : null),
+           borderRadius: 8,
+           paddingHorizontal: 12,
+           paddingVertical: 8,
+@@ -138,6 +143,11 @@
+           Not a field reference. It looks like op://vault/item/field.
+         </Text>
+       ) : null}
++      {outside ? (
++        <Text style={{ color: theme.colors.statusDanger, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
++          Outside the chosen vault. New agents get this variable blank.
++        </Text>
++      ) : null}
+       {view.kind === "ref" && view.differs && (shown || hover) ? (
+         <Text style={{ color: muted, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>{DIFFERS}</Text>
+       ) : null}
+@@ -728,6 +738,10 @@
+   });
+   const nothingPending = tokenDraft.trim() === "" && sharedWith === null && !store.isPending;
+   const doneOff = line.kind !== "connected" || !nothingPending;
++  const inForceVault = view === "change" ? before.vault : draft.vault;
++  const repointing = view === "change" && draft.vault !== "" && draft.vault !== before.vault;
++  const repointCount = repointing ? countPointingAt(draft.variables, before.vault) : 0;
++  const vaultName = (value: string) => vaults[vaultIds.indexOf(value)] ?? value;
+   useEffect(() => {
+     if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
+   }, [view, line.kind, nothingPending]);
+@@ -900,6 +914,9 @@
+               onChangeText={(vault) => patch({ vault })}
+             />
+           )}
++          {repointCount > 0 ? (
++            <SettingsRow {...repointLine(repointCount, vaultName(before.vault), vaultName(draft.vault))} />
++          ) : null}
+           {view === "change" ? (
+             <SettingsRow
+               label="Use this connection"
+@@ -918,7 +935,9 @@
+                   accessibilityRole="button"
+                   accessibilityLabel="Keep the current connection"
+                   onPress={() => {
+-                    if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) patch(before);
++                    if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) {
++                      patch(settleConnection(before, draft, "cancel"));
++                    }
+                     setChecked(before.serviceAccount.trim());
+                     setTokenDraft("");
+                     latestToken.current = "";
+@@ -933,7 +952,10 @@
+                   accessibilityRole="button"
+                   accessibilityState={{ disabled: doneOff }}
+                   disabled={doneOff}
+-                  onPress={backToLine}
++                  onPress={() => {
++                    if (repointCount > 0) patch({ variables: settleConnection(before, draft, "done").variables });
++                    backToLine();
++                  }}
+                   style={barButton(theme, "primary", doneOff)}
+                 >
+                   <Text style={barText(theme, "primary", doneOff)}>Done</Text>
+@@ -1010,6 +1032,7 @@
+                     name={v.name}
+                     view={pillView(v.ref, v.name, draft.vault)}
+                     failed={reason !== null}
++                    outside={markedOutside(v.ref, inForceVault)}
+                     theme={theme}
+                     onOpen={() => openPicker({ mode: "row", index: i })}
+                   />
+diff --color -ruN -x node_modules src-main/project-env/shared/ref.ts src-cand/project-env/shared/ref.ts
+--- src-main/project-env/shared/ref.ts	2026-10-23 12:06:19
++++ src-cand/project-env/shared/ref.ts	2026-10-25 00:22:25
+@@ -1,3 +1,4 @@
++import type { Project } from "./config.ts";
+ import { sameName, splitRef } from "./field-picker.ts";
+ 
+ export interface ParsedRef {
+@@ -34,5 +35,41 @@
+     item: middle,
+     field: parsed.field,
+     differs: !sameName(parsed.field, variableName),
++  };
++}
++
++const REF_START = "op://".length;
++
++export function repointRefs<T extends { ref: string }>(variables: readonly T[], from: string, to: string): T[] {
++  if (from === "" || to === "" || from === to) return [...variables];
++  return variables.map((v) =>
++    parseRef(v.ref)?.vault === from ? { ...v, ref: `op://${to}${v.ref.slice(REF_START + from.length)}` } : v,
++  );
++}
++
++export function countPointingAt(variables: readonly { ref: string }[], vault: string): number {
++  return vault === "" ? 0 : variables.filter((v) => parseRef(v.ref)?.vault === vault).length;
++}
++
++export function markedOutside(ref: string, vault: string): boolean {
++  const parsed = parseRef(ref);
++  return vault !== "" && parsed !== null && parsed.vault !== vault;
++}
++
++export function settleConnection(
++  before: Pick<Project, "serviceAccount" | "vault">,
++  draft: Pick<Project, "serviceAccount" | "vault" | "variables">,
++  press: "done" | "cancel",
++): Pick<Project, "serviceAccount" | "vault" | "variables"> {
++  return press === "cancel"
++    ? { serviceAccount: before.serviceAccount, vault: before.vault, variables: draft.variables }
++    : { ...draft, variables: repointRefs(draft.variables, before.vault, draft.vault) };
++}
++
++export function repointLine(count: number, from: string, to: string): { label: string; hint: string } {
++  const one = count === 1;
++  return {
++    label: `${count} ${one ? "variable points" : "variables point"} at ${from}.`,
++    hint: `Done points ${one ? "it" : "them"} at ${to}. Test then shows whether each field is there.`,
+   };
+ }
+diff --color -ruN -x node_modules src-main/project-env/test/repoint-refs.test.ts src-cand/project-env/test/repoint-refs.test.ts
+--- src-main/project-env/test/repoint-refs.test.ts	1970-01-01 08:00:00
++++ src-cand/project-env/test/repoint-refs.test.ts	2026-10-25 00:22:25
+@@ -0,0 +1,96 @@
++import assert from "node:assert/strict";
++import { describe, it } from "node:test";
++import { countPointingAt, markedOutside, repointLine, repointRefs, settleConnection } from "../shared/ref.ts";
++
++const v = (name: string, ref: string) => ({ name, ref });
++const dev = [
++  v("SENTRY_AUTH_TOKEN", "op://Dev/SENTRY/SENTRY_AUTH_TOKEN"),
++  v("STRIPE_KEY", "op://Dev/stripe/secret-key"),
++  v("POSTHOG_CLI_API_KEY", "op://Dev/POSTHOG/POSTHOG_CLI_API_KEY"),
++];
++const refs = (list: { ref: string }[]) => list.map((x) => x.ref);
++
++describe("repointRefs", () => {
++  it("moves every reference written with the old vault, keeping names and the rest of the path", () => {
++    const moved = repointRefs([...dev, v("FROM", "op://Dev/TWILIO/Legacy section/FROM")], "Dev", "agent-dev");
++    assert.deepEqual(refs(moved), [
++      "op://agent-dev/SENTRY/SENTRY_AUTH_TOKEN",
++      "op://agent-dev/stripe/secret-key",
++      "op://agent-dev/POSTHOG/POSTHOG_CLI_API_KEY",
++      "op://agent-dev/TWILIO/Legacy section/FROM",
++    ]);
++    assert.deepEqual(moved.map((x) => x.name), [...dev.map((x) => x.name), "FROM"]);
++  });
++  it("leaves a reference into a third vault alone", () => {
++    const list = [dev[0], v("TWILIO_AUTH_TOKEN", "op://Other/TWILIO/TWILIO_ACCOUNT_SID")];
++    assert.deepEqual(refs(repointRefs(list, "Dev", "agent-dev")), ["op://agent-dev/SENTRY/SENTRY_AUTH_TOKEN", "op://Other/TWILIO/TWILIO_ACCOUNT_SID"]);
++  });
++  it("moves nothing when the previous vault is empty", () => {
++    assert.deepEqual(repointRefs(dev, "", "agent-dev"), dev);
++  });
++  it("moves nothing when the new vault is empty or the same", () => {
++    assert.deepEqual(repointRefs(dev, "Dev", ""), dev);
++    assert.deepEqual(repointRefs(dev, "Dev", "Dev"), dev);
++  });
++  it("moves the references written with a vault id when the vault was saved by id, and only those", () => {
++    const list = [v("A", "op://vid-Dev/a/A"), v("B", "op://Dev/b/B")];
++    assert.deepEqual(refs(repointRefs(list, "vid-Dev", "agent-dev")), ["op://agent-dev/a/A", "op://Dev/b/B"]);
++  });
++  it("matches the vault exactly: another letter case or a longer name does not move", () => {
++    const list = [v("A", "op://dev/a/A"), v("B", "op://Dev2/b/B"), v("C", "op://Development/c/C")];
++    assert.deepEqual(repointRefs(list, "Dev", "agent-dev"), list);
++  });
++  it("leaves an empty reference and a reference that is not item and field as they are", () => {
++    const list = [v("A", ""), v("B", "op://Dev")];
++    assert.deepEqual(repointRefs(list, "Dev", "agent-dev"), list);
++  });
++});
++
++describe("settleConnection", () => {
++  const before = { serviceAccount: "sa-r", vault: "Dev" };
++  const draft = { serviceAccount: "sa-r", vault: "agent-dev", variables: dev };
++  it("Done points the old vault's references at the picked vault and keeps the picked vault", () => {
++    const done = settleConnection(before, draft, "done");
++    assert.equal(done.vault, "agent-dev");
++    assert.deepEqual(refs(done.variables), refs(dev).map((r) => r.replace("op://Dev/", "op://agent-dev/")));
++  });
++  it("Cancel restores the previous connection and changes no reference", () => {
++    const cancelled = settleConnection(before, { ...draft, serviceAccount: "sa-x" }, "cancel");
++    assert.deepEqual(cancelled, { serviceAccount: "sa-r", vault: "Dev", variables: dev });
++  });
++});
++
++describe("countPointingAt", () => {
++  it("counts exact matches only, and nothing for an empty vault", () => {
++    assert.equal(countPointingAt([...dev, v("X", "op://Other/x/X"), v("Y", "")], "Dev"), 3);
++    assert.equal(countPointingAt(dev, ""), 0);
++  });
++});
++
++describe("markedOutside", () => {
++  it("marks a reference into another vault, and a different letter case", () => {
++    assert.equal(markedOutside("op://Other/a/b", "Dev"), true);
++    assert.equal(markedOutside("op://dev/a/b", "Dev"), true);
++  });
++  it("does not mark a reference in the vault, an empty or raw one, or any reference while no vault is chosen", () => {
++    assert.equal(markedOutside("op://Dev/a/b", "Dev"), false);
++    assert.equal(markedOutside("", "Dev"), false);
++    assert.equal(markedOutside("op://Dev", "Dev"), false);
++    assert.equal(markedOutside("op://Dev/a/b", ""), false);
++  });
++});
++
++describe("repointLine", () => {
++  it("says how many variables point at the old vault and that Done points them at the new one", () => {
++    assert.deepEqual(repointLine(3, "Dev", "agent-dev"), {
++      label: "3 variables point at Dev.",
++      hint: "Done points them at agent-dev. Test then shows whether each field is there.",
++    });
++  });
++  it("uses the singular for one variable", () => {
++    assert.deepEqual(repointLine(1, "Dev", "agent-dev"), {
++      label: "1 variable points at Dev.",
++      hint: "Done points it at agent-dev. Test then shows whether each field is there.",
++    });
++  });
++});

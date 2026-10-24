@@ -1,0 +1,21 @@
+design_decline_check:
+  adrs_read:
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+  rulings:
+    - finding: 2
+      ruling: upheld
+      evidence: cand-long-400-page-picked.png shows the page scrolls and "Use this connection / Cancel / Done" sits fully visible above the variable rows, and the sticky bar in cand-long-400-picked.png only covers the lower page, so Done is reachable and nobody is blocked (the clearance figures are not readable from the pictures; the 11.5/3.5/49.5 px numbers are the author's and unchecked).
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: cand-rename-1280-after-done.png and cand-mixed-1280-after-done.png show the footer "4 unsaved changes" with Discard and Save both active and the pills without their old-vault prefix, and the panel before Done (cand-mixed-1280-picked.png, cand-long-400-page-picked.png) already says "3 variables point at ... Done points them at ...", so the change is announced before and counted after, and nothing is saved until Save.
+      change: none
+    - finding: 4
+      ruling: upheld
+      evidence: In cand-mixed-1280-picked.png the Vault control reads agent-dev, the three "Dev ·" pills are the same vault and unflagged, and only TWILIO ("Other ·") carries "Outside the chosen vault. New agents get this variable blank.", so the line reads true against the vault shown; in cand-long-400-page-picked.png the old-vault pills carry their "agent-relay-staging ·" prefix and are not flagged while the panel names the move to production, so no one is told something false.
+      change: none
+    - finding: 5
+      ruling: upheld
+      evidence: cand-outside-1280-after-test.png differs from cand-outside-1280-outside.png only by the red "!" and the header "1 failed", the reason is already on the row in words, and the "!" is the existing Test failure mark owned by an earlier task, so a person is not misled, blocked or put at risk (the "!" bubble text cannot be seen in a static picture).
+      change: none
