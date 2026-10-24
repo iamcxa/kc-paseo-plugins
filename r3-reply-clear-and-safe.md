@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 3 — a reply shows where it goes, and an unfinished draft survives switching items or tabs
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Round 3 of the POC flywheel under ADR 0008: the Captain chose 「回覆清楚又安全」 — the composer should say where a reply goes, and a half-typed reply should not vanish when he opens another item, goes back, or switches tabs.
