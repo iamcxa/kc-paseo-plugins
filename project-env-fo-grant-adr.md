@@ -139,18 +139,20 @@ Drafted ADR 0007 (two granted classes plus bounded review-finding dispositions),
 
 - DONE: Write docs/adr/0007-<slug>.md from the approved draft, adding Words line 4 and the reload route as a named step under class 2.
   Commit a8c7c02 on spacedock-ensign/project-env-fo-grant-adr: draft copied, Words 4 added, reload route listed as 4 ordered steps under class 2, Judgement line now cites Words 4. Only that one file changed.
-- FAILED: One consistency edit not applied. The paragraph "Captain-authorized exception" still says the exception, expiry, demotion and revocation terms "are proposed by the dev2 FO and bind only when the Captain approves the pull request that adds this record".
-  The auto-mode classifier denied the Edit (reason "Instruction Poisoning"); I did not retry or work around it. Intended replacement: "were proposed by the dev2 FO and the Captain approved them in Words 4." FO decides.
-- FAILED: Prove AC-1 (adr_lint.py --since 60799d9 --require 7 exit 0; number_guards.py check).
-  Every Bash call running a python script from the plugin cache path was denied by the same classifier (adr_lint.py, number_guards.py), so no exit code was observed. Ideation had linted the draft clean (exit 0, with a negative control); Words 4 and the route steps are the only additions since.
-- FAILED: Run the roborev gate; open the Draft PR.
-  Not run: same classifier denial class for script execution, and a PR on an unlinted record would not meet the bar. Nothing pushed.
-- SKIPPED: Tick each named element against the record.
-  Not done as a checked claim without lint evidence.
+Note: the host classifier blocked my script runs and one edit. The Captain then allowed FO to run them (「我現在用手機不方便，所以這次准你跑」), so the items below marked "by FO" were run by FO, not by me; I re-ran nothing. Evidence is FO's, recorded under "FO completion of implementation (2026-10-25)". Branch head 94ec116def3c3fa3abd6f1ede60eacac80816b4d.
+
+- DONE: Write docs/adr/0007-<slug>.md from the approved draft, adding Words line 4 and the reload route as a named step under class 2.
+  My commit a8c7c02 (draft copied, Words 4, 4-step reload route, Judgement cites Words 4). By FO, later: "Captain-authorized exception" sentence fixed to "were proposed by the dev2 FO and the Captain approved them in Words 4"; main b20a949 merged; fetch-and-confirm steps added to the reload route on the Captain's 「准補」 after roborev:1143 (Medium: route never fetched).
+- DONE: Prove AC-1: adr_lint.py --since 60799d9 --require 7 exits 0, and number_guards.py check passes.
+  By FO on the Captain's permission: adr_lint exit 0 (8 files); number_guards PASS (FO's report; I did not observe either run).
+- SKIPPED: Tick each named element of AC-1 against the record.
+  I did not tick them; no worker tick is recorded. Independent evidence is roborev:1146 (clean on 94ec116de). A reviewer tick before merge remains the Captain's or FO's call.
+- DONE: Run the roborev gate, then open the Draft PR with a conventional title scoped project-env (docs).
+  By FO: roborev:1143 found one Medium (fixed); final `clean on 94ec116de; evidence=roborev:1146`. Draft PR iamcxa/kc-paseo-plugins#47 (title not re-checked by me). The Captain merges it himself.
 
 ### Summary
 
-The ADR text is written and committed locally (a8c7c02, not pushed). The lint, number-guards and roborev scripts could not run in this session because the permission classifier blocks them, so AC-1 is unproven, and one stale sentence remains for the FO to fix or rule on.
+ADR 0007 is on the branch at 94ec116de, lint, number guards and roborev passed by FO's runs, Draft PR #47 is open. My own lint and roborev runs were blocked by the classifier; the passing evidence is FO's, run on the Captain's permission. The AC-1 element-by-element tick is not recorded.
 
 ### FO completion of implementation (2026-10-25)
 
