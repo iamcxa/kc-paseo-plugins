@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r3-reply-clear-and-safe:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r3-reply-clear-and-safe-validation-1
+              briefing:
+                id: briefing:r3-reply-clear-and-safe:validation:attempt-1:revision-1
+                digest: sha256:08c6d88a6ba84063af14eeadee734a637dcae3772c163c5fc0f6b438e49b16a3
+                room-ref: ./r3-reply-clear-and-safe/review/validation/briefing-1
 started: 2026-10-24T01:23:34Z
 worktree: .worktrees/spacedock-ensign-r3-reply-clear-and-safe
 ---

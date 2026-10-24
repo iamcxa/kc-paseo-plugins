@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r3-reply-clear-and-safe:validation:attempt-1:revision-1",
+  "question": "Flywheel round 3 validation: record the validation of PR #42 at 8d9a68b9 (per-target in-memory drafts, a seed that keeps drafts, labels naming where ↑ and the decision row deliver, a shared pending-send state) as passed, so the round is pushed for Codex review and installed for the Captain to try, unmerged?",
+  "artifacts": [
+    {
+      "id": "artifact:r3-reply-clear-and-safe:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/5a8548774cf37b7bb5c650541d9a9bfde2a8b939/r3-reply-clear-and-safe.md",
+      "rev": "sha256:27b0c271161bdf8cb7bf35fb4aca94fae26e67abf85211c2c45d839e3f3391cb",
+      "mediaType": "text/markdown",
+      "summary": "Team satisfied on 8d9a68b9: validation-2 PASSED (98/98, isolated browser walk incl. slow-send reopen with one send), design partner and both picky users SATISFIED (B after the double-send repair). FO reran the acceptance steps: all PASS. Roborev by FO: 1131 and 1132 repaired (the second by a changed single-source approach), 1133 and 1134 clean. Observer pre-gate: only package gap 2. External review rounds: 0 so far."
+    }
+  ]
+}
