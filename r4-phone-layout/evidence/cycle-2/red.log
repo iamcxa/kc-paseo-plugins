@@ -1,0 +1,47 @@
+✖ native composer follows a keyboard already visible at mount (44.390417ms)
+✖ native composer follows a keyboard frame changes without a show event (7.328334ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (9.215167ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 790.686666
+
+✖ failing tests:
+
+test at test/composer-padding.test.mts:1:494
+✖ native composer follows a keyboard already visible at mount (44.390417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  20 !== 284
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r4-phone-layout/spacedock-bridge/test/composer-padding.test.mts:36:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 20,
+    expected: 284,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/composer-padding.test.mts:1:494
+✖ native composer follows a keyboard frame changes without a show event (7.328334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '20px' !== '316px'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r4-phone-layout/spacedock-bridge/test/composer-padding.test.mts:43:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '20px',
+    expected: '316px',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -83,3 +83,21 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 ### Summary
 
 Compact cards now collapse to a one-line question and expand to their previous height; native chat reserves the keyboard height and compact Android uses 20 dp when the keyboard is closed. Exact-candidate web measurements and mounted fake-keyboard tests pass; Draft PR #46 is the third unmerged stack layer. Fresh independent validation, FO-run RoboRev and Captain Android UAT remain; no ready, merge, release or live-install action was taken.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: The composer padding hook initializes from the keyboard already shown at mount (Keyboard.metrics() when available, else 0) and updates on keyboard frame changes (keyboardDidChangeFrame) as well as show and hide, removing every listener on unmount; tests for mounting with a visible keyboard and for a frame change without a show event; existing tests still pass
+  Commit cd139fd: lazy initialization and platform resync use optional Keyboard.metrics() with a 0 fallback; keyboardDidChangeFrame joins show/hide, and all three subscriptions are removed. cycle-2/red.log reproduces first-render 20≠284 and frame-only 20≠316; green.log passes both regressions plus existing layout/cleanup checks.
+- DONE: npm test and typecheck pass; push to PR #46 (still Draft); a short "## Stage Report: implementation (cycle 2)" section
+  cycle-2/tests.log: npm test 101 passed; typecheck.log: exit 0. Pushed head cd139fdea5636bd30a316be56c436b8aee58f72b; PR #46 remains OPEN/Draft with the unchanged stack base (cycle-2/pr46.json).
+
+### Findings
+
+- Repaired the two FO-authorized Medium findings affecting value-ac[AC-2]: native composer remount with a visible keyboard and frame changes without show can leave typed content covered; red.log supplies both triggers. Android on-device behavior remains unproven pending Captain UAT.
+- comment_ratio.py: 9 code lines, 0 comments, 0%; threshold not enforced below 20 lines. doc_impact.py: 0 documents; OVERVIEW.md unaffected: existing keyboard description remains accurate. number_guards.py PASS; adr_lint.py: 7 records, 0 legacy. No new dependencies, ADRs, migrations or POC boundaries.
+- SKIPPED: roborev — package gap 5; FO reruns roborev_gate.py on the pushed head. Existing design-surface package gap 2 remains skipped; no declaration or briefing UI change in this repair.
+- Evidence: r4-phone-layout/evidence/cycle-2/README.md. No daemon/browser launched or temporary runtime left by this follow-up; no ready, merge, release or live-install action.
+
+### Summary
+
+The composer now has correct padding on its first render when keyboard metrics are available and follows frame changes without needing another show event. Both regressions were observed before repair and all 101 tests plus typecheck pass afterward; Draft PR #46 contains the pushed repair. Independent re-review and Captain Android UAT remain with the FO/Captain.
