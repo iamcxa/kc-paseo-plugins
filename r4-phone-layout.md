@@ -62,3 +62,24 @@ Verified by: tests with faked `Keyboard` events: padding equals the keyboard hei
 
 Alignment: not needed: the Captain chose this theme in round 3 UAT; scope from chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: Before any edit, reset your empty dispatch branch onto the previous stack layer (git reset --hard 8d9a68b92389aab55c96595245dc85e887251dd5, branch spacedock-ensign/r3-reply-clear-and-safe) and confirm HEAD; then (a) the compact-layout collapsible briefing panel (one line when collapsed, discussion gets the rest, expand restores) with an isolated-daemon measurement and screenshots at 360x780 (AC-1)
+  Commit 9b6c11104b78 is based on 8d9a68b92389aab55c96595245dc85e887251dd5; evidence/implementation-ix9e4r73/candidate-final measures briefing 403.1875→44→403.1875 px and discussion 254.8125→628→254.8125 px at 360×780, with screenshots. Baseline run shows no collapse control.
+- DONE: (b) keyboard-following composer padding on non-web from Keyboard keyboardDidShow/keyboardDidHide with listeners removed on unmount, and (c) a fixed Android compact bottom padding dropped while the keyboard is open, with faked-keyboard and layout tests (AC-2); report on-device behavior as unproven until the Captain's Android UAT
+  composer-padding.test.mts mounts the production hook: fake show heights replace the Android margin, hide restores 20 dp, web has zero/subscriptions removed, wide Android and iOS omit the closed margin, unmount removes listeners; deleting callback/cleanup or adding 20 to keyboard height fails. Android on-device behavior is unproven pending Captain UAT.
+- DONE: Only host-provided imports (react, react-native, @getpaseo/plugin and its client entries, @tanstack/react-query, zod); npm test and typecheck pass; branch pushed and a Draft PR opened with base spacedock-ensign/r3-reply-clear-and-safe (third stack layer)
+  Runtime additions use react/react-native only; isolated plugin loading, npm test (99 passed) and typecheck pass at 9b6c11104b78. Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/46 is OPEN, isDraft=true, correct base and exact pushed head (pr46.json).
+
+### Findings
+
+- SKIPPED: design_surfaces.py — known package gap 2: approved POC seed lacks Surfaces/Visible change; checks-final.json records exit 1. No task declarations invented.
+- SKIPPED: roborev — known package gap 5: worker sandbox cannot reach the daemon; FO runs roborev_gate.py on 9b6c11104b78 with base 8d9a68b92389aab55c96595245dc85e887251dd5.
+- comment_ratio.py: 46 code lines, 1 comment, 2.2% <= 5%; doc_impact.py: 0 documents; OVERVIEW.md: updated. adr_lint.py: 7 records, 0 legacy. number_guards.py: PASS, no findings; no R4 failure/gap-3 skip required; no ADR/migration added or reserved.
+- Evidence and reproducible isolated-daemon harness: r4-phone-layout/evidence/implementation-ix9e4r73/README.md. All captured test PIDs stopped and homes removed; live checkout/install unchanged. Approximate Android clearance requires Captain keyboard-open/closed screenshots.
+- ADR 0008 remains Accepted at the pinned base, SHA-256 d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f; no new enduring ruling. Existing card/CoChat path checked before implementation; missing collapse reproduced at the base. POC boundary retained, no new persistent state/external seam.
+
+### Summary
+
+Compact cards now collapse to a one-line question and expand to their previous height; native chat reserves the keyboard height and compact Android uses 20 dp when the keyboard is closed. Exact-candidate web measurements and mounted fake-keyboard tests pass; Draft PR #46 is the third unmerged stack layer. Fresh independent validation, FO-run RoboRev and Captain Android UAT remain; no ready, merge, release or live-install action was taken.
