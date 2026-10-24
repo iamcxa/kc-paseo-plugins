@@ -182,6 +182,14 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
     const pad = layout.compact ? 12 : 16;
     return {
       screen: { flex: 1, backgroundColor: colors.surface0 },
+      toolbar: {
+        flexDirection: "row" as const,
+        alignItems: "center" as const,
+        justifyContent: "space-between" as const,
+        paddingHorizontal: pad,
+        paddingVertical: 8,
+      },
+      feedback: { paddingHorizontal: pad, paddingBottom: 8, gap: 4 },
       top: { flexGrow: 0, flexShrink: 0 },
       handle: {
         height: 14,
@@ -255,19 +263,34 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   );
 
   return (
-    <View style={styles.screen} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
-      {layout.compact && collapsed ? (
-        <Pressable
-          colors={colors}
-          accessibilityRole="button"
-          accessibilityLabel="Expand briefing"
-          accessibilityState={{ expanded: false }}
-          onPress={() => setCollapsed(false)}
-          style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12, minHeight: 44 }}
-        >
-          <Text style={[styles.question, { flex: 1 }]} numberOfLines={1}>{briefing?.question || gate?.title || fo.title}</Text>
-          <Text style={styles.toggle}>Expand ▾</Text>
+    <View style={styles.screen}>
+      <View style={styles.toolbar}>
+        <Pressable colors={colors} accessibilityRole="button" onPress={onBack}>
+          <Text style={styles.back}>← Bridge</Text>
         </Pressable>
+        {layout.compact ? (
+          <Pressable
+            colors={colors}
+            accessibilityRole="button"
+            accessibilityLabel={collapsed ? "Show briefing" : "Hide briefing"}
+            accessibilityState={{ expanded: !collapsed }}
+            onPress={() => setCollapsed((value) => !value)}
+          >
+            <Text style={styles.toggle}>{collapsed ? "Show briefing ▾" : "Hide briefing ▴"}</Text>
+          </Pressable>
+        ) : null}
+      </View>
+      {problem || state ? (
+        <View style={styles.feedback}>
+          {problem ? <Text style={{ color: colors.statusDanger, fontSize: 12 }}>{problem}</Text> : null}
+          {state ? <Text style={[styles.state, { color: state.color }]}>{state.text}</Text> : null}
+        </View>
+      ) : null}
+      <View style={{ flex: 1 }} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
+      {layout.compact && collapsed ? (
+        <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, minHeight: 44 }}>
+          <Text style={[styles.question, { flex: 1 }]} numberOfLines={1}>{briefing?.question || gate?.title || fo.title}</Text>
+        </View>
       ) : (
       <>
       <ScrollView
@@ -275,16 +298,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         contentContainerStyle={styles.topContent}
         onContentSizeChange={(_width, height) => setContentHeight(height)}
       >
-        <Pressable colors={colors} accessibilityRole="button" onPress={onBack}>
-          <Text style={styles.back}>← Bridge</Text>
-        </Pressable>
         <Text style={styles.label}>{cardLabel(gate, fo.repo)}</Text>
-        {layout.compact ? (
-          <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Collapse briefing"
-            accessibilityState={{ expanded: true }} onPress={() => setCollapsed(true)}>
-            <Text style={styles.toggle}>Collapse briefing ▴</Text>
-          </Pressable>
-        ) : null}
         {gate ? null : foLine}
         {gate ? (
           <>
@@ -315,8 +329,6 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
               : null}
           </>
         ) : null}
-        {problem ? <Text style={{ color: colors.statusDanger, fontSize: 12 }}>{problem}</Text> : null}
-        {state ? <Text style={[styles.state, { color: state.color }]}>{state.text}</Text> : null}
       </ScrollView>
       <View
         {...resizer.panHandlers}
@@ -346,6 +358,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           onSent={gate ? onSent : undefined}
           onChip={gate ? onChip : undefined}
         />
+      </View>
       </View>
     </View>
   );
