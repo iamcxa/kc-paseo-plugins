@@ -49,8 +49,7 @@ proposed by the dev2 FO and are unmeasured.
 The exception is limited to the granted classes below. The README itself is unchanged;
 its requirements continue to apply outside those classes. This grant is recorded through the
 recording command below, never as a `Precedent:` line. Words 1 states the split; the
-exception, expiry, demotion and revocation terms are proposed by the dev2 FO and bind only
-when the Captain approves the pull request that adds this record.
+exception, expiry, demotion and revocation terms were proposed by the dev2 FO and the Captain approved them in Words 4.
 
 **Granted classes.** The FO decides these classes of project-env decisions:
 1. the validation gate, when the validation report passes and has no Material finding and
