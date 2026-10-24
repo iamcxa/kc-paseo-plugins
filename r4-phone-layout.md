@@ -101,3 +101,7 @@ Compact cards now collapse to a one-line question and expand to their previous h
 ### Summary
 
 The composer now has correct padding on its first render when keyboard metrics are available and follows frame changes without needing another show event. Both regressions were observed before repair and all 101 tests plus typecheck pass afterward; Draft PR #46 contains the pushed repair. Independent re-review and Captain Android UAT remain with the FO/Captain.
+
+### FO declines
+
+- roborev:1141 Medium, `client/use-composer-padding.ts`, candidate cd139fdea563: on Android 11+ React Native emits no `keyboardDidChangeFrame` and fires show/hide only on visibility changes, so switching keyboard modes while it stays open leaves stale padding; the cycle 2 Android frame-change test simulates an event Android does not produce. Deferred risk: the Captain's reported problem is the keyboard opening over typed text, which show/hide handles; a resize-while-open needs window insets the plugin cannot read (`PluginHostProps.layout` has none — the same host limit as the navigation bar). Would become Material if his Android UAT shows stale padding after switching input modes; then it joins the Paseo insets question that is his decision. The frame-change handler stays for iOS; the validation report must not read the Android frame-change test as on-device proof.
