@@ -1,0 +1,63 @@
+design_review:
+  preview: project-env-connection-done-cancel-one-row/shots/
+  findings:
+    - severity: MAJOR
+      dimension: consistency
+      where: after-1280-token.png, after-400-token.png, after-light-400-token.png
+      seen: A typed, unsaved token is on screen, but the save bar says "No unsaved changes" with a "Close" button. The picked, unchecked and failed states say "1 unsaved change / Finish or cancel the connection change first". The row above says "Save the token or clear the field first."
+      fix: Make the save bar in the token state say the same thing as the other Change states (an open connection change must be finished or cancelled), and do not offer "Close" while a typed token would be lost.
+    - severity: MAJOR
+      dimension: hierarchy
+      where: after-1280-token.png, after-400-token.png
+      seen: The fact "the typed token is not saved yet" is said twice. The check row says "Saved token works ... The token you typed is not saved yet." The Done hint says "Save the token or clear the field first."
+      fix: Keep the unsaved-token fact in one place, for example only in the Done hint, and shorten the check row to its own result.
+    - severity: MAJOR
+      dimension: flow
+      where: after-1280-picked.png and after-1280-after-done.png
+      seen: Vault is switched from Dev to Ops, and after Done the card reads "Connected · sa-a · Ops". Every variable row still reads "Dev · ..." and two rows carry the unexplained orange "≠" chip. Nothing says what the Vault change does to those rows.
+      fix: Say in the picked state, in one line, whether the existing variables stay on Dev or move to Ops, and explain or remove the "≠" chip.
+    - severity: MINOR
+      dimension: states
+      where: after-1280-failed.png, after-400-failed.png, after-400-page-failed.png
+      seen: The failed state is a neutral grey title "No token in Keychain / Paste it below and save it." with no error mark or colour. It looks like the unchecked state, and the only difference is the title text. The token field under it still says "Stored in this Mac's Keychain; never shown again." although nothing is stored.
+      fix: Give the failed result an error cue (icon or tone) and change the token field's help text when no token is stored.
+    - severity: MINOR
+      dimension: consistency
+      where: after-1280-unchecked.png, after-1280-failed.png, after-400-unchecked.png, after-400-failed.png
+      seen: Vault is a dropdown with a chevron in picked and token (Ops or Dev). In unchecked and failed it is a flat "Dev" box with no chevron, and nothing says why it is locked. On 400 wide the row also moves from side by side to label above field.
+      fix: Draw the locked Vault the same way as a disabled dropdown, keep the chevron, and keep the row layout the same in every state.
+    - severity: MINOR
+      dimension: spacing
+      where: after-400-picked.png, after-400-unchecked.png, after-400-token.png, after-800-picked.png, after-light-400-token.png
+      seen: The sticky save bar covers the start of the Variables list, and 800 and 400 show a variable row cut off by it. The bar is two stacked rows (text, then Discard and Save) in picked, unchecked and failed, but one row in token. The bar takes about 10% of the 900 px window.
+      fix: Keep the bar one height in every state and add bottom padding so the content above it is not covered.
+    - severity: MINOR
+      dimension: platform
+      where: after-400-*.png, after-400-page-*.png
+      seen: Cancel and Done are about 32 px tall, about 10 px apart, side by side. The small "x" remove icons in the variable rows look about 16 to 20 px.
+      fix: Use at least 44 px touch height for Cancel and Done on a phone, and a larger gap between them.
+    - severity: MINOR
+      dimension: theme-size
+      where: after-800-picked.png, after-800-unchecked.png
+      seen: The variable picker is squeezed to a narrow pill, and its text breaks in the middle of a word ("SENTRY_A / UTH_TOK / EN"). This is outside the changed row, but it is visible in the same frame.
+      fix: Let the picker take the full row width below 900 px, as the 400 layout already does.
+    - severity: MINOR
+      dimension: theme-size
+      where: after-light-1280-unchecked.png, after-light-400-token.png
+      seen: The disabled Done and disabled Save token are very faint on the light background. Disabled Done is barely readable, and its hint is the only thing that explains it.
+      fix: Raise the disabled text contrast in the light theme so Done stays readable.
+    - severity: MINOR
+      dimension: states
+      where: set as a whole
+      seen: No picture shows Check or Save token in progress (loading), a long vault or account name, a Vault with many entries, or the 400 and 800 widths and the light theme in the failed state.
+      fix: Add previews for Check running, a long account or vault name, and light, 800 and 400 failed, plus the 400 and 800 views after Done.
+    - severity: MINOR
+      dimension: consistency
+      where: after-1280-picked.png
+      seen: Under the label "Use this connection" the ready-state hint is "Cancel keeps the current one." It describes the neighbouring button, not the row label. It is the only state where the hint is not about whether Done is available.
+      fix: Word the ready hint as what Done does (for example "Uses Ops with sa-a.") or leave it empty.
+  limitations:
+    - Pictures are static. Hover, focus, pressed, disabled-tap behaviour and what happens when Done or Cancel is pressed cannot be seen.
+    - after-400-page-*.png are 400 x 2600, so about 700 px of empty space under the save bar is probably a capture artifact. I did not judge the sticky behaviour from them.
+    - I did not open the before-*.png and room-after-*.png files, as they are context only. I did not open after-light-400-page-*, after-light-400-picked/unchecked, after-light-1280-token or after-400-page-unchecked. The light theme was judged from after-light-1280-picked, after-light-1280-unchecked and after-light-400-token.
+    - Inventory sizes are estimated from the pixels. No 1280 version of the 400 header (a back arrow only) was compared beyond the picture.

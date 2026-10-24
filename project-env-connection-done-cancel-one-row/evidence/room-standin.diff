@@ -1,0 +1,15 @@
+--- cand/project-env/client/settings-screen.tsx	2026-10-24 09:20:34
++++ room/project-env/client/settings-screen.tsx	2026-10-24 09:31:04
+@@ -900,6 +900,12 @@
+               onChangeText={(vault) => patch({ vault })}
+             />
+           )}
++          {view === "change" && draft.vault !== before.vault ? (
++            <SettingsRow
++              label={`${draft.variables.length} variables point at ${before.vault}.`}
++              hint={`Done points them at ${draft.vault}. Test then shows whether each field is there.`}
++            />
++          ) : null}
+           {view === "change" ? (
+             <SettingsRow
+               label="Use this connection"

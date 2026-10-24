@@ -1,0 +1,58 @@
+design_review:
+  preview: docs/dev2/.spacedock-state/project-env-connection-done-cancel-one-row/shots/ (after-1280-*, after-400-*, after-400-page-*)
+  findings:
+    - severity: MAJOR
+      dimension: consistency
+      where: after-1280-token.png, after-400-token.png, after-400-page-token.png (token state)
+      seen: The card says "The token you typed is not saved yet" and the row hint says "Save the token or clear the field first.", but the save bar reads "No unsaved changes" with an enabled-looking Close button.
+      fix: Count the typed, unsaved token as an unsaved change in the save bar (or make Close warn), so the bar and the card agree.
+    - severity: MAJOR
+      dimension: hierarchy
+      where: after-1280-picked.png, after-1280-unchecked.png, after-400-unchecked.png (save bar)
+      seen: The save bar says "1 unsaved change / Finish or cancel the connection change first" while the new row says "Use this connection" with Cancel and Done, so one fact (finish or cancel the pending connection change) is stated twice in two places.
+      fix: Keep the instruction in one place; shorten the bar to the count, or point it at the row.
+    - severity: MINOR
+      dimension: flow
+      where: after-1280-picked.png and all unchecked/picked states
+      seen: The save bar has Discard and the connection row has Cancel at the same time. The screen does not say whether Discard also drops the pending connection change or only the other edits.
+      fix: Say in the save bar what Discard covers, or disable it while the connection change is open.
+    - severity: MINOR
+      dimension: consistency
+      where: after-400-unchecked.png vs after-400-picked.png
+      seen: The Vault row is drawn two ways. When picked it is an inline label with a dropdown that has a chevron. When unchecked it is a stacked label above a full text box with no chevron, so the row changes height and layout between states.
+      fix: Draw the Vault control the same way in every state; if it is disabled, show the same dropdown greyed out.
+    - severity: MINOR
+      dimension: flow
+      where: after-1280-picked.png, after-400-picked.png
+      seen: The Vault was changed to Ops, but the variable rows still show "Dev ·" prefixes and unexplained orange "≠" badges, and nothing says whether the vault choice moves those variables.
+      fix: Add a short cue or legend for the "≠" badge and for how the vault choice affects the existing variables.
+    - severity: MINOR
+      dimension: spacing
+      where: after-400-picked.png, after-400-token.png, after-400-unchecked.png
+      seen: The sticky save bar is about 80 px tall when it shows "unsaved change" (buttons on their own line) and shorter when it shows "No unsaved changes", so its height jumps. It also covers the Variables content in the 400 x 900 window.
+      fix: Give the bar one fixed height (buttons inline at 400 px) so it covers less and does not jump.
+    - severity: MINOR
+      dimension: spacing
+      where: after-400-picked.png, after-400-unchecked.png, after-400-page-*.png
+      seen: At 400 px the text inputs are only about 190 of 340 px wide, with empty space to the right. Hints in the new row wrap awkwardly ("Save the token or clear the / field first.", "Available once the connection / works.").
+      fix: Make the inputs full width at 400 px and let the hint use the full row width, or shorten the hint text.
+    - severity: MINOR
+      dimension: platform
+      where: after-400-picked.png, after-400-token.png (Cancel, Done, Check, Discard)
+      seen: Buttons at 400 px are about 30 px tall (Cancel and Done about 70 x 30), below the usual 44 px touch target, and Cancel sits right next to Done.
+      fix: Raise the button height to about 44 px at narrow width, or add spacing so the two cannot be tapped by mistake.
+    - severity: MINOR
+      dimension: states
+      where: all previews
+      seen: Only the three happy-path states appear. There is no check in progress, no check failed (Done disabled with a failure reason), no long account name, no vault list with many items, no read-only state, and no view after Done or Cancel is pressed.
+      fix: Add previews for the failed check and the in-progress check, and one for the row after Cancel and after Done.
+    - severity: MINOR
+      dimension: theme-size
+      where: all previews
+      seen: Only the dark theme is shown, at 1280 and 400 px; there is no light theme and no mid width (about 768 px). Disabled Done is low-contrast grey on dark.
+      fix: Add light-theme previews and a mid-width preview, and check the contrast of the disabled Done.
+  limitations:
+    - Static images only. I could not see hover, focus, pressed or open-menu states, the vault dropdown contents, or what Done and Cancel actually do.
+    - The first-setup form and the before-*.png and room-after-*.png pictures were not read (out of scope), so I cannot say whether the first-setup form is unchanged.
+    - The 400 px whole-page pictures are downscaled in display, so small text there may be misread.
+    - The save bar's primary tone is never shown enabled (Save is always disabled), so I could not check that Done matches an enabled Save.
