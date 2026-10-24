@@ -292,7 +292,7 @@ function Chat({
     if (!result.stopped) setError(result.error ?? "Could not stop the agent.");
   };
   const { send, chip, onKeyPress } = composerHandlers({
-    draft: () => draft,
+    draft: () => readDraft(key),
     setDraft,
     setError,
     sending: () => sending,

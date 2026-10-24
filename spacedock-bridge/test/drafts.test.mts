@@ -61,3 +61,34 @@ for (const action of ["send", "decision"] as const) {
     });
   }
 }
+
+for (const action of ["send", "decision"] as const) {
+  for (const newer of ["New reply after remount", "Original reply"]) {
+    test(`a delayed ${action} keeps a newer remounted draft: ${newer}`, async (t) => {
+      const key = draftKey(`delayed-${action}-${newer}`, { slug: "gate-a", stage: "validation" });
+      const submitted = "  Original reply  ";
+      writeDraft(key, submitted);
+      t.after(() => writeDraft(key, ""));
+      let complete!: () => void;
+      let started!: () => void;
+      const pending = new Promise<void>((resolve) => { complete = resolve; });
+      const dispatched = new Promise<void>((resolve) => { started = resolve; });
+      const handlers = composerHandlers({
+        draft: () => readDraft(key),
+        setDraft: (text) => writeDraft(key, text),
+        setError: () => {},
+        sending: () => false,
+        setSending: () => {},
+        sendToAgent: async () => { started(); await pending; },
+        onChip: async () => { started(); await pending; return null; },
+      });
+      const sending = action === "send" ? handlers.send() : handlers.chip("要求修改");
+      await dispatched;
+      assert.equal(readDraft(draftKey(`delayed-${action}-${newer}`, { slug: "gate-a", stage: "validation" })), submitted);
+      writeDraft(key, newer);
+      complete();
+      await sending;
+      assert.equal(readDraft(key), newer);
+    });
+  }
+}
