@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 4 — on a phone the briefing panel collapses fully, the composer follows the keyboard, and it clears the Android navigation bar
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
