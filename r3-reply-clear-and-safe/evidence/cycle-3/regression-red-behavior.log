@@ -1,0 +1,170 @@
+✖ draft subscriptions notify only their target and stop after unsubscribe (3.200417ms)
+✖ mounted composers follow store updates, target changes and unsubscription (42.964083ms)
+✖ mounted composer reflects delayed send: clear (7.7945ms)
+✖ mounted composer reflects delayed send: edit (5.7185ms)
+✖ mounted composer reflects delayed send: refuse (7.235292ms)
+✖ mounted composer reflects delayed decision: clear (5.7365ms)
+✖ mounted composer reflects delayed decision: edit (9.676916ms)
+✖ mounted composer reflects delayed decision: refuse (4.307792ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 0
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 537.276375
+
+✖ failing tests:
+
+test at test/draft-subscriptions.test.mts:12:1
+✖ draft subscriptions notify only their target and stop after unsubscribe (3.200417ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok("subscribeDraft" in store && typeof store.subscribeDraft === "function")
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:13:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:30:1
+✖ mounted composers follow store updates, target changes and unsubscription (42.964083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'Prefilled question'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:34:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'Prefilled question',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:55:5
+✖ mounted composer reflects delayed send: clear (7.7945ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Original reply'
+  - ''
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:82:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Original reply',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:55:5
+✖ mounted composer reflects delayed send: edit (5.7185ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Original reply'
+  - 'New reply after remount'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:82:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Original reply',
+    expected: 'New reply after remount',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:55:5
+✖ mounted composer reflects delayed send: refuse (7.235292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Original reply'
+  - ''
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:91:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Original reply',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:55:5
+✖ mounted composer reflects delayed decision: clear (5.7365ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Original reply'
+  - ''
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:82:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Original reply',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:55:5
+✖ mounted composer reflects delayed decision: edit (9.676916ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Original reply'
+  - 'New reply after remount'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:82:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Original reply',
+    expected: 'New reply after remount',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/draft-subscriptions.test.mts:55:5
+✖ mounted composer reflects delayed decision: refuse (4.307792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Original reply'
+  - ''
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts:91:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Original reply',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

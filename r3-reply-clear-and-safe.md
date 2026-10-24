@@ -112,3 +112,24 @@ design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package g
 ### FO findings before the gate
 
 - roborev:1131 (Medium, dae9b002) and roborev:1132 (Medium, 9bc63dc4) are the same class: the composer keeps its own copy of the draft, so a delayed send that completes after a remount and the visible composer disagree. Compare-and-clear closed one sequence and exposed the next. Circuit breaker: FO stops patching individual sequences and authorizes a different approach — the draft store is the single source of truth with change notification, and each mounted composer reads it through a subscription (e.g. React `useSyncExternalStore`), so any clear or restore is visible in whatever composer is mounted.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Make the in-memory draft store the single source of truth with change notification (subscribe/unsubscribe), and have every mounted composer read and write the draft through it (for example React useSyncExternalStore) instead of a local copy, so a clear from a delayed send, a restore after a refused send, or an edit in another mount is shown in whatever composer is mounted; Send reads the same value the composer shows
+  Candidate cb0fd5fa51ca90581d7fce9de12db386dd1b0187 removes CoChat's local draft state, uses the shared useDraft/useSyncExternalStore hook, and adds keyed subscribe/unsubscribe notifications; typing, seeds and clears update the same source read by Send.
+- DONE: Regression tests for: send, remount before completion, completion clears and the mounted composer shows empty; send, remount, edit, completion keeps the edit; refused send keeps the draft; the earlier AC-1 store tests; npm test and typecheck pass; push to PR #42 (still Draft); a short "## Stage Report: implementation (cycle 3)" section
+  cycle-3/tests-final.log: 96/96; typecheck-final.log: exit 0. Actual mounted React textarea tests cover delayed clear/remount, newer edits, refusal and subsequent Send/display agreement; restoring local copies or removing notifications fails them. pr42.json verifies pushed head cb0fd5fa51ca90581d7fce9de12db386dd1b0187, OPEN Draft, unchanged base.
+
+### Summary
+
+Implemented the FO-authorized single-source approach: every mounted composer subscribes to the target's memory-only store instead of keeping a local draft copy. Eight new subscription/mounted-component regressions pass alongside prior tests; decision delivery, relay text, claim/release and compare-and-clear logic are unchanged.
+
+### Findings
+
+RoboRev 1132: Material; the Captain's pending send → remount workflow showed stale text after the store cleared, so the following Send disagreed with the display, violating value-ac[AC-1]. cycle-3/regression-red-behavior.log reproduces missing notifications/stale inputs with the former local-copy pattern extracted into the hook boundary; the initial dependency setup failure is separately retained, not counted as defect proof.
+
+Evidence, test commands and scope: r3-reply-clear-and-safe/evidence/cycle-3/README.md. Mounted tests use real React DOM, production hook/store/handlers and deferred external completions; roots/windows are cleaned up. Four pinned dev dependencies enable these tests; no new runtime dependency, no existing package version/integrity change (npm normalized existing yaml dev metadata).
+
+checks.json: comment_ratio repair 25 code/0 comments and stack 64/0, both 0.0% <= 5%; doc_impact 0 documents, OVERVIEW.md updated directly; ADR lint 7 records PASS; number guards PASS, gap 3 not triggered. No ADR/migration or new POC boundary; memory-only/reload-loss limit retained.
+
+design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package gap 5; FO reruns the pushed head against e91b9755a0c3444ebf4390f5396499ddf2070457. No new hosted browser walk/live install or Captain acceptance is claimed; prior screenshots are not claimed at this candidate. PR #42 remains Draft; no ready/merge/release or protected-branch action.

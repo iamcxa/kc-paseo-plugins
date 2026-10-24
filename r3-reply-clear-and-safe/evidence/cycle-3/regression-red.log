@@ -1,0 +1,34 @@
+node:internal/modules/package_json_reader:301
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'jsdom' imported from /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/draft-subscriptions.test.mts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:859:18)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at nextStep (node:internal/modules/customization_hooks:189:26)
+    at resolveBaseSync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+    at resolveDirectorySync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+    at resolveTsPathsSync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.18.0
+✖ test/draft-subscriptions.test.mts (106.390209ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 112.239666
+
+✖ failing tests:
+
+test at test/draft-subscriptions.test.mts:1:1
+✖ test/draft-subscriptions.test.mts (106.390209ms)
+  'test failed'
