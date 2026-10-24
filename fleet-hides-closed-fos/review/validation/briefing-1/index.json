@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:fleet-hides-closed-fos:validation:attempt-1:revision-1",
+  "question": "Flywheel round 2 validation: record the validation of PR #40 at e91b9755 (Tab closed badge in By FO, decision rows, next card and decision card; web composer without the browser outline) as passed, so the round is pushed for Codex review and installed for the Captain to try, unmerged?",
+  "artifacts": [
+    {
+      "id": "artifact:fleet-hides-closed-fos:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/af901ecef7eb90ecf03b1325129f2b45ef62541d/fleet-hides-closed-fos.md",
+      "rev": "sha256:dbb39d32ec38da6b92b2a61a52ab3bc5010172bd06b6404aa5c8288d0f1e2d05",
+      "mediaType": "text/markdown",
+      "summary": "Team satisfied on e91b9755: validation-2 PASSED (78/78 tests, 13 live label cases match, isolated screenshots), design partner and both picky users SATISFIED. FO reran the five-step acceptance script: all PASS. Roborev by FO: 1123 and a Medium repaired, 1126 clean, the 320 px Medium declined as Deferred risk. Observer pre-gate: 3 record violations with process repairs; Captain ruled 「繼續」 on the stop check. External review rounds: 0 so far (Codex pending once ready)."
+    }
+  ]
+}

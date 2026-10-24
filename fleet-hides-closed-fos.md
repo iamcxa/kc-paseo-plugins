@@ -38,6 +38,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:fleet-hides-closed-fos:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:fleet-hides-closed-fos-validation-1
+              briefing:
+                id: briefing:fleet-hides-closed-fos:validation:attempt-1:revision-1
+                digest: sha256:ad2570e98d19bbec444e7a727b25fabc33cb0d12cfbbd5b2b125483c14041531
+                room-ref: ./fleet-hides-closed-fos/review/validation/briefing-1
 started: 2026-10-23T14:58:54Z
 worktree: .worktrees/spacedock-ensign-fleet-hides-closed-fos
 id: fleet-hides-closed-fos
