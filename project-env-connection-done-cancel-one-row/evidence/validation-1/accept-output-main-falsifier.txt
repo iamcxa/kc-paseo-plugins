@@ -1,0 +1,32 @@
+== commit 4e22d4a
+PASS  typecheck
+[agent-browser] launched browser
+== 1280 x 1400
+FAIL  1280 picked: one row, above the bar: cancel (668, 700) done (603, 635) vault-bottom 570 bar-top 1331 -> tops differ 668 vs 603
+FAIL  1280 picked: ready hint (got: 1Password|1Password service account|Keychain item name holding its token, e.g. relay-dev-read|Token works|Can read 2 vaults: Dev, Ops|Check|Service account token|Stored in this Mac's Keychain; never shown again.|Save token to Keychain|Save token|Vault|Ops|Use this connection|Done|Keep the current connection|Cancel|Variables|)
+PASS  1280 picked: Cancel restores sa-a and Dev
+FAIL  1280 unchecked: one row, above the bar: cancel (672, 704) done (605, 637) vault-bottom None bar-top 1331 -> tops differ 672 vs 605
+PASS  1280 unchecked: hint
+PASS  1280 unchecked: Done disabled
+PASS  1280 unchecked: Cancel restores sa-a and Dev
+PASS  1280 typed token: hint
+PASS  1280 typed token: Done disabled
+== 400 x 900
+FAIL  400 picked: one row, above the bar: cancel (721, 753) done (656, 688) vault-bottom 623 bar-top 786 -> tops differ 721 vs 656
+FAIL  400 picked: ready hint (got: 1Password|1Password service account|Keychain item name holding its token, e.g. relay-dev-read|Token works|Can read 2 vaults: Dev, Ops|Check|Service account token|Stored in this Mac's Keychain; never shown again.|Save token to Keychain|Save token|Vault|Ops|Use this connection|Done|Keep the current connection|Cancel|Variables|)
+PASS  400 picked: Cancel restores sa-a and Dev
+FAIL  400 unchecked: one row, above the bar: cancel (766, 798) done (699, 731) vault-bottom None bar-top 786 -> tops differ 766 vs 699; bottoms 798,731 not above bar top 786
+PASS  400 unchecked: hint
+PASS  400 unchecked: Done disabled
+PASS  400 unchecked: Cancel restores sa-a and Dev
+PASS  400 typed token: hint
+PASS  400 typed token: Done disabled
+== Done works, blocked Save, 720 px
+PASS  change open with Ops picked: bar says Finish or cancel first and Save disabled
+FAIL  after 1280>700>1280>700 px: Change form still open (got: 1Password|1Password service account|Keychain item name holding its token, e.g. relay-dev-read|Token works|Can read 2 vaults: Dev, Ops|Check|Service account token|Stored in this Mac's Keychain; never shown again.|Save token to Keychain|Save token|Vault|Ops|Use this connection|Done|Keep the current connection|Cancel|Variables|)
+PASS  after crossing 720 px: Save still blocked with the reason
+PASS  Done returns to the connection line with Ops
+PASS  reason gone after Done
+PASS  Save enabled after Done
+failures: 7
+removed /tmp/pe-cdc-accept.GgthB2

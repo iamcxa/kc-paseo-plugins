@@ -1,0 +1,33 @@
+== commit 88c49d4
+PASS  typecheck
+[agent-browser] launched browser
+== 1280 x 1400
+[agent-browser] launched browser
+PASS  1280 picked: one row, above the bar: cancel (605, 638) done (605, 638) vault-bottom 570 bar-top 1312
+PASS  1280 picked: ready hint
+PASS  1280 picked: Cancel restores sa-a and Dev
+PASS  1280 unchecked: one row, above the bar: cancel (605, 638) done (605, 638) vault-bottom None bar-top 1312
+PASS  1280 unchecked: hint
+PASS  1280 unchecked: Done disabled
+PASS  1280 unchecked: Cancel restores sa-a and Dev
+PASS  1280 typed token: hint
+PASS  1280 typed token: Done disabled
+== 400 x 900
+PASS  400 picked: one row, above the bar: cancel (658, 691) done (658, 691) vault-bottom 623 bar-top 786
+PASS  400 picked: ready hint
+PASS  400 picked: Cancel restores sa-a and Dev
+PASS  400 unchecked: one row, above the bar: cancel (706, 739) done (706, 739) vault-bottom None bar-top 786
+PASS  400 unchecked: hint
+PASS  400 unchecked: Done disabled
+PASS  400 unchecked: Cancel restores sa-a and Dev
+PASS  400 typed token: hint
+PASS  400 typed token: Done disabled
+== Done works, blocked Save, 720 px
+PASS  change open with Ops picked: bar says Finish or cancel first and Save disabled
+PASS  after 1280>700>1280>700 px: Change form still open
+PASS  after crossing 720 px: Save still blocked with the reason
+PASS  Done returns to the connection line with Ops
+PASS  reason gone after Done
+PASS  Save enabled after Done
+failures: 0
+removed /tmp/pe-cdc-accept.M3owB5

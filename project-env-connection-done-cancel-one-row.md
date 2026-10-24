@@ -184,3 +184,40 @@ See `### Batch overlap` under `## Design`.
 ### Summary
 
 The option-A row is in a Draft PR, built from the approved disposable diff with no changes. Measurements on an isolated Paseo built from the candidate reproduce the ideation numbers and main still fails the shared-top clause. Limits: no hover, focus, open-menu, real 1Password account or touch run; the typed-token "No unsaved changes" save bar behaviour is unchanged (Captain kept the bar out of scope). No ADR added; no number guards apply.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 88c49d4ccccc02845d868fc8761e3e5156ecde2e (PR iamcxa/kc-paseo-plugins#44, base main 4e22d4a) against AC-1 and AC-2 and the approved design: rebuild and run it yourself on an isolated Paseo; confirm in the Change form Cancel and Done share one row after Vault and both end above the save bar at 1280x1400 and 400x900, including the unchecked-account state; the hints read "Available once the connection works." and "Save the token or clear the field first." with Done disabled; Cancel restores the previous account and vault; Done still works; the save bar's blocked-Save behaviour and its survival across 720 px still hold; give a verdict.
+  Verdict PASSED, no repair finding. Built from `git archive` of the candidate on its own Paseo (ports 6972/6973 for the AC runs, 6974 for the script; plugin ids pe-cdc-val and pe-cdc-accept; own agent-browser sessions, all removed). 1280: Cancel and Done tops 605/605, Vault bottom 570, bottoms 638, bar top 1312. 400: tops 658/658 (picked) and 706/706 (unchecked), bottoms 691 and 739 against bar top 786. Hints, disabled Done, Cancel restore (picked, unchecked, failed), Done to "sa-a · Ops", Save blocked with "Finish or cancel the connection change first" and the form surviving 1280>700>1280>700 all PASS (`project-env-connection-done-cancel-one-row/evidence/validation-1/accept-output-cand.txt`, 25 PASS, 0 FAIL; `measure-cand.txt`). `npm run typecheck` exit 0; `npm test` 273 of 273 (`tests-candidate.txt`; the flaky session-open test passed in the full run).
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0/scripts/adr_lint.py docs/adr --since 60799d9` recording its exit code.
+  adr_lint exit 0 ("7 ADR file(s) checked, 0 legacy"). Script: `bash project-env-connection-done-cancel-one-row/evidence/validation-1/accept.sh` (steps below). Same script on main 4e22d4a exits 1 with 7 FAIL (tops 668 vs 603 and 721 vs 656 differ; unchecked 400 Cancel bottom 798 under bar top 786; no ready hint), so it detects the old two-row layout (`accept-output-main-falsifier.txt`). Other scripts at base 4e22d4a..88c49d4: comment_ratio exit 0 (0 of 33 code lines), doc_impact exit 0 (0 documents), design_surfaces check exit 0, dispatch_records exit 0 (3 complete); no Number guards section.
+- DONE: Look at the whole-page screenshots at 1280 and 400 px and record what the Captain should see; record every unverified obligation.
+  Seen: `project-env-connection-done-cancel-one-row/evidence/validation-1/shots/cand-1280-picked.png`, `cand-400-page-unchecked.png`, `cand-400-picked.png`. See "What the Captain should see" and "Unverified" below.
+
+### Acceptance script
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-connection-done-cancel-one-row/evidence/validation-1/accept.sh` (about 75 s; needs paseo, agent-browser, node, python3; exit 0 means all PASS; it removes everything it creates). It does, in order:
+1. Archives commit 88c49d4 and runs `npm run typecheck` in project-env (expect PASS typecheck).
+2. Starts a throwaway Paseo on port 6974 with a fake 1Password (vaults Dev and Ops) and opens the project "work" Change form.
+3. At 1280x1400 and 400x900 with Ops picked, then with account edited to sa-x, then with a typed token: expect Cancel and Done tops within 2 px, below Vault, bottoms above the save bar; hints "Cancel keeps the current one.", "Available once the connection works.", "Save the token or clear the field first."; Done disabled in the last two.
+4. Cancel from picked and unchecked: expect "sa-a · Dev" back on the connection line.
+5. With Ops picked, expect the save bar to say "Finish or cancel the connection change first" with Save disabled, still so after the window goes 1280>700>1280>700 px with the form open.
+6. Done: expect "sa-a · Ops" and Save enabled.
+Does not cover: light theme, 800 px, hover/focus/open menu, a real 1Password account, touch, the failed-Check state or Cancel from a typed token (the failed state and its Cancel are in `measure-cand.txt`), or pressing Save.
+
+### What the Captain should see
+
+At 1280 the card ends with the row "Use this connection" with "Cancel keeps the current one." under it and Cancel (outlined) and Done (white) at the right edge, directly under Vault; the save bar sits far below. At 400 px the same row follows Vault with both buttons side by side and clear of the bar; with an unchecked account the Vault is a plain text box, the hint wraps to two lines, Done is greyed and the bar reads "1 unsaved change / Finish or cancel the connection change first" with Save greyed. The Variables card, Danger zone and bar look as on main.
+
+### Findings
+
+- F1 Polish: with an unchecked account Done is disabled at 0.5 opacity and reads faint on the dark theme; this is the save bar's own disabled style and ideation declined it (Design finding 9).
+- F2 Deferred risk: with a typed unsaved token the save bar reads "No unsaved changes" on main and candidate alike; the Captain kept the bar out of scope (Needs decision 1); would become material if the bar is brought into a task.
+
+### Unverified obligations
+
+Hover, focus and open-menu states; light theme and 800 px (read from ideation evidence only, not rerun); a real 1Password account or different account; a touch device; the "Done" ready state at 400 px beyond the geometry run; the re-point line of project-env-vault-change-repoints-refs (margin 11 px at 400x900 is that task's to re-measure); the roborev result is the implementation report's (roborev:1136), not rerun.
+
+### Summary
+
+The candidate passes AC-1 and AC-2 on an independent build: one row after Vault at both widths in every state, hints and Cancel restore as specified, Done works, and the blocked Save and its survival across 720 px hold; main fails the same script. Only the declined polish and the Captain-ruled save-bar item remain.
