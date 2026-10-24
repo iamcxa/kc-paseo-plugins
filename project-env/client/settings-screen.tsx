@@ -19,14 +19,12 @@ import {
   SettingsSelect,
 } from "@getpaseo/plugin/client/ui";
 import {
-  importConductor,
   listRefs,
   type Project,
   type Variable,
   nameFromLabel,
   newVariable,
   refusal,
-  splitImported,
   projectEnv,
   storeToken,
   testProject,
@@ -545,7 +543,6 @@ function ProjectEditor({
   const [barHeight, setBarHeight] = useState(0);
   const reached = useRef<string | null>(null);
   const [removals, setRemovals] = useState(0);
-  const [importNote, setImportNote] = useState<string | null>(null);
   const [confirmStop, setConfirmStop] = useState(false);
   const resumed = open.changing;
   const [before, setBefore] = useState(resumed ?? { serviceAccount: draft.serviceAccount, vault: draft.vault });
@@ -582,7 +579,6 @@ function ProjectEditor({
   const [sharedWith, setSharedWith] = useState<string[] | null>(null);
   const refsRpc = useRpc(listRefs);
   const testRpc = useRpc(testProject);
-  const importRpc = useRpc(importConductor);
 
   const account = draft.serviceAccount.trim();
   const [checked, setChecked] = useState(account);
@@ -674,29 +670,6 @@ function ProjectEditor({
       ))}
     </Text>
   );
-  const doImport = useMutation({
-    mutationFn: () => importRpc({ root: draft.root }),
-    onSuccess: ({ names, prompt }) => {
-      const { skipped } = splitImported(names, []);
-      setImportNote(
-        skipped.length === 0
-          ? null
-          : `Skipped ${skipped.map((x) => x.name).join(", ")}: reserved names, so the agent keeps its own value.`,
-      );
-      openProject.update(
-        (d) => ({
-          ...d,
-          variables: [
-            ...d.variables,
-            ...splitImported(names, d.variables.map((v) => v.name)).add.map(newVariable),
-          ],
-          prompt: d.prompt || prompt,
-        }),
-        true,
-        open.session,
-      );
-    },
-  });
 
   const patch = useCallback((change: Partial<Project>) => {
     openProject.update((d) => ({ ...d, ...change }), true);
@@ -754,6 +727,7 @@ function ProjectEditor({
     status: token.data,
   });
   const nothingPending = tokenDraft.trim() === "" && sharedWith === null && !store.isPending;
+  const doneOff = line.kind !== "connected" || !nothingPending;
   useEffect(() => {
     if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
   }, [view, line.kind, nothingPending]);
@@ -927,33 +901,45 @@ function ProjectEditor({
             />
           )}
           {view === "change" ? (
-            <SettingsAction
+            <SettingsRow
               label="Use this connection"
               hint={
                 tokenDraft.trim() !== ""
                   ? "Save the token or clear the field first."
                   : line.kind !== "connected"
                     ? "Available once the connection works."
-                    : undefined
+                    : doneOff
+                      ? undefined
+                      : "Cancel keeps the current one."
               }
-              actionLabel="Done"
-              disabled={line.kind !== "connected" || !nothingPending}
-              onPress={backToLine}
-            />
-          ) : null}
-          {view === "change" ? (
-            <SettingsAction
-              label="Keep the current connection"
-              actionLabel="Cancel"
-              onPress={() => {
-                if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) patch(before);
-                setChecked(before.serviceAccount.trim());
-                setTokenDraft("");
-                latestToken.current = "";
-                clearTokenMessages();
-                backToLine();
-              }}
-            />
+            >
+              <View style={{ flexDirection: "row", gap: 8 }}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Keep the current connection"
+                  onPress={() => {
+                    if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) patch(before);
+                    setChecked(before.serviceAccount.trim());
+                    setTokenDraft("");
+                    latestToken.current = "";
+                    clearTokenMessages();
+                    backToLine();
+                  }}
+                  style={barButton(theme, "plain")}
+                >
+                  <Text style={barText(theme, "plain")}>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{ disabled: doneOff }}
+                  disabled={doneOff}
+                  onPress={backToLine}
+                  style={barButton(theme, "primary", doneOff)}
+                >
+                  <Text style={barText(theme, "primary", doneOff)}>Done</Text>
+                </Pressable>
+              </View>
+            </SettingsRow>
           ) : null}
         </SettingsCard>
         )}
@@ -1031,13 +1017,6 @@ function ProjectEditor({
               />
             );
           })}
-          <SettingsAction
-            label="Import names and prompt from Conductor"
-            hint={importNote ?? "Reads variable names and the general prompt from .conductor settings; no values."}
-            actionLabel={doImport.isPending ? "Importing…" : "Import"}
-            disabled={doImport.isPending}
-            onPress={() => doImport.mutate()}
-          />
         </SettingsCard>
         <View ref={bubbleOrigin} pointerEvents="none" style={{ position: "absolute", top: 0, left: 0, width: 0, height: 0, zIndex: 20 }}>
           {markView !== null && shownReason !== null ? (

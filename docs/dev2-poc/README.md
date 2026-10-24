@@ -1,5 +1,5 @@
 ---
-commissioned-by: kc-dev-flow-2
+commissioned-by: spacedock@0.27.0
 entity-type: task
 id-style: slug
 entity-label: task
@@ -43,7 +43,7 @@ stages:
 ---
 
 # Development workflow
-<!-- kc-dev-flow-2 0.26.0 x-release-please-version -->
+<!-- kc-dev-flow-2 0.29.0 x-release-please-version -->
 
 This is the adopted workflow's authority for SD stages and task schema. Resolve
 its absolute directory and retain `--workflow-dir` on SD commands, including
@@ -150,7 +150,7 @@ differently, or `Visible change: none`.
   runs the review at once. FO writes no map and no candidate; the Captain accepts
   membership in conversation or at this gate. FO records under `## FO alignment` either
   `Release review: <journey>/<release-id> at <journey-file commit>` or
-  `Release review: not needed: <reason>`; no script checks that line. When FO approves
+  `Release review: not needed: <reason>`. When FO approves
   a task into a release story at this gate it sets the three fields with
   `spacedock status --workflow-dir <dir> --set <task> journey=<the map's journey: value> journey-release=<id> journey-story=<id>`;
   a worker never edits frontmatter. Where the adopter tracks completion with
@@ -186,7 +186,9 @@ repair is dispatched under the lane in Stages.
   `python3 <package>/scripts/adr_lint.py docs/adr --since <base>` command run with its exit
   code, and unverified obligations recorded in the existing SD Stage Report.
 - **Gate content:** Show actual checks and acceptance evidence, material findings
-  and limits, and the user's pending delivery decision. Before the gate, FO runs the
+  and limits, and the user's pending delivery decision. For a `ui` task FO runs
+  `python3 <package>/scripts/design_surfaces.py check <task>` and includes its
+  output. Before the gate, FO runs the
   stage's minimal acceptance script exactly as written in a fresh shell, then presents
   every step in full beside its observed output, never a pointer or a shortened step.
   A step FO cannot run (a secret, a sign-in, the Captain's own device) is marked not
@@ -342,7 +344,7 @@ the product's journey map, not here.
 ## Captain amendments
 
 A change the Captain makes to what he has accepted, whether at a gate approval,
-during implementation or at a validation gate, is an amendment. A change he asks for
+between gates or at a validation gate, is an amendment. A change he asks for
 while the gate that would accept it is still open is not one: he calls `revise`; at a stage
 with no `feedback-to` that dispatches a worker, that stage's worker reworks it; at a stage
 whose gate has a `feedback-to`, the revision goes to that target and the stage's worker
@@ -431,8 +433,8 @@ Applies when the task's `Surfaces:` includes `db`, or the task lands an ADR, inc
   records `Applied: none as of <candidate sha>`, so a task with neither line has a
   skipped record. A task with no `Migration:` line records no `Applied:` line.
 - **POC marker.** FO presents the `boundary-crossed: persistent-state` marker at the
-  validation gate. Without `migrations-path:` the migration rules are skipped, so a POC
-  is not guarded until the README declares it.
+  validation gate. Without `migrations-path:` a db task exits 2 and a POC is not guarded;
+  `none` declares no migration files.
 - **Collision.** When two tasks hold one migration number (`check` reports R3 or R5 on
   the later candidate; nothing compares task files), the task whose migration is applied
   keeps it and the other, unapplied task renumbers, so no reset is needed. A migration
