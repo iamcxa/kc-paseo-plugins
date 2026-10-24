@@ -16,6 +16,20 @@ gates:
                 id: briefing:r4-phone-layout:backlog:attempt-1:revision-1
                 digest: sha256:25ddc8b232dd4fc1aeeea777908f7b3889f4a7d3fcabbf4f5a74b5648f62c289
                 room-ref: ./r4-phone-layout/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r4-phone-layout:backlog:1
+                briefing: briefing:r4-phone-layout:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-24T16:03:26.671198Z"
+                decision: approve
+                reason: 'Flywheel round 4 backlog gate under ADR 0008: theme chosen by the Captain in round 3 UAT with his three phone problems; scope from chief-engineer triage; Route A approximate padding inside the plugin; no Paseo upstream request (outward, his); no security, permission, relay/recording, release, outward or merge change.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 4 of the POC flywheel under ADR 0008: on the Captain's Android phone, a long briefing hides the discussion, typed text disappears under the keyboard, and the composer and buttons overlap the Android navigation bar.
