@@ -1,7 +1,7 @@
 ---
 id:
 title: ADR 0007 records which project-env decisions the FO makes by record
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
