@@ -84,3 +84,8 @@ Per-round section format:
 - Cost: Captain messages this round: 1 (option answers); worker tokens not measured.
 - Next-round candidates: phone layout — collapsible briefing panel, keyboard avoidance, clear the Android navigation bar, 320 px two-line rows, phone-tab case (Captain's choice); board tells the truth; design-partner laters (↑ / Enter wording, "existing draft kept" notice, two-line names, drop row age before title); briefing language; virtual office.
 - Package: kc-dev-flow-2 0.29.0 landed on main via #45 (README only); stack unaffected (no spacedock-bridge files).
+
+## Round 4 — 2026-10-25 — r4-phone-layout (PR #46, stack layer 3 on #42) — pre-gate
+- Observer (pre-gate, window ab85b57..37d7609): 3 violations — Low: `pr:` absent from the task frontmatter while the PR existed (FO set `pr: 46`); Low: the roborev:1145 decline was appended below the implementation cycle 4 summary instead of under `### FO declines` (FO restated it under a fresh `### FO declines` heading); Low: design_surfaces (package gap 2).
+- Process repairs: FO sets `pr:` as soon as the worker reports the PR; every FO decline is appended under its own `### FO declines` heading at the end of the file, never after a worker's section.
+- Stop check: under ADR 0008, round 2 had FO violations, round 3 had only package gap 2 (not an FO record error), round 4 has two Low FO violations. Not two consecutive rounds with FO violations, so no stop; if round 5 has an FO violation, FO stops and asks the Captain.
