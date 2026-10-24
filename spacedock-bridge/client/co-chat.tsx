@@ -2,7 +2,7 @@ import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Platform, ScrollView, Text, View, type TextStyle } from "react-native";
+import { Keyboard, Platform, ScrollView, Text, View, type TextStyle } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { nextStepIsCaptains, parseEnvelope, replyPreview } from "../shared/preview";
 import { MarkdownView } from "./markdown-view";
@@ -12,6 +12,7 @@ import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
 import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
+import { useComposerPadding } from "./use-composer-padding";
 
 const VISIBLE = 30;
 
@@ -97,6 +98,7 @@ function Chat({
   const [error, setError] = useState("");
   const scroller = useRef<ScrollView>(null);
   const colors = theme.colors;
+  const paddingBottom = useComposerPadding(layout, Keyboard);
   const mono = Platform.OS === "ios" ? "Menlo" : "monospace";
 
   const styles = useMemo(() => {
@@ -331,7 +333,7 @@ function Chat({
     );
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingBottom }]}>
       {discussion ? (
         <View style={styles.divider}>
           <Text style={styles.dividerLabel}>DISCUSSION</Text>

@@ -46,6 +46,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const [problem, setProblem] = useState("");
   const [recorded, setRecorded] = useState<{ decision: string; reason: string } | null>(null);
   const [showEvidence, setShowEvidence] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const [now, setNow] = useState(Date.now());
   const [claim, setClaim] = useState<DecisionRecordData | null>(null);
   const [relayed, setRelayed] = useState(false);
@@ -255,6 +256,20 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
 
   return (
     <View style={styles.screen} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
+      {layout.compact && collapsed ? (
+        <Pressable
+          colors={colors}
+          accessibilityRole="button"
+          accessibilityLabel="Expand briefing"
+          accessibilityState={{ expanded: false }}
+          onPress={() => setCollapsed(false)}
+          style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12, minHeight: 44 }}
+        >
+          <Text style={[styles.question, { flex: 1 }]} numberOfLines={1}>{briefing?.question || gate?.title || fo.title}</Text>
+          <Text style={styles.toggle}>Expand ▾</Text>
+        </Pressable>
+      ) : (
+      <>
       <ScrollView
         style={[styles.top, { height: topHeight }]}
         contentContainerStyle={styles.topContent}
@@ -264,6 +279,12 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           <Text style={styles.back}>← Bridge</Text>
         </Pressable>
         <Text style={styles.label}>{cardLabel(gate, fo.repo)}</Text>
+        {layout.compact ? (
+          <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Collapse briefing"
+            accessibilityState={{ expanded: true }} onPress={() => setCollapsed(true)}>
+            <Text style={styles.toggle}>Collapse briefing ▴</Text>
+          </Pressable>
+        ) : null}
         {gate ? null : foLine}
         {gate ? (
           <>
@@ -307,6 +328,8 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           <View style={styles.grip} />
         </Pressable>
       </View>
+      </>
+      )}
       <View style={{ flex: 1 }}>
         <CoChat
           theme={theme}
