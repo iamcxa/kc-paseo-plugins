@@ -1,7 +1,7 @@
 ---
 id:
 title: Finishing or cancelling a connection change is one row right after the vault
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
