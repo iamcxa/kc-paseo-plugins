@@ -38,6 +38,20 @@ gates:
                 id: briefing:r4-phone-layout:validation:attempt-1:revision-1
                 digest: sha256:0791e9a7e2cf6f02325583e98cf887ba7afcd7e3351964266a4be20a2fc7f8d6
                 room-ref: ./r4-phone-layout/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r4-phone-layout:validation:1
+                briefing: briefing:r4-phone-layout:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-24T17:03:34.054781Z"
+                decision: approve
+                reason: 'Flywheel round 4 validation gate under ADR 0008 for the plugin side: team satisfied on 3d1f176c, validation-2 AC-1 and fake-keyboard AC-2 PASS with device behaviour unproven until the Captain Android UAT, F1 accepted in scope, FO acceptance rerun all PASS, observer record defects repaired; no merge.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-24T16:03:46Z
 worktree: .worktrees/spacedock-ensign-r4-phone-layout
 pr: 46
