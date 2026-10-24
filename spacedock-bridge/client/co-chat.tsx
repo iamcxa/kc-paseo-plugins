@@ -60,6 +60,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   onSent?: (text: string) => void;
   onChip?: (word: string, draft: string) => Promise<string | null>;
   seed?: { text: string; nonce: number } | null;
+  onSeeded?: () => void;
   discussion?: boolean;
 };
 
@@ -82,6 +83,7 @@ function Chat({
   onSent,
   onChip,
   seed,
+  onSeeded,
   discussion,
 }: Props) {
   const paseo = usePaseo();
@@ -277,7 +279,10 @@ function Chat({
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
   useEffect(() => {
-    if (seed) setDraft(seedDraft(key, seed.text));
+    if (seed) {
+      setDraft(seedDraft(key, seed.text));
+      onSeeded?.();
+    }
   }, [seed?.nonce]);
 
   const [sending, setSending] = useState(false);
