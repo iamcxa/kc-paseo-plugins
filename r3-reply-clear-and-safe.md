@@ -38,6 +38,20 @@ gates:
                 id: briefing:r3-reply-clear-and-safe:validation:attempt-1:revision-1
                 digest: sha256:08c6d88a6ba84063af14eeadee734a637dcae3772c163c5fc0f6b438e49b16a3
                 room-ref: ./r3-reply-clear-and-safe/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r3-reply-clear-and-safe:validation:1
+                briefing: briefing:r3-reply-clear-and-safe:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-24T02:25:02.054534Z"
+                decision: approve
+                reason: 'Flywheel round 3 validation gate under ADR 0008: team satisfied on 8d9a68b9 (validation-2 PASSED, design partner and both picky users SATISFIED), FO acceptance rerun all PASS, observer pre-gate only package gap 2; no merge.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-24T01:23:34Z
 worktree: .worktrees/spacedock-ensign-r3-reply-clear-and-safe
 ---
