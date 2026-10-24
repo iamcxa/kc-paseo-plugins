@@ -313,6 +313,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           layout={layout}
           navigation={navigation}
           agentId={fo.id}
+          gate={gate}
           title={fo.title || "FO"}
           placeholder={`Message ${foName(fo.title || "the FO")} directly${gate ? ", or add a reason to your decision" : ""}`}
           discussion

@@ -10,6 +10,7 @@ import { discussionWindow } from "../shared/card";
 import { type KeyPressEvent, composerHandlers } from "../shared/composer";
 import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
+import { draftKey, readDraft, seedDraft, writeDraft } from "../shared/drafts";
 
 const VISIBLE = 30;
 
@@ -49,6 +50,7 @@ function toLines(entries: readonly { item: TimelineItemLike; seqStart: number }[
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
+  gate?: { slug: string; stage: string } | null;
   onAsk?: (ask: string | null) => void;
   title?: string;
   placeholder?: string;
@@ -61,11 +63,16 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   discussion?: boolean;
 };
 
-export function CoChat({
+export function CoChat(props: Props) {
+  return <Chat key={draftKey(props.agentId, props.gate)} {...props} />;
+}
+
+function Chat({
   theme,
   layout,
   navigation,
   agentId,
+  gate,
   onAsk,
   title = "Comms officer",
   placeholder = "Message the comms officer",
@@ -80,7 +87,12 @@ export function CoChat({
   const paseo = usePaseo();
   const [lines, setLines] = useState<Line[]>([]);
   const [working, setWorking] = useState(false);
-  const [draft, setDraft] = useState("");
+  const key = draftKey(agentId, gate);
+  const [draft, setDraftState] = useState(() => readDraft(key));
+  const setDraft = (text: string) => {
+    writeDraft(key, text);
+    setDraftState(text);
+  };
   const [boxHovered, setBoxHovered] = useState(false);
   const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
@@ -265,7 +277,7 @@ export function CoChat({
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
   useEffect(() => {
-    if (seed) setDraft(seed.text);
+    if (seed) setDraft(seedDraft(key, seed.text));
   }, [seed?.nonce]);
 
   const [sending, setSending] = useState(false);
@@ -304,7 +316,7 @@ export function CoChat({
     ) : (
       <Pressable colors={colors}
         accessibilityRole="button"
-        accessibilityLabel="Send"
+        accessibilityLabel={`Send to ${title}`}
         style={[...sendStyle, draft.trim() && !sending ? null : styles.sendIdle]}
         disabled={sending || !draft.trim()}
         onPress={() => void send()}
@@ -390,6 +402,7 @@ export function CoChat({
           onPointerLeave={() => setBoxHovered(false)}
           style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
         >
+          <Text style={styles.hint}>↑ sends to {title}</Text>
           <TextInput
             style={[styles.input, hasChips ? styles.inputWithRow : null, Platform.OS === "web" ? ({ outlineStyle: "none" } as unknown as TextStyle) : null]}
             value={draft}
