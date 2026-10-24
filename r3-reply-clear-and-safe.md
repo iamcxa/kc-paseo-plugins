@@ -62,3 +62,30 @@ Verified by: isolated-daemon walk with screenshots: wide layout — type in gate
 
 Alignment: not needed: the Captain chose this theme in round 2 UAT; scope from chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: Before any edit, reset your empty dispatch branch onto the previous stack layer (git reset --hard e91b9755a0c3444ebf4390f5396499ddf2070457, branch spacedock-ensign/fleet-hides-closed-fos) and confirm HEAD; then the in-memory draft store keyed by agentId plus gate slug:stage, cleared where composerHandlers clears, with the AC-1 store tests and typecheck
+  Reset clean dispatch branch to e91b9755a0c3444ebf4390f5396499ddf2070457 before edits; candidate dae9b002dd8360fccfd92ad52385c4fa4d2b4316; r3-reply-clear-and-safe/evidence/implementation-cvtdyuot/tests-final.log: 84/84 and typecheck-final.log: exit 0. Six store tests fail on key isolation/remount/seed or successful/refused composer-clearing regressions.
+- DONE: The comms officer seed keeps a non-empty draft, and labels name where ↑ (the FO by name) and the decision row (the comms officer) deliver, with decision logic unchanged; isolated-daemon walk screenshots for AC-2 (wide: gate A, back, gate B empty, back to A present; compact: both tabs keep drafts)
+  r3-reply-clear-and-safe/evidence/implementation-cvtdyuot/candidate-14: A typed → B empty → A restored at 1440px, both 520px tabs restored, named FO send and comms officer decision labels; baseline-1 loses A. Existing composer assertions fail if delivery arguments change; source changes leave decideGate, claim/release and relay logic unchanged.
+- DONE: Branch pushed and a Draft PR opened with base spacedock-ensign/fleet-hides-closed-fos (second stack layer), PR body stating the known limit that drafts are lost on plugin or app reload
+  https://github.com/iamcxa/kc-paseo-plugins/pull/42; pr42.json: OPEN, isDraft=true, base spacedock-ensign/fleet-hides-closed-fos, head dae9b002dd8360fccfd92ad52385c4fa4d2b4316; body explicitly states plugin/app reload loses drafts.
+
+### Summary
+
+Added memory-only drafts per agent/gate/stage, preserved non-empty comms drafts when seeded, consumed seeds once, and named send recipients. The exact candidate is pushed as the second unmerged stack layer; independent validation and the FO-owned RoboRev gate remain pending.
+
+### Findings
+
+Evidence and rerun instructions: r3-reply-clear-and-safe/evidence/implementation-cvtdyuot/README.md; final scoped runtime walk passed, with screenshots visually inspected; no message or decision sent. Native appearance, live installation and Captain acceptance remain unverified.
+
+The extra reload probe in attempt 13 timed out at host navigation after the required walk had passed; candidate-14 is the completed scoped walk. Earlier harness selector/drawer/animation and input-generation failures are retained as diagnostic evidence, not acceptance screenshots; the final walk uses normal product tab/pointer/input events and DOM clicks only to enter through the outer host drawer.
+
+checks-final.json: comment_ratio PASS (39 code, 0 comments, 0.0%, maximum 5%); doc_impact returned 0 documents; OVERVIEW.md updated directly; adr_lint PASS (7 records, 0 legacy). No ADR/migration added or reserved; number_guards PASS with no R4 finding (known package gap 3 not needed).
+
+design_surfaces: SKIPPED, known package gap 2, approved POC seed lacks Surfaces/Visible change markers. RoboRev: SKIPPED, known package gap 5; FO runs the pushed candidate with base e91b9755a0c3444ebf4390f5396499ddf2070457. Scripts ran from the loaded Codex 0.28.0 absolute package root per stage-definition precedence; its location and all command outputs are recorded in checks-final.json.
+
+ADR 0008 read at e91b9755a0c3444ebf4390f5396499ddf2070457, Accepted; SHA-256 d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f. No new enduring decision or POC boundary crossing; drafts use only a module Map and are lost on plugin/app reload.
+
+All captured isolated daemon PIDs and temporary roots checked absent; final cleanup.json plus late-browser-cleanup.json record cleanup. Code worktree, main and flywheel-live were clean after proof; no live daemon, ready/merge/release action or Release PR #18 mutation occurred.

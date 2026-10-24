@@ -1,0 +1,27 @@
+# Round 3 reply drafts — implementation evidence
+
+Candidate: `dae9b002dd8360fccfd92ad52385c4fa4d2b4316`; base: `e91b9755a0c3444ebf4390f5396499ddf2070457`. Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/42, base `spacedock-ensign/fleet-hides-closed-fos`. Code commits are `7ccf539453b0` and `dae9b002dd83`. No ready, merge, release or live-install action was performed.
+
+## Required proof
+
+`tests-final.log`: 84 passing npm tests. The six new draft tests fail if keys omit agent/gate/stage, reads discard remount data, seeds replace non-empty text, or composer success/refusal clears the wrong target or at the wrong time. Existing composer tests assert delivery and decision arguments. `typecheck-final.log`: `npm run typecheck` passed. The implementation uses one module Map, a target-keyed Chat component and the same setter for typing and composer clearing. Decision, claim/release and relay implementations were unchanged.
+
+`candidate-14/` is the successful scoped walk at the exact candidate. It exercises actual client/shared candidate bytes in an isolated Paseo daemon. `wide-gate-a-typed.png`, `wide-gate-b-empty.png` and `wide-gate-a-restored-and-labels.png` show A typed, B empty, and A restored after back/open. `compact-comms-restored.png` and `compact-gate-a-restored-and-labels.png` show both drafts after tab switches at 520px; the latter also shows the named FO recipient and comms officer decision row. `wide-seed-preserves-comms.png` shows a non-empty draft survives asking the comms officer. `compact-comms-cleared.png` plus the final assertion prove deletion followed by remount stays clear. These wide and compact screenshots were visually inspected. `observed-states.json` records assertions without copying draft text to a separate data store. No message or decision was sent.
+
+`baseline-1/` reproduces the missing behavior at e91b9755: gate A is empty after returning from B. The same synthetic journey fails the candidate expectation there. This establishes the change's falsifier by exercising the previous stack layer rather than searching source text.
+
+## Reproduction and scope
+
+Requirements: Python 3, git, npm, installed Paseo 0.12 with matching web assets, agent-browser and Chromium; `npm ci` in the candidate's spacedock-bridge directory. Run `capture.py --worktree <absolute candidate> --paseo <CLI> --browser <agent-browser CLI> --web-dist <Paseo app-dist> --port <unused permitted port> --output <new directory>`. Add `--baseline e91b9755a0c3444ebf4390f5396499ddf2070457` to reproduce the old loss. All machine-specific tools/assets are explicit arguments; the harness rejects reserved ports and existing output directories.
+
+The final run used 7121/7122, its own HOME and --home, synthetic agents/gates/reviews and stub gh/spacedock data. Only the disposable server fleet port changed; no candidate client/shared source was patched. The fresh browser profile blocked localhost resolution. `candidate-14/cleanup.json` records its captured PID and removed temporary root. Every captured test PID and root was checked absent after the final run. A diagnostic browser invocation recreated the already-closed candidate-9 profile; `late-browser-cleanup.json` records removing only that fixture after checking PID absence and no open files. The harness is retained only as task evidence, and removes its disposable code/profile/home after each run.
+
+Earlier attempt folders are diagnostic evidence, not acceptance screenshots. Attempts 1–10 isolated harness selector, shell routing, transparent drawer and animation issues; one port could not bind before a daemon started. Opening compact Bridge uses DOM clicks only for the outer Paseo drawer and waits for it to close; product tabs use normal browser clicks, card buttons use pointer events, and text uses input/keyboard events. Attempts 11–12 exposed unreliable empty-fill and platform-specific select-all input generation; native textarea select followed by Backspace passed in 13 and 14. Attempt 13 passed the required walk and clear/remount probe, then timed out re-entering the host after an extra reload. Run 14 is scoped to the accepted walk. The known architectural limit remains: drafts are lost on plugin or app reload; a successful host reload walk, native appearance, live installation and Captain acceptance are not established.
+
+## Package checks and rulings
+
+`checks-final.json` records comment_ratio: 39 code lines, 0 comment lines, 0.0% <= 5%; doc_impact: zero hits; adr_lint: seven records, zero legacy; number_guards: PASS, no findings (no R4 failure, so known gap 3 was not needed). OVERVIEW.md was updated directly for draft/recipient behavior. No ADR or migration was added or reserved.
+
+`design_surfaces.py`: SKIPPED, known package gap 2; the approved POC seed omits Surfaces/Visible change declarations. RoboRev: SKIPPED, known package gap 5; FO runs the gate on pushed head dae9b002dd8360fccfd92ad52385c4fa4d2b4316 with base e91b9755a0c3444ebf4390f5396499ddf2070457. Scripts ran by absolute path from the loaded Codex 0.28.0 package (`/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0`), following the stage definition's loaded-package precedence over the dispatch's Claude cache location.
+
+ADR 0008 was read at e91b9755a0c3444ebf4390f5396499ddf2070457, Accepted; SHA-256 `d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f`. No new enduring decision was introduced. `pr42.json` verifies OPEN, isDraft=true, correct stack base and exact pushed candidate; its body states the reload limit.
