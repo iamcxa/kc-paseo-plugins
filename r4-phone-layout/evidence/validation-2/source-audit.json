@@ -1,0 +1,33 @@
+{
+  "candidate": "3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e",
+  "base": "8d9a68b92389aab55c96595245dc85e887251dd5",
+  "unchanged_checks": {
+    "shared/decide.ts": true,
+    "shared/relay.ts": true,
+    "shared/drafts.ts": true,
+    "shared/composer.ts": true,
+    "client/use-draft.ts": true,
+    "package.json": true,
+    "package-lock.json": true,
+    "decision callbacks (load through onSent) unchanged": true,
+    "co-chat differs only by Keyboard import, padding hook and screen style": true
+  },
+  "client_shared_external_imports": [
+    "@getpaseo/client",
+    "@getpaseo/plugin",
+    "@getpaseo/plugin/client",
+    "@getpaseo/plugin/client/react-native",
+    "react",
+    "react-native",
+    "zod"
+  ],
+  "changed_paths": [
+    "spacedock-bridge/OVERVIEW.md",
+    "spacedock-bridge/client/co-chat.tsx",
+    "spacedock-bridge/client/decision-card.tsx",
+    "spacedock-bridge/client/use-composer-padding.ts",
+    "spacedock-bridge/test/composer-padding.test.mts"
+  ],
+  "comment_assessment": "One added comment explains approximate navigation clearance and absent host insets; no provenance or narration.",
+  "limits": "Static byte comparison and import inventory are bounded source evidence; browser fixture and tests supply execution evidence. No Android device proof."
+}
