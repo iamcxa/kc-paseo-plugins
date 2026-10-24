@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-remove-conductor-import:validation:attempt-1:revision-1",
+  "question": "Approve delivery of PR iamcxa/kc-paseo-plugins#41 at head 099e7b790d89ca8b63b28afb65f98f3d71c6f30e? Approval also covers later external-review rounds on the same PR, merging by squash the full head that delivery_gate.py check passes with --match-head-commit set to it once its Codex round is clean, removing its clean pushed worktree, and updating your live plugin (back up the settings file, git merge --ff-only, npm ci, paseo plugin reload paseo-project-env), unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-remove-conductor-import:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/f5dbcc6996e1e5ce00594b7429412d0073c178bf/project-env-remove-conductor-import.md",
+      "rev": "sha256:c011a386e74604164ff34cb6a2f4595a5e338152ee2dcd9ed999e800bfed8cb1",
+      "mediaType": "text/markdown",
+      "summary": "Validation PASSED at 099e7b7 with no finding; FO reran evidence/validation/acceptance.sh (0 failing steps); Codex 1 round, clean; local roborev gate clean (roborev:1125), no RoboRev review posted on the PR. delivery_gate.py check exit 0. Seen, not caused by this task: at 1280x1400 the sticky save bar overlays the foot of the prompt box in work-many. Owed: light theme, real Conductor/1Password/Keychain, a CI run of npm test; Kent's own use."
+    }
+  ]
+}

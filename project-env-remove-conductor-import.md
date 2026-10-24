@@ -48,6 +48,25 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-remove-conductor-import:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-remove-conductor-import-validation-1
+              briefing:
+                id: briefing:project-env-remove-conductor-import:validation:attempt-1:revision-1
+                digest: sha256:7e542942dd808d20e38fba4dc424ffd1bea772787211afffbf098955e92ccf38
+                room-ref: ./project-env-remove-conductor-import/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-remove-conductor-import:validation:1
+                briefing: briefing:project-env-remove-conductor-import:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-24T01:16:44.106889Z"
+                decision: approve
+                reason: 'Captain 2026-10-24: 「准」 (decision d-dd665o, relayed by the Comms Officer and checked on its [User] line) — approves delivery of PR #41 at 099e7b7 per the gate question, including the live plugin update.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T12:22:37Z
 ---
 
