@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r4-phone-layout:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r4-phone-layout-validation-1
+              briefing:
+                id: briefing:r4-phone-layout:validation:attempt-1:revision-1
+                digest: sha256:0791e9a7e2cf6f02325583e98cf887ba7afcd7e3351964266a4be20a2fc7f8d6
+                room-ref: ./r4-phone-layout/review/validation/briefing-1
 started: 2026-10-24T16:03:46Z
 worktree: .worktrees/spacedock-ensign-r4-phone-layout
 pr: 46

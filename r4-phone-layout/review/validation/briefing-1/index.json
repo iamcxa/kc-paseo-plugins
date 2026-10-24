@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r4-phone-layout:validation:attempt-1:revision-1",
+  "question": "Flywheel round 4 validation: record the validation of PR #46 at 3d1f176c (fully collapsible briefing on compact layouts with feedback and back kept visible, keyboard-following composer padding on native, fixed Android bottom padding) as passed for the plugin side, so the round is pushed for Codex review and installed for the Captain's Android trial, unmerged?",
+  "artifacts": [
+    {
+      "id": "artifact:r4-phone-layout:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/d12f6309e0fef9e0d88adff51cde0204aa4790d9/r4-phone-layout.md",
+      "rev": "sha256:d108b982d56f2a2021bbd45fb55fa98ffc682a00327d8325b06db1566dfb4bde",
+      "mediaType": "text/markdown",
+      "summary": "Team satisfied on the plugin side at 3d1f176c: design partner and both picky users SATISFIED after repairs; validation-2 PASSED AC-1 and fake-keyboard AC-2 with device behaviour UNPROVEN until the Captain's Android UAT; its F1 (desktop discussion 45 px shorter from the shared feedback toolbar) accepted as in scope by FO. FO reran acceptance steps 1-4: all PASS. Roborev by FO: Mediums repaired in cycles 2-4; 1141 and 1145 declined as Deferred risk pending UAT. Observer pre-gate: two Low record defects repaired, package gap 2."
+    }
+  ]
+}
