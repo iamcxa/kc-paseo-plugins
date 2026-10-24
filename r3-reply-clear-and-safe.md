@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r3-reply-clear-and-safe
+gates:
+    version: 1
+    records:
+        - id: gate:r3-reply-clear-and-safe:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r3-reply-clear-and-safe-backlog-1
+              briefing:
+                id: briefing:r3-reply-clear-and-safe:backlog:attempt-1:revision-1
+                digest: sha256:571e6bcca15d79dade79898c2bb0fa42af0f1d23d7972fb3edd31183533f9247
+                room-ref: ./r3-reply-clear-and-safe/review/backlog/briefing-1
 ---
 
 Round 3 of the POC flywheel under ADR 0008: the Captain chose 「回覆清楚又安全」 — the composer should say where a reply goes, and a half-typed reply should not vanish when he opens another item, goes back, or switches tabs.

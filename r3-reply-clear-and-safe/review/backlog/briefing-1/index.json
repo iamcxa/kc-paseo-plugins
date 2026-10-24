@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r3-reply-clear-and-safe:backlog:attempt-1:revision-1",
+  "question": "Flywheel round 3 backlog: admit an in-memory per-target draft store, a non-overwriting comms officer seed, and labels naming where ↑ and the decision row deliver, to implementation as the second stacked layer on PR #40?",
+  "artifacts": [
+    {
+      "id": "artifact:r3-reply-clear-and-safe:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/57385b1283107a8f8a632847aeede1aa698ff059/r3-reply-clear-and-safe.md",
+      "rev": "sha256:7d6b856511e1325d854abe4a8c8d4531fb0f120b8930efa103446627092d04f4",
+      "mediaType": "text/markdown",
+      "summary": "Captain chose 「回覆清楚又安全」 in round 2 UAT. Chief-engineer scope: module-level draft Map keyed by agentId plus gate slug:stage, cleared where composerHandlers clears; seed keeps a draft; labels only, decision logic unchanged; memory only (POC boundary). Defers the CoChat lift and board-trust work. Stacked on PR #40; nothing merges."
+    }
+  ]
+}
