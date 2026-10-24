@@ -1,0 +1,96 @@
+✔ drafts survive remount reads, isolated by agent, gate and stage (0.68775ms)
+✔ a comms officer seed fills an empty draft and preserves non-empty text (0.102292ms)
+✔ stored draft clears after successful send (0.679083ms)
+✔ stored draft survives refused send (0.083666ms)
+✔ stored draft clears after successful decision (0.108791ms)
+✔ stored draft survives refused decision (0.063ms)
+✖ a delayed send keeps a newer remounted draft: New reply after remount (1.099667ms)
+✖ a delayed send keeps a newer remounted draft: Original reply (0.228208ms)
+✖ a delayed decision keeps a newer remounted draft: New reply after remount (0.213ms)
+✖ a delayed decision keeps a newer remounted draft: Original reply (0.229541ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 6
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 194.974542
+
+✖ failing tests:
+
+test at test/drafts.test.mts:67:5
+✖ a delayed send keeps a newer remounted draft: New reply after remount (1.099667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'New reply after remount'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/drafts.test.mts:91:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'New reply after remount',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/drafts.test.mts:67:5
+✖ a delayed send keeps a newer remounted draft: Original reply (0.228208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'Original reply'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/drafts.test.mts:91:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'Original reply',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/drafts.test.mts:67:5
+✖ a delayed decision keeps a newer remounted draft: New reply after remount (0.213ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'New reply after remount'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/drafts.test.mts:91:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'New reply after remount',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/drafts.test.mts:67:5
+✖ a delayed decision keeps a newer remounted draft: Original reply (0.229541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + ''
+  - 'Original reply'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r3-reply-clear-and-safe/spacedock-bridge/test/drafts.test.mts:91:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'Original reply',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

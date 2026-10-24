@@ -89,3 +89,22 @@ design_surfaces: SKIPPED, known package gap 2, approved POC seed lacks Surfaces/
 ADR 0008 read at e91b9755a0c3444ebf4390f5396499ddf2070457, Accepted; SHA-256 d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f. No new enduring decision or POC boundary crossing; drafts use only a module Map and are lost on plugin/app reload.
 
 All captured isolated daemon PIDs and temporary roots checked absent; final cleanup.json plus late-browser-cleanup.json record cleanup. Code worktree, main and flywheel-live were clean after proof; no live daemon, ready/merge/release action or Release PR #18 mutation occurred.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: roborev:1131: a send that completes after a remount must not clear a newer draft — clear the stored entry only when it still holds the exact text that was submitted (compare-and-clear), so an edit made after the send survives; add a delayed-send regression test (send, remount, edit, send completes, draft kept) and keep the existing store tests passing
+  Candidate 9bc63dc40ce2a8ed83c7e365c4ecbdcd5d544959 reads the live store and compares raw submitted text before clear; cycle-2/regression-red.log shows all four delayed send/decision cases fail before repair, tests.log passes 88/88 after repair; unconditional clearing or trimmed equality would fail them again.
+- DONE: npm test and typecheck pass; push to the same branch (PR #42 stays Draft, base spacedock-ensign/fleet-hides-closed-fos); a short "## Stage Report: implementation (cycle 2)" section
+  cycle-2/typecheck.log exits 0; cycle-2/pr42.json verifies OPEN Draft PR #42 at 9bc63dc40ce2a8ed83c7e365c4ecbdcd5d544959 with unchanged stack base and reload-limit disclosure. Existing store/composer tests remain green.
+
+### Summary
+
+Fixed the late-completion race using compare-and-clear against the shared store; new edits, including whitespace-only edits, survive a remount while a send or decision is pending. Decision delivery, claim/release and relay behavior are unchanged; the same branch is pushed and PR #42 stays Draft.
+
+### Findings
+
+RoboRev 1131: Material; Captain's normal Bridge send → switch/back → edit loses newer text on late completion, violating value-ac[AC-1] draft retention; the pre-fix deferred-completion failures reproduce this trigger. Evidence and rerun commands: r3-reply-clear-and-safe/evidence/cycle-2/README.md.
+
+checks.json: repair comment_ratio 7 code/0 comments, exit 0 (below the 20-line enforcement threshold); full stack comment ratio 46 code/0 comments, 0.0% <= 5%; doc_impact 0 documents, OVERVIEW.md updated directly; ADR lint 7 records passed; number guards PASS, gap 3 not triggered. No ADR/migration or new POC boundary.
+
+design_surfaces: SKIPPED, known package gap 2. RoboRev: SKIPPED, known package gap 5; FO reruns the pushed head against e91b9755a0c3444ebf4390f5396499ddf2070457. Loaded Codex package absolute paths are in checks.json. No new daemon/browser walk or live install; prior screenshots are not claimed at this repair candidate.

@@ -1,0 +1,15 @@
+# Delayed-send draft preservation
+
+Repair base: `dae9b002dd8360fccfd92ad52385c4fa4d2b4316`. Candidate: `9bc63dc40ce2a8ed83c7e365c4ecbdcd5d544959`. Stack base: `e91b9755a0c3444ebf4390f5396499ddf2070457`. PR #42 remains Draft with base `spacedock-ensign/fleet-hides-closed-fos`; `pr42.json` verifies the pushed head and unchanged reload-limit disclosure.
+
+FO authorized this repair of RoboRev finding 1131 in `dispatch/implementation-1-followup-1.md`. The Captain can submit a Bridge reply, switch away/back, and type a new draft while the old send is pending. The old completion previously erased that draft, violating value-ac[AC-1] (drafts retained per target). The deferred send regression reproduces the trigger without real provider messages.
+
+`regression-red.log`: six prior draft tests pass, all four new deferred-completion cases fail with empty actual drafts at the original candidate before production changes. `tests.log`: all 88 tests pass after repair; `typecheck.log`: TypeScript exits 0. Run from `spacedock-bridge`: `npm ci`, `npm test`, `npm run typecheck`. For the focused cases: `./node_modules/.bin/tsx --test test/drafts.test.mts`.
+
+The regression uses the real composer handlers and module draft store, deferring only the external send/decision completion. It starts a send, awaits dispatch, reads the same target as a simulated remount, writes a newer draft, releases completion, and asserts that draft remains. Cases cover different text and whitespace-only edits for both send and decision. Restoring unconditional clear or comparing trimmed text makes these tests fail. Existing successful-send, successful-decision, refusal and seed tests remain green.
+
+The composer snapshots the raw submitted text and compares it with the current draft immediately before clearing. CoChat's draft port reads the shared store so an old component callback sees edits made after a remount. The compare and clear have no await between them. Decision delivery, claim/release and relay text are unchanged. OVERVIEW.md now describes preserving edits made after submission.
+
+`checks.json`: repair comment ratio exits 0 (7 code lines, 0 comments; minimum-20-line threshold not enforced); doc_impact lists zero documents; OVERVIEW.md updated directly; ADR lint passes seven records; number guards pass, no R4 failure. `stack-comment-ratio.json`: 46 code lines, 0 comments, 0.0%, maximum 5% met. Package scripts ran by absolute path from the loaded Codex package at `/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.28.0`, per loaded-skill precedence.
+
+Known package gap 2: design_surfaces requires declarations the approved POC seed omits; SKIPPED. Gap 3 was not triggered. RoboRev was not run under package gap 5; FO reruns it on the pushed head with stack base e91b9755. No ADR, migration, new storage, daemon/browser run, live install, ready/merge or release action was added. Prior UI screenshots remain evidence for the earlier candidate, not a rerun of this repair. Drafts remain memory-only and are lost on plugin/app reload.
