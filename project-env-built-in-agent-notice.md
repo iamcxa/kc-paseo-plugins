@@ -29,6 +29,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-10-25T13:53:45Z
 ---
 
 From the Captain's UAT discussion on 2026-10-24. He found the default-prompt box 「稍嫌多餘」 but liked using it to tell agents 「這個 repo 的金鑰都已經在環境變數裡，不要叫使用者貼 token，也不要把值印出來」, and asked whether a default like that should also 「讓agent 知道有這個套件存在，有問題可以知道排查方向，例如讀取套件文件」. He approved opening the task with 「開」, and asked 「是否不需要列出有哪些金鑰？」; the FO recommends not listing them, and he confirms at the ideation gate.
