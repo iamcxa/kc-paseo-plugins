@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-built-in-agent-notice:ideation:attempt-2:revision-1",
+  "question": "Approve the revised notice design (revision 2 notice text, prompt box removed with a saved prompt dropped silently, and the 'Projects ›' link under Paseo's own 'Back to plugins') and AC-1 to AC-4 into implementation? Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-built-in-agent-notice:ideation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/5229efc3bfe14159873986d626ab8d12563b04da/project-env-built-in-agent-notice.md",
+      "rev": "sha256:d4789f78e240abd6a7c0cb6c0446b43fcfac40620af7113f6ddf93e25af5627a",
+      "mediaType": "text/markdown",
+      "summary": "Agent check: round 1 misread in 3 of 15 runs (Claude printed a value, offered export, hedged); revised wording passed 15 of 15 in round 2 and 2b (Codex gpt-6.1-sol medium, Claude Sonnet 5.5 medium and low; n=1 per cell; Codex s3 rests on one manual run). Back to plugins is drawn by Paseo, not the plugin; fix is a 'Projects › name' breadcrumb link (AC-4). FO probe: a Codex agent in qnow (full-access) sees all 5 variables SET. Design review 13 findings: 3 fixed, 1 criterion, 3 declines upheld. design_surfaces exit 0."
+    }
+  ]
+}

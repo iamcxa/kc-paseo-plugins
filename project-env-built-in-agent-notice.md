@@ -45,6 +45,11 @@ gates:
                 at: "2026-10-25T14:30:10.662778Z"
                 decision: revise
                 reason: '「那個 built in prompt 可能要找 agent 驗證一下，至少 codex + claude 都用 sol mid and sonnet mid or low 驗證下他們確實可以理解。此外那個 Back to plugin 箭頭可以改一下嗎？按了是回到套件清單沒錯，但是非常容易誤會按了是回到套件內的專案清單」 — Captain in FO chat, 2026-10-25, while the ideation gate (briefing-1, sha256:93693982) was open. Asked: Approve the built-in agent notice design ... into implementation? Say if you object to any part.'
+            - id: gate-attempt:project-env-built-in-agent-notice-ideation-2
+              briefing:
+                id: briefing:project-env-built-in-agent-notice:ideation:attempt-2:revision-1
+                digest: sha256:a04bc8703b9d461ae68f6af01a24902f853d04aec18214828ec2e33765e240e7
+                room-ref: ./project-env-built-in-agent-notice/review/ideation/briefing-2
 started: 2026-10-25T13:53:45Z
 ---
 
