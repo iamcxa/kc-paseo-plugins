@@ -11,7 +11,7 @@ const { PaseoApiProvider } = createRequire(import.meta.url)("@getpaseo/plugin/cl
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
-test("a reconnect refetch reveals a question when the turn finished while disconnected", { timeout: 3000 }, async (t) => {
+test("a reconnect detects the last displayed Captain question after earlier FO work", { timeout: 3000 }, async (t) => {
   const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -34,7 +34,11 @@ test("a reconnect refetch reveals a question when the turn finished while discon
         status = completedOffline ? "idle" : "running";
         const page = {
           agent: { status },
-          entries: completedOffline ? [{ item: { type: "assistant_message", text: "Next: Choose the theme (you)" } }] : [],
+          entries: completedOffline ? [
+            { seqStart: 1, item: { type: "assistant_message", text: "Next: Run the checks (me)\n" } },
+            { seqStart: 2, item: { type: "tool_call", name: "exec_command" } },
+            { seqStart: 3, item: { type: "assistant_message", text: "Next: Choose the theme (you)" } },
+          ] : [],
         };
         if (completedOffline) refreshed();
         return page;

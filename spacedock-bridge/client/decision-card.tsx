@@ -72,7 +72,11 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       stage: gate.stage,
       briefingId: briefing?.briefingId,
     });
-    if (answer.recorded) setRecorded(answer.recorded);
+    setRecorded(
+      answer.recorded && (!answer.briefing || answer.briefing.briefingId === briefing?.briefingId)
+        ? answer.recorded
+        : null,
+    );
     if (answer.briefing) setBriefing(answer.briefing);
     setClosed(!answer.briefing && !answer.error);
     setProblem(answer.error ?? "");

@@ -1,7 +1,8 @@
 import { usePaseo } from "@getpaseo/plugin/client";
 import { useEffect, useState } from "react";
 import type { SourceState } from "../shared/board-empty";
-import { lastReply, nextStepIsCaptains, replyPreview } from "../shared/preview";
+import { toLines } from "../shared/chat-lines";
+import { nextStepIsCaptains, replyPreview } from "../shared/preview";
 
 export function useCoAsk(coId: string): { ask: string | null; state: SourceState } {
   const paseo = usePaseo();
@@ -25,7 +26,8 @@ export function useCoAsk(coId: string): { ask: string | null; state: SourceState
         if (cancelled || current !== request) return;
         const status = page.agent?.status ?? handle.status;
         working = status === "running" || status === "initializing";
-        const reply = lastReply(page.entries.map((entry) => entry.item));
+        const last = toLines(page.entries).at(-1);
+        const reply = last?.role === "assistant" ? last.text : "";
         setResult({ id: coId, state: "loaded", ask: !working && nextStepIsCaptains(reply) ? replyPreview(reply) : null });
       } catch {
         if (current === request) failed();
