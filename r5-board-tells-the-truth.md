@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-25T03:39:54Z
+worktree: .worktrees/spacedock-ensign-r5-board-tells-the-truth
 ---
 
 Round 5 of the POC flywheel under ADR 0008: the board can say "Nothing is waiting on you" before it has loaded or after a fetch failed, comms-officer questions are missed unless the compact Comms tab is open, and a gate card shows a recorded decision as a red "Briefing error".
