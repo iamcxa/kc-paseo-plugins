@@ -38,7 +38,7 @@ import {
 import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
 import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
 import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
-import { type PillView, pillView } from "../shared/ref";
+import { countPointingAt, markedOutside, type PillView, pillView, repointLine, settleConnection } from "../shared/ref";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
 import {
   canReadVault,
@@ -64,12 +64,14 @@ function FieldPill({
   name,
   view,
   failed,
+  outside,
   theme,
   onOpen,
 }: {
   name: string;
   view: PillView;
   failed: boolean;
+  outside: boolean;
   theme: Theme;
   onOpen(): void;
 }) {
@@ -99,7 +101,10 @@ function FieldPill({
           backgroundColor: view.kind === "empty" ? "transparent" : theme.colors.surface2,
           borderWidth: 1,
           borderStyle: dashed ? "dashed" : "solid",
-          borderColor: focused ? theme.colors.foreground : failed || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
+          borderColor: failed || outside || view.kind === "raw" ? theme.colors.statusDanger : view.kind === "empty" ? muted : "transparent",
+          ...(focused
+            ? ({ outlineWidth: 2, outlineStyle: "solid", outlineColor: theme.colors.accent, outlineOffset: 2 } as object)
+            : null),
           borderRadius: 8,
           paddingHorizontal: 12,
           paddingVertical: 8,
@@ -136,6 +141,11 @@ function FieldPill({
       {view.kind === "raw" ? (
         <Text style={{ color: theme.colors.statusDanger, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
           Not a field reference. It looks like op://vault/item/field.
+        </Text>
+      ) : null}
+      {outside ? (
+        <Text style={{ color: theme.colors.statusDanger, fontSize: 12, paddingTop: 4, paddingHorizontal: 4 }}>
+          Outside the chosen vault. New agents get this variable blank.
         </Text>
       ) : null}
       {view.kind === "ref" && view.differs && (shown || hover) ? (
@@ -728,6 +738,10 @@ function ProjectEditor({
   });
   const nothingPending = tokenDraft.trim() === "" && sharedWith === null && !store.isPending;
   const doneOff = line.kind !== "connected" || !nothingPending;
+  const inForceVault = view === "change" ? before.vault : draft.vault;
+  const repointing = view === "change" && draft.vault !== "" && draft.vault !== before.vault;
+  const repointCount = repointing ? countPointingAt(draft.variables, before.vault) : 0;
+  const vaultName = (value: string) => vaults[vaultIds.indexOf(value)] ?? value;
   useEffect(() => {
     if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
   }, [view, line.kind, nothingPending]);
@@ -900,6 +914,9 @@ function ProjectEditor({
               onChangeText={(vault) => patch({ vault })}
             />
           )}
+          {repointCount > 0 ? (
+            <SettingsRow {...repointLine(repointCount, vaultName(before.vault), vaultName(draft.vault))} />
+          ) : null}
           {view === "change" ? (
             <SettingsRow
               label="Use this connection"
@@ -918,7 +935,9 @@ function ProjectEditor({
                   accessibilityRole="button"
                   accessibilityLabel="Keep the current connection"
                   onPress={() => {
-                    if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) patch(before);
+                    if (draft.serviceAccount !== before.serviceAccount || draft.vault !== before.vault) {
+                      patch(settleConnection(before, draft, "cancel"));
+                    }
                     setChecked(before.serviceAccount.trim());
                     setTokenDraft("");
                     latestToken.current = "";
@@ -933,7 +952,10 @@ function ProjectEditor({
                   accessibilityRole="button"
                   accessibilityState={{ disabled: doneOff }}
                   disabled={doneOff}
-                  onPress={backToLine}
+                  onPress={() => {
+                    if (repointCount > 0) patch({ variables: settleConnection(before, draft, "done").variables });
+                    backToLine();
+                  }}
                   style={barButton(theme, "primary", doneOff)}
                 >
                   <Text style={barText(theme, "primary", doneOff)}>Done</Text>
@@ -1010,6 +1032,7 @@ function ProjectEditor({
                     name={v.name}
                     view={pillView(v.ref, v.name, draft.vault)}
                     failed={reason !== null}
+                    outside={markedOutside(v.ref, inForceVault)}
                     theme={theme}
                     onOpen={() => openPicker({ mode: "row", index: i })}
                   />
