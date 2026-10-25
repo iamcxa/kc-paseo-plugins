@@ -1,0 +1,24 @@
+{
+  "class": "never",
+  "head": "1450008e9bf687c7f75c054007dcb4b32844a314",
+  "model": "not run",
+  "necessity": "the PR changes the settings screen, shared/ref.ts, one test file and ADR 0005 only; without it a vault rename leaves every reference on the old vault and new agents get blank values.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: deferred: '- F2 Deferred risk: Pressing Test'",
+    "point: deferred: 'Built screen finding 1: declined: \"Outside'",
+    "point: deferred: 'Built screen finding 2: declined: the'",
+    "point: deferred: '- Validation-1 F1 (Polish): at 400'",
+    "point: deferred: '- Validation-1 F2 (Deferred risk): Test'",
+    "point: deferred: 'Declined: Polish, F1 Done 3.5 px'",
+    "point: deferred: 'Declined: Deferred risk, F2 Test pressed'",
+    "point: fo-decline: '- Validation-1 F1 (Polish): at 400'",
+    "point: fo-decline: '- Validation-1 F2 (Deferred risk): Test'",
+    "point: path: 'docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#50",
+  "sufficiency": "validation-1 PASSED at 1450008 with no Material or Needs decision finding; AC-1 to AC-3 observed on an isolated Paseo built from the archive, and FO's fresh-shell rerun of the six-step acceptance scri",
+  "time": "2026-10-25T04:52:20Z",
+  "verdict": "ask"
+}

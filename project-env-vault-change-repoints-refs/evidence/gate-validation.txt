@@ -1,0 +1,7 @@
+Question: Validation gate for Task 3 (PR iamcxa/kc-paseo-plugins#50), decided by FO under ADR 0007 class 1; FO then merges and reloads under class 2, and the Captain gives UAT on the live plugin.
+Merge ask: PR #50 at 1450008e9bf687c7f75c054007dcb4b32844a314 makes choosing a vault in Change re-point the old-vault references at Done, marks references outside the vault before Test, draws a distinct focus ring, and amends ADR 0005.
+Sufficiency: validation-1 PASSED at 1450008 with no Material or Needs decision finding; AC-1 to AC-3 observed on an isolated Paseo built from the archive, and FO's fresh-shell rerun of the six-step acceptance script matched every expected line.
+Necessity: the PR changes the settings screen, shared/ref.ts, one test file and ADR 0005 only; without it a vault rename leaves every reference on the old vault and new agents get blank values.
+Reviews: external review rounds: 1 — Codex summary:6393585591 clean on 1450008e9; local roborev:1162 clean on 1450008 (development feedback, not a round).
+Declined: Polish, F1 Done 3.5 px under the sticky bar at 400 px with a two-vault token (A5 ruling R3a, do not solve; Done is reachable by scrolling).
+Declined: Deferred risk, F2 Test pressed while Change is open was not run (code read at 1450008: Test sends the draft and isOutsideVault reports "reference points outside the chosen vault", not "field not found"; send path unchanged from main).
