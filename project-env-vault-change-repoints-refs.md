@@ -293,3 +293,8 @@ Needs this Mac with `node`, `npm`, `agent-browser`, `paseo`, `python3` and `git`
 6. Tear down and run the ADR check:
    `bash $H/teardown.sh; cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-vault-change-repoints-refs && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/adr_lint.py docs/adr --since e55cb33; echo "exit $?"`
    Expect `removed /tmp/pe-vcr-acc/s-acc`, `8 ADR file(s) checked, 0 legacy`, `exit 0`.
+
+### FO declines
+
+- Validation-1 F1 (Polish): at 400 x 900 with a two-vault token Done sits 3.5 px under the sticky bar. Declined: the sticky bar covering the lower page is the A5 choice and round-1 ruling R3a (do not solve), recorded as a limit at ideation (Design finding 2); scrolled to the end Done was clicked (`val-reach-log.txt`). Material if a person cannot reach Done at all; candidate revision: give the Change form bottom padding equal to the bar's height.
+- Validation-1 F2 (Deferred risk): Test pressed while Change is open was not run. Declined: read at 1450008, Test's press sends the draft (`test.mutate({ ...draft, … })` in `ProjectEditor`), so before Done it reads the picked vault with the old references, and `isOutsideVault` blanks them as "reference points outside the chosen vault", not "field not found"; this send path is unchanged from main e55cb33, and the re-point line above says Done moves them. Material if Test before Done reads "field not found" for a rename; candidate revision: disable Test while Change is open.
