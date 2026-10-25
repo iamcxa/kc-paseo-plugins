@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 315, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 257, in main
+    assert evaluate('Array.from(document.querySelectorAll("div")).some(e=>!e.childElementCount && e.textContent==="Decision feedback" && e.checkVisibility() && e.getBoundingClientRect().bottom<=innerHeight)'), "Full feedback dialog did not open"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Full feedback dialog did not open

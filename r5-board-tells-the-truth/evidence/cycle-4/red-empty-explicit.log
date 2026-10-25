@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 350, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 271, in main
+    view_state("FO", "…", "Loading…")
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 251, in view_state
+    assert has("By " + view + " · " + state), "By " + view + " shows a checked count for an incomplete source"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: By FO shows a checked count for an incomplete source

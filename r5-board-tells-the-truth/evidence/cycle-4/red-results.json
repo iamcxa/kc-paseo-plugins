@@ -1,0 +1,14 @@
+[
+  {
+    "run": "red-empty",
+    "exit": 1,
+    "expected_failure": "Isolated proof did not become ready",
+    "passed": true
+  },
+  {
+    "run": "red-gate",
+    "exit": 1,
+    "expected_failure": "Closed card still offers decision controls",
+    "passed": true
+  }
+]

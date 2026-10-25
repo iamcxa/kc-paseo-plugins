@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 349, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 290, in main
+    closed_card("recorded-card", args.long_feedback)
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 256, in closed_card
+    assert not has("Decide via comms officer"), "Closed card still offers decision controls"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Closed card still offers decision controls

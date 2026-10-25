@@ -1,0 +1,58 @@
+[
+  {
+    "name": "comment_ratio",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/comment_ratio.py",
+      "22040541b15ea147a43db9d7d77ac377ec127726",
+      "HEAD",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ]
+  },
+  {
+    "name": "doc_impact",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/doc_impact.py",
+      "22040541b15ea147a43db9d7d77ac377ec127726",
+      "HEAD"
+    ]
+  },
+  {
+    "name": "number_guards",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth.md"
+    ]
+  },
+  {
+    "name": "design_surfaces",
+    "exit": 1,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth.md"
+    ]
+  },
+  {
+    "name": "adr_lint",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "22040541b15ea147a43db9d7d77ac377ec127726"
+    ]
+  }
+]

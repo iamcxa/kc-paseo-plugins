@@ -148,3 +148,27 @@ Safety/limits: protected draft/keyboard files unchanged; candidate/main/live wor
 
 - Pre-gate team on 22040541b15e: design partner NOT SATISFIED — blocks: a closed or recorded gate card still offers "Decide via comms officer", the decision chips and "add a reason to your decision"; annoys: "waiting 4h" stays under "Recorded: approve"; cosmetic: "More" appears for a one-line "This gate is no longer open."; later: "No FO has a workflow-dir label yet" exposes configuration wording. Picky users A and B NOT SATISFIED, both blocks: the By FO view still shows "By FO · 0" and "No agents labelled role=fo." while loading or after a failed fetch — the source-state message renders only in By decision. FO authorizes a repair of the two blocks, the annoyance and the cosmetic item; the configuration wording stays a later candidate.
 - Validation-1 on 22040541b15e was canceled by the FO before it reported because the head changes; its partial evidence folder was removed. Isolated daemons seen afterwards belong to the project-env FO (/private/tmp/pe-vcr-val/…) and were left alone.
+
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: The By FO view uses the same source state as By decision: while any source is loading or failed it shows "Loading…" or "Could not check <source> — this list may be incomplete" and its count does not read 0 as if checked; "No agents labelled role=fo." appears only after the FO list loaded successfully and is empty; tests for both views
+  04dfa6779a9968fa2110dfe53bf2b26f032d9d46; evidence/cycle-4/final-empty/ switches both rendered views through loading, failed reviews and checked empty; red-empty-explicit.log fails at the previous commit when By FO exposes a checked zero. The existing pure source-state function supplies both notices/counts.
+- DONE: A gate card known closed or recorded hides the decision chips, "Decide via comms officer" and the reason prompt (ordinary discussion with the FO stays, with a placeholder that does not mention a decision), and shows no "waiting …" age; "More" appears only when there is more text than shown; screenshots of a recorded card and a no-longer-open card
+  final-gate/recorded-card-380.png and no-longer-open-card-380.png assert no chips/reason prompt/waiting age while ordinary discussion remains; short feedback has no More. final-long-2/ measures 32 px preview versus 640 px full detail, exposes More and opens the full feedback dialog; restoring unconditional More fails the short-card check.
+- DONE: npm test and typecheck pass; push to PR #49 (still Draft); a short "## Stage Report: implementation (cycle 4)" section
+  evidence/cycle-4/tests.log: 110 passed; typecheck.log: exit 0; verified-matrix.json pins all successful browser runs to 04dfa6779a9968fa2110dfe53bf2b26f032d9d46; pr49.json confirms OPEN/Draft #49 on the required base, with the branch pushed.
+
+### Summary
+
+Aligned both list views with the same checked source state and made finished gate cards ordinary discussion surfaces without decision controls or a waiting age. The exact candidate and screenshots are pushed to Draft PR #49; independent validation and team review remain pending.
+
+### Findings
+
+Evidence: r5-board-tells-the-truth/evidence/cycle-4/README.md, verified-matrix.json and final-*/ screenshots, visually inspected. The first long-feedback test inspected a still-animating host sheet; only its wait predicate changed before final-long-2 passed at the identical product head. No product workaround was added.
+
+Comment ratio: 62 code lines, 0 comments, 0.0% <= 5%, exit 0. Document impact zero listed documents; spacedock-bridge/OVERVIEW.md updated for both views, finished-card discussion and conditional More. Number guards PASS; no R4 failure or migration/ADR change; ADR lint seven records, zero legacy.
+
+SKIPPED: design_surfaces.py exit 1, known package gap 2 (POC asked for five-stage-only fields). RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed 04dfa6779a9968fa2110dfe53bf2b26f032d9d46.
+
+Safety/limits: safety-checks.json verifies ten isolated runs cleaned up by captured PID, unchanged decision/claim/relay logic, drafts/composer/keyboard, and clean candidate/main/live worktrees. No new dependency, persisted state, cache, background job, retry/backoff or POC boundary; no provider message, gate write, ready, merge or live install. Browser proof uses synthetic records and a controlled empty coordinator SDK timeline; native Android behavior and real provider conversation remain unproven. The deferred configuration wording is unchanged.

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 349, in <module>
+    if __name__ == "__main__":
+        ^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 270, in main
+    assert has("Loading…")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 250, in view_state
+    browser("wait", 150)
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/cycle-4/capture.py", line 69, in wait_for
+    raise TimeoutError("Isolated proof did not become ready")
+TimeoutError: Isolated proof did not become ready
