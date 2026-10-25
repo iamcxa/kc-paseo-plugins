@@ -1,12 +1,12 @@
 ---
 id:
 title: ADR 0007 records which project-env decisions the FO makes by record
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-fo-grant-adr
-pr: iamcxa/kc-paseo-plugins#47
+pr: pr-merge:47
 gates:
     version: 1
     records:
@@ -66,8 +66,11 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-25, on the ADR 0007 validation gate (briefing-1, sha256:4a6cd5fa). Asked: Approve ADR 0007''s validation? The Captain merges PR #47 himself; approval does not merge it.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-23T12:25:39Z
+verdict: PASSED
+completed: 2026-10-25T03:52:57Z
+archived: 2026-10-25T03:52:58Z
 ---
 
 A grant record for project-env, in the form the Bridge FO used for spacedock-bridge (ADR 0006, merged in PR #36) under kc-dev-flow-2 ADR 0011's L3 rule. The Captain approved drafting it on 2026-10-23 with 「准」, answering 「要不要我照這個格式，幫 project-env 起草一份授權 ADR（會是 ADR 0007）交給你審？」. His earlier split for this project, from the same day: 「這個專案我想給你更大的彈性，我想只抓backlog，設計預覽與uat，其他都授權你做。列一下哪些是我預授權的範圍」.
