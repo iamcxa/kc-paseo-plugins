@@ -1,7 +1,7 @@
 ---
 id:
 title: Changing the vault keeps every variable pointing into it, and the screen marks any variable outside it before Test
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-25, on the ideation gate (briefing-1, sha256:4249266e) after the FO''s Chinese brief of Task 3. Asked: Approve this vault re-point design and its acceptance criteria into implementation?'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-24T15:58:32Z
 ---
 
