@@ -1,0 +1,76 @@
+[
+  {
+    "run": "empty",
+    "exit": 0,
+    "expected": 0,
+    "seconds": 20.4,
+    "cmd": [
+      "python3",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/validation-2/capture.py",
+      "--worktree",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth",
+      "--paseo",
+      "/Users/kent/.local/bin/paseo",
+      "--browser",
+      "/Users/kent/.npm-global/bin/agent-browser",
+      "--web-dist",
+      "/Applications/Paseo.app/Contents/Resources/app-dist",
+      "--mode",
+      "empty",
+      "--port",
+      "7261",
+      "--output",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/validation-2/empty"
+    ]
+  },
+  {
+    "run": "gate",
+    "exit": 0,
+    "expected": 0,
+    "seconds": 20.6,
+    "cmd": [
+      "python3",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/validation-2/capture.py",
+      "--worktree",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth",
+      "--paseo",
+      "/Users/kent/.local/bin/paseo",
+      "--browser",
+      "/Users/kent/.npm-global/bin/agent-browser",
+      "--web-dist",
+      "/Applications/Paseo.app/Contents/Resources/app-dist",
+      "--mode",
+      "gate",
+      "--port",
+      "7263",
+      "--output",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/validation-2/gate",
+      "--removed-workflow"
+    ]
+  },
+  {
+    "run": "old-empty",
+    "exit": 1,
+    "expected": 1,
+    "seconds": 0.1,
+    "cmd": [
+      "python3",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/validation-2/capture.py",
+      "--worktree",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth",
+      "--paseo",
+      "/Users/kent/.local/bin/paseo",
+      "--browser",
+      "/Users/kent/.npm-global/bin/agent-browser",
+      "--web-dist",
+      "/Applications/Paseo.app/Contents/Resources/app-dist",
+      "--mode",
+      "empty",
+      "--port",
+      "7265",
+      "--output",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/validation-2/old-empty",
+      "--mutate-empty"
+    ]
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "adr-lint": {
+    "cmd": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e"
+    ],
+    "exit": 0
+  },
+  "comment-ratio": {
+    "cmd": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/comment_ratio.py",
+      "3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e",
+      "6f16429c24d4853c15698091f0fb42830185c951",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ],
+    "exit": 0
+  },
+  "doc-impact": {
+    "cmd": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/doc_impact.py",
+      "3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e",
+      "6f16429c24d4853c15698091f0fb42830185c951"
+    ],
+    "exit": 0
+  },
+  "dispatch-records": {
+    "cmd": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth"
+    ],
+    "exit": 0
+  },
+  "design-surfaces": {
+    "cmd": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth.md"
+    ],
+    "exit": 1
+  },
+  "number-guards": {
+    "cmd": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth.md"
+    ],
+    "exit": 0
+  }
+}
