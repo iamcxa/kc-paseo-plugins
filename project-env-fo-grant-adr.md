@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-fo-grant-adr:validation:attempt-1:revision-1
                 digest: sha256:4a6cd5fa79fbe07b002e2757d494cb2e6f130ed3b18c438f2e7d2c34fdc64eed
                 room-ref: ./project-env-fo-grant-adr/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-fo-grant-adr:validation:1
+                briefing: briefing:project-env-fo-grant-adr:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-25T03:17:46.472663Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-25, on the ADR 0007 validation gate (briefing-1, sha256:4a6cd5fa). Asked: Approve ADR 0007''s validation? The Captain merges PR #47 himself; approval does not merge it.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-23T12:25:39Z
 ---
 
