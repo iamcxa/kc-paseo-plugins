@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-vault-change-repoints-refs:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-vault-change-repoints-refs-validation-1
+              briefing:
+                id: briefing:project-env-vault-change-repoints-refs:validation:attempt-1:revision-1
+                digest: sha256:d465bf7b5ae49e1bef9489b139348f2cd31b2cb20d62ff0853f3582b246995d2
+                room-ref: ./project-env-vault-change-repoints-refs/review/validation/briefing-1
 started: 2026-10-24T15:58:32Z
 ---
 

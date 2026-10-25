@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-change-repoints-refs:validation:attempt-1:revision-1",
+  "question": "Validation gate for Task 3 (PR #50 at 1450008): FO decides under ADR 0007 class 1, then merges and reloads under class 2; the Captain gives UAT on the live plugin.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-change-repoints-refs:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/feedc21b47f1d34f860038fb151f06bf8513ae23/project-env-vault-change-repoints-refs.md",
+      "rev": "sha256:1e218451dbbc98cc139cdc4211450091e2b73cb4e55f1e5b705efa67cfb98e09",
+      "mediaType": "text/markdown",
+      "summary": "Validation-1 PASSED at 1450008, no Material or Needs decision finding; FO acceptance rerun matched. External review rounds: 1 — Codex summary:6393585591 clean on 1450008e9; local roborev:1162 clean. Declined: F1 Polish (Done 3.5 px under bar at 400 px, A5 R3a), F2 Deferred risk (Test during Change not run; code read). delivery_gate exit 0; design_surfaces presentable."
+    }
+  ]
+}
