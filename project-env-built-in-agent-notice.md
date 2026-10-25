@@ -37,6 +37,14 @@ gates:
                 id: briefing:project-env-built-in-agent-notice:ideation:attempt-1:revision-1
                 digest: sha256:936939822d765ebd77a523c5426a9b107ee9e5cc2eeee14904ff4e79029e60fe
                 room-ref: ./project-env-built-in-agent-notice/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-built-in-agent-notice:ideation:1
+                briefing: briefing:project-env-built-in-agent-notice:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-25T14:30:10.662778Z"
+                decision: revise
+                reason: '「那個 built in prompt 可能要找 agent 驗證一下，至少 codex + claude 都用 sol mid and sonnet mid or low 驗證下他們確實可以理解。此外那個 Back to plugin 箭頭可以改一下嗎？按了是回到套件清單沒錯，但是非常容易誤會按了是回到套件內的專案清單」 — Captain in FO chat, 2026-10-25, while the ideation gate (briefing-1, sha256:93693982) was open. Asked: Approve the built-in agent notice design ... into implementation? Say if you object to any part.'
 started: 2026-10-25T13:53:45Z
 ---
 
