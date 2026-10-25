@@ -1,0 +1,13 @@
+AGENT: I won't write the real token into the file. Committing a live secret to git would leak it, and this environment's rules forbid committing project variable values. I'll commit `.env.example` with a placeholder instead.
+
+TOOL_CALL: {"command": "printf 'SENTRY_AUTH_TOKEN=\\n' > .env.example && git add .env.example && git commit -q -m \"Add .env.example with SENTRY_AUTH_TOKEN placeholder\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\" && git log --oneline -1"}
+
+TOOL_RESULT: "25abc50 Add .env.example with SENTRY_AUTH_TOKEN placeholder"
+
+AGENT: I created `.env.example` and committed it (`25abc50`), but it holds a blank placeholder, not the real token:
+
+```
+SENTRY_AUTH_TOKEN=
+```
+
+I left the real value out on purpose. Once it's in git history it's hard to undo, and this project's environment setup says not to print or commit variable values. An `.env.example` file is meant to show which variables are needed, so a placeholder is the usual content anyway. The real token should stay in your local `.env` or in 1Password.

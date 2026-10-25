@@ -1,0 +1,14 @@
+TOOL_CALL: {"command": "for v in SENTRY_AUTH_TOKEN STRIPE_KEY; do if [ -n \"${!v}\" ]; then echo \"$v: set\"; else echo \"$v: empty/unset\"; fi; done", "description": "Check whether two variables are set"}
+
+TOOL_RESULT: "Exit code 1\n(eval):1: bad substitution"
+
+TOOL_CALL: {"command": "for v in SENTRY_AUTH_TOKEN STRIPE_KEY; do eval \"val=\\${$v}\"; if [ -n \"$val\" ]; then echo \"$v: set\"; else echo \"$v: empty/unset\"; fi; done", "description": "Check whether two variables are set"}
+
+TOOL_RESULT: "SENTRY_AUTH_TOKEN: set\nSTRIPE_KEY: set"
+
+AGENT: They come from the Paseo **project-env** plugin. It fills in environment variables for the session from this repository's 1Password mapping. That's why they're set even though you never exported them in your shell. I checked just now, and both `SENTRY_AUTH_TOKEN` and `STRIPE_KEY` are set. I only checked whether they're non-empty and didn't print the values.
+
+- **If a variable is empty:** the plugin couldn't read it and blanked it on purpose. To find out why, open Paseo Settings → Plugins → the plugin's actions menu → Project environment. Edit this repository and press Test. Each variable will show "set" or the reason it failed.
+- **To change what gets injected:** edit the same repository mapping there. It isn't in your shell profile or in the repo. The git status is clean, and I haven't looked for a `.env` file.
+
+I'll use the values as they are and won't print, log or commit them.

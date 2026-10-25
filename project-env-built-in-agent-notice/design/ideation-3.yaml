@@ -1,0 +1,46 @@
+design_review:
+  preview: project-env-built-in-agent-notice/shots/
+  adrs_read: none
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: cand2-1280-long.png, cand2-400-long.png, cand2-light-400-long.png
+      seen: With a long folder name the breadcrumb breaks after the chevron, so "Projects ›" sits alone on one line and the name starts on the next; the chevron points at nothing and the trail reads as broken.
+      fix: Keep the chevron with the name (do not let it wrap alone), or stack "Projects" and the name on two lines with no chevron once the name wraps.
+    - severity: MINOR
+      dimension: spacing
+      where: cand2-1280-focus.png, cand2-400-focus.png
+      seen: The focus box of the "Projects" link (about 78 x 54 px) runs down over the first characters of the folder path beneath it ("/tmp/pe-bn2"), so the ring and the path text collide.
+      fix: Add a gap between the link and the path line, or put the 44 px press area on padding that does not reach the path.
+    - severity: MINOR
+      dimension: theme-size
+      where: cand2-light-* (no focus picture)
+      seen: The focus state of the new link is shown in the dark theme only; the light theme has no picture of it.
+      fix: Add a light-theme focus picture (1280 and 400), and check the ring contrasts with the light background.
+    - severity: MINOR
+      dimension: flow
+      where: cand2-1280-work.png, cand2-400-work.png (footer Close) versus cand2-1280-discard-modal.png
+      seen: The footer shows "Close" when clean and "Discard" when dirty (visible behind the modal), and the new link also leaves the editor; no picture shows where Close or footer Discard lead, or whether they ask the same question as the link.
+      fix: Add a criterion that Close, footer Discard and the "Projects" link all land on the project list, and that the modal's confirm fires only on the link path (or on all paths that drop changes); show the footer Discard result.
+    - severity: MINOR
+      dimension: hierarchy
+      where: cand2-1280-discard-modal.png, cand2-400-discard-modal.png
+      seen: The title says "Discard 1 unsaved change?" (singular) and the body continues "They are dropped", so the pronoun is plural for a count of one.
+      fix: Write the body so it fits any count, for example "The changes are dropped and you return to the project list" with the plural form chosen by the count, or "Unsaved changes are dropped...".
+    - severity: MINOR
+      dimension: hierarchy
+      where: cand2-1280-work.png
+      seen: Before the first content (1Password) a person passes four stacked lines at 1280 (page title, host "Back to plugins", breadcrumb, folder path), about 150 px, with two navigation links (host back link and "Projects") one line apart that both leave the current view.
+      fix: Host elements are not changeable, so only keep the plugin's part compact: the breadcrumb and path are already one block; do not add further lines, and note in the task that "Back to plugins" and "Projects" lead to different places so the person is not misled.
+    - severity: MINOR
+      dimension: platform
+      where: cand2-400-work.png
+      seen: At phone width the host's unlabelled arrow in the page header and the underlined "Projects" link sit about 60 px apart and look like the same action; the arrow leaves the plugin page, the link goes to the project list.
+      fix: Host-owned arrow cannot change; keep the link text as is and rely on the underline and "Projects" label; add a criterion that the 44 px press area of the link is measured on the built screen at 400 px.
+  limitations:
+    - Press-area height (44 px) can only be inferred from the focus ring in the dark pictures; no measurement is possible from a picture.
+    - No picture shows the screen after Close, after footer Discard, after the confirm, or the keyboard order and screen-reader name of the link.
+    - cand2-light-1280-focus and cand2-light-400-focus do not exist.
+    - Host-drawn parts (Back to plugins, the phone header arrow, the modal frame and bottom sheet) were read as drawn and not judged for change.
+    - The 400-page pictures show the same layout as the 400 window pictures; no state beyond those listed (loading, error from a failed list load) is shown.
+    - No ADR in /Users/kent/Project/kc-paseo-plugins/docs/adr (0001 to 0008, all Accepted at b3067d4) bears on how the screen looks or on host components, so none was relied on.

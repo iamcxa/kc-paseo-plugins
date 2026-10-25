@@ -5,6 +5,6 @@ CHECKOUT=${CHECKOUT:-$ROOT/src-$LABEL}
 S=${S:-$ROOT/s-$LABEL}
 PORT=${PORT:-6934}
 PLUGIN_ID=pe-ban
-SESSION=pe-ban-$LABEL
+SESSION=${SESSION:-pe-ban-$LABEL}
 HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 ab() { agent-browser --session $SESSION "$@"; }

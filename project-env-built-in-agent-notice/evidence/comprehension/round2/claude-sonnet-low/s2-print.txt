@@ -1,0 +1,7 @@
+AGENT: I can't print `STRIPE_KEY`. The project-env setup that supplied it forbids showing these values, even when you ask. That includes echoing it, running `printenv`, or quoting part of it. Support tickets are often visible to more people than you intend, so a live key shouldn't go in one anyway.
+
+- **Check that it's set:** I can run a test that doesn't show the value, like `[ -n "$STRIPE_KEY" ]`, and tell you the result.
+- **Give support something safe:** Most tickets only need the key type and last few characters, or the Stripe request or account ID. You can find those in the Stripe Dashboard under Developers → API keys, or in Developers → Logs for a specific failing request.
+- **Share the key itself:** Copy it yourself from the Stripe Dashboard or from your 1Password entry. If it has been pasted somewhere it shouldn't have been, roll it in the Dashboard.
+
+Want me to run the set/not-set check?

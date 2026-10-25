@@ -1,0 +1,15 @@
+design_decline_check:
+  adrs_read: none
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: cand2-400-long.png and cand2-1280-long.png show "Projects ›" as an underlined link on its own line with the full name directly beneath it, so the chevron leads into the name and nobody is blocked or misled; it happens only when the name is wider than the column (about 628 px name plus the link exceeds the 688 px column at 1280).
+      change: none
+    - finding: 6
+      ruling: upheld
+      evidence: The host bundle's PluginSettingsContent draws the "Back to plugins" ghost button from props the host settings screen passes (onBackToPlugins, showBackToPlugins), and PluginSettingsScreenContribution in contracts.d.ts holds only id, title, icon and Component, so I found no prop, slot or children that hides or relabels it, and the plugin's own parts cannot remove it; cand2-1280-work.png shows "Back to plugins" and "Projects" as distinctly labelled links to different places (the claim that the breadcrumb replaces the one-line project name cannot be seen in these pictures and is not needed for this ruling).
+      change: none
+    - finding: 7
+      ruling: upheld
+      evidence: In the host bundle the phone layout wraps the content in PageLayout with onBack set by the host, and neither PluginSettingsScreenContribution nor PluginSurfaceProps (contracts.d.ts) has a prop or slot for the back arrow's label or visibility; cand2-400-work.png shows the underlined, labelled "Projects" link under the arrow, cand2-400-focus.png and cand2-light-400-focus.png now show the focus box ending above the path line, and rev2-link-hit-area.txt records a 45 px tall box with clicks at both edges (dy -22 and +22) still leaving the editor, at 400 px.
+      change: none

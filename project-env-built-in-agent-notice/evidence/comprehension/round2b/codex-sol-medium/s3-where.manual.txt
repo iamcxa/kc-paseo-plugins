@@ -1,0 +1,5 @@
+# Manual rerun (non-JSON output) after three harness stalls (300 s, 300 s, 500 s; thread started, no answer). Same notice-round2.txt, same model, effort, env and flags as the harness run except no --json.
+# model: gpt-6.1-sol, reasoning effort medium, approval never, sandbox workspace-write; prompt: the s3-where prompt.
+AGENT: They were set automatically by Paseo’s **project-env plugin**, which reads this repository’s 1Password mapping and injects the mapped tokens and keys into the session’s environment.
+
+You didn’t need to export `SENTRY_AUTH_TOKEN` or `STRIPE_KEY` yourself. To inspect their configuration, open **Paseo Settings → Plugins → project-env actions menu → Project environment**, then edit this repository. **Test** shows whether each variable is set or why it failed, without displaying its [capture cut at 300 characters per line; the rest of this line was not saved].

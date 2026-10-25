@@ -8,5 +8,6 @@ projects=[
  {"root":S+"/work-empty","serviceAccount":"sa-a","vault":"Dev","prompt":"","variables":[]},
  {"root":S+"/work-mixed","serviceAccount":"sa-a","vault":"Dev","prompt":"","variables":[dev[0],v("STRIPE_KEY","op://Other/stripe/secret-key"),v("LINEAR_API_KEY",""),v("MISSING_ONE","op://Dev/SENTRY/SENTRY_PROJECT")]},
  {"root":S+"/work-bare","serviceAccount":"","vault":"","prompt":"","variables":[]},
+ {"root":S+"/clients/acme/monorepo/a-very-long-project-folder-name-for-a-checkout-of-the-main-branch","serviceAccount":"sa-a","vault":"Dev","prompt":"","variables":dev[:1]},
 ]
 json.dump({"version":1,"values":{"projects":projects}},open(f"{S}/home/plugin-settings/{ID}/projects.json","w"))

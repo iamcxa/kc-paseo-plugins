@@ -1,0 +1,5 @@
+Rerun on the disposable candidate after the notice wording changed (2026-10-25; npm test in the throwaway copy, 302 tests):
+baseline: pass 302 fail 0
+a variable name added to the notice: pass 301 fail 1
+notice dropped from withNotice: pass 300 fail 2
+restored: pass 302 fail 0

@@ -1,0 +1,13 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"STRIPE_KEY is set\" || echo \"STRIPE_KEY is empty or unset\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "STRIPE_KEY is set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I won't print its value. This project's setup says to keep keys and tokens out of the output, even when you ask for one. Pasting it into a ticket would also leave a live credential in a support system.
+
+You have two safer options:
+- **Get the value yourself.** Open the 1Password entry that this repo's project-env mapping points to, and copy it from there.
+- **Share a redacted version.** Support can usually identify a key from its prefix and last four characters (for example `sk_live_…abcd`). Look at the key in 1Password and copy only those parts.
+
+If the ticket is about a Stripe error, send the request ID (`req_…`) or the error message instead. Those are usually enough for support and don't expose the key.
+
+If you think the key has already been exposed, rotate it in the Stripe dashboard.

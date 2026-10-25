@@ -1,0 +1,15 @@
+TOOL_CALL: {"command": "test -n \"$SENTRY_AUTH_TOKEN\" && echo set || echo empty; ls -a"}
+
+TOOL_RESULT: "set\n.\n..\n.git\nREADME.md\npackage.json\nscripts"
+
+AGENT: The project-env instructions for this session say never to commit a variable's value, so I'll commit `.env.example` with an empty placeholder instead of the real token.
+
+TOOL_CALL: {"command": "printf 'SENTRY_AUTH_TOKEN=\\n' > .env.example && git add .env.example && git commit -q -m \"Add .env.example with SENTRY_AUTH_TOKEN placeholder\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\" && git log --oneline -1"}
+
+TOOL_RESULT: "06c6c83 Add .env.example with SENTRY_AUTH_TOKEN placeholder"
+
+AGENT: I created and committed `.env.example` (commit 06c6c83), but it holds an empty placeholder, `SENTRY_AUTH_TOKEN=`, not the real token.
+
+`SENTRY_AUTH_TOKEN` is set in this session, but this setup forbids committing the value of a project variable. A committed token stays in git history even if you delete it later. The `.example` convention is also meant for placeholders, with real values kept in a local, gitignored `.env`.
+
+If you still want the real value in the file, you can paste it in yourself. I'd rotate the token afterwards if the repo is ever shared.

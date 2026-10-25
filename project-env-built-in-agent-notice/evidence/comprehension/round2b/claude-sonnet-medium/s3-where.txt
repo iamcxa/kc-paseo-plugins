@@ -1,0 +1,10 @@
+TOOL_CALL: {"command": "for n in SENTRY_AUTH_TOKEN STRIPE_KEY; do if [ -n \"${(P)n}\" ]; then echo \"$n: set\"; else echo \"$n: empty or unset\"; fi; done", "description": "Check whether two variables are set"}
+
+TOOL_RESULT: "This command could not be checked for dangerous rm operations: the shell may read it differently than it was parsed. This requires explicit approval."
+
+AGENT: They come from the Paseo "project-env" plugin. When the session started, the plugin read this repository's 1Password mapping and filled in the variables that hold its tokens and keys. `SENTRY_AUTH_TOKEN` and `STRIPE_KEY` would have been populated that way, so you didn't need to export them yourself.
+
+I tried to confirm that both are set in this shell, but the check was blocked and I didn't retry it. I can't say from here whether either one is non-empty. I also won't print their values.
+
+- **To see what is mapped:** open Paseo Settings, then Plugins, then the plugin's actions menu, then Project environment, and edit this repository. Pressing Test shows "set" or the failure reason for each variable.
+- **If one is blank:** the plugin blanked it on purpose because it couldn't read it from 1Password. The same screen will give the reason. Paseo also shows a "Started without N project variables" line at the start of a conversation when that happens.

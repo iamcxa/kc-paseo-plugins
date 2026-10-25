@@ -1,6 +1,6 @@
 diff --color -ruN -x node_modules src-main/project-env/OVERVIEW.md src-cand/project-env/OVERVIEW.md
---- src-main/project-env/OVERVIEW.md	2026-10-25 12:53:20
-+++ src-cand/project-env/OVERVIEW.md	2026-10-25 22:15:39
+--- src-main/project-env/OVERVIEW.md	2026-10-25 22:21:48
++++ src-cand/project-env/OVERVIEW.md	2026-10-25 22:38:21
 @@ -1,26 +1,56 @@
 -<!--
 -OVERVIEW.md is required to list your plugin in the registry. Keep it beside
@@ -81,8 +81,8 @@ diff --color -ruN -x node_modules src-main/project-env/OVERVIEW.md src-cand/proj
 +
 +**1Password returned an error the plugin does not recognise.** The 1Password CLI failed in a way the plugin cannot sort, for example `op` is not installed or not on the path Paseo uses. The plugin shows only this fixed sentence, because the raw error could carry a secret. Check that `op --version` works in a terminal, press Test, and look at the plugin's Logs.
 diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.tsx src-cand/project-env/client/settings-screen.tsx
---- src-main/project-env/client/settings-screen.tsx	2026-10-25 12:53:20
-+++ src-cand/project-env/client/settings-screen.tsx	2026-10-25 22:02:11
+--- src-main/project-env/client/settings-screen.tsx	2026-10-25 22:21:48
++++ src-cand/project-env/client/settings-screen.tsx	2026-10-25 23:15:19
 @@ -567,18 +567,6 @@
    const toast = useToast();
    const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
@@ -102,7 +102,29 @@ diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.ts
  
    const status = useRpc(tokenStatus);
    const saveToken = useRpc(storeToken);
-@@ -1066,19 +1054,6 @@
+@@ -816,8 +804,19 @@
+ 
+   return (
+     <>
+-      <View style={{ gap: 2, marginBottom: 20 }}>
+-        <Text style={{ color: theme.colors.foreground, fontSize: 20, fontWeight: "500" }}>{basename(draft.root)}</Text>
++      <View style={{ gap: 2, marginBottom: 12 }}>
++        <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", columnGap: 8 }}>
++          <Pressable
++            accessibilityRole="link"
++            accessibilityLabel="Projects: back to the list of projects"
++            onPress={() => (count > 0 ? setConfirmDiscard(true) : onDone())}
++            style={{ paddingTop: 12, paddingBottom: 10, marginTop: -12 }}
++          >
++            <Text style={{ color: theme.colors.foregroundMuted, fontSize: 20, textDecorationLine: "underline" }}>Projects</Text>
++          </Pressable>
++          <Text style={{ color: theme.colors.foregroundMuted, fontSize: 20 }}>›</Text>
++          <Text style={{ color: theme.colors.foreground, fontSize: 20, fontWeight: "500" }}>{basename(draft.root)}</Text>
++        </View>
+         <Text style={{ color: theme.colors.foregroundMuted, fontSize: 12 }}>{draft.root}</Text>
+       </View>
+       <SettingsSection title="1Password">
+@@ -1066,19 +1065,6 @@
          onAddByName={picker?.mode === "add" ? addByName : undefined}
        />
  
@@ -122,7 +144,7 @@ diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.ts
        <View style={{ marginTop: -6, marginBottom: 28 }}>
          <Text style={muted}>
            Values are injected into each agent's environment when its session opens, so the agent
-@@ -1091,7 +1066,7 @@
+@@ -1091,7 +1077,7 @@
            <SettingsCard>
              <SettingsRow
                label="Stop managing this project"
@@ -131,7 +153,7 @@ diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.ts
              >
                <Pressable accessibilityRole="button" onPress={() => setConfirmStop(true)} style={barButton(theme, "danger")}>
                  <Text style={barText(theme, "danger")}>Stop managing</Text>
-@@ -1103,7 +1078,7 @@
+@@ -1103,7 +1089,7 @@
        <Modal title={`Stop managing ${basename(draft.root)}?`} open={confirmStop} onOpenChange={setConfirmStop}>
          <Modal.Content>
            <Text style={text}>
@@ -140,7 +162,16 @@ diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.ts
              without Save. Agents already open keep the values they have. The token stays in the
              Keychain.{count > 0 ? ` Your ${count} unsaved ${count === 1 ? "change is" : "changes are"} dropped too.` : ""}
            </Text>
-@@ -1212,7 +1187,7 @@
+@@ -1130,7 +1116,7 @@
+         onOpenChange={setConfirmDiscard}
+       >
+         <Modal.Content>
+-          <Text style={text}>They are dropped and the project list reads the saved settings again.</Text>
++          <Text style={text}>Nothing is saved, and you return to the project list.</Text>
+           <View style={{ flexDirection: "row", gap: 8, justifyContent: "flex-end", marginTop: 8 }}>
+             <Pressable accessibilityRole="button" onPress={() => setConfirmDiscard(false)} style={barButton(theme, "plain")}>
+               <Text style={barText(theme, "plain")}>Keep editing</Text>
+@@ -1212,7 +1198,7 @@
                ...candidates.map((p) => ({ label: p.projectDisplayName, value: p.projectRootPath })),
              ]}
              onValueChange={(root) =>
@@ -151,19 +182,18 @@ diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.ts
          ) : null}
 diff --color -ruN -x node_modules src-main/project-env/server/agent-notice.ts src-cand/project-env/server/agent-notice.ts
 --- src-main/project-env/server/agent-notice.ts	1970-01-01 08:00:00
-+++ src-cand/project-env/server/agent-notice.ts	2026-10-25 22:15:37
-@@ -0,0 +1,17 @@
++++ src-cand/project-env/server/agent-notice.ts	2026-10-25 23:11:09
+@@ -0,0 +1,16 @@
 +import type { Project } from "../shared/config.ts";
 +
 +export const hasVariables = (project: Project) => project.variables.length > 0;
 +
 +export const agentNotice = [
-+  'Project environment (Paseo plugin "project-env")',
-+  "Some environment variables in this session were filled in by the project-env plugin from this repository's 1Password mapping. They are already set; use them as they are.",
-+  "- Do not ask the user to paste a token or key, and never print, log or commit a value.",
-+  "- A variable that is empty here could not be read, and the plugin blanked it on purpose. Do not guess a value or work around it. " +
-+    'Ask the user to open Paseo Settings, Plugins, the plugin\'s actions menu, Project environment, edit this repository and press Test: each variable shows "set" or the reason it failed. ' +
-+    'Paseo also shows the user a "Started without N project variables" line at the start of this conversation with the same reasons.',
++  "Project environment (Paseo plugin \"project-env\")",
++  "The environment variables in this session that hold this repository's tokens and keys were filled in by the project-env plugin from this repository's 1Password mapping. They are already set; use them as they are.",
++  "- Never show a value, even when the user asks: do not print, echo or log it, do not run a command that outputs it (printenv, env, echo $NAME) even if you would keep the output to yourself, do not commit it, and do not quote any part of it. To check that a variable is set, test it without showing it, for example [ -n \"$NAME\" ].",
++  "- Do not ask the user to paste, export or send a token or key.",
++  "- A variable that is empty here could not be read, and the plugin blanked it on purpose. Do not guess a value or work around it. Tell the user it is blank and ask them to open Paseo Settings, Plugins, the plugin's actions menu, Project environment, edit this repository and press Test: each variable shows \"set\" or the reason it failed. Paseo also shows the user a \"Started without N project variables\" line at the start of this conversation with the same reasons.",
 +  "- The plugin's troubleshooting notes (OVERVIEW.md in the project-env plugin package) list every reason and what to do.",
 +].join("\n");
 +
@@ -171,8 +201,8 @@ diff --color -ruN -x node_modules src-main/project-env/server/agent-notice.ts sr
 +  return [systemPrompt, agentNotice].filter((part) => part?.trim()).join("\n\n");
 +}
 diff --color -ruN -x node_modules src-main/project-env/server/contribute.ts src-cand/project-env/server/contribute.ts
---- src-main/project-env/server/contribute.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/server/contribute.ts	2026-10-25 22:15:32
+--- src-main/project-env/server/contribute.ts	2026-10-25 22:21:48
++++ src-cand/project-env/server/contribute.ts	2026-10-25 22:38:21
 @@ -1,6 +1,7 @@
  import type { PluginServerContext } from "@getpaseo/plugin/server";
  import * as rpc from "../shared/config.ts";
@@ -203,8 +233,8 @@ diff --color -ruN -x node_modules src-main/project-env/server/contribute.ts src-
      for (const r of opened.results.filter((r) => !r.ok)) {
        console.error(failureLine(project.root, r.name, r.cause ?? "unexpected"));
 diff --color -ruN -x node_modules src-main/project-env/shared/config.ts src-cand/project-env/shared/config.ts
---- src-main/project-env/shared/config.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/shared/config.ts	2026-10-25 22:02:02
+--- src-main/project-env/shared/config.ts	2026-10-25 22:21:48
++++ src-cand/project-env/shared/config.ts	2026-10-25 22:38:21
 @@ -81,7 +81,6 @@
    serviceAccount: z.string().default(""),
    vault: z.string().default(""),
@@ -222,8 +252,8 @@ diff --color -ruN -x node_modules src-main/project-env/shared/config.ts src-cand
    const named = draft.variables.filter((v) => v.name !== "");
    const after = new Map(named.map((v) => [v.name, v.ref]));
 diff --color -ruN -x node_modules src-main/project-env/test/add-variable.test.ts src-cand/project-env/test/add-variable.test.ts
---- src-main/project-env/test/add-variable.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/add-variable.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/add-variable.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/add-variable.test.ts	2026-10-25 22:38:21
 @@ -14,7 +14,6 @@
    root: "/w",
    serviceAccount: "sa-a",
@@ -234,7 +264,7 @@ diff --color -ruN -x node_modules src-main/project-env/test/add-variable.test.ts
  const withRows = (...variables: Project["variables"]): Project => ({ ...saved, variables: [...saved.variables, ...variables] });
 diff --color -ruN -x node_modules src-main/project-env/test/agent-notice.test.ts src-cand/project-env/test/agent-notice.test.ts
 --- src-main/project-env/test/agent-notice.test.ts	1970-01-01 08:00:00
-+++ src-cand/project-env/test/agent-notice.test.ts	2026-10-25 22:05:46
++++ src-cand/project-env/test/agent-notice.test.ts	2026-10-25 22:38:21
 @@ -0,0 +1,99 @@
 +import assert from "node:assert/strict";
 +import { mkdtempSync, readFileSync, realpathSync, rmSync } from "node:fs";
@@ -336,8 +366,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/agent-notice.test.ts
 +  }
 +});
 diff --color -ruN -x node_modules src-main/project-env/test/every-row-findable.test.ts src-cand/project-env/test/every-row-findable.test.ts
---- src-main/project-env/test/every-row-findable.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/every-row-findable.test.ts	2026-10-25 22:03:12
+--- src-main/project-env/test/every-row-findable.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/every-row-findable.test.ts	2026-10-25 22:38:21
 @@ -6,7 +6,7 @@
  
  const v = (name: string, ref = "") => ({ name, ref });
@@ -357,8 +387,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/every-row-findable.t
    });
  
 diff --color -ruN -x node_modules src-main/project-env/test/failure-reason.test.ts src-cand/project-env/test/failure-reason.test.ts
---- src-main/project-env/test/failure-reason.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/failure-reason.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/failure-reason.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/failure-reason.test.ts	2026-10-25 22:38:21
 @@ -21,7 +21,6 @@
    root,
    serviceAccount,
@@ -368,8 +398,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/failure-reason.test.
  });
  
 diff --color -ruN -x node_modules src-main/project-env/test/missing-variables.test.ts src-cand/project-env/test/missing-variables.test.ts
---- src-main/project-env/test/missing-variables.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/missing-variables.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/missing-variables.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/missing-variables.test.ts	2026-10-25 22:38:21
 @@ -46,7 +46,6 @@
      root,
      serviceAccount: "sa-a",
@@ -379,8 +409,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/missing-variables.te
    };
    const before = new Map<string, (input: { request: unknown }) => Promise<unknown>>();
 diff --color -ruN -x node_modules src-main/project-env/test/open-project.test.ts src-cand/project-env/test/open-project.test.ts
---- src-main/project-env/test/open-project.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/open-project.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/open-project.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/open-project.test.ts	2026-10-25 22:38:21
 @@ -3,12 +3,11 @@
  import { openProject } from "../client/open-project.ts";
  import type { Project } from "../shared/config.ts";
@@ -445,8 +475,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/open-project.test.ts
    });
  
 diff --color -ruN -x node_modules src-main/project-env/test/paste-token.test.ts src-cand/project-env/test/paste-token.test.ts
---- src-main/project-env/test/paste-token.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/paste-token.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/paste-token.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/paste-token.test.ts	2026-10-25 22:38:21
 @@ -32,7 +32,6 @@
    serviceAccount,
    vault: "",
@@ -456,8 +486,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/paste-token.test.ts 
  
  describe("a token is written only after 1Password accepts it", () => {
 diff --color -ruN -x node_modules src-main/project-env/test/project-for-cwd.test.ts src-cand/project-env/test/project-for-cwd.test.ts
---- src-main/project-env/test/project-for-cwd.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/project-for-cwd.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/project-for-cwd.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/project-for-cwd.test.ts	2026-10-25 22:38:21
 @@ -41,7 +41,7 @@
    return answers;
  }
@@ -468,8 +498,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/project-for-cwd.test
  function secretsFor(answers: Record<string, string>) {
    const world = makeWorld({ git: { answers } });
 diff --color -ruN -x node_modules src-main/project-env/test/save-rule.test.ts src-cand/project-env/test/save-rule.test.ts
---- src-main/project-env/test/save-rule.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/save-rule.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/save-rule.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/save-rule.test.ts	2026-10-25 22:38:21
 @@ -23,14 +23,14 @@
    });
  });
@@ -488,8 +518,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/save-rule.test.ts sr
  
    it("adds a project not in the list at the end", () => {
 diff --color -ruN -x node_modules src-main/project-env/test/session-open.test.ts src-cand/project-env/test/session-open.test.ts
---- src-main/project-env/test/session-open.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/session-open.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/session-open.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/session-open.test.ts	2026-10-25 22:38:21
 @@ -33,7 +33,6 @@
    root: "/repo",
    serviceAccount,
@@ -499,8 +529,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/session-open.test.ts
  });
  
 diff --color -ruN -x node_modules src-main/project-env/test/test-marks.test.ts src-cand/project-env/test/test-marks.test.ts
---- src-main/project-env/test/test-marks.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/test-marks.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/test-marks.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/test-marks.test.ts	2026-10-25 22:38:21
 @@ -7,7 +7,7 @@
  
  const v = (name: string, ref = `op://V/${name}/x`) => ({ name, ref });
@@ -511,8 +541,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/test-marks.test.ts s
  const draft = project([v("A"), v("B"), v("C"), v("D"), v("E", "")]);
  const run: Run = {
 diff --color -ruN -x node_modules src-main/project-env/test/unsaved-count.test.ts src-cand/project-env/test/unsaved-count.test.ts
---- src-main/project-env/test/unsaved-count.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/unsaved-count.test.ts	2026-10-25 22:03:12
+--- src-main/project-env/test/unsaved-count.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/unsaved-count.test.ts	2026-10-25 22:38:21
 @@ -6,7 +6,6 @@
    root: "/w",
    serviceAccount: "sa-a",
@@ -536,8 +566,8 @@ diff --color -ruN -x node_modules src-main/project-env/test/unsaved-count.test.t
    );
  });
 diff --color -ruN -x node_modules src-main/project-env/test/vault-boundary.test.ts src-cand/project-env/test/vault-boundary.test.ts
---- src-main/project-env/test/vault-boundary.test.ts	2026-10-25 12:53:20
-+++ src-cand/project-env/test/vault-boundary.test.ts	2026-10-25 22:02:33
+--- src-main/project-env/test/vault-boundary.test.ts	2026-10-25 22:21:48
++++ src-cand/project-env/test/vault-boundary.test.ts	2026-10-25 22:38:21
 @@ -17,7 +17,6 @@
    root: "/repo",
    serviceAccount: "sa-a",

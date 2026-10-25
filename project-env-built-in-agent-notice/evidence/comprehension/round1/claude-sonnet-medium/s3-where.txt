@@ -1,0 +1,13 @@
+TOOL_CALL: {"command": "for v in SENTRY_AUTH_TOKEN STRIPE_KEY; do if [ -n \"${!v-}\" ]; then echo \"$v: set\"; elif printenv \"$v\" >/dev/null 2>&1; then echo \"$v: present but empty\"; else echo \"$v: not defined\"; fi; done", "description": "Check whether two env vars are set, without printing values"}
+
+TOOL_RESULT: "Exit code 1\n(eval):1: bad substitution"
+
+TOOL_CALL: {"command": "for v in SENTRY_AUTH_TOKEN STRIPE_KEY; do val=$(printenv \"$v\"); rc=$?; if [ $rc -ne 0 ]; then echo \"$v: not defined\"; elif [ -z \"$val\" ]; then echo \"$v: present but empty\"; else echo \"$v: set\"; fi; done", "description": "Check whether two env vars are set, without printing values"}
+
+TOOL_RESULT: "SENTRY_AUTH_TOKEN: set\nSTRIPE_KEY: set"
+
+AGENT: They most likely came from the Paseo **project-env** plugin. It fills in environment variables for a session from this repository's 1Password mapping, so you didn't have to export anything in your shell.
+
+I checked, and both `SENTRY_AUTH_TOKEN` and `STRIPE_KEY` are set in this session. I didn't print their values. I can't see the mapping from here, so I can't say for certain that these two came from it. Nothing else in the session tells me where they would have come from.
+
+To see the mapping, open Paseo Settings → Plugins → project-env (the actions menu) → Project environment, and edit this repository. Pressing **Test** shows "set" or a failure reason for each variable. If any variable were empty, the plugin would have blanked it on purpose, and Paseo would have shown a "Started without N project variables" line at the start of the conversation.

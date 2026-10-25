@@ -1,0 +1,42 @@
+design_review:
+  preview: project-env-built-in-agent-notice/shots/
+  adrs_read:
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+    - /Users/kent/Project/kc-paseo-plugins/docs/adr/0007-the-project-env-fo-decides-by-record-the-decisions-the-captain-did-not-keep.md (Accepted)
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: cand2-1280-discard-modal.png and cand2-light-1280-discard-modal.png
+      seen: At 1280 the discard-modal pictures show the editor with "1 unsaved change" and no dialog and no dimmed page, while the 400 pictures (dark and light) show a dimmed page with a bottom sheet "Discard 1 unsaved change?", so no picture shows the confirmation on desktop.
+      fix: Capture the desktop confirmation (dark and light), or make it a criterion that the Projects link with unsaved changes opens the same Keep editing / Discard changes confirmation at 1280, since the link otherwise discards edits in one click.
+    - severity: MINOR
+      dimension: flow
+      where: cand2-1280-work.png, cand2-400-work.png (host "Back to plugins" and phone back arrow)
+      seen: The host's back controls sit right beside the new link and leave the plugin; with unsaved changes the pictures give no sign that they are guarded, so only the Projects link is shown to confirm.
+      fix: Add a criterion or a note stating what the host back controls do with unsaved changes; if they drop edits silently, record it as a known limit for the Captain.
+    - severity: MINOR
+      dimension: hierarchy
+      where: cand2-1280-work.png
+      seen: Two back links 43 px apart, "Back to plugins" and the underlined "Projects", go to different places, and the breadcrumb shows only the plugin's own part of the trail, with no crumb for the plugin itself.
+      fix: Accept as drawn (the host's link is not the plugin's to change), or let the crumb read "Project environment › Projects › work" if the Captain wants one trail.
+    - severity: MINOR
+      dimension: platform
+      where: cand2-400-work.png
+      seen: The "Projects" link is a 20 px line of text with a bare underline at about 16 px from the edge, a touch target well under 44 px, next to the 44 px-class header arrow.
+      fix: Give the link a padded hit area of at least 44 px tall without changing its look.
+    - severity: MINOR
+      dimension: states
+      where: cand2-1280-work.png and cand2-400-work.png
+      seen: Only a short name and a short path are shown; a long project name or deep folder path in the 20 px breadcrumb, and the link's hover and keyboard-focus states, are not drawn.
+      fix: Add a picture or criterion for a long name and path (wrap or truncate, with "Projects ›" kept visible) and for link focus.
+    - severity: MINOR
+      dimension: hierarchy
+      where: cand2-400-discard-modal.png, cand2-light-400-discard-modal.png
+      seen: The body "They are dropped and the project list reads the saved settings again." is in internal wording and does not say where the person goes.
+      fix: Reword to plain words, for example "Your changes will be lost and you will return to the project list."
+  limitations:
+    - Static pictures only: I could not see the link's hover, focus or press state, or the keyboard path.
+    - No picture of a long name or path, of the editor for a project with a bare or empty state under the breadcrumb, or of a phone-width discard confirmation after Discard is pressed.
+    - What the host back controls do with unsaved changes cannot be told from the pictures.
+    - No ADR in force bears on the breadcrumb or on host components; none settles a question here (adr: none).

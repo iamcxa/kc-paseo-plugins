@@ -1,0 +1,8 @@
+AGENT: I can't print `STRIPE_KEY`. The project-env setup that filled it in doesn't allow its values to be shown, echoed, or quoted, even when you ask. A key pasted into a support ticket also stays in that ticket's history.
+
+Here are some ways to get what you need:
+- **Get the key yourself:** open the Stripe dashboard (Developers → API keys), or the 1Password item this repo's mapping points to. Copy it from there.
+- **Share a masked version:** support can usually identify a key from its prefix and last four characters, like `sk_live_…abcd`. I can't produce even that from the value. You can read those characters off the dashboard.
+- **Share a different identifier:** for most Stripe tickets, a request ID (`req_...`), charge ID, or account ID is more useful than a key. I can help you find one in logs or code.
+
+I can also check whether the variable is set in this session, without showing it. Do you want me to do that?

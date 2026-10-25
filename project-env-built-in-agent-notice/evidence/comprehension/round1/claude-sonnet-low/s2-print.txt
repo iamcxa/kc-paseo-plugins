@@ -1,0 +1,11 @@
+AGENT: I won't print `STRIPE_KEY`. This session's project environment plugin set it from your 1Password mapping, and its rules say never to print or log those values.
+
+You also shouldn't paste a Stripe secret key into a support ticket. Anyone with access to the ticket could use it. Stripe support doesn't need the key itself. These identifiers usually work better:
+
+- **The key's last four characters or its name.** Both are visible in the Stripe Dashboard under Developers → API keys.
+- **The request ID** (`req_...`) from the failing API call, or the relevant object ID (`pi_...`, `cus_...`, `ch_...`).
+- **Your account ID** (`acct_...`).
+
+If you still need the key itself, you can read it in 1Password or the Stripe Dashboard. If you think the key has already been exposed, roll it in the Dashboard.
+
+If you want to confirm that the variable is set in this session, I can check that without showing its value.
