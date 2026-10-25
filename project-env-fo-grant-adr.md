@@ -211,3 +211,7 @@ Expected: STEP 1 prints exactly `docs/adr/0007-the-project-env-fo-decides-by-rec
 ### Summary
 
 Recommend PASSED: the candidate changes only the ADR, lint and number guards pass (exit 0, negative control exit 1), every AC-1 element and the five-step reload route are present, the quotes are verbatim, and nothing makes the grant effective before the PR merges. No Material or Needs decision finding; F1 (second README rule not named) is a deferred risk, F2 and F3 are polish. Nothing in the repository was edited.
+
+### FO fixes after validation-1 (2026-10-25)
+
+On the Captain's 「准修，可以我合併」 FO fixed validation-1's F1 to F3: the exception now names all three README sentences it departs from (adds "Approval of a validation gate is not permission to push, create or merge a PR, except as follows." and "Preserve manual merge authority."); Words 5 (「准補」) and Words 6 record his approvals; the record states it takes effect only when the Captain himself merges its pull request. roborev:1147 then found the reload route could load unpushed local commits; on the Captain's 「准加」 step 3 now requires HEAD to equal the fetched origin/main and stops for him otherwise (Words 7). adr_lint exit 0 (8 files), number_guards PASS, roborev `clean on 78052172f; evidence=roborev:1155`. Head 78052172fb6e2b56f80cce0b49283cca89f88cd0, pushed to PR #47.
