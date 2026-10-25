@@ -335,3 +335,7 @@ UAT (Captain, 2026-10-25): OK — 「Task 3 意見就是我剛講那些，大致
 The feedback he refers to, from the same chat on 2026-10-25: the slow "Loading the vault…" (a backlog candidate FO brings to him), the default-prompt box (amendment 1 of project-env-built-in-agent-notice) and the "Back to plugins" link (his revise of that task's ideation gate). None of it asks to change or revert this task.
 
 Cost: Captain messages 5; worker tokens not measured (reported: implementation resume 115636, validation 177974; the implementation's first run, cut by a rate limit, reported none)
+
+### ADR 0007 demotion (2026-10-25)
+
+The observer report records one violation on this FO-recorded gate: the F1 decline names no candidate revision (README FO steps: review findings, step 2; "the recorded candidate revision" is the candidate commit, 1450008). ADR 0007 Judgement counts "any observer violation on an FO-recorded gate" as a reversal that returns "the class that decided it to L0". The decline was decided under class 3 inside the class 1 gate, so FO treats classes 1 and 3 as demoted to L0: validation gates and finding dispositions in project-env are asked of the Captain again until he restores them in writing. Class 2 (merge and reload after an approved validation) is not implicated.
