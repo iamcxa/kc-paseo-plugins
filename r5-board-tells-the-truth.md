@@ -16,6 +16,20 @@ gates:
                 id: briefing:r5-board-tells-the-truth:backlog:attempt-1:revision-1
                 digest: sha256:7d35cfd5e1cff33d579cd939b02f3cb64bf83efff111fdc2b104843054d78f7c
                 room-ref: ./r5-board-tells-the-truth/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r5-board-tells-the-truth:backlog:1
+                briefing: briefing:r5-board-tells-the-truth:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-25T03:39:35.381809Z"
+                decision: approve
+                reason: 'Flywheel round 5 backlog gate under ADR 0008: theme chosen by the Captain in round 4 UAT; scope from chief-engineer triage with his screenshot findings; no persisted state, retry, Paseo request, security, permission, relay/recording semantics, release or merge change.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 5 of the POC flywheel under ADR 0008: the board can say "Nothing is waiting on you" before it has loaded or after a fetch failed, comms-officer questions are missed unless the compact Comms tab is open, and a gate card shows a recorded decision as a red "Briefing error".
