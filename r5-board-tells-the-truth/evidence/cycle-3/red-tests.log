@@ -1,0 +1,169 @@
+✔ only checked, empty sources can claim nothing is waiting and a zero count (0.964583ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.154959ms)
+✖ gate failures name only the failed workflows while successful gates stay counted (1.439084ms)
+✖ the FO source stays loading until every question read settles (10.934125ms)
+✖ a failed FO question read marks the source incomplete and keeps successful questions (4.081041ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-n91DZG: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-n91DZG --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-n91DZG --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 316ms
+✖ gate read failures reach the board, and a return refresh replaces the existing snapshot (323.438875ms)
+gates.read #2 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-NMa9aZ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-NMa9aZ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:66:18)
+    at async <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:129:55)
+    at async Promise.all (index 1)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:126:17)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:119:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/gate-sources.test.mts:42:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-NMa9aZ/removed/README.md'
+}
+gates.read #2 done 1ms
+✖ a removed workflow does not hide another workflow's gates or tasks (6.687458ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 2
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 840.570584
+
+✖ failing tests:
+
+test at test/board-empty.test.mts:1:1068
+✖ gate failures name only the failed workflows while successful gates stay counted (1.439084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      count: '1+',
+  +   message: 'Could not check gates — this list may be incomplete'
+  -   message: 'Could not check gates for /removed/workflow — this list may be incomplete'
+    }
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/board-empty.test.mts:29:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { message: 'Could not check gates — this list may be incomplete', count: '1+' },
+    expected: { message: 'Could not check gates for /removed/workflow — this list may be incomplete', count: '1+' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/fo-source.test.mts:1:1453
+✖ the FO source stays loading until every question read settles (10.934125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   count: '0',
+  +   message: 'Nothing is waiting on you.',
+  +   state: 'loaded'
+  -   count: '…',
+  -   message: 'Loading…',
+  -   state: 'loading'
+    }
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/fo-source.test.mts:37:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { message: 'Nothing is waiting on you.', count: '0', state: 'loaded' },
+    expected: { message: 'Loading…', count: '…', state: 'loading' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/fo-source.test.mts:1:2068
+✖ a failed FO question read marks the source incomplete and keeps successful questions (4.081041ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   count: '0',
+  +   message: 'Nothing is waiting on you.',
+  +   state: 'loaded'
+  -   count: '1+',
+  -   message: 'Could not check FOs — this list may be incomplete',
+  -   state: 'failed'
+    }
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/fo-source.test.mts:54:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { message: 'Nothing is waiting on you.', count: '0', state: 'loaded' },
+    expected: { message: 'Could not check FOs — this list may be incomplete', count: '1+', state: 'failed' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/gate-sources.test.mts:1:244
+✖ gate read failures reach the board, and a return refresh replaces the existing snapshot (323.438875ms)
+  Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-n91DZG --fields slug,status,title,gate-readiness --json
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at ChildProcess.exithandler (node:child_process:417:12)
+      at ChildProcess.emit (node:events:509:28)
+      at maybeClose (node:internal/child_process:1124:16)
+      at Socket.<anonymous> (node:internal/child_process:481:11)
+      at Socket.emit (node:events:509:28)
+      at Pipe.<anonymous> (node:net:351:12) {
+    code: 1,
+    killed: false,
+    signal: null,
+    cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-n91DZG --fields slug,status,title,gate-readiness --json',
+    stdout: '',
+    stderr: ''
+  }
+
+test at test/gate-sources.test.mts:3:748
+✖ a removed workflow does not hide another workflow's gates or tasks (6.687458ms)
+  Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-NMa9aZ/removed/README.md'
+      at async open (node:internal/fs/promises:640:25)
+      at async readFile (node:internal/fs/promises:1290:14)
+      at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:66:18)
+      at async <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:129:55)
+      at async Promise.all (index 1)
+      at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:126:17)
+      at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/server/tasks.ts:119:12)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/gate-sources.test.mts:42:17)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-NMa9aZ/removed/README.md'
+  }

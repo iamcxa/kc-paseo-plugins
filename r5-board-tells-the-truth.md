@@ -119,3 +119,27 @@ Evidence: r5-board-tells-the-truth/evidence/cycle-2/README.md, red-behavior-test
 SKIPPED: design_surfaces.py exit 1, known package gap 2 (POC asked for five-stage-only fields). RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed 990ea8b7ed79cf0d80b4bfa251681aae61b6a157.
 
 Safety/limits: protected draft and keyboard files unchanged; candidate/main/live worktrees clean (safety-checks.json). No new dependency, persisted state, cache, background job, retry or POC boundary; no real daemon/browser was launched this cycle, and fixture teardown removes temporary roots. Mounted-hook/server proof uses controlled SDK/CLI inputs, not an actual reconnect/provider turn, native-device result or a new browser run.
+
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: roborev:1160 first finding: the FO source counts as loaded only after every per-FO question read it started has settled; a failed per-FO timeline read marks the FO source failed ("Could not check …"), never a false empty; tests for a pending and a failed per-FO read
+  22040541b15ea147a43db9d7d77ac377ec127726; fo-source.test.mts holds two reads pending, proves the first completion cannot mark loaded, then observes the question after both settle; a failed read keeps a healthy question and reports incomplete until a later successful snapshot. Parent false-empty assertions fail in evidence/cycle-3/red-tests.log.
+- DONE: roborev:1160 second finding: a failure in one workflow directory no longer rejects the whole gate or task read — read each workflow independently (e.g. Promise.allSettled), keep the successful workflows' gates and tasks, and report only the failed ones so the board shows "Could not check gates for <workflow>"; tests with one healthy and one removed workflow directory
+  gate-sources.test.mts retains the healthy workflow gate and task while reporting only the removed workflow; board-empty.test.mts names that failed path with a partial count. Aggregate rejection breaks the mixed-workflow test; the existing fleet tool keeps explicit errors instead of silently presenting partial data as complete.
+- DONE: npm test and typecheck pass; push to PR #49 (still Draft); a short "## Stage Report: implementation (cycle 3)" section
+  evidence/cycle-3/tests.log: 110 passed; typecheck.log: exit 0; pr49.json confirms OPEN/Draft #49 at pushed 22040541b15ea147a43db9d7d77ac377ec127726 on the required fourth-layer base.
+
+### Summary
+
+Repaired both authorized roborev:1160 findings: the FO source waits for question reads, and workflow failures preserve other workflows’ gates/tasks while identifying only failed directories. The repair is pushed to Draft PR #49; independent validation and FO review remain pending.
+
+### Findings
+
+Evidence: r5-board-tells-the-truth/evidence/cycle-3/README.md, red-tests.log, tests.log, checks.json and pr49.json. Parent tests show false empty states and aggregate rejection; current tests exercise the actual observer, queue/empty-state functions and server handlers. The existing fleetSnapshot consumer preserves its explicit error contract for incomplete results.
+
+Comment ratio: 91 code lines, 0 comments, 0.0% <= 5%, exit 0. Document impact zero listed documents; spacedock-bridge/OVERVIEW.md updated for unread-question settlement and independent workflows. Number guards PASS; no R4 failure, ADR or migration change; ADR lint seven records, zero legacy.
+
+SKIPPED: design_surfaces.py exit 1, known package gap 2 (POC asked for five-stage-only fields). RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed 22040541b15ea147a43db9d7d77ac377ec127726.
+
+Safety/limits: protected draft/keyboard files unchanged; candidate/main/live worktrees clean (safety-checks.json). No new dependency, persisted state, last-good queue, server cache, background job, retry/backoff or POC boundary; fixtures are torn down and no daemon/browser launched. Controlled SDK/CLI proof does not claim a real provider turn, native rendering, current browser proof, gate approval or deployment.
