@@ -1,6 +1,7 @@
 import type { PaseoApi } from "@getpaseo/client";
-import { type PermissionLike, permissionPreview } from "./preview";
+import { type PermissionLike, permissionPreview, lastReply, nextStepIsCaptains, replyPreview } from "./preview";
 import type { AwaitingGate } from "./tasks";
+import type { SourceState } from "./board-empty";
 
 export const ROLE_LABEL = "role";
 export const ROLE_FO = "fo";
@@ -126,14 +127,44 @@ export function withReplies(
 
 export async function observeBoard(
   paseo: PaseoApi,
-  onRows: (rows: BoardRow[]) => void,
+  onRows: (rows: BoardRow[], replies: Record<string, ReplyFact>, state: SourceState) => void,
   onError?: (error: unknown) => void,
 ): Promise<() => void> {
   const known = new Map<string, BoardAgent>();
-  const emit = () => onRows(toRows(known.values()));
+  const fetched = new Map<string, { at: string; promise: Promise<ReplyFact> }>();
+  let active = true;
+  let generation = 0;
+  const emit = () => {
+    if (!active) return;
+    const current = ++generation;
+    const rows = toRows(known.values());
+    const questions = rows.filter((row) => row.status === "new reply" && !row.hasNextOwner);
+    onRows(rows, {}, questions.length ? "loading" : "loaded");
+    if (!questions.length) return;
+    const reads = questions.map((row) => {
+      const cached = fetched.get(row.id);
+      if (cached?.at === row.lastActivityAt) return cached.promise;
+      const promise = Promise.resolve().then(async () => {
+        const { entries } = await paseo.agents.ref(row.id).timeline.refetch({ direction: "tail", limit: 30, projection: "projected" });
+        const reply = lastReply(entries.map((entry) => entry.item));
+        return { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply) };
+      });
+      fetched.set(row.id, { at: row.lastActivityAt, promise });
+      void promise.catch(() => { if (fetched.get(row.id)?.promise === promise) fetched.delete(row.id); });
+      return promise;
+    });
+    void Promise.allSettled(reads).then((results) => {
+      if (!active || current !== generation) return;
+      const replies: Record<string, ReplyFact> = {};
+      results.forEach((result, index) => {
+        if (result.status === "fulfilled") replies[questions[index].id] = result.value;
+      });
+      onRows(rows, replies, results.some((result) => result.status === "rejected") ? "failed" : "loaded");
+    });
+  };
   const { subscription } = await paseo.agents.list({ subscribe: {}, filter: FO_FILTER });
   subscription.subscribe({
-    error: onError,
+    error: (error) => { if (active) { ++generation; onError?.(error); } },
     snapshot: ({ entries }) => {
       known.clear();
       for (const { agent } of entries) known.set(agent.id, agent as BoardAgent);
@@ -148,7 +179,7 @@ export async function observeBoard(
       emit();
     },
   });
-  return () => subscription.release();
+  return () => { active = false; ++generation; void subscription.release(); };
 }
 
 export interface WorkflowGate extends AwaitingGate {

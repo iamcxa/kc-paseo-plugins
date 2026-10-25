@@ -5,10 +5,10 @@ const labels: Record<keyof SourceStates, string> = {
   fos: "FOs", gates: "gates", reviews: "reviews", comms: "the comms officer",
 };
 
-export function boardEmptyState(sources: SourceStates, total: number): { message: string | null; count: string } {
+export function boardEmptyState(sources: SourceStates, total: number, failedGateWorkflows: readonly string[] = []): { message: string | null; count: string } {
   const failed = (Object.keys(sources) as (keyof SourceStates)[]).filter((source) => sources[source] === "failed");
   if (failed.length) return {
-    message: `Could not check ${failed.map((source) => labels[source]).join(", ")} — this list may be incomplete`,
+    message: `Could not check ${failed.map((source) => source === "gates" && failedGateWorkflows.length ? `gates for ${failedGateWorkflows.join(", ")}` : labels[source]).join(", ")} — this list may be incomplete`,
     count: total ? `${total}+` : "?",
   };
   if (Object.values(sources).some((state) => state === "loading"))

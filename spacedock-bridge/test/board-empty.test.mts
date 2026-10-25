@@ -23,3 +23,8 @@ test("a source failure makes both the empty text and the count incomplete until 
   assert.match(boardEmptyState(failed, 3).message!, /Could not check reviews/);
   assert.equal(boardEmptyState(loaded, 0).count, "0");
 });
+
+test("gate failures name only the failed workflows while successful gates stay counted", () => {
+  const result = boardEmptyState({ ...loaded, gates: "failed" }, 1, ["/removed/workflow"]);
+  assert.deepEqual(result, { message: "Could not check gates for /removed/workflow — this list may be incomplete", count: "1+" });
+});

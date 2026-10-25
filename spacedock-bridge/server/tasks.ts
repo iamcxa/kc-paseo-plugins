@@ -99,15 +99,26 @@ async function workflowEntities(workflowDir: string, fresh = false): Promise<Ent
   return pending;
 }
 
+async function readWorkflows(workflowDirs: readonly string[], fresh = false) {
+  const dirs = [...new Set(workflowDirs)];
+  const results = await Promise.allSettled(dirs.map((dir) => workflowEntities(dir, fresh)));
+  const workflows = new Map<string, Entity[]>();
+  const failedWorkflowDirs: string[] = [];
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") workflows.set(dirs[index], result.value);
+    else failedWorkflowDirs.push(dirs[index]);
+  });
+  return { workflows, failedWorkflowDirs };
+}
+
 export async function readTasksHandler({ requests }: RpcInput<typeof readTasks>) {
+  const { workflows, failedWorkflowDirs } = await readWorkflows(requests.map((request) => request.workflowDir));
   const tasks: Record<string, TaskStatus> = {};
-  await Promise.all(
-    requests.map(async ({ agentId, workflowDir, task }) => {
-      const entity = (await workflowEntities(workflowDir)).find((e) => e.slug === task);
-      if (entity) tasks[agentId] = { title: String(entity.title ?? ""), stage: String(entity.status) };
-    }),
-  );
-  return { tasks };
+  for (const { agentId, workflowDir, task } of requests) {
+    const entity = workflows.get(workflowDir)?.find((e) => e.slug === task);
+    if (entity) tasks[agentId] = { title: String(entity.title ?? ""), stage: String(entity.status) };
+  }
+  return { tasks, failedWorkflowDirs };
 }
 
 let gateCalls = 0;
@@ -123,10 +134,11 @@ export async function readGatesHandler({ workflowDirs, fresh }: RpcInput<typeof 
 }
 
 async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
+  const { workflows, failedWorkflowDirs } = await readWorkflows(workflowDirs, fresh);
   const lists = await Promise.all(
-    [...new Set(workflowDirs)].map(async (workflowDir) =>
+    [...workflows].map(async ([workflowDir, entities]) =>
       Promise.all(
-        parseAwaitingGates(JSON.stringify({ entities: await workflowEntities(workflowDir, fresh) })).map(
+        parseAwaitingGates(JSON.stringify({ entities })).map(
           async (gate: AwaitingGate) => ({
             workflowDir,
             ...gate,
@@ -143,5 +155,5 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
     seen.add(key);
     return true;
   });
-  return { gates };
+  return { gates, failedWorkflowDirs };
 }

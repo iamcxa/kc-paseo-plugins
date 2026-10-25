@@ -37,14 +37,16 @@ async function token(): Promise<string> {
 export async function fleetSnapshot(api: PaseoApi) {
   const { entries } = await api.agents.list({ filter: FO_FILTER });
   const rows = toRows(entries.map((entry) => entry.agent as BoardAgent));
-  const { tasks } = await readTasksHandler({
+  const { tasks, failedWorkflowDirs: taskFailures } = await readTasksHandler({
     requests: rows
       .filter((row) => row.workflowDir && row.task)
       .map((row) => ({ agentId: row.id, workflowDir: row.workflowDir, task: row.task })),
   });
-  const { gates } = await readGatesHandler({
+  if (taskFailures.length) throw new Error(`Could not check tasks for ${taskFailures.join(", ")}`);
+  const { gates, failedWorkflowDirs: gateFailures } = await readGatesHandler({
     workflowDirs: rows.map((row) => row.workflowDir).filter(Boolean),
   });
+  if (gateFailures.length) throw new Error(`Could not check gates for ${gateFailures.join(", ")}`);
   return attachGates(rows, gates).map((row) => ({
     agentId: row.id,
     title: row.title,

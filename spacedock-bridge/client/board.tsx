@@ -15,7 +15,6 @@ import {
 } from "../shared/board";
 import { foName } from "../shared/card";
 import { createFo } from "../shared/fo";
-import { lastReply, nextStepIsCaptains, replyPreview } from "../shared/preview";
 import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
 import { DecisionCard, wasSent } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
@@ -56,6 +55,7 @@ export function Board({
 }: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onAskCo?: (text: string) => void }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
+  const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
   const [foState, setFoState] = useState<SourceState>("loading");
   const [workspaces, setWorkspaces] = useState<WorkspaceChoice[] | null>(null);
   const [message, setMessage] = useState("");
@@ -65,10 +65,11 @@ export function Board({
     let release: (() => void) | null = null;
     let cancelled = false;
     const failed = () => { if (!cancelled) setFoState("failed"); };
-    observeBoard(paseo, (next) => {
+    observeBoard(paseo, (next, facts, state) => {
       if (cancelled) return;
       setRows(next);
-      setFoState("loaded");
+      setReplies(facts);
+      setFoState(state);
     }, failed).then(
       (stop) => (cancelled ? stop() : (release = stop)),
       failed,
@@ -79,49 +80,39 @@ export function Board({
     };
   }, [paseo]);
 
-  const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
-  const fetched = useRef(new Map<string, string>());
-
-  useEffect(() => {
-    for (const row of rows) {
-      if (row.status !== "new reply" || row.hasNextOwner) continue;
-      if (fetched.current.get(row.id) === row.lastActivityAt) continue;
-      fetched.current.set(row.id, row.lastActivityAt);
-      paseo.agents
-        .ref(row.id)
-        .timeline.refetch({ direction: "tail", limit: 30, projection: "projected" })
-        .then(
-          ({ entries }) => {
-            const reply = lastReply(entries.map((entry) => entry.item));
-            const fact = { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply) };
-            setReplies((current) => ({ ...current, [row.id]: fact }));
-          },
-          () => fetched.current.delete(row.id),
-        );
-    }
-  }, [paseo, rows]);
-
   const callReadTasks = useRpc(readTasks);
   const [tasks, setTasks] = useState<Record<string, TaskStatus>>({});
+  const [taskFailures, setTaskFailures] = useState<string[]>([]);
   const taskKey = rows
     .filter((row) => row.workflowDir && row.task)
     .map((row) => `${row.id}|${row.workflowDir}|${row.task}`)
     .join("\n");
 
   useEffect(() => {
+    setTasks({});
+    setTaskFailures([]);
     if (!taskKey) return;
+    let cancelled = false;
     const requests = taskKey.split("\n").map((line) => {
       const [agentId, workflowDir, task] = line.split("|");
       return { agentId, workflowDir, task };
     });
     const refresh = () =>
       callReadTasks({ requests }).then(
-        (result) => setTasks(result.tasks),
-        (error) => setMessage(String(error)),
+        (result) => {
+          if (cancelled) return;
+          setTasks(result.tasks);
+          setTaskFailures(result.failedWorkflowDirs);
+        },
+        () => {
+          if (cancelled) return;
+          setTasks({});
+          setTaskFailures([...new Set(requests.map((request) => request.workflowDir))]);
+        },
       );
     void refresh();
     const timer = setInterval(() => void refresh(), 60_000);
-    return () => clearInterval(timer);
+    return () => { cancelled = true; clearInterval(timer); };
   }, [taskKey, callReadTasks]);
 
   const callReadGates = useRpc(readGates);
@@ -129,7 +120,7 @@ export function Board({
     { workflowDir: string; slug: string; title: string; stage: string }[]
   >([]);
   const [gatesAt, setGatesAt] = useState<string>("");
-  const [gateCheck, setGateCheck] = useState<{ key: string; state: SourceState }>({ key: "", state: "loading" });
+  const [gateCheck, setGateCheck] = useState<{ key: string; state: SourceState; failed: string[] }>({ key: "", state: "loading", failed: [] });
   const gateRequest = useRef(0);
   const workflowKey = [...new Set(rows.map((row) => row.workflowDir).filter(Boolean))]
     .sort()
@@ -138,19 +129,19 @@ export function Board({
   const refreshGates = useCallback((fresh = false) => {
     if (!workflowKey) return;
     const request = ++gateRequest.current;
-    setGateCheck({ key: workflowKey, state: "loading" });
+    setGateCheck({ key: workflowKey, state: "loading", failed: [] });
     const workflowDirs = workflowKey.split("\n");
     return callReadGates({ workflowDirs, fresh }).then(
         (result) => {
           if (request !== gateRequest.current) return;
           setGates(result.gates);
           setGatesAt(new Date().toISOString());
-          setGateCheck({ key: workflowKey, state: "loaded" });
+          setGateCheck({ key: workflowKey, state: result.failedWorkflowDirs.length ? "failed" : "loaded", failed: result.failedWorkflowDirs });
         },
         () => {
           if (request !== gateRequest.current) return;
           setGates([]);
-          setGateCheck({ key: workflowKey, state: "failed" });
+          setGateCheck({ key: workflowKey, state: "failed", failed: [] });
         },
       );
   }, [workflowKey, callReadGates]);
@@ -360,10 +351,10 @@ export function Board({
   );
   const empty = boardEmptyState({
     fos: foState,
-    gates: !workflowKey ? foState : gateCheck.key === workflowKey ? gateCheck.state : "loading",
+    gates: !workflowKey ? "loaded" : gateCheck.key === workflowKey ? gateCheck.state : "loading",
     reviews: reviewState,
     comms: commsState,
-  }, queue.length + (coAsk ? 1 : 0));
+  }, queue.length + (coAsk ? 1 : 0), gateCheck.key === workflowKey ? gateCheck.failed : []);
   const kindLabel: Record<QueueKind, string> = {
     permission: "PERMISSION",
     review: "REVIEW REQUEST",
@@ -414,6 +405,7 @@ export function Board({
       {message ? (
         <Text style={{ color: colors.statusDanger }}>{message}</Text>
       ) : null}
+      {taskFailures.length ? <Text style={{ color: colors.statusDanger }}>Could not check tasks for {taskFailures.join(", ")}</Text> : null}
       <View style={styles.toggle}>
         {(["decision", "fo"] as const).map((id) => (
           <Pressable colors={colors}
