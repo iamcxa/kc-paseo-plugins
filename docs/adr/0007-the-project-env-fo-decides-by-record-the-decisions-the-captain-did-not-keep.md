@@ -34,6 +34,7 @@ unamended.
 4. 「准，授權你合併」 — Captain, 2026-10-23, answering the ideation gate question that named the README-sentence exception, the expiry and demotion numbers, class 3, the kept list and the reload route; his merge authorization covers later project-env pull requests under class 2, not this record's own pull request, which he merges himself (Words 6)
 5. 「准補」 — Captain, 2026-10-25, answering whether to add to the reload route a fetch of origin and a check that the checkout contains the pull request's merge commit
 6. 「准修，可以我合併」 — Captain, 2026-10-25, answering whether to name the two further README sentences in the exception, add Words 5, and state that he merges this record's pull request himself
+7. 「准加」 — Captain, 2026-10-25, answering whether the reload route's third step should require `HEAD` to equal the fetched `origin/main` and stop for him when local commits prevent it
 
 **Options considered:**
 - grant by record the decisions below and keep the rest with the Captain, as the Captain's split states (chosen)
@@ -55,7 +56,7 @@ proposed by the dev2 FO and are unmeasured.
 The exception is limited to the granted classes below. The README itself is unchanged;
 its requirements continue to apply outside those classes. This grant is recorded through the
 recording command below, never as a `Precedent:` line. Words 1 states the split; the
-exception, expiry, demotion and revocation terms were proposed by the dev2 FO and the Captain approved them in Words 4, 5 and 6. This record takes effect only when the Captain himself merges the pull request that adds it.
+exception, expiry, demotion and revocation terms were proposed by the dev2 FO and the Captain approved them in Words 4 to 7. This record takes effect only when the Captain himself merges the pull request that adds it.
 
 **Granted classes.** The FO decides these classes of project-env decisions:
 1. the validation gate, when the validation report passes and has no Material finding and
@@ -68,7 +69,7 @@ exception, expiry, demotion and revocation terms were proposed by the dev2 FO an
    Reload route, in order:
    1. back up `~/.paseo/plugin-settings/paseo-project-env/projects.json`;
    2. `git fetch origin`, then confirm `origin/main` contains the pull request's merge commit;
-   3. `git merge --ff-only origin/main` on the clean main checkout, then confirm `HEAD` is that commit or a descendant of it;
+   3. `git merge --ff-only origin/main` on the clean main checkout, then confirm `HEAD` equals the fetched `origin/main`; if local commits prevent that, stop and ask the Captain;
    4. `npm ci` in `project-env`;
    5. `paseo plugin reload paseo-project-env`;
 3. dispositions of review findings within the task's approved Scope: fix, defer to a backlog
