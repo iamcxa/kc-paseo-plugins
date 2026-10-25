@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-fo-grant-adr:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-fo-grant-adr-validation-1
+              briefing:
+                id: briefing:project-env-fo-grant-adr:validation:attempt-1:revision-1
+                digest: sha256:4a6cd5fa79fbe07b002e2757d494cb2e6f130ed3b18c438f2e7d2c34fdc64eed
+                room-ref: ./project-env-fo-grant-adr/review/validation/briefing-1
 started: 2026-10-23T12:25:39Z
 ---
 

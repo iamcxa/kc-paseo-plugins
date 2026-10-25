@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-fo-grant-adr:validation:attempt-1:revision-1",
+  "question": "Approve ADR 0007's validation? The Captain merges PR iamcxa/kc-paseo-plugins#47 himself; approval does not merge it.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-fo-grant-adr:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/25af49db7d825e655e43498b33e9a35de28685dc/project-env-fo-grant-adr.md",
+      "rev": "sha256:1202e9e308f9d3f07932f2d53c9b461126ff36e9d33696982cf86f5283c9b6a4",
+      "mediaType": "text/markdown",
+      "summary": "Validation-2 PASSED at 78052172 with two Polish findings declined (F1 Words 4 gloss, F2 step 3 cause wording). roborev:1155 and Codex 6392616619 clean on 78052172. delivery_gate exit 0, class never (verdict ask)."
+    }
+  ]
+}
