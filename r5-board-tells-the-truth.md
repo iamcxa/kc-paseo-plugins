@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 5 — the board and the gate card show only what they have checked
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
