@@ -1,0 +1,7 @@
+Question: Approve ADR 0007's validation? The Captain merges PR iamcxa/kc-paseo-plugins#47 himself; approval does not merge it.
+Merge ask: PR #47 at 78052172fb6e2b56f80cce0b49283cca89f88cd0 adds ADR 0007, the project-env FO's decide-by-record exception; the Captain merges it himself.
+Sufficiency: validation-2 PASSED at 78052172 with no Material or Needs decision finding; every Captain quote in Words 1 to 7 byte-matches the task, and the record names all three README sentences it departs from.
+Necessity: the PR adds one ADR file and nothing else; without it the FO's merge-and-reload and finding-disposition authority stays unrecorded.
+Reviews: roborev:1143 and roborev:1147 repaired; roborev:1155 clean on 78052172f; Codex summary:6392616619 clean on 78052172f.
+Declined: Polish, F1 Words 4 gloss reads 「准，授權你合併」 as covering later PRs (class 2 rests on Words 1 and Words 6 settles that the Captain merges this PR; nothing depends on the gloss).
+Declined: Polish, F2 reload step 3 names only local commits as the reason to stop (the step stops on any failure of HEAD equal to origin/main, so a dirty or diverged checkout also stops).

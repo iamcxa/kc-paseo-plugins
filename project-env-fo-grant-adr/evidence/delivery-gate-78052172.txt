@@ -1,0 +1,13 @@
+PR head 78052172fb6e2b56f80cce0b49283cca89f88cd0 equals dispatched candidate 78052172fb6e2b56f80cce0b49283cca89f88cd0; no second reviewer outcome is missing
+point: deferred: '- F1 Deferred risk: the ADR'
+point: deferred: 'Recommend PASSED: the candidate changes only'
+point: deferred: '- Validation-2 F1 (Polish): Words 4'
+point: deferred: '- Validation-2 F2 (Polish): reload step'
+point: deferred: 'Declined: Polish, F1 Words 4 gloss'
+point: deferred: 'Declined: Polish, F2 reload step 3'
+point: fo-decline: '- Validation-2 F1 (Polish): Words 4'
+point: fo-decline: '- Validation-2 F2 (Polish): reload step'
+point: path: 'docs/adr/0007-the-project-env-fo-decides-by-record-the-decisions-the-captain-did'
+class: never (verdict ask)
+record: project-env-fo-grant-adr/merge/ask-2.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.
