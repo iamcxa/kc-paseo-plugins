@@ -172,3 +172,27 @@ Comment ratio: 62 code lines, 0 comments, 0.0% <= 5%, exit 0. Document impact ze
 SKIPPED: design_surfaces.py exit 1, known package gap 2 (POC asked for five-stage-only fields). RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed 04dfa6779a9968fa2110dfe53bf2b26f032d9d46.
 
 Safety/limits: safety-checks.json verifies ten isolated runs cleaned up by captured PID, unchanged decision/claim/relay logic, drafts/composer/keyboard, and clean candidate/main/live worktrees. No new dependency, persisted state, cache, background job, retry/backoff or POC boundary; no provider message, gate write, ready, merge or live install. Browser proof uses synthetic records and a controlled empty coordinator SDK timeline; native Android behavior and real provider conversation remain unproven. The deferred configuration wording is unchanged.
+
+
+## Stage Report: implementation (cycle 5)
+
+- DONE: roborev:1168 first finding: question detection in client/use-co-ask.ts reads the last displayed assistant message, as CoChat did before the lift, not a concatenation since the last user message; a test where an earlier message names FO work and the final message asks the Captain, and the question is detected
+  6f16429c24d4853c15698091f0fb42830185c951; tests.log and regressions-red-final-tests.log: the mounted hook detects the final Captain question after an earlier FO Next line and visible tool; restoring concatenation fails. CoChat and detection share the unchanged display grouping, with tool/chunk boundary tests.
+- DONE: roborev:1168 second finding: in client/decision-card.tsx a recorded resolution counts as finishing the card only when it belongs to the briefing being displayed (same briefing id) or no attempt is open; a newer open briefing with an older resolution keeps the decision controls; a test for that poll sequence
+  6f16429c24d4853c15698091f0fb42830185c951; the mounted card test drives its actual poll callback through first briefing → newer briefing with older resolution → matching record, preserving newer controls/polling until its own record; reopening without an open attempt accepts the record. Unconditional recorded assignment fails the second poll assertion.
+- DONE: npm test and typecheck pass; push to PR #49 (still Draft); a short "## Stage Report: implementation (cycle 5)" section
+  evidence/cycle-5/tests.log: 113 passed; typecheck.log: exit 0; pr49.json confirms pushed 6f16429c24d4853c15698091f0fb42830185c951, OPEN/Draft #49 and unchanged base.
+
+### Summary
+
+Question detection now reads the same final displayed assistant message as CoChat. A poll's recorded resolution is retained only for the displayed briefing or when no attempt is open, preserving the newer briefing's decision controls. Candidate 6f16429c24d4853c15698091f0fb42830185c951 is pushed to Draft PR #49; independent validation and team review remain pending.
+
+### Findings
+
+Evidence: r5-board-tells-the-truth/evidence/cycle-5/README.md, final red regressions, tests/typecheck logs, checks.json, pr49.json and safety-checks.json. Mounted tests exercise the real hook/card with controlled SDK/RPC/host fixtures; no new browser screenshots, native Android or real-provider claim. Cycle-4 screenshots remain pinned to their original head.
+
+Comment ratio: 43 code lines, 0 comments, 0.0% <= 5%; doc impact zero listed docs, OVERVIEW.md updated. Number guards PASS, no migration/ADR change; ADR lint seven records, zero legacy. Scripts used the dispatched absolute kc-dev-flow-2/0.29.0 package.
+
+SKIPPED: design_surfaces.py exit 1, known package gap 2 (POC asked for five-stage-only fields). RoboRev not run under package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed 6f16429c24d4853c15698091f0fb42830185c951.
+
+Safety: clean candidate/main/live worktrees; unchanged drafts, keyboard, submission, claim/release and relay modules. No provider message, daemon/browser, gate write, dependency, persistent load/ask state, cache, background job, retry, ready, merge or live install. Disposable baseline copy cleaned. Task frontmatter remains unchanged at validation.

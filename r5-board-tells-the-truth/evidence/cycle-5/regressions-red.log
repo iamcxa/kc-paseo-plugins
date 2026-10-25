@@ -1,0 +1,49 @@
+✖ a reconnect refetch reveals a question when the turn finished while disconnected (194.913708ms)
+✖ polling a newer open briefing ignores the older briefing's resolution (122.679542ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 690.529625
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:512
+✖ a reconnect refetch reveals a question when the turn finished while disconnected (194.913708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'loaded: none'
+  - 'loaded: Choose the theme (you)'
+             ^
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/co-ask.test.mts:60:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'loaded: none',
+    expected: 'loaded: Choose the theme (you)',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/decision-card.test.mts:1:390
+✖ polling a newer open briefing ignores the older briefing's resolution (122.679542ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /add a reason/. Input:
+  
+  'no decisions|Message FO directly'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/decision-card.test.mts:57:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'no decisions|Message FO directly',
+    expected: /add a reason/,
+    operator: 'match',
+    diff: 'simple'
+  }
