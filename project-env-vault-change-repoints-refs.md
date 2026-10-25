@@ -1,7 +1,7 @@
 ---
 id:
 title: Changing the vault keeps every variable pointing into it, and the screen marks any variable outside it before Test
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
