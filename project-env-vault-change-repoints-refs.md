@@ -331,4 +331,7 @@ Merged PR iamcxa/kc-paseo-plugins#50 by squash with `--match-head-commit 1450008
 
 ## UAT
 
-Pending: the Captain's UAT on the live plugin.
+UAT (Captain, 2026-10-25): OK — 「Task 3 意見就是我剛講那些，大致上 ＯＫ」
+The feedback he refers to, from the same chat on 2026-10-25: the slow "Loading the vault…" (a backlog candidate FO brings to him), the default-prompt box (amendment 1 of project-env-built-in-agent-notice) and the "Back to plugins" link (his revise of that task's ideation gate). None of it asks to change or revert this task.
+
+Cost: Captain messages 5; worker tokens not measured (reported: implementation resume 115636, validation 177974; the implementation's first run, cut by a rate limit, reported none)
