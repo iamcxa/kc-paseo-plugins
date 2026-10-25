@@ -1,12 +1,12 @@
 ---
 id:
 title: Changing the vault keeps every variable pointing into it, and the screen marks any variable outside it before Test
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-vault-change-repoints-refs
-pr:
+pr: pr-merge:50
 gates:
     version: 1
     records:
@@ -69,8 +69,11 @@ gates:
                     source: docs/adr/0007 on main
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-24T15:58:32Z
+verdict: PASSED
+completed: 2026-10-25T14:41:19Z
+archived: 2026-10-25T14:41:19Z
 ---
 
 Polish round 2 of the project-env settings screen. Source: the Captain's UAT on 2026-10-23 (「這個 use this connection 按鈕是否可以放在 vault 選擇的後面？或是換個方式重新設計儲存跟取消」, 「import from conductor 功能可以移除」, and the qnow vault rename that blanked five variables live) and the Design Director's ruling in `ux-review-polish-2/design-director.md`, approved by the Captain on 2026-10-23 with 「准」, including option A, the re-point behaviour and the r2 wording.
