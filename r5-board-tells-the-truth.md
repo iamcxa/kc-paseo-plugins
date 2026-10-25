@@ -161,7 +161,7 @@ Safety/limits: protected draft/keyboard files unchanged; candidate/main/live wor
 
 ### Summary
 
-Aligned both list views with the same checked source state and made finished gate cards ordinary discussion surfaces without decision controls or a waiting age. The exact candidate and screenshots are pushed to Draft PR #49; independent validation and team review remain pending.
+Aligned both list views with the same checked source state and made finished gate cards ordinary discussion surfaces without decision controls or a waiting age. The exact candidate is pushed to Draft PR #49 and screenshots are recorded in the task's state checkout; independent validation and team review remain pending.
 
 ### Findings
 
