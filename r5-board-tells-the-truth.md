@@ -38,6 +38,20 @@ gates:
                 id: briefing:r5-board-tells-the-truth:validation:attempt-1:revision-1
                 digest: sha256:7ac18893fac9cc6532b902aed3b88509eda5bb69182a5a18fa3cca3ff32a60fa
                 room-ref: ./r5-board-tells-the-truth/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r5-board-tells-the-truth:validation:1
+                briefing: briefing:r5-board-tells-the-truth:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-25T05:39:31.844488Z"
+                decision: approve
+                reason: 'Flywheel round 5 validation gate under ADR 0008: team pass 2 satisfied on 6f16429c, validation-2 PASSED, FO acceptance rerun as expected, pre-gate record check PASS; the observer stop was ruled by the Captain 「A」 (continue with the check script); no merge.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-25T03:39:54Z
 worktree: .worktrees/spacedock-ensign-r5-board-tells-the-truth
 pr: 49
