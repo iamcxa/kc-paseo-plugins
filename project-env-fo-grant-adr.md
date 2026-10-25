@@ -268,3 +268,8 @@ Expected: STEP 1 prints exactly `docs/adr/0007-the-project-env-fo-decides-by-rec
 ### Summary
 
 Recommend PASSED for 7805217: the candidate changes only the ADR, lint and number guards exit 0 (negative control exit 1), all three README sentences are named verbatim, Words 4 to 7 are verbatim against the task file, the record takes effect only on the Captain's own merge, and reload step 3 requires HEAD equal to the fetched origin/main. Validation-1's F1 to F3 are resolved; two new Polish findings, no Material or Needs decision finding. Nothing in the repository was edited.
+
+### FO declines
+
+- Validation-2 F1 (Polish): Words 4 glosses 「准，授權你合併」 as covering later PRs. Declined: class 2 rests on Words 1, and Words 6 settles that the Captain merges this record's PR himself; nothing depends on the gloss (validation-2 at 78052172). Material if the Captain reads the gloss as words he did not say; candidate revision: replace the gloss with "see Words 6".
+- Validation-2 F2 (Polish): reload step 3 names "local commits" as the reason to stop, while the test is HEAD equal to origin/main. Declined: the step stops for any failure of that test, so a dirty or diverged checkout also stops (validation-2 at 78052172). Material if an FO reloads past a failed equality; candidate revision: "if HEAD does not equal it, stop and ask the Captain".
