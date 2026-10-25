@@ -79,21 +79,21 @@ async function fetchEntities(workflowDir: string): Promise<Entity[]> {
   return Array.isArray(entities) ? (entities as Entity[]) : [];
 }
 
-async function workflowEntities(workflowDir: string): Promise<Entity[]> {
+async function workflowEntities(workflowDir: string, fresh = false): Promise<Entity[]> {
   const known = snapshots.get(workflowDir);
-  if (known && Date.now() - known.at < FRESH_MS) return known.entities;
-  let pending = inFlight.get(workflowDir);
+  if (!fresh && known && Date.now() - known.at < FRESH_MS) return known.entities;
+  let pending = fresh ? undefined : inFlight.get(workflowDir);
   if (!pending) {
     pending = fetchEntities(workflowDir)
       .then((entities) => {
-        snapshots.set(workflowDir, { at: Date.now(), entities });
+        if (inFlight.get(workflowDir) === pending) snapshots.set(workflowDir, { at: Date.now(), entities });
         return entities;
       })
       .catch((error) => {
         console.error(`spacedock status ${workflowDir}:`, error);
         throw error;
       })
-      .finally(() => inFlight.delete(workflowDir));
+      .finally(() => { if (inFlight.get(workflowDir) === pending) inFlight.delete(workflowDir); });
     inFlight.set(workflowDir, pending);
   }
   return pending;
@@ -126,7 +126,7 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
   const lists = await Promise.all(
     [...new Set(workflowDirs)].map(async (workflowDir) =>
       Promise.all(
-        parseAwaitingGates(JSON.stringify({ entities: await (fresh ? fetchEntities(workflowDir) : workflowEntities(workflowDir)) })).map(
+        parseAwaitingGates(JSON.stringify({ entities: await workflowEntities(workflowDir, fresh) })).map(
           async (gate: AwaitingGate) => ({
             workflowDir,
             ...gate,

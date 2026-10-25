@@ -23,6 +23,8 @@ export function useCoAsk(coId: string): { ask: string | null; state: SourceState
       try {
         const page = await handle.timeline.refetch({ direction: "tail", limit: 120, projection: "projected" });
         if (cancelled || current !== request) return;
+        const status = page.agent?.status ?? handle.status;
+        working = status === "running" || status === "initializing";
         const reply = lastReply(page.entries.map((entry) => entry.item));
         setResult({ id: coId, state: "loaded", ask: !working && nextStepIsCaptains(reply) ? replyPreview(reply) : null });
       } catch {

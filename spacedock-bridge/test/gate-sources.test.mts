@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { readGatesHandler } from "../server/tasks";
 
-test("gate read failures reach the board, and a return refresh bypasses the existing snapshot", async (t) => {
+test("gate read failures reach the board, and a return refresh replaces the existing snapshot", async (t) => {
   const root = await mkdtemp(join(tmpdir(), "bridge-gate-source-"));
   const previousPath = process.env.PATH;
   t.after(async () => { process.env.PATH = previousPath; await rm(root, { recursive: true, force: true }); });
@@ -21,4 +21,6 @@ test("gate read failures reach the board, and a return refresh bypasses the exis
   await writeFile(fixture, JSON.stringify({ entities: [] }));
   assert.equal((await readGatesHandler({ workflowDirs: [root] })).gates.length, 1);
   assert.deepEqual((await readGatesHandler({ workflowDirs: [root], fresh: true })).gates, []);
+  await writeFile(fixture, "fail");
+  assert.deepEqual((await readGatesHandler({ workflowDirs: [root] })).gates, []);
 });
