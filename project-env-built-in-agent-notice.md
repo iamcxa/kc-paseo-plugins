@@ -53,3 +53,11 @@ Direction alignment with the Captain: done — he approved opening the task on 2
 Result: this task's Scope; the ideation gate shows the notice text and the document.
 Release review: not needed: a small addition to what the r1 injection already does; it adds no journey story.
 Map footprints: not needed: no journey story or open map question is attached to this task.
+
+## Captain amendments
+
+### Amendment 1 — 2026-10-25, chat
+Captain: 「拿掉避免誤會」 (FO chat, 2026-10-25)
+Asked: "**One decision for you:** I recommend removing the prompt box in that next task, so only the built-in notice remains. Neither project uses the box. The cost: if a project someday needs its own instructions, there's no place to put them, and we'd have to add the box back. Reply 「拿掉」 to remove it, or 「保留」 to keep it."
+Supersedes: none
+Design: Scope sentence "The default-prompt box stays for the project's own instructions."
