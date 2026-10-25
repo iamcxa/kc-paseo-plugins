@@ -298,3 +298,7 @@ Needs this Mac with `node`, `npm`, `agent-browser`, `paseo`, `python3` and `git`
 
 - Validation-1 F1 (Polish): at 400 x 900 with a two-vault token Done sits 3.5 px under the sticky bar. Declined: the sticky bar covering the lower page is the A5 choice and round-1 ruling R3a (do not solve), recorded as a limit at ideation (Design finding 2); scrolled to the end Done was clicked (`val-reach-log.txt`). Material if a person cannot reach Done at all; candidate revision: give the Change form bottom padding equal to the bar's height.
 - Validation-1 F2 (Deferred risk): Test pressed while Change is open was not run. Declined: read at 1450008, Test's press sends the draft (`test.mutate({ ...draft, … })` in `ProjectEditor`), so before Done it reads the picked vault with the old references, and `isOutsideVault` blanks them as "reference points outside the chosen vault", not "field not found"; this send path is unchanged from main e55cb33, and the re-point line above says Done moves them. Material if Test before Done reads "field not found" for a rename; candidate revision: disable Test while Change is open.
+
+### FO acceptance rerun (2026-10-25)
+
+FO ran the validator's six-step acceptance script in a fresh `env -i` shell against 1450008: typecheck ok, 287 pass and 0 fail, the re-point line, after-Cancel unchanged, "4 unsaved changes", saved `agent-dev` with three moved refs, "All 3 set", the outside line and the focus outline on both pills, Discard leaving disk at Dev, adr_lint exit 0 — every expected line matched (`evidence/fo-acceptance-rerun-1450008.txt`).

@@ -1,0 +1,29 @@
+typecheck ok
+ℹ pass 287
+ℹ fail 0
+ready: http://127.0.0.1:6993
+3 variables point at Dev.|Done points them at agent-dev. Test then shows whether each field is there.
+acc-rename 1280 after-Cancel: 1Password|This token cannot read Dev|· sa-r · Dev|Change|Variables| pills="Field for SENTRY_AUTH_TOKEN: SENTRY SENTRY_AUTH_TOKEN";"Field for STRIPE_KEY: stripe secret-key";"Field for POSTHOG_CLI_API_KEY: POSTHOG POSTHOG_CLI_API_KEY";
+acc-rename 1280 after-Done bar: 4 unsaved changes|
+acc-rename 1280 saved: agent-dev ['op://agent-dev/SENTRY/SENTRY_AUTH_TOKEN', 'op://agent-dev/stripe/secret-key', 'op://agent-dev/POSTHOG/POSTHOG_CLI_API_KEY']
+acc-rename 1280 test: All 3 set|
+acc-outside 1280 outside-line: Outside the chosen vault. New agents get this variable blank.|
+1280 measure
+    STRIPE_KEY solid 1px rgb(216, 132, 123) | outline none 3px rgb(0, 0, 0) off 0px | focused False
+    LINEAR_API_KEY dashed 1px rgb(161, 165, 164) | outline none 3px rgb(0, 0, 0) off 0px | focused False
+1280 focus-outside
+    STRIPE_KEY solid 1px rgb(216, 132, 123) | outline solid 2px rgb(32, 116, 74) off 2px | focused True
+    LINEAR_API_KEY dashed 1px rgb(161, 165, 164) | outline none 3px rgb(0, 0, 0) off 0px | focused False
+1280 focus-ok
+    STRIPE_KEY solid 1px rgb(216, 132, 123) | outline none 3px rgb(0, 0, 0) off 0px | focused False
+    LINEAR_API_KEY dashed 1px rgb(161, 165, 164) | outline none 3px rgb(0, 0, 0) off 0px | focused False
+1280 focus-empty
+    STRIPE_KEY solid 1px rgb(216, 132, 123) | outline none 3px rgb(0, 0, 0) off 0px | focused False
+    LINEAR_API_KEY dashed 1px rgb(161, 165, 164) | outline solid 2px rgb(32, 116, 74) off 2px | focused True
+val-discard disk-before: Dev ['op://Dev/SENTRY/SENTRY_AUTH_TOKEN', 'op://Dev/stripe/secret-key', 'op://Dev/POSTHOG/POSTHOG_CLI_API_KEY']
+val-discard disk-after: Dev ['op://Dev/SENTRY/SENTRY_AUTH_TOKEN', 'op://Dev/stripe/secret-key', 'op://Dev/POSTHOG/POSTHOG_CLI_API_KEY']
+val-discard reopened: 1Password|This token cannot read Dev|· sa-r · Dev|Change|Variables| pills="Field for SENTRY_AUTH_TOKEN: SENTRY SENTRY_AUTH_TOKEN";"Field for STRIPE_KEY: stripe secret-key";"
+removed /tmp/pe-vcr-acc/s-acc
+8 ADR file(s) checked, 0 legacy
+exit 0
+done
