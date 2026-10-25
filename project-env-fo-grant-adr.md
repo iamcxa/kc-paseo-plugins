@@ -215,3 +215,56 @@ Recommend PASSED: the candidate changes only the ADR, lint and number guards pas
 ### FO fixes after validation-1 (2026-10-25)
 
 On the Captain's 「准修，可以我合併」 FO fixed validation-1's F1 to F3: the exception now names all three README sentences it departs from (adds "Approval of a validation gate is not permission to push, create or merge a PR, except as follows." and "Preserve manual merge authority."); Words 5 (「准補」) and Words 6 record his approvals; the record states it takes effect only when the Captain himself merges its pull request. roborev:1147 then found the reload route could load unpushed local commits; on the Captain's 「准加」 step 3 now requires HEAD to equal the fetched origin/main and stops for him otherwise (Words 7). adr_lint exit 0 (8 files), number_guards PASS, roborev `clean on 78052172f; evidence=roborev:1155`. Head 78052172fb6e2b56f80cce0b49283cca89f88cd0, pushed to PR #47.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Revalidate candidate 78052172fb6e2b56f80cce0b49283cca89f88cd0 (PR iamcxa/kc-paseo-plugins#47), which changes only docs/adr/0007 on top of the validated 94ec116 (plus merges of main): the exception names all three README sentences verbatim (check each against docs/dev2/README.md at the candidate); Words 4 to 7 quote the Captain verbatim as the task file records them; the record says it takes effect only when the Captain himself merges its pull request; reload step 3 requires HEAD to equal the fetched origin/main and stops for him otherwise. Confirm validation-1's F1 to F3 are resolved; give a verdict.
+  Verdict: PASSED (recommended). In a detached clone of 7805217: `git diff --name-only 35ee0a6 7805217` lists only the one ADR file (main 35ee0a6 is the merge-base and equals `git ls-remote origin main`); all three `> ` sentences (ADR lines 50, 52, 54) are found in the candidate README with whitespace folded; the eight quotes (Words 1 to 7 plus the question in Words 2) are found in this task file; effect clause is ADR line 59 ("only when the Captain himself merges") and Words 6; step 3 is ADR line 72. F1 resolved (all three sentences named, "exactly three"). F2 resolved (Words 5 added, quoted with its question). F3 resolved (Words 4 states it does not cover this PR; Words 6 says he merges it himself). Two new Polish findings below, none Material.
+- DONE: Run `python3 .../0.29.0/scripts/adr_lint.py docs/adr --since 60799d9 --require 7` and number_guards check on a clone of the candidate, recording exit codes; carry the acceptance script forward.
+  adr_lint exit 0 ("8 ADR file(s) checked, 0 legacy"); number_guards exit 0 ("PASS: no findings", base 35ee0a6, merge-base 35ee0a6). Negative control: the clone with the `**Recommended:**` paragraph removed gives adr_lint exit 1, so the run tests the record. Also exit 0: comment_ratio (0 code, 0 comment lines), dispatch_records (4 complete), doc_impact (0 documents listed), design_surfaces. Acceptance script updated for 7805217 and run in a fresh bash: `project-env-fo-grant-adr/validation-2/acceptance.sh`, output beside it in `acceptance-output.txt`.
+- DONE: Record every unverified obligation and append your result as a validation stage report for this cycle.
+  Listed under "Unverified" below.
+
+### Findings
+
+- F1 Polish: Words 4 now glosses 「准，授權你合併」 as covering "later project-env pull requests under class 2". That reading is the FO's, not his; the task file's gate reason for the same words says it authorizes FO to merge this task's PR, and Words 6 then overrides that for PR #47. The class 2 authority itself rests on Words 1 ("其他都授權你做"), so nothing depends on the gloss; consider "what he said, plus Words 6" only if the Captain wants every clause his.
+- F2 Polish: reload step 3 stops "if local commits prevent that" (ADR line 72), naming one cause. The check it requires is HEAD equal to the fetched `origin/main`; a dirty checkout or a diverged HEAD fails the same check without local commits being the stated reason. Reading the sentence by its purpose it stops for him in those cases too, so no harm is observed; "if HEAD does not equal it" would state the test directly.
+- Settled from validation-1, not re-reported: ledger numbers and reload route execution are unverified, see below.
+
+### Unverified
+
+- Reload route steps were not executed (they touch the live plugin and ~/.paseo, forbidden here); that `paseo plugin reload paseo-project-env`, the settings path and `npm ci` in `project-env` work as written is unproven.
+- Ledger numbers in Context (72 rows, 23 validation resolutions, 0 Override) were not re-derived.
+- `delivery_gate.py check`, merge with `--match-head-commit` and required checks were not run. PR #47 at 7805217 is Draft, OPEN, MERGEABLE, and its only check is GitGuardian SUCCESS (read with `gh pr view 47`). roborev:1155 ("clean on 78052172f") was read from FO's report, not rerun.
+- 「准補」, 「准修，可以我合併」 and 「准加」 were not seen at source; they match the task file's FO report verbatim, which is the record the criterion names. The quotes' questions in Words 5 to 7 were checked against FO's report only.
+- Expiry "round 15" counting from merge of this PR is implied, not stated.
+- Package: dispatch and skill both name 0.29.0; the README marker was not rechecked.
+
+### Acceptance script (Captain or FO, fresh bash, under 2 minutes, no secret)
+
+Save the file `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-fo-grant-adr/validation-2/acceptance.sh` (contents below) and run `bash <file>`:
+
+    set -e
+    R=/Users/kent/Project/kc-paseo-plugins
+    P=/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0
+    C=78052172fb6e2b56f80cce0b49283cca89f88cd0
+    D=$(mktemp -d); git clone -q "$R" "$D/c"; git -C "$D/c" checkout -q --detach $C
+    echo "STEP 1"; git -C "$D/c" diff --name-only 35ee0a6 $C
+    echo "STEP 2"; (cd "$D/c" && python3 $P/scripts/adr_lint.py docs/adr --since 60799d9 --require 7; echo "exit=$?")
+    echo "STEP 3"; (cd "$R" && python3 $P/scripts/number_guards.py check --repo "$D/c" --workflow-dir "$R/docs/dev2" --task docs/dev2/.spacedock-state/project-env-fo-grant-adr.md; echo "exit=$?")
+    echo "STEP 4"; python3 -I - "$D/c" "$R/docs/dev2/.spacedock-state/project-env-fo-grant-adr.md" <<'PY'
+    import sys,re,glob
+    c,task=sys.argv[1:]
+    adr=open(glob.glob(c+'/docs/adr/0007-*.md')[0]).read(); t=open(task).read(); rd=open(c+'/docs/dev2/README.md').read()
+    f=lambda s:re.sub(r'\s+',' ',s)
+    for s in re.findall(r'^> (.+)$',adr,re.M): print('README sentence verbatim in README:', f(s) in f(rd), s[:40])
+    for q in re.findall(r'「[^」]*」',adr):
+        if '<' not in q: print('quote in task file:', q in t, q[:24])
+    PY
+    echo "STEP 5"; grep -nE 'Captain himself merges|^   [1-5]\. |HEAD. equals|Revocation\.|Provisional\.|Recording command\.|Per-round records' "$D/c"/docs/adr/0007-*.md
+
+Expected: STEP 1 prints exactly `docs/adr/0007-the-project-env-fo-decides-by-record-the-decisions-the-captain-did-not-keep.md`; STEP 2 prints `8 ADR file(s) checked, 0 legacy` and `exit=0`; STEP 3 prints `PASS: no findings` and `exit=0`; STEP 4 prints `True` for the three README sentences and for each of eight quotes; STEP 5 prints the line carrying "Captain himself merges" (59), five numbered reload steps (70-74) and the Recording command, Per-round records, Revocation and Provisional headings. Not covered: the Captain's merge, the grant's effect after merge, the reload route working, the ledger numbers, checks on PR #47 beyond GitGuardian.
+
+### Summary
+
+Recommend PASSED for 7805217: the candidate changes only the ADR, lint and number guards exit 0 (negative control exit 1), all three README sentences are named verbatim, Words 4 to 7 are verbatim against the task file, the record takes effect only on the Captain's own merge, and reload step 3 requires HEAD equal to the fetched origin/main. Validation-1's F1 to F3 are resolved; two new Polish findings, no Material or Needs decision finding. Nothing in the repository was edited.

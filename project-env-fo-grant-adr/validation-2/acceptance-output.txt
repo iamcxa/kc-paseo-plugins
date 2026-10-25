@@ -1,0 +1,33 @@
+STEP 1
+docs/adr/0007-the-project-env-fo-decides-by-record-the-decisions-the-captain-did-not-keep.md
+STEP 2
+8 ADR file(s) checked, 0 legacy
+exit=0
+STEP 3
+migration guard skipped: no migrations-path declared
+PASS: no findings
+base 35ee0a632ad4 head 78052172fb6e merge-base 35ee0a632ad4
+exit=0
+STEP 4
+README sentence verbatim in README: True Authority, a gate approval, a merge, an 
+README sentence verbatim in README: True Approval of a validation gate is not per
+README sentence verbatim in README: True Preserve manual merge authority.
+quote in task file: True 「這個專案我想給你更大的彈性，我想只抓backl
+quote in task file: True 「准」
+quote in task file: True 「要不要我照這個格式，幫 project-env
+quote in task file: True 「注意這一份 ADR 可能要在 dev2 更新流
+quote in task file: True 「准，授權你合併」
+quote in task file: True 「准補」
+quote in task file: True 「准修，可以我合併」
+quote in task file: True 「准加」
+STEP 5
+59:exception, expiry, demotion and revocation terms were proposed by the dev2 FO and the Captain approved them in Words 4 to 7. This record takes effect only when the Captain himself merges the pull request that adds it.
+70:   1. back up `~/.paseo/plugin-settings/paseo-project-env/projects.json`;
+71:   2. `git fetch origin`, then confirm `origin/main` contains the pull request's merge commit;
+72:   3. `git merge --ff-only origin/main` on the clean main checkout, then confirm `HEAD` equals the fetched `origin/main`; if local commits prevent that, stop and ask the Captain;
+73:   4. `npm ci` in `project-env`;
+74:   5. `paseo plugin reload paseo-project-env`;
+89:**Recording command.** The FO records each decided gate with
+93:**Per-round records in the task file** (a round is one task whose validation gate the FO
+110:**Revocation.** The Captain can revoke the grant at any time with one sentence. The FO then
+114:**Provisional.** This record is provisional (Words 3). When a kc-dev-flow-2 release ships an
