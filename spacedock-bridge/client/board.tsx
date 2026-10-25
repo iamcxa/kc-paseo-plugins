@@ -20,7 +20,7 @@ import { DecisionCard, wasSent } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
 import { type ReviewRequestData, readReviews, reviewOwner } from "../shared/reviews";
 import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
-import { boardEmptyState, type SourceState } from "../shared/board-empty";
+import { boardEmptyState, type SourceState, type SourceStates } from "../shared/board-empty";
 
 interface WorkspaceChoice {
   id: string;
@@ -349,12 +349,16 @@ export function Board({
     () => buildQueue(grouped, reviews, withReplies(rows, replies)),
     [grouped, reviews, rows, replies],
   );
-  const empty = boardEmptyState({
+  const sources: SourceStates = {
     fos: foState,
     gates: !workflowKey ? "loaded" : gateCheck.key === workflowKey ? gateCheck.state : "loading",
     reviews: reviewState,
     comms: commsState,
-  }, queue.length + (coAsk ? 1 : 0), gateCheck.key === workflowKey ? gateCheck.failed : []);
+  };
+  const failedGateWorkflows = gateCheck.key === workflowKey ? gateCheck.failed : [];
+  const empty = boardEmptyState(sources, queue.length + (coAsk ? 1 : 0), failedGateWorkflows);
+  const foEmpty = boardEmptyState(sources, grouped.length, failedGateWorkflows);
+  const notice = view === "decision" ? empty.message : foEmpty.count === "0" ? null : foEmpty.message;
   const kindLabel: Record<QueueKind, string> = {
     permission: "PERMISSION",
     review: "REVIEW REQUEST",
@@ -415,14 +419,14 @@ export function Board({
             style={[styles.toggleButton, view === id ? styles.toggleActive : null]}
           >
             <Text style={view === id ? styles.toggleTextActive : styles.toggleText}>
-              {id === "decision" ? `By decision · ${empty.count}` : `By FO · ${grouped.length}`}
+              {id === "decision" ? `By decision · ${empty.count}` : `By FO · ${foEmpty.count}`}
             </Text>
           </Pressable>
         ))}
       </View>
+      {notice ? <Text style={styles.muted}>{notice}</Text> : null}
       {view === "decision" ? (
         <>
-          {empty.message ? <Text style={styles.muted}>{empty.message}</Text> : null}
           {next ? (
             <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(next)} style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
               <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
@@ -556,7 +560,7 @@ export function Board({
           })}
         </View>
       ) : null}
-      {rows.length === 0 ? (
+      {foState === "loaded" && foEmpty.count === "0" && rows.length === 0 ? (
         <Text style={styles.muted}>No agents labelled role=fo.</Text>
       ) : null}
       {STATUS_ORDER.map((status) => {
