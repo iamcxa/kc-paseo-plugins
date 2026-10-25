@@ -1,0 +1,13 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: In design/built/val-mixed-1280-picked.png the fourth pill is "Other · TWILIO", which is outside both the saved vault Dev and the picked agent-dev, so its red "Outside the chosen vault" is true under either reading of "chosen"; the three Dev pills are not red and the line directly above them reads "3 variables point at Dev. Done points them at agent-dev.", so nobody is misled or put at risk, and the wording matches the vocabulary of ADR 0001 ("the repository's chosen vault").
+      change: none
+    - finding: 2
+      ruling: upheld
+      evidence: shots/main-outside-1280-outside.png (main before the candidate) shows the same amber "≠" badge on the same STRIPE_KEY pill, and design/built/val-mixed-1280-picked.png shows it on non-outside pills too (STRIPE_KEY with a Dev prefix, not red), so it is existing behaviour independent of the outside state and adds no wrong action in this task.
+      change: none

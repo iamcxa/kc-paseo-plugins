@@ -226,3 +226,70 @@ The design re-points at Done (not at the pick) with an announcing line, marks ou
 ### Summary
 
 The approved design landed as drafted, plus the ADR 0005 amendment, and the runtime script on an isolated Paseo reproduced the ideation results on the real branch build. Limits: the fake `op` shows the rewrite reached the read, not that 1Password resolves it; no real rename was run; at 400 x 900 with a two-vault token Done sits 3.5 px under the sticky bar's top (measured -3.5 clearance, the A5 limit recorded at ideation). Package note: no `roborev` finding was raised; the PR body lists `without-it unanswered: none`.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 1450008e9bf687c7f75c054007dcb4b32844a314 (PR iamcxa/kc-paseo-plugins#50, base main e55cb33) against AC-1, AC-2 and AC-3 and the approved design: rebuild and run it yourself on an isolated Paseo; confirm the re-point line text and that Done then Save writes the new vault and moved refs while Cancel and a third-vault ref change nothing; the outside mark shows before any Test; the focus outline differs from the danger and dashed borders in dark and light; Discard drops the re-point; the ADR 0005 amendment matches the task's draft and the Captain's words; give a verdict.
+  Verdict PASSED (recommended). From `git archive` of 1450008 (PR head `headRefOid` is the same): `npm run typecheck` clean, `npm test` 287 of 287. Isolated Paseo, port 6991, plugin `pe-vcr-val`, `evidence/val-harness/`, logs `evidence/val-*-log.txt`. AC-1 (`val-rename-log.txt`, 1280 and 400): line "3 variables point at Dev." / "Done points them at agent-dev. Test then shows whether each field is there."; Done then Save wrote vault `agent-dev` with `op://agent-dev/SENTRY/SENTRY_AUTH_TOKEN`, `op://agent-dev/stripe/secret-key`, `op://agent-dev/POSTHOG/POSTHOG_CLI_API_KEY`; Test "All 3 set". AC-2: Cancel after pick left pills without "Dev ·" and the line "This token cannot read Dev", bar "No unsaved changes", disk unchanged (`val-cancelbar-log.txt`); third-vault ref (`val-mixedsave-log.txt`): Save wrote `agent-dev` with three moved refs and `op://Other/TWILIO/TWILIO_ACCOUNT_SID` unchanged; Test "1 failed · 3 set" with the outside line. AC-3 (`val-outside-log.txt`, `val-outside-light-log.txt`, 1280 and 400): before any Test STRIPE_KEY border `rgb(216, 132, 123)` solid 1px (light `rgb(157, 67, 59)`) and the line "Outside the chosen vault. New agents get this variable blank."; focused pill outline `solid 2px rgb(32, 116, 74)` offset 2px with the border unchanged on the outside pill and the dashed empty pill (`rgb(161, 165, 164)`, light `rgb(113, 113, 122)`); unfocused pills `none`. Discard (`val-discard-log.txt`): after Done "4 unsaved changes", Discard then "Discard changes" closed the editor, projects.json unchanged, reopened with Dev refs. Falsifiers: `repointRefs` returning its input fails 4 of 14 `test/repoint-refs.test.ts` rows; `markedOutside` returning false fails 1. ADR 0005 amendment text equals the task's `### ADR 0005 amendment` draft with the date filled (2026-10-25, the Draft PR day) and carries the Captain's 「准」 of 2026-10-23 as the backlog gate records it.
+- DONE: Run the built screen review your validation principles require (design-director pass 2a on your own screenshots of the built screen at 1280 and 400 px) and write its Built screen review lines; write the minimal acceptance script FO will rerun in a fresh shell, and run `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/adr_lint.py docs/adr --since e55cb33` recording its exit code.
+  Pass 2a ran as `kc-dev-flow-2:design-director` on 22 pictures of the built screen (`design/validation-1.yaml`, 2 MINOR, 0 MAJOR), pass 2b upheld both declines (`design/validation-declines-1.yaml`). `adr_lint.py docs/adr --since e55cb33` (run in the PR worktree at 1450008): "8 ADR file(s) checked, 0 legacy", exit 0. Also at the candidate: `comment_ratio.py` code lines 148, comment lines 0, exit 0; `doc_impact.py` lists only ADR 0005, which carries `updated`, exit 0; `dispatch_records.py` "3 dispatch record(s) complete", exit 0; the task has no `## Number guards`.
+- DONE: Record what the Captain should see in the screenshots and every unverified obligation.
+  See `### Captain screenshots` and `### Unverified obligations` below.
+
+### Summary
+
+The candidate does what AC-1 to AC-3 say on an isolated Paseo built from the archive: Done re-points exactly the old-vault references, Cancel and a third-vault reference change nothing, the outside mark and its line show before any Test, and the focus ring differs from the danger and dashed borders in dark and light. Recommend PASSED; no Material finding. Limits are the fake `op` (no real 1Password), the thin Done clearance at 400 px with a two-vault token (the recorded A5 limit), and no check of Test pressed while Change is open.
+
+### Findings
+
+- F1 Polish: At 400 x 900 with a token that reads two vaults, Done sits 3.5 px under the sticky bar's top (clearance -3.5, `val-rename-log.txt`; -49.5 with both names long, `val-long-log.txt`), so the bar covers Done until the page is scrolled; scrolled to the end, Done was clicked and the editor closed (`val-reach-log.txt`). It is the A5 sticky-bar choice and round-1 ruling R3a recorded as a limit at ideation (Design finding 2), so it is not repaired here.
+- F2 Deferred risk: Pressing Test while Change is open was not run, so which vault that Test reads (the saved one or the picked one) is unobserved; it becomes Material if Test then reports a rename as "field not found" for a person who has not pressed Done.
+
+### Built screen review
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: "Outside the chosen vault" is the wording the Captain approved on 2026-10-23 and the fourth pill in `design/built/val-mixed-1280-picked.png` is outside both vaults, so it is true under either reading; the three Dev pills sit directly under the "3 variables point at Dev." line.
+Built screen finding 2: declined: the amber "≠" badge is existing behaviour; `shots/main-outside-1280-outside.png` (main before the candidate) shows it on the same pill and the diff does not touch the code that draws it.
+Built screen decline check: design/validation-declines-1.yaml
+
+### Captain screenshots
+
+In `design/built/` (dark unless `light`; no `-page`: whole page 1280 x 1400; `400`: the 400 x 900 window with the sticky bar; `400-page`: whole page at 400):
+- `val-rename-1280-picked.png`: after picking agent-dev in Change, a row "3 variables point at Dev. Done points them at agent-dev. Test then shows whether each field is there." between Vault and "Use this connection"; the three pills still read "Dev · …" and are not red; the bar says "Finish or cancel the connection change first". Light: `val-lightpicked-light-1280-picked.png`, `val-lightpicked-light-400-picked.png`.
+- `val-rename-1280-after-done.png`: the pills lost their "Dev ·" prefix and the bar reads "4 unsaved changes"; `val-rename-1280-after-test.png` after Save and Test: "Connected · sa-r · agent-dev" and "All 3 set".
+- `val-mixed-1280-picked.png` and `val-mixed-1280-after-done.png`: the fourth variable (`op://Other/…`) stays red with the outside line in both states.
+- `val-outside-1280-outside.png` (light: `val-outside-light-1280-outside.png`, 400: `val-outside-400-outside.png`): the STRIPE_KEY pill has a red border and "Outside the chosen vault. New agents get this variable blank." with no Test run and "No unsaved changes"; the empty pill is dashed.
+- `val-focusshot-1280-focus-outside.png`, `val-focusshot-1280-focus-empty.png`, the `-light-` and `-400-` variants: a green 2 px ring drawn outside the pill with the red or dashed border still visible inside it. The `-page-` and full-page `focus` pictures lose the ring (a full-page capture), so use the focusshot files.
+- `val-long-400-picked.png`: at 400 px the sticky bar covers the "Use this connection" row (F1); `val-long-400-page-picked.png` shows the whole page with Done.
+
+### Unverified obligations
+
+- No real 1Password: the fake `op` answers by exact reference string, so "All 3 set" shows the rewrite reached the read, not that 1Password resolves `op://agent-dev/…`; no real vault rename was run.
+- Test pressed while Change is open (F2); hover, a touch device or phone keyboard, keyboard path through Change, Done and Cancel, and a vault list of many entries were not run.
+- Cancel after editing the account as well as the vault is proved by the unit row only; the runtime Cancel pressed after a vault pick only.
+- The light theme was drawn for the picked, outside and focus states only, not for the mixed, long and after-Done states; numeric colour contrast was not measured.
+- A vault saved by id and a vault name containing `/` are covered by unit rows only (ideation-recorded limit).
+- Not run: roborev, `design_surfaces.py check` (FO runs it at the gate), `number_guards.py` (the task has no `## Number guards`).
+
+### Minimal acceptance script
+
+Needs this Mac with `node`, `npm`, `agent-browser`, `paseo`, `python3` and `git`, the repo at `/Users/kent/Project/kc-paseo-plugins`, and network for `npm ci`; it uses port 6993 and `/tmp/pe-vcr-acc` only, and touches no live plugin or `~/.paseo`. It does not cover real 1Password, hover, a touch device, Test while Change is open or a dark-theme-only reading of the light states.
+
+1. Build the candidate from an archive and run its checks:
+   `rm -rf /tmp/pe-vcr-acc && mkdir -p /tmp/pe-vcr-acc/src && git -C /Users/kent/Project/kc-paseo-plugins archive 1450008e9bf687c7f75c054007dcb4b32844a314 | tar -x -C /tmp/pe-vcr-acc/src && cd /tmp/pe-vcr-acc/src/project-env && npm ci >/dev/null 2>&1 && npm run typecheck && npm test 2>&1 | grep -E '^ℹ (pass|fail)'`
+   Expect no type errors, `ℹ pass 287` and `ℹ fail 0`.
+2. Start an isolated Paseo with the fixture projects:
+   `export ROOT=/tmp/pe-vcr-acc PORT=6993 LABEL=acc H=/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-vault-change-repoints-refs/evidence/val-harness && bash $H/setup.sh | tail -1`
+   Expect `ready: http://127.0.0.1:6993`.
+3. Drive the rename flow (pick agent-dev, Cancel, pick again, Done, Save, reopen, Test):
+   `GEOMS="1280 1400" bash $H/drive.sh rename >/dev/null 2>&1; L=$ROOT/s-acc/out/acc-rename-log.txt; grep -oE '3 variables point at Dev\.\|Done points them at agent-dev\. Test then shows whether each field is there\.' $L | head -1; grep -E 'after-Cancel|after-Done bar|saved|test:' $L | cut -c1-330`
+   Expect the line "3 variables point at Dev.|Done points them at agent-dev. Test then shows whether each field is there."; `after-Cancel` with "This token cannot read Dev" and pills without a "Dev ·" prefix; `after-Done bar: 4 unsaved changes`; `saved: agent-dev ['op://agent-dev/SENTRY/SENTRY_AUTH_TOKEN', 'op://agent-dev/stripe/secret-key', 'op://agent-dev/POSTHOG/POSTHOG_CLI_API_KEY']`; `test: All 3 set`.
+4. Read the outside mark and the focus ring before any Test:
+   `GEOMS="1280 1400" bash $H/drive.sh outside >/dev/null 2>&1; L=$ROOT/s-acc/out/acc-outside-log.txt; grep outside-line $L; python3 -I $H/parse.py $L | grep -E '^1280 |STRIPE_KEY|LINEAR'`
+   Expect `outside-line: Outside the chosen vault. New agents get this variable blank.`; under `1280 measure` STRIPE_KEY `solid 1px rgb(216, 132, 123)` with `outline none` and LINEAR_API_KEY `dashed 1px rgb(161, 165, 164)`; under `1280 focus-outside` STRIPE_KEY `outline solid 2px rgb(32, 116, 74) off 2px` and `focused True` with the same border; under `1280 focus-empty` LINEAR_API_KEY the same outline on its dashed border.
+5. Check Discard drops the re-point:
+   `OUT=$ROOT/s-acc/out bash $H/extra.sh discard 2>&1 | grep -E 'disk|reopened' | cut -c1-200`
+   Expect `disk-before` and `disk-after` both `Dev ['op://Dev/SENTRY/SENTRY_AUTH_TOKEN', 'op://Dev/stripe/secret-key', 'op://Dev/POSTHOG/POSTHOG_CLI_API_KEY']`, and `reopened` with "This token cannot read Dev" and no `agent-dev`.
+6. Tear down and run the ADR check:
+   `bash $H/teardown.sh; cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-vault-change-repoints-refs && python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/scripts/adr_lint.py docs/adr --since e55cb33; echo "exit $?"`
+   Expect `removed /tmp/pe-vcr-acc/s-acc`, `8 ADR file(s) checked, 0 legacy`, `exit 0`.

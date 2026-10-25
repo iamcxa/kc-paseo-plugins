@@ -1,0 +1,24 @@
+design_review:
+  preview: design/built/val-rename-1280-picked.png
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: design/built/val-mixed-1280-picked.png (Change open, vault picked, one variable in a third vault)
+      seen: The Vault row shows the picked vault agent-dev and the three Dev pills are not red, yet the fourth pill says "Outside the chosen vault" in red; "chosen" reads as agent-dev, which the Dev pills are also outside, until the line above is read ("3 variables point at Dev").
+      fix: While Change is open, make the outside line name the vault the screen is judging against (for example "Outside Dev."), or add a criterion that the line text may differ only in this state; AC-3's quoted wording applies to the saved state.
+    - severity: MINOR
+      dimension: states
+      where: design/built/val-outside-1280-outside.png, design/built/val-focusshot-1280-focus-outside.png
+      seen: The amber boxed "≠" badge sits inside the red-bordered outside pill (and on the same STRIPE_KEY pill in every picture) and nothing on the screen says what it means, so two warning colours on one pill give two unexplained signals.
+      fix: Give the badge a visible or hover text that says what differs, or confirm it is existing behaviour from an earlier task and leave it out of this one.
+  limitations:
+    - "AC-1 \"Done then Save write vault agent-dev with three op://agent-dev/… refs\" cannot be settled from screenshots. val-rename-1280-after-done.png and val-rename-1280-after-test.png show \"Connected · sa-r · agent-dev\", pills without the vault prefix, \"4 unsaved changes\" and \"All 3 set\", but not the stored references."
+    - "AC-1 as pictured holds. The re-point line reads exactly \"3 variables point at Dev. Done points them at agent-dev. Test then shows whether each field is there.\" and also fits at 400 with long vault names (val-long-400-picked.png)."
+    - "AC-3 as pictured holds in dark and light at 1280 and 400, before any Test (val-outside-1280-outside.png, val-outside-light-1280-outside.png, val-outside-400-outside.png). The outside pill has the red border and the line. The focus ring is a thick green ring (val-focusshot-1280-focus-outside.png, val-focusshot-light-1280-focus-outside.png, val-focusshot-400-focus-outside.png, val-focusshot-light-400-focus-outside.png). It differs from the red border and from the dashed grey empty border, and the empty pill's own ring (val-focusshot-1280-focus-empty.png, val-focusshot-light-1280-focus-empty.png) is the same green on a dashed edge."
+    - "Light theme is not shown for the mixed, long-name and after-Done states, nor for the 400 after-Done state. Only the light 1280 and 400 picked states are shown."
+    - "In the 1280 whole-page captures (val-rename-1280-picked.png, val-mixed-1280-picked.png) the sticky save bar overlays the Danger zone, which looks like a capture artifact. I did not count it as a finding, and the bar covering the lower page at 400 is the earlier ruling."
+    - "The footer rising from \"1 unsaved change\" to \"4 unsaved changes\" after Done is the Captain-approved cue for edits to references he did not touch, so I did not raise it."
+    - "Screenshots show no resize, no open dropdown list, and no keyboard path through Change, Done and Cancel."
