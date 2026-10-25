@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-built-in-agent-notice:ideation:attempt-1:revision-1",
+  "question": "Approve the built-in agent notice design (fixed notice naming no variable, prompt box removed, a previously saved prompt dropped silently) and its acceptance criteria AC-1 to AC-3 into implementation? Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-built-in-agent-notice:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/aa2805dd3b6c336bd773d628d3a856a39a0f3d26/project-env-built-in-agent-notice.md",
+      "rev": "sha256:e60f308c9bd339ca308648e9c03511f35874c685098056f4bca7d74da0330f27",
+      "mediaType": "text/markdown",
+      "summary": "Notice text shown verbatim; added only for a non-internal agent in a project with at least one variable. Prompt box removed per amendment 1; AC-3 added from it. Needs decision: saved prompt — recommend drop silently (both live projects hold 0 characters). Disposable candidate 302/302 tests, typecheck clean. Design review 3 findings: 1 to AC-3, 2 declines upheld. design_surfaces exit 0."
+    }
+  ]
+}
