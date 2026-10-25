@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-vault-change-repoints-refs:ideation:attempt-1:revision-1
                 digest: sha256:4249266e09cbcf147d91a092d7f8e46732fe9f1af260f5c4e5ba171e7e07a38b
                 room-ref: ./project-env-vault-change-repoints-refs/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-change-repoints-refs:ideation:1
+                briefing: briefing:project-env-vault-change-repoints-refs:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-25T04:07:08.378602Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-25, on the ideation gate (briefing-1, sha256:4249266e) after the FO''s Chinese brief of Task 3. Asked: Approve this vault re-point design and its acceptance criteria into implementation?'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-24T15:58:32Z
 ---
 
