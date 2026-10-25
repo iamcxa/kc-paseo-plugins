@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r5-board-tells-the-truth:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r5-board-tells-the-truth-validation-1
+              briefing:
+                id: briefing:r5-board-tells-the-truth:validation:attempt-1:revision-1
+                digest: sha256:7ac18893fac9cc6532b902aed3b88509eda5bb69182a5a18fa3cca3ff32a60fa
+                room-ref: ./r5-board-tells-the-truth/review/validation/briefing-1
 started: 2026-10-25T03:39:54Z
 worktree: .worktrees/spacedock-ensign-r5-board-tells-the-truth
 pr: 49

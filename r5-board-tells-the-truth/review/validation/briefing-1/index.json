@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r5-board-tells-the-truth:validation:attempt-1:revision-1",
+  "question": "Flywheel round 5 validation: record the validation of PR #49 at 6f16429c (board and gate card show only what they checked, in both views; questions on any tab; recorded decisions shown as recorded; closed cards without decision controls; back label ← Queue) as passed, so the round is pushed for Codex review and installed for the Captain to try, unmerged?",
+  "artifacts": [
+    {
+      "id": "artifact:r5-board-tells-the-truth:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9f66404deb290380f763bb5aeff87f9493328993/r5-board-tells-the-truth.md",
+      "rev": "sha256:7773feee9684ff61765d9bc0896ff099e038c0d1cabe65760c2f73ed74dd617e",
+      "mediaType": "text/markdown",
+      "summary": "Team pass 2 on 6f16429c all SATISFIED; validation-2 PASSED; FO reran the five acceptance steps as expected (113/113; negative step fails with the named assertion). Roborev 1158/1160/1168 repaired, 1169 declined (Deferred risk, chief-engineer: converged). Observer stop (two Low FO record violations) ruled by the Captain: A, continue with a pre-gate check script; its output passes (evidence/fo/pregate-check.txt)."
+    }
+  ]
+}
