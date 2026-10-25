@@ -56,6 +56,20 @@ gates:
                 id: briefing:project-env-vault-change-repoints-refs:validation:attempt-1:revision-1
                 digest: sha256:d465bf7b5ae49e1bef9489b139348f2cd31b2cb20d62ff0853f3582b246995d2
                 room-ref: ./project-env-vault-change-repoints-refs/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-change-repoints-refs:validation:1
+                briefing: briefing:project-env-vault-change-repoints-refs:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-25T04:52:57.847405Z"
+                decision: approve
+                reason: 'ADR 0007 class 1: validation-1 PASSED at 1450008 with no Material or Needs decision finding; FO acceptance rerun matched; Codex 1 round clean (summary:6393585591); delivery_gate exit 0. Declines F1 (Polish) and F2 (Deferred risk) under class 3, recorded under ### FO declines. Round 1 under ADR 0007.'
+                conn:
+                    quote: 這個專案我想給你更大的彈性，我想只抓backlog，設計預覽與uat，其他都授權你做。列一下哪些是我預授權的範圍
+                    source: docs/adr/0007 on main
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-24T15:58:32Z
 ---
 
