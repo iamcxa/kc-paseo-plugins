@@ -67,6 +67,8 @@ Verified by: a runtime check at compact width with the FOs tab shown: the comms 
 
 Alignment: not needed: the Captain chose this theme in round 4 UAT; scope from chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:chief-engineer opus 2026-10-25 — scope round 5 (board tells the truth) after the Captain's round 4 UAT and Android screenshots
+Reviewer: kc-dev-flow-2:chief-engineer opus 2026-10-25 — is round 5 converging after five repair cycles; repair, decline or split roborev:1169
 
 
 ## Stage Report: implementation
@@ -200,6 +202,8 @@ Safety: clean candidate/main/live worktrees; unchanged drafts, keyboard, submiss
 ### FO declines
 
 - roborev:1169 Medium, `client/board.tsx` (`refreshGates`), candidate 6f16429c24d4: every 60-second poll invalidates the previous gate request even while it runs; with gate and task reads sharing two slots of 30 s each, reads that consistently exceed a minute would discard every response and show "Loading…" indefinitely instead of "Could not check gates". Deferred risk (FO steps: review findings, step 2; the roborev local gate is not an external round): unobserved — the earlier measurement was 16.7 s for 7 concurrent `spacedock status` calls. Would become Material on a gate read observed over 60 s, or gates stuck on "Loading…" past one poll during the Captain's tryout. The structural cause (one per-source poll pattern hand-built about five times, chief-engineer 2026-10-25) is filed as a round 6 candidate, not repaired here.
+### FO notes
+
 - Polish noted by chief-engineer, not a finding to repair: `refreshGates` sets gates to loading on every tick and the 30 s cache is shorter than the 60 s poll, so "Loading…" and "N+" appear briefly each minute above the non-empty queue; the play card tells the Captain to expect it.
 
 
