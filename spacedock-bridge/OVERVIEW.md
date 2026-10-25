@@ -6,7 +6,9 @@ The ↑ label names the reply's recipient; decision buttons send through the com
 
 While a reply is sending, its ↑ and Enter stay disabled even after reopening that target. A failed send keeps the draft and enables sending again.
 
-On compact screens, Hide briefing ▴ reduces the decision card's briefing to one question line; Show briefing ▾ restores it. The card's ← Bridge control, delivery feedback and errors stay visible in both states. Feedback shows one status line and at most two content lines; More opens the full text. On compact native clients the briefing temporarily collapses while the keyboard is open, then restores the user's previous choice when it closes; Show briefing dismisses the keyboard first. The chat leaves room for the keyboard. Android compact screens also get an approximate 20 dp bottom margin while the keyboard is closed; the host exposes no exact navigation-bar inset.
+The decision list and its count show loading or an incomplete-list message until FOs, gates, reviews and the comms officer have been checked. Comms-officer questions appear on the compact FOs tab without opening the chat. Reopening a closed gate shows its recorded decision, or a neutral no-longer-open message if none was recorded. Returning from a card that showed a record refreshes gates once.
+
+On compact screens, Hide briefing ▴ reduces the decision card's briefing to one question line; Show briefing ▾ restores it. The card's ← Queue control, delivery feedback and errors stay visible in both states. Feedback shows one status line and at most two content lines; More opens the full text. On compact native clients the briefing temporarily collapses while the keyboard is open, then restores the user's previous choice when it closes; Show briefing dismisses the keyboard first. The chat leaves room for the keyboard. Android compact screens also get an approximate 20 dp bottom margin while the keyboard is closed; the host exposes no exact navigation-bar inset.
 
 Setup: Paseo 0.12.0 or later, and the `spacedock` command on your PATH. FOs are agents labelled `role=fo`. Task and gate data come from running `spacedock` against each FO's workflow directory.
 

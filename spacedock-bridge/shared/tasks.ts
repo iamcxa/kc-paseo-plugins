@@ -59,7 +59,7 @@ export const readTasks = defineRpc({
 
 export const readGates = defineRpc({
   name: "gates.read",
-  input: z.object({ workflowDirs: z.array(z.string()) }),
+  input: z.object({ workflowDirs: z.array(z.string()), fresh: z.boolean().optional() }),
   output: z.object({
     gates: z.array(
       z.object({

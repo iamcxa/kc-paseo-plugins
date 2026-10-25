@@ -127,11 +127,13 @@ export function withReplies(
 export async function observeBoard(
   paseo: PaseoApi,
   onRows: (rows: BoardRow[]) => void,
+  onError?: (error: unknown) => void,
 ): Promise<() => void> {
   const known = new Map<string, BoardAgent>();
   const emit = () => onRows(toRows(known.values()));
   const { subscription } = await paseo.agents.list({ subscribe: {}, filter: FO_FILTER });
   subscription.subscribe({
+    error: onError,
     snapshot: ({ entries }) => {
       known.clear();
       for (const { agent } of entries) known.set(agent.id, agent as BoardAgent);

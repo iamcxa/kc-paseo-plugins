@@ -91,7 +91,7 @@ async function workflowEntities(workflowDir: string): Promise<Entity[]> {
       })
       .catch((error) => {
         console.error(`spacedock status ${workflowDir}:`, error);
-        return known?.entities ?? [];
+        throw error;
       })
       .finally(() => inFlight.delete(workflowDir));
     inFlight.set(workflowDir, pending);
@@ -111,22 +111,22 @@ export async function readTasksHandler({ requests }: RpcInput<typeof readTasks>)
 }
 
 let gateCalls = 0;
-export async function readGatesHandler({ workflowDirs }: RpcInput<typeof readGates>) {
+export async function readGatesHandler({ workflowDirs, fresh }: RpcInput<typeof readGates>) {
   const call = ++gateCalls;
   const started = Date.now();
   console.log(`gates.read #${call} start dirs=${workflowDirs.length}`);
   try {
-    return await readGatesInner(workflowDirs);
+    return await readGatesInner(workflowDirs, fresh);
   } finally {
     console.log(`gates.read #${call} done ${Date.now() - started}ms`);
   }
 }
 
-async function readGatesInner(workflowDirs: readonly string[]) {
+async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
   const lists = await Promise.all(
     [...new Set(workflowDirs)].map(async (workflowDir) =>
       Promise.all(
-        parseAwaitingGates(JSON.stringify({ entities: await workflowEntities(workflowDir) })).map(
+        parseAwaitingGates(JSON.stringify({ entities: await (fresh ? fetchEntities(workflowDir) : workflowEntities(workflowDir)) })).map(
           async (gate: AwaitingGate) => ({
             workflowDir,
             ...gate,

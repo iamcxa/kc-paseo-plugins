@@ -5,6 +5,7 @@ import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { openCoordinator } from "../shared/coordinator";
 import { Board, type BoardProps } from "./board";
 import { CoChat } from "./co-chat";
+import { useCoAsk } from "./use-co-ask";
 
 export function Bridge(props: BoardProps) {
   const { theme, layout } = props;
@@ -12,8 +13,8 @@ export function Bridge(props: BoardProps) {
   const [coId, setCoId] = useState("");
   const [error, setError] = useState("");
   const [tab, setTab] = useState<"fos" | "co">("fos");
-  const [ask, setAsk] = useState<string | null>(null);
-  const onAsk = useCallback((value: string | null) => setAsk(value), []);
+  const { ask, state: askState } = useCoAsk(coId);
+  const commsState = error ? "failed" : askState;
   const coAsk = ask ? { text: ask, onPress: () => setTab("co") } : null;
   const [seed, setSeed] = useState<{ text: string; nonce: number } | null>(null);
   const onAskCo = useCallback((text: string) => {
@@ -58,7 +59,6 @@ export function Bridge(props: BoardProps) {
       layout={layout}
       navigation={props.navigation}
       agentId={coId}
-      onAsk={onAsk}
       seed={seed}
       onSeeded={() => setSeed(null)}
     />
@@ -85,7 +85,7 @@ export function Bridge(props: BoardProps) {
             </Pressable>
           ))}
         </View>
-        <View style={styles.pane}>{tab === "fos" ? <Board {...props} coAsk={coAsk} onAskCo={onAskCo} /> : chat}</View>
+        <View style={styles.pane}>{tab === "fos" ? <Board {...props} coAsk={coAsk} commsState={commsState} onAskCo={onAskCo} /> : chat}</View>
       </View>
     );
   }
@@ -95,7 +95,7 @@ export function Bridge(props: BoardProps) {
       <View style={styles.pane}>{chat}</View>
       <View style={styles.divider} />
       <View style={styles.boardPane}>
-        <Board {...props} coAsk={coAsk} onAskCo={onAskCo} />
+        <Board {...props} coAsk={coAsk} commsState={commsState} onAskCo={onAskCo} />
       </View>
     </View>
   );

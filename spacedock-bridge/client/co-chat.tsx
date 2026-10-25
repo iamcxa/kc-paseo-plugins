@@ -4,7 +4,7 @@ import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Keyboard, Platform, ScrollView, Text, View, type TextStyle } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
-import { nextStepIsCaptains, parseEnvelope, replyPreview } from "../shared/preview";
+import { parseEnvelope } from "../shared/preview";
 import { MarkdownView } from "./markdown-view";
 import { discussionWindow } from "../shared/card";
 import { type KeyPressEvent, composerHandlers } from "../shared/composer";
@@ -53,7 +53,6 @@ function toLines(entries: readonly { item: TimelineItemLike; seqStart: number }[
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
   gate?: { slug: string; stage: string } | null;
-  onAsk?: (ask: string | null) => void;
   title?: string;
   placeholder?: string;
   chips?: readonly string[];
@@ -76,7 +75,6 @@ function Chat({
   navigation,
   agentId,
   gate,
-  onAsk,
   title = "Comms officer",
   placeholder = "Message the comms officer",
   chips,
@@ -267,13 +265,6 @@ function Chat({
       stopHandle();
     };
   }, [paseo, agentId, load]);
-
-  useEffect(() => {
-    const last = lines[lines.length - 1];
-    if (!onAsk) return;
-    if (working || !last || last.role !== "assistant") return onAsk(null);
-    onAsk(nextStepIsCaptains(last.text) ? replyPreview(last.text) : null);
-  }, [lines, working, onAsk]);
 
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
