@@ -1,0 +1,4 @@
+import { createPaseoClient } from "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/@getpaseo/client/dist/index.js";
+import { observeBoard } from "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/shared/board.ts";
+const client=createPaseoClient({url:process.argv[2],reconnect:{enabled:false}});
+try {await client.connect(); let resolve!:(rows:unknown)=>void; const first=new Promise(r=>resolve=r); const stop=await observeBoard(client,resolve); const rows=await Promise.race([first,new Promise((_,r)=>setTimeout(()=>r(Error("no snapshot")),5000))]); stop(); if(JSON.stringify(rows)!=="[]")throw Error("not empty"); console.log(JSON.stringify({firstSnapshot:rows,passed:true}));}finally{await client.close();}

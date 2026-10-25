@@ -1,0 +1,80 @@
+{
+  "candidate": "a3674e14595c7830e95de43d6d935c2496832c12",
+  "base": "3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e",
+  "cleanup": [
+    {
+      "file": "baseline-cleanup.json",
+      "pid": 15217,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "runtime-empty-3/cleanup.json",
+      "pid": 38643,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "runtime-empty-2/cleanup.json",
+      "pid": 34606,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "red-old-empty-condition/cleanup.json",
+      "pid": 61386,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "runtime-gate-2/cleanup.json",
+      "pid": 46023,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "runtime-gate/cleanup.json",
+      "pid": 39258,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "final-empty/cleanup.json",
+      "pid": 61389,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "runtime-empty/cleanup.json",
+      "pid": 28674,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    },
+    {
+      "file": "final-gate/cleanup.json",
+      "pid": 61387,
+      "dead": true,
+      "removed": true,
+      "root_absent": true
+    }
+  ],
+  "protected_unchanged": true,
+  "worktrees": {
+    "/Users/kent/Project/kc-paseo-plugins": {
+      "branch": "main",
+      "status": ""
+    },
+    "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live": {
+      "branch": "",
+      "status": ""
+    }
+  }
+}

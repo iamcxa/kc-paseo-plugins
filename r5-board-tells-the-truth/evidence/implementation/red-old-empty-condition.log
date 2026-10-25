@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/implementation/capture.py", line 351, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r5-board-tells-the-truth/evidence/implementation/capture.py", line 257, in main
+    assert has("Loading…"), "Loading source was rendered as a false empty list"
+           ^^^^^^^^^^^^^^^
+AssertionError: Loading source was rendered as a false empty list

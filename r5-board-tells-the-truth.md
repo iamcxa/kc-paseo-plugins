@@ -66,3 +66,33 @@ Verified by: a runtime check at compact width with the FOs tab shown: the comms 
 
 Alignment: not needed: the Captain chose this theme in round 4 UAT; scope from chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+
+## Stage Report: implementation
+
+- DONE: Before any edit, reset your empty dispatch branch onto the previous stack layer (git reset --hard 3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e, branch spacedock-ensign/r4-phone-layout) and confirm HEAD; confirm observeBoard sends a first snapshot with no FOs, and confirm the red "Briefing error" cause on a closed gate (read-only) before fixing; report both
+  Reset/HEAD confirmed at 3d1f176c before edits; evidence/implementation/baseline-empty.log records the first []; baseline-relay.json records a closed relay gate failing without briefingId but returning its resolution with it, read-only before repair.
+- DONE: Per-source loaded/failed state and one pure empty-state function used by the empty text and the By decision count, with tests that fail when the old queue.length === 0 && !coAsk condition is restored (AC-1); server returns the latest resolution when no attempt is open via findLatestResolution, neutral "no longer open" when nothing is recorded, one gate refresh on return, with a gate.test.mts case (AC-2)
+  a3674e14595c7830e95de43d6d935c2496832c12; final-empty proves loading/failure/success; red-old-empty-condition restores only that predicate and fails the same UI assertion; gate.test.mts rejects the old no-ID error; final-gate observes recorded/neutral states and exactly one fresh read on recorded return.
+- DONE: useCoAsk(coId) in client/bridge.tsx takes over question detection and onAsk leaves client/co-chat.tsx, with a runtime check at compact width on the FOs tab (AC-3); the card's back label reads "← Queue"; npm test and typecheck pass; branch pushed and a Draft PR opened with base spacedock-ensign/r4-phone-layout (fourth stack layer)
+  final-empty/question-on-fos-380.png shows a controlled coordinator question at 380 px with no chat/textarea mounted; final-gate shows ← Queue; 105 tests and typecheck pass; pr49.json pins OPEN/Draft PR #49 on the required base and exact pushed candidate.
+
+### Summary
+
+Built the bounded POC board/card repair at a3674e14595c7830e95de43d6d935c2496832c12 and opened Draft https://github.com/iamcxa/kc-paseo-plugins/pull/49 on the fourth stack layer. Load/ask state stays in memory; the coordinator SDK timeline is a controlled test boundary, and no real provider turn or Android device behavior is claimed.
+
+### Findings
+
+Evidence root: r5-board-tells-the-truth/evidence/implementation/; README.md gives reproducible commands, falsifiers and limits; final-empty/, final-gate/ and matrix.json pin the delivered candidate. Diagnostic runtime-* receipts ran before the code commit and are not exact-head evidence.
+
+Checks: tests-final.log = 105 passed; typecheck-final.log = exit 0. The CLI-source test fails if gate errors are swallowed or fresh reads reuse the old cache; gate.test.mts fails if no-ID recorded/neutral reads regress; the rendered negative test fails after restoring the old empty predicate.
+
+Comment ratio: 168 code lines, 0 comment lines, 0.0% <= 5%, exit 0. doc_impact: zero documents listed; spacedock-bridge/OVERVIEW.md updated for the visible changes. No ADR or migration added/changed; ADR lint seven records, zero legacy; ADR 0008 read Accepted at stack base, digest in evidence README.
+
+SKIPPED: design_surfaces.py exit 1 is known package gap 2 (POC task asked for five-stage-only Surfaces/Visible change); task and workflow retained unchanged. number_guards.py exit 0, PASS, base e55cb332ceec/head a3674e14595c/merge-base 78ce6c1cbcf1; migration guard skipped because no migrations-path is declared; no R4 failure occurred (known gap 3 not triggered).
+
+RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed a3674e14595c7830e95de43d6d935c2496832c12 with base 3d1f176c0ca1fa8d266c5793c91a93c6c1a82c9e. Independent validation and gate approval remain FO work, not an implementation claim.
+
+Cleanup: all captured proof PIDs stopped and homes/profiles removed; safety-checks.json verifies the retained cleanup receipts, unchanged round-3 draft files/round-4 keyboard hook, and clean main/live-install worktrees. No persisted load/ask state, last-good queue, retry/backoff, background job, new server cache, workflow-state write, new dependency or POC boundary introduced; no ready, merge, release or live-install action taken.
+
+No task-level elapsed budget was recorded; final proof processes completed inside their 180-second caps. Remaining proof: independent validation, FO local review gate and Captain tryout; screenshots establish browser rendering with a synthetic SDK timeline, not a real coordinator/provider conversation or native Android behavior.
