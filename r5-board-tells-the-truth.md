@@ -97,3 +97,25 @@ RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-cla
 Cleanup: all captured proof PIDs stopped and homes/profiles removed; safety-checks.json verifies the retained cleanup receipts, unchanged round-3 draft files/round-4 keyboard hook, and clean main/live-install worktrees. No persisted load/ask state, last-good queue, retry/backoff, background job, new server cache, workflow-state write, new dependency or POC boundary introduced; no ready, merge, release or live-install action taken.
 
 No task-level elapsed budget was recorded; final proof processes completed inside their 180-second caps. Remaining proof: independent validation, FO local review gate and Captain tryout; screenshots establish browser rendering with a synthetic SDK timeline, not a real coordinator/provider conversation or native Android behavior.
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: roborev:1158 first finding: in client/use-co-ask.ts the working flag is derived from the refreshed timeline status after every refetch (including the reconnect refetch), so a turn that finished while disconnected no longer hides its question; a test for a completed turn found only by the reconnect refetch
+  990ea8b7ed79cf0d80b4bfa251681aae61b6a157; co-ask.test.mts mounts the actual hook and restores the subscription without completion/handle notifications: the refetched idle status reveals the question; the old code fails this assertion (evidence/cycle-2/red-behavior-tests.log).
+- DONE: roborev:1158 second finding: in server/tasks.ts the fresh gate read also updates the snapshot cache, so a gate removed by a recorded decision does not reappear from the old snapshot within the cache lifetime; a test for fresh read then cached read within 30 seconds
+  gate-sources.test.mts reads fresh then cached immediately: the removed gate stays absent even after the CLI fixture is changed to fail; the old code revives Old gate and fails the same assertion. The existing cache-update path is reused.
+- DONE: npm test and typecheck pass; push to PR #49 (still Draft); a short "## Stage Report: implementation (cycle 2)" section
+  evidence/cycle-2/tests.log: 106 passed; typecheck.log: exit 0; pr49.json pins OPEN/Draft PR #49 at 990ea8b7ed79cf0d80b4bfa251681aae61b6a157 on spacedock-ensign/r4-phone-layout; branch pushed.
+
+### Summary
+
+Repaired both authorized roborev:1158 findings with failing-before/passing-after tests. The repaired head is pushed to Draft PR #49; independent validation and the FO review gate remain pending.
+
+### Findings
+
+Evidence: r5-board-tells-the-truth/evidence/cycle-2/README.md, red-behavior-tests.log, tests.log and checks.json. Comment ratio: 8 code lines, 0 comments, 0.0%, exit 0; 5% threshold not enforced below 20 code lines. Document impact: zero listed documents; OVERVIEW.md unaffected because its visible behavior claims still apply. Number guards PASS; no R4 failure, ADR or migration change; ADR lint seven records, zero legacy.
+
+SKIPPED: design_surfaces.py exit 1, known package gap 2 (POC asked for five-stage-only fields). RoboRev not run: package gap 5; FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.29.0/extensions/roborev/roborev_gate.py on pushed 990ea8b7ed79cf0d80b4bfa251681aae61b6a157.
+
+Safety/limits: protected draft and keyboard files unchanged; candidate/main/live worktrees clean (safety-checks.json). No new dependency, persisted state, cache, background job, retry or POC boundary; no real daemon/browser was launched this cycle, and fixture teardown removes temporary roots. Mounted-hook/server proof uses controlled SDK/CLI inputs, not an actual reconnect/provider turn, native-device result or a new browser run.

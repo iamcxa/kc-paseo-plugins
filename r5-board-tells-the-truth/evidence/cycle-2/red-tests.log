@@ -1,0 +1,78 @@
+✖ a reconnect refetch reveals a question when the turn finished while disconnected (39.837458ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-oboBl4: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-oboBl4 --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:306:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-oboBl4 --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 305ms
+gates.read #2 start dirs=1
+gates.read #2 done 37ms
+gates.read #3 start dirs=1
+gates.read #3 done 1ms
+gates.read #4 start dirs=1
+gates.read #4 done 32ms
+gates.read #5 start dirs=1
+gates.read #5 done 1ms
+✖ gate read failures reach the board, and a return refresh replaces the existing snapshot (387.484625ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 890.087042
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:445
+✖ a reconnect refetch reveals a question when the turn finished while disconnected (39.837458ms)
+  Error: usePaseo must run inside a contributed plugin surface
+      at usePaseo (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/@getpaseo/plugin/dist/client/paseo-context.js:13:15)
+      at useCoAsk (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/client/use-co-ask.ts:7:17)
+      at Question (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/co-ask.test.mts:44:28)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23863:20)
+      at renderWithHooks (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:5529:22)
+      at updateFunctionComponent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:8897:19)
+      at beginWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:10522:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15140:22)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
+
+test at test/gate-sources.test.mts:1:227
+✖ gate read failures reach the board, and a return refresh replaces the existing snapshot (387.484625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     preparedAt: undefined,
+  +     slug: 'gate',
+  +     stage: 'validation',
+  +     title: 'Old gate',
+  +     workflowDir: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-oboBl4'
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/gate-sources.test.mts:24:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { workflowDir: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-oboBl4', slug: 'gate', title: 'Old gate', stage: 'validation', preparedAt: undefined } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

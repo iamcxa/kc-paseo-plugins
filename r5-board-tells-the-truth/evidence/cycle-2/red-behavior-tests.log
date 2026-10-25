@@ -1,0 +1,86 @@
+✖ a reconnect refetch reveals a question when the turn finished while disconnected (200.654875ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-dS4Knh: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-dS4Knh --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-dS4Knh --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 265ms
+gates.read #2 start dirs=1
+gates.read #2 done 62ms
+gates.read #3 start dirs=1
+gates.read #3 done 2ms
+gates.read #4 start dirs=1
+gates.read #4 done 54ms
+gates.read #5 start dirs=1
+gates.read #5 done 2ms
+✖ gate read failures reach the board, and a return refresh replaces the existing snapshot (398.479583ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 845.61475
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:512
+✖ a reconnect refetch reveals a question when the turn finished while disconnected (200.654875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'loaded: none'
+  - 'loaded: Choose the theme (you)'
+             ^
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/co-ask.test.mts:56:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'loaded: none',
+    expected: 'loaded: Choose the theme (you)',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/gate-sources.test.mts:1:227
+✖ gate read failures reach the board, and a return refresh replaces the existing snapshot (398.479583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     preparedAt: undefined,
+  +     slug: 'gate',
+  +     stage: 'validation',
+  +     title: 'Old gate',
+  +     workflowDir: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-dS4Knh'
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r5-board-tells-the-truth/spacedock-bridge/test/gate-sources.test.mts:24:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { workflowDir: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-dS4Knh', slug: 'gate', title: 'Old gate', stage: 'validation', preparedAt: undefined } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

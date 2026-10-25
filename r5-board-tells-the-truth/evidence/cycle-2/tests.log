@@ -1,0 +1,146 @@
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (1.38175ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.215667ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.107291ms)
+✔ an FO with no tab labels is not Tab closed (3.006375ms)
+✔ one true tab keeps an FO open across clients (0.098125ms)
+✔ a running FO is not Tab closed even when every tab is false (0.076ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.132333ms)
+✔ an unknown tab value does not count as explicitly false (0.077709ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.062042ms)
+✔ Paseo's own permission attention is waiting on Kent (0.049583ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.066542ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.103125ms)
+✔ a new reply whose next step is the Captain's moves to waiting (43.498625ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (0.25825ms)
+✔ a next-owner label decides the group without reading the reply (0.081875ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.042458ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (1.111542ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.310167ms)
+✔ an offline FO with no gate waiting is left off the board (0.165958ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (0.116625ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (0.076917ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.474458ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.143375ms)
+✔ waiting time reads in seconds, minutes and hours (0.112791ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.5185ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.114959ms)
+✔ a reconnect refetch reveals a question when the turn finished while disconnected (196.251458ms)
+✔ native composer follows a keyboard already visible at mount (43.403958ms)
+✔ native composer follows a keyboard frame changes without a show event (6.492417ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (8.913833ms)
+✔ Enter sends the typed text to the FO and clears the box (1.012542ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.119291ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.09375ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.090417ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (0.136166ms)
+✔ a chip refusal keeps the draft (0.083875ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.800541ms)
+✔ 准 goes through with an empty box, via the comms officer (1.11275ms)
+✔ a decision chip sends the typed text as the reason (0.141542ms)
+✔ a second decision on the same briefing is refused and sends nothing (0.106625ms)
+✔ a failed send releases the claim and rethrows (0.323084ms)
+✔ a changed briefing refuses before claiming (0.089541ms)
+✔ an unloaded briefing refuses (0.079ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (1.061ms)
+✔ mounted composers follow store updates, target changes and unsubscription (52.29075ms)
+✔ mounted composer reflects delayed send: clear (9.658834ms)
+✔ mounted composer reflects delayed send: edit (9.902083ms)
+✔ mounted composer reflects delayed send: refuse (5.596ms)
+✔ mounted composer reflects delayed decision: clear (5.973667ms)
+✔ mounted composer reflects delayed decision: edit (5.974583ms)
+✔ mounted composer reflects delayed decision: refuse (4.747833ms)
+✔ reopening a pending send blocks button and Enter until success (7.559084ms)
+✔ reopening a pending send blocks button and Enter until failure (7.797792ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (0.615042ms)
+✔ a comms officer seed fills an empty draft and preserves non-empty text (0.131875ms)
+✔ stored draft clears after successful send (0.61775ms)
+✔ stored draft survives refused send (0.204125ms)
+✔ stored draft clears after successful decision (0.171584ms)
+✔ stored draft survives refused decision (0.074917ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (0.508291ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.165625ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.171958ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (2.660833ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-P4PGW0: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-P4PGW0 --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-P4PGW0 --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 257ms
+gates.read #2 start dirs=1
+gates.read #2 done 41ms
+gates.read #3 start dirs=1
+gates.read #3 done 0ms
+gates.read #4 start dirs=1
+gates.read #4 done 36ms
+gates.read #5 start dirs=1
+gates.read #5 done 0ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (378.780792ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (0.817333ms)
+✔ a resolution is found by the briefing it answered (0.105667ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (100.246208ms)
+✔ a git-root state URI gives the commit and path (6.835666ms)
+✔ bold and inline code are split out of a line (0.898875ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.355875ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.165583ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.164583ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.081125ms)
+✔ the last reply joins assistant text after the last user message (0.511292ms)
+✔ a status block's next step is the preview (0.258083ms)
+✔ without a next step the first line is the preview, clipped (0.124417ms)
+✔ a permission shows what it asks for (0.080208ms)
+✔ the next step is the Captain's when it names 你 or you (0.164542ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (0.387625ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.165333ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (12.840917ms)
+✔ a review with no FO has none (0.127625ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.239209ms)
+✔ an empty queue has no next card and one item has no rows (0.10425ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.147834ms)
+✔ a gate or question has no link to open (0.077375ms)
+✔ a captain question survives alongside the same FO's gate (0.218958ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.180292ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (0.402041ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (0.553375ms)
+✔ text already typed joins the chip word as the Captain's words (0.087958ms)
+✔ a decision id is d- and six base-36 characters (0.118166ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.094375ms)
+✔ revise and hold need a typed reason; approve does not (0.069583ms)
+✔ gh search output becomes review requests, dropping incomplete rows (1.900417ms)
+✔ only requests not seen before are new (0.129625ms)
+✔ the wake message is marked as automated data and names each pull request (0.33275ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (0.103875ms)
+✔ a well-formed request is exactly one routable line (0.095416ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (0.159416ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.131084ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.08325ms)
+✔ a spacedock status answer gives the task's title and stage (0.83575ms)
+✔ no matching task or unreadable output gives nothing (0.098ms)
+✔ only a commissioned workflow README counts as a workflow directory (0.135916ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (0.127ms)
+ℹ tests 106
+ℹ suites 0
+ℹ pass 106
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1042.975625
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
