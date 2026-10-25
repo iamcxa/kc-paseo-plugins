@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 5 — the board and the gate card show only what they have checked
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md (ADR 0008, merged by the Captain in PR #38, 78ce6c1c), Captain chat 2026-10-23'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Round 5 of the POC flywheel under ADR 0008: the board can say "Nothing is waiting on you" before it has loaded or after a fetch failed, comms-officer questions are missed unless the compact Comms tab is open, and a gate card shows a recorded decision as a red "Briefing error".
