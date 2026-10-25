@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r5-board-tells-the-truth
+gates:
+    version: 1
+    records:
+        - id: gate:r5-board-tells-the-truth:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r5-board-tells-the-truth-backlog-1
+              briefing:
+                id: briefing:r5-board-tells-the-truth:backlog:attempt-1:revision-1
+                digest: sha256:7d35cfd5e1cff33d579cd939b02f3cb64bf83efff111fdc2b104843054d78f7c
+                room-ref: ./r5-board-tells-the-truth/review/backlog/briefing-1
 ---
 
 Round 5 of the POC flywheel under ADR 0008: the board can say "Nothing is waiting on you" before it has loaded or after a fetch failed, comms-officer questions are missed unless the compact Comms tab is open, and a gate card shows a recorded decision as a red "Briefing error".

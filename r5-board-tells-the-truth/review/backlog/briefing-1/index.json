@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r5-board-tells-the-truth:backlog:attempt-1:revision-1",
+  "question": "Flywheel round 5 backlog: admit truthful load and failure states on the board, comms-officer question detection on any tab, recorded decisions shown as recorded on the gate card, and the card's back label \"← Queue\", to implementation as the fourth stacked layer on PR #46?",
+  "artifacts": [
+    {
+      "id": "artifact:r5-board-tells-the-truth:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9e9b3f7764927152374464e3bf7c248b46e7cccc/r5-board-tells-the-truth.md",
+      "rev": "sha256:39d562792e499e0d0be87ea380bb9a5e5ab33db8a24e1d033a3aab9f1d6d12c7",
+      "mediaType": "text/markdown",
+      "summary": "Captain chose 「看板說真話」 in round 4 UAT; his screenshots showed a recorded decision as a red Briefing error and the duplicate ← Bridge. Chief-engineer scope: per-source loaded/failed state and one empty-state function; useCoAsk hook in Bridge (onAsk leaves CoChat); server returns the latest resolution when no attempt is open; one-string back label. No persisted state, retry or Paseo request. Stacked on #46; nothing merges."
+    }
+  ]
+}
