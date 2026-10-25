@@ -324,3 +324,11 @@ Needs this Mac with `node`, `npm`, `agent-browser`, `paseo`, `python3` and `git`
 ### FO acceptance rerun (2026-10-25)
 
 FO ran the validator's six-step acceptance script in a fresh `env -i` shell against 1450008: typecheck ok, 287 pass and 0 fail, the re-point line, after-Cancel unchanged, "4 unsaved changes", saved `agent-dev` with three moved refs, "All 3 set", the outside line and the focus outline on both pills, Discard leaving disk at Dev, adr_lint exit 0 — every expected line matched (`evidence/fo-acceptance-rerun-1450008.txt`).
+
+### FO merge and reload (ADR 0007 class 2, 2026-10-25)
+
+Merged PR iamcxa/kc-paseo-plugins#50 by squash with `--match-head-commit 1450008e9bf687c7f75c054007dcb4b32844a314` after delivery_gate exit 0 and GitGuardian green; merge commit 7e038cd6047a525b1f5125ad6f07a85afe5f51da at 2026-10-25T04:53:21Z. Reload route: (1) backup `~/.paseo-backup-project-env-20261021/projects-20261025T125329.json`, byte-identical; (2) `git fetch origin`, origin/main contains 7e038cd; (3) clean main checkout at 35ee0a6, 0 ahead, `merge --ff-only`, HEAD equals origin/main 7e038cd; (4) `npm ci` in project-env, 0 vulnerabilities; (5) `paseo plugin reload paseo-project-env`: running, enabled. After reload the settings file is byte-identical to the backup, and a probe agent in the qnow workspace read its five variables SET by shape only (lengths 72, 9, 53, 7, 23; no value read). A first probe ran in the caller's workspace by default and read all MISSING there, as expected for a project without settings; it was archived.
+
+## UAT
+
+Pending: the Captain's UAT on the live plugin.
