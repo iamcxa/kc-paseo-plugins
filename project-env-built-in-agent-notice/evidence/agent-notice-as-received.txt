@@ -1,0 +1,5 @@
+Project environment (Paseo plugin "project-env")
+Some environment variables in this session were filled in by the project-env plugin from this repository's 1Password mapping. They are already set; use them as they are.
+- Do not ask the user to paste a token or key, and never print, log or commit a value.
+- A variable that is empty here could not be read, and the plugin blanked it on purpose. Do not guess a value or work around it. Ask the user to open Paseo Settings, Plugins, the plugin's actions menu, Project environment, edit this repository and press Test: each variable shows "set" or the reason it failed. Paseo also shows the user a "Started without N project variables" line at the start of this conversation with the same reasons.
+- The plugin's troubleshooting notes (OVERVIEW.md in the project-env plugin package) list every reason and what to do.

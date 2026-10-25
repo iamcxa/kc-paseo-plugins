@@ -1,0 +1,548 @@
+diff --color -ruN -x node_modules src-main/project-env/OVERVIEW.md src-cand/project-env/OVERVIEW.md
+--- src-main/project-env/OVERVIEW.md	2026-10-25 12:53:20
++++ src-cand/project-env/OVERVIEW.md	2026-10-25 22:15:39
+@@ -1,26 +1,56 @@
+-<!--
+-OVERVIEW.md is required to list your plugin in the registry. Keep it beside
+-paseo-plugin.json in your repository at the pinned commit and in your npm package.
+-Replace this comment with useful facts before publishing.
++Project environment gives the agents Paseo starts in a repository the secrets they need, as environment variables read from 1Password. You map each variable name to a 1Password field once. Every new agent in that repository then starts with the values already set, so nobody pastes a token into a chat.
+ 
+-This overview is for people choosing a plugin in Paseo, on the plugin page under
+-its install command. README assumes a GitHub audience and includes technical
+-details, installation instructions, and badges. Long, AI-generated READMEs leave
+-people reading past that material to understand what the plugin does.
++## How it works
+ 
+-Write these parts in order, including only what helps someone decide to install:
++You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the login Keychain of the Mac that runs Paseo. When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
+ 
+-1. Describe what your plugin is and does in plain terms first.
+-2. Explain how it works only when it is not obvious.
+-3. Explain setup when needed: settings, accounts, tokens, providers, tools, or
+-   other plugins. Include applicable daemon version and operating system
+-   requirements. Setup guidance is allowed; installation instructions are not.
+-4. Explain capabilities and settings worth understanding, what each option does,
+-   what the plugin reads or sends and where, permissions, and known limits.
++A variable that cannot be read is set to an empty value and the agent still starts. A line at the start of the new conversation, "Started without N project variables", names each one and the reason.
+ 
+-Length follows complexity; a theme needs one paragraph. Choose headings only
+-when they help. Use sentence case and plain factual language, with no em dashes.
+-Omit installation commands, badges, changelog, contributing or license sections,
+-marketing, and unsupported claims. Avoid implementation filler such as empty
+-cleanup functions, theme-token field lists, or lists of absent features.
+--->
++## Setup
++
++1. In 1Password, create a read-only service account for one vault that holds only what this repository's agents need. Give it an expiry.
++2. In Paseo, open Settings, Plugins, the plugin's actions menu, then Project environment. Edit the repository, choose Change, enter the service account name and paste its token. Pick the vault.
++3. Choose Add to map a variable name to a field in the vault.
++4. Choose Test, then Save.
++
++It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, and the 1Password CLI (`op`).
++
++## What it reads and sends
++
++- It reads the service account token from the Keychain and the mapped fields from 1Password. It passes the token only to `op`.
++- It stores your mapping, which is variable names and field references and never values, in Paseo's plugin settings.
++- A value stays in memory for up to 15 minutes. Saving settings and pressing Test read again.
++- It never shows, logs or sends a secret value. What an agent does with a value it received is outside that promise.
++
++## Limits worth knowing
++
++- An agent can read and print its own environment, so any variable you map can be seen by that agent.
++- Any program running as you on the Mac can read the token in the login Keychain, and so every secret the service account can reach. Keep the vault narrow.
++- Another Mac, a phone or a headless Paseo daemon is not supported.
++- A vault renamed in 1Password after you saved it by name stays broken until you choose its new name under Change.
++
++## When a variable is blank
++
++A blank variable means the plugin could not read it. The agent started anyway with that variable empty, so it never runs on an old value of the same name. There are three places to see the reason:
++
++- The line "Started without N project variables" at the start of the new conversation lists each variable and why.
++- Settings, Plugins, the actions menu, Project environment: edit the repository and press Test. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
++- The plugin's Logs, in the same actions menu, hold one line per failed variable with the reason class and never a value.
++
++Each reason below is written as the screen shows it.
++
++**No token stored for this service account.** The plugin found no token in the login Keychain under that service account name. Paste the token again under Change. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
++
++**1Password rejected the token.** The token has expired, was revoked, or was copied wrongly. Create or copy a new token and paste it under Change.
++
++**Field not found in the vault.** The reference names an item or field that is not there: it was renamed or deleted, no field is picked yet ("Pick a field"), or the service account cannot see that vault. Pick the field again, or check the service account's access in 1Password.
++
++**1Password could not be reached.** The network failed, or 1Password did not answer within 20 seconds as the agent was starting. Check the network, then press Test and start a new agent.
++
++**The 1Password field is empty.** The field exists but holds nothing or only spaces. Fill it in 1Password, then press Test or start a new agent.
++
++**Reference points outside the chosen vault.** The mapping names a different vault than the one connected. The plugin refuses it without reading, and the row shows "≠" and "Outside the chosen vault" before any Test. Pick a field in the connected vault, or change the vault.
++
++**Reserved name.** The variable is called something the plugin never sets: `PATH`, `HOME`, `NODE_OPTIONS`, a name Paseo sets itself, or one that makes a program load other code. The agent keeps its own value, and the row reads "Not applied". Remove the variable or give it another name.
++
++**1Password returned an error the plugin does not recognise.** The 1Password CLI failed in a way the plugin cannot sort, for example `op` is not installed or not on the path Paseo uses. The plugin shows only this fixed sentence, because the raw error could carry a secret. Check that `op --version` works in a terminal, press Test, and look at the plugin's Logs.
+diff --color -ruN -x node_modules src-main/project-env/client/settings-screen.tsx src-cand/project-env/client/settings-screen.tsx
+--- src-main/project-env/client/settings-screen.tsx	2026-10-25 12:53:20
++++ src-cand/project-env/client/settings-screen.tsx	2026-10-25 22:02:11
+@@ -567,18 +567,6 @@
+   const toast = useToast();
+   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
+   const muted = useMemo(() => ({ color: theme.colors.foregroundMuted }), [theme]);
+-  const promptStyle = useMemo(
+-    () => ({
+-      color: theme.colors.foreground,
+-      borderColor: theme.colors.border,
+-      borderWidth: 1,
+-      borderRadius: 8,
+-      padding: 10,
+-      minHeight: 120,
+-      textAlignVertical: "top" as const,
+-    }),
+-    [theme],
+-  );
+ 
+   const status = useRpc(tokenStatus);
+   const saveToken = useRpc(storeToken);
+@@ -1066,19 +1054,6 @@
+         onAddByName={picker?.mode === "add" ? addByName : undefined}
+       />
+ 
+-      <SettingsSection title="Default prompt for new agents">
+-        <View>
+-          <TextInput
+-            multiline
+-            style={promptStyle}
+-            placeholderTextColor={theme.colors.foregroundMuted}
+-            placeholder="Appended to the system prompt of every new agent in this project"
+-            value={draft.prompt}
+-            onChangeText={(prompt) => openProject.update((d) => ({ ...d, prompt }), false)}
+-          />
+-        </View>
+-      </SettingsSection>
+-
+       <View style={{ marginTop: -6, marginBottom: 28 }}>
+         <Text style={muted}>
+           Values are injected into each agent's environment when its session opens, so the agent
+@@ -1091,7 +1066,7 @@
+           <SettingsCard>
+             <SettingsRow
+               label="Stop managing this project"
+-              hint="Deletes its variables and default prompt now, without Save. The Keychain token stays."
++              hint="Deletes its variables now, without Save. The Keychain token stays."
+             >
+               <Pressable accessibilityRole="button" onPress={() => setConfirmStop(true)} style={barButton(theme, "danger")}>
+                 <Text style={barText(theme, "danger")}>Stop managing</Text>
+@@ -1103,7 +1078,7 @@
+       <Modal title={`Stop managing ${basename(draft.root)}?`} open={confirmStop} onOpenChange={setConfirmStop}>
+         <Modal.Content>
+           <Text style={text}>
+-            This deletes the project's variables and default prompt from this plugin right away,
++            This deletes the project's variables from this plugin right away,
+             without Save. Agents already open keep the values they have. The token stays in the
+             Keychain.{count > 0 ? ` Your ${count} unsaved ${count === 1 ? "change is" : "changes are"} dropped too.` : ""}
+           </Text>
+@@ -1212,7 +1187,7 @@
+               ...candidates.map((p) => ({ label: p.projectDisplayName, value: p.projectRootPath })),
+             ]}
+             onValueChange={(root) =>
+-              root && open({ root, serviceAccount: "", vault: "", variables: [], prompt: "" })
++              root && open({ root, serviceAccount: "", vault: "", variables: [] })
+             }
+           />
+         ) : null}
+diff --color -ruN -x node_modules src-main/project-env/server/agent-notice.ts src-cand/project-env/server/agent-notice.ts
+--- src-main/project-env/server/agent-notice.ts	1970-01-01 08:00:00
++++ src-cand/project-env/server/agent-notice.ts	2026-10-25 22:15:37
+@@ -0,0 +1,17 @@
++import type { Project } from "../shared/config.ts";
++
++export const hasVariables = (project: Project) => project.variables.length > 0;
++
++export const agentNotice = [
++  'Project environment (Paseo plugin "project-env")',
++  "Some environment variables in this session were filled in by the project-env plugin from this repository's 1Password mapping. They are already set; use them as they are.",
++  "- Do not ask the user to paste a token or key, and never print, log or commit a value.",
++  "- A variable that is empty here could not be read, and the plugin blanked it on purpose. Do not guess a value or work around it. " +
++    'Ask the user to open Paseo Settings, Plugins, the plugin\'s actions menu, Project environment, edit this repository and press Test: each variable shows "set" or the reason it failed. ' +
++    'Paseo also shows the user a "Started without N project variables" line at the start of this conversation with the same reasons.',
++  "- The plugin's troubleshooting notes (OVERVIEW.md in the project-env plugin package) list every reason and what to do.",
++].join("\n");
++
++export function withNotice(systemPrompt: string | undefined): string {
++  return [systemPrompt, agentNotice].filter((part) => part?.trim()).join("\n\n");
++}
+diff --color -ruN -x node_modules src-main/project-env/server/contribute.ts src-cand/project-env/server/contribute.ts
+--- src-main/project-env/server/contribute.ts	2026-10-25 12:53:20
++++ src-cand/project-env/server/contribute.ts	2026-10-25 22:15:32
+@@ -1,6 +1,7 @@
+ import type { PluginServerContext } from "@getpaseo/plugin/server";
+ import * as rpc from "../shared/config.ts";
+ import type { Project } from "../shared/config.ts";
++import { hasVariables, withNotice } from "./agent-notice.ts";
+ import { failureLine } from "./cause.ts";
+ import { createNotices } from "./missing-variables-notice.ts";
+ import { createSecrets, type Tools } from "./secrets.ts";
+@@ -21,17 +22,15 @@
+   server.before("agent.create", async ({ request }) => {
+     if (request.config.internal) return;
+     const project = await projectFor(request.config.cwd);
+-    if (!project?.prompt.trim()) return;
+-    const systemPrompt = [request.config.systemPrompt, project.prompt]
+-      .filter((part) => part?.trim())
+-      .join("\n\n");
++    if (!project || !hasVariables(project)) return;
++    const systemPrompt = withNotice(request.config.systemPrompt);
+     return { ...request, config: { ...request.config, systemPrompt } };
+   });
+ 
+   server.before("agent.session_open", async ({ request }) => {
+     if (request.purpose === "history") return;
+     const project = await projectFor(request.cwd);
+-    if (!project || project.variables.length === 0) return;
++    if (!project || !hasVariables(project)) return;
+     const opened = await openSession(secrets, project, request);
+     for (const r of opened.results.filter((r) => !r.ok)) {
+       console.error(failureLine(project.root, r.name, r.cause ?? "unexpected"));
+diff --color -ruN -x node_modules src-main/project-env/shared/config.ts src-cand/project-env/shared/config.ts
+--- src-main/project-env/shared/config.ts	2026-10-25 12:53:20
++++ src-cand/project-env/shared/config.ts	2026-10-25 22:02:02
+@@ -81,7 +81,6 @@
+   serviceAccount: z.string().default(""),
+   vault: z.string().default(""),
+   variables: z.array(variable).default([]),
+-  prompt: z.string().default(""),
+ });
+ export type Project = z.infer<typeof project>;
+ export type Variable = z.infer<typeof variable>;
+@@ -155,7 +154,6 @@
+   let n = 0;
+   if (saved.serviceAccount !== draft.serviceAccount) n++;
+   if (saved.vault !== draft.vault) n++;
+-  if (saved.prompt !== draft.prompt) n++;
+   const before = new Map(saved.variables.map((v) => [v.name, v.ref]));
+   const named = draft.variables.filter((v) => v.name !== "");
+   const after = new Map(named.map((v) => [v.name, v.ref]));
+diff --color -ruN -x node_modules src-main/project-env/test/add-variable.test.ts src-cand/project-env/test/add-variable.test.ts
+--- src-main/project-env/test/add-variable.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/add-variable.test.ts	2026-10-25 22:02:33
+@@ -14,7 +14,6 @@
+   root: "/w",
+   serviceAccount: "sa-a",
+   vault: "Dev",
+-  prompt: "",
+   variables: [{ name: "A", ref: "op://Dev/x/a" }],
+ };
+ const withRows = (...variables: Project["variables"]): Project => ({ ...saved, variables: [...saved.variables, ...variables] });
+diff --color -ruN -x node_modules src-main/project-env/test/agent-notice.test.ts src-cand/project-env/test/agent-notice.test.ts
+--- src-main/project-env/test/agent-notice.test.ts	1970-01-01 08:00:00
++++ src-cand/project-env/test/agent-notice.test.ts	2026-10-25 22:05:46
+@@ -0,0 +1,99 @@
++import assert from "node:assert/strict";
++import { mkdtempSync, readFileSync, realpathSync, rmSync } from "node:fs";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { afterEach, describe, it } from "node:test";
++import type { PluginServerContext } from "@getpaseo/plugin/server";
++import { CAUSES, causeSentence } from "../shared/cause.ts";
++import * as rpc from "../shared/config.ts";
++import type { Project } from "../shared/config.ts";
++import { agentNotice } from "../server/agent-notice.ts";
++import { contribute } from "../server/contribute.ts";
++import { makeWorld } from "./world.ts";
++
++const cleanups: (() => void)[] = [];
++afterEach(() => {
++  for (const c of cleanups.splice(0)) c();
++});
++
++const NAMES = ["SENTRY_AUTH_TOKEN", "STRIPE_KEY"];
++const REFS = ["op://Dev/SENTRY/SENTRY_AUTH_TOKEN", "op://Dev/stripe/secret-key"];
++
++function create(variables: { name: string; ref: string }[], config: { systemPrompt?: string; internal?: boolean; cwd?: string } = {}) {
++  const root = realpathSync(mkdtempSync(join(tmpdir(), "project-env-root-")));
++  cleanups.push(() => rmSync(root, { recursive: true, force: true }));
++  const world = makeWorld({
++    git: {
++      answers: {
++        [["-C", root, "rev-parse", "--path-format=absolute", "--git-common-dir"].join("\0")]: `${root}/.git\n`,
++        [["-C", root, "rev-parse", "--show-toplevel"].join("\0")]: `${root}\n`,
++        [["-C", root, "worktree", "list", "--porcelain"].join("\0")]: `worktree ${root}\n`,
++      },
++    },
++  });
++  cleanups.push(world.cleanup);
++  const project = { root, serviceAccount: "sa-a", vault: "Dev", variables, prompt: "LEGACY-PROMPT-TEXT" } as Project;
++  const before = new Map<string, (input: { request: unknown }) => Promise<unknown>>();
++  const server = {
++    registerSettings: () => ({
++      read: async () => ({ status: "ready", values: { projects: [project] } }),
++      subscribe: () => () => {},
++    }),
++    before: (name: string, fn: never) => void before.set(name, fn),
++    on: () => {},
++    handle: () => {},
++  } as unknown as PluginServerContext;
++  contribute(server, world.tools);
++  return before.get("agent.create")!({ request: { config: { cwd: root, ...config } } }) as Promise<
++    { config: { systemPrompt?: string } } | undefined
++  >;
++}
++
++const variables = NAMES.map((name, i) => ({ name, ref: REFS[i] }));
++
++describe("the notice a new agent receives", () => {
++  it("is added when the project injects at least one variable, after any prompt the agent already had", async () => {
++    const out = await create(variables, { systemPrompt: "Existing instructions" });
++    const prompt = out?.config.systemPrompt ?? "";
++    assert.ok(prompt.startsWith("Existing instructions\n\n"));
++    assert.ok(prompt.endsWith(agentNotice));
++  });
++
++  it("is the whole system prompt for an agent that had none", async () => {
++    assert.equal((await create(variables))?.config.systemPrompt, agentNotice);
++  });
++
++  it("adds nothing for a project with no variables", async () => {
++    assert.equal(await create([]), undefined);
++  });
++
++  it("adds nothing for an internal agent", async () => {
++    assert.equal(await create(variables, { internal: true }), undefined);
++  });
++
++  it("never carries a prompt left in an older settings file", async () => {
++    assert.ok(!(await create(variables))?.config.systemPrompt?.includes("LEGACY-PROMPT-TEXT"));
++    const parsed = rpc.projectEnv.schema.parse({ projects: [{ root: "/r", prompt: "LEGACY-PROMPT-TEXT" }] });
++    assert.ok(!("prompt" in parsed.projects[0]));
++  });
++
++  it("names no variable, reference or value", async () => {
++    const notice = (await create(variables))?.config.systemPrompt ?? "";
++    for (const text of [...NAMES, ...REFS, "op://"]) assert.ok(!notice.includes(text), text);
++    assert.doesNotMatch(notice, /\b[A-Z][A-Z0-9]*_[A-Z0-9_]+\b/);
++  });
++
++  it("says what a blank variable means and where to look", () => {
++    assert.ok(agentNotice.includes("press Test"));
++    assert.ok(agentNotice.includes("OVERVIEW.md"));
++  });
++});
++
++describe("the troubleshooting notes", () => {
++  const notes = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8");
++  for (const cause of CAUSES) {
++    it(`explain ${cause} with the words the screen shows`, () => {
++      assert.ok(notes.includes(causeSentence(cause)), causeSentence(cause));
++    });
++  }
++});
+diff --color -ruN -x node_modules src-main/project-env/test/every-row-findable.test.ts src-cand/project-env/test/every-row-findable.test.ts
+--- src-main/project-env/test/every-row-findable.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/every-row-findable.test.ts	2026-10-25 22:03:12
+@@ -6,7 +6,7 @@
+ 
+ const v = (name: string, ref = "") => ({ name, ref });
+ const rows = [v("A", "op://V/a/x"), v("B"), v("C", "op://V/c/x"), v("D"), v("E")];
+-const project = (variables = rows): Project => ({ root: "/r", serviceAccount: "sa", vault: "V", prompt: "", variables });
++const project = (variables = rows): Project => ({ root: "/r", serviceAccount: "sa", vault: "V", variables });
+ 
+ describe("nextFieldless", () => {
+   it("starts at the first row with no field and steps through them in list order", () => {
+@@ -52,7 +52,7 @@
+     openProject.begin(project([v("A", "op://V/a/x")]), "rev");
+     const test = openProject.startTest();
+     openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, test);
+-    openProject.update((d) => ({ ...d, prompt: "x" }), false);
++    openProject.update((d) => ({ ...d, variables: [...d.variables, v("", "")] }), false);
+     assert.equal(shown(), "All 1 set");
+   });
+ 
+diff --color -ruN -x node_modules src-main/project-env/test/failure-reason.test.ts src-cand/project-env/test/failure-reason.test.ts
+--- src-main/project-env/test/failure-reason.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/failure-reason.test.ts	2026-10-25 22:02:33
+@@ -21,7 +21,6 @@
+   root,
+   serviceAccount,
+   vault: "V",
+-  prompt: "",
+   variables: variables.map(([name, ref]) => ({ name, ref })),
+ });
+ 
+diff --color -ruN -x node_modules src-main/project-env/test/missing-variables.test.ts src-cand/project-env/test/missing-variables.test.ts
+--- src-main/project-env/test/missing-variables.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/missing-variables.test.ts	2026-10-25 22:02:33
+@@ -46,7 +46,6 @@
+     root,
+     serviceAccount: "sa-a",
+     vault: "V",
+-    prompt: "",
+     variables: variables.map(([name, ref]) => ({ name, ref })),
+   };
+   const before = new Map<string, (input: { request: unknown }) => Promise<unknown>>();
+diff --color -ruN -x node_modules src-main/project-env/test/open-project.test.ts src-cand/project-env/test/open-project.test.ts
+--- src-main/project-env/test/open-project.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/open-project.test.ts	2026-10-25 22:02:33
+@@ -3,12 +3,11 @@
+ import { openProject } from "../client/open-project.ts";
+ import type { Project } from "../shared/config.ts";
+ 
+-const project = (prompt = ""): Project => ({
++const project = (account = "sa-a"): Project => ({
+   root: "/work/app",
+-  serviceAccount: "sa-a",
++  serviceAccount: account,
+   vault: "Dev",
+   variables: [],
+-  prompt,
+ });
+ 
+ afterEach(() => openProject.close());
+@@ -40,15 +39,15 @@
+ 
+   it("update with countsAsEdit false changes the draft and leaves edits", () => {
+     openProject.begin(project(), "rev-1");
+-    openProject.update((d) => ({ ...d, prompt: "typed" }), false);
+-    assert.equal(openProject.get()?.draft.prompt, "typed");
++    openProject.update((d) => ({ ...d, serviceAccount: "typed" }), false);
++    assert.equal(openProject.get()?.draft.serviceAccount, "typed");
+     assert.equal(openProject.get()?.edits, 0);
+   });
+ 
+   it("close empties the store and a later update is ignored", () => {
+     openProject.begin(project(), "rev-1");
+     openProject.close();
+-    openProject.update((d) => ({ ...d, prompt: "late" }), true);
++    openProject.update((d) => ({ ...d, serviceAccount: "late" }), true);
+     assert.equal(openProject.get(), null);
+   });
+ 
+@@ -56,11 +55,11 @@
+     openProject.begin(project(), "rev-1");
+     const stale = openProject.get()?.session;
+     openProject.begin({ ...project(), root: "/work/other" }, "rev-1");
+-    openProject.update((d) => ({ ...d, prompt: "from the old import" }), true, stale);
+-    assert.equal(openProject.get()?.draft.prompt, "");
++    openProject.update((d) => ({ ...d, serviceAccount: "from the old import" }), true, stale);
++    assert.equal(openProject.get()?.draft.serviceAccount, "sa-a");
+     assert.equal(openProject.get()?.edits, 0);
+-    openProject.update((d) => ({ ...d, prompt: "current" }), true, openProject.get()?.session);
+-    assert.equal(openProject.get()?.draft.prompt, "current");
++    openProject.update((d) => ({ ...d, serviceAccount: "current" }), true, openProject.get()?.session);
++    assert.equal(openProject.get()?.draft.serviceAccount, "current");
+   });
+ 
+   it("close tagged with a session that is no longer open leaves the open project alone", () => {
+@@ -76,10 +75,10 @@
+   it("begin twice yields different sessions and drops the earlier draft", () => {
+     openProject.begin(project(), "rev-1");
+     const first = openProject.get()?.session;
+-    openProject.update((d) => ({ ...d, prompt: "old" }), true);
++    openProject.update((d) => ({ ...d, serviceAccount: "old" }), true);
+     openProject.begin(project(), "rev-2");
+     assert.notEqual(openProject.get()?.session, first);
+-    assert.equal(openProject.get()?.draft.prompt, "");
++    assert.equal(openProject.get()?.draft.serviceAccount, "sa-a");
+     assert.equal(openProject.get()?.revision, "rev-2");
+   });
+ 
+diff --color -ruN -x node_modules src-main/project-env/test/paste-token.test.ts src-cand/project-env/test/paste-token.test.ts
+--- src-main/project-env/test/paste-token.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/paste-token.test.ts	2026-10-25 22:02:33
+@@ -32,7 +32,6 @@
+   serviceAccount,
+   vault: "",
+   variables: [],
+-  prompt: "",
+ });
+ 
+ describe("a token is written only after 1Password accepts it", () => {
+diff --color -ruN -x node_modules src-main/project-env/test/project-for-cwd.test.ts src-cand/project-env/test/project-for-cwd.test.ts
+--- src-main/project-env/test/project-for-cwd.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/project-for-cwd.test.ts	2026-10-25 22:02:33
+@@ -41,7 +41,7 @@
+   return answers;
+ }
+ 
+-const project = (root: string): Project => ({ root, serviceAccount: "", vault: "", prompt: "", variables: [] });
++const project = (root: string): Project => ({ root, serviceAccount: "", vault: "", variables: [] });
+ 
+ function secretsFor(answers: Record<string, string>) {
+   const world = makeWorld({ git: { answers } });
+diff --color -ruN -x node_modules src-main/project-env/test/save-rule.test.ts src-cand/project-env/test/save-rule.test.ts
+--- src-main/project-env/test/save-rule.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/save-rule.test.ts	2026-10-25 22:02:33
+@@ -23,14 +23,14 @@
+   });
+ });
+ 
+-const at = (root: string, prompt = ""): Project => ({ root, serviceAccount: "sa-a", vault: "Dev", variables: [], prompt });
++const at = (root: string, vault = "Dev"): Project => ({ root, serviceAccount: "sa-a", vault, variables: [] });
+ 
+ describe("replaceProject", () => {
+   it("keeps a saved project where it was", () => {
+     const list = [at("/a"), at("/b"), at("/c")];
+     const saved = replaceProject(list, at("/b", "edited"));
+     assert.deepEqual(saved.map((p) => p.root), ["/a", "/b", "/c"]);
+-    assert.equal(saved[1].prompt, "edited");
++    assert.equal(saved[1].vault, "edited");
+   });
+ 
+   it("adds a project not in the list at the end", () => {
+diff --color -ruN -x node_modules src-main/project-env/test/session-open.test.ts src-cand/project-env/test/session-open.test.ts
+--- src-main/project-env/test/session-open.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/session-open.test.ts	2026-10-25 22:02:33
+@@ -33,7 +33,6 @@
+   root: "/repo",
+   serviceAccount,
+   vault: "V",
+-  prompt: "",
+   variables: variables.map(([name, ref]) => ({ name, ref })),
+ });
+ 
+diff --color -ruN -x node_modules src-main/project-env/test/test-marks.test.ts src-cand/project-env/test/test-marks.test.ts
+--- src-main/project-env/test/test-marks.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/test-marks.test.ts	2026-10-25 22:02:33
+@@ -7,7 +7,7 @@
+ 
+ const v = (name: string, ref = `op://V/${name}/x`) => ({ name, ref });
+ const project = (variables: Project["variables"], over: Partial<Project> = {}): Project => ({
+-  root: "/r", serviceAccount: "sa", vault: "V", prompt: "", variables, ...over,
++  root: "/r", serviceAccount: "sa", vault: "V", variables, ...over,
+ });
+ const draft = project([v("A"), v("B"), v("C"), v("D"), v("E", "")]);
+ const run: Run = {
+diff --color -ruN -x node_modules src-main/project-env/test/unsaved-count.test.ts src-cand/project-env/test/unsaved-count.test.ts
+--- src-main/project-env/test/unsaved-count.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/unsaved-count.test.ts	2026-10-25 22:03:12
+@@ -6,7 +6,6 @@
+   root: "/w",
+   serviceAccount: "sa-a",
+   vault: "Dev",
+-  prompt: "",
+   variables: [
+     { name: "A", ref: "op://Dev/x/a" },
+     { name: "B", ref: "op://Dev/x/b" },
+@@ -20,12 +19,11 @@
+   assert.equal(unsavedCount(with_({ serviceAccount: " sa-a " }), base), 1);
+   assert.equal(unsavedCount(base, with_({ serviceAccount: "sa-b" })), 1);
+   assert.equal(unsavedCount(base, with_({ vault: "Prod" })), 1);
+-  assert.equal(unsavedCount(base, with_({ prompt: "x" })), 1);
+   assert.equal(unsavedCount(base, with_({ variables: [base.variables[0]] })), 1);
+   assert.equal(unsavedCount(base, with_({ variables: [...base.variables, { name: "C", ref: "" }] })), 1);
+   assert.equal(unsavedCount(base, with_({ variables: [{ name: "A", ref: "op://Dev/x/z" }, base.variables[1]] })), 1);
+   assert.equal(
+-    unsavedCount(base, with_({ prompt: "x", variables: [{ name: "A", ref: "op://Dev/x/z" }] })),
++    unsavedCount(base, with_({ vault: "Prod", variables: [{ name: "A", ref: "op://Dev/x/z" }] })),
+     3,
+   );
+ });
+diff --color -ruN -x node_modules src-main/project-env/test/vault-boundary.test.ts src-cand/project-env/test/vault-boundary.test.ts
+--- src-main/project-env/test/vault-boundary.test.ts	2026-10-25 12:53:20
++++ src-cand/project-env/test/vault-boundary.test.ts	2026-10-25 22:02:33
+@@ -17,7 +17,6 @@
+   root: "/repo",
+   serviceAccount: "sa-a",
+   vault,
+-  prompt: "",
+   variables: variables.map(([name, ref]) => ({ name, ref })),
+ });
+ 

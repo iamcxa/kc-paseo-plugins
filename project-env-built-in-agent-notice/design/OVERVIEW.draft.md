@@ -1,0 +1,56 @@
+Project environment gives the agents Paseo starts in a repository the secrets they need, as environment variables read from 1Password. You map each variable name to a 1Password field once. Every new agent in that repository then starts with the values already set, so nobody pastes a token into a chat.
+
+## How it works
+
+You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the login Keychain of the Mac that runs Paseo. When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
+
+A variable that cannot be read is set to an empty value and the agent still starts. A line at the start of the new conversation, "Started without N project variables", names each one and the reason.
+
+## Setup
+
+1. In 1Password, create a read-only service account for one vault that holds only what this repository's agents need. Give it an expiry.
+2. In Paseo, open Settings, Plugins, the plugin's actions menu, then Project environment. Edit the repository, choose Change, enter the service account name and paste its token. Pick the vault.
+3. Choose Add to map a variable name to a field in the vault.
+4. Choose Test, then Save.
+
+It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, and the 1Password CLI (`op`).
+
+## What it reads and sends
+
+- It reads the service account token from the Keychain and the mapped fields from 1Password. It passes the token only to `op`.
+- It stores your mapping, which is variable names and field references and never values, in Paseo's plugin settings.
+- A value stays in memory for up to 15 minutes. Saving settings and pressing Test read again.
+- It never shows, logs or sends a secret value. What an agent does with a value it received is outside that promise.
+
+## Limits worth knowing
+
+- An agent can read and print its own environment, so any variable you map can be seen by that agent.
+- Any program running as you on the Mac can read the token in the login Keychain, and so every secret the service account can reach. Keep the vault narrow.
+- Another Mac, a phone or a headless Paseo daemon is not supported.
+- A vault renamed in 1Password after you saved it by name stays broken until you choose its new name under Change.
+
+## When a variable is blank
+
+A blank variable means the plugin could not read it. The agent started anyway with that variable empty, so it never runs on an old value of the same name. There are three places to see the reason:
+
+- The line "Started without N project variables" at the start of the new conversation lists each variable and why.
+- Settings, Plugins, the actions menu, Project environment: edit the repository and press Test. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
+- The plugin's Logs, in the same actions menu, hold one line per failed variable with the reason class and never a value.
+
+Each reason below is written as the screen shows it.
+
+**No token stored for this service account.** The plugin found no token in the login Keychain under that service account name. Paste the token again under Change. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
+
+**1Password rejected the token.** The token has expired, was revoked, or was copied wrongly. Create or copy a new token and paste it under Change.
+
+**Field not found in the vault.** The reference names an item or field that is not there: it was renamed or deleted, no field is picked yet ("Pick a field"), or the service account cannot see that vault. Pick the field again, or check the service account's access in 1Password.
+
+**1Password could not be reached.** The network failed, or 1Password did not answer within 20 seconds as the agent was starting. Check the network, then press Test and start a new agent.
+
+**The 1Password field is empty.** The field exists but holds nothing or only spaces. Fill it in 1Password, then press Test or start a new agent.
+
+**Reference points outside the chosen vault.** The mapping names a different vault than the one connected. The plugin refuses it without reading, and the row shows "≠" and "Outside the chosen vault" before any Test. Pick a field in the connected vault, or change the vault.
+
+**Reserved name.** The variable is called something the plugin never sets: `PATH`, `HOME`, `NODE_OPTIONS`, a name Paseo sets itself, or one that makes a program load other code. The agent keeps its own value, and the row reads "Not applied". Remove the variable or give it another name.
+
+**1Password returned an error the plugin does not recognise.** The 1Password CLI failed in a way the plugin cannot sort, for example `op` is not installed or not on the path Paseo uses. The plugin shows only this fixed sentence, because the raw error could carry a secret. Check that `op --version` works in a terminal, press Test, and look at the plugin's Logs.

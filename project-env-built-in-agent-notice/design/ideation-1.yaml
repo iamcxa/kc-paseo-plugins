@@ -1,0 +1,28 @@
+design_review:
+  preview: project-env-built-in-agent-notice/shots/
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: cand-1280-legacy.png and cand-400-page-legacy.png, against cand-1280-work.png
+      seen: The legacy project, whose older settings file holds a saved prompt, is drawn exactly like the plain work project; no text, badge or row says that saved text exists, and the proposal does not say whether it is still appended to new agents or silently dropped.
+      fix: "Decide and show it in the proposal: either keep applying the saved text with a visible, removable row, or show a one-time notice that the saved prompt is no longer used. Add a criterion that tests the legacy picture for that cue."
+    - severity: MINOR
+      dimension: flow
+      where: cand-1280-work.png and cand-400-page-work.png, foot note under the Variables card
+      seen: The only statement about what agents receive is the foot note about injected values. Nothing on the screen tells a person that agents also get a built-in notice, and the removed box was the one place the prompt text could be read.
+      fix: Add one short clause to the foot note (or a link) saying agents also receive a built-in notice. Alternatively, record that omitting it from this screen is intended.
+    - severity: MINOR
+      dimension: states
+      where: cand-400-mixed-after-test.png (400px viewport capture)
+      seen: The sticky Save bar covers the second line of the foot note ("its session opens, so the agent itself can read them.") and the Danger zone below it, so the capture shows neither in full. The full-page captures show both intact.
+      fix: Add a criterion that a person can scroll the 400px viewport to the foot note and the Danger zone with neither hidden behind the Save bar.
+  limitations:
+    - Pictures are static. The legacy state was judged from file names and the images only; I could not see what the saved prompt does at session open or what becomes of it on Save.
+    - cand-light-*-legacy.png and the 400px viewport captures other than mixed-after-test (cand-400-work.png, cand-400-legacy.png) were not opened. The light pictures I did open (1280 mixed, 400-page mixed) match the dark layout.
+    - The hint and confirmation wording, and how the built-in notice reads, cannot be judged from the pictures. The Stop managing confirmation dialog is not among the previews.
+    - Screenshots cannot settle real vault behaviour, a Test run, or a resize between the 400 and 1280 widths.

@@ -1,0 +1,13 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  rulings:
+    - finding: 2
+      ruling: upheld
+      evidence: cand-1280-work.png and cand-400-page-work.png show no prompt box and no agent text, and main-400-mixed-after-test.png still shows the "Default prompt for new agents" label the candidate removes. The foot note still reads "Values are injected into each agent's environment when its session opens, so the agent itself can read them", which carries the ADR 0001 weakness the screen must state. A person using the screen is not misled about secrets, and the finding's own alternative fix was to record the omission as intended.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: cand-400-mixed-after-test.png shows the Save bar over the foot note's second line and the Danger zone, and main-400-mixed-after-test.png shows the same bar covering the content below the variables (the Default prompt label), so the overlap is today's behaviour and not new. cand-400-page-mixed-after-test.png and cand-400-page-work.png show the foot note and the Danger zone complete above the bar, so a person who scrolls reaches both.
+      change: none
