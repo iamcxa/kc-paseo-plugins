@@ -1,7 +1,7 @@
 ---
 id:
 title: Every agent that receives project variables is told where they come from and what to do when one is blank
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
