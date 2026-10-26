@@ -567,18 +567,6 @@ function ProjectEditor({
   const toast = useToast();
   const text = useMemo(() => ({ color: theme.colors.foreground }), [theme]);
   const muted = useMemo(() => ({ color: theme.colors.foregroundMuted }), [theme]);
-  const promptStyle = useMemo(
-    () => ({
-      color: theme.colors.foreground,
-      borderColor: theme.colors.border,
-      borderWidth: 1,
-      borderRadius: 8,
-      padding: 10,
-      minHeight: 120,
-      textAlignVertical: "top" as const,
-    }),
-    [theme],
-  );
 
   const status = useRpc(tokenStatus);
   const saveToken = useRpc(storeToken);
@@ -816,8 +804,19 @@ function ProjectEditor({
 
   return (
     <>
-      <View style={{ gap: 2, marginBottom: 20 }}>
-        <Text style={{ color: theme.colors.foreground, fontSize: 20, fontWeight: "500" }}>{basename(draft.root)}</Text>
+      <View style={{ gap: 2, marginBottom: 12 }}>
+        <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", columnGap: 8 }}>
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel="Projects: back to the list of projects"
+            onPress={() => (count > 0 ? setConfirmDiscard(true) : onDone())}
+            style={{ paddingTop: 12, paddingBottom: 10, marginTop: -12 }}
+          >
+            <Text style={{ color: theme.colors.foregroundMuted, fontSize: 20, textDecorationLine: "underline" }}>Projects</Text>
+          </Pressable>
+          <Text style={{ color: theme.colors.foregroundMuted, fontSize: 20 }}>›</Text>
+          <Text style={{ color: theme.colors.foreground, fontSize: 20, fontWeight: "500" }}>{basename(draft.root)}</Text>
+        </View>
         <Text style={{ color: theme.colors.foregroundMuted, fontSize: 12 }}>{draft.root}</Text>
       </View>
       <SettingsSection title="1Password">
@@ -1066,19 +1065,6 @@ function ProjectEditor({
         onAddByName={picker?.mode === "add" ? addByName : undefined}
       />
 
-      <SettingsSection title="Default prompt for new agents">
-        <View>
-          <TextInput
-            multiline
-            style={promptStyle}
-            placeholderTextColor={theme.colors.foregroundMuted}
-            placeholder="Appended to the system prompt of every new agent in this project"
-            value={draft.prompt}
-            onChangeText={(prompt) => openProject.update((d) => ({ ...d, prompt }), false)}
-          />
-        </View>
-      </SettingsSection>
-
       <View style={{ marginTop: -6, marginBottom: 28 }}>
         <Text style={muted}>
           Values are injected into each agent's environment when its session opens, so the agent
@@ -1091,7 +1077,7 @@ function ProjectEditor({
           <SettingsCard>
             <SettingsRow
               label="Stop managing this project"
-              hint="Deletes its variables and default prompt now, without Save. The Keychain token stays."
+              hint="Deletes its variables now, without Save. The Keychain token stays."
             >
               <Pressable accessibilityRole="button" onPress={() => setConfirmStop(true)} style={barButton(theme, "danger")}>
                 <Text style={barText(theme, "danger")}>Stop managing</Text>
@@ -1103,7 +1089,7 @@ function ProjectEditor({
       <Modal title={`Stop managing ${basename(draft.root)}?`} open={confirmStop} onOpenChange={setConfirmStop}>
         <Modal.Content>
           <Text style={text}>
-            This deletes the project's variables and default prompt from this plugin right away,
+            This deletes the project's variables from this plugin right away,
             without Save. Agents already open keep the values they have. The token stays in the
             Keychain.{count > 0 ? ` Your ${count} unsaved ${count === 1 ? "change is" : "changes are"} dropped too.` : ""}
           </Text>
@@ -1130,7 +1116,7 @@ function ProjectEditor({
         onOpenChange={setConfirmDiscard}
       >
         <Modal.Content>
-          <Text style={text}>They are dropped and the project list reads the saved settings again.</Text>
+          <Text style={text}>Nothing is saved, and you return to the project list.</Text>
           <View style={{ flexDirection: "row", gap: 8, justifyContent: "flex-end", marginTop: 8 }}>
             <Pressable accessibilityRole="button" onPress={() => setConfirmDiscard(false)} style={barButton(theme, "plain")}>
               <Text style={barText(theme, "plain")}>Keep editing</Text>
@@ -1212,7 +1198,7 @@ function Configured({ settings, theme }: { settings: Ready; theme: Theme }) {
               ...candidates.map((p) => ({ label: p.projectDisplayName, value: p.projectRootPath })),
             ]}
             onValueChange={(root) =>
-              root && open({ root, serviceAccount: "", vault: "", variables: [], prompt: "" })
+              root && open({ root, serviceAccount: "", vault: "", variables: [] })
             }
           />
         ) : null}

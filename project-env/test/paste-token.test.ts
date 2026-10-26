@@ -32,7 +32,6 @@ const project = (root: string, serviceAccount: string): Project => ({
   serviceAccount,
   vault: "",
   variables: [],
-  prompt: "",
 });
 
 describe("a token is written only after 1Password accepts it", () => {

@@ -3,12 +3,11 @@ import { afterEach, describe, it } from "node:test";
 import { openProject } from "../client/open-project.ts";
 import type { Project } from "../shared/config.ts";
 
-const project = (prompt = ""): Project => ({
+const project = (account = "sa-a"): Project => ({
   root: "/work/app",
-  serviceAccount: "sa-a",
+  serviceAccount: account,
   vault: "Dev",
   variables: [],
-  prompt,
 });
 
 afterEach(() => openProject.close());
@@ -40,15 +39,15 @@ describe("open project store", () => {
 
   it("update with countsAsEdit false changes the draft and leaves edits", () => {
     openProject.begin(project(), "rev-1");
-    openProject.update((d) => ({ ...d, prompt: "typed" }), false);
-    assert.equal(openProject.get()?.draft.prompt, "typed");
+    openProject.update((d) => ({ ...d, serviceAccount: "typed" }), false);
+    assert.equal(openProject.get()?.draft.serviceAccount, "typed");
     assert.equal(openProject.get()?.edits, 0);
   });
 
   it("close empties the store and a later update is ignored", () => {
     openProject.begin(project(), "rev-1");
     openProject.close();
-    openProject.update((d) => ({ ...d, prompt: "late" }), true);
+    openProject.update((d) => ({ ...d, serviceAccount: "late" }), true);
     assert.equal(openProject.get(), null);
   });
 
@@ -56,11 +55,11 @@ describe("open project store", () => {
     openProject.begin(project(), "rev-1");
     const stale = openProject.get()?.session;
     openProject.begin({ ...project(), root: "/work/other" }, "rev-1");
-    openProject.update((d) => ({ ...d, prompt: "from the old import" }), true, stale);
-    assert.equal(openProject.get()?.draft.prompt, "");
+    openProject.update((d) => ({ ...d, serviceAccount: "from the old import" }), true, stale);
+    assert.equal(openProject.get()?.draft.serviceAccount, "sa-a");
     assert.equal(openProject.get()?.edits, 0);
-    openProject.update((d) => ({ ...d, prompt: "current" }), true, openProject.get()?.session);
-    assert.equal(openProject.get()?.draft.prompt, "current");
+    openProject.update((d) => ({ ...d, serviceAccount: "current" }), true, openProject.get()?.session);
+    assert.equal(openProject.get()?.draft.serviceAccount, "current");
   });
 
   it("close tagged with a session that is no longer open leaves the open project alone", () => {
@@ -76,10 +75,10 @@ describe("open project store", () => {
   it("begin twice yields different sessions and drops the earlier draft", () => {
     openProject.begin(project(), "rev-1");
     const first = openProject.get()?.session;
-    openProject.update((d) => ({ ...d, prompt: "old" }), true);
+    openProject.update((d) => ({ ...d, serviceAccount: "old" }), true);
     openProject.begin(project(), "rev-2");
     assert.notEqual(openProject.get()?.session, first);
-    assert.equal(openProject.get()?.draft.prompt, "");
+    assert.equal(openProject.get()?.draft.serviceAccount, "sa-a");
     assert.equal(openProject.get()?.revision, "rev-2");
   });
 

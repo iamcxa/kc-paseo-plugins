@@ -23,14 +23,14 @@ describe("save rule", () => {
   });
 });
 
-const at = (root: string, prompt = ""): Project => ({ root, serviceAccount: "sa-a", vault: "Dev", variables: [], prompt });
+const at = (root: string, vault = "Dev"): Project => ({ root, serviceAccount: "sa-a", vault, variables: [] });
 
 describe("replaceProject", () => {
   it("keeps a saved project where it was", () => {
     const list = [at("/a"), at("/b"), at("/c")];
     const saved = replaceProject(list, at("/b", "edited"));
     assert.deepEqual(saved.map((p) => p.root), ["/a", "/b", "/c"]);
-    assert.equal(saved[1].prompt, "edited");
+    assert.equal(saved[1].vault, "edited");
   });
 
   it("adds a project not in the list at the end", () => {

@@ -21,7 +21,6 @@ const project = (variables: [string, string][], serviceAccount = "sa-a", root = 
   root,
   serviceAccount,
   vault: "V",
-  prompt: "",
   variables: variables.map(([name, ref]) => ({ name, ref })),
 });
 

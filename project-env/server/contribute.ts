@@ -1,6 +1,7 @@
 import type { PluginServerContext } from "@getpaseo/plugin/server";
 import * as rpc from "../shared/config.ts";
 import type { Project } from "../shared/config.ts";
+import { hasVariables, withNotice } from "./agent-notice.ts";
 import { failureLine } from "./cause.ts";
 import { createNotices } from "./missing-variables-notice.ts";
 import { createSecrets, type Tools } from "./secrets.ts";
@@ -21,17 +22,15 @@ export function contribute(server: PluginServerContext, tools: Tools) {
   server.before("agent.create", async ({ request }) => {
     if (request.config.internal) return;
     const project = await projectFor(request.config.cwd);
-    if (!project?.prompt.trim()) return;
-    const systemPrompt = [request.config.systemPrompt, project.prompt]
-      .filter((part) => part?.trim())
-      .join("\n\n");
+    if (!project || !hasVariables(project)) return;
+    const systemPrompt = withNotice(request.config.systemPrompt);
     return { ...request, config: { ...request.config, systemPrompt } };
   });
 
   server.before("agent.session_open", async ({ request }) => {
     if (request.purpose === "history") return;
     const project = await projectFor(request.cwd);
-    if (!project || project.variables.length === 0) return;
+    if (!project || !hasVariables(project)) return;
     const opened = await openSession(secrets, project, request);
     for (const r of opened.results.filter((r) => !r.ok)) {
       console.error(failureLine(project.root, r.name, r.cause ?? "unexpected"));

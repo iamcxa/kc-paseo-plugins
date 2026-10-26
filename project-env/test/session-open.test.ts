@@ -33,7 +33,6 @@ const project = (variables: [string, string][], serviceAccount = "sa-a"): Projec
   root: "/repo",
   serviceAccount,
   vault: "V",
-  prompt: "",
   variables: variables.map(([name, ref]) => ({ name, ref })),
 });
 
