@@ -19,7 +19,7 @@ It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, 
 
 - It reads the service account token from the Keychain and the mapped fields from 1Password. It passes the token only to `op`.
 - It stores your mapping, which is variable names and field references and never values, in Paseo's plugin settings.
-- A value stays in memory for up to 15 minutes. Saving settings and pressing Test read again.
+- A value read from 1Password is kept in memory and reused for up to 15 minutes, then read again. Saving settings and pressing Test read again.
 - It never shows, logs or sends a secret value. What an agent does with a value it received is outside that promise.
 
 ## Limits worth knowing
