@@ -273,3 +273,32 @@ Real agents misread cycle 1's notice in 3 of 15 runs (a printenv that put the va
 Classes 1 and 3 stay with the Captain for this task (demoted on 2026-10-25, see the archived project-env-vault-change-repoints-refs, "ADR 0007 demotion").
 Captain: 「可以，這輪維持」 (FO chat, 2026-10-26)
 Asked: "ADR 0007 的第 1 類（批准驗收）和第 3 類（處理審查意見）要不要還給我？我建議先「維持」…回「恢復」或「維持」。"
+
+## Stage Report: implementation
+
+- DONE: Implement the approved revision 2 design exactly, starting from evidence/candidate-disposable.diff in this task's folder: the revision 2 notice text added in agent.create through the shared hasVariables predicate, the default-prompt box removed with the prompt key dropped from the schema (amendment 1), the Danger zone and Stop managing wording, the "Projects › <name>" breadcrumb link with its discard question, and project-env/OVERVIEW.md from design/OVERVIEW.draft.md.
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/53, branch spacedock-ensign/project-env-built-in-agent-notice from origin/main 335d129 (commits df6fc16, cf1d3a8). The diff applied to 335d129 unchanged; it also edits root README.md (it still advertised "a default prompt"). One deviation from design/OVERVIEW.draft.md: the memory line now reads "kept in memory and reused for up to 15 minutes, then read again" (roborev finding: expired entries stay stored until overwritten). Code comment lines added: 0.
+- DONE: Land evidence for AC-1 to AC-4 with the clauses they name on the real branch build (adapt evidence/harness/ to your own S and PORT), rerun the comprehension check's harness on the final notice text for at least one Claude and one Codex run, plus whole-page screenshots at 1280 and 400 px of the work, legacy, list and discard states, under this task's state folder.
+  Real build on an isolated Paseo, port 6951, home /tmp/pe-impl (stopped and removed); files carry the prefix `impl-` beside the ideation `cand-`/`cand2-` ones.
+  AC-1: `evidence/impl-notice-check.txt` (1237-char notice in work and work-legacy, none in empty, bare, unconnected); `evidence/impl-agent-notice-as-received.txt` equals `comprehension/notice-round2.txt` minus its trailing newline; unit tests below.
+  AC-3: `shots/impl-1280-legacy.png`, `impl-400-page-legacy.png` show no box and none of the saved text (log has no LEGACY-PROMPT text); `evidence/impl-legacy-prompt-save.txt`: `prompt` key present before Save, absent after.
+  AC-4: `evidence/impl-drive2-log.txt` is line-for-line the ideation log (link leaves the editor, "Discard 1 unsaved change?", Close and footer Discard end on the list, 1280 and 400); `evidence/impl-link-hit-area.txt`: 45 px press area, clicks at dy -22 and +22 leave the editor.
+  Pictures (`shots/`, dark, whole page at 1280 and 400-page): impl-{1280,400-page}-work, -legacy, -list, -long, -mixed-after-test, -stop-modal; impl-{1280,400-page}-discard-modal are window captures (a whole-page capture misses the dialog). Light theme and the focus state were not redrawn.
+  Comprehension: `comprehension/impl/`, `impl-grading.tsv`, `impl-grade.txt`; the notice as the branch sends it, Codex gpt-6.1-sol medium and Claude sonnet-5-5 medium and low, 5 scenarios each, 15 of 15 pass, no fake value in any transcript or file. Codex s5 wrote the placeholder but its commit was blocked by the sandbox (`.git/index.lock`). Same delivery differences and n=1 limits as "Agent comprehension check".
+- DONE: Run `npm test` (rerun the load-sensitive session-open deadline test alone if it is the only failure), `npm run typecheck`, the roborev gate, `design_surfaces.py check` on this task and `doc_impact.py <base> <candidate>`, then open the Draft PR.
+  `npm test` 302 of 302 (no rerun needed), `npm run typecheck` clean, `design_surfaces.py check` exit 0, Draft PR #53. Comment ratio: "code lines 139, comment lines 0, 0.0%", exit 0. No ADR added or reserved (no `## Number guards`), so adr_lint and number_guards are not applicable.
+  Roborev gate, run twice: evidence=roborev:1220 then evidence=roborev:1221, exit 1 both times. Fixed: OVERVIEW.md memory wording (Low). Not fixed, for FO: Medium on `agent.create`: an internal agent gets no notice but `agent.session_open` still injects its variables. Both are the accepted design (FAQ "not internal") and today's behaviour on main; changing it alters the approved design, so I report it as Needs decision.
+  doc_impact lists two documents. docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md: unaffected: this change touches no reserved-name rule, only the removed `prompt` field in shared/config.ts. docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md: unaffected: only a `prompt: ""` literal left test/vault-boundary.test.ts. Updated: README.md, project-env/OVERVIEW.md.
+
+### Tests by claim (falsified on the real branch, `evidence/impl-mutations.txt`)
+- Notice present when a variable is injected, after any prior prompt (test "is added when the project injects at least one variable..."): dropping the notice from `withNotice` fails 2.
+- No name or value in it ("names no variable, reference or value"): putting SENTRY_AUTH_TOKEN into the notice fails 1.
+- None for a project without variables ("adds nothing for a project with no variables"): removing the `hasVariables` guard from `agent.create` fails 1.
+- Not mutated: "never carries a prompt left in an older settings file" (its claim is shown by the legacy picture, notice-check and the Save file instead) and the eight "explain <cause>" tests.
+
+### Findings for FO
+- Needs decision (roborev, Medium): internal agents receive project variables at `agent.session_open` but no notice; the design excludes internal agents from the notice. If the Captain wants them to have it, the change is dropping the `request.config.internal` early return in `agent.create`.
+- Not run: an agent started by Paseo itself reading the notice, a real 1Password account, a plugin installed from npm.
+
+### Summary
+The disposable candidate applied cleanly onto 335d129 and is now the Draft PR; the build, tests, typecheck, comment ratio and design-surfaces check pass, and the evidence for AC-1 to AC-4 was rerun on the real branch with 15 of 15 comprehension runs passing on the final notice. One roborev Medium finding about internal agents is left for FO because it contradicts an accepted design line. Harness daemon, ports and scratch folders were removed; evidence is uncommitted-to-branch, under this task's folder only.

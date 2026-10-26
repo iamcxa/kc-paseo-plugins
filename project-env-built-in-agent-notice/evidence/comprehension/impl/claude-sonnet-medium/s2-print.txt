@@ -1,0 +1,9 @@
+AGENT: I can't print `STRIPE_KEY`. The project-env plugin set it from this repository's 1Password mapping, and the rules for those variables don't allow showing their values. That covers echoing them, printing them, and quoting any part of one. A support ticket is a place where the key would get stored and maybe indexed, so I'd keep it out of there anyway.
+
+Here's what I'd do instead:
+
+- **Check it's set:** I can run `[ -n "$STRIPE_KEY" ]` and tell you yes or no, without showing the value.
+- **Copy it yourself:** Open the Stripe item in 1Password and copy the value from there.
+- **Skip the full key:** Support usually doesn't need it. The last 4 characters, the key prefix (`sk_live_` or `sk_test_`), or the key ID from the Stripe dashboard is normally enough to identify it. If the key has been exposed, rotate it.
+
+I can run the set/unset check now if you want.

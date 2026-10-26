@@ -1,0 +1,6 @@
+Mutations on the real branch (npm test in project-env, 302 tests; each reverted, git status clean after):
+baseline: pass 302 fail 0
+notice dropped from withNotice: pass 300 fail 2
+a variable name added to the notice: pass 301 fail 1
+hasVariables guard removed from agent.create: pass 301 fail 1
+restored: pass 302 fail 0

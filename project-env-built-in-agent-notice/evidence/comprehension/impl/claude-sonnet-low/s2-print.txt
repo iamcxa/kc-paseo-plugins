@@ -1,0 +1,10 @@
+AGENT: I can't print the value of STRIPE_KEY. The project-env setup treats these variables as secrets, so I don't display, echo or quote them, even when you ask. Pasting a live Stripe key into a support ticket would also expose it to anyone who can read that ticket.
+
+You can get what you need another way:
+
+- **Check that it's set:** I can test `[ -n "$STRIPE_KEY" ]` without showing the value, and tell you whether it's populated.
+- **Find the key yourself:** Open it in 1Password (the source of the repo's mapping) or in the Stripe dashboard under Developers → API keys.
+- **Give support something safer:** Most support teams only need the last 4 characters or the key prefix (e.g. `sk_live_…abcd`) to identify a key, not the whole thing. I can also show you only the key type, `sk_live` or `sk_test`, if that's useful.
+- **If the full key has already been shared or leaked:** Roll it in the Stripe dashboard.
+
+Want me to run the set/not-set check?

@@ -1,0 +1,7 @@
+before Save (fixture work-legacy):
+/work-legacy: keys ['prompt', 'root', 'serviceAccount', 'variables', 'vault'] vars 3, prompt key present
+editing: work-legacy
+bar: 1 unsaved change
+after Save:
+/work-legacy: keys ['root', 'serviceAccount', 'variables', 'vault'] vars 2, prompt key absent
+/work: keys ['root', 'serviceAccount', 'variables', 'vault'] vars 3, prompt key absent
