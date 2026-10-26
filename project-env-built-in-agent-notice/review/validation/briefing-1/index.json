@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-built-in-agent-notice:validation:attempt-1:revision-1",
+  "question": "Validation-1 of the built-in notice (PR #53 at cf1d3a8) passed with one Needs decision: on the unchanged notice, Claude sonnet-5-5 at medium told the user to set the token in the environment in 3 of 4 blank-variable reruns. Revise the notice wording once more and rerun with more samples before merge, or accept it as a known limit and merge?",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-built-in-agent-notice:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/c283978b006f59721b7facb5c5792ea1736a6dbd/project-env-built-in-agent-notice.md",
+      "rev": "sha256:2bb96e6d57de955624055a9a742dfad8c5461c493f4c13dd6f25d285e27331a4",
+      "mediaType": "text/markdown",
+      "summary": "Validation-1 PASSED at cf1d3a8 except F1 (Needs decision): Claude Sonnet medium misdirects on a blank variable 3 of 4; Claude low 5/5 and Codex medium 5/5 pass. F2 Deferred risk: internal agents get variables but no notice (same as main). F3 Polish fixed by FO (short SHA in a dispatch record). F4 Polish: Claude offers to quote a key's last 4 characters; no value shown. AC-1 to AC-4 checked on an isolated Paseo; 302/302 tests; built screen review 4 MINOR, declines upheld."
+    }
+  ]
+}

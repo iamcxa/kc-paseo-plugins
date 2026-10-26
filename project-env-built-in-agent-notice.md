@@ -61,6 +61,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-built-in-agent-notice:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-built-in-agent-notice-validation-1
+              briefing:
+                id: briefing:project-env-built-in-agent-notice:validation:attempt-1:revision-1
+                digest: sha256:c3ec6d6335a92682ccbe02089e553f126999954f6dd4806b9f90dbf42a52b6a2
+                room-ref: ./project-env-built-in-agent-notice/review/validation/briefing-1
 started: 2026-10-25T13:53:45Z
 ---
 
