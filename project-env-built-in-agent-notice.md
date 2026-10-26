@@ -349,3 +349,7 @@ Validation pictures are in `design/built/` (outside `shots/`, so the design chec
 
 ### Summary
 All four acceptance criteria hold on a build from the candidate commit, in code, on an isolated Paseo and in the pictures, with five falsifying mutations failing as they should. The one material open point is F1: the notice is not reliably followed by Claude medium when a variable is blank, which the earlier 15 of 15 runs (one per cell) did not show; I recommend PASSED and leave that call to the Captain.
+
+### FO fix of validation-1 F3 (2026-10-26)
+
+`dispatch/ideation-2.md` carried the short SHA `b3067d4`; FO replaced it with the full `b3067d40222f9fc5b0b5325f1e9c789467c88686`. `dispatch_records.py` (0.31.0) then reads "4 dispatch record(s) complete".

@@ -1,6 +1,6 @@
 # Dispatch record: project-env-built-in-agent-notice ideation-2
 
-Dispatched: b3067d4
+Dispatched: b3067d40222f9fc5b0b5325f1e9c789467c88686
 Model: sonnet (stage default emitted by spacedock dispatch build)
 
 ## Checklist
