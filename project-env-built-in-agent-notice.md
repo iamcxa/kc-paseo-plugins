@@ -50,6 +50,17 @@ gates:
                 id: briefing:project-env-built-in-agent-notice:ideation:attempt-2:revision-1
                 digest: sha256:a04bc8703b9d461ae68f6af01a24902f853d04aec18214828ec2e33765e240e7
                 room-ref: ./project-env-built-in-agent-notice/review/ideation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-built-in-agent-notice:ideation:2
+                briefing: briefing:project-env-built-in-agent-notice:ideation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-26T13:59:30.296326Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-26, on the ideation gate attempt 2 (sha256:a04bc870) after the FO''s Chinese brief naming what approval accepts (revision 2 notice text; prompt box removed and a saved prompt dropped silently; the ''Projects ›'' link, AC-4). Asked: Approve the revised notice design ... and AC-1 to AC-4 into implementation? Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-25T13:53:45Z
 ---
 
