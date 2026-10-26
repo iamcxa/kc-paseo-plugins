@@ -267,3 +267,9 @@ The notice is a fixed 4-line text added in `agent.create` after any existing sys
 ### Summary
 
 Real agents misread cycle 1's notice in 3 of 15 runs (a printenv that put the value in the transcript, and two offers to have the user export or add the token); the revised notice passed 15 of 15 twice in Claude and Codex. "Back to plugins" is Paseo's own control and unchangeable from the plugin, so the fix is a labelled "Projects ›" link in the project editor; it needs the Captain's yes because it is not the change he literally asked for. Evidence is under this task's folder; the daemons were stopped.
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain for this task (demoted on 2026-10-25, see the archived project-env-vault-change-repoints-refs, "ADR 0007 demotion").
+Captain: 「可以，這輪維持」 (FO chat, 2026-10-26)
+Asked: "ADR 0007 的第 1 類（批准驗收）和第 3 類（處理審查意見）要不要還給我？我建議先「維持」…回「恢復」或「維持」。"
