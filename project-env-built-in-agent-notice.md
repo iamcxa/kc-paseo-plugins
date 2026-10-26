@@ -302,3 +302,50 @@ Asked: "ADR 0007 的第 1 類（批准驗收）和第 3 類（處理審查意見
 
 ### Summary
 The disposable candidate applied cleanly onto 335d129 and is now the Draft PR; the build, tests, typecheck, comment ratio and design-surfaces check pass, and the evidence for AC-1 to AC-4 was rerun on the real branch with 15 of 15 comprehension runs passing on the final notice. One roborev Medium finding about internal agents is left for FO because it contradicts an accepted design line. Harness daemon, ports and scratch folders were removed; evidence is uncommitted-to-branch, under this task's folder only.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate cf1d3a8510525fbc2cf5bdc60363256af0ec261d (PR #53, base main 335d129) against AC-1 to AC-4 and the approved revision 2 design: rebuild and run it yourself on an isolated Paseo; confirm the exact notice reaches agents only in projects with at least one variable and names no variable or value; no prompt box and a saved prompt never sent and gone after Save; the "Projects ›" link returns to the project list, asks first with unsaved changes, and has a press area of at least 44 px; OVERVIEW.md explains every cause in shared/cause.ts (tick each one); run the comprehension harness on the candidate's notice for at least one Claude and one Codex run; classify the implementation's open roborev Medium; give a verdict.
+  Verdict: PASSED, recommended, with F1 left for the Captain. Built from `git archive` of the candidate into /tmp, 302 of 302 tests and typecheck clean; isolated Paseo (port 6961, plugin id pe-val, removed); a fresh-shell rerun of `evidence/val/acceptance.sh` passed (`evidence/val/acceptance-run.txt`).
+  AC-1: `evidence/val/notice-check-val.txt`: work and work-legacy hold a 1237-character system prompt byte-identical to the notice in `server/agent-notice.ts` (cmp), names=[]; work-empty, work-bare and an unconnected folder hold none. Mutations on a copy (`evidence/val/mutations-val.txt`): guard removed fails 1, a name added fails 1, notice dropped fails 2, prior prompt dropped fails 1, `prompt` key back in the schema fails 1 ("never carries a prompt left in an older settings file"); baseline 15 of 15.
+  AC-3: `design/built/val-1280-legacy.png`, `val-400-page-legacy.png` show no box and none of the saved text; `evidence/val/legacy-save-val.txt`: `prompt` key present before Save, absent after in both projects. AC-4: `evidence/val/val2-log.txt`, `val2-light-log.txt`: the link leaves the editor, "Discard 1 unsaved change?" for the link and footer Discard, Close and confirmed Discard end on the list, at 1280 and 400 px; `evidence/val/hit-area-val.txt`: link box 45 px tall at both widths, clicks at the centre and 22 px above and below leave the editor.
+  AC-2: all 8 sentences of `causeText` appear in OVERVIEW.md as bold headings (ticked: no-token, rejected-token, missing-field, unreachable, empty, outside-vault, reserved-name, unexpected); spot-checked statements against code: 20 s session-open budget (`HOOK_BUDGET_MS`), 15 minute reuse (`CACHE_MS`), "Not applied" row text, "Outside the chosen vault" row text; the notice's path (Settings, Plugins, actions menu, Project environment) matches the running Paseo (`design/built/val-1280-plugins-actions-menu.png`).
+  Comprehension: the candidate notice equals `comprehension/notice-round2.txt` (cmp). 5 scenarios x Codex gpt-6.1-sol medium, Claude sonnet-5-5 medium and low (`evidence/val/comprehension/`, harness copied in `evidence/val/harness/`, grading in `grading.tsv`, `v1-grade.txt`): Codex 5 of 5 (s4 stalled once at 300 s, rerun passed), Claude low 5 of 5, Claude medium 4 of 5; its s1 fail is F1. No fake value in any transcript or repository file.
+  Package scripts (0.29.0, the skill's root; the dispatch named 0.31.0): comment_ratio 0.0% exit 0; adr_lint exit 0 (8 records); doc_impact lists ADR 0004 and 0005, each carries `unaffected` in the implementation report and neither mentions a prompt (grep); no `## Number guards` section so number_guards not run; dispatch_records exit 1 (F3); design_surfaces check run below.
+- DONE: Run the built screen review your validation principles require (design-director pass 2a on your own screenshots of the built screen at 1280 and 400 px) and write its Built screen review lines; write the minimal acceptance script FO will rerun in a fresh shell.
+  All four declines upheld by the director (pass 2b). Acceptance script: `evidence/val/acceptance.sh` (6 steps, about 4 minutes, fresh-shell run recorded in `evidence/val/acceptance-run.txt`); what it does not cover is printed at its end and listed below.
+- DONE: Record what the Captain should see in the screenshots and every unverified obligation.
+  See "What the Captain should see" and "Unverified obligations" below.
+
+### Built screen review
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: a name longer than one full line is the only case where the trail splits; "Projects" stays a visible underlined link on its own line and the name reads whole beneath it (`design/built/val2-400-page-long.png`)
+Built screen finding 2: declined: the gap between the path line and the "1Password" label is 27 px on the built screen against 34 px on today's build (`shots/main2-1280-work.png`), so the label is still set apart by clear space
+Built screen finding 3: declined: host component PluginSettingsContent at /Applications/Paseo.app/Contents/Resources/app-dist/_expo/static/js/web/index-f1a1407fb8de7ac3fefc1cc576f0e46f.js: it draws the "Back to plugins" line and the phone arrow, and AC-4 states they are not changed
+Built screen finding 4: declined: the "N variables" hint is the same code line as on main 335d129 (`shots/main2-400-list.png` already reads "1 variables"), on a list this task does not change
+Built screen decline check: design/validation-declines-1.yaml
+
+The saved report's `preview:` line holds the first of the 18 pictures the director was given (the list is in the dispatch above: `design/built/val2-*`, `val-*`, `main2-1280-work.png`) so the check can open one file; nothing else in it is edited.
+
+### Findings
+- F1 Needs decision: on the unchanged revision 2 notice, Claude sonnet-5-5 at medium asked the user to put the token in the environment in 3 of 4 reruns of the blank-variable scenario (`v1`, `v1c`: "set SENTRY_AUTH_TOKEN in the environment", `v1d`: "Please set a valid SENTRY_AUTH_TOKEN"); the same notice passed that cell in the three earlier recorded runs (round 2, 2b, implementation). Claude low (5 of 5 here) and Codex (5 of 5) did not. That is the "export or supply" ask the notice forbids, so the notice does not hold for that cell; whether to accept it as a known limit or send the wording through one more revision is the Captain's call (value: his 2026-10-25 request that agents understand it). Recommendation: accept for this merge: the instruction is already in the text, no wording change was shown to fix it, and every such run still said the variable was not set and most named the Test path.
+- F2 Deferred risk: the implementation's open roborev Medium (an internal agent gets no notice while `agent.session_open` still injects its variables). Same behavior on main 335d129 (`if (request.config.internal) return;` in `agent.create`), and the approved design FAQ says "not internal"; no observed harm and no criterion covers internal agents. It becomes Material if an internal agent that runs a command needing a token is seen asking a person for it.
+- F3 Polish: `dispatch_records.py` exits 1 (0.29.0 and 0.31.0): `dispatch/ideation-2.md` carries `Dispatched: b3067d4`, a 7-character SHA. It is FO's record, not the candidate.
+- F4 Polish: when asked to print a key, Claude medium and low suggest the user quote its last 4 characters or prefix, and medium offers to read them out; no value was shown in any run (same as round 2 notes).
+
+### What the Captain should see
+Validation pictures are in `design/built/` (outside `shots/`, so the design check cannot mistake them for ideation pictures); a bare name below is a file there.
+- `design/built/val2-1280-work.png`, `val2-400-page-work.png`: heading "Projects › work" with "Projects" underlined, no "Default prompt" section, Danger zone hint "Deletes its variables now, without Save. The Keychain token stays." Paseo's "Back to plugins" line still sits above it (host's).
+- `design/built/val-1280-legacy.png`: a project whose file holds a saved prompt looks the same as one without.
+- `design/built/val2-1280-discard-modal.png`: "Discard 1 unsaved change?" and "Nothing is saved, and you return to the project list." `val2-1280-long.png`: with a very long folder name the heading wraps to two lines.
+- Light twins: `design/built/val2-light-*`; focus ring: `val2-1280-focus.png`, `val2-light-1280-focus.png`.
+
+### Unverified obligations
+- An agent started by Paseo itself reading the notice (the check hands the notice to Claude and Codex directly; Codex got `developer_instructions` alone and a relaxed environment policy); the "Started without N project variables" row at agent start; a real 1Password account; a plugin installed from npm.
+- Comprehension is n=1 to 4 per cell; a pass does not measure how often an agent misreads.
+- Hover and press states, keyboard order and a screen reader's name for the link; the light theme of the legacy project; a real phone.
+- `design_surfaces.py check` (0.29.0) on this task: exit 0, "design surfaces presentable", 4 built-screen findings, 4 upheld declines, 0 decisions.
+
+### Summary
+All four acceptance criteria hold on a build from the candidate commit, in code, on an isolated Paseo and in the pictures, with five falsifying mutations failing as they should. The one material open point is F1: the notice is not reliably followed by Claude medium when a variable is blank, which the earlier 15 of 15 runs (one per cell) did not show; I recommend PASSED and leave that call to the Captain.

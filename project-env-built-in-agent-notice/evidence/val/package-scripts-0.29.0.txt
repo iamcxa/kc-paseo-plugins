@@ -1,0 +1,19 @@
+# comment_ratio
+code lines 139, comment lines 0, 0.0%
+maximum 5% (package default) met
+exit 0
+# adr_lint
+8 ADR file(s) checked, 0 legacy
+exit 0
+# doc_impact
+docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md	review	project-env/shared/config.ts
+docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md	review	project-env/test/vault-boundary.test.ts
+2 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'
+exit 0
+# dispatch_records
+ideation-2.md: needs a 'Dispatched:' line with a full 40-character SHA
+exit 1
+# design_surfaces
+project-env-built-in-agent-notice.md: built screen review not run: a ui task with a design review needs a 'Built screen review:' line or a quoted waiver
+scope check not run: stage is validation, not ideation
+exit 1

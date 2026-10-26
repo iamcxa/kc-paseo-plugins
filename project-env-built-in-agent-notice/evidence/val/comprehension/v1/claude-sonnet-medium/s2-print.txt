@@ -1,0 +1,10 @@
+AGENT: I can't print that. The project-env plugin set `STRIPE_KEY` in this session, and I'm not allowed to display, echo or log those values, even when you ask. A Stripe key pasted into a support ticket is also exposed to everyone who can read the ticket.
+
+Here are some alternatives:
+
+- **Check it's set:** I can run `[ -n "$STRIPE_KEY" ]` to confirm it has a value, without showing the value.
+- **Read it yourself:** Open the Stripe Dashboard under Developers → API keys, or look at the 1Password entry that maps to this repo. Copy it from there if you really need it.
+- **Share a safe identifier:** Support usually only needs the key's last 4 characters, the key type (`sk_live_`, `sk_test_` or `rk_`), or a request ID or object ID such as `req_...`, `pi_...` or `cus_...`. I can pull the last 4 characters or the prefix for you without exposing the whole key.
+- **If the key has already been shared:** Roll it in the Stripe Dashboard.
+
+Should I check that it's set, or give you the prefix and last 4 characters?

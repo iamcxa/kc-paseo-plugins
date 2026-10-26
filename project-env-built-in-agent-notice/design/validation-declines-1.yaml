@@ -1,0 +1,21 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: In design/built/val2-400-page-long.png and design/built/val2-1280-long.png "Projects" stays an underlined link at the start of line 1 with the chevron after it, and the whole name reads unbroken on the lines beneath; the split happens only because the name does not fit beside "Projects ›" (at 1280 the name is about 630 px of about 690 px), so nobody is misled or blocked, and the reason's "longer than one full line" is loose but the effect it names is what the picture shows.
+      change: none
+    - finding: 2
+      ruling: upheld
+      evidence: design/built/val2-1280-work.png puts the path about 27 px above the "1Password" label and shots/main2-1280-work.png about 35 px, and in both the small grey path sits directly under the heading with the label set off by clear space, so the label does not read as part of the path.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: In the host file, PluginSettingsContent renders its own "Back to plugins" button (the ArrowLeft leftIcon) from the props onBackToPlugins and showBackToPlugins, which the host's settings screen supplies (showBackToPlugins is the negation of its compact-layout flag); the plugin's own screen component receives only theme, layout and host, and the host wraps it with nothing else that takes a label, slot or children, so no prop, slot or plugin-owned part can hide or relabel that line, and in design/built/val2-1280-work.png the two controls read as "Back to plugins" and "Projects", which are labelled differently.
+      change: none
+    - finding: 4
+      ruling: upheld
+      evidence: shots/main2-400-list.png (today's build, list page unchanged by this task) already reads "1 variables" on the long-named project, the same text as design/built/val2-400-page-list.png, and the count is correct, so nobody acts wrongly on it.
+      change: none

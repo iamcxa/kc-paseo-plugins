@@ -1,0 +1,24 @@
+baseline (unmutated candidate)
+ℹ pass 15
+ℹ fail 0
+mutation 1: remove the hasVariables guard in agent.create
+  ✖ adds nothing for a project with no variables (340.979375ms)
+ℹ pass 14
+ℹ fail 1
+mutation 2: a variable name added to the notice
+  ✖ names no variable, reference or value (354.57825ms)
+ℹ pass 14
+ℹ fail 1
+mutation 3: notice dropped from agent.create
+  ✖ is added when the project injects at least one variable, after any prompt the agent already had (369.120291ms)
+  ✖ is the whole system prompt for an agent that had none (348.451416ms)
+ℹ pass 13
+ℹ fail 2
+mutation 4: prior system prompt dropped (notice replaces it)
+  ✖ is added when the project injects at least one variable, after any prompt the agent already had (343.410834ms)
+ℹ pass 14
+ℹ fail 1
+mutation 5: the prompt key returns to the project schema
+  ✖ never carries a prompt left in an older settings file (370.78625ms)
+ℹ pass 14
+ℹ fail 1

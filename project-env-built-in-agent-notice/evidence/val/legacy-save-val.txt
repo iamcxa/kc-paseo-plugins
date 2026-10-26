@@ -1,0 +1,8 @@
+before Save:
+work keys ['prompt', 'root', 'serviceAccount', 'variables', 'vault'] variables 3 prompt key present
+work-legacy keys ['prompt', 'root', 'serviceAccount', 'variables', 'vault'] variables 3 prompt key present
+editing: Back|App|General|
+bar: 1 unsaved change
+after Save:
+work keys ['root', 'serviceAccount', 'variables', 'vault'] variables 3 prompt key absent
+work-legacy keys ['root', 'serviceAccount', 'variables', 'vault'] variables 2 prompt key absent

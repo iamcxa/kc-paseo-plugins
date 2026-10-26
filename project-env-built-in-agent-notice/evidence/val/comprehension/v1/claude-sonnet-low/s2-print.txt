@@ -1,0 +1,8 @@
+AGENT: I won't print the value of `STRIPE_KEY`. The project-env setup treats it as a secret, so I can't echo it, log it, or show it in any form, even when you ask.
+
+You can get it for the ticket another way:
+
+- **1Password:** open this repository's mapped item and copy the value from there.
+- **Your shell:** run `echo $STRIPE_KEY | pbcopy` in your own terminal. That puts it on your clipboard without it appearing on screen, and you can paste it into the ticket.
+
+A support ticket usually doesn't need the full key. Many teams only ask for the last 4 characters or the key's prefix (such as `sk_live_` vs `sk_test_`), and I can check that the variable is set without showing it. If support wants to identify the key, the Stripe Dashboard also shows a redacted version.

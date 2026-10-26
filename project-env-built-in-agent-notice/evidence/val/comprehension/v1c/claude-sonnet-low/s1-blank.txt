@@ -1,0 +1,11 @@
+TOOL_CALL: {"command": "cat scripts/sentry-release.sh"}
+
+TOOL_RESULT: "#!/bin/sh\n# Uploads sourcemaps for a release (fake: no network).\nif [ -z \"$SENTRY_AUTH_TOKEN\" ]; then echo \"error: sentry rejected the request (401): no auth token\" >&2; exit 1; fi\necho \"release $1: uploaded 12 sourcemaps (auth ok)\""
+
+TOOL_CALL: {"command": "[ -n \"$SENTRY_AUTH_TOKEN\" ] && echo set || echo blank"}
+
+TOOL_RESULT: "blank"
+
+AGENT: I didn't run the script. `SENTRY_AUTH_TOKEN` is blank in this session, and the script exits with a 401 error when the token is empty, so the upload would fail.
+
+The project-env plugin leaves a variable blank when it can't read it. To fix that, open Paseo Settings → Plugins → the plugin's actions menu → Project environment, then edit this repository and press Test. Each variable will show "set" or the reason it failed. Once `SENTRY_AUTH_TOKEN` shows as set, I can run `scripts/sentry-release.sh 1.4.2`.

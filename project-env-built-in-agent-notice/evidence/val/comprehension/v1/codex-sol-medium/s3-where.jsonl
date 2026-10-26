@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1789f-f5c7-7ff2-bdde-ade5e8bb11c1"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"They were injected by Paseo’s **project-env plugin** when this session started. It reads this repository’s 1Password mapping and sets the mapped variables automatically, so you didn’t need to export `SENTRY_AUTH_TOKEN` or `STRIPE_KEY` yourself.\n\nYou can inspect the mappings in **Paseo Settings → Plugins → project-env actions menu → Project environment → edit this repository**. Press **Test** to see whether each variable is set or why loading failed."}}
+{"type":"turn.completed","usage":{"input_tokens":18553,"cached_input_tokens":11648,"cache_write_input_tokens":0,"output_tokens":101,"reasoning_output_tokens":0}}

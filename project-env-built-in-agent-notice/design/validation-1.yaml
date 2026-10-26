@@ -1,0 +1,33 @@
+design_review:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  preview: design/built/val2-1280-work.png
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: design/built/val2-1280-long.png and design/built/val2-400-page-long.png
+      seen: With the long project name the heading breaks after "Projects ›", leaving the chevron dangling at the end of the first line and the name alone on the next line, even at 1280 where the name (about 630 px) would fit beside "Projects ›" only just not at all; the heading no longer reads as one "Projects › name" line.
+      fix: Let the name shrink or wrap inside its own flex item that stays on the same line as the chevron, or truncate it with an ellipsis, so the chevron never ends a line.
+    - severity: MINOR
+      dimension: spacing
+      where: design/built/val2-1280-work.png, design/built/val2-400-page-work.png and design/built/val2-1280-long.png
+      seen: The grey path line sits about 27 px above the "1Password" section label and about 30 px below the heading, so the path reads as part of the next section; in the long-name state the path is only about 20 px under a wrapped name and the same distance above the label.
+      fix: Keep the path tight under the heading and add the section gap used elsewhere (the Variables and Danger zone labels) above the "1Password" label.
+    - severity: MINOR
+      dimension: flow
+      where: design/built/val2-1280-work.png and design/built/val2-400-page-work.png
+      seen: Two back controls sit about 43 px apart at the top, the host's "Back to plugins" line (phone: the arrow) and the plugin's "Projects" link, and they go to different places.
+      fix: None inside the plugin, because AC-4 leaves the host's line and arrow unchanged; the Captain accepted this by writing it into AC-4, so it needs no further decision unless he wants it revisited.
+    - severity: MINOR
+      dimension: states
+      where: design/built/val2-1280-list.png and design/built/val2-400-page-list.png
+      seen: The row for the long-named project reads "1 variables" while the others read "3 variables" and "0 variables", so the singular is wrong.
+      fix: Write "1 variable" when the count is 1.
+  limitations:
+    - "The press area of the Projects link is not drawn in any picture; the only evidence is the green focus box, which is about 77 x 51 px at 1280 (val2-1280-focus.png) and about 72 x 52 px at 400 (val2-400-focus.png), so a 44 px minimum height is consistent with it but its hit box was not measured."
+    - "No picture shows the transition itself: nothing shows Close, Discard changes or the Projects link ending on the project list, or which of the link or the footer's Discard opened the confirm (val2-1280-discard-modal.png has the footer's Discard visible); the list is shown only as a state (val2-1280-list.png)."
+    - "AC-3 can be judged only in part: val-1280-legacy.png and val-400-page-legacy.png show no box and no extra text on a project named work-legacy, but the saved prompt's wording is not given, so absence of its text is checked only as no unfamiliar text; that it is never sent to an agent and is gone from the file after Save is not visible in a picture."
+    - "The legacy pictures are the earlier val build, in the dark theme only; there is no light picture of the legacy project, and no 400 px page picture of the discard modal from the same state as the 1280 one beyond val2-400-discard-modal.png (a window capture)."
+    - "val-1280-stop-modal.png shows the work-legacy page with no modal open, so it does not show the stop confirm."
+    - "Not shown: hover or pressed state of the Projects link, a resize between widths, a real vault, and a Test run on the val2 build (val-1280-mixed-after-test.png is the earlier val build)."

@@ -1,0 +1,3 @@
+AGENT: They were injected by Paseo’s **project-env plugin** when this session started. It reads this repository’s 1Password mapping and sets the mapped variables automatically, so you didn’t need to export `SENTRY_AUTH_TOKEN` or `STRIPE_KEY` yourself.
+
+You can inspect the mappings in **Paseo Settings → Plugins → project-env actions menu → Project environment → edit this repository**. Press **Test** to see whether each variable is set or why loading failed.

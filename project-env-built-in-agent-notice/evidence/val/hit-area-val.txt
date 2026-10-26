@@ -1,0 +1,40 @@
+## viewport 1280 1400
+[agent-browser] launched browser
+[agent-browser] launched browser
+link box: "{\"x\":456,\"y\":150,\"width\":71.28125,\"height\":45,\"top\":150,\"right\":527.28125,\"bottom\":195,\"left\":456}"
+click at dy=0 (x=491 y=172): editor still open=0
+link box: "{\"x\":456,\"y\":150,\"width\":71.28125,\"height\":45,\"top\":150,\"right\":527.28125,\"bottom\":195,\"left\":456}"
+click at dy=-22 (x=491 y=150): editor still open=0
+link box: "{\"x\":456,\"y\":150,\"width\":71.28125,\"height\":45,\"top\":150,\"right\":527.28125,\"bottom\":195,\"left\":456}"
+click at dy=22 (x=491 y=194): editor still open=0
+--- probe
+"160: DIV role=link text=Projects"
+"175: DIV role=null text=Projects"
+"186: DIV role=link text=Projects"
+"190: DIV role=link text=Projects"
+"195: DIV role=null text=Projects›work/tmp/pe-val/run/s"
+## viewport 400 900
+[agent-browser] launched browser
+[agent-browser] launched browser
+link box: "{\"x\":16,\"y\":76,\"width\":71.28125,\"height\":45,\"top\":76,\"right\":87.28125,\"bottom\":121,\"left\":16}"
+click at dy=0 (x=51 y=98): editor still open=0
+link box: "{\"x\":16,\"y\":76,\"width\":71.28125,\"height\":45,\"top\":76,\"right\":87.28125,\"bottom\":121,\"left\":16}"
+click at dy=-22 (x=51 y=76): editor still open=0
+link box: "{\"x\":16,\"y\":76,\"width\":71.28125,\"height\":45,\"top\":76,\"right\":87.28125,\"bottom\":121,\"left\":16}"
+click at dy=22 (x=51 y=120): editor still open=0
+--- probe
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'tagName')
+    at <anonymous>:1:68
+    at <anonymous>:1:150
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'tagName')
+    at <anonymous>:1:68
+    at <anonymous>:1:150
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'tagName')
+    at <anonymous>:1:68
+    at <anonymous>:1:150
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'tagName')
+    at <anonymous>:1:68
+    at <anonymous>:1:150
+✗ Evaluation error: TypeError: Cannot read properties of null (reading 'tagName')
+    at <anonymous>:1:68
+    at <anonymous>:1:150
