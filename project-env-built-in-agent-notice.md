@@ -1,7 +1,7 @@
 ---
 id:
 title: Every agent that receives project variables is told where they come from and what to do when one is blank
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -60,7 +60,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-26, on the ideation gate attempt 2 (sha256:a04bc870) after the FO''s Chinese brief naming what approval accepts (revision 2 notice text; prompt box removed and a saved prompt dropped silently; the ''Projects ›'' link, AC-4). Asked: Approve the revised notice design ... and AC-1 to AC-4 into implementation? Say if you object to any part.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-25T13:53:45Z
 ---
 
