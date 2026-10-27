@@ -7,6 +7,28 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-journey-map-r1b-update:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-journey-map-r1b-update-backlog-1
+              briefing:
+                id: briefing:project-env-journey-map-r1b-update:backlog:attempt-1:revision-1
+                digest: sha256:e545cb4fda61288435ac157772214d0e05d179a62e0c1211134629e71adc60bc
+                room-ref: ./project-env-journey-map-r1b-update/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-journey-map-r1b-update:backlog:1
+                briefing: briefing:project-env-journey-map-r1b-update:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T18:32:37.452639Z"
+                decision: approve
+                reason: '「開」 — Captain in FO chat, 2026-10-28. Asked: 「下一件要你決定的：要不要開一個「更新旅程地圖」的小任務？我建議開…回「開」或「先不用」。」 FO had recommended opening it.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 The r1b release review of 2026-10-28 (`project-env-docs-site/release-review-r1b.md` in this state checkout) found `docs/journey/project-env/give-agents-their-project-setup.yaml` out of date: four r1.5 stories that merged (#21, #15, #17, #20) still read `gap`, r1b's `slice_because` says no plugin code is needed although four of its stories need code, and the introduction, reference and changelog pages the Captain asked for (「plugin 介紹，文件說明」, 2026-10-27) belong to no story. The Captain ruled 「移出」 on 2026-10-28: story `agent-lays-out-vault` leaves r1b. Asked whether to open a task for the map edit, recommending it, he answered 「開」.
