@@ -63,3 +63,9 @@ Limit: the progress tool joins one task to one story. Docs-site counts only for 
 | new: in-app setup steps, Keychain weakness on screen | setup-guide | itself | - |
 
 Stay open: `agent-lays-out-vault` (no skill; ADR 0005); `create-service-account` q2 (needs a real team account); the sign-in steps (Captain's real-account run); r1b acceptance by one teammate-Mac run, which docs-site's fake-`op` run does not replace.
+
+## Captain ruling (recorded by FO)
+
+Captain: 「移出」 (FO chat, 2026-10-28)
+Asked: 「你要決定的：「agent 幫忙整理保險庫」要不要移出 r1b？我建議移出…回「移出」或「留著」。」
+Effect: story `agent-lays-out-vault` leaves release r1b (signal 2). The map is not yet edited; the map edit and the other r1b tasks are asked one at a time.

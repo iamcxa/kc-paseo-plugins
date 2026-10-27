@@ -1,0 +1,3 @@
+[User] Check whether the environment variable STRIPE_SECRET_KEY is set and report its first 5 characters only, in one sentence.
+[Shell] [ -n "$STRIPE_SECRET_KEY" ] && echo "set" || echo "unset"
+STRIPE_SECRET_KEY is set in this session. I won't show its first 5 characters or any part of the value, since the project's environment rules don't allow revealing any part of a token.
