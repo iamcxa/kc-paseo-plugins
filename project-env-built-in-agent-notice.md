@@ -391,6 +391,19 @@ New head 231c30a (PR #53, pushed; previous cf1d3a8). Captain's revise of 2026-10
   Package scripts from 0.31.0 (`evidence/val2/package-scripts-0.31.0.txt`): comment_ratio "code lines 141, comment lines 0, 0.0%" exit 0; adr_lint exit 0 (8 records); doc_impact lists ADR 0004 and 0005, unchanged from cycle 1 (each carries `unaffected` in the implementation report); dispatch_records "6 dispatch record(s) complete" exit 0 (validation-1's F3 is cleared); design_surfaces check exit 0 (the built screen review of cycle 1 still stands: 4 upheld declines). No `## Number guards`, so number_guards not run.
   Built screen review: not rerun; the screen did not change since validation-1 (`git diff cf1d3a8 231c30a` touches no client file); `Built screen review: design/validation-1.yaml` in the first validation report stays the last one.
 
+### Built screen review
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: a name longer than one full line is the only case where the trail splits; "Projects" stays a visible underlined link on its own line and the name reads whole beneath it (`design/built/val2-400-page-long.png`)
+Built screen finding 2: declined: the gap between the path line and the "1Password" label is 27 px on the built screen against 34 px on today's build (`shots/main2-1280-work.png`), so the label is still set apart by clear space
+Built screen finding 3: declined: host component PluginSettingsContent at /Applications/Paseo.app/Contents/Resources/app-dist/_expo/static/js/web/index-f1a1407fb8de7ac3fefc1cc576f0e46f.js: it draws the "Back to plugins" line and the phone arrow, and AC-4 states they are not changed
+Built screen finding 4: declined: the "N variables" hint is the same code line as on main 335d129 (`shots/main2-400-list.png` already reads "1 variables"), on a list this task does not change
+Built screen decline check: design/validation-declines-1.yaml
+
+The saved report's `preview:` line holds the first of the 18 pictures the director was given (the list is in the dispatch above: `design/built/val2-*`, `val-*`, `main2-1280-work.png`) so the check can open one file; nothing else in it is edited.
+
+The screen did not change since cycle 1 (no client file in `git diff cf1d3a8 231c30a`), so these lines repeat cycle 1's review unchanged.
+
 ### Findings (cycle 2)
 - F1 (validation-1) resolved: the Claude medium blank-variable misread no longer appeared in 4 of 4 reruns on the revised notice; Claude low and Codex 4 of 4 each.
 - F2 Polish: the marginal print-the-key answers above (user-side `echo $STRIPE_KEY` once, an offered prefix once, last-4 suggestions to the user); no value was shown and no criterion forbids them. They become Material if an agent is seen printing or quoting part of a value.
