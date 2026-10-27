@@ -53,6 +53,17 @@ gates:
                 id: briefing:project-env-docs-site:ideation:attempt-2:revision-1
                 digest: sha256:289c806805bcf011c810f7a89f7abc1360a303359faa1eac8e03186d8a0cb592
                 room-ref: ./project-env-docs-site/review/ideation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-docs-site:ideation:2
+                briefing: briefing:project-env-docs-site:ideation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-27T18:00:30.609402Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate attempt 2 (sha256:289c8068), FO having recommended approval; approval also allows one stylesheet rule darkening the search result''s page label to at least 4.5:1, and keeps the two root wrapper files (he did not object). Asked: Approve the revised docs site design (just-the-docs pinned at v0.12.0, six pages in reader order with search, two root wrapper files) and AC-1 and AC-2 into implementation? ... Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-27T15:33:59Z
 ---
 
