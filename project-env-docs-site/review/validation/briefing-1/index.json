@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-docs-site:validation:attempt-1:revision-1",
+  "question": "Approve validation of the docs site (PR #58 at fd87b72) and the two proposed declines (F6, F7 Polish)? FO recommends approving. Approval lets FO merge it and then turn on GitHub Pages from main at the root, publishing the site; the Captain then checks the live site and gives UAT.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-docs-site:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/891d698da5bc4ac407e7ba1588105baea2c45332/project-env-docs-site.md",
+      "rev": "sha256:a0d9d953079964f63826f3047c79fa302ca6c7abed39af34237bed24cd6c33b3",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation cycle 2 PASSED at fd87b72; F1-F5 repaired per 「修」; build, crawl, exclusions, width and contrast pass; built pages followed to an agent with one variable set; FO acceptance rerun matched. External review rounds: 1 — Codex summary:6451942616 clean; roborev:1282 clean. Proposed declines: F6 picture path text, F7 no 1Password app picture. Engineering reviewer not run, reason recorded. delivery_gate class never (ask): approval names the merge and the Pages switch-on."
+    }
+  ]
+}
