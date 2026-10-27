@@ -633,7 +633,11 @@ export function Board({
                       {waitingFor}
                     </Text>
                   ) : null}
-                  {waitingItems.map(itemRow)}
+                  {waitingItems.map((item) => itemRow(
+                    item.kind === "ask" && !row.next && replies[row.id]?.preview
+                      ? { ...item, title: replies[row.id].preview }
+                      : item,
+                  ))}
                   {detail || status !== "busy" ? (
                     <Text style={styles.muted}>
                       {[detail, status === "busy" ? "" : ago(row.lastActivityAt)]
