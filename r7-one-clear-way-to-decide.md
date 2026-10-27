@@ -38,6 +38,20 @@ gates:
                 id: briefing:r7-one-clear-way-to-decide:validation:attempt-1:revision-1
                 digest: sha256:8a78adf16c042f0e026800f9d7fedd05f710af4652b8fe94a98606bb2a9a66a3
                 room-ref: ./r7-one-clear-way-to-decide/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r7-one-clear-way-to-decide:validation:1
+                briefing: briefing:r7-one-clear-way-to-decide:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-27T17:24:53.400141Z"
+                decision: approve
+                reason: 'Accepts the outcome: validation-1 PASSED AC-1 and AC-2 at 316c9eff7bd6; FO acceptance rerun passed; roborev clean; team pass 1 satisfied; observer stop resolved by the Captain''s ruling A with the colour-fix scope amendment recorded; pregate_check passes. PR #57 stays stacked and unmerged.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); continuation after the round 7 stop: Captain ruling 「A 修紀錄後繼續 (Recommended)」, chat 2026-10-28'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-27T15:08:01Z
 worktree: .worktrees/spacedock-ensign-r7-one-clear-way-to-decide
 pr: 57
