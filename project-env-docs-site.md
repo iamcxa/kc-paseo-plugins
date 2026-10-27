@@ -375,3 +375,13 @@ Expected at step 3: `reference 1280` and `reference 400` read `true ; target exi
 ### Summary
 
 The candidate rebuilds from `git archive` to the designed 23-file site with no internal path in pages or search, six pages, seven pictures, no sideways scroll at 400 to 1280 px and a 5.03:1 search label. Following the built Install and Prepare words on isolated Paseo homes reached an agent with one mapped variable set, and the blank-variable case behaves as the pages say; the run found five Polish word gaps (F1 to F5) and the real-account and real-Pages checks stay the Captain's.
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，這輪維持」 on 2026-10-26, not restored in writing since).
+
+### Captain disposition of validation-1 findings (2026-10-28)
+
+Captain: 「修」 (FO chat, 2026-10-28)
+Asked: 「回「修」，或「先合併、之後再修」。」, after FO named validation-1 F1 to F5 at candidate 48ecb5f38bac6d8de9382a5bfddf52d38a70bddb as the places AC-2 says must become page changes before the task closes.
+Effect: F1 to F5 are repaired on PR #58, then validation reruns. F6 and F7 stay as recorded.
