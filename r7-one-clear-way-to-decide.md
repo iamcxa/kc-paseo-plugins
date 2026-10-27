@@ -113,3 +113,21 @@ Messages and gate decisions now have separate drafts and explicit actions, the c
 ### Summary
 
 Queue hover and press feedback now have explicit symmetric row bounds and spacing in both views. Candidate 4d5d898 is pushed to Draft PR #57; the new geometry and action checks pass, with native confirmation and independent/team review remaining for FO.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: roborev:1254: inside the clipped queue-row wrapper the row action and the GitHub link (and any other per-row link, including unassigned review rows) are sibling controls, each its own accessible element with its own role and label, so a screen reader reaches both; the cycle 2 geometry (equal insets, no overlap, row gap) still holds; a mounted test asserting two separate accessible controls per such row that fails on 4d5d898, and the cycle 2 geometry check still passes
+  Candidate 08959373bd31663285a863cc71723a8955d399d2 separates ordinary, featured NEXT and unassigned review row/link actions into sibling Pressables with explicit accessible=true, button/link roles and individual labels. The mounted Board test checks sibling parents, no interactive descendant inside the row, clipped 4px ancestor and each URL/card/comms action in both views; base-test-final/ fails specifically at the sibling assertion against untouched 4d5d898. capture.py is byte-identical to cycle 2: both widths pass with 4px equal insets, 10px/12px next-row gaps and no overlap (verified-360/, verified-1440/).
+- DONE: npm test and typecheck pass; push to PR #57 (still Draft); a short "## Stage Report: implementation (cycle 3)" section
+  npm test 139/139 and typecheck pass (tests-verified.log, typecheck.log); pushed 0895937 is verified OPEN/Draft on PR #57 with its original round-6 base (pr57.json). Report and rerunnable evidence are under r7-one-clear-way-to-decide/evidence/cycle-3/.
+
+### Findings
+
+- Evidence: cycle-3/README.md gives explicit prerequisites/commands; falsifier.py restores only the prior Board in a disposable copy and fails at “screen readers need sibling row and link controls.” The same mounted test fails on nested controls, lost roles/labels/accessibility, missing clipping, a GitHub link opening the card/comms action, or a row losing its original action.
+- Geometry: unchanged cycle-2 browser checks run on the exact candidate in both views at 360/1440; removing 4px symmetric bounds/clipping or allowing less than 8px separation fails. Linked rows keep their two controls inside the same clipped wrapper; the mounted structural test proves those siblings separately. Actual iOS VoiceOver and native screenshot painting remain outside this worker's proof.
+- Package checks: comment_ratio PASS, 27 code lines / 0 comment lines / 0.0%, maximum 5%; doc_impact lists none and overview unaffected; ADR lint and number guards pass, no new ADR/migration. Migration guard skipped (no migrations-path). design_surfaces SKIPPED: known package gap 2; R4 gap 3 did not occur. roborev not run: package gap 5, FO reruns on 0895937.
+- Cleanup/scope: safety.json verifies the four temporary roots removed, captured daemon PIDs stopped, fresh browsers closed and candidate/main/live worktrees clean. Only board.tsx and the existing mounted row test changed; no relay/recording, draft-store, keyboard, queue data, permissions, readiness, merge, release or live-install change. POC boundary unchanged.
+
+### Summary
+
+Every queue row action and GitHub link is now a separately labelled accessible sibling, including the featured and unassigned review paths, while the cycle-2 bounds remain. Candidate 0895937 is pushed to Draft PR #57; independent verification and the new-head review remain with FO.

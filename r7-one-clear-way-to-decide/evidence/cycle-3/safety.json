@@ -1,0 +1,91 @@
+{
+  "candidate": "08959373bd31663285a863cc71723a8955d399d2",
+  "pr": 57,
+  "draft": true,
+  "status": {
+    "candidate": "## spacedock-ensign/r7-one-clear-way-to-decide...origin/spacedock-ensign/r7-one-clear-way-to-decide",
+    "main": "## main...origin/main [behind 1]",
+    "live": "## HEAD (no branch)"
+  },
+  "cleanups": [
+    "base-test-final/cleanup.json",
+    "verified-360/cleanup.json",
+    "verified-1440/cleanup.json",
+    "base-test/cleanup.json"
+  ],
+  "geometry": [
+    {
+      "width": 360,
+      "view": "decision",
+      "measurements": {
+        "hover": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 10,
+          "clipped": true
+        },
+        "pressed": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 10,
+          "clipped": true
+        }
+      }
+    },
+    {
+      "width": 360,
+      "view": "FO",
+      "measurements": {
+        "hover": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 12,
+          "clipped": true
+        },
+        "pressed": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 12,
+          "clipped": true
+        }
+      }
+    },
+    {
+      "width": 1440,
+      "view": "decision",
+      "measurements": {
+        "hover": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 10,
+          "clipped": true
+        },
+        "pressed": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 10,
+          "clipped": true
+        }
+      }
+    },
+    {
+      "width": 1440,
+      "view": "FO",
+      "measurements": {
+        "hover": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 12,
+          "clipped": true
+        },
+        "pressed": {
+          "left": 4,
+          "right": 4,
+          "nextGap": 12,
+          "clipped": true
+        }
+      }
+    }
+  ],
+  "cycle2CaptureIdentical": true
+}

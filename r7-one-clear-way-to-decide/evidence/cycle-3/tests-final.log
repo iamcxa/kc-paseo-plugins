@@ -1,0 +1,490 @@
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (0.87475ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.150667ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (0.075709ms)
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✖ unlabelled alone (81.625125ms)
+  ✖ unlabelled with gate (15.901625ms)
+  ✖ unlabelled with review (16.317417ms)
+  ✖ label represents the same reply (15.790709ms)
+  ✖ different labelled question (16.077291ms)
+  ✖ unlabelled with gate and review (74.236375ms)
+  ✖ same reply label with gate (82.882167ms)
+  ✖ different label with gate (71.165125ms)
+  ✖ same reply label with review (36.676375ms)
+  ✖ different label with review (32.071875ms)
+  ✖ same reply label with gate and review (20.743416ms)
+  ✖ different label with gate and review (17.672875ms)
+✖ both board views share unread-question rows and counts across waiting-item combinations (665.915167ms)
+✔ failed board sources reuse guarded reads; FO rows count and open each waiting destination (378.665375ms)
+✔ By FO keeps an idle review owner and its waiting count visible while idle rows are collapsed (301.276916ms)
+✖ queue rows expose sibling accessible actions inside symmetric clipped bounds (288.617041ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.205792ms)
+✔ an FO with no tab labels is not Tab closed (0.102167ms)
+✔ one true tab keeps an FO open across clients (0.070625ms)
+✔ a running FO is not Tab closed even when every tab is false (0.069166ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.112667ms)
+✔ an unknown tab value does not count as explicitly false (0.068834ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.056542ms)
+✔ Paseo's own permission attention is waiting on Kent (0.051625ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.07125ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.101167ms)
+✔ a new reply whose next step is the Captain's moves to waiting (9.190542ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (0.261208ms)
+✔ a next-owner label decides the group without reading the reply (0.086625ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.044625ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (0.150791ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.099292ms)
+✔ an offline FO with no gate waiting is left off the board (0.063583ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (0.062833ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (0.058708ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.4555ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.135792ms)
+✔ waiting time reads in seconds, minutes and hours (0.105625ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.47925ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.1105ms)
+✔ displayed replies join adjacent chunks but a visible tool separates them (0.891458ms)
+✔ hidden agent_message tools do not split a displayed reply; trailing visible tools do (0.16975ms)
+✔ a reconnect detects the last displayed Captain question after earlier FO work (271.909125ms)
+✔ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (33.882833ms)
+✔ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (64.785083ms)
+✔ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (13.021083ms)
+✔ switching coordinators clears the previous question and timestamp while the new connection is pending (14.457625ms)
+✔ native composer follows a keyboard already visible at mount (59.464833ms)
+✔ native composer follows a keyboard frame changes without a show event (12.002583ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (20.471208ms)
+✔ Enter sends the typed text to the FO and clears the box (0.974209ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.113833ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.0925ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.089667ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (0.128834ms)
+✔ a chip refusal keeps the draft (2.276209ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.041958ms)
+✔ 准 goes through with an empty box, via the comms officer (0.305ms)
+✔ a decision chip sends the typed text as the reason (0.137833ms)
+✔ a second decision on the same briefing is refused and sends nothing (0.109167ms)
+✔ a failed send releases the claim and rethrows (1.098917ms)
+✔ a changed briefing refuses before claiming (0.1105ms)
+✔ an unloaded briefing refuses (0.098667ms)
+✔ polling a newer open briefing ignores the older briefing's resolution (206.743167ms)
+✔ message never decides (1.861292ms)
+✔ decision uses only its reason (0.730625ms)
+✔ both actions keep the other draft (0.510417ms)
+✔ a changed briefing or officer cannot receive a stale action (0.391292ms)
+✔ pending, failure and duplicate presses keep existing behavior (0.400292ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (1.66125ms)
+✔ mounted composers follow store updates, target changes and unsubscription (74.931583ms)
+✔ mounted composer reflects delayed send: clear (11.671666ms)
+✔ mounted composer reflects delayed send: edit (9.863084ms)
+✔ mounted composer reflects delayed send: refuse (15.407542ms)
+✔ mounted composer reflects delayed decision: clear (16.521375ms)
+✔ mounted composer reflects delayed decision: edit (15.580875ms)
+✔ mounted composer reflects delayed decision: refuse (46.315708ms)
+✔ reopening a pending send blocks button and Enter until success (32.173292ms)
+✔ reopening a pending send blocks button and Enter until failure (64.922208ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (1.333833ms)
+✔ a comms officer seed fills an empty draft and preserves non-empty text (0.090167ms)
+✔ stored draft clears after successful send (0.616625ms)
+✔ stored draft survives refused send (0.077833ms)
+✔ stored draft clears after successful decision (0.107083ms)
+✔ stored draft survives refused decision (0.06225ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (0.414667ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.200875ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.172ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (0.136167ms)
+✔ the FO source stays loading until every question read settles (18.267625ms)
+✔ a failed FO question read marks the source incomplete and keeps successful questions (0.975541ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-FJdHJ3: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-FJdHJ3 --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-FJdHJ3 --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 259ms
+gates.read #2 start dirs=1
+gates.read #2 done 65ms
+gates.read #3 start dirs=1
+gates.read #3 done 1ms
+gates.read #4 start dirs=1
+gates.read #4 done 48ms
+gates.read #5 start dirs=1
+gates.read #5 done 0ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (397.738209ms)
+gates.read #6 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:104:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:137:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:130:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/gate-sources.test.mts:44:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+}
+gates.read #6 done 74ms
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:104:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:115:45)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/gate-sources.test.mts:48:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+}
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:104:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:115:45)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/fleet-mcp.ts:40:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/gate-sources.test.mts:57:3) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+}
+gates.read #7 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:104:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:137:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/tasks.ts:130:12)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/server/fleet-mcp.ts:46:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-9qecWu/removed/README.md'
+}
+gates.read #7 done 9ms
+✔ a removed workflow does not hide another workflow's gates or tasks (100.833584ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (34.954ms)
+✔ a resolution is found by the briefing it answered (5.530292ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (102.781709ms)
+✔ a git-root state URI gives the commit and path (3.747583ms)
+✔ bold and inline code are split out of a line (0.86675ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.382666ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.162875ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.145583ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.088875ms)
+✔ the last reply joins assistant text after the last user message (0.486667ms)
+✔ a status block's next step is the preview (0.235875ms)
+✔ without a next step the first line is the preview, clipped (0.127166ms)
+✔ a permission shows what it asks for (0.071958ms)
+✔ the next step is the Captain's when it names 你 or you (0.456834ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (0.420584ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.178583ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (10.900958ms)
+✔ a review with no FO has none (0.13425ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.241666ms)
+✔ an empty queue has no next card and one item has no rows (0.113916ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.345542ms)
+✔ a gate or question has no link to open (0.310875ms)
+✔ a captain question survives alongside the same FO's gate (1.032666ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.647125ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (0.563209ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (0.584708ms)
+✔ text already typed joins the chip word as the Captain's words (0.098625ms)
+✔ a decision id is d- and six base-36 characters (0.117875ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.097875ms)
+✔ revise and hold need a typed reason; approve does not (0.074625ms)
+✔ review reader exposes the existing poller's scheduled first check and clears it on stop (201.038875ms)
+✔ gh search output becomes review requests, dropping incomplete rows (0.912125ms)
+✔ only requests not seen before are new (0.107041ms)
+✔ the wake message is marked as automated data and names each pull request (0.263959ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (0.094584ms)
+✔ a well-formed request is exactly one routable line (0.093333ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (0.151458ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.122834ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.083625ms)
+✔ a spacedock status answer gives the task's title and stage (0.812ms)
+✔ no matching task or unreadable output gives nothing (0.103708ms)
+✔ only a commissioned workflow README counts as a workflow directory (0.146583ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (0.129958ms)
+ℹ tests 139
+ℹ suites 0
+ℹ pass 125
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1712.273417
+
+✖ failing tests:
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled alone (81.625125ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with gate (15.901625ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with review (16.317417ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ label represents the same reply (15.790709ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different labelled question (16.077291ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with gate and review (74.236375ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ same reply label with gate (82.882167ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with gate (71.165125ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ same reply label with review (36.676375ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with review (32.071875ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ same reply label with gate and review (20.743416ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with gate and review (17.672875ms)
+  AssertionError [ERR_ASSERTION]: decision: count equals displayed rows including the next card
+  
+  5 !== 4
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:71:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 5,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-row-bounds.test.mts:10:1
+✖ queue rows expose sibling accessible actions inside symmetric clipped bounds (288.617041ms)
+  ReferenceError: reviewRef is not defined
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/client/board.tsx:579:39)
+      at Array.map (<anonymous>)
+      at Board (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/client/board.tsx:553:70)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23863:20)
+      at renderWithHooks (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:5529:22)
+      at updateFunctionComponent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:8897:19)
+      at beginWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:10522:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15140:22)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
