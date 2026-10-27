@@ -104,3 +104,74 @@ test("manual comms reads retain timestamp, expose pending/failure and drop stale
   await act(async () => reads[3].reject(Error("stale")));
   assert.equal(container.textContent, "loaded|Choose release (you)|null");
 });
+
+test("Check again restores an errored subscription and waits for live readiness plus history before later questions appear", async (t) => {
+  const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
+  Object.assign(globalThis, { window: dom.window, document: dom.window.document });
+  const container = dom.window.document.getElementById("root")!;
+  const root = createRoot(container);
+  const deferred = <T,>() => {
+    let resolve!: (value: T) => void;
+    let reject!: (error: Error) => void;
+    const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; });
+    return { promise, resolve, reject };
+  };
+  type Page = { entries: { seqStart: number; item: { type: string; text: string } }[] };
+  const reads: ReturnType<typeof deferred<Page>>[] = [];
+  const subscriptions: { listener(value: PaseoAgentTimelineEvent): void; ready: ReturnType<typeof deferred<void>>; active: boolean }[] = [];
+  const timers = new Map<number, () => void>();
+  let timerId = 0;
+  t.mock.method(globalThis, "setTimeout", (fn: () => void) => { timers.set(++timerId, fn); return timerId; });
+  t.mock.method(globalThis, "clearTimeout", (id: number) => { timers.delete(id); });
+  let handleChanged!: () => void;
+  const handle = { status: "idle", subscribe: (fn: () => void) => { handleChanged = fn; return () => {}; }, timeline: {
+    refetch: () => { const read = deferred<Page>(); reads.push(read); return read.promise; },
+    subscribe: (listener: (value: PaseoAgentTimelineEvent) => void) => {
+      const record = { listener, ready: deferred<void>(), active: true };
+      subscriptions.push(record);
+      return Object.assign(() => { record.active = false; }, { ready: record.ready.promise });
+    },
+  } };
+  const emit = (index: number, type: "error" | "turn_completed") => {
+    const subscription = subscriptions[index];
+    if (!subscription?.active) return;
+    if (type === "error") subscription.active = false;
+    subscription.listener({ agentId: "co", subscriptionId: String(index), event: { type } } as PaseoAgentTimelineEvent);
+  };
+  const flush = () => { const pending = [...timers.values()]; timers.clear(); pending.forEach((fn) => fn()); };
+  const page = (text = ""): Page => ({ entries: text ? [{ seqStart: 1, item: { type: "assistant_message", text } }] : [] });
+  const paseo = { agents: { ref: () => handle } } as unknown as PaseoApi;
+  function Question() {
+    const { ask, state, retry } = useCoAsk("co");
+    return createElement("div", null, createElement("output", null, `${state}: ${ask ?? "none"}`), createElement("button", { onClick: retry }, "Check again"));
+  }
+  const retry = async () => act(async () => container.querySelector("button")!.click());
+  t.after(async () => { await act(() => root.unmount()); assert.equal(subscriptions.filter((sub) => sub.active).length, 0); dom.window.close(); });
+  await act(async () => root.render(createElement(PaseoApiProvider, { paseo, children: createElement(Question) })));
+  await act(async () => { reads[0].resolve(page()); subscriptions[0].ready.resolve(); });
+  assert.equal(container.querySelector("output")!.textContent, "loaded: none");
+  await act(async () => emit(0, "error"));
+  assert.equal(container.querySelector("output")!.textContent, "failed: none");
+  await retry();
+  await act(async () => reads[1].resolve(page()));
+  assert.equal(container.querySelector("output")!.textContent, "loading: none", "history alone cannot prove live updates are connected");
+  await act(async () => subscriptions[1].ready.resolve());
+  assert.equal(container.querySelector("output")!.textContent, "loaded: none");
+  await act(async () => { emit(1, "turn_completed"); flush(); });
+  await act(async () => reads[2].resolve(page("Next: Choose the later release window (you)")));
+  assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the later release window (you)");
+  await act(async () => emit(1, "error"));
+  await act(async () => { handleChanged(); flush(); });
+  assert.equal(container.querySelector("output")!.textContent, "failed: none");
+  assert.equal(subscriptions.length, 2, "handle changes must not resubscribe automatically");
+  assert.equal(reads.length, 3, "a disconnected source must not become healthy through an automatic history read");
+  await retry();
+  await act(async () => subscriptions[2].ready.reject(Error("still disconnected")));
+  await act(async () => reads[3].resolve(page()));
+  assert.equal(container.querySelector("output")!.textContent, "failed: none");
+  await retry();
+  await act(async () => subscriptions[3].ready.resolve());
+  assert.equal(container.querySelector("output")!.textContent, "loading: none", "subscription alone cannot replace history");
+  await act(async () => reads[4].resolve(page("Next: Choose the final release window (you)")));
+  assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the final release window (you)");
+});
