@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r7-one-clear-way-to-decide/evidence/cycle-5/composer_acceptance.py", line 345, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r7-one-clear-way-to-decide/evidence/cycle-5/composer_acceptance.py", line 282, in main
+    assert measurement['scroll'] and measurement['scroll']['rect']['bottom']<=measurement['keyboard']['y']+.5, ('both composers need one bounded scroll area above keyboard',measurement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('both composers need one bounded scroll area above keyboard', {'keyboard': {'bottom': 640, 'height': 280, 'right': 360, 'width': 360, 'x': 0, 'y': 360}, 'message': {'length': 5000, 'rect': {'bottom': 198, 'height': 62, 'right': 347, 'width': 334, 'x': 13, 'y': 136}}, 'reason': {'length': 4900, 'rect': {'bottom': 373, 'height': 54, 'right': 335, 'width': 310, 'x': 25, 'y': 319}}, 'scroll': None})

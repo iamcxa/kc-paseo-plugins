@@ -1,0 +1,26 @@
+✖ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (234.675417ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1071.885375
+
+✖ failing tests:
+
+test at test/board-row-bounds.test.mts:10:1
+✖ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (234.675417ms)
+  AssertionError [ERR_ASSERTION]: every review action must visibly retain its pull request number
+      at pair (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.cycle5-base-_noyvliz/spacedock-bridge/test/board-row-bounds.test.mts:72:12)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.cycle5-base-_noyvliz/spacedock-bridge/test/board-row-bounds.test.mts:85:24)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

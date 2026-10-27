@@ -1,0 +1,89 @@
+{
+  "candidate": "316c9eff7bd6ce2f5e15db7382dea1aba1197a26",
+  "cleanup": [
+    {
+      "evidence": "base-composer-360/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "base-mounted/cleanup.json",
+      "removed": true,
+      "pidStopped": false
+    },
+    {
+      "evidence": "composer-360/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "composer-360-v2/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "queue-360/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "queue-360-v2/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "verified-base-mounted/cleanup.json",
+      "removed": true,
+      "pidStopped": false
+    },
+    {
+      "evidence": "verified-composer-360/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "verified-queue-1440/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    },
+    {
+      "evidence": "verified-queue-360/cleanup.json",
+      "removed": true,
+      "pidStopped": true
+    }
+  ],
+  "worktrees": [
+    {
+      "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+      "clean": true
+    },
+    {
+      "path": "/Users/kent/Project/kc-paseo-plugins",
+      "clean": true
+    },
+    {
+      "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+      "clean": true
+    }
+  ],
+  "credentialPatternFilesScanned": 68,
+  "credentialPatternMatches": 0,
+  "childAgents": 0,
+  "pr": {
+    "baseRefName": "spacedock-ensign/r6-queue-you-can-scan",
+    "headRefName": "spacedock-ensign/r7-one-clear-way-to-decide",
+    "headRefOid": "316c9eff7bd6ce2f5e15db7382dea1aba1197a26",
+    "isDraft": true,
+    "number": 57,
+    "state": "OPEN",
+    "url": "https://github.com/iamcxa/kc-paseo-plugins/pull/57"
+  },
+  "taskStatus": "implementation; independent review pending",
+  "scope": [
+    "spacedock-bridge/OVERVIEW.md",
+    "spacedock-bridge/client/board.tsx",
+    "spacedock-bridge/client/co-chat.tsx",
+    "spacedock-bridge/test/board-row-bounds.test.mts",
+    "spacedock-bridge/test/composer-scroll.test.mts"
+  ]
+}

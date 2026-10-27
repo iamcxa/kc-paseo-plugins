@@ -1,0 +1,15 @@
+{
+  "base": "04f90b876bf0f2765343477513fabd08b7b3a2d0",
+  "results": [
+    {
+      "test": "board-row-bounds",
+      "exit": 1,
+      "expectedFailure": "every review action must visibly retain its pull request number"
+    },
+    {
+      "test": "composer-scroll",
+      "exit": 1,
+      "expectedFailure": "both composers must share a scroll area"
+    }
+  ]
+}
