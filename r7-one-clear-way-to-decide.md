@@ -91,6 +91,8 @@ Messages and gate decisions now have separate drafts and explicit actions, the c
 ### FO notes
 
 - Added after the backlog gate, from the Captain's round 6 UAT: his screenshot (`_l3-dogfood/walks/round-6/captain/colour-difference.png`) and words 「色差在這裡，注意看“審#1306文字左右背景有差異”」 show a lighter row background on the live build (f10a3f2) that is inset 8 px on the left, runs to the right edge and ends flush on the next row's title. A regression from round 6's row layout on the stack below; FO adds one follow-up fix (cycle 2) to this round so the next layer does not carry it.
+- Captain ruling on that scope addition, 2026-10-28, asked 「第 7 輪產品已通過，但我連續三輪紀錄違規（每次不同類），飛輪又停了。要怎麼做？（不論選 A 或 B，都等於你同意把色差修正留在第 7 輪）」, answered 「A 修紀錄後繼續 (Recommended)」: the colour-difference repair stays in this round. Recorded after the pre-gate observer found the addition had no ruling.
+- Process correction after the same observer report: the cycle 2 dispatch asked for a read-only diagnosis and authorized the repair in one message; later investigations get their own dispatch and the repair a distinct authorization after the FO reads the cause.
 
 ### FO findings before the gate
 
