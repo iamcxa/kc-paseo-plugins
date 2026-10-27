@@ -1,0 +1,93 @@
+design_review:
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-docs-site/evidence/previews/
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: install-1280.png (step 3 text) and prepare-1280.png / prepare-400.png (steps 1 and 3)
+      seen: Install says "You do sign in once to prepare 1Password, which is the next page", but Prepare 1Password only says "in a terminal, signed in to op as yourself" before its op vault create and op service-account create commands, and I found no line anywhere saying how to sign in, which is the step a reader who has never used the 1Password CLI cannot guess.
+      fix: Add a sign-in step, or one sentence with a link, before Prepare step 1, and say what the reader sees once signed in; or name the app setting that lets op use the desktop sign-in.
+    - severity: MINOR
+      dimension: flow
+      where: install-1280.png, step 3 "Install the 1Password CLI"
+      seen: The page gives "brew install 1password-cli" with no mention that Homebrew is needed or what to do when "brew" is not found, for a reader who has never used the CLI.
+      fix: Add one line saying Homebrew is required, with a link to its install page, or give the alternative download.
+    - severity: MINOR
+      dimension: hierarchy
+      where: intro-1280.png, reference-1280.png, prepare-1280.png
+      seen: Reference repeats the Introduction's opening paragraph, its "How it fits together" and "What it does not protect against" sections (as "How it works" and "Limits worth knowing"), and the Install and Prepare steps (as "Setup"), so the same facts sit in three places and can drift apart; Reference's Setup also leaves out the naming convention that Prepare covers.
+      fix: Cut Reference to what only it holds (what is read and sent, limits, the "When a variable is blank" causes) and link to Install and Prepare for setup.
+    - severity: MINOR
+      dimension: hierarchy
+      where: home-1280.png, home-400.png, menu-open-400.png
+      seen: Home's heading is the repository name, which is also the site title at top left, and the sidebar item is called "Home"; the sidebar then lists Install, Reference and Changelog with no sign that they belong to project-env only, while Home lists two plugins.
+      fix: Give Home a heading that matches its sidebar label, and group or label the project-env pages, for example "project-env: Introduction, Install ...", or say on Home that the pages are for project-env.
+    - severity: MINOR
+      dimension: hierarchy
+      where: reference-1280.png, reference-400.png
+      seen: The seven cause headings under "When a variable is blank" are barely larger than the body text and not bold, so a reader scanning for the cause does not see them; the proposal makes each cause a heading precisely so it can be found.
+      fix: Make the cause headings a clearly heavier or larger step below the section heading, with a visible gap above each.
+    - severity: MINOR
+      dimension: consistency
+      where: changelog-1280.png, changelog-400.png
+      seen: The version heading 0.2.0 is a purple link and 0.1.0 is plain black text, so two headings of the same kind look different.
+      fix: Link every version heading to its release, or none; if 0.1.0 has no release page, mark the link style as a distinct case.
+    - severity: MINOR
+      dimension: consistency
+      where: reference-1280.png (Setup, "When a variable is blank") versus install-1280.png and prepare-1280.png
+      seen: Install and Prepare set the names of screen items in bold ("Settings", "Plugins", "Project environment"); Reference writes the same names as plain text.
+      fix: Bold screen item names the same way on every page.
+    - severity: MINOR
+      dimension: hierarchy
+      where: changelog-1280.png
+      seen: Every one of the 25 entries starts with the bold prefix "project-env:", so the prefix repeats on every line and takes the first read of each.
+      fix: Say "project-env" once in the page intro and drop the prefix from the entries.
+    - severity: MINOR
+      dimension: flow
+      where: prepare-1280.png, prepare-400.png
+      seen: Prepare is about 5300 px tall at 1280 and 4400 px at 400, with no in-page contents or step marker; step 4 has three unnumbered bold sub-heads (name the account, add the variables, test and save) between screenshots, so a reader cannot see where they are or how much is left.
+      fix: Show the theme's in-page contents list on step pages, or number the step 4 sub-steps (4a, 4b, 4c) or split step 4 into its own page.
+    - severity: MINOR
+      dimension: states
+      where: intro-400.png, install-400.png, prepare-400.png
+      seen: At 400 px the plugin screenshots are shrunk so the text in them is about 5 px and unreadable, and the page relies on "Tap a picture to see it full size", but no picture shows the enlarged state, how to close it, or whether it can zoom.
+      fix: Add a picture of the full-size view at 400 and 1280, and state in the criteria that it can be closed with one tap and by the Escape key.
+    - severity: MINOR
+      dimension: states
+      where: search-1280.png, search-400.png
+      seen: Only a query with results is shown; there is no picture for an empty box, a query with no match, or a result inside the troubleshooting causes of Reference, which is the likeliest thing a stuck reader would search.
+      fix: Add criteria with pictures for "no results" and for a search on a cause sentence such as "rejected the token", reaching the right heading.
+    - severity: MINOR
+      dimension: hierarchy
+      where: search-1280.png, search-400.png
+      seen: The Reference result shows no section name and the path "/project-env/OVERVIEW.html", while the other results sit under /docs/project-env/ with a section title, so the same site has two address styles and the Reference hit says only "Reference".
+      fix: Give Reference a clean address in the same folder as the other pages, and make Reference's search hits carry the section heading.
+    - severity: MINOR
+      dimension: system-fit
+      where: menu-open-400.png, home-400.png
+      seen: At 400 the search box is only inside the open menu, so a reader must open the menu to find search, and the menu button keeps the same three-line icon whether the menu is open or closed.
+      fix: Accept that and say so in the criteria, or put a search icon in the header bar; draw the open state differently, for example as a cross.
+    - severity: MINOR
+      dimension: platform
+      where: changelog-400.png
+      seen: Each entry ends with two links side by side, "(#23) (af6aaec)", each about 35 px wide on a line about 24 px tall, so a thumb hits the wrong one.
+      fix: Put the PR number and commit on their own line or space them, or make one link per entry.
+    - severity: MINOR
+      dimension: platform
+      where: install-1280.png, prepare-1280.png, install-400.png, reference-400.png
+      seen: Commands the reader must paste (paseo plugin add, brew install, op service-account create, with its token printed to the clipboard) have no copy button, and at 400 the inline command `op --version` breaks across two lines at its double hyphen.
+      fix: Add a copy button to code blocks, and keep inline commands from wrapping with a non-breaking style.
+    - severity: MINOR
+      dimension: theme-size
+      where: scrollwidth-700-900.txt; intro-1280.png; dark-intro-1280.png
+      seen: Widths 700 and 900 are checked only for horizontal overflow with no picture, and dark is shown for one page only (light is the chosen scheme, so the dark blocks of plugin screenshots sit on white with strong contrast).
+      fix: Add one picture each at 700 and 900 of a long page, such as Prepare, with the sidebar state, and decide in the criteria whether the site follows the device's dark setting.
+  limitations:
+    - Pictures at 1280 were shown to me reduced in size (Prepare and Reference especially), so small print inside the plugin screenshots and fine line breaks were not read; the sign-in finding is based on the Prepare text as I could read it and should be checked against the source page.
+    - I could not open the live site, so I did not test the click or tap to enlarge, search ranking, link targets (including "Source and overview" on Home and the GitHub Releases link), the sidebar fixed to the window, or the menu at widths between 400 and 700.
+    - The sidebar background stopping at 900 px in the 1280 whole-page pictures is the capture tool's artefact as the proposal says, and is not reported.
+    - The plugin screenshots embedded in the pages are of the plugin, not the site, and were not reviewed; the earlier minima draft in previews-1 was not opened.
+    - No ADR bears on the look of this site; ADR 0002, 0003 and 0005 were read only to check that the pages' wording on blank variables, the same-Mac limit and the advisory vault naming matches the record, and I saw no contradiction.

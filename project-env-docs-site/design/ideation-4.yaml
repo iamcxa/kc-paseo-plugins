@@ -1,0 +1,94 @@
+design_review:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-docs-site/evidence/previews/
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: install-1280.png, install-400.png (step 3, Install the 1Password CLI)
+      seen: Step 3 packs "sign in to op", the Settings > Developer > Integrate toggle and "op vault list" into one paragraph that opens with the instruction "sign in as yourself" and then says the plugin does not need it, while Prepare splits its long step into 4a to 4c headings; only the last check says what success looks like.
+      fix: Split step 3 into short numbered sub-steps (3a install, 3b turn on the CLI integration, 3c run op vault list) like Prepare's 4a to 4c, each saying what you should see or what to do if you do not.
+    - severity: MINOR
+      dimension: hierarchy
+      where: search-1280.png ("keychain"), search-cause-1280.png ("rejected the token"), intro-1280.png, reference-1280.png
+      seen: Introduction and Reference open with nearly the same paragraph and restate the same facts (How it fits together / What it does not protect against against How it works / Limits worth knowing), and Reference "Setup" restates Install and Prepare, so five of the eight "keychain" hits are the same fact on different pages.
+      fix: Keep each fact on one page and have the other link to it, or cut Reference's Setup and Limits to a link, so search returns one hit per fact.
+    - severity: MINOR
+      dimension: flow
+      where: install-menu-700.png, menu-open-400.png against install-1280.png
+      seen: At 800 px and wider the search box sits above the content, but at 700 and 400 px it appears only inside the opened menu, so a phone reader must know to open the menu to find search; the proposal's "a search box sits above the content" holds only on wide screens.
+      fix: Either state in the proposal that search lives in the menu below 800 px, or add a search icon button next to the menu button in the header.
+    - severity: MINOR
+      dimension: theme-size
+      where: search-1280.png, search-cause-1280.png, search-400.png
+      seen: The page label that splits results by section ("Reference", "Prepare 1Password", "Introduction") is pale lavender; its colour sampled from search-1280.png is rgb(184,169,246) on white, a contrast of about 2.1 to 1 at roughly 12 px.
+      fix: Darken the label to at least 4.5 to 1 (for example the theme's body link purple) with a small CSS override.
+    - severity: MINOR
+      dimension: platform
+      where: search-400.png, search-cause-400.png
+      seen: At 400 px the results list fills the screen down to about 25 px from the bottom, covers the header and the first nav item, and shows no close button, so the only way out is a thin dimmed strip or a result.
+      fix: Cap the results list height so a larger dimmed area stays visible, or add a visible close control on narrow screens.
+    - severity: MINOR
+      dimension: states
+      where: search-none-1280.png, search-none-400.png
+      seen: A query with no match shows only the bare line "No results found", with no hint of what to try for a reader who searches for an on-screen message.
+      fix: Add a line under it such as "Try a word from the message on screen, or open Reference, When a variable is blank."
+    - severity: MINOR
+      dimension: consistency
+      where: install-menu-700.png, menu-open-400.png
+      seen: The menu button keeps the same three-line glyph whether the menu is closed or open and only gains a grey background.
+      fix: Swap the glyph to a close mark while the menu is open.
+    - severity: MINOR
+      dimension: system-fit
+      where: install-400.png, prepare-400.png, install-1280.png
+      seen: The plugin screenshots carry no mark on the control the sentence names (the Enable plugins switch, the three-dot menu, Add), their text is about 6 px on the phone, and only the first picture on a page has the "Tap a picture to see it full size" line (the wording says "Tap" on desktop too).
+      fix: Outline the control each step names in the picture, and put one short caption pattern on every picture, worded "Click or tap" or "Select".
+    - severity: MINOR
+      dimension: states
+      where: whole set (no full-size view picture)
+      seen: The state after clicking a picture is not shown; the proposal says each links to the full-size picture file, which a browser shows as a bare image with no site chrome.
+      fix: Open the link in a new tab, or show the result so the reader's way back is known.
+    - severity: MINOR
+      dimension: flow
+      where: prepare-1280.png, prepare-400.png (end of page) against install-1280.png (Next)
+      seen: Install ends with a "Next" section naming the following page, but Prepare 1Password ends with "Choose Save" and a troubleshooting link and never says the setup is complete or where to go next.
+      fix: Close Prepare with a short "Done" section that says what the agent now gets and links to Reference and Introduction.
+    - severity: MINOR
+      dimension: hierarchy
+      where: home-1280.png, home-400.png
+      seen: The Home page heading "kc-paseo-plugins" repeats the site title shown at the top of the sidebar or header right above it.
+      fix: Give the Home page a heading that says what the page is for (for example "Paseo plugins") or hide the repeated title.
+    - severity: MINOR
+      dimension: flow
+      where: home-1280.png, home-400.png
+      seen: The first sentence puts an install command with a literal "<plugin>" placeholder in inline code, and the list beside it includes spacedock-bridge, which the stated reader (a teammate setting up project environment) does not need.
+      fix: Point Home's install line to the Install page (or use the real project-env command) and mark spacedock-bridge as a different plugin.
+    - severity: MINOR
+      dimension: theme-size
+      where: home-400.png, menu-open-400.png
+      seen: Inline code breaks at its hyphen ("project-" then "env") in the first paragraph and the bullet at 400 px.
+      fix: Stop breaks inside inline code (white-space: nowrap on short code spans) or reword so the name sits at a line start.
+    - severity: MINOR
+      dimension: consistency
+      where: changelog-1280.png, changelog-400.png
+      seen: The 0.2.0 heading is a purple link and the 0.1.0 heading is plain text, though both are the same kind of heading.
+      fix: Link every version heading, or none.
+    - severity: MINOR
+      dimension: hierarchy
+      where: changelog-1280.png, changelog-400.png
+      seen: Every one of 30 lines starts with the bold prefix "project-env:", lines use developer wording ("field pill", "re-mounting", "Stop managing") with two bracketed links each, and the page opens with no sentence saying it is the developer log (the sidebar just says Changelog).
+      fix: Add a one-line lead saying this is the developer log and where the plain description of the plugin lives, and drop the repeated prefix.
+    - severity: MINOR
+      dimension: flow
+      where: reference-1280.png, reference-400.png (When a variable is blank)
+      seen: The seven cause headings are only slightly larger than body text and no list of them sits at the top of the section, so a reader holding an on-screen message must scroll past all seven (search is the only direct route).
+      fix: Add a short linked list of the seven cause headings at the top of "When a variable is blank", or turn on the theme's page contents for this page.
+  limitations:
+    - The copy button on code blocks is not visible in any capture (code blocks show only a bordered box); hover, focus and the copied-feedback state could not be seen.
+    - The whole-page pictures cannot show whether the phone header and menu button stay fixed while scrolling; on the 4415 px Prepare page at 400 px a reader may have to scroll to the top to reach menu and search.
+    - Link targets are not visible; the "Source and overview" link on Home and the GitHub Releases link could not be checked.
+    - Search with an empty query, keyboard use of the results, a 404 page and print were not shown; sizes between 400 and 700 and above 1280 were not shown for the Home, Introduction, Prepare, Reference and Changelog pages (scrollwidth.txt only shows no page-level sideways scroll).
+    - Plugin screenshots embedded in the pages were treated as context and not reviewed; the inconsistent switch states inside the Install step 2 picture belong to the plugin.
+    - Judgement of dark-intro-1280.png: the light scheme is the better choice here, because the plugin screenshots are near-black and read as framed pictures on a light page, while in the dark scheme the picture's edge nearly disappears into the page; no dark scheme or system-dark switching is offered, so a reader on a dark system sees a light site.
+    - ADR 0002 (blank variables are shown, not fatal) and ADR 0003 (token stored on the Mac running Paseo, same-Mac release) were read; they govern the wording on the Introduction and Reference pages, which matches them in the pictures, and they settle no question of look.

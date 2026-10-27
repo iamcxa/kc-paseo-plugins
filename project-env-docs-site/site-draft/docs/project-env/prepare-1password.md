@@ -1,12 +1,15 @@
 ---
 title: Prepare 1Password
+nav_order: 4
 ---
+
+# Prepare 1Password
 
 You make three things in 1Password: a vault that holds only what this repository's agents need, the secrets in it, and a read-only service account that can see that vault and nothing else. Then you connect them to the repository in Paseo.
 
 Do this once per repository and environment. Names here follow a recommended convention. Nothing checks them, and you can name things differently.
 
-You need the 1Password CLI from [Install](install.md), and an account that is allowed to create vaults and service accounts. If you do not see the option to create service accounts, [1Password says](https://www.1password.dev/service-accounts/get-started/) to ask your administrator to give you access.
+You need the 1Password CLI, signed in as yourself, from [Install](install.md) step 3, and an account that is allowed to create vaults and service accounts. If you do not see the option to create service accounts, [1Password says](https://www.1password.dev/service-accounts/get-started/) to ask your administrator to give you access.
 
 ## 1. Create a vault
 
@@ -57,7 +60,7 @@ Open **Settings**, **Plugins**, the plugin's actions menu (the three dots), then
 
 Under **Add a project**, open the menu and choose your repository.
 
-*Tap a picture to see it full size.*
+*Click or tap a picture to see it full size.*
 
 [![The Projects list with the Add a project menu open](img/03-add-project.png)](img/03-add-project.png)
 
@@ -65,7 +68,7 @@ A new project shows fields for the service account, its token and the vault.
 
 [![A new project: fields for the service account name, its token and the vault, with no variables yet](img/04-connect-1password.png)](img/04-connect-1password.png)
 
-### Name the account and save the token
+### 4a. Name the account and save the token
 
 In **1Password service account**, type the service account's name, `agent-shop-api-dev-read`, and choose **Check**. This is also the name of the Keychain item that holds the token.
 
@@ -73,7 +76,7 @@ Paste the token into **Service account token** and choose **Save token**. The pl
 
 Choose the **Vault**, `agent-shop-api-dev`.
 
-### Add the variables
+### 4b. Add the variables
 
 Choose **+ Add**, then pick a field from the vault. The variable is named after the field's label. Repeat for each variable.
 
@@ -83,7 +86,7 @@ The connected project then lists each variable and the field behind it.
 
 [![The connected project with four variables, each mapped to a field in the vault](img/06-variables.png)](img/06-variables.png)
 
-### Test and save
+### 4c. Test and save
 
 Choose **Test**. The summary reads like "1 failed, 3 set", and a row that cannot be read shows a red "!" that gives the reason.
 
@@ -93,4 +96,8 @@ Choose **Save**.
 
 Agents you start in this repository from now on get the variables. An agent that was already running keeps the environment it started with.
 
-If a row fails, see [When a variable is blank](../../project-env/OVERVIEW.md#when-a-variable-is-blank).
+If a row fails, see [When a variable is blank](../../reference.md#when-a-variable-is-blank).
+
+## Done
+
+Setup is complete. For how it works and what it does not protect against, read the [Introduction](index.md) and the [Reference](../../reference.md).

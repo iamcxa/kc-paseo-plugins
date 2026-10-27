@@ -1,7 +1,15 @@
 BUILT FILES:
   README.md
-  assets/main.css
-  assets/minima-social-icons.svg
+  assets/css/just-the-docs-dark.css
+  assets/css/just-the-docs-default.css
+  assets/css/just-the-docs-head-nav.css
+  assets/css/just-the-docs-light.css
+  assets/images/large-image.jpg
+  assets/images/small-image.jpg
+  assets/js/just-the-docs.js
+  assets/js/search-data.json
+  assets/js/vendor/lunr.min.js
+  docs/project-env/changelog.html
   docs/project-env/img/01-enable-plugins.png
   docs/project-env/img/02-actions-menu.png
   docs/project-env/img/03-add-project.png
@@ -12,23 +20,23 @@ BUILT FILES:
   docs/project-env/index.html
   docs/project-env/install.html
   docs/project-env/prepare-1password.html
-  feed.xml
+  docs/project-env/reference.html
   index.html
-  project-env/CHANGELOG.html
-  project-env/CHANGELOG.md
-  project-env/OVERVIEW.html
-  project-env/OVERVIEW.md
 INTERNAL PATHS PRESENT: none
+SEARCH INDEX PAGES: ['/kc-paseo-plugins/', '/kc-paseo-plugins/docs/project-env/', '/kc-paseo-plugins/docs/project-env/#how-it-fits-together', '/kc-paseo-plugins/docs/project-env/#set-it-up', '/kc-paseo-plugins/docs/project-env/#what-it-does-not-protect-against', '/kc-paseo-plugins/docs/project-env/#what-you-get', '/kc-paseo-plugins/docs/project-env/changelog.html', '/kc-paseo-plugins/docs/project-env/changelog.html#010-2026-10-21', '/kc-paseo-plugins/docs/project-env/changelog.html#020-2026-10-27', '/kc-paseo-plugins/docs/project-env/changelog.html#bug-fixes', '/kc-paseo-plugins/docs/project-env/changelog.html#bug-fixes-1', '/kc-paseo-plugins/docs/project-env/changelog.html#features', '/kc-paseo-plugins/docs/project-env/changelog.html#features-1', '/kc-paseo-plugins/docs/project-env/changelog.html#performance-improvements', '/kc-paseo-plugins/docs/project-env/install.html', '/kc-paseo-plugins/docs/project-env/install.html#1-install-the-plugin', '/kc-paseo-plugins/docs/project-env/install.html#2-turn-plugins-on', '/kc-paseo-plugins/docs/project-env/install.html#3-install-the-1password-cli', '/kc-paseo-plugins/docs/project-env/install.html#3a-install-the-command', '/kc-paseo-plugins/docs/project-env/install.html#3b-turn-on-the-app-integration', '/kc-paseo-plugins/docs/project-env/install.html#3c-check-you-are-signed-in', '/kc-paseo-plugins/docs/project-env/install.html#4-open-the-plugins-settings', '/kc-paseo-plugins/docs/project-env/install.html#next', '/kc-paseo-plugins/docs/project-env/prepare-1password.html', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#1-create-a-vault', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#2-put-each-secret-in-the-vault', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#3-create-a-read-only-service-account-with-an-expiry', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#4-connect-the-repository-in-paseo', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#4a-name-the-account-and-save-the-token', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#4b-add-the-variables', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#4c-test-and-save', '/kc-paseo-plugins/docs/project-env/prepare-1password.html#done', '/kc-paseo-plugins/docs/project-env/reference.html', '/kc-paseo-plugins/docs/project-env/reference.html#1password-could-not-be-reached', '/kc-paseo-plugins/docs/project-env/reference.html#1password-rejected-the-token', '/kc-paseo-plugins/docs/project-env/reference.html#1password-returned-an-error-the-plugin-does-not-recognise', '/kc-paseo-plugins/docs/project-env/reference.html#field-not-found-in-the-vault', '/kc-paseo-plugins/docs/project-env/reference.html#how-it-works', '/kc-paseo-plugins/docs/project-env/reference.html#limits-worth-knowing', '/kc-paseo-plugins/docs/project-env/reference.html#no-token-stored-for-this-service-account', '/kc-paseo-plugins/docs/project-env/reference.html#reference-points-outside-the-chosen-vault', '/kc-paseo-plugins/docs/project-env/reference.html#reserved-name', '/kc-paseo-plugins/docs/project-env/reference.html#setup', '/kc-paseo-plugins/docs/project-env/reference.html#the-1password-field-is-empty', '/kc-paseo-plugins/docs/project-env/reference.html#what-it-reads-and-sends', '/kc-paseo-plugins/docs/project-env/reference.html#when-a-variable-is-blank']
 LINK/IMAGE PROBLEMS: 0
 EXTERNAL LINKS:
+  https://1password.com/downloads/mac
+  https://brew.sh
+  https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.1.0...project-env-v0.2.0
   https://github.com/iamcxa/kc-paseo-plugins/releases
   https://github.com/iamcxa/kc-paseo-plugins/tree/main/spacedock-bridge
+  https://github.com/just-the-docs/just-the-docs
   https://github.com/kc-paseo-plugins/
   https://github.com/kc-paseo-plugins/docs/project-env/
+  https://github.com/kc-paseo-plugins/docs/project-env/changelog.html
   https://github.com/kc-paseo-plugins/docs/project-env/install.html
   https://github.com/kc-paseo-plugins/docs/project-env/prepare-1password.html
-  https://github.com/kc-paseo-plugins/feed.xml
-  https://github.com/kc-paseo-plugins/project-env/CHANGELOG.html
-  https://github.com/kc-paseo-plugins/project-env/OVERVIEW.html
+  https://github.com/kc-paseo-plugins/docs/project-env/reference.html
   https://www.1password.dev/service-accounts/get-started/
-400 px document scrollWidth on all six built pages: 400 (measured 2026-10-28 with agent-browser)
+400 px document scrollWidth on all six built pages: 400; 1280 px: 1280 (previews/scrollwidth.txt); 700 and 900 px, six pages: previews/scrollwidth-700-900.txt (measured 2026-10-28, capture/preview.sh)

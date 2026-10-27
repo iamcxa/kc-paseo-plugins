@@ -11,9 +11,9 @@ A variable that cannot be read is set to an empty value and the agent still star
 ## Setup
 
 1. In 1Password, create a read-only service account for one vault that holds only what this repository's agents need. Give it an expiry.
-2. In Paseo, open Settings, Plugins, the plugin's actions menu, then Project environment. Under Add a project choose the repository, enter the service account name, paste its token and choose Save token. Pick the vault.
-3. Choose Add to map a variable name to a field in the vault.
-4. Choose Test, then Save.
+2. In Paseo, open **Settings**, **Plugins**, the plugin's actions menu, then **Project environment**. Under **Add a project** choose the repository, enter the service account name, paste its token and choose **Save token**. Pick the vault.
+3. Choose **Add** to map a variable name to a field in the vault.
+4. Choose **Test**, then **Save**.
 
 It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, and the 1Password CLI (`op`).
 
@@ -29,25 +29,25 @@ It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, 
 - An agent can read and print its own environment, so any variable you map can be seen by that agent.
 - Any program running as you on the Mac can read the token in the login Keychain, and so every secret the service account can reach. Keep the vault narrow.
 - Another Mac, a phone or a headless Paseo daemon is not supported.
-- A vault renamed in 1Password after you saved it by name stays broken until you choose its new name under Change.
+- A vault renamed in 1Password after you saved it by name stays broken until you choose its new name under **Change**.
 
 ## When a variable is blank
 
 A blank variable means the plugin could not read it. The agent started anyway with that variable empty, so it never runs on an old value of the same name. There are three places to see the reason:
 
 - The line "Started without N project variables" at the start of the new conversation lists each variable and why.
-- Settings, Plugins, the actions menu, Project environment: edit the repository and press Test. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
+- **Settings**, **Plugins**, the actions menu, **Project environment**: edit the repository and press **Test**. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
 - The plugin's Logs, in the same actions menu, hold one line per failed variable with the reason class and never a value.
 
 Each reason below is written as the screen shows it.
 
 ### No token stored for this service account
 
-The plugin found no token in the login Keychain under that service account name. Paste the token again under Change. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
+The plugin found no token in the login Keychain under that service account name. Paste the token again under **Change**. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
 
 ### 1Password rejected the token
 
-The token has expired, was revoked, or was copied wrongly. Create or copy a new token and paste it under Change.
+The token has expired, was revoked, or was copied wrongly. Create or copy a new token and paste it under **Change**.
 
 ### Field not found in the vault
 

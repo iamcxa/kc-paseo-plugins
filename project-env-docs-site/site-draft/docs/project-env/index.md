@@ -1,10 +1,13 @@
 ---
 title: Introduction
+nav_order: 2
 ---
+
+# Introduction
 
 Project environment is a Paseo plugin. It gives every agent that Paseo starts in a repository the secrets that repository needs, as environment variables read from 1Password. You say once which 1Password field fills which variable. After that, nobody pastes a token into a chat.
 
-*Tap a picture to see it full size.*
+*Click or tap a picture to see it full size.*
 
 [![The settings screen for one repository: a working 1Password connection and four variables, each mapped to a field in the vault](img/06-variables.png)](img/06-variables.png)
 
@@ -23,11 +26,11 @@ Project environment is a Paseo plugin. It gives every agent that Paseo starts in
 
 ## What it does not protect against
 
-An agent can read and print its own environment, so any variable you map is visible to that agent. Any program running as you on the Mac can read the token in the login Keychain, and with it every secret the service account can reach, so keep the vault narrow. Another Mac, a phone or a headless Paseo daemon is not supported. The full list is in [Reference](../../project-env/OVERVIEW.md).
+An agent can read and print its own environment, so any variable you map is visible to that agent. Any program running as you on the Mac can read the token in the login Keychain, and with it every secret the service account can reach, so keep the vault narrow. Another Mac, a phone or a headless Paseo daemon is not supported. The full list is in [Reference](../../reference.md).
 
 ## Set it up
 
 1. [Install the plugin](install.md): install, turn plugins on in Paseo, and get the 1Password CLI.
 2. [Prepare 1Password](prepare-1password.md): one vault, one read-only service account, and connecting them to your repository.
 
-Also: when a variable comes up blank, see [When a variable is blank](../../project-env/OVERVIEW.md#when-a-variable-is-blank). The [Changelog](../../project-env/CHANGELOG.md) is the developer log of every change in each version; the packaged versions are on [GitHub Releases](https://github.com/iamcxa/kc-paseo-plugins/releases).
+Also: when a variable comes up blank, see [When a variable is blank](../../reference.md#when-a-variable-is-blank). The [Changelog](../../changelog.md) is the developer log of every change in each version; the packaged versions are on [GitHub Releases](https://github.com/iamcxa/kc-paseo-plugins/releases).

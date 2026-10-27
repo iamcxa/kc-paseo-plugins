@@ -6,8 +6,13 @@ for r,_,fs in os.walk(site):
     for f in fs: files.append(os.path.relpath(os.path.join(r,f),site))
 files.sort()
 print("BUILT FILES:"); [print(" ",f) for f in files]
-internal=[f for f in files if re.match(r'(docs/(adr|dev2|dev2-poc|journey)|project-env/(client|server|shared|test)|spacedock-bridge)/',f) or f.endswith(('.ts','.tsx','.json','.yaml','.yml'))]
+internal=[f for f in files if re.match(r'(docs/(adr|dev2|dev2-poc|journey)|project-env/(client|server|shared|test)|spacedock-bridge)/',f) or (f.endswith(('.ts','.tsx','.json','.yaml','.yml')) and f!='assets/js/search-data.json')]
 print("INTERNAL PATHS PRESENT:",internal or "none")
+import json
+sd=os.path.join(site,'assets/js/search-data.json')
+if os.path.exists(sd):
+    urls=sorted({v.get('url') for v in json.load(open(sd)).values()})
+    print("SEARCH INDEX PAGES:",urls)
 class P(HTMLParser):
     def __init__(s): super().__init__(); s.links=[]; s.ids=set()
     def handle_starttag(s,t,a):

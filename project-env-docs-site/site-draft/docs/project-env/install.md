@@ -1,6 +1,9 @@
 ---
 title: Install
+nav_order: 3
 ---
+
+# Install
 
 You need a Mac that runs Paseo 0.12 or later. The plugin works only with Paseo running on your own Mac. Check the version in a terminal:
 
@@ -27,25 +30,39 @@ Plugins are off until you turn them on, and the switch covers every plugin on th
 
 Open Paseo, then **Settings**, then **Plugins**, and turn on **Enable plugins**. The plugin then reads `running`.
 
-*Tap a picture to see it full size.*
+*Click or tap a picture to see it full size.*
 
 [![Settings, Plugins with Enable plugins off and the plugin shown as disabled](img/01-enable-plugins.png)](img/01-enable-plugins.png)
 
 ## 3. Install the 1Password CLI
 
-The plugin reads 1Password through the `op` command. Install it with Homebrew:
+The plugin reads 1Password through the `op` command. You also need the [1Password app for Mac](https://1password.com/downloads/mac) and a 1Password account. The plugin itself needs no sign-in to `op`, because it gives `op` a service account token each time it reads. You sign in as yourself for the next page, where you create a vault and a service account with your own account.
+
+### 3a. Install the command
+
+If you do not have Homebrew, install it first from [brew.sh](https://brew.sh). Then in a terminal:
 
 ```
 brew install 1password-cli
 ```
 
-Check it:
+Check it. It prints a version number such as `2.41.1`:
 
 ```
 op --version
 ```
 
-You do not need to sign in to `op` for the plugin to work. The plugin gives `op` a service account token each time it reads. You do sign in once to prepare 1Password, which is the next page.
+### 3b. Turn on the app integration
+
+Open and unlock the 1Password app, choose **Settings**, then **Developer**, and turn on **Integrate with 1Password CLI**.
+
+### 3c. Check you are signed in
+
+```
+op vault list
+```
+
+1Password asks you to approve the request. Once you do, the command prints your vaults, and you are signed in.
 
 ## 4. Open the plugin's settings
 

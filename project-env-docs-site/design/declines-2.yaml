@@ -1,0 +1,49 @@
+design_decline_check:
+  adrs_read: none
+  rulings:
+    - finding: 2
+      ruling: upheld
+      evidence: search-1280.png shows the eight "keychain" hits saying the same thing in agreeing words, and reference-1280.png shows its Setup, How it works and Limits agreeing with the Install and Prepare pages, so the repetition contradicts nothing a person would act on (the same ruling stood in declines-1.yaml finding 13).
+      change: none
+    - finding: 4
+      ruling: decision
+      evidence: search-1280.png and search-400.png show the page label ("Reference", "Prepare 1Password") in pale lavender; sampled rgb(184,169,246) on white is about 2.1 to 1, and the declaration search.scss sets the label with .search-result-doc-parent opacity 0.5 over the link colour with no variable, prop or slot to change it, so the reason holds but the label fails 4.5 to 1 for a reader with low vision.
+      change: Only a site-owned stylesheet (a small override of .search-result-doc-parent) departs from the stock look; the Captain decides whether to accept the stock label colour (then record it as accepted) or to build the override. Criterion if built - the label reaches at least 4.5 to 1 on white in search-1280.png and search-400.png.
+      kind: host-look
+      owner: Captain
+    - finding: 5
+      ruling: upheld
+      evidence: search.scss gives .search-results max-height calc(100% - $sp-10) with no close control, but just-the-docs.js hides the list when the field is emptied (update() calls hideSearch on an empty value), on Escape (clears the field) and on any click outside the input (document click), and search-400.png shows the dimmed strip about 22 px at the bottom and the field with its text still editable, so a person is not trapped.
+      change: none
+    - finding: 6
+      ruling: upheld
+      evidence: just-the-docs.js sets noResultsDiv.innerText = 'No results found' with no option, prop or slot to add text, and search-none-400.png shows the nav and the Reference link still visible below the dimmed area, while search-cause-400.png shows an on-screen sentence finds its cause heading, so nobody is blocked or misled by the bare line.
+      change: none
+    - finding: 7
+      ruling: upheld
+      evidence: sidebar.html draws the button with the fixed <use xlink:href="#svg-menu"> and no slot or prop for another glyph (I looked for one), and menu-open-400.png shows the menu plainly open under the button with the grey background on the button, so a person cannot mistake the state.
+      change: none
+    - finding: 8
+      ruling: upheld
+      evidence: install-400.png shows each step naming its control in bold (Enable plugins, Settings, Plugins, Project environment) with the picture beside it and the italic line "Click or tap a picture to see it full size" at the first picture, so the reader is told how to enlarge the 6 px text and is not misled by the missing outline.
+      change: none
+    - finding: 11
+      ruling: upheld
+      evidence: home-1280.png shows the heading "kc-paseo-plugins" under the same site title and nothing a person would act on wrongly, and the page is the README that GitHub also shows with that heading as the repository name.
+      change: none
+    - finding: 13
+      ruling: overruled
+      evidence: home-400.png and menu-open-400.png show "project-" and "env" split across two lines in the first paragraph and the bullet, but code.scss has no white-space, word-break or wrap rule for inline code (its :not(pre, figure) > code rule sets only padding, weight, background, border and radius), so the wrap is the browser's default break at the hyphen, not a theme rule, and the page's own markup can stop it.
+      change: In the Home page (and any other page that shows the name inline), write the name as raw HTML <code style="white-space: nowrap">project-env</code>, which GitHub also renders as plain code, or reword so the name does not fall at a line end. Criterion - at 400 px the name "project-env" never splits across lines in the Home paragraph and bullet in home-400.png.
+    - finding: 14
+      ruling: upheld
+      evidence: changelog-1280.png shows "0.2.0" as a link and "0.1.0" plain, each followed by its date and the same Features and Bug Fixes groups, which misleads no one; the file is release-please output and the earlier same decline stood (declines-1.yaml finding 11).
+      change: none
+    - finding: 15
+      ruling: upheld
+      evidence: changelog-1280.png shows the page titled "Changelog" with dated versions, Features, Bug Fixes and commit links, and the same nav label, so a person is not misled about what it is (declines-1.yaml finding 12 stood on the same picture); the prefix and entry format are release-please's generated text.
+      change: none
+    - finding: 16
+      ruling: upheld
+      evidence: reference-1280.png shows a link "When a variable is blank" under the opening paragraph and the seven cause entries, each a heading plus two or three lines, together about one screen tall, and search-cause-1280.png and search-cause-400.png show the on-screen sentence reaches the cause directly, so a reader holding a message is not blocked.
+      change: none

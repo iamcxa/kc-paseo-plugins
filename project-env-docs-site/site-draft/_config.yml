@@ -1,22 +1,18 @@
 title: kc-paseo-plugins
 description: Plugins for Paseo, with setup guides.
-theme: minima
-author: Kent
-
-header_pages:
-  - docs/project-env/index.md
-  - docs/project-env/install.md
-  - docs/project-env/prepare-1password.md
-  - project-env/OVERVIEW.md
-  - project-env/CHANGELOG.md
+remote_theme: just-the-docs/just-the-docs@v0.12.0
+plugins:
+  - jekyll-remote-theme
+search_enabled: true
+enable_copy_code_button: true
+search:
+  heading_level: 3
 
 defaults:
-  - scope: { path: "README.md" }
+  - scope: { path: "" }
     values: { layout: default }
-  - scope: { path: "project-env/OVERVIEW.md" }
-    values: { title: "Reference" }
-  - scope: { path: "project-env/CHANGELOG.md" }
-    values: { title: "Changelog", layout: default }
+  - scope: { path: "README.md" }
+    values: { title: "Home", nav_order: 1 }
 
 exclude:
   - Gemfile
@@ -27,6 +23,8 @@ exclude:
   - docs/dev2-poc
   - docs/journey
   - docs/project-env/capture
+  - project-env/OVERVIEW.md
+  - project-env/CHANGELOG.md
   - project-env/client
   - project-env/server
   - project-env/shared
