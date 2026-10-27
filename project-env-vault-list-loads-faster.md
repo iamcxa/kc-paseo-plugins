@@ -243,3 +243,12 @@ On main the wait is the serial `op item get` loop (about 98% of it on a fake `op
 ### Summary
 
 The change does what AC-1 states: on a fake `op` it is faster at every size on the server and on screen, with identical list, skipped items, reasons, arguments and call count, and the four tests and the mutations behave as claimed. The numbers were taken at load 176 to 306, so read the ordering, not the seconds. Real `op` timing, reads per get and burst throttling stay unverified and are the Captain's check.
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain: demoted on 2026-10-25 (archived project-env-vault-change-repoints-refs, "ADR 0007 demotion"), kept by his 「可以，這輪維持」 (2026-10-26), and not restored in writing since. FO merges and reloads under class 2 only after his approved validation.
+
+### FO declines (proposed; the Captain rules)
+
+- Validation-1 F1 (Deferred risk), candidate revision 924d213e844c1e123bba6d56a8bc784f74c9ad54: on a whole-list failure the change starts up to 4 more `item get` calls before stopping than main (5 against 1 in a 40-item vault whose first get is rejected); the error shown is the same. Proposed decline: the bound caps the extra reads at 4 per open, the picker does not retry by itself, and the request count on success is unchanged (validation-1, `evidence/val/`). Material if rejected-token reads count against a request limit and retries are frequent; candidate fix: start the other reads only after the first get succeeds.
+- Validation-1 F2 (Deferred risk), candidate revision 924d213e844c1e123bba6d56a8bc784f74c9ad54: `resolveProject` (the Test and session-open path) still reads every variable at once with no bound. Proposed decline: out of this task's approved Scope ("Out: … the Test path") and unchanged from main 0b55dfd. Material if a project with many variables is seen hitting a 1Password burst limit at Test or session open; candidate fix: reuse the same bound there in its own task.
