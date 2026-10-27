@@ -1,0 +1,57 @@
+[33m   GitHub Metadata: No GitHub API authentication could be found. Some fields may be missing or have incorrect data.[0m
+                    done in 6.207 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+build exit 0
+23
+INTERNAL PATHS PRESENT: none
+LINK/IMAGE PROBLEMS: 0
+0
+       5
+[agent-browser] launched browser
+reference 1280: blank-link visible without scrolling = true ; target exists = true
+reference 400: blank-link visible without scrolling = true ; target exists = true
+docs/project-env/: images=1 images-not-in-a-link-to-themselves=0 h1="\n  \n  \n     Introduction\n  \n  \n"
+docs/project-env/install.html: images=2 images-not-in-a-link-to-themselves=0 h1="\n  \n  \n     Install\n  \n  \n"
+docs/project-env/prepare-1password.html: images=5 images-not-in-a-link-to-themselves=0 h1="\n  \n  \n     Prepare 1Password\n  \n  \n"
+install: code blocks=5 copy buttons=5
+changelog: list items=27 distinct texts=27 h1="\n  \n  \n     Changelog\n  \n  \n"
+/ h1="\n  \n  \n     kc-paseo-plugins\n  \n  \n" title-tag="Home | kc-paseo-plugins"
+docs/project-env/reference.html h1="\n  \n  \n     Reference\n  \n  \n" title-tag="Reference | kc-paseo-plugins"
+home 400: plugin names split across lines = 0
+copy check: built install page text contains plain-hyphen commands: 1
+search page label: "opacity 1 text 114,83,237 contrast on white 5.03 to 1"
+[agent-browser] launched browser
+home 1280 scrollWidth=1280
+intro 1280 scrollWidth=1280
+install 1280 scrollWidth=1280
+prepare 1280 scrollWidth=1280
+reference 1280 scrollWidth=1280
+changelog 1280 scrollWidth=1280
+home 400 scrollWidth=400
+intro 400 scrollWidth=400
+install 400 scrollWidth=400
+prepare 400 scrollWidth=400
+reference 400 scrollWidth=400
+changelog 400 scrollWidth=400
+700 / scrollWidth=700
+700 /docs/project-env/ scrollWidth=700
+700 /docs/project-env/install.html scrollWidth=700
+700 /docs/project-env/prepare-1password.html scrollWidth=700
+700 /docs/project-env/reference.html scrollWidth=700
+700 /docs/project-env/changelog.html scrollWidth=700
+900 / scrollWidth=900
+900 /docs/project-env/ scrollWidth=900
+900 /docs/project-env/install.html scrollWidth=900
+900 /docs/project-env/prepare-1password.html scrollWidth=900
+900 /docs/project-env/reference.html scrollWidth=900
+900 /docs/project-env/changelog.html scrollWidth=900
+      23
+Started: PID 67944, listening on 127.0.0.1:18492
+paseo plugin add \
+  git:iamcxa/kc-paseo-plugins:project-env
+Trusting plugin code: server code and preparation commands run unsandboxed on the daemon host; client code runs inside Paseo. Dependencies and future updates are part of the codebase you trust.
+PLUGIN                STATUS      ENABLED   SOURCE                                        
+paseo-project-env     disabled    yes       git:https://github.com/iamcxa/kc-paseo-plugins
+stopped: /tmp/ds-accept/home
+Terminated: 15             nohup python3 -m http.server 18491 --bind 127.0.0.1 > /dev/null 2>&1
+bash run.sh  2.63s user 2.25s system 2% cpu 3:52.41 total

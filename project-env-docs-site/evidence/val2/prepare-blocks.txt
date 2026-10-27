@@ -1,0 +1,8 @@
+--- block
+op vault create agent-shop-api-dev
+--- block
+op service-account create \
+  agent-shop-api-dev-read \
+  --expires-in 30d \
+  --vault agent-shop-api-dev:read_items \
+  --raw | pbcopy

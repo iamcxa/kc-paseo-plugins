@@ -395,3 +395,50 @@ New head `fd87b7281` on PR #58 (rejected candidate 48ecb5f), pages only: `docs/p
 - DONE: F4: Prepare 3's expiry bullet says the new token is pasted under Change on the connected line.
 - DONE: F5: Install 3 adds macOS Big Sur 11.0.0 or later and Install 3b adds "select your account at the top of the sidebar", both cited to 1Password's CLI page (`www.1password.dev/cli/get-started/`, fetched 2026-10-28).
 Evidence `evidence/fb1/`: build exit 0 from `git archive fd87b72` (github-pages 232); crawl file list equal to the 23 in `build-crawl.txt`, INTERNAL none, LINK/IMAGE 0; `checks.txt` all lines as before (27 of 27 entries, 5 of 5 copy buttons, 0 split names, label 5.03 to 1); 24 of 24 scrollWidth equal to the window; code blocks identical to those the AC-2 run copied. AC-2 steps touching the changed words rerun (`ac2/`): Prepare step 3 command from the rebuilt page put the token on the fake clipboard; the stored token was gone, the screen read "No token in Keychain", Change on the connected line took the copied token, Connected line returned, and an agent started in the repository reports STRIPE_SECRET_KEY set (`agent-log.txt`). Pictures: none changed, since the changed pages describe no new screen. Gates: roborev clean, `evidence=roborev:1282`; `doc_impact.py` lists ADR 0009 `updated` only (no change this cycle). Not rerun: anything needing a real account. F6 and F7 stay as the Captain left them.
+
+## Stage Report: validation (cycle 2)
+
+- DONE: Re-review candidate fd87b7281313b875580eb91ae32985b46594418a (PR #58 after feedback cycle 1; rejected candidate 48ecb5f) for validation-1 F1 to F5: rebuild from git archive with the github-pages gem set, read each changed sentence against its cited source or a run, follow the changed Install and Prepare words yourself on a new isolated Paseo home through the steps they touch up to an agent with one mapped variable set, and confirm nothing else changed since 48ecb5f (git diff 48ecb5f fd87b7281313b875580eb91ae32985b46594418a); give a verdict.
+  Verdict recommended: PASSED. `git diff 48ecb5f fd87b72 --name-only` lists only `docs/project-env/install.md` and `prepare-1password.md` (8 lines each way); no picture, script, config, code block or other page changed. Evidence `evidence/val2/`. Build exit 0 from `git archive fd87b72`, github-pages 232; the five repaired sentences are present in the built pages (grep, 5 of 5).
+  F1 fixed: Prepare 3 ends "Step 4 asks for the token again, so you copy it back from that item" and 4a opens "Copy the token back from the item you saved it in"; followed on a new home (port 18502): step 3 command from the built text put `ops_fake_a` on the fake clipboard, 4a pasted it from there and Save token gave the Connected line. F2 fixed: sidebar Add project, Search for directory, type the path, Open this path run as worded; Paseo then listed the project and the plugin's "Add a project" menu offered it. F3 fixed: New Item then the Secure Note category (1Password's getting-started-mac page says "select New Item and choose an item category"; Secure Notes is a category on its custom-fields page, both fetched 2026-10-28); the new picker sentence matches + Add (variable named after the picked label, observed). F4 fixed: after a daemon restart emptied the fake keychain, the screen read "No token in Keychain", Change on that line opened the fields, pasting the token and Save token restored it, Test read "All 1 set". F5 fixed: macOS Big Sur 11.0.0 and "select your account at the top of the sidebar" both stand in 1Password's CLI page (www.1password.dev/cli/get-started/, fetched 2026-10-28 in cycle 1; unchanged requirement list and Step 2 text). An agent started in the repository reports STRIPE_SECRET_KEY set without showing it (`evidence/val2/agent-log.txt`).
+- DONE: Rerun the crawl, exclusions, scrollWidth and contrast checks and the acceptance script (update it if the pages it checks changed).
+  Crawl: 23 built files equal to `evidence/build-crawl.txt`, `INTERNAL PATHS PRESENT: none`, 0 excluded paths in the search index, `LINK/IMAGE PROBLEMS: 0`; scrollWidth 24 of 24 equal to the window; `checks.sh` identical to cycle 1 (27 of 27 changelog entries, 5 of 5 copy buttons, 0 split names, every picture linked); label 5.03 to 1. Gates at fd87b72: `adr_lint.py --since bed5a66 --require 0009` exit 0, `number_guards.py check` PASS, `comment_ratio.py` 0.0%, `doc_impact.py` lists ADR 0009 `updated` only, `dispatch_records.py` 6 records complete. Acceptance script updated (candidate hash, and one grep that the five repaired sentences are in the built pages) and run verbatim in a fresh bash, 3m52s (`evidence/val2/acceptance-out.txt`).
+
+### Built screen review
+
+No picture changed since validation-1 (the diff above names two Markdown files and no image), so the review is not rerun: Built screen review: design/validation-1.yaml (7 findings, 7 upheld declines, `design_surfaces.py` exit 0 in cycle 1). The edited pages add sentences only and no new screen.
+
+### Findings
+
+No new finding. F6 and F7 stay as the Captain left them (F6 capture-folder path in the pictures, F7 no 1Password app picture).
+
+### Unverified obligations
+
+Unchanged from cycle 1: the real GitHub Pages build (theme fetch, live search, canonical addresses; Pages is not turned on), a real 1Password account (Install 3a to 3c including the new "select your account" line on the real app, Prepare 1 to 3, New Item and Secure Note in the real app), the plugin installed from GitHub past its actions menu, real Keychain, copy-button hover state, browsers other than headless Chromium.
+
+### Minimal acceptance script
+
+Run in bash on a Mac with Docker (network), `paseo` 0.13, `agent-browser`, `python3` and `git`; it uses only `/tmp/ds-accept` and ports 18491 and 18492 and removes both. Each comment line states the expected observation.
+
+```bash
+# Step 1: build the candidate site (needs Docker and network; about 1 to 2 minutes). Expect: "done in" and "build exit 0".
+rm -rf /tmp/ds-accept && mkdir -p /tmp/ds-accept/copy && git -C /Users/kent/Project/kc-paseo-plugins archive fd87b7281313b875580eb91ae32985b46594418a | tar -x -C /tmp/ds-accept/copy && bash /tmp/ds-accept/copy/docs/project-env/capture/build-site.sh /tmp/ds-accept/copy | tail -3; echo "build exit ${PIPESTATUS[0]}"
+# Step 2: crawl the built files. Expect: 23, INTERNAL PATHS PRESENT: none, LINK/IMAGE PROBLEMS: 0, 0 (search-index paths that mention adr/dev2/journey), then 5 (the five repaired sentences found in the built Install and Prepare pages).
+python3 -I /tmp/ds-accept/copy/docs/project-env/capture/crawl.py /tmp/ds-accept/copy/_site > /tmp/ds-accept/crawl.txt; sed -n '/^BUILT FILES/,/^INTERNAL/p' /tmp/ds-accept/crawl.txt | grep -c '^  '; grep -E '^(INTERNAL|LINK)' /tmp/ds-accept/crawl.txt; grep '^SEARCH INDEX' /tmp/ds-accept/crawl.txt | grep -c -E 'adr|dev2|journey'
+cat /tmp/ds-accept/copy/_site/docs/project-env/install.html /tmp/ds-accept/copy/_site/docs/project-env/prepare-1password.html | grep -o -E 'Copy the token back from the item|select <strong>New Item</strong>|Search for directory|under <strong>Change</strong> on the connected line|select your account at the top of the sidebar' | sort -u | wc -l
+# Step 3: serve the site and run the page checks. Expect the output listed after the script.
+mkdir -p /tmp/ds-accept/serve && ln -sfn /tmp/ds-accept/copy/_site /tmp/ds-accept/serve/kc-paseo-plugins && (cd /tmp/ds-accept/serve && nohup python3 -m http.server 18491 --bind 127.0.0.1 >/dev/null 2>&1 &) ; sleep 2; bash /tmp/ds-accept/copy/docs/project-env/capture/checks.sh http://127.0.0.1:18491/kc-paseo-plugins
+# Step 4: take the pictures and measure page width. Expect 24 scrollWidth lines, each number equal to its width (400, 700, 900 or 1280), then 23 pictures in /tmp/ds-accept/previews (open install-400.png, search-cause-400.png).
+bash /tmp/ds-accept/copy/docs/project-env/capture/preview.sh http://127.0.0.1:18491/kc-paseo-plugins /tmp/ds-accept/previews | tail -24; ls /tmp/ds-accept/previews/*.png | wc -l
+# Step 5: run the Install page's plugin command, copied from the built page, on a new isolated Paseo. Expect: the "Trusting plugin code" warning, then a list with paseo-project-env, status disabled.
+mkdir -p /tmp/ds-accept/home && printf '%s' '{"version":1,"daemon":{"listen":"127.0.0.1:18492","mcp":{"injectIntoAgents":false},"browserTools":{"enabled":false},"enableTerminalAgentHooks":false,"relay":{"enabled":false}},"pluginsEnabled":false,"features":{"dictation":{"enabled":false},"voiceMode":{"enabled":false},"webUi":{"enabled":false}}}' > /tmp/ds-accept/home/config.json && paseo daemon start --home /tmp/ds-accept/home --timeout 120 | head -1
+CMD=$(curl -s http://127.0.0.1:18491/kc-paseo-plugins/docs/project-env/install.html | python3 -I -c 'import sys,re,html; b=re.findall(r"<pre[^>]*>(.*?)</pre>",sys.stdin.read(),re.S); print(html.unescape(re.sub(r"<[^>]+>","",b[1])).strip())'); echo "$CMD"; bash -c "$CMD --home /tmp/ds-accept/home" | cut -c1-90
+# Step 6: clean up. Expect: "stopped".
+paseo daemon stop --home /tmp/ds-accept/home | tail -1; pkill -f 'http.server 18491'; rm -rf /tmp/ds-accept
+```
+
+Expected at step 3: `reference 1280` and `reference 400` read `true ; target exists = true`; Introduction `images=1`, Install `images=2`, Prepare `images=5`, each `images-not-in-a-link-to-themselves=0`; `install: code blocks=5 copy buttons=5`; `changelog: list items=27 distinct texts=27`; `home 400: plugin names split across lines = 0`; `search page label: ... contrast on white 5.03 to 1`.
+
+### Summary
+
+Only the two Markdown pages changed and each of the five repairs reads true against its source or a run. The rebuilt site still crawls to the designed 23 files with no internal path, no sideways scroll and a 5.03:1 label, and the repaired Prepare and Install words took a new isolated home to an agent with the variable set.

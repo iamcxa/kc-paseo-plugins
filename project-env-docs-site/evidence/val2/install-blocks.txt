@@ -1,0 +1,11 @@
+--- block
+paseo --version
+--- block
+paseo plugin add \
+  git:iamcxa/kc-paseo-plugins:project-env
+--- block
+brew install 1password-cli
+--- block
+op --version
+--- block
+op vault list
