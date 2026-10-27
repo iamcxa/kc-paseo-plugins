@@ -1,0 +1,12 @@
+  ✔ lists in item order even when a later item answers first, and reads each item once (4162.803ms)
+  ✖ never has more than four item reads open at once, and does read together (4752.038584ms)
+  ✔ when two items fail the whole list, the earlier item's cause wins, as when read in order (2023.238459ms)
+  ✔ stops starting new reads after a whole-list failure (2808.70675ms)
+✖ The vault list reads items a few at a time (13748.120792ms)
+ℹ pass 3
+ℹ fail 1
+✖ failing tests:
+✖ never has more than four item reads open at once, and does read together (4752.038584ms)
+  AssertionError [ERR_ASSERTION]: reads were one after another (peak 1)
+    actual: false,
+    expected: true,

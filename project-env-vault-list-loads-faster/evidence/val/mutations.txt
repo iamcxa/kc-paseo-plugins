@@ -1,0 +1,59 @@
+== bound1000
+18c18
+< const ITEM_READS_AT_ONCE = 4;
+---
+> const ITEM_READS_AT_ONCE = 1000;
+  ✔ lists in item order even when a later item answers first, and reads each item once (1610.940084ms)
+  ✖ never has more than four item reads open at once, and does read together (1412.19725ms)
+  ✔ when two items fail the whole list, the earlier item's cause wins, as when read in order (1573.804584ms)
+  ✖ stops starting new reads after a whole-list failure (1800.903292ms)
+ℹ pass 2
+ℹ fail 2
+  AssertionError [ERR_ASSERTION]: more than four reads open at once (peak 12)
+  AssertionError [ERR_ASSERTION]: kept reading after the failure (40 reads)
+== bound1
+18c18
+< const ITEM_READS_AT_ONCE = 4;
+---
+> const ITEM_READS_AT_ONCE = 1;
+  ✔ lists in item order even when a later item answers first, and reads each item once (3458.142625ms)
+  ✖ never has more than four item reads open at once, and does read together (4370.584917ms)
+  ✔ when two items fail the whole list, the earlier item's cause wins, as when read in order (1753.073542ms)
+  ✔ stops starting new reads after a whole-list failure (1050.338875ms)
+ℹ pass 3
+ℹ fail 1
+  AssertionError [ERR_ASSERTION]: reads were one after another (peak 1)
+== nohalt
+234c234
+<       while (!halted && next < items.length) {
+---
+>       while (next < items.length) {
+  ✔ lists in item order even when a later item answers first, and reads each item once (1858.169625ms)
+  ✔ never has more than four item reads open at once, and does read together (2309.264041ms)
+  ✔ when two items fail the whole list, the earlier item's cause wins, as when read in order (1511.149583ms)
+  ✖ stops starting new reads after a whole-list failure (2899.862958ms)
+ℹ pass 3
+ℹ fail 1
+  AssertionError [ERR_ASSERTION]: kept reading after the failure (40 reads)
+== firstarrival
+232a233
+>     let arrived: { stop: Cause } | undefined;
+238c239
+<         if ("stop" in read) halted = true;
+---
+>         if ("stop" in read) { halted = true; arrived ??= read; }
+242a244
+>     if (arrived) throw stop(arrived.stop);
+  ✔ lists in item order even when a later item answers first, and reads each item once (1843.245708ms)
+  ✔ never has more than four item reads open at once, and does read together (2008.708166ms)
+  ✖ when two items fail the whole list, the earlier item's cause wins, as when read in order (1676.1175ms)
+  ✔ stops starting new reads after a whole-list failure (1412.765666ms)
+ℹ pass 3
+ℹ fail 1
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  ✖ lists in item order even when a later item answers first, and reads each item once (1834.153917ms)
+  ✔ never has more than four item reads open at once, and does read together (1912.322959ms)
+  ✖ when two items fail the whole list, the earlier item's cause wins, as when read in order (1449.783084ms)
+  ✔ stops starting new reads after a whole-list failure (1320.592375ms)
+ℹ pass 2
+ℹ fail 2

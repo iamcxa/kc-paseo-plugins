@@ -1,0 +1,14 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+const [src] = process.argv.slice(2);
+const root = join(src, "project-env");
+const { createSecrets } = await import(join(root, "server/secrets.ts"));
+const { makeWorld } = await import(join(root, "test/world.ts"));
+const n=30;
+const items = Array.from({ length: n }, (_, i) => ({ id: `i${i}`, title: `Item ${i}`, category: i%3? "SECURE_NOTE":"API_CREDENTIAL", fields: [{ label: `KEY_${i}`, type: "CONCEALED" }, { label: "notesPlain", purpose: "NOTES" }] }));
+const fail={}; for (let i=0;i<n;i+=10) fail[`item get i${i}`]={stderr:"[ERROR] invalid PEM private key passed in"}; fail["item get i7"]={stderr:"weird", code:3};
+const world = makeWorld({ keychain: { "sa-a": "a" }, op: { accounts: { a: { items } }, callDelayMs: 20, fail } });
+const out = await createSecrets(world.tools).listRefs("sa-a","Dev");
+const calls = readFileSync(join(world.dir,"calls.jsonl"),"utf8").split("\n").filter(Boolean).map(JSON.parse).filter(c=>c.tool==="op").map(c=>c.argv.join(" ")).sort();
+console.log(JSON.stringify({out,calls},null,1));
+world.cleanup();

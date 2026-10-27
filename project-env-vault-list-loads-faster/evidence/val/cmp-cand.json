@@ -1,0 +1,83 @@
+{
+ "out": {
+  "refs": [
+   "op://Dev/Item 1/KEY_1",
+   "op://Dev/Item 2/KEY_2",
+   "op://Dev/Item 3/KEY_3",
+   "op://Dev/Item 4/KEY_4",
+   "op://Dev/Item 5/KEY_5",
+   "op://Dev/Item 6/KEY_6",
+   "op://Dev/Item 8/KEY_8",
+   "op://Dev/Item 9/KEY_9",
+   "op://Dev/Item 11/KEY_11",
+   "op://Dev/Item 12/KEY_12",
+   "op://Dev/Item 13/KEY_13",
+   "op://Dev/Item 14/KEY_14",
+   "op://Dev/Item 15/KEY_15",
+   "op://Dev/Item 16/KEY_16",
+   "op://Dev/Item 17/KEY_17",
+   "op://Dev/Item 18/KEY_18",
+   "op://Dev/Item 19/KEY_19",
+   "op://Dev/Item 21/KEY_21",
+   "op://Dev/Item 22/KEY_22",
+   "op://Dev/Item 23/KEY_23",
+   "op://Dev/Item 24/KEY_24",
+   "op://Dev/Item 25/KEY_25",
+   "op://Dev/Item 26/KEY_26",
+   "op://Dev/Item 27/KEY_27",
+   "op://Dev/Item 28/KEY_28",
+   "op://Dev/Item 29/KEY_29"
+  ],
+  "skipped": [
+   {
+    "item": "Item 0",
+    "reason": "1Password could not read this item (api credential)"
+   },
+   {
+    "item": "Item 7",
+    "reason": "1Password could not read this item (secure note)"
+   },
+   {
+    "item": "Item 10",
+    "reason": "1Password could not read this item (secure note)"
+   },
+   {
+    "item": "Item 20",
+    "reason": "1Password could not read this item (secure note)"
+   }
+  ]
+ },
+ "calls": [
+  "item get i0 --vault Dev --format json",
+  "item get i1 --vault Dev --format json",
+  "item get i10 --vault Dev --format json",
+  "item get i11 --vault Dev --format json",
+  "item get i12 --vault Dev --format json",
+  "item get i13 --vault Dev --format json",
+  "item get i14 --vault Dev --format json",
+  "item get i15 --vault Dev --format json",
+  "item get i16 --vault Dev --format json",
+  "item get i17 --vault Dev --format json",
+  "item get i18 --vault Dev --format json",
+  "item get i19 --vault Dev --format json",
+  "item get i2 --vault Dev --format json",
+  "item get i20 --vault Dev --format json",
+  "item get i21 --vault Dev --format json",
+  "item get i22 --vault Dev --format json",
+  "item get i23 --vault Dev --format json",
+  "item get i24 --vault Dev --format json",
+  "item get i25 --vault Dev --format json",
+  "item get i26 --vault Dev --format json",
+  "item get i27 --vault Dev --format json",
+  "item get i28 --vault Dev --format json",
+  "item get i29 --vault Dev --format json",
+  "item get i3 --vault Dev --format json",
+  "item get i4 --vault Dev --format json",
+  "item get i5 --vault Dev --format json",
+  "item get i6 --vault Dev --format json",
+  "item get i7 --vault Dev --format json",
+  "item get i8 --vault Dev --format json",
+  "item get i9 --vault Dev --format json",
+  "item list --vault Dev --format json"
+ ]
+}

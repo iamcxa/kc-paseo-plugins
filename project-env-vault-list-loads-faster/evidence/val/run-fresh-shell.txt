@@ -1,0 +1,12 @@
+== 1. four concurrency tests on the change: expect pass 4, fail 0
+ℹ pass 4
+ℹ fail 0
+== 2. same tests on main: expect pass 3, fail 1 (only 'never has more than four item reads open at once')
+  ✖ never has more than four item reads open at once, and does read together (4443.72825ms)
+ℹ pass 3
+ℹ fail 1
+== 3. server timing, fake op 200 ms per call, 10/30/100 items, every tenth get fails (1 run each)
+items  10: main   3777 ms, change   1506 ms, same list+skips True, faster True, N+1 op calls True, peak reads at once 4
+items  30: main  10031 ms, change   3100 ms, same list+skips True, faster True, N+1 op calls True, peak reads at once 4
+items 100: main  29385 ms, change   7887 ms, same list+skips True, faster True, N+1 op calls True, peak reads at once 4
+PASS

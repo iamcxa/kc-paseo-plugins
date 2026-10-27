@@ -1,0 +1,7 @@
+  ✔ lists in item order even when a later item answers first, and reads each item once (1984.897541ms)
+  ✔ never has more than four item reads open at once, and does read together (2070.059209ms)
+  ✔ when two items fail the whole list, the earlier item's cause wins, as when read in order (2035.771042ms)
+  ✔ stops starting new reads after a whole-list failure (1325.819792ms)
+✔ The vault list reads items a few at a time (7418.301ms)
+ℹ pass 4
+ℹ fail 0
