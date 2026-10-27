@@ -16,6 +16,20 @@ gates:
                 id: briefing:r8-mockups-one-item-whole-area:backlog:attempt-1:revision-1
                 digest: sha256:5e5dac0afd3f1a27cbac1bee60c69540d9bfa55081d239e1dad38feb6fb655dd
                 room-ref: ./r8-mockups-one-item-whole-area/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r8-mockups-one-item-whole-area:backlog:1
+                briefing: briefing:r8-mockups-one-item-whole-area:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-27T19:08:24.887358Z"
+                decision: approve
+                reason: 'Accepts direction: draws the model the Captain picked on 2026-10-28 (單件全區); one direction, static mockups only, director first; no code or semantic change.'
+                conn:
+                    quote: 可以，注意要先找出適用情境中最簡單易用的 UX再做設計，不要急著做 UI 改進
+                    source: 'Captain chat 2026-10-28, answering 「第 8 輪照上面的方式改成設計稿回合、主題用這兩個回饋，可以嗎？」 (design round form); model picked the same day: 「單件全區 (Recommended)」; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Step 2 of the round 8 design round: draw one mockup direction of the interaction model the Captain picked, so he can say go before any code is written.
