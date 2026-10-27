@@ -282,4 +282,6 @@ After the Captain approved validation (「那就准」, 2026-10-27), FO merged P
 
 ## UAT
 
-Pending: the Captain's UAT on the live plugin.
+UAT (Captain, 2026-10-27): OK — 「很好，確實有比較快，ＯＫ」
+
+Cost: Captain messages 5; worker tokens not measured (reported: ideation 193469, implementation 94852, validation 119498)
