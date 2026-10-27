@@ -91,7 +91,7 @@ Verified by: a run on a new isolated Paseo home (own port, `--home`), by someone
 Surfaces: ui
 Visible change: A public page introduces project-env and gives a new teammate install, 1Password preparation and troubleshooting steps with pictures.
 Direction alignment with the Captain: done — he asked for the introduction, docs and a Markdown-based page on 2026-10-27 and chose docs first (「可以，先文件」); the page's scope and the Pages switch-on are confirmed at the ideation gate.
-Release review: paseo-project-env/r1b at 4e22d4ad63bc50d4bcc32a403720b429152bad8a — signal 1: this task is admitted into r1b under story install-one-command and writes the words for r1b's get-plugin and prepare-1password stories, so r1b is marked changed and kc-journey-map review-release runs at the first implementation dispatch.
+Release review: paseo-project-env/r1b at bed5a6644c646e91c9cbc235807f33bce878cc8f — review-release run 2026-10-28 (signal 4, before the first implementation dispatch), `project-env-docs-site/release-review-r1b.md`: this task can be dispatched; it does not finish r1b; the map edit, the interrogation and the other r1b tasks wait for the Captain.
 Map footprints: not needed: no journey answer is recorded by this task; the ideation report lists the stories for a later map update.
 
 ## Captain amendments
@@ -274,3 +274,7 @@ The site is a root-source GitHub Pages build: three new pages under `docs/projec
 ### Summary
 
 The site now uses just-the-docs v0.12.0 with a six-page sidebar, search and copy buttons, and two six-line root wrappers publish the overview and changelog so search reaches each cause heading. The review caught a real gap for a newcomer (no step for signing in to the 1Password CLI, now Install step 3), and the design records its source. Pages is not turned on and nothing in the repository was changed; the Captain's one decision is whether to darken the search result's page label (2.1 to 1) with one stylesheet rule.
+
+## Number guards
+
+ADR: 0009
