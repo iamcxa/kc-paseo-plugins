@@ -94,6 +94,7 @@ Messages and gate decisions now have separate drafts and explicit actions, the c
 ### FO findings before the gate
 
 - Roborev (FO-run, package gap 5) clean on 1969785 (roborev:1251).
+- Cycle 2 (colour difference): cause is FeedbackPressable's hover fill on a queue row with zero own insets and a 2 px row gap; repaired on 4d5d898 with a shared clipped row wrapper. Roborev:1254 on 4d5d898 (Medium): the GitHub link now sits inside the row's Pressable, so iOS screen readers expose one element and the link is unreachable; FO authorizes cycle 3 to make them sibling controls inside the clipped wrapper.
 
 ## Stage Report: implementation (cycle 2)
 
