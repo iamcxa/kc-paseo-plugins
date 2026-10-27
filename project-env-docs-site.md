@@ -1,7 +1,7 @@
 ---
 id:
 title: A public docs page introduces project-env and walks a new teammate through setup
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
