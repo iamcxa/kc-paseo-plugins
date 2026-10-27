@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
-test("By FO keeps each unread question visible exactly once across waiting-item combinations", async (t) => {
+test("both board views share unread-question rows and counts across waiting-item combinations", async (t) => {
   const preview = "Choose the release window (you)";
   const different = "Choose the rollback plan (you)";
   const cases = [
@@ -46,7 +46,7 @@ test("By FO keeps each unread question visible exactly once across waiting-item 
     if (id === "@getpaseo/plugin/client") return { usePaseo: () => paseo, useRpc: (rpc: { name: string }) => ({ "reviews.read": readReviews, "gates.read": readGates, "tasks.read": readTasks })[rpc.name] };
     if (id === "react-native") return { Text: element, View: element, ScrollView: element, Platform: { OS: "web" } };
     if (id === "./feedback-pressable") return { FeedbackPressable: element };
-    if (id === "./decision-card") return { DecisionCard: ({ fo, gate }: { fo: { id: string }; gate?: { slug: string } }) => createElement("output", null, `${fo.id}|${gate?.slug ?? "question"}`) };
+    if (id === "./decision-card") return { DecisionCard: ({ fo, gate, onBack }: { fo: { id: string }; gate?: { slug: string }; onBack(): void }) => createElement("div", null, createElement("output", null, `${fo.id}|${gate?.slug ?? "question"}`), createElement("button", { onClick: () => onBack() }, "Queue")) };
     return originalLoad.call(this, id, ...args);
   });
   const { Board } = createRequire(import.meta.url)("../client/board");
@@ -59,18 +59,24 @@ test("By FO keeps each unread question visible exactly once across waiting-item 
     const root = createRoot(container);
     caseTest.after(async () => { await act(() => root.unmount()); dom.window.close(); });
     await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation: {} })));
-    const byFo = [...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith("By FO"))!;
-    await act(async () => (byFo as HTMLElement).click());
-    assert.equal([...container.querySelectorAll("div")].filter((e) => e.childElementCount === 0 && e.textContent === preview).length, 1, "show the actual unread question exactly once");
-    assert.doesNotMatch(container.textContent!, /Has a question for you/);
-    assert.match(container.textContent!, new RegExp(`Question FO\\s*· ${item.count} waiting`));
-    assert.equal(container.querySelectorAll('[aria-label$="— Question FO"]').length, item.count, "waiting count equals displayed item rows");
-    if (item.gate) assert.ok(container.querySelector('[aria-label="Approve the adapter — Question FO"]'));
-    if (item.review) assert.ok(container.querySelector('[aria-label="Review the adapter — Question FO"]'));
-    if (item.next === different) assert.ok(container.querySelector('[aria-label="Choose the rollback plan (you) — Question FO"]'));
-    const question = container.querySelector('[aria-label="Choose the release window (you) — Question FO"]');
-    assert.ok(question, "the unread question keeps its own destination");
-    await act(async () => (question as HTMLElement).click());
-    assert.equal(container.querySelector("output")!.textContent, "question-fo|question");
+    for (const view of ["decision", "FO"]) {
+      const tab = [...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
+      await act(async () => (tab as HTMLElement).click());
+      const titleCount = (title: string) => [...container.querySelectorAll("div")].filter((e) => e.childElementCount === 0 && e.textContent === title).length;
+      assert.equal(titleCount(preview), 1, `${view}: show the actual unread question exactly once`);
+      assert.doesNotMatch(container.textContent!, /Has a question for you/);
+      if (view === "FO") assert.match(container.textContent!, new RegExp(`Question FO\\s*· ${item.count} waiting`));
+      else assert.equal(tab.textContent, `By decision · ${item.count}`);
+      const next = [...container.querySelectorAll('[role="button"]')].find((e) => e.textContent!.startsWith("NEXT ·"));
+      assert.equal(container.querySelectorAll('[aria-label$="— Question FO"]').length + (next ? 1 : 0), item.count, `${view}: count equals displayed rows including the next card`);
+      if (item.gate) assert.equal(titleCount("Approve the adapter"), 1);
+      if (item.review) assert.equal(titleCount("Review the adapter"), 1);
+      if (item.next === different) assert.equal(titleCount(different), 1);
+      const question = container.querySelector('[aria-label="Choose the release window (you) — Question FO"]') ?? (next?.textContent!.includes(preview) ? next : undefined);
+      assert.ok(question, `${view}: the unread question keeps its own destination`);
+      await act(async () => (question as HTMLElement).click());
+      assert.equal(container.querySelector("output")!.textContent, "question-fo|question");
+      await act(async () => container.querySelector("button")!.click());
+    }
   });
 });

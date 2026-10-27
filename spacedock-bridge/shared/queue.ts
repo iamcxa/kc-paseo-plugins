@@ -1,4 +1,5 @@
-import type { BoardRow } from "./board";
+import type { BoardRow, ReplyFact } from "./board";
+import { replyPreview } from "./preview";
 import { type ReviewRequestData, reviewOwner, reviewRef } from "./reviews";
 import type { AwaitingGate } from "./tasks";
 
@@ -30,6 +31,7 @@ export function buildQueue(
   rows: readonly QueueRow[],
   reviews: readonly ReviewRequestData[],
   questionRows: readonly QueueRow[] = rows,
+  replies: Readonly<Record<string, ReplyFact>> = {},
 ): QueueItem[] {
   const items: QueueItem[] = [];
   const asking = new Set(questionRows.filter((row) => row.status === "waiting on Kent" && !row.permission).map((row) => row.id));
@@ -55,8 +57,14 @@ export function buildQueue(
           .some((label) => normalize(next) === normalize(label)),
       ),
     );
+    const reply = replies[row.id];
     if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate)))
-      items.push({ key: `a:${row.id}`, kind: "ask", title: row.next || "Has a question for you", detail: "", since, fo: row });
+      items.push({ key: `a:${row.id}`, kind: "ask", title: row.next || reply?.preview || "Has a question for you", detail: "", since, fo: row });
+    if (reply?.onCaptain && reply.preview) {
+      const represented = items.some((item) => item.fo?.id === row.id && item.kind === "ask" && replyPreview(item.title) === reply.preview);
+      if (!represented)
+        items.push({ key: `unread:${row.id}`, kind: "ask", title: reply.preview, detail: "", since, fo: row });
+    }
   }
   for (const review of reviews)
     items.push({
