@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
-test("queue highlights have their own symmetric clipped bounds and links keep their action", async (t) => {
+test("queue rows expose sibling accessible actions inside symmetric clipped bounds", async (t) => {
   const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -22,16 +22,18 @@ test("queue highlights have their own symmetric clipped bounds and links keep th
     url: `https://github.com/example/bridge/pull/${number}`, owner: "example", repo: "bridge", number,
     title: `Review proposal ${number}`, author: "fixture", firstSeenAt: number,
   }));
+  reviews.push({ ...reviews[0], number: 3, repo: "other", title: "Unassigned proposal", url: "https://github.com/example/other/pull/3", firstSeenAt: 3 });
   const urls: string[] = [];
+  const asks: string[] = [];
   const readReviews = async () => ({ requests: reviews, checkedAt: 1, error: null, nextCheckAt: null });
   const noWork = async () => ({ gates: [], tasks: {}, failedWorkflowDirs: [] });
   const navigation = { openExternalUrl: async (url: string) => { urls.push(url); } };
   function flatten(style: unknown): Record<string, unknown> {
     return Array.isArray(style) ? Object.assign({}, ...style.map(flatten)) : (style ?? {}) as Record<string, unknown>;
   }
-  type Props = { children?: ReactNode; onPress?: (event: unknown) => void; accessibilityRole?: string; accessibilityLabel?: string; style?: unknown };
-  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, style }: Props) =>
-    createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: onPress, style: flatten(style) }, children);
+  type Props = { children?: ReactNode; onPress?: (event: unknown) => void; accessibilityRole?: string; accessibilityLabel?: string; style?: unknown; accessible?: boolean };
+  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, style, accessible }: Props) =>
+    createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: onPress, style: flatten(style), "data-accessible": accessible }, children);
   const loader = Module as unknown as { _load(id: string, ...args: unknown[]): unknown };
   const original = loader._load;
   const restore = t.mock.method(loader, "_load", function (this: unknown, id: string, ...args: unknown[]) {
@@ -47,21 +49,43 @@ test("queue highlights have their own symmetric clipped bounds and links keep th
   });
   const { Board } = createRequire(import.meta.url)("../client/board");
   restore.mock.restore();
-  await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation })));
+  await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation, onAskCo: (text: string) => asks.push(text) })));
+  function pair(rowLabel: string, linkLabel: string) {
+    const row = container.querySelector<HTMLElement>(`[aria-label="${rowLabel}"]`)!;
+    const link = container.querySelector<HTMLElement>(`[aria-label="${linkLabel}"]`)!;
+    assert.ok(row, rowLabel);
+    assert.ok(link, linkLabel);
+    assert.equal(row.getAttribute("role"), "button");
+    assert.equal(link.getAttribute("role"), "link");
+    assert.equal(row.parentElement === link.parentElement, true, "screen readers need sibling row and link controls");
+    assert.equal(row.getAttribute("data-accessible"), "true");
+    assert.equal(link.getAttribute("data-accessible"), "true");
+    assert.equal(row.querySelector("[role=button],[role=link]"), null, "an accessible row cannot swallow another action");
+    let bounds = row.parentElement!;
+    while (bounds && bounds.style.overflow !== "hidden") bounds = bounds.parentElement!;
+    assert.ok(bounds);
+    assert.equal(bounds.style.padding, "4px");
+    assert.equal(bounds.style.borderRadius, "10px");
+    return { row, link };
+  }
   for (const view of ["decision", "FO"]) {
     const tab = [...container.querySelectorAll<HTMLElement>("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
     await act(() => tab.click());
-    const row = container.querySelector<HTMLElement>('[aria-label="Review proposal 2 — Review owner FO"]')!;
-    assert.ok(row);
-    const bounds = row.parentElement!;
-    assert.equal(bounds.style.padding, "4px");
-    assert.equal(bounds.style.overflow, "hidden");
-    assert.equal(bounds.style.borderRadius, "10px");
-    const link = row.querySelector<HTMLElement>('[aria-label="Open bridge#2 on GitHub"]')!;
-    assert.ok(link, "the separate GitHub action remains inside the row's feedback bounds");
+    for (const number of [2, 1]) {
+      const label = view === "decision" && number === 1 ? "Open Review proposal 1 with Review owner FO" : `Review proposal ${number} — Review owner FO`;
+      const { link } = pair(label, `Open bridge#${number} on GitHub`);
+      await act(() => link.click());
+      assert.equal(urls.at(-1), reviews[number - 1].url);
+      assert.equal(container.querySelector("output"), null);
+    }
+    const { row, link } = pair(view === "decision" ? "Unassigned proposal — no FO" : "Ask comms officer about Unassigned proposal", "Open other#3 on GitHub");
     await act(() => link.click());
-    assert.deepEqual(urls, Array(view === "decision" ? 1 : 2).fill(reviews[1].url));
-    assert.equal(container.querySelector("output"), null, "the link must not open the decision card");
+    assert.equal(urls.at(-1), reviews[2].url);
+    assert.equal(asks.length, 0, "a GitHub link must not invoke the row's comms action");
+    if (view === "FO") {
+      await act(() => row.click());
+      assert.match(asks[0], /Who should review example\/other#3/);
+    }
   }
   const row = container.querySelector<HTMLElement>('[aria-label="Review proposal 2 — Review owner FO"]')!;
   await act(() => row.click());
