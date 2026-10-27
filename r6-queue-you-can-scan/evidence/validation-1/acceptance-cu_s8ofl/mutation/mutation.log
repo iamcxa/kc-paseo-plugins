@@ -1,0 +1,138 @@
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✔ unlabelled alone (124.777292ms)
+  ✖ unlabelled with gate (14.902375ms)
+  ✔ unlabelled with review (28.175375ms)
+  ✔ label represents the same reply (31.020541ms)
+  ✖ different labelled question (20.960167ms)
+  ✖ unlabelled with gate and review (27.01125ms)
+  ✔ same reply label with gate (32.86275ms)
+  ✖ different label with gate (16.357708ms)
+  ✔ same reply label with review (31.491875ms)
+  ✖ different label with review (16.957916ms)
+  ✔ same reply label with gate and review (82.568834ms)
+  ✖ different label with gate and review (15.506125ms)
+✖ both board views share unread-question rows and counts across waiting-item combinations (591.122125ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 6
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1259.958084
+
+✖ failing tests:
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with gate (14.902375ms)
+  AssertionError [ERR_ASSERTION]: decision: show the actual unread question exactly once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:66:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different labelled question (20.960167ms)
+  AssertionError [ERR_ASSERTION]: decision: show the actual unread question exactly once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:66:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with gate and review (27.01125ms)
+  AssertionError [ERR_ASSERTION]: decision: show the actual unread question exactly once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:66:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with gate (16.357708ms)
+  AssertionError [ERR_ASSERTION]: decision: show the actual unread question exactly once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:66:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with review (16.957916ms)
+  AssertionError [ERR_ASSERTION]: decision: show the actual unread question exactly once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:66:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with gate and review (15.506125ms)
+  AssertionError [ERR_ASSERTION]: decision: show the actual unread question exactly once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:66:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.validation-mutation-lz_ewmoj/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

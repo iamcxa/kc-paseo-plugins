@@ -1,0 +1,81 @@
+{
+  "candidate": "f10a3f29a43fb09adff4beda268799f514f7b43b",
+  "synthetic": true,
+  "width": 360,
+  "fixture": {
+    "unlabelledUnread": true,
+    "gateCount": 1,
+    "reviewCount": 0
+  },
+  "checks": [
+    {
+      "view": "decision",
+      "question": "Choose the release window (you)",
+      "questionOccurrences": 1,
+      "gate": "Approve adapter proof and confirm the full proposal before release",
+      "waitingRows": 2,
+      "onBoard": true,
+      "horizontalOverflow": false
+    },
+    {
+      "view": "FO",
+      "question": "Choose the release window (you)",
+      "questionOccurrences": 1,
+      "gate": "Approve adapter proof and confirm the full proposal before release",
+      "waitingRows": 2,
+      "onBoard": true,
+      "horizontalOverflow": false
+    },
+    {
+      "view": "decision",
+      "question": "Choose the release window (you)",
+      "questionOccurrences": 1,
+      "gate": "Approve adapter proof and confirm the full proposal before release",
+      "waitingRows": 2,
+      "onBoard": true,
+      "horizontalOverflow": false,
+      "failedSource": "comms officer",
+      "checkAgainVisible": true
+    },
+    {
+      "view": "FO",
+      "question": "Choose the release window (you)",
+      "questionOccurrences": 1,
+      "gate": "Approve adapter proof and confirm the full proposal before release",
+      "waitingRows": 2,
+      "onBoard": true,
+      "horizontalOverflow": false,
+      "failedSource": "comms officer",
+      "checkAgainVisible": true
+    }
+  ],
+  "retry": [
+    {
+      "pendingObserved": true,
+      "outcome": "loaded",
+      "stats": {
+        "commsRead": 4,
+        "foRead": 3,
+        "release": 2,
+        "subscribe": 4
+      }
+    },
+    {
+      "pendingObserved": true,
+      "outcome": "failed",
+      "stats": {
+        "commsRead": 5,
+        "foRead": 3,
+        "release": 3,
+        "subscribe": 5
+      }
+    }
+  ],
+  "reviewSchedule": "Next automatic review check: \u4e0b\u534812:54:56",
+  "stats": {
+    "commsRead": 6,
+    "foRead": 4,
+    "release": 4,
+    "subscribe": 6
+  }
+}

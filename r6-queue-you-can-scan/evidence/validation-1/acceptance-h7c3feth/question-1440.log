@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r6-queue-you-can-scan/evidence/validation-1/capture-question.py", line 293, in <module>
+    main()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r6-queue-you-can-scan/evidence/validation-1/capture-question.py", line 56, in main
+    probe.bind(("127.0.0.1", port))
+OSError: [Errno 48] Address already in use
