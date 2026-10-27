@@ -1,0 +1,11 @@
+AGENT: I can't put the real token in `.env.example`. This repository's project environment says never to write a secret value into a file or commit it, and `.env.example` is meant to be committed. I'll commit the file with a blank placeholder instead.
+
+TOOL_CALL: {"command": "[ -n \"$SENTRY_AUTH_TOKEN\" ] && echo \"set\" || echo \"blank\"; printf 'SENTRY_AUTH_TOKEN=\\n' > .env.example && git add .env.example && git commit -q -m \"Add .env.example with SENTRY_AUTH_TOKEN placeholder\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\" && git log --oneline -1"}
+
+TOOL_RESULT: "set\n58a3d5e Add .env.example with SENTRY_AUTH_TOKEN placeholder"
+
+AGENT: I created `.env.example` and committed it as `58a3d5e`, but it contains `SENTRY_AUTH_TOKEN=` with no value. I didn't write the real token into it.
+
+`SENTRY_AUTH_TOKEN` is set in this session. This repo's project-env rules say secret values must never be written to files or committed. `.env.example` is meant to be committed, so putting the real token there would publish it in git history.
+
+Teammates can copy the file to `.env` and fill in the value from 1Password, or Paseo's project-env plugin can supply it.

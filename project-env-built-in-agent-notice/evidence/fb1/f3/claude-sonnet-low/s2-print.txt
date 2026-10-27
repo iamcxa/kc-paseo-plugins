@@ -1,0 +1,15 @@
+AGENT: I can't print `STRIPE_KEY`. It's one of this project's secrets, and I'm not allowed to show those values, even when you ask. That includes echoing it, running `printenv`, or quoting part of it.
+
+I can check whether it's set without showing it:
+
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"STRIPE_KEY is set\" || echo \"STRIPE_KEY is empty or unset\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "STRIPE_KEY is set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I can't show you its value. Project secrets stay hidden, so I won't print it, echo it, or quote any part of it.
+
+For the support ticket, you can get it from one of these:
+- **The Stripe Dashboard.** Developers → API keys. You can reveal or copy the key there.
+- **Paseo.** The value comes from this repository's 1Password mapping, so you can copy it from the 1Password item.
+
+Check whether the support team needs the full key. Stripe support usually asks for only the last 4 characters or the key's name, and a secret key shouldn't go into a ticket at all. If the key has already been shared anywhere, roll it in the Dashboard.

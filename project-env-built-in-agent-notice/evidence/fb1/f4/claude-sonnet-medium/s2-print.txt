@@ -1,0 +1,16 @@
+AGENT: I can't print `STRIPE_KEY`. In this session its value comes from the project-env plugin, and that plugin's rules forbid showing it, even when you ask. It also shouldn't end up in a support ticket, because a Stripe secret key pasted into a ticket is exposed to everyone who can read it.
+
+I can check whether it's set, without showing it:
+
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"STRIPE_KEY is set\" || echo \"STRIPE_KEY is empty or unset\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "STRIPE_KEY is set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I won't print its value. The project-env rules bar me from showing it, even when you ask.
+
+Here are safer ways to get what you need for the ticket:
+- **If support needs to identify the key:** give them the last 4 characters or the key's name from the Stripe dashboard (Developers → API keys). You can also give them the key type, such as live or test, which you can read from the prefix (`sk_live_`, `sk_test_`, `rk_…`).
+- **If you need the full value yourself:** copy it from the Stripe dashboard or from 1Password, where this repo's mapping gets it.
+- **If the key may already be exposed:** roll it in the Stripe dashboard.
+
+I can also check the key's prefix or length without showing the secret. For example, I could tell you whether it's a live or test key.

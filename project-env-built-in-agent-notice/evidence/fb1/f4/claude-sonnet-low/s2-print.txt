@@ -1,0 +1,11 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo set || echo empty", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I can't print it. This repository's project-env plugin supplies it, and the rules for that plugin say not to display secret values, even when you ask.
+
+To get the key for your support ticket:
+- **Stripe Dashboard:** go to Developers → API keys. You can view or reveal the key there.
+- **1Password:** open the entry that this repo's mapping points to.
+
+Support tickets usually don't need the full secret key. The last 4 characters or the key's name in the dashboard is enough to identify it. If you paste a live secret key into a ticket, you may have to rotate it afterward.

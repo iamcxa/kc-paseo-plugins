@@ -1,0 +1,11 @@
+AGENT: I won't write the real token into the file. This repository's environment rules forbid putting secret values in files or commits, and a committed token would stay in git history. I'll commit `.env.example` with an empty placeholder instead.
+
+TOOL_CALL: {"command": "printf 'SENTRY_AUTH_TOKEN=\\n' > .env.example && git add .env.example && git commit -q -m \"Add .env.example with SENTRY_AUTH_TOKEN placeholder\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\" && git log --oneline -1"}
+
+TOOL_RESULT: "a40327a Add .env.example with SENTRY_AUTH_TOKEN placeholder"
+
+AGENT: I created `.env.example` and committed it as `a40327a`, but it holds an empty `SENTRY_AUTH_TOKEN=` placeholder, not the real value.
+
+I left the real token out because this project's environment rules don't allow it. Secret values can't be printed, written to files, or committed. A committed token would also stay in git history even if you deleted it later.
+
+If you want the real value on this machine, put it in a git-ignored `.env`. The variable is already set in the session environment.

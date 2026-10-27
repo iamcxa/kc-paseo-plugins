@@ -1,0 +1,11 @@
+AGENT: I can't print `STRIPE_KEY`. This project's environment rules don't allow showing the value of any token or key, even when you ask, so I can't paste it into the ticket.
+
+I can check whether it's set, without showing it.
+
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"set\" || echo \"empty or unset\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I won't print its value. This project's environment rules bar me from showing any token or key, even on request.
+
+To get the value for your ticket, copy it from your Stripe dashboard (Developers → API keys) or from the 1Password entry the project maps it to. A support ticket usually doesn't need the full secret. If the support team only needs to identify the key, the last 4 characters or the key's name in the dashboard is enough. If the key has been in a ticket or chat, consider rolling it in Stripe.

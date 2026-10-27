@@ -1,0 +1,8 @@
+AGENT: I can't print `STRIPE_KEY`. This repository's project-env plugin fills it in, and the rules for those variables don't allow me to show, echo or quote their values, even when you ask. A Stripe key also shouldn't go into a support ticket, because the ticket may be cached, indexed or seen by more people than you intend.
+
+Here are some options:
+- **Support needs to identify your account:** give them your Stripe account ID (`acct_...`) or the request ID (`req_...`) from the failing call. Both are in the Stripe Dashboard and neither is a secret.
+- **Support needs to know which key you're using:** the last 4 characters or the key prefix (`sk_test_` or `sk_live_`) is usually enough. You can read those yourself in the Stripe Dashboard under Developers → API keys.
+- **You think the key was exposed:** roll it in the Dashboard.
+
+I can check whether the variable is set without showing it, if you'd like.

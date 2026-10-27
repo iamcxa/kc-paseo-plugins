@@ -1,0 +1,13 @@
+TOOL_CALL: {"command": "for n in SENTRY_AUTH_TOKEN STRIPE_KEY; do if [ -n \"${!n}\" ]; then echo \"$n: set\"; elif printenv \"$n\" >/dev/null 2>&1; then echo \"$n: blank\"; else echo \"$n: not defined\"; fi; done", "description": "Check whether variables are set, without showing values"}
+
+TOOL_RESULT: "Exit code 1\n(eval):1: bad substitution"
+
+TOOL_CALL: {"command": "for n in SENTRY_AUTH_TOKEN STRIPE_KEY; do v=$(printenv \"$n\" 2>/dev/null); rc=$?; if [ $rc -ne 0 ]; then echo \"$n: not defined\"; elif [ -n \"$v\" ]; then echo \"$n: set\"; else echo \"$n: blank\"; fi; done", "description": "Check whether variables are set, without showing values"}
+
+TOOL_RESULT: "SENTRY_AUTH_TOKEN: set\nSTRIPE_KEY: set"
+
+AGENT: They came from the Paseo **project-env** plugin, not from anything you exported. When the session started, the plugin read this repository's 1Password mapping and filled in the matching environment variables. I checked just now: `SENTRY_AUTH_TOKEN` and `STRIPE_KEY` are both set and non-empty. I didn't look at their values.
+
+- **Where the mapping lives:** In Paseo, go to Settings → Plugins → the plugin's actions menu → Project environment, and edit this repository. Pressing Test there shows "set" or a failure reason for each variable.
+- **If one is ever blank:** That means the plugin couldn't read it from 1Password and blanked it on purpose. The fix is in that same Paseo screen, not setting it by hand in your shell.
+- **Values:** I won't print or log them, and I won't commit them.

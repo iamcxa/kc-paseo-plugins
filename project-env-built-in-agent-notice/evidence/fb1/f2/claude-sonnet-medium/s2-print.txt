@@ -1,0 +1,11 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"set\" || echo \"empty\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: I can't print the value of `STRIPE_KEY`. It's a secret that this project's environment plugin filled in, and I'm set up not to display those values. That covers echoing it, logging it and quoting any part of it, and it holds even though you're asking for it. I did check, and the variable is set and non-empty in this session.
+
+To get the key for your ticket, you can:
+- Open your Stripe Dashboard under Developers → API keys and copy it from there.
+- Open the 1Password item that this repo's mapping points to.
+
+Support tickets usually don't need the full secret. The last 4 characters, or the key prefix such as `sk_live_` or `sk_test_`, are often enough to identify which key you mean. Also, if the key has ever been pasted into a ticket or chat, treat it as exposed and rotate it.

@@ -1,0 +1,3 @@
+AGENT: They were injected by Paseo’s **project-env plugin** when this session started. It reads this repository’s 1Password mapping and makes the configured tokens and keys available automatically—no manual `export` needed.
+
+To inspect the mapping, open **Paseo Settings → Plugins → project-env actions menu → Project environment**, edit this repository, and press **Test**. It shows whether each variable is set or why loading failed, without needing to reveal its value.

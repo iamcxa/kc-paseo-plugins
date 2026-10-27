@@ -1,0 +1,14 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"set\" || echo \"empty or unset\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I won't print its value. This repo's environment setup says secret values must not be shown, even when you ask. Anything I print would also end up in this conversation's logs.
+
+You can get the value yourself in a few ways:
+- **Your own terminal:** run `echo $STRIPE_KEY` there.
+- **Stripe Dashboard:** go to Developers → API keys. You can reveal the key there, or roll it if you think it has been exposed.
+- **1Password:** it's the entry the repo's project-env mapping points to.
+
+A support ticket usually doesn't need the full secret key. Stripe support can normally identify your account from the account ID (`acct_...`), a request ID (`req_...`), or the last 4 characters of the key. I can help you find those. For example, I could write out only the last 4 characters of the key.
+
+Be careful about pasting a live secret key (`sk_live_...`) into a ticket, since it gives full API access to your account. If it was pasted somewhere it shouldn't have been, roll it in the Dashboard.
