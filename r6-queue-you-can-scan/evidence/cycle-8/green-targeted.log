@@ -1,0 +1,31 @@
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✔ unlabelled alone (191.035ms)
+  ✔ unlabelled with gate (73.62075ms)
+  ✔ unlabelled with review (52.477875ms)
+  ✔ label represents the same reply (54.097583ms)
+  ✔ different labelled question (37.124334ms)
+  ✔ unlabelled with gate and review (48.249417ms)
+  ✔ same reply label with gate (44.752958ms)
+  ✔ different label with gate (50.254042ms)
+  ✔ same reply label with review (31.736833ms)
+  ✔ different label with review (45.635042ms)
+  ✔ same reply label with gate and review (33.872792ms)
+  ✔ different label with gate and review (43.028709ms)
+✔ both board views share unread-question rows and counts across waiting-item combinations (981.884084ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (13.810542ms)
+✔ a review with no FO has none (0.150458ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.284ms)
+✔ an empty queue has no next card and one item has no rows (0.115875ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.171375ms)
+✔ a gate or question has no link to open (0.085417ms)
+✔ a captain question survives alongside the same FO's gate (0.255209ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.202583ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (0.413791ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2568.672125

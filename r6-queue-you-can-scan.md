@@ -208,3 +208,22 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head and owns 
 ### Summary
 
 By FO now retains an unread question as a separate row unless that same question is already represented, with counts taken from the displayed rows. The full combination table proves both the previous class failure and the repaired rendering and destination; the final authorized repair is committed and pushed to the existing Draft PR.
+
+## Stage Report: implementation (cycle 8)
+
+- DONE: Pre-gate block (picky A and B): an unread FO question with no next label is a question row in By decision with its reply preview as title, exactly as in By FO, and it stays a row and counts when the same FO also has an open gate or review; both views take question rows from one shared builder in shared/queue.ts (buildQueue), so the views cannot diverge; one table test over the same combinations as cycle 7, asserting both views' rows and counts, failing on 86c54e5
+  `f10a3f29a43fb09adff4beda268799f514f7b43b` moves preview selection and same-question suppression into buildQueue; mounted 12-combination table checks both views' exact question/gate/review rows, counts and question destinations. Eight combinations fail on 86c54e5 (red.log); all pass after the repair (green-targeted.log); restoring generic/missing decision rows fails this table.
+- DONE: Screenshots at the new head, 360 and 1440 px, of both views with an unlabelled unread question beside a gate on the same FO, and of a failed source showing its "Check again" control on the board (not an opened card); npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 8)" section
+  `evidence/cycle-8/runtime-{360,1440}/` contains eight inspected PNGs: both views show the same question beside its gate, count 2, and the failed comms source's Check again on the board; observed.json binds each capture to f10a3f2. npm test 133/133 and typecheck pass; pr54.json confirms pushed f10a3f2, OPEN and Draft.
+
+### Findings
+
+- Scope: only shared/queue.ts, client/board.tsx and the existing mounted combination test changed; both views now consume the same queue and no separate By FO question builder remains.
+- Evidence is under `r6-queue-you-can-scan/evidence/cycle-8/`. `capture.py` declares all executable paths and uses synthetic SDK replies/attention, a synthetic gate, an empty review source, and a comms subscription failure; candidate product modules are copied unchanged. This is isolated browser evidence, not live Captain data or acceptance.
+- Both captures used their own HOME and --home, distinct ports outside the forbidden ranges, and fresh browser profiles blocking localhost. Captured daemon PIDs stopped, browser sessions closed and temporary roots removed (both cleanup.json files; absence rechecked). No card was opened for the failure screenshots; no message or decision was sent.
+- Package checks: comment ratio, documentation impact, number guards and ADR lint pass (checks.json). SKIPPED: design_surfaces.py reports missing Surfaces/Visible change in FO alignment, known package gap 2. RoboRev not run, package gap 5; FO reruns its gate on f10a3f2.
+- PR #54 remains Draft on the r6 branch with r5 as base; no ready, merge or other branch push. Remaining: FO-run review, validation and pre-gate team judgment.
+
+### Summary
+
+Both views now retain unread question text and counts through the same shared builder, including combinations with gates, reviews and separately labelled questions. The regression table fails on the previous head and passes at f10a3f2; the new head has complete 360/1440 board and failed-source captures.
