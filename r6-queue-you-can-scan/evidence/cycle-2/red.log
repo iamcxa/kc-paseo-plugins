@@ -1,0 +1,28 @@
+✖ By FO keeps an idle review owner and its waiting count visible while idle rows are collapsed (631.887208ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2473.39375
+
+✖ failing tests:
+
+test at test/board-review-owner.test.mts:1:390
+✖ By FO keeps an idle review owner and its waiting count visible while idle rows are collapsed (631.887208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Waiting on you · 1/. Input:
+  
+  'By decision · 1By FO · 2Idle · 2  ▸+ New FONo FO has a workflow-dir label yet'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/board-review-owner.test.mts:45:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'By decision · 1By FO · 2Idle · 2  ▸+ New FONo FO has a workflow-dir label yet',
+    expected: /Waiting on you · 1/,
+    operator: 'match',
+    diff: 'simple'
+  }

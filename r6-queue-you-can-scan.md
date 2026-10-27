@@ -94,3 +94,20 @@ No persistent state, relay/permission change, new timer or retry duty was added.
 ### Summary
 
 Queue rows now keep readable two-line titles and per-item destinations, with matching FO counts and honest comms ages. Failed sources reuse their existing read paths, while reviews show the existing automatic schedule; the exact candidate is pushed as Draft PR #54 for FO validation and review.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: roborev:1235: in By FO, an FO that owns a waiting item (a review, gate or question) is never classified idle, so collapsing idle rows cannot hide a waiting item; its waiting count shows; a test for a review assigned to an otherwise idle owner that fails if the old classification is restored
+  By FO promotes an idle owner with queued items to Waiting on you and uses that group for its card color. The mounted Board test failed at the old head with only “Idle · 2 ▸” visible (red.log), then passed: the review owner and “1 waiting” stay visible, unrelated idle rows remain collapsed, and the review opens its owner (green.log). Restoring the old classification fails this test.
+- DONE: npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 2)" section
+  tests.log: 117/117 pass; typecheck.log: exit 0. Candidate 9023ea4025a8f464505a0c07fed92787fb0da3a4 is pushed to OPEN Draft PR #54 with the unchanged r5 base; pr54.json confirms no merge.
+
+### Findings
+
+roborev:1235 affects the Captain scanning By FO: a review assigned to an idle owner vanished in the default collapsed view, violating value-ac[AC-1] readable/reachable rows. The explicit FO follow-up authorized this single repair; only board.tsx and its new regression test changed.
+Evidence: r6-queue-you-can-scan/evidence/cycle-2/. comment_ratio PASS: 128 code lines, 0 comment lines, 0.0% (maximum 5%). doc_impact: 0 documents listed; existing overview remains accurate. number_guards and adr_lint PASS; no migration or decision record changed. design_surfaces SKIPPED: unchanged package gap 2 (missing POC Surfaces/Visible change); R4 gap 3 did not occur.
+roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemon/browser was launched; candidate/main/live worktrees were clean (safety.json). No profile or boundary change; independent review and validation remain with FO.
+
+### Summary
+
+Idle FO owners with outstanding queue items now stay visible with their waiting count. The regression test proves both the original failure and the repaired behavior; the fix is committed and pushed to the existing Draft PR.

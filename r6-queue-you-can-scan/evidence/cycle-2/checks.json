@@ -1,0 +1,22 @@
+{
+  "comment_ratio": {
+    "exit": 0,
+    "output": "code lines 128, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+  },
+  "doc_impact": {
+    "exit": 0,
+    "output": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n"
+  },
+  "design_surfaces": {
+    "exit": 1,
+    "output": "r6-queue-you-can-scan.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nr6-queue-you-can-scan.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is implementation, not ideation\n"
+  },
+  "number_guards": {
+    "exit": 0,
+    "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 6f16429c24d4 head 9023ea4025a8 merge-base 6f16429c24d4\n"
+  },
+  "adr_lint": {
+    "exit": 0,
+    "output": "7 ADR file(s) checked, 0 legacy\n"
+  }
+}
