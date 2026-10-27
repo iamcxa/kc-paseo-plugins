@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-journey-map-r1b-update:validation:attempt-1:revision-1
                 digest: sha256:577093dc3ffe23e681d1af4c285600b7071d197385af2d7f3cc0b86ea311b031
                 room-ref: ./project-env-journey-map-r1b-update/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-journey-map-r1b-update:validation:1
+                briefing: briefing:project-env-journey-map-r1b-update:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T19:30:21.84067Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the validation gate (sha256:577093dc), FO having recommended approval; approves validation and the two proposed declines (F1, F2 Polish) at candidate 41359025bec74c8b9b84918d09dfeb2c2f0a7e48. Asked: Approve validation of the journey map update (PR #59 at 4135902) and the two proposed declines? Approval lets FO merge it under ADR 0007 class 2; no plugin reload is needed.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-27T18:33:05Z
 ---
 
