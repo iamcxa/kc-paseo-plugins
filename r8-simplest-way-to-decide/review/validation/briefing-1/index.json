@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r8-simplest-way-to-decide:validation:attempt-1:revision-1",
+  "question": "第 8 輪設計稿要用哪種操作方式？ (accepts design step 1 with the chosen interaction model; step 2 draws one mockup direction of it)",
+  "artifacts": [
+    {
+      "id": "artifact:r8-simplest-way-to-decide:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b19f600b1e5ddcfce2dd6aaf239f35513eddce7b/r8-simplest-way-to-decide.md",
+      "rev": "sha256:555ce29a56f2fbb7b7f4bb6e9519cd204af73447f08d8a6d8166d74170cae2b8",
+      "mediaType": "text/markdown",
+      "summary": "Design step 1 (no visuals): ten sourced tasks, three interaction models, a counted tasks × models table; design director SATISFIED on pass 2. Recommended: one item uses the whole Bridge area, back to the list after; 'next item' optional and not added. The Captain picks the model; approval accepts step 1 and starts step 2 (mockups of the chosen model)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:r8-simplest-way-to-decide:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/b19f600b1e5ddcfce2dd6aaf239f35513eddce7b/r8-simplest-way-to-decide/design/INTERACTION-MODELS.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:17c5eb4366d66be8f11ce762bd7cdac9e05fde03dde8ae3149834f1b504d36ef"
+    }
+  ]
+}

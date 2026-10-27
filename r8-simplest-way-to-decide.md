@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r8-simplest-way-to-decide:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r8-simplest-way-to-decide-validation-1
+              briefing:
+                id: briefing:r8-simplest-way-to-decide:validation:attempt-1:revision-1
+                digest: sha256:49d21042353310d3a1ff85f30654f9eae075de481bba6fba3dfe373b84ef1d86
+                room-ref: ./r8-simplest-way-to-decide/review/validation/briefing-1
 started: 2026-10-27T18:43:04Z
 worktree: .worktrees/spacedock-ensign-r8-simplest-way-to-decide
 ---
