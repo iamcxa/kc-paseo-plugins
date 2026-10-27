@@ -582,7 +582,10 @@ export function Board({
         <Text style={styles.muted}>No agents labelled role=fo.</Text>
       ) : null}
       {STATUS_ORDER.map((status) => {
-        const group = grouped.filter((row) => row.status === status);
+        const group = grouped.filter((row) => {
+          const groupStatus = row.status === "idle" && waitingCount(row.id) ? "waiting on Kent" : row.status;
+          return groupStatus === status;
+        });
         const pinned = status === "waiting on Kent" && coAsk ? 1 : 0;
         if (group.length + pinned === 0) return null;
         return (
@@ -608,7 +611,7 @@ export function Board({
               const waitingItems = queue.filter((item) => item.fo?.id === row.id);
               const waitingFor = waitingItems.length ? "" : row.permission || row.next || replies[row.id]?.preview || "";
               return (
-                <View key={row.id} style={[styles.row, { borderLeftColor: statusColor(row.status) }]}>
+                <View key={row.id} style={[styles.row, { borderLeftColor: statusColor(status) }]}>
                   <Pressable colors={colors} accessibilityRole="button" onPress={() => navigation?.openAgent({ agentId: row.id })}>
                   <View style={styles.owner}>
                     <Text style={[styles.name, { flexShrink: 1 }]}>
