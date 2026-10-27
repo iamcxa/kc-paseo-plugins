@@ -14,6 +14,7 @@ import {
   withReplies,
 } from "../shared/board";
 import { foName } from "../shared/card";
+import { replyPreview } from "../shared/preview";
 import { createFo } from "../shared/fo";
 import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
 import { DecisionCard } from "./decision-card";
@@ -400,7 +401,25 @@ export function Board({
     gate: "Gates",
     ask: "Questions",
   };
-  const waitingCount = (id: string) => queue.filter((item) => item.fo?.id === id).length;
+  const foQueue = useMemo(() => {
+    const items = queue.map((item) => {
+      const reply = item.fo ? replies[item.fo.id] : undefined;
+      return item.kind === "ask" && !item.fo?.next && reply?.preview
+        ? { ...item, title: reply.preview }
+        : item;
+    });
+    for (const row of grouped) {
+      const reply = replies[row.id];
+      if (!reply?.onCaptain || !reply.preview) continue;
+      const represented = items.some((item) => item.fo?.id === row.id && item.kind === "ask" && replyPreview(item.title) === reply.preview);
+      if (!represented) items.push({
+        key: `unread:${row.id}`, kind: "ask", title: reply.preview, detail: "",
+        since: row.attentionAt || row.lastActivityAt, fo: row,
+      });
+    }
+    return items;
+  }, [queue, grouped, replies]);
+  const waitingCount = (id: string) => foQueue.filter((item) => item.fo?.id === id).length;
   const openItem = (item: QueueItem) => {
     if (item.kind === "permission" && item.fo) return navigation?.openAgent({ agentId: item.fo.id });
     if (item.kind === "review" && item.review && !item.fo)
@@ -608,7 +627,7 @@ export function Board({
               const detail = [row.repo, task ? `${task.title} · ${task.stage}` : row.task]
                 .filter(Boolean)
                 .join(" · ");
-              const waitingItems = queue.filter((item) => item.fo?.id === row.id);
+              const waitingItems = foQueue.filter((item) => item.fo?.id === row.id);
               const waitingFor = waitingItems.length ? "" : row.permission || row.next || replies[row.id]?.preview || "";
               return (
                 <View key={row.id} style={[styles.row, { borderLeftColor: statusColor(status) }]}>
@@ -633,11 +652,7 @@ export function Board({
                       {waitingFor}
                     </Text>
                   ) : null}
-                  {waitingItems.map((item) => itemRow(
-                    item.kind === "ask" && !row.next && replies[row.id]?.preview
-                      ? { ...item, title: replies[row.id].preview }
-                      : item,
-                  ))}
+                  {waitingItems.map(itemRow)}
                   {detail || status !== "busy" ? (
                     <Text style={styles.muted}>
                       {[detail, status === "busy" ? "" : ago(row.lastActivityAt)]
