@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 7 — one clear way to decide on the gate screen
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
