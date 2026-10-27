@@ -16,6 +16,20 @@ gates:
                 id: briefing:r7-one-clear-way-to-decide:backlog:attempt-1:revision-1
                 digest: sha256:45c0c1f05399e3787edafc8800cd6c5b0189351ab04b983ddc4058d4e98e01af
                 room-ref: ./r7-one-clear-way-to-decide/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r7-one-clear-way-to-decide:backlog:1
+                briefing: briefing:r7-one-clear-way-to-decide:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-27T15:06:15.370574Z"
+                decision: approve
+                reason: 'Accepts direction: Captain chose this theme in round 6 UAT; scope bounded by chief-engineer; no relay, recording or persistence change; stacked unmerged on #54.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 7 of the POC flywheel under ADR 0008: on the gate screen one text box both messages the officer and carries the decision reason, the discussion does not say whose conversation it is, and the phone decision buttons are small and close together.
