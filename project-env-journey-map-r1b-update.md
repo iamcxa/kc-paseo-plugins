@@ -40,8 +40,8 @@ In: one edit of the journey file that (1) takes `agent-lays-out-vault` out of r1
 
 ## Acceptance criteria
 
-**AC-1**: The journey file carries the five edits in Scope and the two r2 status corrections under "Needs decision", every `exists` story's evidence symbol is found on main, and the journey lint passes.
-Verified by: at the candidate checkout, built on `origin/main` (not local `main`, which lags it), run (a) `node <kc-journey-map>/lib/journey-lint.mjs docs/journey/project-env/give-agents-their-project-setup.yaml "$(git rev-parse --show-toplevel)"`, which must exit 0 and end with `all lints pass`; (b) `git diff origin/main -- docs/journey/project-env/give-agents-their-project-setup.yaml`, which must touch only the hunks in `design/journey-six-edits.diff`; (c) for each of `storeToken`, `tokenStatus`, `nameFromLabel`, `testProject`, `git grep -nw <symbol> origin/main -- project-env` returns a non-test hit. If the Captain declines the two r2 corrections, (a) instead exits 1 with exactly one finding, `evidence-not-found` for `promptStyle`, which `design/lint-five-edits.txt` shows; that residual then needs its own owner.
+**AC-1**: The journey file carries the five edits in Scope, every `exists` story's evidence symbol is found on main, and the journey lint passes.
+Verified by: at the candidate checkout, built on `origin/main` (not local `main`, which lags it), run (a) `node <kc-journey-map>/lib/journey-lint.mjs docs/journey/project-env/give-agents-their-project-setup.yaml "$(git rev-parse --show-toplevel)"`, which must exit 0 and end with `all lints pass`; (b) `git diff origin/main -- docs/journey/project-env/give-agents-their-project-setup.yaml`, which must touch only the hunks in `design/journey-five-edits.diff`; (c) for each of `storeToken`, `tokenStatus`, `nameFromLabel`, `testProject`, `git grep -nw <symbol> origin/main -- project-env` returns a non-test hit. Clause (a) cannot pass on the five edits alone; see "Needs decision".
 
 ## FO alignment
 
@@ -91,8 +91,8 @@ flowchart LR
 
    Their `Gap:` question answers are left as the fold tool wrote them.
 3. r1b `slice_because` becomes:
-   `"Each story is a step a teammate new to the plugin meets, and one teammate-Mac run accepts them together; seven are words on one page set, and four (pick-repository, pick-field, setup-guide, find-settings) need plugin code."`
-   Count after edits: 11 stories not `exists`, limit 5, so the lint reports `slice-size (accepted)` with this reason, as before. The 7 and 4 are the review's own split, rechecked against the file.
+   `"Each story is a step a teammate new to the plugin meets, and one teammate-Mac run accepts them together; four (pick-repository, pick-field, setup-guide, find-settings) need plugin code, and the rest need only pages."`
+   Count after edits: 11 stories not `exists`, limit 5, so the lint reports `slice-size (accepted)` with this reason, as before. The four are the review's own list of stories that need code; the rest need only pages.
 4. New story under step `get-plugin`, after `find-settings`:
    ```yaml
          - id: read-the-docs
@@ -108,7 +108,9 @@ flowchart LR
 **A sixth edit is needed for AC-1's lint to pass: set the two r2 standing-instruction stories to `gap`. Recommendation: yes, add it.** Baseline lint on `origin/main` already exits 1 (`design/lint-base-bed5a66.txt`): `write-prompt` is `exists` with evidence `promptStyle`, a symbol that no longer greps. PR #53 (0b55dfd, merged 2026-10-27) removed the default-prompt box and the `prompt` key; its task file says so (`_archive/project-env-built-in-agent-notice.md`, "The 'Default prompt for new agents' heading and box are gone"). `new-agent-instructions` ("A new agent follows the standing instructions", evidence `systemPrompt`) is the same drift: its symbol still greps, but only in the new built-in notice (`withNotice` in `server/agent-notice.ts`), not any user instruction, so the lint cannot catch it.
 - Edit: in `write-prompt` change `status: exists` to `status: gap` and delete `evidence: promptStyle`; in `new-agent-instructions` do the same with `systemPrompt`. r2's goal and the stories' questions stay. The `write-prompt` q1 answer ("they stay for Kent's own use") is then stale text; I leave it for the Captain's call rather than rewrite an answer.
 - Lint result with it: exit 0, `all lints pass` (`design/lint-six-edits.txt`). Without it: exit 1, one finding (`design/lint-five-edits.txt`).
-- If the Captain says no: the file still improves, AC-1 (a) is replaced by the residual clause already in AC-1, and the stale r2 claim needs an owner.
+- If the Captain says yes: implementation adds the sixth edit to Scope, and AC-1 (b) points at `design/journey-six-edits.diff`.
+- If the Captain says no: AC-1's lint clause (a) is replaced by "exactly one finding, `evidence-not-found` for `promptStyle`" (`design/lint-five-edits.txt`), and that residual needs its own owner.
+- Prior rulings: `Override:` lines in the state checkout (`git grep -n 'Override:'`, 2026-10-28) touch neither r2 nor `write-prompt`; the Captain's 「拿掉避免誤會」 (2026-10-25, amendment 1, AC-3) and 「准」 (2026-10-26) in `_archive/project-env-built-in-agent-notice.md` removed the default-prompt box, which is why I recommend yes.
 
 ### Batch overlap
 
@@ -117,11 +119,13 @@ flowchart LR
 ## Stage Report: ideation
 
 - DONE: Design the five journey-file edits your Scope names, using the kc-journey-map skill's cell contract: write each edit as the exact YAML change (story ids, status, evidence symbols read on main for the four r1.5 stories, the new read-the-docs story's card in the Captain's words, the new r1b slice_because, the status card), keep AC-1 and give it a reproducible evidence clause, and run the journey lint on a throwaway copy with the edits applied.
-  All five edits are written as exact YAML under "Design"; full diffs in `design/journey-five-edits.diff` and `design/journey-six-edits.diff`. The four evidence symbols (`storeToken`, `tokenStatus`, `nameFromLabel`, `testProject`) were read on `origin/main` bed5a66; the merge commits are in tag `project-env-v0.2.0`. AC-1 kept, with a three-part command clause.
-- DONE: AC-1 (current evidence, not a future plan): lint on the throwaway copy.
-  Five edits: exit 1, one finding, `evidence-not-found` for `promptStyle` (write-prompt), a pre-existing failure the baseline shows too (`design/lint-base-bed5a66.txt`). Five edits plus the two r2 corrections: exit 0, `all lints pass` (`design/lint-six-edits.txt`). `slice-size (accepted)` reports 11 stories with the new reason. Not yet run: AC-1 (b) and (c) on a real candidate checkout; (c) was only spot-read for the four symbols.
+  All five edits are written as exact YAML under "Design"; full diffs in `design/journey-five-edits.diff` and `design/journey-six-edits.diff`. The four evidence symbols (`storeToken`, `tokenStatus`, `nameFromLabel`, `testProject`) were read on `origin/main` bed5a66; the merge commits are in tag `project-env-v0.2.0`. AC-1 kept, with a three-part command clause; its current evidence is under `### AC-1`.
 - DONE: Name any decision the Captain must make (at most one), with a recommendation.
   One: add a sixth edit setting `write-prompt` and `new-agent-instructions` to `gap` (PR #53 removed the default prompt). Recommendation: yes. See "Needs decision".
+
+### AC-1
+
+Current evidence, on the throwaway copy of `origin/main` bed5a66. Five edits: lint exits 1 with one finding, `evidence-not-found` for `promptStyle` (`write-prompt`), which the unedited base also shows (`design/lint-base-bed5a66.txt`, `design/lint-five-edits.txt`). Five edits plus the two r2 corrections: exit 0, `all lints pass` (`design/lint-six-edits.txt`). `slice-size (accepted)` reports 11 stories with the new reason. Not yet verified: clauses (b) and (c) on a real candidate checkout; (c) was only spot-read for the four symbols.
 
 ### Summary
 

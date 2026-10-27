@@ -1,5 +1,5 @@
 diff --git a/docs/journey/project-env/give-agents-their-project-setup.yaml b/docs/journey/project-env/give-agents-their-project-setup.yaml
-index d45fab2..1aaa10f 100644
+index d45fab2..5e22e71 100644
 --- a/docs/journey/project-env/give-agents-their-project-setup.yaml
 +++ b/docs/journey/project-env/give-agents-their-project-setup.yaml
 @@ -27,6 +27,10 @@ steps:
@@ -81,7 +81,7 @@ index d45fab2..1aaa10f 100644
      ruling:
        - "「我短期要的是讓 recce team 也可用」 — Captain"
 -    slice_because: "Each story is a step a teammate new to the plugin meets and Kent's own setup already covers, and one teammate-Mac run accepts them together; the three 1Password stories carry no plugin code."
-+    slice_because: "Each story is a step a teammate new to the plugin meets, and one teammate-Mac run accepts them together; seven are words on one page set, and four (pick-repository, pick-field, setup-guide, find-settings) need plugin code."
++    slice_because: "Each story is a step a teammate new to the plugin meets, and one teammate-Mac run accepts them together; four (pick-repository, pick-field, setup-guide, find-settings) need plugin code, and the rest need only pages."
    - {id: r2, name: "RELEASE 2 — Standing instructions", goal: "New agents follow the repository's standing instructions."}
    - {id: r3, name: "RELEASE 3 — Keep it working", goal: "Changed secrets reach agents promptly, unsaved edits are warned, and a teammate shares the setup without asking Kent."}
  
