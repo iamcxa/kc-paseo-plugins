@@ -50,6 +50,17 @@ export function findResolution(frontmatter: unknown, briefingId: string): Resolu
   return null;
 }
 
+export function findLatestResolution(frontmatter: unknown, stage: string): ResolutionLike | null {
+  const records = (frontmatter as { gates?: { records?: unknown } })?.gates?.records;
+  if (!Array.isArray(records)) return null;
+  for (const record of [...records].reverse()) {
+    if (record?.stage !== stage || !Array.isArray(record.attempts)) continue;
+    for (const attempt of [...record.attempts].reverse())
+      if (attempt?.resolution) return attempt.resolution;
+  }
+  return null;
+}
+
 export function parseGitRootUri(uri: string): { commit: string; path: string } | null {
   const match = /^git-root:\/\/state\/([0-9a-f]{7,64})\/(.+)$/.exec(uri);
   return match ? { commit: match[1], path: match[2] } : null;

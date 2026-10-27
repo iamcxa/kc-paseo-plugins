@@ -8,6 +8,7 @@ import {
   type GateBriefingData,
   findOpenAttempt,
   findResolution,
+  findLatestResolution,
   parseGitRootUri,
   readGateBriefing,
 } from "../shared/gate";
@@ -65,7 +66,8 @@ export async function readGateBriefingHandler({
     const state = await stateDir(workflowDir);
     const path = await entityPath(state, slug);
     const entity = frontmatterOf(await readFile(path, "utf8"));
-    const resolution = briefingId ? findResolution(entity, briefingId) : null;
+    const attempt = findOpenAttempt(entity, stage);
+    const resolution = briefingId ? findResolution(entity, briefingId) : !attempt ? findLatestResolution(entity, stage) : null;
     const recorded = resolution
       ? {
           decision: String(resolution.decision ?? ""),
@@ -73,8 +75,7 @@ export async function readGateBriefingHandler({
           at: String(resolution.at ?? ""),
         }
       : null;
-    const attempt = findOpenAttempt(entity, stage);
-    if (!attempt) return { briefing: null, recorded, error: recorded ? null : "This gate has no open briefing now." };
+    if (!attempt) return { briefing: null, recorded, error: null };
     const room = resolve(dirname(path), attempt.roomRef);
     if (!room.startsWith(state))
       return { briefing: null, recorded, error: "The briefing room is outside the workflow state." };

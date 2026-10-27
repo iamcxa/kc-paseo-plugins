@@ -39,7 +39,7 @@ export function wasSent(slug: string): boolean {
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   fo: BoardRow;
   gate: AwaitingGate | null;
-  onBack(): void;
+  onBack(recorded?: boolean): void;
 };
 
 export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Props) {
@@ -47,7 +47,10 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const callBriefing = useRpc(readGateBriefing);
   const [briefing, setBriefing] = useState<GateBriefingData | null>(null);
   const [problem, setProblem] = useState("");
+  const [closed, setClosed] = useState(false);
   const [recorded, setRecorded] = useState<{ decision: string; reason: string } | null>(null);
+  const gateFinished = Boolean(gate && (closed || recorded));
+  const showDecisions = Boolean(gate) && !gateFinished;
   const [showEvidence, setShowEvidence] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const keyboardHeight = useKeyboardHeight(layout.platform, Keyboard);
@@ -69,8 +72,13 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       stage: gate.stage,
       briefingId: briefing?.briefingId,
     });
-    if (answer.recorded) setRecorded(answer.recorded);
+    setRecorded(
+      answer.recorded && (!answer.briefing || answer.briefing.briefingId === briefing?.briefingId)
+        ? answer.recorded
+        : null,
+    );
     if (answer.briefing) setBriefing(answer.briefing);
+    setClosed(!answer.briefing && !answer.error);
     setProblem(answer.error ?? "");
     return answer;
   }, [callBriefing, fo.workflowDir, gate, briefing?.briefingId]);
@@ -256,7 +264,9 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           ? { color: colors.statusWarning, status: "Sent · not recorded yet", detail: `Sent ${minutes(sent.at)} min ago; not recorded yet` }
           : sent
             ? { color: colors.foregroundMuted, status: "Sent", detail: sent.text }
-            : null;
+            : closed
+              ? { color: colors.foregroundMuted, status: "This gate is no longer open.", detail: "" }
+              : null;
   const feedbackStatus = [state?.status, problem ? "Briefing error" : ""].filter(Boolean).join(" · ");
   const feedbackDetail = [problem, state?.detail].filter(Boolean).join("\n\n");
 
@@ -266,15 +276,15 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         {foName(fo.title || fo.id)}
       </Text>
       <TabClosedBadge closed={fo.tabClosed} colors={colors} />
-      <Text style={styles.fo}>{waiting(gate?.preparedAt || fo.lastActivityAt, now)}</Text>
+      {gateFinished ? null : <Text style={styles.fo}>{waiting(gate?.preparedAt || fo.lastActivityAt, now)}</Text>}
     </View>
   );
 
   return (
     <View style={styles.screen}>
       <View style={styles.toolbar}>
-        <Pressable colors={colors} accessibilityRole="button" onPress={onBack}>
-          <Text style={styles.back}>← Bridge</Text>
+        <Pressable colors={colors} accessibilityRole="button" onPress={() => onBack(Boolean(recorded))}>
+          <Text style={styles.back}>← Queue</Text>
         </Pressable>
         {layout.compact ? (
           <Pressable
@@ -293,11 +303,14 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       </View>
       {problem || state ? (
         <View style={styles.feedback}>
-          <Text style={[styles.state, { color: problem ? colors.statusDanger : state?.color }]} numberOfLines={1}>{feedbackStatus}</Text>
-          <Text style={[styles.state, { color: colors.foregroundMuted }]} numberOfLines={2}>{feedbackDetail}</Text>
-          <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="More decision feedback" onPress={() => setFeedbackOpen(true)}>
-            <Text style={styles.toggle}>More</Text>
-          </Pressable>
+          <FeedbackPreview
+            key={`${feedbackStatus}\0${feedbackDetail}`}
+            status={feedbackStatus}
+            detail={feedbackDetail}
+            color={problem ? colors.statusDanger : state?.color ?? colors.foregroundMuted}
+            colors={colors}
+            onMore={() => setFeedbackOpen(true)}
+          />
         </View>
       ) : null}
       <View style={{ flex: 1 }} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
@@ -364,13 +377,13 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           agentId={fo.id}
           gate={gate}
           title={fo.title || "FO"}
-          placeholder={`Message ${foName(fo.title || "the FO")} directly${gate ? ", or add a reason to your decision" : ""}`}
+          placeholder={`Message ${foName(fo.title || "the FO")} directly${showDecisions ? ", or add a reason to your decision" : ""}`}
           discussion
-          chips={gate ? CHIPS : undefined}
-          footer={footer}
-          beforeSend={gate ? beforeSend : undefined}
-          onSent={gate ? onSent : undefined}
-          onChip={gate ? onChip : undefined}
+          chips={showDecisions ? CHIPS : undefined}
+          footer={showDecisions ? footer : undefined}
+          beforeSend={showDecisions ? beforeSend : undefined}
+          onSent={showDecisions ? onSent : undefined}
+          onChip={showDecisions ? onChip : undefined}
         />
       </View>
       </View>
@@ -381,5 +394,41 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         </Modal.Content>
       </Modal>
     </View>
+  );
+}
+
+function FeedbackPreview({ status, detail, color, colors, onMore }: {
+  status: string;
+  detail: string;
+  color: string;
+  colors: PluginScreenProps["theme"]["colors"];
+  onMore(): void;
+}) {
+  const [previewHeight, setPreviewHeight] = useState(0);
+  const [fullHeight, setFullHeight] = useState(0);
+  const text = (clamped: boolean) => (
+    <>
+      <Text style={{ fontSize: 12, lineHeight: 16, color }} numberOfLines={clamped ? 1 : undefined}>{status}</Text>
+      <Text style={{ fontSize: 12, lineHeight: 16, color: colors.foregroundMuted }} numberOfLines={clamped ? 2 : undefined}>{detail}</Text>
+    </>
+  );
+  return (
+    <>
+      <View style={{ position: "relative" }}>
+        <View style={{ gap: 4 }} onLayout={(event) => setPreviewHeight(event.nativeEvent.layout.height)}>{text(true)}</View>
+        <View
+          style={{ position: "absolute", top: 0, left: 0, right: 0, opacity: 0, gap: 4 }}
+          pointerEvents="none"
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          onLayout={(event) => setFullHeight(event.nativeEvent.layout.height)}
+        >{text(false)}</View>
+      </View>
+      {previewHeight > 0 && fullHeight > previewHeight + 0.5 ? (
+        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="More decision feedback" onPress={onMore}>
+          <Text style={{ color: colors.accent, fontSize: 13 }}>More</Text>
+        </Pressable>
+      ) : null}
+    </>
   );
 }

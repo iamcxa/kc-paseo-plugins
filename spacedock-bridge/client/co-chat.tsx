@@ -4,7 +4,7 @@ import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Keyboard, Platform, ScrollView, Text, View, type TextStyle } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
-import { nextStepIsCaptains, parseEnvelope, replyPreview } from "../shared/preview";
+import { type Line, toLines } from "../shared/chat-lines";
 import { MarkdownView } from "./markdown-view";
 import { discussionWindow } from "../shared/card";
 import { type KeyPressEvent, composerHandlers } from "../shared/composer";
@@ -14,46 +14,9 @@ import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/draf
 import { useDraft } from "./use-draft";
 import { useComposerPadding } from "./use-composer-padding";
 
-const VISIBLE = 30;
-
-type Line =
-  | { key: string; role: "user" | "assistant"; text: string }
-  | { key: string; role: "tools"; names: string[] }
-  | { key: string; role: "agent"; from: string; label: string; text: string };
-
-interface TimelineItemLike {
-  type: string;
-  text?: string;
-  name?: string;
-}
-
-function toLines(entries: readonly { item: TimelineItemLike; seqStart: number }[]): Line[] {
-  const lines: Line[] = [];
-  for (const { item, seqStart } of entries) {
-    const last = lines[lines.length - 1];
-    const envelope = item.type === "user_message" && item.text ? parseEnvelope(item.text) : null;
-    if (envelope) {
-      const label =
-        envelope.kind === "agent-notification" ? `${envelope.event || "update"} from` : "Message from";
-      lines.push({ key: `${seqStart}`, role: "agent", from: envelope.from, label, text: envelope.body });
-    } else if ((item.type === "user_message" || item.type === "assistant_message") && item.text) {
-      const role = item.type === "user_message" ? "user" : "assistant";
-      if (last && last.role === role) last.text += item.text;
-      else lines.push({ key: `${seqStart}`, role, text: item.text });
-    } else if (item.type === "tool_call" && item.name && item.name !== "agent_message") {
-      const name = item.name.replace(/^mcp__[^_]+__/, "");
-      if (last?.role === "tools") {
-        if (!last.names.includes(name)) last.names.push(name);
-      } else lines.push({ key: `${seqStart}`, role: "tools", names: [name] });
-    }
-  }
-  return lines.slice(-VISIBLE);
-}
-
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
   gate?: { slug: string; stage: string } | null;
-  onAsk?: (ask: string | null) => void;
   title?: string;
   placeholder?: string;
   chips?: readonly string[];
@@ -76,7 +39,6 @@ function Chat({
   navigation,
   agentId,
   gate,
-  onAsk,
   title = "Comms officer",
   placeholder = "Message the comms officer",
   chips,
@@ -267,13 +229,6 @@ function Chat({
       stopHandle();
     };
   }, [paseo, agentId, load]);
-
-  useEffect(() => {
-    const last = lines[lines.length - 1];
-    if (!onAsk) return;
-    if (working || !last || last.role !== "assistant") return onAsk(null);
-    onAsk(nextStepIsCaptains(last.text) ? replyPreview(last.text) : null);
-  }, [lines, working, onAsk]);
 
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 

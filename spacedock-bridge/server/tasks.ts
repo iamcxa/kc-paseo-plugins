@@ -79,54 +79,66 @@ async function fetchEntities(workflowDir: string): Promise<Entity[]> {
   return Array.isArray(entities) ? (entities as Entity[]) : [];
 }
 
-async function workflowEntities(workflowDir: string): Promise<Entity[]> {
+async function workflowEntities(workflowDir: string, fresh = false): Promise<Entity[]> {
   const known = snapshots.get(workflowDir);
-  if (known && Date.now() - known.at < FRESH_MS) return known.entities;
-  let pending = inFlight.get(workflowDir);
+  if (!fresh && known && Date.now() - known.at < FRESH_MS) return known.entities;
+  let pending = fresh ? undefined : inFlight.get(workflowDir);
   if (!pending) {
     pending = fetchEntities(workflowDir)
       .then((entities) => {
-        snapshots.set(workflowDir, { at: Date.now(), entities });
+        if (inFlight.get(workflowDir) === pending) snapshots.set(workflowDir, { at: Date.now(), entities });
         return entities;
       })
       .catch((error) => {
         console.error(`spacedock status ${workflowDir}:`, error);
-        return known?.entities ?? [];
+        throw error;
       })
-      .finally(() => inFlight.delete(workflowDir));
+      .finally(() => { if (inFlight.get(workflowDir) === pending) inFlight.delete(workflowDir); });
     inFlight.set(workflowDir, pending);
   }
   return pending;
 }
 
+async function readWorkflows(workflowDirs: readonly string[], fresh = false) {
+  const dirs = [...new Set(workflowDirs)];
+  const results = await Promise.allSettled(dirs.map((dir) => workflowEntities(dir, fresh)));
+  const workflows = new Map<string, Entity[]>();
+  const failedWorkflowDirs: string[] = [];
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") workflows.set(dirs[index], result.value);
+    else failedWorkflowDirs.push(dirs[index]);
+  });
+  return { workflows, failedWorkflowDirs };
+}
+
 export async function readTasksHandler({ requests }: RpcInput<typeof readTasks>) {
+  const { workflows, failedWorkflowDirs } = await readWorkflows(requests.map((request) => request.workflowDir));
   const tasks: Record<string, TaskStatus> = {};
-  await Promise.all(
-    requests.map(async ({ agentId, workflowDir, task }) => {
-      const entity = (await workflowEntities(workflowDir)).find((e) => e.slug === task);
-      if (entity) tasks[agentId] = { title: String(entity.title ?? ""), stage: String(entity.status) };
-    }),
-  );
-  return { tasks };
+  for (const { agentId, workflowDir, task } of requests) {
+    const entity = workflows.get(workflowDir)?.find((e) => e.slug === task);
+    if (entity) tasks[agentId] = { title: String(entity.title ?? ""), stage: String(entity.status) };
+  }
+  return { tasks, failedWorkflowDirs };
 }
 
 let gateCalls = 0;
-export async function readGatesHandler({ workflowDirs }: RpcInput<typeof readGates>) {
+export async function readGatesHandler({ workflowDirs, fresh }: RpcInput<typeof readGates>) {
   const call = ++gateCalls;
   const started = Date.now();
   console.log(`gates.read #${call} start dirs=${workflowDirs.length}`);
   try {
-    return await readGatesInner(workflowDirs);
+    return await readGatesInner(workflowDirs, fresh);
   } finally {
     console.log(`gates.read #${call} done ${Date.now() - started}ms`);
   }
 }
 
-async function readGatesInner(workflowDirs: readonly string[]) {
+async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
+  const { workflows, failedWorkflowDirs } = await readWorkflows(workflowDirs, fresh);
   const lists = await Promise.all(
-    [...new Set(workflowDirs)].map(async (workflowDir) =>
+    [...workflows].map(async ([workflowDir, entities]) =>
       Promise.all(
-        parseAwaitingGates(JSON.stringify({ entities: await workflowEntities(workflowDir) })).map(
+        parseAwaitingGates(JSON.stringify({ entities })).map(
           async (gate: AwaitingGate) => ({
             workflowDir,
             ...gate,
@@ -143,5 +155,5 @@ async function readGatesInner(workflowDirs: readonly string[]) {
     seen.add(key);
     return true;
   });
-  return { gates };
+  return { gates, failedWorkflowDirs };
 }

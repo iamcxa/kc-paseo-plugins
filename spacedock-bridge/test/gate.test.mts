@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { findOpenAttempt, findResolution, parseGitRootUri } from "../shared/gate";
+import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { stringify } from "yaml";
+import { readGateBriefingHandler } from "../server/gate";
 
 const frontmatter = {
   gates: {
@@ -39,6 +44,26 @@ test("the open attempt is the latest one neither withdrawn nor resolved, for tha
 test("a resolution is found by the briefing it answered", () => {
   assert.equal(findResolution(frontmatter, "b:b:1")?.decision, "approve");
   assert.equal(findResolution(frontmatter, "b:i:2"), null);
+});
+
+test("opening a closed gate without a briefing ID returns its latest stage resolution", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "bridge-gate-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(join(root, ".spacedock-state"));
+  await writeFile(join(root, "README.md"), "---\nstate: .spacedock-state\n---\n");
+  const latest = { briefing: "b:b:2", decision: "revise", reason: "Latest decision", at: "2026-10-25T00:00:00Z" };
+  const entity = structuredClone(frontmatter);
+  entity.gates.records[1].attempts.push({ briefing: { id: "b:b:2", digest: "sha256:d", "room-ref": "unused" }, resolution: latest });
+  await writeFile(join(root, ".spacedock-state/task.md"), `---\n${stringify(entity)}---\n`);
+  const input = { workflowDir: root, slug: "task", stage: "backlog" };
+  assert.deepEqual(await readGateBriefingHandler(input), {
+    briefing: null, recorded: { decision: latest.decision, reason: latest.reason, at: latest.at }, error: null,
+  });
+  const old = await readGateBriefingHandler({ ...input, briefingId: "b:b:1" });
+  assert.equal(old.recorded?.decision, "approve");
+  assert.deepEqual(await readGateBriefingHandler({ ...input, stage: "validation" }), {
+    briefing: null, recorded: null, error: null,
+  });
 });
 
 test("a git-root state URI gives the commit and path", () => {

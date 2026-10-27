@@ -1,6 +1,6 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { TabClosedBadge } from "./tab-closed-badge";
@@ -15,12 +15,12 @@ import {
 } from "../shared/board";
 import { foName } from "../shared/card";
 import { createFo } from "../shared/fo";
-import { lastReply, nextStepIsCaptains, replyPreview } from "../shared/preview";
 import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
 import { DecisionCard, wasSent } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
 import { type ReviewRequestData, readReviews, reviewOwner } from "../shared/reviews";
 import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
+import { boardEmptyState, type SourceState, type SourceStates } from "../shared/board-empty";
 
 interface WorkspaceChoice {
   id: string;
@@ -50,10 +50,13 @@ export function Board({
   layout,
   navigation,
   coAsk,
+  commsState = "loaded",
   onAskCo,
-}: BoardProps & { coAsk?: CoAsk | null; onAskCo?: (text: string) => void }) {
+}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onAskCo?: (text: string) => void }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
+  const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
+  const [foState, setFoState] = useState<SourceState>("loading");
   const [workspaces, setWorkspaces] = useState<WorkspaceChoice[] | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
@@ -61,9 +64,15 @@ export function Board({
   useEffect(() => {
     let release: (() => void) | null = null;
     let cancelled = false;
-    observeBoard(paseo, setRows).then(
+    const failed = () => { if (!cancelled) setFoState("failed"); };
+    observeBoard(paseo, (next, facts, state) => {
+      if (cancelled) return;
+      setRows(next);
+      setReplies(facts);
+      setFoState(state);
+    }, failed).then(
       (stop) => (cancelled ? stop() : (release = stop)),
-      (error) => setMessage(String(error)),
+      failed,
     );
     return () => {
       cancelled = true;
@@ -71,49 +80,39 @@ export function Board({
     };
   }, [paseo]);
 
-  const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
-  const fetched = useRef(new Map<string, string>());
-
-  useEffect(() => {
-    for (const row of rows) {
-      if (row.status !== "new reply" || row.hasNextOwner) continue;
-      if (fetched.current.get(row.id) === row.lastActivityAt) continue;
-      fetched.current.set(row.id, row.lastActivityAt);
-      paseo.agents
-        .ref(row.id)
-        .timeline.refetch({ direction: "tail", limit: 30, projection: "projected" })
-        .then(
-          ({ entries }) => {
-            const reply = lastReply(entries.map((entry) => entry.item));
-            const fact = { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply) };
-            setReplies((current) => ({ ...current, [row.id]: fact }));
-          },
-          () => fetched.current.delete(row.id),
-        );
-    }
-  }, [paseo, rows]);
-
   const callReadTasks = useRpc(readTasks);
   const [tasks, setTasks] = useState<Record<string, TaskStatus>>({});
+  const [taskFailures, setTaskFailures] = useState<string[]>([]);
   const taskKey = rows
     .filter((row) => row.workflowDir && row.task)
     .map((row) => `${row.id}|${row.workflowDir}|${row.task}`)
     .join("\n");
 
   useEffect(() => {
+    setTasks({});
+    setTaskFailures([]);
     if (!taskKey) return;
+    let cancelled = false;
     const requests = taskKey.split("\n").map((line) => {
       const [agentId, workflowDir, task] = line.split("|");
       return { agentId, workflowDir, task };
     });
     const refresh = () =>
       callReadTasks({ requests }).then(
-        (result) => setTasks(result.tasks),
-        (error) => setMessage(String(error)),
+        (result) => {
+          if (cancelled) return;
+          setTasks(result.tasks);
+          setTaskFailures(result.failedWorkflowDirs);
+        },
+        () => {
+          if (cancelled) return;
+          setTasks({});
+          setTaskFailures([...new Set(requests.map((request) => request.workflowDir))]);
+        },
       );
     void refresh();
     const timer = setInterval(() => void refresh(), 60_000);
-    return () => clearInterval(timer);
+    return () => { cancelled = true; clearInterval(timer); };
   }, [taskKey, callReadTasks]);
 
   const callReadGates = useRpc(readGates);
@@ -121,25 +120,39 @@ export function Board({
     { workflowDir: string; slug: string; title: string; stage: string }[]
   >([]);
   const [gatesAt, setGatesAt] = useState<string>("");
+  const [gateCheck, setGateCheck] = useState<{ key: string; state: SourceState; failed: string[] }>({ key: "", state: "loading", failed: [] });
+  const gateRequest = useRef(0);
   const workflowKey = [...new Set(rows.map((row) => row.workflowDir).filter(Boolean))]
     .sort()
     .join("\n");
 
-  useEffect(() => {
+  const refreshGates = useCallback((fresh = false) => {
     if (!workflowKey) return;
+    const request = ++gateRequest.current;
+    setGateCheck({ key: workflowKey, state: "loading", failed: [] });
     const workflowDirs = workflowKey.split("\n");
-    const refresh = () =>
-      callReadGates({ workflowDirs }).then(
+    return callReadGates({ workflowDirs, fresh }).then(
         (result) => {
+          if (request !== gateRequest.current) return;
           setGates(result.gates);
           setGatesAt(new Date().toISOString());
+          setGateCheck({ key: workflowKey, state: result.failedWorkflowDirs.length ? "failed" : "loaded", failed: result.failedWorkflowDirs });
         },
-        (error) => setMessage(String(error)),
+        () => {
+          if (request !== gateRequest.current) return;
+          setGates([]);
+          setGateCheck({ key: workflowKey, state: "failed", failed: [] });
+        },
       );
-    void refresh();
-    const timer = setInterval(() => void refresh(), 60_000);
-    return () => clearInterval(timer);
   }, [workflowKey, callReadGates]);
+
+  useEffect(() => {
+    setGates([]);
+    setGatesAt("");
+    void refreshGates();
+    const timer = setInterval(() => void refreshGates(), 60_000);
+    return () => { ++gateRequest.current; clearInterval(timer); };
+  }, [refreshGates]);
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const askCo = (text: string) => {
@@ -152,15 +165,25 @@ export function Board({
 
   const callReadReviews = useRpc(readReviews);
   const [reviews, setReviews] = useState<ReviewRequestData[]>([]);
+  const [reviewState, setReviewState] = useState<SourceState>("loading");
   useEffect(() => {
+    let cancelled = false;
     const refresh = () =>
       callReadReviews({}).then(
-        (result) => setReviews(result.requests),
-        () => undefined,
+        (result) => {
+          if (cancelled) return;
+          setReviews(result.error ? [] : result.requests);
+          setReviewState(result.error ? "failed" : result.checkedAt === null ? "loading" : "loaded");
+        },
+        () => {
+          if (cancelled) return;
+          setReviews([]);
+          setReviewState("failed");
+        },
       );
     void refresh();
     const timer = setInterval(() => void refresh(), 60_000);
-    return () => clearInterval(timer);
+    return () => { cancelled = true; clearInterval(timer); };
   }, [callReadReviews]);
 
   const grouped = useMemo(
@@ -326,6 +349,16 @@ export function Board({
     () => buildQueue(grouped, reviews, withReplies(rows, replies)),
     [grouped, reviews, rows, replies],
   );
+  const sources: SourceStates = {
+    fos: foState,
+    gates: !workflowKey ? "loaded" : gateCheck.key === workflowKey ? gateCheck.state : "loading",
+    reviews: reviewState,
+    comms: commsState,
+  };
+  const failedGateWorkflows = gateCheck.key === workflowKey ? gateCheck.failed : [];
+  const empty = boardEmptyState(sources, queue.length + (coAsk ? 1 : 0), failedGateWorkflows);
+  const foEmpty = boardEmptyState(sources, grouped.length, failedGateWorkflows);
+  const notice = view === "decision" ? empty.message : foEmpty.count === "0" ? null : foEmpty.message;
   const kindLabel: Record<QueueKind, string> = {
     permission: "PERMISSION",
     review: "REVIEW REQUEST",
@@ -364,7 +397,10 @@ export function Board({
         navigation={navigation}
         fo={openRow}
         gate={open.gate}
-        onBack={() => setOpen(null)}
+        onBack={(recorded) => {
+          setOpen(null);
+          if (recorded) void refreshGates(true);
+        }}
       />
     );
 
@@ -373,6 +409,7 @@ export function Board({
       {message ? (
         <Text style={{ color: colors.statusDanger }}>{message}</Text>
       ) : null}
+      {taskFailures.length ? <Text style={{ color: colors.statusDanger }}>Could not check tasks for {taskFailures.join(", ")}</Text> : null}
       <View style={styles.toggle}>
         {(["decision", "fo"] as const).map((id) => (
           <Pressable colors={colors}
@@ -382,14 +419,14 @@ export function Board({
             style={[styles.toggleButton, view === id ? styles.toggleActive : null]}
           >
             <Text style={view === id ? styles.toggleTextActive : styles.toggleText}>
-              {id === "decision" ? `By decision · ${queue.length + (coAsk ? 1 : 0)}` : `By FO · ${grouped.length}`}
+              {id === "decision" ? `By decision · ${empty.count}` : `By FO · ${foEmpty.count}`}
             </Text>
           </Pressable>
         ))}
       </View>
+      {notice ? <Text style={styles.muted}>{notice}</Text> : null}
       {view === "decision" ? (
         <>
-          {queue.length === 0 && !coAsk ? <Text style={styles.muted}>Nothing is waiting on you.</Text> : null}
           {next ? (
             <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(next)} style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
               <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
@@ -523,7 +560,7 @@ export function Board({
           })}
         </View>
       ) : null}
-      {rows.length === 0 ? (
+      {foState === "loaded" && foEmpty.count === "0" && rows.length === 0 ? (
         <Text style={styles.muted}>No agents labelled role=fo.</Text>
       ) : null}
       {STATUS_ORDER.map((status) => {
