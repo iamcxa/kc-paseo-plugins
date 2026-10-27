@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r6-queue-you-can-scan:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r6-queue-you-can-scan-validation-1
+              briefing:
+                id: briefing:r6-queue-you-can-scan:validation:attempt-1:revision-1
+                digest: sha256:807378f971cd3778e9c8c18e1a17d3ba4954f383407e8b14168905090cc2e0ce
+                room-ref: ./r6-queue-you-can-scan/review/validation/briefing-1
 started: 2026-10-27T03:07:01Z
 worktree: .worktrees/spacedock-ensign-r6-queue-you-can-scan
 pr: 54
