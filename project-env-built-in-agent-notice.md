@@ -441,3 +441,11 @@ The revised notice fixes the blank-variable misread: 12 of 12 s1 runs across Cod
 ### FO acceptance rerun (2026-10-27)
 
 FO ran `evidence/val2/acceptance.sh` in a fresh `env -i` shell against 231c30a: typecheck ok and 302 of 302; a 1445-character notice for work and work-legacy and none for the empty, bare and unconnected folders; the `prompt` key gone after Save; the Projects link, the discard question, Close and Discard at 1280 and 400 px; a 45 px link box with clicks at 0 and ±22 px leaving the editor; exit 0 (`evidence/fo-acceptance-rerun-231c30a.txt`).
+
+### FO merge and reload (ADR 0007 class 2, 2026-10-27)
+
+After the Captain approved validation (「准」, 2026-10-27), FO merged PR iamcxa/kc-paseo-plugins#53 by squash with `--match-head-commit 231c30abcf52405a87dfd9a0e528ae3e94d8f148` (delivery_gate check exit 0, GitGuardian pass, Codex clean, no Codex review or line comment); merge commit 0b55dfd1a534b8dbd04bd1739ca2037e92202f55 at 2026-10-27T02:53:17Z. Reload route: (1) backup `~/.paseo-backup-project-env-20261021/projects-20261027T105329.json`, byte-identical; (2) `git fetch origin`, origin/main contains 0b55dfd; (3) clean main checkout at b3067d4, 0 ahead, `merge --ff-only`, HEAD equals origin/main 0b55dfd; (4) `npm ci`, 0 vulnerabilities; (5) `paseo plugin reload paseo-project-env`: running. After reload the settings file is byte-identical to the backup. A probe agent (Claude haiku) in the qnow workspace answered YES to holding the "Project environment (Paseo plugin "project-env")" section and reported its five variables SET by an emptiness test only (no value or length read); it was archived.
+
+## UAT
+
+Pending: the Captain's UAT on the live plugin.
