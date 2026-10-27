@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 8 — design round step 1, the simplest way for the Captain to decide (interaction models, no visuals)
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
