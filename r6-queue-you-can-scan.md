@@ -111,3 +111,20 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 Idle FO owners with outstanding queue items now stay visible with their waiting count. The regression test proves both the original failure and the repaired behavior; the fix is committed and pushed to the existing Draft PR.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: roborev:1236: in By FO, a question row detected from an unread reply with no next label uses that reply's preview as its title instead of only "Has a question for you"; a test for that case that fails if the generic title is restored
+  Only By FO question rows without a next label use replies[row.id].preview as their displayed title. The mounted Board test reads a synthetic unread assistant reply through the actual observer: red.log fails on “Has a question for you”; green.log passes with “Choose the release window (you)”, one waiting item and the correct FO destination. Restoring the generic title fails this test.
+- DONE: npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 3)" section
+  tests.log: 118/118 pass; typecheck.log: exit 0. Candidate 0c96b40c6419776dcac4d706153799aae0bcd905 is pushed to OPEN Draft PR #54 with the unchanged r5 base; pr54.json confirms no merge.
+
+### Findings
+
+roborev:1236 affects the Captain scanning By FO: an unread question without a next label lost its actual text, requiring a card open to understand it, contrary to value-ac[AC-1] readable rows. This explicitly authorized repair changes only board.tsx and its new regression test; labelled question titles, other item types and destinations are preserved.
+Evidence: r6-queue-you-can-scan/evidence/cycle-3/. comment_ratio PASS: 132 code lines, 0 comment lines, 0.0% (maximum 5%). doc_impact: 0 documents listed; existing overview remains accurate. number_guards and adr_lint PASS; no migration or decision record changed. design_surfaces SKIPPED: unchanged package gap 2; R4 gap 3 did not occur.
+roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemon/browser was launched; candidate/main/live worktrees were clean (safety.json). No profile or boundary change; independent review and validation remain with FO.
+
+### Summary
+
+By FO again shows the actual unread question preview when no next label exists. The regression test proves the original failure and the corrected title and destination; the fix is committed and pushed to the existing Draft PR.
