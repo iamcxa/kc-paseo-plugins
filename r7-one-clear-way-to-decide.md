@@ -101,6 +101,7 @@ Messages and gate decisions now have separate drafts and explicit actions, the c
 - Roborev:1259 on 0895937 (Medium, from the cycle 3 sibling layout): the GitHub link's full repository reference has no width limit beside the next item's content, so a long name can collapse the title and Open action in the 380 px pane; FO authorizes cycle 4: an icon-only link with the full reference as its accessibility label, as other queue rows do.
 - Roborev:1261 on 04f90b8: Medium — the reason panel sits outside the scroll area, so on a compact screen with the keyboard open Confirm and Cancel can fall under the keyboard; Low — the next review no longer shows its repo#number (the Captain asked for repo_name#123 in an earlier round). Chief-engineer drift call: converging; repair both in one pass and close the queue-row class with one combined fixture. FO authorizes cycle 5.
 - Roborev clean on 316c9ef (roborev:1266). Pre-gate team pass 1 on 316c9ef: design partner, picky A and picky B all SATISFIED (Send versus Confirm is clear; drafts kept; conversation scope named; queue hover inside its row; repo#number visible). All three name the real-phone keyboard check as still open (later, the Captain's device).
+- Validation-1 PASSED on 316c9ef. FO reran evidence/validation-1/acceptance.py (checks, message-360, keyboard-360, queue-360, queue-1440) one step at a time in a fresh shell: all PASS on the first run (rerun-* folders).
 
 ## Stage Report: implementation (cycle 2)
 
