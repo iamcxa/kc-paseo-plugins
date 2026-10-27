@@ -32,6 +32,7 @@ gates:
                 state: consumed
 started: 2026-10-27T15:08:01Z
 worktree: .worktrees/spacedock-ensign-r7-one-clear-way-to-decide
+pr: 57
 ---
 
 Round 7 of the POC flywheel under ADR 0008: on the gate screen one text box both messages the officer and carries the decision reason, the discussion does not say whose conversation it is, and the phone decision buttons are small and close together.
