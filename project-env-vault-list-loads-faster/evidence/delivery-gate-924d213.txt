@@ -1,0 +1,8 @@
+PR head 924d213e844c1e123bba6d56a8bc784f74c9ad54 equals dispatched candidate 924d213e844c1e123bba6d56a8bc784f74c9ad54; no second reviewer outcome is missing
+point: deferred: '- F1 Deferred risk: on a'
+point: deferred: '- F2 Deferred risk: concurrency is'
+point: deferred: 'Declined: Deferred risk, F1 on a'
+point: deferred: 'Declined: Deferred risk, F2 the Test'
+class: other (verdict ask)
+record: project-env-vault-list-loads-faster/merge/ask-1.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.
