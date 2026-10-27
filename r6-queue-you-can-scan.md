@@ -146,3 +146,8 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 Manual checking now restores an errored comms timeline subscription, and the source remains incomplete until both subscription and history succeed. The original failure and resumed later-question delivery are covered by the regression test; the fix is committed and pushed to the existing Draft PR.
+
+### FO notes
+
+- Correction to the Scope line "a third unsatisfied team pass stops the round": ADR 0008 (Limits and stops) says the team unsatisfied twice on one theme stops and asks the Captain; the ADR governs, so a second unsatisfied team pass stops this round. Flagged by chief-engineer 2026-10-27 in the drift call.
+- Chief-engineer drift call on 4643e0670b88 (roborev 1235, 1236, 1238, 1239): converging; repair 1239 by awaiting subscription readiness before the history read, with one race test; deferral would leave AC-2 false and reverting restores the 1238 defect.
