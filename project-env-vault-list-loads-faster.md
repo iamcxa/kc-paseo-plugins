@@ -1,7 +1,7 @@
 ---
 id:
 title: The field picker's vault list loads faster
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-27, on the ideation gate (sha256:fcf518fe), FO having recommended approval; approval also accepts the recommendation to keep passing the vault by name in this task. Asked: Approve this design (read up to 4 vault items at once, same requests and same list) and AC-1 into implementation, keeping the vault passed by name for now? Say if you object to any part.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-27T03:20:52Z
 ---
 
