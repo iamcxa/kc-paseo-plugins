@@ -97,6 +97,7 @@ Messages and gate decisions now have separate drafts and explicit actions, the c
 - Roborev (FO-run, package gap 5) clean on 1969785 (roborev:1251).
 - Cycle 2 (colour difference): cause is FeedbackPressable's hover fill on a queue row with zero own insets and a 2 px row gap; repaired on 4d5d898 with a shared clipped row wrapper. Roborev:1254 on 4d5d898 (Medium): the GitHub link now sits inside the row's Pressable, so iOS screen readers expose one element and the link is unreachable; FO authorizes cycle 3 to make them sibling controls inside the clipped wrapper.
 - Roborev:1259 on 0895937 (Medium, from the cycle 3 sibling layout): the GitHub link's full repository reference has no width limit beside the next item's content, so a long name can collapse the title and Open action in the 380 px pane; FO authorizes cycle 4: an icon-only link with the full reference as its accessibility label, as other queue rows do.
+- Roborev:1261 on 04f90b8: Medium — the reason panel sits outside the scroll area, so on a compact screen with the keyboard open Confirm and Cancel can fall under the keyboard; Low — the next review no longer shows its repo#number (the Captain asked for repo_name#123 in an earlier round). Chief-engineer drift call: converging; repair both in one pass and close the queue-row class with one combined fixture. FO authorizes cycle 5.
 
 ## Stage Report: implementation (cycle 2)
 
