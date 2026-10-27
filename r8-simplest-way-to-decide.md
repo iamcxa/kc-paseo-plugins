@@ -94,3 +94,23 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 ### FO findings before the gate
 
 - Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-10-28) on INTERACTION-MODELS.md: NOT SATISFIED. Block: the page never answers the Captain's 「桌面決定區太窄」 — no model states that the decision uses the whole available area (the build still puts it in a 380 px side column). Annoys: "check result and original briefing" scored 0 although reading the original briefing cannot be done today — split it; the recommendation's main gain rests on an unproven "next item" — add the smaller model "one item uses the whole area, return to the list to choose"; the briefing-version question should name the briefing bound to that decision, with storage, retention and merging as the Captain's; the page is dense (~2,200 characters plus the table) — move checks to EVIDENCE.md. Twelve spot-checked counts were correct. Director's own pick: one item using the whole area, keep Confirm and separate messaging, return to the list after, without "next item". FO authorizes one revision.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Answer the Captain's 「桌面決定區太窄」 (round 7 UAT, cite it) per model in plain words: how much of the desktop each model gives the decision; leave sizes and button proportions to the visual step; add the smaller model "one item uses the whole available area, return to the list to choose" and score it; evaluate "next item" separately as an option, not as the recommendation's main gain
+  b8b891f：主頁引用第 7 輪「桌面決定區太窄」，逐案說明區域；建議單件用整個可用區域、回清單選事，換件 2 步。「下一件」另列選配 1 步與失去重看全清單的代價。
+- DONE: Split "check result and original briefing" into "read the result in front of you" (count) and "reread the original briefing bound to that decision" (cannot be done today — say so, no 0); state the semantic question as the briefing bound to that decision, with any new storage, retention or merging of sources as the Captain's to rule
+  操作表拆為「讀眼前結果」0 操作與「回讀該次原簡報」不可完成／尚缺；原簡報列沒有數字，綁定該次決定，不以最新版本替代。新增保存、期限、來源合併均由 Captain 裁定。
+- DONE: Cut INTERACTION-MODELS.md to a page the Captain reads in under five minutes: recommendation, what gets worse, open questions for him, tasks, models, the table; move duplicated guarantees, per-item fetch/verify and identity details to EVIDENCE.md; a short "## Stage Report: implementation (cycle 2)" section
+  主頁可見正文 1,322 漢字、51 行（前版約 2,200 漢字）；順序為建議、代價、待裁定、任務、三案、操作表。重複保證、按件取資料／驗證、身分細節移入 EVIDENCE.md。
+
+### Findings
+
+- 28 個數值格／裝置分支逐步重算通過；若增刪操作而未改數字會失敗。原簡報列另驗無數字；兩份文件的相對連結皆可達，git diff --check 689e068 b8b891f 通過。五分鐘仍是篇幅目標，未聲稱 Captain 已計時閱讀或新互動已經實測。
+- comment_ratio.py 689e068 b8b891f（--repo 狀態倉）：code lines 0, comment lines 0, 0.0%，未到 20 行強制門檻；doc_impact.py 同範圍回 []，既有文件未受影響。
+- design_surfaces.py 已執行、exit 1，SKIPPED：仍缺 Surfaces／Visible change，已知 package gap 2；number_guards.py exit 0、PASS: no findings（無 migrations-path，查的是程式倉，不是本設計的行為證明）。roborev SKIPPED：無程式變更及 package gap 5。
+- 保留前一報告與設計總監 NOT SATISFIED 裁決，沒有替換為通過；本輪仍是 poc 的無視覺文件修訂，沒有產品修改、程式分支提交／推送或 PR。
+
+### Summary
+
+已按三項修訂要求交付較小的建議案，主要收益是決定可用整個區域；保留確認和獨立傳訊，不靠新增下一件來證明價值。原簡報回讀獨立標為缺口，下一步由 FO 安排設計總監複審。
