@@ -1,14 +1,15 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Keyboard, Platform, ScrollView, Text, View, type TextStyle } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { type Line, toLines } from "../shared/chat-lines";
 import { MarkdownView } from "./markdown-view";
 import { discussionWindow } from "../shared/card";
-import { type KeyPressEvent, composerHandlers } from "../shared/composer";
-import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
+import { type KeyPressEvent } from "../shared/composer";
+import { checkComposerTarget, decisionComposerHandlers, readDecisionDraft, subscribeDecisionDraft } from "../shared/decision-composer";
+import { needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
 import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
@@ -24,6 +25,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   beforeSend?: () => Promise<string | null>;
   onSent?: (text: string) => void;
   onChip?: (word: string, draft: string) => Promise<string | null>;
+  decisionTarget?: string;
   seed?: { text: string; nonce: number } | null;
   onSeeded?: () => void;
   discussion?: boolean;
@@ -46,6 +48,7 @@ function Chat({
   beforeSend,
   onSent,
   onChip,
+  decisionTarget = "",
   seed,
   onSeeded,
   discussion,
@@ -55,6 +58,17 @@ function Chat({
   const [working, setWorking] = useState(false);
   const key = draftKey(agentId, gate);
   const [draft, setDraft, sending, setSending] = useDraft(key);
+  const subscribeReason = useCallback((changed: () => void) => subscribeDecisionDraft(key, changed), [key]);
+  const reasonSnapshot = useCallback(() => readDecisionDraft(key), [key]);
+  const decision = useSyncExternalStore(subscribeReason, reasonSnapshot, reasonSnapshot);
+  const chosen = decision.target === decisionTarget ? decision.word : null;
+  const active = useRef(true);
+  const currentTarget = useRef(decisionTarget);
+  currentTarget.current = decisionTarget;
+  useEffect(() => {
+    active.current = true;
+    return () => { active.current = false; };
+  }, []);
   const [boxHovered, setBoxHovered] = useState(false);
   const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
@@ -66,7 +80,7 @@ function Chat({
   const styles = useMemo(() => {
     const pad = layout.compact ? 12 : 20;
     return {
-      screen: { flex: 1, backgroundColor: colors.surface0 },
+      screen: { flex: 1, minHeight: 0, backgroundColor: colors.surface0 },
       header: {
         flexDirection: "row" as const,
         justifyContent: "space-between" as const,
@@ -75,7 +89,8 @@ function Chat({
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
       },
-      list: { flex: 1 },
+      list: { flex: 1, minHeight: 0 },
+      composerScroll: { flexGrow: 0, flexShrink: 1, minHeight: 0 },
       listContent: {
         padding: pad,
         gap: 14,
@@ -172,14 +187,19 @@ function Chat({
       sendInline: { position: "relative" as const, right: 0, bottom: 0 },
       rowDivider: { width: 1, height: 18, marginBottom: 6, backgroundColor: colors.border },
       chip: {
+        minWidth: 44,
+        minHeight: 44,
+        justifyContent: "center" as const,
+        alignItems: "center" as const,
         paddingVertical: 5,
         paddingHorizontal: 12,
         borderRadius: 14,
         borderWidth: 1,
         borderColor: colors.border,
       },
-      chipDashed: { borderStyle: "dashed" as const },
       chipText: { color: colors.foreground, fontSize: 13 },
+      reason: { padding: 12, marginTop: 8, gap: 8, borderWidth: 1, borderColor: colors.border, borderRadius: 14 },
+      reasonInput: { minHeight: 44, maxHeight: 120, padding: 10, color: colors.foreground, fontSize: 14, backgroundColor: colors.surface1, borderRadius: 8 },
       divider: {
         flexDirection: "row" as const,
         alignItems: "center" as const,
@@ -187,7 +207,7 @@ function Chat({
         paddingHorizontal: pad,
         paddingVertical: 10,
       },
-      dividerLabel: { color: colors.foregroundMuted, fontSize: 11, fontWeight: "600" as const, letterSpacing: 0.6 },
+      dividerLabel: { color: colors.foregroundMuted, fontSize: 11, flex: 1, flexShrink: 1 },
       dividerRule: { flex: 1, height: 1, backgroundColor: colors.border },
       toggle: { color: colors.accent, fontSize: 13 },
     };
@@ -244,7 +264,7 @@ function Chat({
     const result = await callStop({ agentId });
     if (!result.stopped) setError(result.error ?? "Could not stop the agent.");
   };
-  const { send, chip, onKeyPress } = composerHandlers({
+  const { send, choose, confirm, cancel, setReason, onKeyPress } = decisionComposerHandlers(key, decisionTarget, {
     draft: () => readDraft(key),
     setDraft,
     setError,
@@ -252,7 +272,10 @@ function Chat({
     setSending,
     sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
     footer,
-    beforeSend,
+    beforeSend: () => checkComposerTarget(
+      () => active.current && currentTarget.current === decisionTarget,
+      beforeSend,
+    ),
     onSent,
     onChip,
   });
@@ -291,8 +314,7 @@ function Chat({
     <View style={[styles.screen, { paddingBottom }]}>
       {discussion ? (
         <View style={styles.divider}>
-          <Text style={styles.dividerLabel}>DISCUSSION</Text>
-          <View style={styles.dividerRule} />
+          <Text style={styles.dividerLabel}>Conversation with {title} · includes other tasks</Text>
           {working ? <Text style={styles.muted}>working…</Text> : null}
           {navigation ? (
             <Pressable colors={colors} accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
@@ -354,7 +376,7 @@ function Chat({
         )}
       </ScrollView>
       {error ? <Text style={styles.danger}>{error}</Text> : null}
-      <View style={styles.composer}>
+      <ScrollView style={styles.composerScroll} contentContainerStyle={styles.composer} keyboardShouldPersistTaps="handled">
         <View
           onPointerEnter={() => setBoxHovered(true)}
           onPointerLeave={() => setBoxHovered(false)}
@@ -362,6 +384,7 @@ function Chat({
         >
           <Text style={styles.hint}>↑ sends to {title}{sending ? " · sending…" : ""}</Text>
           <TextInput
+            accessibilityLabel={`Message ${title}`}
             style={[styles.input, hasChips ? styles.inputWithRow : null, Platform.OS === "web" ? ({ outlineStyle: "none" } as unknown as TextStyle) : null]}
             value={draft}
             onChangeText={setDraft}
@@ -374,21 +397,21 @@ function Chat({
           />
           {hasChips ? (
             <>
-              {draft.trim() ? <Text style={styles.hint}>A decision button sends this text as the reason.</Text> : null}
               <View style={styles.boxRow}>
                 <View style={styles.boxChips}>
                   <Text style={styles.muted}>Decide via comms officer</Text>
                   <View style={styles.chipGroup}>
                     {chips!.map((word) => {
-                      const dashed = word in DECISION_CHIPS && needsReason(word as ChipWord) && !draft.trim();
                       const color = word === "准" ? colors.statusSuccess : word === "要求修改" ? colors.statusWarning : colors.foregroundMuted;
                       return (
                         <Pressable colors={colors}
                           key={word}
                           accessibilityRole="button"
-                          style={[styles.chip, { borderColor: color }, dashed ? styles.chipDashed : null]}
+                          accessibilityLabel={`Choose ${word}`}
+                          accessibilityState={{ selected: chosen === word }}
+                          style={[styles.chip, { borderColor: color, backgroundColor: chosen === word ? colors.surface2 : undefined }]}
                           disabled={sending}
-                          onPress={() => void chip(word)}
+                          onPress={() => choose(word)}
                         >
                           <Text style={[styles.chipText, { color }]}>{word}</Text>
                         </Pressable>
@@ -404,7 +427,32 @@ function Chat({
             sendButton
           )}
         </View>
-      </View>
+        {hasChips && chosen ? (
+          <View style={styles.reason}>
+            <Text style={styles.muted}>Reason for {chosen}{needsReason(chosen) ? " (required)" : " (optional)"} · via comms officer</Text>
+            <TextInput
+              accessibilityLabel={`Reason for ${chosen}`}
+              placeholder={needsReason(chosen) ? "Add a reason for this decision" : "Optional reason"}
+              placeholderTextColor={colors.foregroundMuted}
+              style={styles.reasonInput}
+              value={decision.reason}
+              onChangeText={setReason}
+              multiline
+            />
+            <View style={styles.chipGroup}>
+              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Confirm ${chosen} via comms officer`}
+                style={styles.chip} disabled={sending || (needsReason(chosen) && !decision.reason.trim())}
+                onPress={() => void confirm()}>
+                <Text style={styles.chipText}>Confirm {chosen}</Text>
+              </Pressable>
+              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Cancel decision"
+                style={styles.chip} disabled={sending} onPress={cancel}>
+                <Text style={styles.chipText}>Cancel</Text>
+              </Pressable>
+            </View>
+          </View>
+        ) : null}
+      </ScrollView>
     </View>
   );
 }

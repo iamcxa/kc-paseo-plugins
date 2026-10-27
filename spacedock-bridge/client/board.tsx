@@ -18,7 +18,7 @@ import { createFo } from "../shared/fo";
 import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
 import { DecisionCard } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
-import { type ReviewRequestData, readReviews, reviewOwner } from "../shared/reviews";
+import { type ReviewRequestData, readReviews, reviewOwner, reviewRef } from "../shared/reviews";
 import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
 import { boardEmptyState, type SourceState, type SourceStates } from "../shared/board-empty";
 
@@ -285,6 +285,9 @@ export function Board({
       },
       nextButtonText: { color: colors.accentForeground, fontSize: 12, fontWeight: "600" as const },
       sectionHead: { flexDirection: "row" as const, justifyContent: "space-between" as const },
+      queueRow: { padding: 4, borderRadius: 10, overflow: "hidden" as const },
+      itemAction: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+      itemContent: { flex: 1, minWidth: 0, gap: 5 },
       line: {
         gap: 5,
         paddingVertical: 9,
@@ -303,12 +306,12 @@ export function Board({
       lineTitle: { width: "100%" as const, color: colors.foreground, fontSize: 13, lineHeight: 18 },
       lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
       lineOwner: { minWidth: 0, flexShrink: 1 },
+      refRow: { flexDirection: "row" as const, minWidth: 0, maxWidth: "100%" as const },
       ref: {
         color: colors.foregroundMuted,
         fontSize: 12,
         fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
       },
-      lineMain: { flex: 1, minWidth: 0 },
     }),
     [colors, layout.compact],
   );
@@ -410,23 +413,34 @@ export function Board({
     if (item.fo) setOpen({ id: item.fo.id, gate: item.gate ?? null });
   };
 
+  const reference = (ref: string) => {
+    const split = ref.lastIndexOf("#");
+    return (
+      <View style={styles.refRow}>
+        <Text style={[styles.ref, { minWidth: 0, flexShrink: 1 }]} numberOfLines={1}>{ref.slice(0, split)}</Text>
+        <Text style={[styles.ref, { flexShrink: 0 }]}>{ref.slice(split)}</Text>
+      </View>
+    );
+  };
+
   const itemRow = (item: QueueItem) => (
-    <View key={item.key} style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.lineMain]}>
+    <View key={item.key} style={[styles.queueRow, styles.itemAction]}>
+      <Pressable colors={colors} accessible accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.itemContent]}>
         <Text style={styles.lineTitle} numberOfLines={2}>{item.title}</Text>
+        {item.link ? reference(item.link.ref) : null}
         <View style={styles.lineMeta}>
           <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
           <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>{item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}</Text>
           <Text style={styles.kind}>{kindLabel[item.kind]}</Text>
           <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
           <Text style={styles.lineAge}>{ago(item.since)}</Text>
-          {item.link ? <Text style={styles.ref}>{item.link.ref}</Text> : null}
         </View>
       </Pressable>
-      {item.link ? <Pressable colors={colors} accessibilityRole="link" accessibilityLabel={`Open ${item.link.ref} on GitHub`} hitSlop={6} style={styles.external} onPress={() => openLink(item, openExternalUrl)}><Text style={styles.externalText}>↗</Text></Pressable> : null}
+      {item.link ? <Pressable colors={colors} accessible accessibilityRole="link" accessibilityLabel={`Open ${item.link.ref} on GitHub`} hitSlop={6} style={styles.external} onPress={() => openLink(item, openExternalUrl)}><Text style={styles.externalText}>↗</Text></Pressable> : null}
     </View>
   );
   const commsRow = coAsk ? (
+    <View style={styles.queueRow}>
     <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
       <Text style={styles.lineTitle} numberOfLines={2}>{coAsk.text}</Text>
       <View style={styles.lineMeta}>
@@ -436,6 +450,7 @@ export function Board({
         <Text style={styles.lineAge}>{ago(coAsk.since)}</Text>
       </View>
     </Pressable>
+    </View>
   ) : null;
 
   const openRow = open ? grouped.find((row) => row.id === open.id) : undefined;
@@ -489,22 +504,18 @@ export function Board({
       {view === "decision" ? (
         <>
           {next ? (
-            <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(next)} style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
+            <View style={styles.queueRow}>
+            <View style={[styles.next, styles.itemAction, { borderLeftColor: kindColor[next.kind] }]}>
+            <Pressable colors={colors} accessible accessibilityRole="button"
+              accessibilityLabel={next.review && !next.fo ? `Ask comms officer about ${next.title}` : `Open ${next.title} with ${next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}`}
+              onPress={() => openItem(next)} style={[styles.itemContent, { gap: 8 }]}>
               <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
                 NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
               </Text>
-              {next.link ? (
-                <Pressable colors={colors}
-                  accessibilityRole="link"
-                  accessibilityLabel={`Open ${next.link.ref} on GitHub`}
-                  onPress={(event) => { event.stopPropagation(); openLink(next, openExternalUrl); }}
-                >
-                  <Text style={styles.ref}>{next.link.ref} ↗</Text>
-                </Pressable>
-              ) : null}
               <Text style={styles.nextTitle} numberOfLines={3}>
                 {next.title}
               </Text>
+              {next.link ? reference(next.link.ref) : null}
               <View style={styles.owner}>
                 <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
                   {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
@@ -512,11 +523,20 @@ export function Board({
                 <TabClosedBadge closed={next.fo?.tabClosed} colors={colors} />
               </View>
               <View style={styles.nextButtons}>
-                <Pressable colors={colors} accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
+                <View style={styles.nextButton}>
                   <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
-                </Pressable>
+                </View>
               </View>
             </Pressable>
+            {next.link ? (
+              <Pressable colors={colors} accessible accessibilityRole="link"
+                accessibilityLabel={`Open ${next.link.ref} on GitHub`} style={styles.external}
+                onPress={() => openLink(next, openExternalUrl)}>
+                <Text style={styles.externalText}>↗</Text>
+              </Pressable>
+            ) : null}
+            </View>
+            </View>
           ) : null}
           {coAsk ? (
             <>
@@ -545,10 +565,12 @@ export function Board({
           {reviews.filter((review) => !reviewOwner(review, grouped)).map((review) => {
             const owner = reviewOwner(review, grouped);
             return (
-              <View key={review.url} style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
-                <Pressable colors={colors}
+              <View key={review.url} style={styles.queueRow}>
+                <View style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
+                <Pressable colors={colors} accessible
                   accessibilityRole="button"
-                  style={{ flex: 1, gap: 4 }}
+                  accessibilityLabel={`Ask comms officer about ${review.title}`}
+                  style={styles.itemContent}
                   onPress={() =>
                     owner
                       ? setOpen({ id: owner.id, gate: null })
@@ -558,21 +580,23 @@ export function Board({
                   <Text style={styles.name} numberOfLines={2}>
                     {review.title}
                   </Text>
+                  {reference(reviewRef(review, reviews))}
                   <Text style={styles.muted}>
-                    {review.owner}/{review.repo}#{review.number} · by {review.author} ·{" "}
+                    by {review.author} ·{" "}
                     {owner ? `with ${owner.title}` : "no FO yet — ask the comms officer"} ·{" "}
                     {ago(new Date(review.firstSeenAt).toISOString())}
                   </Text>
                 </Pressable>
-                <Pressable colors={colors}
+                <Pressable colors={colors} accessible
                   accessibilityRole="link"
-                  accessibilityLabel="Open the pull request on GitHub"
+                  accessibilityLabel={`Open ${reviewRef(review, reviews)} on GitHub`}
                   hitSlop={6}
                   style={styles.external}
                   onPress={() => void openExternalUrl(review.url)}
                 >
-                  <Text style={styles.externalText}>GitHub ↗</Text>
+                  <Text style={styles.externalText}>↗</Text>
                 </Pressable>
+                </View>
               </View>
             );
           })}

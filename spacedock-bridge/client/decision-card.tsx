@@ -12,6 +12,7 @@ import { type DecisionRecordData, claimDecision, readDecision, releaseDecision }
 import { type ChipWord, DECISION_CHIPS, deliveryState } from "../shared/relay";
 import { cardLabel, foName, waiting } from "../shared/card";
 import { decideGate } from "../shared/decide";
+import { checkComposerTarget } from "../shared/decision-composer";
 import type { AwaitingGate } from "../shared/tasks";
 import { CoChat } from "./co-chat";
 import { MarkdownView } from "./markdown-view";
@@ -126,16 +127,28 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
     return () => clearInterval(timer);
   }, [sent, claim, recorded, load, checkRelay]);
 
-  const beforeSend = useCallback(async () => {
-    if (!gate || !briefing) return null;
-    const answer = await callBriefing({ workflowDir: fo.workflowDir, slug: gate.slug, stage: gate.stage });
-    if (!answer.briefing) return answer.error ?? "This gate is no longer open.";
-    if (answer.briefing.briefingId !== briefing.briefingId) {
-      setBriefing(answer.briefing);
-      return `The briefing changed (${briefing.briefingId} → ${answer.briefing.briefingId}). Read the new one before deciding; your draft is kept.`;
-    }
-    return null;
-  }, [callBriefing, fo.workflowDir, gate, briefing]);
+  const target = JSON.stringify([fo.id, fo.workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
+  const currentTarget = useRef(target);
+  currentTarget.current = target;
+  const active = useRef(true);
+  useEffect(() => {
+    active.current = true;
+    return () => { active.current = false; };
+  }, []);
+
+  const beforeSend = useCallback(() => checkComposerTarget(
+    () => active.current && currentTarget.current === target,
+    async () => {
+      if (!gate || !briefing) return null;
+      const answer = await callBriefing({ workflowDir: fo.workflowDir, slug: gate.slug, stage: gate.stage });
+      if (!answer.briefing) return answer.error ?? "This gate is no longer open.";
+      if (answer.briefing.briefingId !== briefing.briefingId) {
+        setBriefing(answer.briefing);
+        return `The briefing changed (${briefing.briefingId} → ${answer.briefing.briefingId}). Read the new one before deciding; your draft is kept.`;
+      }
+      return null;
+    },
+  ), [callBriefing, fo.workflowDir, gate, briefing, target]);
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const onChip = useCallback(
@@ -377,7 +390,8 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           agentId={fo.id}
           gate={gate}
           title={fo.title || "FO"}
-          placeholder={`Message ${foName(fo.title || "the FO")} directly${showDecisions ? ", or add a reason to your decision" : ""}`}
+          placeholder={`Message ${foName(fo.title || "the FO")} directly`}
+          decisionTarget={target}
           discussion
           chips={showDecisions ? CHIPS : undefined}
           footer={showDecisions ? footer : undefined}
