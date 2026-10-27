@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 8 — design round step 2, mockups of one item using the whole Bridge area
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'Captain chat 2026-10-28, answering 「第 8 輪照上面的方式改成設計稿回合、主題用這兩個回饋，可以嗎？」 (design round form); model picked the same day: 「單件全區 (Recommended)」; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Step 2 of the round 8 design round: draw one mockup direction of the interaction model the Captain picked, so he can say go before any code is written.
