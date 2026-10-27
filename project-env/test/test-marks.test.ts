@@ -7,7 +7,7 @@ import { nextMark, type MarkView, rowReason, summaryText, summaryParts, type Run
 
 const v = (name: string, ref = `op://V/${name}/x`) => ({ name, ref });
 const project = (variables: Project["variables"], over: Partial<Project> = {}): Project => ({
-  root: "/r", serviceAccount: "sa", vault: "V", prompt: "", variables, ...over,
+  root: "/r", serviceAccount: "sa", vault: "V", variables, ...over,
 });
 const draft = project([v("A"), v("B"), v("C"), v("D"), v("E", "")]);
 const run: Run = {

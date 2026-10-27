@@ -46,7 +46,6 @@ function harness(variables: [string, string][], scenario: Scenario, appendFails 
     root,
     serviceAccount: "sa-a",
     vault: "V",
-    prompt: "",
     variables: variables.map(([name, ref]) => ({ name, ref })),
   };
   const before = new Map<string, (input: { request: unknown }) => Promise<unknown>>();

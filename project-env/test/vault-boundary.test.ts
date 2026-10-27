@@ -17,7 +17,6 @@ const project = (vault: string, variables: [string, string][]): Project => ({
   root: "/repo",
   serviceAccount: "sa-a",
   vault,
-  prompt: "",
   variables: variables.map(([name, ref]) => ({ name, ref })),
 });
 

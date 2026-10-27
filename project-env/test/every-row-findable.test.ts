@@ -6,7 +6,7 @@ import { summaryText, summaryParts, type Run } from "../shared/test-marks.ts";
 
 const v = (name: string, ref = "") => ({ name, ref });
 const rows = [v("A", "op://V/a/x"), v("B"), v("C", "op://V/c/x"), v("D"), v("E")];
-const project = (variables = rows): Project => ({ root: "/r", serviceAccount: "sa", vault: "V", prompt: "", variables });
+const project = (variables = rows): Project => ({ root: "/r", serviceAccount: "sa", vault: "V", variables });
 
 describe("nextFieldless", () => {
   it("starts at the first row with no field and steps through them in list order", () => {
@@ -52,7 +52,7 @@ describe("the last Test run lives in the open project", () => {
     openProject.begin(project([v("A", "op://V/a/x")]), "rev");
     const test = openProject.startTest();
     openProject.setRun({ sent: project([v("A", "op://V/a/x")]), results: run.results }, test);
-    openProject.update((d) => ({ ...d, prompt: "x" }), false);
+    openProject.update((d) => ({ ...d, variables: [...d.variables, v("", "")] }), false);
     assert.equal(shown(), "All 1 set");
   });
 

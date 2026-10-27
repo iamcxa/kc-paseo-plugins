@@ -41,7 +41,7 @@ function gitAnswers(asks: Cwd[], registered: string[], rootForms: string[]) {
   return answers;
 }
 
-const project = (root: string): Project => ({ root, serviceAccount: "", vault: "", prompt: "", variables: [] });
+const project = (root: string): Project => ({ root, serviceAccount: "", vault: "", variables: [] });
 
 function secretsFor(answers: Record<string, string>) {
   const world = makeWorld({ git: { answers } });

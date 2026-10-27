@@ -14,7 +14,6 @@ const saved: Project = {
   root: "/w",
   serviceAccount: "sa-a",
   vault: "Dev",
-  prompt: "",
   variables: [{ name: "A", ref: "op://Dev/x/a" }],
 };
 const withRows = (...variables: Project["variables"]): Project => ({ ...saved, variables: [...saved.variables, ...variables] });

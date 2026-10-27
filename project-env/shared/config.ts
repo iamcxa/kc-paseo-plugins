@@ -81,7 +81,6 @@ export const project = z.object({
   serviceAccount: z.string().default(""),
   vault: z.string().default(""),
   variables: z.array(variable).default([]),
-  prompt: z.string().default(""),
 });
 export type Project = z.infer<typeof project>;
 export type Variable = z.infer<typeof variable>;
@@ -155,7 +154,6 @@ export function unsavedCount(saved: Project, draft: Project): number {
   let n = 0;
   if (saved.serviceAccount !== draft.serviceAccount) n++;
   if (saved.vault !== draft.vault) n++;
-  if (saved.prompt !== draft.prompt) n++;
   const before = new Map(saved.variables.map((v) => [v.name, v.ref]));
   const named = draft.variables.filter((v) => v.name !== "");
   const after = new Map(named.map((v) => [v.name, v.ref]));
