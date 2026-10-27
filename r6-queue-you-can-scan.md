@@ -151,6 +151,7 @@ Manual checking now restores an errored comms timeline subscription, and the sou
 
 - Correction to the Scope line "a third unsatisfied team pass stops the round": ADR 0008 (Limits and stops) says the team unsatisfied twice on one theme stops and asks the Captain; the ADR governs, so a second unsatisfied team pass stops this round. Flagged by chief-engineer 2026-10-27 in the drift call.
 - Chief-engineer drift call on 4643e0670b88 (roborev 1235, 1236, 1238, 1239): converging; repair 1239 by awaiting subscription readiness before the history read, with one race test; deferral would leave AC-2 false and reverting restores the 1238 defect.
+- Repair-cycle limit set by FO after roborev:1242 on e8817b8 (the second By FO preview finding after 1236): one class-level repair (cycle 7), then later roborev findings on this round go to `### FO declines` with a trigger unless they are High, and the round moves to the pre-gate team and validation.
 
 ## Stage Report: implementation (cycle 5)
 
@@ -185,4 +186,3 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 Switching coordinators now clears the previous question and timestamp before the new connection completes. The regression test proves the identity mismatch on the prior head and the corrected pending and loaded states; the fix is committed and pushed to the existing Draft PR.
-- Repair-cycle limit set by FO after roborev:1242 on e8817b8 (the second By FO preview finding after 1236): one class-level repair (cycle 7), then later roborev findings on this round go to `### FO declines` with a trigger unless they are High, and the round moves to the pre-gate team and validation.
