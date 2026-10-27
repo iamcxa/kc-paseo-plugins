@@ -40,6 +40,14 @@ gates:
                 id: briefing:project-env-docs-site:ideation:attempt-1:revision-1
                 digest: sha256:b558da556eabd0983e4fbb3543c790d783d146d2fc990c5e2739679352e537b8
                 room-ref: ./project-env-docs-site/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-docs-site:ideation:1
+                briefing: briefing:project-env-docs-site:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T17:23:45.747333Z"
+                decision: revise
+                reason: '「just-the-docs」 — Captain in FO chat, 2026-10-28, while the ideation gate (briefing-1, sha256:b558da55) was open, after FO''s theme comparison. Override: recommended stock minima (gate question); Captain chose just-the-docs (FO''s later chat recommendation); area: docs site theme. Asked: 「回「換 just-the-docs」或「維持 minima」。」'
 started: 2026-10-27T15:33:59Z
 ---
 
