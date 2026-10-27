@@ -38,6 +38,17 @@ gates:
                 id: briefing:r8-simplest-way-to-decide:validation:attempt-1:revision-1
                 digest: sha256:49d21042353310d3a1ff85f30654f9eae075de481bba6fba3dfe373b84ef1d86
                 room-ref: ./r8-simplest-way-to-decide/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r8-simplest-way-to-decide:validation:1
+                briefing: briefing:r8-simplest-way-to-decide:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T19:07:09.392009Z"
+                decision: approve
+                reason: 'Captain chat 2026-10-28, asked 「第 8 輪設計稿要用哪種操作方式？」, answered 「單件全區 (Recommended)」: accepts design step 1 with the one-item-uses-the-whole-area model; step 2 draws its mockup.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-27T18:43:04Z
 worktree: .worktrees/spacedock-ensign-r8-simplest-way-to-decide
 ---
