@@ -38,6 +38,20 @@ gates:
                 id: briefing:r6-queue-you-can-scan:validation:attempt-1:revision-1
                 digest: sha256:807378f971cd3778e9c8c18e1a17d3ba4954f383407e8b14168905090cc2e0ce
                 room-ref: ./r6-queue-you-can-scan/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r6-queue-you-can-scan:validation:1
+                briefing: briefing:r6-queue-you-can-scan:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-27T05:03:58.159128Z"
+                decision: approve
+                reason: 'Accepts the outcome: validation-1 PASSED AC-1..3 at f10a3f29a43f; FO acceptance rerun passed; roborev clean; team pass 2 satisfied; observer stop resolved by the Captain''s ruling A with record repairs; pregate_check passes. PR #54 stays stacked and unmerged.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); continuation after the round 6 stop: Captain ruling 「A 修紀錄後繼續 (Recommended)」, chat 2026-10-27'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-27T03:07:01Z
 worktree: .worktrees/spacedock-ensign-r6-queue-you-can-scan
 pr: 54
