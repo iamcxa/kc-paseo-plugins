@@ -1,0 +1,4 @@
+[
+  {"id": "B1", "screenshot": "360-gate-decision-reason-empty.png", "where": "Decision reason panel: Confirm 要求修改", "what": "Confirm has normal bright text and an outlined button even though the required reason is empty.", "why": "It looks ready to submit. I cannot tell at a glance that it is unavailable or when entering a reason enables it.", "severity": "annoys"},
+  {"id": "B2", "screenshot": "360-comms-question.png", "where": "Comms officer conversation: latest question", "what": "The release-window question has no timestamp or age; the header only says “idle.”", "why": "Returning between meetings, I cannot judge how old the request is without switching back to the queue, where its age is shown.", "severity": "annoys"}
+]
