@@ -1,0 +1,24 @@
+{
+  "comment_ratio": {
+    "exit": 0,
+    "output": "code lines 156, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+  },
+  "doc_impact": {
+    "exit": 0,
+    "output": "[]\n"
+  },
+  "adr_lint": {
+    "exit": 0,
+    "output": "7 ADR file(s) checked, 0 legacy\n"
+  },
+  "number_guards": {
+    "exit": 0,
+    "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase b5381b18834e head 1969785502aa merge-base 78ce6c1cbcf1\n"
+  },
+  "design_surfaces": {
+    "exit": 1,
+    "output": "r7-one-clear-way-to-decide.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nr7-one-clear-way-to-decide.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is implementation, not ideation\n"
+  },
+  "candidate": "1969785502aac992c015a680e235af9be6509938",
+  "base": "f10a3f29a43fb09adff4beda268799f514f7b43b"
+}

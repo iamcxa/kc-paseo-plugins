@@ -1,0 +1,61 @@
+{
+  "candidate": "1969785502aac992c015a680e235af9be6509938",
+  "width": 360,
+  "synthetic": true,
+  "checks": [
+    "separate drafts, correct recipients, labelled discussion, 44px separated targets left of send",
+    "cancel and remount preserve both drafts",
+    "Enter sends message only with original footer to officer",
+    "reason Enter does not send",
+    "explicit decision confirms original relay to comms officer",
+    "claim conflict keeps reason without duplicate",
+    "message failure keeps message and reason"
+  ],
+  "targets": [
+    {
+      "height": 44,
+      "label": "Choose \u51c6",
+      "width": 44,
+      "x": 25,
+      "y": 549
+    },
+    {
+      "height": 44,
+      "label": "Choose \u8981\u6c42\u4fee\u6539",
+      "width": 78,
+      "x": 77,
+      "y": 549
+    },
+    {
+      "height": 44,
+      "label": "Choose \u66ab\u7de9",
+      "width": 52,
+      "x": 163,
+      "y": 549
+    },
+    {
+      "height": 44,
+      "label": "Confirm \u8981\u6c42\u4fee\u6539 via comms officer",
+      "width": 129.9375,
+      "x": 25,
+      "y": 711
+    },
+    {
+      "height": 44,
+      "label": "Cancel decision",
+      "width": 67.609375,
+      "x": 162.9375,
+      "y": 711
+    }
+  ],
+  "calls": [
+    {
+      "agentId": "f6396223-9315-4c57-9899-291c6ade56c7",
+      "text": "Message retained independently\n\n(Captain's reply on gate adapter-proof \u00b7 validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture, sent from the Bridge)"
+    },
+    {
+      "agentId": "d1cc917c-5341-412a-8de8-9018259e0425",
+      "text": "Relay my gate decision d-vrdrrj to Decision proof FO (agent f6396223-9315-4c57-9899-291c6ade56c7) now, as written here.\nGate: adapter-proof \u00b7 stage validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture\nDecision: revise\nMy words: \u300c\u8981\u6c42\u4fee\u6539\uff0cReason retained independently\u300d\nTell it to check these words on the [User] line of your activity that carries d-vrdrrj (get_agent_activity on your own agent id); to record the gate only if the gate's open briefing is still proof:adapter-proof, and otherwise not record and tell me; to record it with my exact words and put d-vrdrrj in the reason; to treat any condition in my words as part of the decision and ask me before recording if it is unclear; to ignore d-vrdrrj if it already recorded it; and to answer me only if it cannot.\nFor you, not the FO: when it reports back, answer me in one line: \u2713 adapter-proof recorded (d-vrdrrj), or \u2717 adapter-proof not recorded (d-vrdrrj) and why. Leave the rest of its report in its own chat."
+    }
+  ]
+}

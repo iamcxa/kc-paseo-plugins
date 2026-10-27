@@ -1,0 +1,22 @@
+# Round 7 implementation evidence
+
+Candidate: `1969785502aac992c015a680e235af9be6509938`.
+Stack base: `f10a3f29a43fb09adff4beda268799f514f7b43b` (PR #54).
+Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/57.
+
+`state-model-before-code.md` was written before product edits: existing state and both payload paths, intended shared model, five named test specifications, exclusions and fixture plan. `tests.log` is 138/138 passing; `typecheck.log` passes. `checks.json` holds the package checks; the design-surface failure is known POC package gap 2. Number guards passed; the R4 gap did not occur and migration guarding was skipped because this workflow has no migrations-path. No migration/ADR/claim/relay/recording source changed. OVERVIEW.md was updated to describe the separate drafts and explicit confirmation; doc_impact lists no additional documents.
+
+`capture.py` is one rerunnable mounted fixture, using unchanged DecisionCard, CoChat and shared product modules. Only its isolated fleet port and fixture entry are adapted: the entry supplies the synthetic officer/gate props and synthetic SDK timeline/send boundaries. Gate read and claim RPCs run through the real isolated plugin server; sends are captured locally and never reach live agents. Real pointer focus, text selection and keyboard events exercise the host TextInput. DOM clicks operate visible rendered decision buttons. The same fixture runs sequentially at both widths.
+
+Prerequisites: Python 3, candidate npm dependencies (`npm ci --no-audit --no-fund` from spacedock-bridge), Paseo 0.12.0 or compatible, its matching web distribution, agent-browser and its Chromium. Runtime paths are explicit arguments; the commands below declare the paths used for these captures. Use a new output directory for every run. No fixture depends on a live daemon, Captain state, secrets or a prior browser profile.
+
+```sh
+python3 capture.py --worktree /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide --paseo /Users/kent/.local/bin/paseo --browser /Users/kent/.npm-global/bin/agent-browser --web-dist /Applications/Paseo.app/Contents/Resources/app-dist --width 360 --port 0 --output /new/evidence/360
+python3 capture.py --worktree /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide --paseo /Users/kent/.local/bin/paseo --browser /Users/kent/.npm-global/bin/agent-browser --web-dist /Applications/Paseo.app/Contents/Resources/app-dist --width 1440 --port 0 --output /new/evidence/1440
+```
+
+Expected success lines: `PASS: separated composer actions and measured targets at 360` and `PASS: separated composer actions and measured targets at 1440`. `verified-360/` and `verified-1440/` bind screenshots, target rectangles, payloads and observations to the candidate. Both show separate text values, explicit recipient labels, Cancel/reopen/remount retention, Enter-only messaging, reason Enter without dispatch, exact decision reason relayed to comms, claim refusal without duplicate send and message failure preserving both drafts. All five decision-related targets measure at least 44×44; choices have 8px gaps and sit left of send. The view has no horizontal overflow. The daemon homes use isolated HOME/--home and ports outside the live ranges; the fresh browser profiles block localhost. Cleanup files record captured daemon PIDs stopped, browser closed and homes removed.
+
+Adding `--baseline f10a3f29a43fb09adff4beda268799f514f7b43b` must fail with `missing separate message control`; base-falsifier/ retains that negative control. `falsifier.py --worktree <candidate> --output <new directory>` makes a disposable copy, rewires only the decision's draft reader to the message and expects the named tests to fail. Expected line: `PASS: named tests reject decision wired to message draft`. Its output and cleanup are in falsifier/.
+
+Earlier runtime-360* folders retain harness debugging: inherited readiness variable, hidden duplicate surfaces, unsupported visible-selector handling and platform-specific Select All. No product bytes changed during these fixture corrections. Final input uses visible DOM geometry and native keyboard typing. These are browser and synthetic-boundary proofs; native phone/IME UAT, real provider delivery, hosted CI, independent validation and team acceptance are not established. RoboRev is not run here (package gap 5); the FO runs it on the pushed head with the stack base. No merge, release or live install is claimed.

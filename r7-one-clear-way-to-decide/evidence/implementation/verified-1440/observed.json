@@ -1,0 +1,61 @@
+{
+  "candidate": "1969785502aac992c015a680e235af9be6509938",
+  "width": 1440,
+  "synthetic": true,
+  "checks": [
+    "separate drafts, correct recipients, labelled discussion, 44px separated targets left of send",
+    "cancel and remount preserve both drafts",
+    "Enter sends message only with original footer to officer",
+    "reason Enter does not send",
+    "explicit decision confirms original relay to comms officer",
+    "claim conflict keeps reason without duplicate",
+    "message failure keeps message and reason"
+  ],
+  "targets": [
+    {
+      "height": 44,
+      "label": "Choose \u51c6",
+      "width": 44,
+      "x": 634.546875,
+      "y": 761
+    },
+    {
+      "height": 44,
+      "label": "Choose \u8981\u6c42\u4fee\u6539",
+      "width": 78,
+      "x": 686.546875,
+      "y": 761
+    },
+    {
+      "height": 44,
+      "label": "Choose \u66ab\u7de9",
+      "width": 52,
+      "x": 772.546875,
+      "y": 761
+    },
+    {
+      "height": 44,
+      "label": "Confirm \u8981\u6c42\u4fee\u6539 via comms officer",
+      "width": 129.9375,
+      "x": 483,
+      "y": 923
+    },
+    {
+      "height": 44,
+      "label": "Cancel decision",
+      "width": 67.609375,
+      "x": 620.9375,
+      "y": 923
+    }
+  ],
+  "calls": [
+    {
+      "agentId": "e22a59ec-4714-4635-b5b1-daafa4fc52a6",
+      "text": "Message retained independently\n\n(Captain's reply on gate adapter-proof \u00b7 validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture, sent from the Bridge)"
+    },
+    {
+      "agentId": "36cf18bd-6d78-42fb-a6a3-598b2a357e91",
+      "text": "Relay my gate decision d-oiam5l to Decision proof FO (agent e22a59ec-4714-4635-b5b1-daafa4fc52a6) now, as written here.\nGate: adapter-proof \u00b7 stage validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture\nDecision: revise\nMy words: \u300c\u8981\u6c42\u4fee\u6539\uff0cReason retained independently\u300d\nTell it to check these words on the [User] line of your activity that carries d-oiam5l (get_agent_activity on your own agent id); to record the gate only if the gate's open briefing is still proof:adapter-proof, and otherwise not record and tell me; to record it with my exact words and put d-oiam5l in the reason; to treat any condition in my words as part of the decision and ask me before recording if it is unclear; to ignore d-oiam5l if it already recorded it; and to answer me only if it cannot.\nFor you, not the FO: when it reports back, answer me in one line: \u2713 adapter-proof recorded (d-oiam5l), or \u2717 adapter-proof not recorded (d-oiam5l) and why. Leave the rest of its report in its own chat."
+    }
+  ]
+}
