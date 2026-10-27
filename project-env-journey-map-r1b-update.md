@@ -161,3 +161,34 @@ The five edits are designed and lint-checked on a throwaway copy of `origin/main
 ### Summary
 
 The six edits are applied as designed and AC-1 clauses (a), (b) and (c) pass at 4135902. Residual, as the design recorded: the `write-prompt` q1 answer ("they stay for Kent's own use") is now stale text, left for the Captain's call. Lint evidence and the candidate diff are under `project-env-journey-map-r1b-update/implementation/` in this state checkout.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 41359025bec74c8b9b84918d09dfeb2c2f0a7e48 (PR iamcxa/kc-paseo-plugins#59, base main bed5a66) against AC-1 and the approved design: from git archive, run the journey lint with an explicit repo root, confirm the diff against bed5a66 touches only the six approved edits, confirm each new exists story's evidence symbol is present in non-test code on main and that the four stories' tasks merged (#21, #15, #17, #20), confirm the read-the-docs card quotes the Captain's words, and that agent-lays-out-vault no longer carries release r1b; give a verdict.
+  Verdict: PASSED, recommend delivery. Candidate = PR #59 head (open, draft, base main); `origin/main` is still bed5a66. Ran from a `git archive` of the candidate with a scratch `git init`: journey-lint 1.8.0 with explicit repo root exits 0, `all lints pass`, `slice-size (accepted)` shows the new reason (`evidence/val/lint-candidate.txt`). `git diff bed5a66 41359025` is one file, 13 insertions, 11 deletions; its +/- lines are identical to `design/journey-six-edits.diff` (`evidence/val/candidate.diff`). `git grep -nw` on bed5a66 finds `storeToken`, `tokenStatus`, `nameFromLabel`, `testProject` in client/server/shared code (not test files). `gh pr view` shows #21, #15, #17, #20 MERGED into main; each merge commit is an ancestor of origin/main and of tag `project-env-v0.2.0`. The card reads `「plugin 介紹，文件說明」, Captain`, an exact substring of the Captain's 2026-10-27 words in `project-env-docs-site.md`. `agent-lays-out-vault` has no `release:` line; r1b's remaining stories are the 11 the lint counts.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell and record every unverified obligation.
+  Script: `evidence/val/acceptance.sh` (six steps, read-only, no secret; run in `env -i` shell, all steps gave the expected output). Unverified obligations are listed after this report under `### Unverified`.
+
+### Findings
+
+- F1 Polish: `write-prompt` q1 still answers "they stay for Kent's own use" although the story is now `gap`; implementation and design both left it for the Captain. Becomes Material only if the map is read as the claim that the default prompt box exists.
+- F2 Polish: the four stories now `exists` still carry question answers that begin "Gap: ..." describing the pre-r1.5 behaviour (design records leaving them as the fold tool wrote them). No lint or protected boundary is touched.
+
+### Checks run
+
+- journey-lint (a), diff (b), symbol grep (c), PR states, quote and release checks: as above, all pass.
+- `adr_lint.py docs/adr --since bed5a66` run in the implementation worktree at 4135902 (the archive has no history): exit 0, 8 ADR files checked; the candidate touches no `docs/adr` file. `comment_ratio.py`: 0 code, 0 comment lines, not enforced, exit 0. `doc_impact.py`: 0 documents mention what changed, exit 0. `dispatch_records.py`: 3 records complete, exit 0. `design_surfaces.py check`: presentable, exit 0. No `## Number guards` section; no migration.
+- Detects the known error: base lint on bed5a66 reports `evidence-not-found: promptStyle` (`design/lint-base-bed5a66.txt`), and the candidate removes exactly that cause (symbol absent on main: 0 hits).
+- Minimal necessity: every hunk maps to Scope items 1 to 5 or the approved sixth edit; no extra hunk. Goal sufficiency at Pilot depth: AC-1 clauses (a), (b), (c) hold.
+
+### Unverified
+
+- Only journey-lint 1.8.0 was run; 1.6.1 and 1.7.0 are also installed and were not run.
+- `slice_because` says four stories (pick-repository, pick-field, setup-guide, find-settings) need plugin code and the rest only pages; read from the 2026-10-28 release review, not re-derived from code.
+- That each of the four r1.5 behaviours works at runtime was not exercised; "exists" rests on the evidence symbol and merged PR titles, plus a read of `secrets.ts` (token is checked before `writeToken`) and the "Set means a value came back" hint in `settings-screen.tsx`. No product run, no canvas render of the edited map, no screenshot (Surfaces: none).
+- Whether the PR's CI checks are green was not inspected.
+- The `status.unproven` card is unchanged; r1.5 has no acceptance ruling in this file.
+
+### Summary
+
+PASSED: the candidate is a one-file journey edit identical to the approved six-edit design, the lint exits 0 from a git archive, evidence symbols are on main, the four r1.5 PRs are merged, the quote and r1b removal are as ruled. Two Polish findings (stale answer text) and the unverified list above remain; none blocks AC-1.
