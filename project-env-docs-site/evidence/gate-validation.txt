@@ -1,0 +1,7 @@
+Question: Approve validation of the docs site (PR iamcxa/kc-paseo-plugins#58 at fd87b7281313b875580eb91ae32985b46594418a) and the two proposed declines (F6, F7 Polish)? FO recommends approving. Approval lets FO merge it under ADR 0007 class 2 and then turn on GitHub Pages for the repository from main at the root, which publishes the site; the Captain then checks the live site and gives UAT.
+Merge ask: PR #58 at fd87b7281313b875580eb91ae32985b46594418a adds the just-the-docs site (Introduction, Install, Prepare 1Password, Reference, Changelog), ADR 0009, the capture and check scripts, and the OVERVIEW, README and CHANGELOG edits.
+Sufficiency: validation cycle 2 PASSED at fd87b72 with no Material or Needs decision finding; validation-1 F1 to F5 repaired per the Captain's 「修」; AC-1 build, crawl, exclusions, width and contrast pass; AC-2 followed the built pages to an agent with one variable set; FO's acceptance rerun matched.
+Necessity: the PR adds the site files, ADR 0009, the capture scripts and edits three existing docs; without it a new teammate has no install or 1Password steps and no public page.
+Reviews: external review rounds: 1 — Codex summary:6451942616 clean on fd87b7281; local roborev:1282 clean on fd87b72 (development feedback, not a round).
+Declined: Polish, F6 pictures show the scratch capture folder path and a directory install (no account, host or person name; the page's words give the GitHub command).
+Declined: Polish, F7 no picture of the 1Password app (its screens are 1Password's; the page cites 1Password's own guide).

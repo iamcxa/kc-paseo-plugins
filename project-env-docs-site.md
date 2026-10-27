@@ -457,3 +457,7 @@ Only the two Markdown pages changed and each of the five repairs reads true agai
 
 - Validation-1 F6 (Polish), candidate revision fd87b7281313b875580eb91ae32985b46594418a: the pictures show the capture folder path (`/tmp/pe-docs/...`) and picture 02 shows a directory install. Proposed decline: the path is a scratch folder with no account, host or person name, the Install page's words give the GitHub command, and the capture script retakes the pictures (validation-1 `capture-retake/`). Material if a reader copies the path from a picture; candidate fix: retake with a neutral folder and a GitHub-installed plugin.
 - Validation-1 F7 (Polish), candidate revision fd87b7281313b875580eb91ae32985b46594418a: no picture of the 1Password app. Proposed decline: the app's screens belong to 1Password and change outside this repository; the Prepare page cites 1Password's own getting-started page for them (validation-2). Material if teammates get lost in the app steps; candidate fix: link 1Password's own screenshots step by step.
+
+### FO acceptance rerun (2026-10-28)
+
+FO ran `evidence/val2/acceptance.sh` in bash against fd87b72: build and crawl 23 files with no internal path and 0 link or image problems, copy buttons 5 of 5, changelog 27 of 27, search label 5.03 to 1, scrollWidth equal to the window at every width, and the Install page's `paseo plugin add git:iamcxa/kc-paseo-plugins:project-env` installing the plugin on an isolated home; exit 0 (`evidence/fo-acceptance-rerun-fd87b72.txt`).
