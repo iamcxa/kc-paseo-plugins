@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r8-mockups-one-item-whole-area
+gates:
+    version: 1
+    records:
+        - id: gate:r8-mockups-one-item-whole-area:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r8-mockups-one-item-whole-area-backlog-1
+              briefing:
+                id: briefing:r8-mockups-one-item-whole-area:backlog:attempt-1:revision-1
+                digest: sha256:5e5dac0afd3f1a27cbac1bee60c69540d9bfa55081d239e1dad38feb6fb655dd
+                room-ref: ./r8-mockups-one-item-whole-area/review/backlog/briefing-1
 ---
 
 Step 2 of the round 8 design round: draw one mockup direction of the interaction model the Captain picked, so he can say go before any code is written.
