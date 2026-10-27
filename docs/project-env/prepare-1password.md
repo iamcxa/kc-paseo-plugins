@@ -70,7 +70,7 @@ A new project shows fields for the service account, its token and the vault.
 
 ### 4a. Name the account and save the token
 
-In **1Password service account**, type the service account's name, `agent-shop-api-dev-read`, and choose **Check**. It reads "No token in Keychain" until you save one, which is expected. The name is also the name of the Keychain item that holds the token.
+In **1Password service account**, type the service account's name, `agent-shop-api-dev-read`, and choose **Check**. It reads "No token in Keychain" until you save one, which is expected. That name is also the name of the Keychain item that holds the token.
 
 Paste the token into **Service account token** and choose **Save token**. The plugin stores it in your login Keychain, and only after 1Password accepts it. The three fields then shrink to one line that starts with "Connected" and names the service account and the vault.
 
