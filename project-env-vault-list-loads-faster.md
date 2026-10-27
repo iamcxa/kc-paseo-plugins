@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-vault-list-loads-faster:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-vault-list-loads-faster-ideation-1
+              briefing:
+                id: briefing:project-env-vault-list-loads-faster:ideation:attempt-1:revision-1
+                digest: sha256:fcf518fe29eb288b2d427212af693455609a33a277e40235c0301bcccb6b82ad
+                room-ref: ./project-env-vault-list-loads-faster/review/ideation/briefing-1
 started: 2026-10-27T03:20:52Z
 ---
 

@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-list-loads-faster:ideation:attempt-1:revision-1",
+  "question": "Approve this design (read up to 4 vault items at once, same requests and same list) and AC-1 into implementation, keeping the vault passed by name for now? Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-list-loads-faster:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/5f31403d7c82e096915f6026f972022f02279a21/project-env-vault-list-loads-faster.md",
+      "rev": "sha256:858d627478a4470d0e197bdd9349e5922429e3ca075bc275bfe12b5214651bd3",
+      "mediaType": "text/markdown",
+      "summary": "Measured on a fake op at 200 ms per call: item reads are about 98% of the wait. Main: 30 items 8.5 s, 100 items 25.6 s server-side, and on screen 100 items times out at 30 s with a misleading hint. Prototype at 4 at once: 2.7 s and 7.0 s, identical list at every size; 306/306 tests. 1Password docs give hourly and daily request counts only; request count unchanged, burst effect unproven. Decision: vault by ID — FO recommends not in this task (measure first). Out of scope, for r1b: the timeout hint, rate-limit replies shown as skipped items. FO recommendation: approve."
+    }
+  ]
+}
