@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-docs-site:ideation:attempt-1:revision-1",
+  "question": "Approve the docs site design (GitHub Pages built-in Jekyll, stock minima theme with no overrides, five pages reusing OVERVIEW.md and CHANGELOG.md) and AC-1 and AC-2 into implementation? FO recommends approving, which also accepts the stock theme as drawn (no current-page mark, 38 px menu button at 400 px). Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-docs-site:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/6d36174eb5933c7e8b8755a12fe05f11b41d5d26/project-env-docs-site.md",
+      "rev": "sha256:2cbab00048f8093debaa98a0048c2596fa14598161e3c8a4606763b5da3e6084",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Pages: Home (README), Introduction, Install, Prepare 1Password, Reference (OVERVIEW.md), Changelog; internal docs excluded; previews at 1280 and 400 px from a github-pages 232 build. Verified: install from GitHub on an isolated Paseo home. Fixes found wording in OVERVIEW (Setup step 2, expiry only via CLI) and README (git: form). Needs decision: stock minima vs a site-owned header and stylesheet; FO recommends stock. Pages switch-on stays with the Captain at validation."
+    }
+  ]
+}
