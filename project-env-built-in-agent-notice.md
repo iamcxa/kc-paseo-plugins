@@ -448,4 +448,7 @@ After the Captain approved validation (「准」, 2026-10-27), FO merged PR iamc
 
 ## UAT
 
-Pending: the Captain's UAT on the live plugin.
+UAT (Captain, 2026-10-27): OK — 「試用 OK」
+Before it he pasted a new qnow agent's answer to "where do this repo's keys come from": project-env from 1Password, the Keychain service-account token, the Settings path and OVERVIEW.md, with no value read.
+
+Cost: Captain messages 9; worker tokens not measured (reported: ideation 244626 and 315582, implementation 145506 and 162471, validation 198808 and 217827)
