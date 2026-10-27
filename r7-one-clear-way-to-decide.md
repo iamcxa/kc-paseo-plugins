@@ -86,3 +86,11 @@ Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-10-27 — sc
 ### Summary
 
 Messages and gate decisions now have separate drafts and explicit actions, the conversation names its officer, and phone decision controls meet the measured target size. Candidate 1969785 is pushed as stacked Draft PR #57; independent validation, team review and the workflow gate remain with FO.
+
+### FO notes
+
+- Added after the backlog gate, from the Captain's round 6 UAT: his screenshot (`_l3-dogfood/walks/round-6/captain/colour-difference.png`) and words 「色差在這裡，注意看“審#1306文字左右背景有差異”」 show a lighter row background on the live build (f10a3f2) that is inset 8 px on the left, runs to the right edge and ends flush on the next row's title. A regression from round 6's row layout on the stack below; FO adds one follow-up fix (cycle 2) to this round so the next layer does not carry it.
+
+### FO findings before the gate
+
+- Roborev (FO-run, package gap 5) clean on 1969785 (roborev:1251).
