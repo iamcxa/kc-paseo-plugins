@@ -1,0 +1,14 @@
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+node:net:1987
+      const error = new UVExceptionWithHostPort(rval, 'listen', address, port);
+                    ^
+
+Error: listen EPERM: operation not permitted /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/tsx-502/88779.pipe
+    at Server.setupListenHandle [as _listen2] (node:net:1987:21)
+    at listenInCluster (node:net:2066:12)
+    at Server.listen (node:net:2188:5)
+    at file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge/node_modules/

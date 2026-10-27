@@ -1,0 +1,36 @@
+✖ decision uses only its reason (1.908125ms)
+✔ both actions keep the other draft (0.555917ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 188.1415
+
+✖ failing tests:
+
+test at test/decision-composer.test.mts:68:1
+✖ decision uses only its reason (1.908125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      [
+        '准',
+  +     'Message draft'
+  -     ''
+      ]
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.validation-mutation-x60n1jpc/spacedock-bridge/test/decision-composer.test.mts:80:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ [ '准', 'Message draft' ] ],
+    expected: [ [ '准', '' ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

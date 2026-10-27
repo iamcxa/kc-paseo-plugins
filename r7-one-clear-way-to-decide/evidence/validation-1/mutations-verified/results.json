@@ -1,0 +1,76 @@
+[
+  {
+    "mutation": "message-reason",
+    "file": "shared/decision-composer.ts",
+    "replacements": [
+      [
+        "draft: () => readDecisionDraft(key).reason,",
+        "draft: ports.draft,"
+      ]
+    ],
+    "exit": 1,
+    "failed": [
+      "decision uses only its reason"
+    ]
+  },
+  {
+    "mutation": "draft-retention",
+    "file": "shared/decision-composer.ts",
+    "replacements": [
+      [
+        "send: message.send,",
+        "send: async () => { update(key, { reason: \"\" }); await message.send(); },"
+      ]
+    ],
+    "exit": 1,
+    "failed": [
+      "both actions keep the other draft"
+    ]
+  },
+  {
+    "mutation": "stale-target",
+    "file": "shared/decision-composer.ts",
+    "replacements": [
+      [
+        "if (!current()) return changed;",
+        "if (false) return changed;"
+      ],
+      [
+        "return current() ? refusal : changed;",
+        "return refusal;"
+      ]
+    ],
+    "exit": 1,
+    "failed": [
+      "a changed briefing or officer cannot receive a stale action"
+    ]
+  },
+  {
+    "mutation": "pending-lock",
+    "file": "shared/composer.ts",
+    "replacements": [
+      [
+        "ports.setSending(true);",
+        "ports.setSending(false);"
+      ]
+    ],
+    "exit": 1,
+    "failed": [
+      "pending, failure and duplicate presses keep existing behavior"
+    ]
+  },
+  {
+    "mutation": "message-decides",
+    "file": "shared/decision-composer.ts",
+    "replacements": [
+      [
+        "const message = composerHandlers({ ...ports, onChip: undefined });",
+        "const message = { send: async () => ports.onChip!(\"\u51c6\", ports.draft()), onKeyPress: async () => ports.onChip!(\"\u51c6\", ports.draft()) };"
+      ]
+    ],
+    "exit": 1,
+    "failed": [
+      "message never decides"
+    ]
+  }
+]

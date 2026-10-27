@@ -1,0 +1,17 @@
+- generic "Add a projectOpen a folder on your machineImport sessionOpen a Claude Code, Codex or other session y" [ref=e1] clickable [onclick]
+  - button "Back" [ref=e3]
+  - button "← Queue" [ref=e4]
+  - button "Hide briefing" [ref=e5]
+  - button "Read full briefing ›" [ref=e8]
+  - slider "Drag to resize the briefing; tap the grip to fit it to its content" [ref=e6]: 50
+    - generic [ref=e7] clickable [cursor:pointer, onclick, tabindex]
+  - link "Open full view" [ref=e9]
+  - textbox "Message Decision proof FO" [ref=e10]
+  - button "Choose 准" [ref=e15]
+  - button "Choose 要求修改" [ref=e16]
+  - button "Choose 暫緩" [ref=e17]
+  - button "Send to Decision proof FO" [disabled, ref=e12]
+  - textbox "Reason for 暫緩" [ref=e11]: Keep on claim refusal
+  - button "Confirm 暫緩 via comms officer" [ref=e13]
+  - button "Cancel decision" [ref=e14]
+- generic [ref=e2] clickable [onclick]

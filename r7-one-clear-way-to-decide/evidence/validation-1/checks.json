@@ -1,0 +1,123 @@
+[
+  {
+    "name": "npm-ci",
+    "command": [
+      "npm",
+      "ci",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge",
+    "exit": 0
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge",
+    "exit": 0
+  },
+  {
+    "name": "tests",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge",
+    "exit": 1
+  },
+  {
+    "name": "comment-ratio",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.32.0/scripts/comment_ratio.py",
+      "f10a3f29a43fb09adff4beda268799f514f7b43b",
+      "316c9eff7bd6ce2f5e15db7382dea1aba1197a26",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+    "exit": 2
+  },
+  {
+    "name": "doc-impact",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.32.0/scripts/doc_impact.py",
+      "f10a3f29a43fb09adff4beda268799f514f7b43b",
+      "316c9eff7bd6ce2f5e15db7382dea1aba1197a26"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+    "exit": 0
+  },
+  {
+    "name": "adr-lint",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.32.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "f10a3f29a43fb09adff4beda268799f514f7b43b"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+    "exit": 0
+  },
+  {
+    "name": "number-guards",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.32.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r7-one-clear-way-to-decide.md"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+    "exit": 2
+  },
+  {
+    "name": "design-surfaces",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.32.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r7-one-clear-way-to-decide.md"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+    "exit": 1
+  },
+  {
+    "name": "dispatch-records",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.32.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r7-one-clear-way-to-decide"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide",
+    "exit": 0
+  },
+  {
+    "name": "tests-authorized",
+    "exit": 0,
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/spacedock-bridge",
+    "note": "Sandbox IPC denied initial attempt; identical authorized command passed 140/140"
+  },
+  {
+    "name": "comment-ratio-corrected",
+    "exit": 0,
+    "note": "Correct --workflow-dir docs/dev2-poc; initial path pointed at state checkout"
+  },
+  {
+    "name": "number-guards-corrected",
+    "exit": 0,
+    "note": "Correct workflow README path; no R4 failure"
+  }
+]

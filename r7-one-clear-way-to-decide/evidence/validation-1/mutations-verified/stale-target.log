@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: a changed briefing or officer cannot receive a stale action
+not ok 1 - a changed briefing or officer cannot receive a stale action
+  ---
+  duration_ms: 1.843875
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.validation-mutation-nvwzo38a/spacedock-bridge/test/decision-composer.test.mts:140:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   'Message draft\n\n(existing footer)'
+    + ]
+    - []
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0: |-
+      Message draft
+      
+      (existing footer)
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.validation-mutation-nvwzo38a/spacedock-bridge/test/decision-composer.test.mts:153:14)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 161.324916

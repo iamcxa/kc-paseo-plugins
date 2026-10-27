@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: decision uses only its reason
+not ok 1 - decision uses only its reason
+  ---
+  duration_ms: 1.88375
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.validation-mutation-nmo9ta0e/spacedock-bridge/test/decision-composer.test.mts:68:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        [
+          '准',
+    +     'Message draft'
+    -     ''
+        ]
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      0: '准'
+      1: ''
+  actual:
+    0:
+      0: '准'
+      1: 'Message draft'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.validation-mutation-nmo9ta0e/spacedock-bridge/test/decision-composer.test.mts:80:12)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 155.941916
