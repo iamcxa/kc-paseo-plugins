@@ -65,3 +65,28 @@ Verified by: `design/INTERACTION-MODELS.md` reads in under five minutes, with th
 
 Alignment: not needed: the Captain chose this round form and theme on 2026-10-28; approach from the qnow FO's mode B and its 2026-10-28 addendum, recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: The Captain's deciding tasks in the Bridge, each with where (desktop between work, phone between meetings), how often, and what he must see to decide, each citing its source (his words in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/rounds.md rounds 1–7, or a walk ruling in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/walks/round-5..7/director-ruling.md); the current build's step count per task, read from the installed code at 316c9eff7bd6ce2f5e15db7382dea1aba1197a26 (read-only, /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge) and the round 7 walk screenshots (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/walks/round-7/screenshots/) (AC-1)
+  design/INTERACTION-MODELS.md「任務與適用情境」「每件操作數」與 design/EVIDENCE.md：9 個來源化任務、固定 316c9ef 程式與 9 張直接開圖核對；地點依派工、頻率皆標假設。
+- DONE: 2–3 candidate interaction models for the queue and decision screen, each in words; one tasks × models table of operation counts with each cell's steps written out; per model, what it needs that the product does not store or offer yet, and anything it would change in what is sent, relayed or recorded (flag those as the Captain's to rule on); your own assumptions flagged (AC-1)
+  3 案、9×3 格加桌機／手機分支；28 個操作數／分支逐格驗算，正數與列出的步驟一致。保留確認、理由、收件人與既有轉送／記錄語意，候選數字明列為預測。
+- DONE: /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-simplest-way-to-decide/design/INTERACTION-MODELS.md that reads in under five minutes: the recommended model, why, what gets worse under it and the open semantic questions at the top, then the tasks, the models, the table and the gaps (AC-2)
+  daba751 交付兩份文件；主頁 59 行、可見正文約 2,198 漢字，推薦、代價與語意問題置頂；五分鐘是篇幅估計，尚未做 Captain 計時閱讀。
+
+### Findings
+
+- 成果版本：狀態提交 daba751；只新增 design/INTERACTION-MODELS.md 與 design/EVIDENCE.md。推薦「一事一頁」，普通批准仍 3 步，換下一件由 2 步降至 1；清單內處理批准 2 步，但同時辨認多個收件情境。桌面回通訊官在推薦案反增 1 步。
+- 可推翻處：若大多只需摘要連續批准，清單內處理可能勝出；若常與通訊官協調，現行桌面更省。沒有真實頻率或新流程測試，未算加權節省；手機滑動與鍵盤成本另計，模擬圖不是真機證據。
+- 共同缺口：已記錄後原簡報的完整回讀不可完成；讀 recorded 的 0 操作沒有冒充完成回讀。server/gate.ts 和 shared/decisions.ts 的第二條資料查核區分既有 state 引用、既有 claim 保存與尚未提供的歷史入口；不要求新增保存服務。
+- 文件查核 PASS：兩檔相對連結均存在，28 個操作數／分支正數逐步重算一致；若格子省略或增加一個操作但未改數字，檢查會失敗。程式事件路由與已開圖檔的具體對照列於 EVIDENCE.md；沒有把讀碼說成真實送達已驗證。
+- design_surfaces.py：SKIPPED（已執行，exit 1；缺 Surfaces、Visible change，派工已指明 package gap 2）；未擅自補 FO alignment 或增加視覺工作。
+- number_guards.py：exit 0，PASS: no findings；migration guard skipped: no migrations-path declared，base bed5a6644c64、head b5381b18834e。它查到程式主倉而非本次狀態文件，不能當本設計證據；本輪無 migration／ADR 編號，未出現已知 package gap 3 的 R4 失敗。
+- comment_ratio.py f1d5450 daba751（--repo 狀態倉）：code lines 0, comment lines 0, 0.0%；低於 20 行門檻，不強制比例。doc_impact.py 同版本回 []；既有保留文件未受影響，不需更新。git diff --check f1d5450 daba751 通過。
+- roborev：SKIPPED，無程式變更，且派工指出 package gap 5。無程式提交／推送、無 PR、無 daemon 變更；main、flywheel-live 與未使用的派工 worktree 皆乾淨，產品版本仍為 316c9eff7bd6ce2f5e15db7382dea1aba1197a26。
+- 狀態提交第一次受 sandbox 的 Git 索引寫入限制阻擋；同一 spacedock state commit 命令經核准重跑後提交並推送成功，沒有改 Git 配置或碰鎖。階段與 frontmatter 保持原樣；設計總監審查、Captain 選模型由 FO 後續安排。
+
+### Summary
+
+已依核准的 poc 範圍完成無視覺互動模型文件，將可省掉的整步、增加的操作、未提供的資料與自身假設分開寫明。既有轉送與記錄語意未改；本報告是作者交付，並非設計總監通過、Captain 選定或後續視覺設計授權。
