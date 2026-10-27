@@ -78,6 +78,14 @@ Direction alignment with the Captain: done — he asked for the introduction, do
 Release review: paseo-project-env/r1b at 4e22d4ad63bc50d4bcc32a403720b429152bad8a — signal 1: this task is admitted into r1b under story install-one-command and writes the words for r1b's get-plugin and prepare-1password stories, so r1b is marked changed and kc-journey-map review-release runs at the first implementation dispatch.
 Map footprints: not needed: no journey answer is recorded by this task; the ideation report lists the stories for a later map update.
 
+## Captain amendments
+
+### Amendment 1 — 2026-10-28, chat
+Captain: 「just-the-docs」 (FO chat, 2026-10-28)
+Asked: "回「換 just-the-docs」或「維持 minima」。" after FO's comparison of four themes (evidence/themes/comparison.md)
+Supersedes: none
+Design: Scope words "a search or sidebar theme" in the Out list
+
 ## Design
 
 **Revision 2 (2026-10-28, ideation cycle 2).** The Captain's revise of the first ideation gate (「just-the-docs」) replaced the stock minima theme. Changed: `_config.yml` now loads the just-the-docs remote theme pinned at v0.12.0 with `jekyll-remote-theme`; the sidebar lists six pages in reader order by `nav_order` (Home first); each page shows its title as its heading; search is on and splits results by section and by each blank-variable cause; code blocks have a copy button; Reference and Changelog are published through two six-line wrapper files so search lands on a cause heading; Install gains a sign-in step and Homebrew line, Prepare a "Done" section and 4a to 4c sub-steps. Withdrawn: the stock-minima decision and its ADR title. Unchanged: scope, AC-1 and AC-2's intent, the capture scripts for the seven plugin pictures, the verified statements not named here. The dark scheme is not used: it is one fixed switch that does not follow a reader's device setting, and in `previews/dark-intro-1280.png` the near-black plugin pictures lose their edge against a dark page while they read as framed pictures on the light one (the Director's reading in `design/ideation-4.yaml` agrees).
