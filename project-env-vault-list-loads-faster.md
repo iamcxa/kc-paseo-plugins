@@ -1,7 +1,7 @@
 ---
 id:
 title: The field picker's vault list loads faster
-status: backlog
+status: ideation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -28,7 +28,7 @@ gates:
                 reason: '「開」 — Captain in FO chat, 2026-10-27. Asked: 「要不要開一個新任務，處理「Loading the vault…」很慢的問題？…回「開」或「先不用」。」 FO had recommended opening it (measure first, then read items concurrently).'
               application:
                 target-stage: ideation
-                state: pending
+                state: consumed
 ---
 
 From the Captain's UAT of the vault re-point task on 2026-10-25: 「為何Loading the vault…要那麼久？」. FO's answer, read from code at main 7e038cd and rechecked at 0b55dfd on 2026-10-27: to build the field list, `listRefs` in `project-env/server/secrets.ts` runs `op item list` for the vault and then one `op item get` per item, one after another, so the wait grows with the number of items. The time per call has not been measured. On 2026-10-27 FO asked whether to open a task for it, recommending measuring first and then reading items concurrently; the Captain answered 「開」.
