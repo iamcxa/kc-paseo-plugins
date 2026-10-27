@@ -1,0 +1,7 @@
+Question: Approve validation of the faster vault list (PR iamcxa/kc-paseo-plugins#55 at 924d213e844c1e123bba6d56a8bc784f74c9ad54) and the two proposed declines? FO recommends approving. Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.
+Merge ask: PR #55 at 924d213e844c1e123bba6d56a8bc784f74c9ad54 makes listRefs read up to 4 vault items at once with the same op arguments and the same list, skipped items and whole-list-failure rules.
+Sufficiency: validation-1 PASSED at 924d213 with no Material or Needs decision finding; on a fake op at 200 ms per call the list is ready sooner at 10, 30 and 100 items (100 items no longer hits the 30 s timeout) with an identical output digest and N+1 calls; FO's fresh-shell acceptance rerun matched.
+Necessity: the PR changes project-env/server/secrets.ts, one new test file and the test fakes only; without it the picker waits for every item read in series and fails at 30 s on a large vault.
+Reviews: external review rounds: 1 — Codex summary:6434092109 clean on 924d213e8; local roborev:1245 clean on 924d213e8 (development feedback, not a round).
+Declined: Deferred risk, F1 on a whole-list failure up to 4 more item reads start before stopping (same error; the bound caps the extra reads; request count on success unchanged).
+Declined: Deferred risk, F2 the Test path still reads every variable at once (outside the approved Scope; unchanged from main).
