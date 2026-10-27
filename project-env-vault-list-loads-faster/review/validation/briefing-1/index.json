@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-list-loads-faster:validation:attempt-1:revision-1",
+  "question": "Approve validation of the faster vault list (PR #55 at 924d213) and the two proposed declines (F1, F2 Deferred risk)? FO recommends approving. Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-list-loads-faster:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/918530d286bb3d0041df63d11e41335bab5b31e3/project-env-vault-list-loads-faster.md",
+      "rev": "sha256:e345f65b8800eb59b2d5172eb66d036e41a25696b973c6865d9dceea0812783a",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation-1 PASSED at 924d213, no Material or Needs decision finding; fake op at 200 ms: 10/30/100 items 3.4/8.5/26.7 s to 1.5/2.8/7.4 s (FO rerun), identical list and N+1 calls; 100 items no longer times out on screen. Six mutations caught. External review rounds: 1 — Codex summary:6434092109 clean; roborev:1245 clean. Proposed declines: F1 up to 4 extra reads on a whole-list failure; F2 Test path unbounded (out of scope). Unmeasured: real op time, reads per get, burst throttling. delivery_gate question and check exit 0."
+    }
+  ]
+}

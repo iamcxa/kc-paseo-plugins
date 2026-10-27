@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-vault-list-loads-faster:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-vault-list-loads-faster-validation-1
+              briefing:
+                id: briefing:project-env-vault-list-loads-faster:validation:attempt-1:revision-1
+                digest: sha256:d9b904bf462889971a7c0f0c1390157089a48adaea17a3cfd0a41134cd540d9e
+                room-ref: ./project-env-vault-list-loads-faster/review/validation/briefing-1
 started: 2026-10-27T03:20:52Z
 ---
 
