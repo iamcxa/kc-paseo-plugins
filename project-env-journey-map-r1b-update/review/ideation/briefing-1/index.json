@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-journey-map-r1b-update:ideation:attempt-1:revision-1",
+  "question": "Approve the journey map edit design and AC-1 into implementation, including a sixth edit that sets write-prompt and new-agent-instructions to gap (the prompt box they describe was removed by PR #53)? FO recommends approving. Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-journey-map-r1b-update:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/f9c010c9c60648410d529356722535600d0bc0f2/project-env-journey-map-r1b-update.md",
+      "rev": "sha256:7b921fadd68c9983de8373a6389232f914b13b270e8d317758aa1f0de7fa9b1e",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve with the sixth edit. Five edits as exact YAML: agent-lays-out-vault leaves r1b; four r1.5 stories to exists (storeToken, tokenStatus, nameFromLabel, testProject, read on origin/main bed5a66; tags project-env-v0.2.0); new r1b slice_because; new read-the-docs story; status card. Lint on main already fails (write-prompt evidence promptStyle gone since #53); the sixth edit makes lint pass. No plugin code."
+    }
+  ]
+}

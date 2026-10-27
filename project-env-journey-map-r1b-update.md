@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-journey-map-r1b-update:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-journey-map-r1b-update-ideation-1
+              briefing:
+                id: briefing:project-env-journey-map-r1b-update:ideation:attempt-1:revision-1
+                digest: sha256:e932eb2e47aecac943823ac94c5b699e6caec47d2f6d34c1829e6b67e24c33ff
+                room-ref: ./project-env-journey-map-r1b-update/review/ideation/briefing-1
 started: 2026-10-27T18:33:05Z
 ---
 
