@@ -185,3 +185,4 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 Switching coordinators now clears the previous question and timestamp before the new connection completes. The regression test proves the identity mismatch on the prior head and the corrected pending and loaded states; the fix is committed and pushed to the existing Draft PR.
+- Repair-cycle limit set by FO after roborev:1242 on e8817b8 (the second By FO preview finding after 1236): one class-level repair (cycle 7), then later roborev findings on this round go to `### FO declines` with a trigger unless they are High, and the round moves to the pre-gate team and validation.
