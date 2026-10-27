@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
-test("queue rows expose sibling accessible actions inside symmetric clipped bounds", async (t) => {
+test("queue rows expose icon-only sibling accessible actions inside symmetric clipped bounds", async (t) => {
   const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -57,6 +57,7 @@ test("queue rows expose sibling accessible actions inside symmetric clipped boun
     assert.ok(link, linkLabel);
     assert.equal(row.getAttribute("role"), "button");
     assert.equal(link.getAttribute("role"), "link");
+    assert.equal(link.textContent, "↗", "repository references belong in the full accessible label, never the link layout");
     assert.equal(row.parentElement === link.parentElement, true, "screen readers need sibling row and link controls");
     assert.equal(row.getAttribute("data-accessible"), "true");
     assert.equal(link.getAttribute("data-accessible"), "true");

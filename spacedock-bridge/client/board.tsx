@@ -520,7 +520,7 @@ export function Board({
               <Pressable colors={colors} accessible accessibilityRole="link"
                 accessibilityLabel={`Open ${next.link.ref} on GitHub`} style={styles.external}
                 onPress={() => openLink(next, openExternalUrl)}>
-                <Text style={styles.ref}>{next.link.ref} ↗</Text>
+                <Text style={styles.externalText}>↗</Text>
               </Pressable>
             ) : null}
             </View>
@@ -581,7 +581,7 @@ export function Board({
                   style={styles.external}
                   onPress={() => void openExternalUrl(review.url)}
                 >
-                  <Text style={styles.externalText}>GitHub ↗</Text>
+                  <Text style={styles.externalText}>↗</Text>
                 </Pressable>
                 </View>
               </View>
