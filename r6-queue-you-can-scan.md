@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r6-queue-you-can-scan
+gates:
+    version: 1
+    records:
+        - id: gate:r6-queue-you-can-scan:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r6-queue-you-can-scan-backlog-1
+              briefing:
+                id: briefing:r6-queue-you-can-scan:backlog:attempt-1:revision-1
+                digest: sha256:6e1ab56f564e5f4c83fc57326d9d29f736124f3c02e41e2d14dec6305c2f42aa
+                room-ref: ./r6-queue-you-can-scan/review/backlog/briefing-1
 ---
 
 Round 6 of the POC flywheel under ADR 0008: queue titles are cut to a few words, an FO card mixes its items without separate taps, a failed check offers no way to look again, and the comms officer's question shows no age.
