@@ -1,7 +1,7 @@
 Question: Approve validation of the built-in notice (PR iamcxa/kc-paseo-plugins#53 at 231c30abcf52405a87dfd9a0e528ae3e94d8f148) and the two proposed declines? Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.
 Merge ask: PR #53 at 231c30abcf52405a87dfd9a0e528ae3e94d8f148 adds the built-in agent notice (only for projects with at least one variable, no variable names), removes the default-prompt box and drops a saved prompt, adds the "Projects ›" link and writes OVERVIEW.md.
 Sufficiency: validation cycle 2 PASSED at 231c30a with no Material or open Needs decision finding; validation-1 F1 resolved (blank-variable scenario 12 of 12 across Codex medium and Claude medium and low); AC-1 to AC-4 checked on an isolated Paseo; FO's fresh-shell acceptance rerun matched.
-Necessity: the PR changes project-env server, client, shared schema, tests, OVERVIEW.md and README.md only; without it agents are not told where their variables come from and the prompt box keeps sending invisible text risk.
+Necessity: the PR changes project-env server, client, shared schema, tests, OVERVIEW.md and README.md only; without it agents are not told where their variables come from or what to do when one is blank, and the prompt box stays.
 Reviews: external review rounds: 1 — Codex summary:6431850766 clean on 231c30abc; local roborev:1233 clean on 231c30abc (development feedback, not a round).
 Declined: Polish, F2 Claude suggests the user quote a key's last 4 characters or echo it in their own terminal (no agent showed any part of a value in 45 runs; the notice binds the agent).
 Declined: Deferred risk, F3 internal agents get variables but no notice (same as main 335d129 and the approved design; no harm observed).
