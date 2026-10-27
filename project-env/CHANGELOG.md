@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.2.0](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.1.0...project-env-v0.2.0) (2026-10-27)
+
+
+### Features
+
+* **project-env:** a save bar shows unsaved changes and Stop managing has its own section ([#23](https://github.com/iamcxa/kc-paseo-plugins/issues/23)) ([af6aaec](https://github.com/iamcxa/kc-paseo-plugins/commit/af6aaec61449ce85b631606c0fea2f4a0270f37b))
+* **project-env:** a token is stored only after 1Password accepts it ([#21](https://github.com/iamcxa/kc-paseo-plugins/issues/21)) ([1adf630](https://github.com/iamcxa/kc-paseo-plugins/commit/1adf63042be22646c0192c47028f72a1b1960c11))
+* **project-env:** a working 1Password connection collapses to one line ([#25](https://github.com/iamcxa/kc-paseo-plugins/issues/25)) ([681f861](https://github.com/iamcxa/kc-paseo-plugins/commit/681f861ee07c847a83fb59ccb6be27c26960ae95))
+* **project-env:** Add opens the field picker and names the variable from the field ([#28](https://github.com/iamcxa/kc-paseo-plugins/issues/28)) ([0314c91](https://github.com/iamcxa/kc-paseo-plugins/commit/0314c91277c02c8ddf03bde93024aad85ac66593))
+* **project-env:** Browse vault lists fields even when one item cannot be read ([#16](https://github.com/iamcxa/kc-paseo-plugins/issues/16)) ([7165718](https://github.com/iamcxa/kc-paseo-plugins/commit/7165718a5b837ab4d453798363c90a0d6fd20163))
+* **project-env:** changing the vault points every variable into it and marks any outside it before Test ([#50](https://github.com/iamcxa/kc-paseo-plugins/issues/50)) ([7e038cd](https://github.com/iamcxa/kc-paseo-plugins/commit/7e038cd6047a525b1f5125ad6f07a85afe5f51da))
+* **project-env:** each variable row has one field pill showing item and field ([#24](https://github.com/iamcxa/kc-paseo-plugins/issues/24)) ([d197f9d](https://github.com/iamcxa/kc-paseo-plugins/commit/d197f9d1cee1f6e08d1d20974da6709acb22fa57))
+* **project-env:** every agent that receives variables is told where they come from and what a blank one means ([#53](https://github.com/iamcxa/kc-paseo-plugins/issues/53)) ([0b55dfd](https://github.com/iamcxa/kc-paseo-plugins/commit/0b55dfd1a534b8dbd04bd1739ca2037e92202f55))
+* **project-env:** every variable row is findable ([#33](https://github.com/iamcxa/kc-paseo-plugins/issues/33)) ([c46720f](https://github.com/iamcxa/kc-paseo-plugins/commit/c46720fc01192434c7e6e2daab68a017eddcc103))
+* **project-env:** finish or cancel a connection change in one row after the vault ([#44](https://github.com/iamcxa/kc-paseo-plugins/issues/44)) ([b20a949](https://github.com/iamcxa/kc-paseo-plugins/commit/b20a94968029dccfb82141736881d500fdc39500))
+* **project-env:** one row per variable, Add refuses reserved names ([#17](https://github.com/iamcxa/kc-paseo-plugins/issues/17)) ([15b1e3f](https://github.com/iamcxa/kc-paseo-plugins/commit/15b1e3fcb6aabd039758a290b24e36890910e3fd))
+* **project-env:** remove the Conductor import from the variables card ([#41](https://github.com/iamcxa/kc-paseo-plugins/issues/41)) ([4e22d4a](https://github.com/iamcxa/kc-paseo-plugins/commit/4e22d4ad63bc50d4bcc32a403720b429152bad8a))
+* **project-env:** Save is off while the connection is being changed, a saved project keeps its place, a stored token refreshes the field list ([#29](https://github.com/iamcxa/kc-paseo-plugins/issues/29)) ([d540a04](https://github.com/iamcxa/kc-paseo-plugins/commit/d540a045c239dd563522b5fc78066b63009ae839))
+* **project-env:** test results clear when the draft changes and say what set means ([#20](https://github.com/iamcxa/kc-paseo-plugins/issues/20)) ([985e7e4](https://github.com/iamcxa/kc-paseo-plugins/commit/985e7e4c350488c5b2cff27d8eba25ec09566542))
+* **project-env:** Test shows a summary line and marks failed rows with a red border and (!) ([#27](https://github.com/iamcxa/kc-paseo-plugins/issues/27)) ([40849b4](https://github.com/iamcxa/kc-paseo-plugins/commit/40849b49bc727dae0731e797e2b207370946c5c2))
+* **project-env:** the field picker is grouped, searchable and suggests the matching field ([#26](https://github.com/iamcxa/kc-paseo-plugins/issues/26)) ([28e2b17](https://github.com/iamcxa/kc-paseo-plugins/commit/28e2b17f5a7bb73fc4c3f9e7636d9c66d57747b6))
+* **project-env:** token row names why a token fails and picks the only readable vault ([#15](https://github.com/iamcxa/kc-paseo-plugins/issues/15)) ([948e98a](https://github.com/iamcxa/kc-paseo-plugins/commit/948e98aeb418be30ae63d379af0b20e31bad59f0))
+* **project-env:** unsaved edits survive the settings screen re-mounting ([#22](https://github.com/iamcxa/kc-paseo-plugins/issues/22)) ([d61e243](https://github.com/iamcxa/kc-paseo-plugins/commit/d61e24396b42dfb15827bacd6970627c6f6425ba))
+
+
+### Bug Fixes
+
+* **project-env:** a project saved at a linked worktree serves agents in that worktree ([#19](https://github.com/iamcxa/kc-paseo-plugins/issues/19)) ([7543f95](https://github.com/iamcxa/kc-paseo-plugins/commit/7543f95a595799dafb0b781139b9bddec346d6c6))
+
+
+### Performance Improvements
+
+* **project-env:** the field picker reads up to four vault items at once ([#55](https://github.com/iamcxa/kc-paseo-plugins/issues/55)) ([e66c7e5](https://github.com/iamcxa/kc-paseo-plugins/commit/e66c7e50da8800826e2b54fb47b9becd4012d3a2))
+
 ## 0.1.0 (2026-10-21)
 
 
