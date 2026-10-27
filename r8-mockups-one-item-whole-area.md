@@ -60,3 +60,23 @@ Verified by: REVIEW.md lists each state with its PNG and one question; the Capta
 
 Alignment: not needed: the Captain chose the design-round form and the model on 2026-10-28; approach from the qnow FO's mode B lessons recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- DONE: Read first: the chosen model /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-simplest-way-to-decide/design/INTERACTION-MODELS.md and its EVIDENCE.md, the round 7 build look (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/walks/round-7/screenshots/ and /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge at 316c9eff7bd6ce2f5e15db7382dea1aba1197a26, read-only), and the qnow lessons in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/rounds.md (round 7/8 entries); list your own assumptions (data shown, labels, where Back to list sits, how the comms conversation is reached from an open item) in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-mockups-one-item-whole-area/mockups/ASSUMPTIONS.md before drawing
+  已讀所列來源，繪圖前先寫 mockups/ASSUMPTIONS.md；版本、原圖與授權查核見 mockups/EVIDENCE.md。
+- DONE: One direction of "one item uses the whole Bridge area, back to the list after" as self-contained static HTML with fictional data plus one PNG per state at 1440x1000 and 360x780: list view; one gate opened using the whole area (briefing, conversation with its scope label, message box and send, decision controls); decision chosen with its reason field (empty required reason, and typed); after Confirm (sent/relayed, then recorded); back to the list; decision controls in proportion with the send button on desktop and at least 44x44 on phone; Paseo's existing look as the base (AC-1)
+  mockups/index.html 為入口；9 個狀態各有 1440×1000 與 360×780 PNG，共 18 張。capture.mjs 退出 0；全區寬度、桌面 32px 同高、手機至少 44×44 及離線操作見 capture-evidence.json；恢復窄側欄、把桌面決定按鈕改 44px 或放行空白必填理由會使檢查失敗。
+- DONE: Hard exclusions, widgets included: no next-item control, no new data, storage or history view, no change to Confirm, required reasons or separate messaging, no product code, code branch or PR; /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-mockups-one-item-whole-area/mockups/index.html leads and /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-mockups-one-item-whole-area/mockups/REVIEW.md lists each state with its HTML and PNG and one plain question each (AC-2); a short stage report
+  mockups/REVIEW.md 每個狀態有 HTML／兩張 PNG／一個問題；未加入下一件、歷史或產品變更，沒有程式提交或 PR。此報告只交付稿件，未代替設計總監審查或 Captain 的 go。
+
+### Findings
+
+詳細命令與結果見 mockups/EVIDENCE.md。design_surfaces.py 退出 1，缺 Surfaces／Visible change：SKIPPED，已知套件缺口 2；number_guards.py 退出 0、PASS: no findings，R4 的套件缺口 3 路徑 SKIPPED（本輪沒有 ADR，未重現 R4 失敗）。
+RoboRev：SKIPPED，無產品程式變更，且派工指定套件缺口 5。comment_ratio.py 退出 0：0 code / 0 comment lines，0.0%，未達 20 行；doc_impact.py 退出 0：0 documents；產品 base/candidate 均 b5381b18834ead9047778e96b27199ae0b3bd8e8。
+Chrome 在一般 sandbox 未回應；允許本機 headless 擷取後成功。只使用本目錄 file URL、新臨時 profile、逐張擷取；瀏覽器已關閉、profile 已移除。HTML 雜湊與 18 張 PNG 的尺寸已核對；手機系統鍵盤與真實送達不在證據範圍。
+主倉 main、派工程式分支及 flywheel-live 前後乾淨；現行安裝仍為 316c9eff7bd6ce2f5e15db7382dea1aba1197a26。沒有新 ADR、migration、產品持久狀態或真實代理操作。
+
+### Summary
+
+完成「單件全區、回清單選事」單一方向，保留獨立傳訊、必填理由、Confirm 及送出／轉送／記錄的差別。交付靜態 HTML、18 張 PNG、逐頁問題及可重製的離線檢查；POC 範圍止於設計稿，獨立設計總監審閱與 Captain 的 go 仍由 FO 接續。
