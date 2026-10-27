@@ -7,6 +7,28 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-vault-list-loads-faster:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-vault-list-loads-faster-backlog-1
+              briefing:
+                id: briefing:project-env-vault-list-loads-faster:backlog:attempt-1:revision-1
+                digest: sha256:004ddb12f289624aa1f8eeb59c1ca96fd909e548224a65b2d8a621b3d48dff70
+                room-ref: ./project-env-vault-list-loads-faster/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-list-loads-faster:backlog:1
+                briefing: briefing:project-env-vault-list-loads-faster:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T03:19:34.346127Z"
+                decision: approve
+                reason: '「開」 — Captain in FO chat, 2026-10-27. Asked: 「要不要開一個新任務，處理「Loading the vault…」很慢的問題？…回「開」或「先不用」。」 FO had recommended opening it (measure first, then read items concurrently).'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 From the Captain's UAT of the vault re-point task on 2026-10-25: 「為何Loading the vault…要那麼久？」. FO's answer, read from code at main 7e038cd and rechecked at 0b55dfd on 2026-10-27: to build the field list, `listRefs` in `project-env/server/secrets.ts` runs `op item list` for the vault and then one `op item get` per item, one after another, so the wait grows with the number of items. The time per call has not been measured. On 2026-10-27 FO asked whether to open a task for it, recommending measuring first and then reading items concurrently; the Captain answered 「開」.

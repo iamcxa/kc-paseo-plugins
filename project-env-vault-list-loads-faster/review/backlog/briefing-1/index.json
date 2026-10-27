@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-vault-list-loads-faster:backlog:attempt-1:revision-1",
+  "question": "要不要開一個新任務，處理「Loading the vault…」很慢的問題？（FO recommends opening it: measure first, then read items concurrently.）",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-vault-list-loads-faster:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/c30ef0854f403e9e9f4196626854430996a61db4/project-env-vault-list-loads-faster.md",
+      "rev": "sha256:412075160e7bdbde55e33ebf56c22f2d78258c80ce83d2adeb4e8f10e85ba021",
+      "mediaType": "text/markdown",
+      "summary": "Backlog: the field picker's vault list loads faster. listRefs runs op item list then one op item get per item in sequence (read at 0b55dfd); per-call time unmeasured. AC-1: same vault, list ready sooner than main 0b55dfd, listed fields and skipped items unchanged; timed on an isolated Paseo with a fixed-delay fake op. Surfaces none. FO recommendation: open."
+    }
+  ]
+}
