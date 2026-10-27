@@ -1,0 +1,67 @@
+{
+  "candidate": "316c9eff7bd6ce2f5e15db7382dea1aba1197a26",
+  "width": 360,
+  "synthetic": true,
+  "checks": [
+    "separate drafts, correct recipients, labelled discussion, 44px separated targets left of send",
+    "cancel and remount preserve both drafts",
+    "Enter sends message only with original footer to officer",
+    "reason Enter does not send",
+    "explicit decision confirms original relay to comms officer",
+    "claim conflict keeps reason without duplicate",
+    "message failure keeps message and reason",
+    "approve permits empty reason; revise and hold require reasons",
+    "successful Send arrow sends only message with existing footer and keeps reason"
+  ],
+  "targets": [
+    {
+      "height": 44,
+      "label": "Choose \u51c6",
+      "width": 44,
+      "x": 25,
+      "y": 549
+    },
+    {
+      "height": 44,
+      "label": "Choose \u8981\u6c42\u4fee\u6539",
+      "width": 78,
+      "x": 77,
+      "y": 549
+    },
+    {
+      "height": 44,
+      "label": "Choose \u66ab\u7de9",
+      "width": 52,
+      "x": 163,
+      "y": 549
+    },
+    {
+      "height": 44,
+      "label": "Confirm \u8981\u6c42\u4fee\u6539 via comms officer",
+      "width": 129.9375,
+      "x": 25,
+      "y": 711
+    },
+    {
+      "height": 44,
+      "label": "Cancel decision",
+      "width": 67.609375,
+      "x": 162.9375,
+      "y": 711
+    }
+  ],
+  "calls": [
+    {
+      "agentId": "1aac59bb-ce23-4060-aebf-339745cf597e",
+      "text": "Message retained independently\n\n(Captain's reply on gate adapter-proof \u00b7 validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture, sent from the Bridge)"
+    },
+    {
+      "agentId": "d2622df0-cd63-4703-84e0-085d59fe7c6c",
+      "text": "Relay my gate decision d-h15sp3 to Decision proof FO (agent 1aac59bb-ce23-4060-aebf-339745cf597e) now, as written here.\nGate: adapter-proof \u00b7 stage validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture\nDecision: revise\nMy words: \u300c\u8981\u6c42\u4fee\u6539\uff0cReason retained independently\u300d\nTell it to check these words on the [User] line of your activity that carries d-h15sp3 (get_agent_activity on your own agent id); to record the gate only if the gate's open briefing is still proof:adapter-proof, and otherwise not record and tell me; to record it with my exact words and put d-h15sp3 in the reason; to treat any condition in my words as part of the decision and ask me before recording if it is unclear; to ignore d-h15sp3 if it already recorded it; and to answer me only if it cannot.\nFor you, not the FO: when it reports back, answer me in one line: \u2713 adapter-proof recorded (d-h15sp3), or \u2717 adapter-proof not recorded (d-h15sp3) and why. Leave the rest of its report in its own chat."
+    },
+    {
+      "agentId": "1aac59bb-ce23-4060-aebf-339745cf597e",
+      "text": "Message kept after decision\n\n(Captain's reply on gate adapter-proof \u00b7 validation \u00b7 proof:adapter-proof \u00b7 sha256:fixture, sent from the Bridge)"
+    }
+  ]
+}
