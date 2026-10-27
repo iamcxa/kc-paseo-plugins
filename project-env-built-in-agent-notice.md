@@ -77,6 +77,11 @@ gates:
                 at: "2026-10-27T01:40:32.190265Z"
                 decision: revise
                 reason: '「先改」 — Captain in FO chat, 2026-10-27, on the validation gate (briefing-1, sha256:c3ec6d63). Asked: 回「再改」或「先合併」 — revise the notice wording once more (tell the agent not to ask the user to set or export a variable; the fix is in Paseo Settings) and rerun with at least 4 samples per cell before merge, or accept the Claude Sonnet medium misread as a known limit and merge. Answer: revise first.'
+            - id: gate-attempt:project-env-built-in-agent-notice-validation-2
+              briefing:
+                id: briefing:project-env-built-in-agent-notice:validation:attempt-2:revision-1
+                digest: sha256:0c49ae9759cdec80cb07cb4bdda7cdc436bf672174a565eed09b0d0b179546ee
+                room-ref: ./project-env-built-in-agent-notice/review/validation/briefing-2
 started: 2026-10-25T13:53:45Z
 ---
 

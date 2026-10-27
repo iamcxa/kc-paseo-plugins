@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-built-in-agent-notice:validation:attempt-2:revision-1",
+  "question": "Approve validation of the built-in notice (PR #53 at 231c30a) and the two proposed declines (F2 Polish, F3 Deferred risk)? Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-built-in-agent-notice:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/48dcb1546833eb770473d81a33df29c24e58c932/project-env-built-in-agent-notice.md",
+      "rev": "sha256:9ec4f5c2babc28e243f46a41f7b3175e484fa24a41255532820430aca7fff4ed",
+      "mediaType": "text/markdown",
+      "summary": "Validation cycle 2 PASSED at 231c30a; validation-1 F1 resolved (blank-variable 12/12 across Codex medium, Claude medium and low; 45 runs, no value shown). FO fresh-shell acceptance rerun matched all six steps. External review rounds: 1 — Codex summary:6431850766 clean on 231c30abc; local roborev:1233 clean. Proposed declines: F2 Polish (Claude suggests the user quote a key's last 4 characters or echo it in their own terminal), F3 Deferred risk (internal agents get variables, no notice; same as main). Engineering reviewer not run, reason recorded. delivery_gate question and check exit 0."
+    }
+  ]
+}
