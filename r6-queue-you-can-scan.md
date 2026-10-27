@@ -128,3 +128,20 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 By FO again shows the actual unread question preview when no next label exists. The regression test proves the original failure and the corrected title and destination; the fix is committed and pushed to the existing Draft PR.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: roborev:1238: when the comms source failed because its timeline subscription errored, "Check again" recreates that subscription through the existing subscribe path (user-triggered only; no timer or automatic resubscribe) and the source reads loaded only when both the history read and the subscription succeed; a test for a subscription error, then Check again, then a later question event that appears, failing if the retry only refetches history
+  A failed timeline subscription is recreated by the manual retry through the same effect/subscribe path; healthy-subscription history retries retain their existing path. Loaded waits for both history and subscription.ready. The mounted hook test first failed because history alone reported loaded (red.log), then passed later-question delivery after retry, both readiness orders, a second subscription failure, no automatic reconnect/history recovery, and cleanup (green.log). Restoring refetch-only retry or removing readiness gating fails it.
+- DONE: npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 4)" section
+  tests.log: 119/119 pass; typecheck.log: exit 0. Candidate 4643e0670b88491c48b052ff560c41ecb72cff2e is pushed to OPEN Draft PR #54 with the unchanged r5 base; pr54.json confirms no merge.
+
+### Findings
+
+roborev:1238 affects the Captain waiting for comms questions after a timeline error: client 0.12.0 releases that subscription, and history-only retry could falsely mark it loaded while later questions were invisible, violating value-ac[AC-2] honest checking. This explicitly authorized repair changes only use-co-ask.ts and its test; no timer, automatic resubscribe, persistence or relay change was added.
+Evidence: r6-queue-you-can-scan/evidence/cycle-4/. comment_ratio PASS: 150 code lines, 0 comment lines, 0.0% (maximum 5%). doc_impact: 0 documents listed; existing overview remains accurate. number_guards and adr_lint PASS; no migration or decision record changed. design_surfaces SKIPPED: unchanged package gap 2; R4 gap 3 did not occur.
+roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemon/browser was launched; candidate/main/live worktrees were clean (safety.json). Independent review and validation remain with FO.
+
+### Summary
+
+Manual checking now restores an errored comms timeline subscription, and the source remains incomplete until both subscription and history succeed. The original failure and resumed later-question delivery are covered by the regression test; the fix is committed and pushed to the existing Draft PR.

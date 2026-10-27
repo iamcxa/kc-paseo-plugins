@@ -1,0 +1,31 @@
+✖ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (92.663709ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1254.27975
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:4451
+✖ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (92.663709ms)
+  AssertionError [ERR_ASSERTION]: history alone cannot prove live updates are connected
+  + actual - expected
+  
+  + 'loaded: none'
+  - 'loading: none'
+         ^
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/co-ask.test.mts:157:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'loaded: none',
+    expected: 'loading: none',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
