@@ -1,0 +1,98 @@
+diff --git a/docs/journey/project-env/give-agents-their-project-setup.yaml b/docs/journey/project-env/give-agents-their-project-setup.yaml
+index d45fab2..5e22e71 100644
+--- a/docs/journey/project-env/give-agents-their-project-setup.yaml
++++ b/docs/journey/project-env/give-agents-their-project-setup.yaml
+@@ -27,6 +27,10 @@ steps:
+         evidence: ProjectEnvSettings
+         questions:
+           - {id: "q1", ask: "Which machine's Keychain and agents does the settings screen change when the client runs elsewhere?", status: "answered", answer: "The Mac running Paseo; only Paseo on the user's own Mac is supported, and the screen says the token is stored on the Mac running Paseo. Gap: the token hint says \"this Mac's Keychain\", which names the client's machine; release 1b says the Mac running Paseo.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md"}
++      - id: read-the-docs
++        card: "Read the plugin's introduction and docs (「plugin 介紹，文件說明」, Captain)"
++        release: r1b
++        status: gap
+ 
+   - id: prepare-1password
+     card: "Prepares 1Password for a repository"
+@@ -50,7 +54,6 @@ steps:
+           - {id: "q2", ask: "Where are the two weaknesses ADR 0001 accepted stated for the user?", status: "answered", answer: "The settings screen and the plugin overview state both weaknesses in plain words. Gap: the screen states only that an agent can read its values, and OVERVIEW.md is still the template; release 1b adds the Keychain weakness to the screen and both to the overview.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md"}
+           - {id: "q3", ask: "How should the in-app steps tell a user to lay out 1Password items and fields?", status: "answered", answer: "Ruling, Captain 2026-10-21: 「可以」 — one Secure Note item per service; secrets as password fields, other settings as text fields; the note body stays empty; unique titles, no fields in sections, no / in labels. An agent creates this structure through a skill after a person reviews it, and the person fills the values. Replaces the earlier 「好」 layout (one API Credential item per service).", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md"}
+       - id: agent-lays-out-vault
+-        release: r1b
+         status: gap
+         card: "An authorized agent lays out the vault's items to one convention, a person reviews and fills the values"
+ 
+@@ -68,7 +71,7 @@ steps:
+       - id: paste-token
+         card: "Paste the service account token once"
+         release: r1.5
+-        status: gap
++        status: exists
+         evidence: storeToken
+         questions:
+           - {id: "q1", ask: "Should a token replace the stored one before it is validated, and can two repositories' account names collide?", status: "answered", answer: "Gap: the token is written first and a same-named account is silently overwritten; release 1.5 validates before writing and warns on an existing name, still letting a repository replace its own token."}
+@@ -83,7 +86,7 @@ steps:
+       - id: token-works
+         card: "See that the token works and which vaults it can read"
+         release: r1.5
+-        status: gap
++        status: exists
+         evidence: tokenStatus
+         questions:
+           - {id: "q1", ask: "Which failures must the user tell apart from a missing or rejected token?", status: "answered", answer: "Gap: tokenStatus reads any Keychain failure as missing (readToken returns null) and any op failure as rejected; release 1.5 names each cause on screen. Release 1's cause classes have none for a locked Keychain or a missing op (classifyOpFailure reads a missing op as unexpected)."}
+@@ -118,7 +121,7 @@ steps:
+       - id: add-remove-variable
+         card: "Add or remove a variable next to its field"
+         release: r1.5
+-        status: gap
++        status: exists
+         evidence: nameFromLabel
+         questions:
+           - {id: "q1", ask: "Must removal sit beside each variable's field?", status: "answered", answer: "Gap: removals are listed after all fields; release 1.5 puts each remove beside its field."}
+@@ -138,8 +141,7 @@ steps:
+       - id: write-prompt
+         card: "Write the instructions every new agent follows"
+         release: r2
+-        status: exists
+-        evidence: promptStyle
++        status: gap
+         questions:
+           - {id: "q1", ask: "Release 2 features already exist in code; does release 1 hide them?", status: "answered", answer: "No: they stay for Kent's own use and are outside release 1 acceptance."}
+ 
+@@ -150,7 +152,7 @@ steps:
+       - id: test-each-variable
+         card: "See set or failed for each variable, never the value"
+         release: r1.5
+-        status: gap
++        status: exists
+         evidence: testProject
+         questions:
+           - {id: "q1", ask: "Does set mean only that a value came back, and can results go stale after edits?", status: "answered", answer: "Gap: earlier results stay after the draft changes, and set does not say it only proves a value came back; release 1.5 clears results on edit and says set does not prove the service accepts the key."}
+@@ -195,7 +197,7 @@ steps:
+         questions:
+           - {id: "q1", ask: "Which path forms must match, such as symlinked checkouts?", status: "answered", answer: "Gap: worktree membership compares real paths, but the stored root is compared with git's main-checkout path as written; release 1 compares real paths on both sides."}
+       - {id: resumed-env, card: "Resumed or imported sessions get them too", release: r2, status: unverified}
+-      - {id: new-agent-instructions, card: "A new agent follows the standing instructions", release: r2, status: exists, evidence: systemPrompt}
++      - {id: new-agent-instructions, card: "A new agent follows the standing instructions", release: r2, status: gap}
+       - {id: broker-call, status: gap, card: "Agents call a service through the plugin without seeing its key"}
+ 
+   - id: maintain
+@@ -246,7 +248,7 @@ releases:
+     goal: "A recce teammate installs the plugin from GitHub and reaches a working connection for one repository by following the in-app steps; one run on a teammate's Mac accepts it."
+     ruling:
+       - "「我短期要的是讓 recce team 也可用」 — Captain"
+-    slice_because: "Each story is a step a teammate new to the plugin meets and Kent's own setup already covers, and one teammate-Mac run accepts them together; the three 1Password stories carry no plugin code."
++    slice_because: "Each story is a step a teammate new to the plugin meets, and one teammate-Mac run accepts them together; four (pick-repository, pick-field, setup-guide, find-settings) need plugin code, and the rest need only pages."
+   - {id: r2, name: "RELEASE 2 — Standing instructions", goal: "New agents follow the repository's standing instructions."}
+   - {id: r3, name: "RELEASE 3 — Keep it working", goal: "Changed secrets reach agents promptly, unsaved edits are warned, and a teammate shares the setup without asking Kent."}
+ 
+@@ -256,8 +258,8 @@ rules:
+   - {id: registered-worktrees-only, text: "Secrets go only to the repository's main checkout and its registered worktrees."}
+ 
+ status:
+-  as_of: "2026-10-21"
++  as_of: "2026-10-28"
+   unproven: "No end-to-end test; r1 rests on unit tests with fakes and Kent's own use."
+-  unmerged: "r1 is merged and tagged project-env-v0.1.0; r1.5 and r1b are not built."
++  unmerged: "r1 is merged and tagged project-env-v0.1.0; r1.5 is merged and tagged project-env-v0.2.0; r1b is not built."
+   undeployed: "Runs on Kent's Paseo daemon from his main checkout; no teammate install."
+   irreversible: "Storing a token writes, and overwrites, a login Keychain entry on the Paseo Mac."

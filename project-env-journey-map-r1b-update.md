@@ -149,3 +149,15 @@ Current evidence, on the throwaway copy of `origin/main` bed5a66. Five edits: li
 ### Summary
 
 The five edits are designed and lint-checked on a throwaway copy of `origin/main`. Finding: the file's lint already fails on `origin/main` because `write-prompt` cites `promptStyle`, removed by #53; AC-1 cannot pass without a sixth edit, so that is the one Captain decision. Local `main` is one commit behind `origin/main`; implement from `origin/main`.
+
+## Stage Report: implementation
+
+- DONE: Apply the approved edits to docs/journey/project-env/give-agents-their-project-setup.yaml exactly as the task's Design writes them (design/journey-six-edits.diff): the five edits plus the sixth (write-prompt and new-agent-instructions to gap without evidence), nothing else.
+  Candidate 4135902 on `spacedock-ensign/project-env-journey-map-r1b-update`, from origin/main bed5a66; the design diff applied with `git apply`; one file changed, 13 insertions, 11 deletions.
+- DONE: Land AC-1's evidence at the candidate commit: journey-lint with an explicit repo root exits 0, the diff against origin/main touches only those hunks, and `git grep -nw` finds each of the four exists symbols; then run the roborev gate and doc_impact.py, and open the Draft PR.
+  (a) journey-lint 1.8.0 with repo root: exit 0, `all lints pass`, `slice-size (accepted)` with the new reason (`implementation/lint-candidate-4135902.txt`). (b) `git diff origin/main HEAD` touches one file; its +/- lines are byte-identical to `design/journey-six-edits.diff` (`cmp`). (c) `git grep -nw` on origin/main finds `storeToken`, `tokenStatus`, `nameFromLabel` (client and server) and `testProject` (`settings-screen.tsx`, `server/contribute.ts`, `shared/config.ts`).
+  Roborev: `clean on 41359025b; evidence=roborev:1279`. doc_impact.py: `0 document(s) mention what changed`, nothing to record. comment_ratio: 0 code, 0 comment lines, not enforced. design_surfaces check: presentable. Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/59
+
+### Summary
+
+The six edits are applied as designed and AC-1 clauses (a), (b) and (c) pass at 4135902. Residual, as the design recorded: the `write-prompt` q1 answer ("they stay for Kent's own use") is now stale text, left for the Captain's call. Lint evidence and the candidate diff are under `project-env-journey-map-r1b-update/implementation/` in this state checkout.
