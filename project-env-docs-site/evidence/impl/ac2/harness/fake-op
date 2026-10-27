@@ -1,0 +1,12 @@
+#!/bin/bash
+# fake op for the AC-2 run: no account, no network
+case "$1 $2" in
+  "--version "*) echo "2.41.1 (fake)";;
+  "vault create") [ -n "$3" ] && echo "ID: fakevault0001  Name: $3" || { echo "[ERROR] missing name" >&2; exit 1; };;
+  "service-account create")
+    shift 2; name=$1; shift; raw=0; exp=0; vault=0
+    while [ $# -gt 0 ]; do case $1 in --raw) raw=1;; --expires-in) shift; [[ $1 =~ ^[0-9]+[smhdw]$ ]] && exp=1;; --vault) shift; [[ $1 =~ ^[^:]+:read_items$ ]] && vault=1;; *) echo "[ERROR] unknown flag $1" >&2; exit 1;; esac; shift; done
+    [ $raw = 1 ] && [ $exp = 1 ] && [ $vault = 1 ] || { echo "[ERROR] bad arguments" >&2; exit 1; }
+    printf 'ops_fake_a';;
+  *) echo "[ERROR] fake op does not implement: $*" >&2; exit 1;;
+esac

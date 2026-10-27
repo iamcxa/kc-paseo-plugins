@@ -278,3 +278,26 @@ The site now uses just-the-docs v0.12.0 with a six-page sidebar, search and copy
 ## Number guards
 
 ADR: 0009
+
+## Stage Report: implementation
+
+- DONE: Implement the approved revision 2 design exactly from this task's site-draft/, capture/ and evidence/source-edits.diff: `_config.yml` with the just-the-docs remote theme pinned at v0.12.0, `nav_order`, search and every internal path excluded; the Introduction, Install and Prepare 1Password pages; the two root wrapper files; the one `_sass/custom/custom.scss` rule that takes the search result's page label to at least 4.5:1 on white; the OVERVIEW.md, README.md and CHANGELOG.md edits; the screenshots; and the capture and check scripts with their hard-coded paths turned into arguments.
+  PR #58 (Draft), candidate 48ecb5f on `spacedock-ensign/project-env-docs-site`, base bed5a66. Edits equal source-edits.diff (its CHANGELOG hunk differs only because the base already holds 0.2.0). Scripts take `<copy>`, `<served-url> <dir>`, `<out-dir> <work-dir> <port>`; setup and teardown delete only a directory carrying their own marker file.
+- DONE: Write ADR 0009 (reserved under ## Number guards), "The docs site uses the just-the-docs theme pinned at v0.12.0", recording the Captain's words 「just-the-docs」 (2026-10-28) and his 「准」 on the one contrast rule (ideation attempt 2, 2026-10-28) with the questions they answered, and run adr_lint and number_guards check.
+  `docs/adr/0009-the-docs-site-uses-the-just-the-docs-theme-pinned-at-v0-12-0.md`; `adr_lint.py docs/adr --since bed5a66 --require 0009` exit 0 (9 files); `number_guards.py check` "PASS: no findings", base bed5a6644c64. Protects lists `_config.yml` and `custom.scss`, each carrying a pointer comment.
+- DONE: Land AC-1's evidence at the candidate commit (build with the github-pages gem set, crawl, exclusions, scrollWidth, previews at 1280 and 400 px, the search label's contrast) and AC-2's run from the built pages' own words on an isolated Paseo home with fake op and security up to an agent that starts with one mapped variable set, recording every place the words were not enough; then run the roborev gate, design_surfaces.py check and doc_impact.py, and open the Draft PR with `without-it unanswered` listing the capture scripts.
+  AC-1 at 48ecb5f, `evidence/impl/`: build exit 0 (`build-exit.txt`); `crawl.txt` file list equal to the 23 in `build-crawl.txt`, INTERNAL none, no excluded path in the 46 search-index pages, LINK/IMAGE 0; `previews/` 24 files, scrollWidth equals the window on all six pages at 400, 700, 900, 1280 (24 of 24); `checks.txt` step-4 lines as listed in AC-1 (27 of 27 changelog entries, 5 of 5 copy buttons, 0 split names, label 5.03 to 1); `contrast-without-the-rule.txt` 2.09 to 1; capture.sh retake pixel-identical to the committed seven pictures. AC-2: `evidence/impl/ac2/record.txt` (steps, harness facts, `agent-log.txt`): an agent started in the connected repository with STRIPE_SECRET_KEY set; four places the words were not enough, all changed (a8a006a); steps needing a real account were skipped and named. Gates: roborev clean, `evidence=roborev:1277` (two findings repaired first, runs 1275 and 1276); design_surfaces "design surfaces presentable"; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/58 with `without-it unanswered` naming the capture scripts and the two root wrappers.
+
+### Affected documents
+
+`doc_impact.py bed5a66 HEAD` lists one: `docs/adr/0009-...md: updated` (written in this change). `comment_ratio.py`: code lines 46, comment lines 0, 0.0%, maximum 5% met.
+
+### Findings for FO
+
+- Not run, by design: AC-2's sign-in (Install 3b, 3c) and Prepare 1 to 3 against a real account, and the theme fetch and search on the real Pages build; the Captain's run and the Pages switch-on.
+- The plugin from GitHub cannot run against fakes: `project-env/server/tools.ts` hard-codes `/opt/homebrew/bin/op` and `/usr/bin/security`, so AC-2 past the actions menu used a plugin built on the repository's fakes (harness in `evidence/impl/ac2/harness/`). Not changed here.
+- Harness trap worth knowing: the fake world's Keychain lives in a temp folder, so a daemon restart empties it, and its fake git has no answers for an agent start (the harness uses real git). Neither affects the pages.
+
+### Summary
+
+The docs site is delivered as Draft PR 58 at 48ecb5f: just-the-docs pinned at v0.12.0, the six pages with search, the one contrast rule (2.09 to 5.03), seven retaken pictures, the capture and check scripts as arguments, and ADR 0009. AC-1 passed at the candidate; AC-2 reached an agent with the variable set and found four word gaps, all fixed. Pages is not turned on and nothing outside this task's scope was touched.

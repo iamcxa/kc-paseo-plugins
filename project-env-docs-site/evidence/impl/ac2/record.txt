@@ -1,0 +1,27 @@
+AC-2 run, 2026-10-28, Paseo 0.13.0, built pages at candidate 63c5b2a (code blocks identical at 48ecb5f).
+Commands were copied from the built pages' text by extract.py. Two isolated homes, own ports 7831 and 7832, no ~/.paseo, real op and security never called.
+
+Install page (home 1, plugin from GitHub, port 7831)
+ 1  paseo --version                 ran; prints 0.13.0, at least the 0.12 the page asks for.
+ 1  paseo plugin add ... project-env   ran as written plus --home (isolation only). Output: trust warning as the page says; list shows paseo-project-env, disabled, revision bed5a66 from GitHub.
+ 2  Settings > Plugins > Enable plugins   switched on; list shows running.
+ 3a brew install 1password-cli      skipped (op is installed; no machine change). op --version is a fake in home 2.
+ 3b 3c sign in to op                skipped: needs a real 1Password account (Captain's run).
+ 4  actions menu > Project environment   menu shows Project environment, Logs, Reload, Remove as the page says; screen opens.
+
+Prepare 1Password page (home 2, plugin built on the repository's fakes, port 7832, PATH fake op and pbcopy)
+ 1  op vault create agent-shop-api-dev     ran as copied; fake prints ID and Name.
+ 2  secrets in the 1Password app           skipped: 1Password app; the fake vault already holds the items.
+ 3  op service-account create ... --raw | pbcopy   ran as copied (fake op accepts only the page's flags); token on the fake clipboard.
+ 4  Add a project > shop-api; account name, Check, token, Save token, + Add, pick stripe STRIPE_SECRET_KEY, Test, Save   all done as the page says.
+ End: agent started in the connected repository (claude, haiku, paseo run): STRIPE_SECRET_KEY is set, the agent will not show the value, its instructions name the plugin as the source. agent-log.txt.
+
+Places the words were not enough (each changed on the pages, commit a8a006a)
+ 1  Check: the screen says "No token in Keychain" for a new account; the page did not say so.
+ 2  Save token: the three fields shrink to one "Connected" line and the only readable vault is picked; the page said "Choose the Vault".
+ 3  Test: success reads "All 1 set"; the page gave only a failure example, and wrote "1 failed, 3 set" for the screen's "1 failed · 3 set".
+ 4  After Save: the page gave no way to see that an agent got the variable.
+
+Harness facts, not page gaps (harness/ holds the files)
+ - The fake world keeps its keychain in a temp folder that a daemon restart empties; the home 2 plugin was given the stored token ("agent-shop-api-dev-read") again after a restart, and the first agent run before the repair of the harness's git (real /usr/bin/git, the fake has no answers) saw no variable and no notice. Those two runs are not counted.
+ - op, security and the Keychain were the repository's fakes; the GitHub-installed plugin in home 1 uses the real tool paths, so it was not used past the actions menu.
