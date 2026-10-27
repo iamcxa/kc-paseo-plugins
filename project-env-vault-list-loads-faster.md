@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-vault-list-loads-faster:ideation:attempt-1:revision-1
                 digest: sha256:fcf518fe29eb288b2d427212af693455609a33a277e40235c0301bcccb6b82ad
                 room-ref: ./project-env-vault-list-loads-faster/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-list-loads-faster:ideation:1
+                briefing: briefing:project-env-vault-list-loads-faster:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T04:12:57.516217Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-27, on the ideation gate (sha256:fcf518fe), FO having recommended approval; approval also accepts the recommendation to keep passing the vault by name in this task. Asked: Approve this design (read up to 4 vault items at once, same requests and same list) and AC-1 into implementation, keeping the vault passed by name for now? Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-27T03:20:52Z
 ---
 
