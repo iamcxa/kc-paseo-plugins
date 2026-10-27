@@ -16,7 +16,7 @@ import {
 import { foName } from "../shared/card";
 import { createFo } from "../shared/fo";
 import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
-import { DecisionCard, wasSent } from "./decision-card";
+import { DecisionCard } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
 import { type ReviewRequestData, readReviews, reviewOwner } from "../shared/reviews";
 import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
@@ -28,7 +28,8 @@ interface WorkspaceChoice {
   name: string;
 }
 
-function ago(iso: string): string {
+function ago(iso?: string | null): string {
+  if (!iso || !Number.isFinite(Date.parse(iso))) return "unknown";
   const seconds = Math.max(
     0,
     Math.round((Date.now() - Date.parse(iso)) / 1000),
@@ -42,6 +43,7 @@ export type BoardProps = Pick<PluginScreenProps, "theme" | "layout" | "navigatio
 
 export interface CoAsk {
   text: string;
+  since?: string | null;
   onPress(): void;
 }
 
@@ -51,8 +53,9 @@ export function Board({
   navigation,
   coAsk,
   commsState = "loaded",
+  onRetryComms,
   onAskCo,
-}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onAskCo?: (text: string) => void }) {
+}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
   const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
@@ -61,7 +64,9 @@ export function Board({
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const [foRead, setFoRead] = useState(0);
   useEffect(() => {
+    setFoState("loading");
     let release: (() => void) | null = null;
     let cancelled = false;
     const failed = () => { if (!cancelled) setFoState("failed"); };
@@ -78,7 +83,7 @@ export function Board({
       cancelled = true;
       release?.();
     };
-  }, [paseo]);
+  }, [paseo, foRead]);
 
   const callReadTasks = useRpc(readTasks);
   const [tasks, setTasks] = useState<Record<string, TaskStatus>>({});
@@ -88,32 +93,39 @@ export function Board({
     .map((row) => `${row.id}|${row.workflowDir}|${row.task}`)
     .join("\n");
 
-  useEffect(() => {
+  const taskRequest = useRef(0);
+  const [taskState, setTaskState] = useState<SourceState>("loaded");
+  const refreshTasks = useCallback(() => {
+    const request = ++taskRequest.current;
+    setTaskState(taskKey ? "loading" : "loaded");
     setTasks({});
     setTaskFailures([]);
     if (!taskKey) return;
-    let cancelled = false;
     const requests = taskKey.split("\n").map((line) => {
       const [agentId, workflowDir, task] = line.split("|");
       return { agentId, workflowDir, task };
     });
-    const refresh = () =>
-      callReadTasks({ requests }).then(
+    return callReadTasks({ requests }).then(
         (result) => {
-          if (cancelled) return;
+          if (request !== taskRequest.current) return;
+          setTaskState(result.failedWorkflowDirs.length ? "failed" : "loaded");
           setTasks(result.tasks);
           setTaskFailures(result.failedWorkflowDirs);
         },
         () => {
-          if (cancelled) return;
+          if (request !== taskRequest.current) return;
+          setTaskState("failed");
           setTasks({});
           setTaskFailures([...new Set(requests.map((request) => request.workflowDir))]);
         },
       );
-    void refresh();
-    const timer = setInterval(() => void refresh(), 60_000);
-    return () => { cancelled = true; clearInterval(timer); };
   }, [taskKey, callReadTasks]);
+  useEffect(() => {
+    void refreshTasks();
+    if (!taskKey) return;
+    const timer = setInterval(() => void refreshTasks(), 60_000);
+    return () => { ++taskRequest.current; clearInterval(timer); };
+  }, [refreshTasks, taskKey]);
 
   const callReadGates = useRpc(readGates);
   const [gates, setGates] = useState<
@@ -165,6 +177,7 @@ export function Board({
 
   const callReadReviews = useRpc(readReviews);
   const [reviews, setReviews] = useState<ReviewRequestData[]>([]);
+  const [reviewNextCheck, setReviewNextCheck] = useState<number | null>(null);
   const [reviewState, setReviewState] = useState<SourceState>("loading");
   useEffect(() => {
     let cancelled = false;
@@ -172,11 +185,13 @@ export function Board({
       callReadReviews({}).then(
         (result) => {
           if (cancelled) return;
+          setReviewNextCheck(result.nextCheckAt);
           setReviews(result.error ? [] : result.requests);
           setReviewState(result.error ? "failed" : result.checkedAt === null ? "loading" : "loaded");
         },
         () => {
           if (cancelled) return;
+          setReviewNextCheck(null);
           setReviews([]);
           setReviewState("failed");
         },
@@ -271,22 +286,29 @@ export function Board({
       nextButtonText: { color: colors.accentForeground, fontSize: 12, fontWeight: "600" as const },
       sectionHead: { flexDirection: "row" as const, justifyContent: "space-between" as const },
       line: {
+        gap: 5,
+        paddingVertical: 9,
+        paddingHorizontal: 6,
+        borderRadius: 6,
+      },
+      lineMeta: {
         flexDirection: "row" as const,
+        flexWrap: "wrap" as const,
         alignItems: "center" as const,
         gap: 8,
         paddingVertical: 7,
         paddingHorizontal: 6,
       },
       dot: { width: 7, height: 7, borderRadius: 4 },
-      lineTitle: { flex: 1, minWidth: 64, color: colors.foreground, fontSize: 13 },
+      lineTitle: { width: "100%" as const, color: colors.foreground, fontSize: 13, lineHeight: 18 },
       lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
-      lineOwner: { flexBasis: 100, maxWidth: 100, minWidth: 0, flexShrink: 1 },
+      lineOwner: { minWidth: 0, flexShrink: 1 },
       ref: {
         color: colors.foregroundMuted,
         fontSize: 12,
         fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
       },
-      lineMain: { flex: 1, minWidth: 0, flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+      lineMain: { flex: 1, minWidth: 0 },
     }),
     [colors, layout.compact],
   );
@@ -346,7 +368,7 @@ export function Board({
     });
 
   const queue = useMemo(
-    () => buildQueue(grouped, reviews, withReplies(rows, replies)),
+    () => buildQueue(grouped, reviews, withReplies(rows, replies), replies),
     [grouped, reviews, rows, replies],
   );
   const sources: SourceStates = {
@@ -388,6 +410,34 @@ export function Board({
     if (item.fo) setOpen({ id: item.fo.id, gate: item.gate ?? null });
   };
 
+  const itemRow = (item: QueueItem) => (
+    <View key={item.key} style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.lineMain]}>
+        <Text style={styles.lineTitle} numberOfLines={2}>{item.title}</Text>
+        <View style={styles.lineMeta}>
+          <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
+          <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>{item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}</Text>
+          <Text style={styles.kind}>{kindLabel[item.kind]}</Text>
+          <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
+          <Text style={styles.lineAge}>{ago(item.since)}</Text>
+          {item.link ? <Text style={styles.ref}>{item.link.ref}</Text> : null}
+        </View>
+      </Pressable>
+      {item.link ? <Pressable colors={colors} accessibilityRole="link" accessibilityLabel={`Open ${item.link.ref} on GitHub`} hitSlop={6} style={styles.external} onPress={() => openLink(item, openExternalUrl)}><Text style={styles.externalText}>↗</Text></Pressable> : null}
+    </View>
+  );
+  const commsRow = coAsk ? (
+    <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
+      <Text style={styles.lineTitle} numberOfLines={2}>{coAsk.text}</Text>
+      <View style={styles.lineMeta}>
+        <View style={[styles.dot, { backgroundColor: colors.statusWarning }]} />
+        <Text style={styles.lineAge}>Comms officer</Text>
+        <Text style={styles.kind}>QUESTION</Text>
+        <Text style={styles.lineAge}>{ago(coAsk.since)}</Text>
+      </View>
+    </Pressable>
+  ) : null;
+
   const openRow = open ? grouped.find((row) => row.id === open.id) : undefined;
   if (open && openRow)
     return (
@@ -409,6 +459,7 @@ export function Board({
       {message ? (
         <Text style={{ color: colors.statusDanger }}>{message}</Text>
       ) : null}
+      {taskState === "loading" ? <Text style={styles.muted}>Reading tasks…</Text> : null}
       {taskFailures.length ? <Text style={{ color: colors.statusDanger }}>Could not check tasks for {taskFailures.join(", ")}</Text> : null}
       <View style={styles.toggle}>
         {(["decision", "fo"] as const).map((id) => (
@@ -425,6 +476,16 @@ export function Board({
         ))}
       </View>
       {notice ? <Text style={styles.muted}>{notice}</Text> : null}
+      {([
+        ["FOs", foState === "failed", () => setFoRead((value) => value + 1)],
+        ["gates", sources.gates === "failed", () => void refreshGates(true)],
+        ["tasks", taskState === "failed", () => void refreshTasks()],
+        ["comms officer", commsState === "failed" && Boolean(onRetryComms), onRetryComms],
+      ] as const).map(([name, failed, retry]) => failed ? (
+        <Pressable key={name} colors={colors} accessibilityRole="button" accessibilityLabel={`Check ${name} again`} onPress={retry} style={styles.add}><Text style={styles.addText}>Check again · {name}</Text></Pressable>
+      ) : null)}
+      {sources.gates === "loading" && workflowKey ? <Text style={styles.muted}>Checking gates…</Text> : null}
+      {reviewState === "failed" ? <Text style={styles.muted}>{reviewNextCheck ? `Next automatic review check: ${new Date(reviewNextCheck).toLocaleTimeString()}` : "Next automatic review check: unknown"}</Text> : null}
       {view === "decision" ? (
         <>
           {next ? (
@@ -463,12 +524,7 @@ export function Board({
                 <Text style={styles.group}>Comms officer</Text>
                 <Text style={styles.group}>1</Text>
               </View>
-              <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
-                <View style={[styles.dot, { backgroundColor: colors.statusWarning }]} />
-                <Text style={styles.lineTitle} numberOfLines={1}>
-                  {coAsk.text}
-                </Text>
-              </Pressable>
+              {commsRow}
             </>
           ) : null}
           {sections.map((section) => (
@@ -477,54 +533,16 @@ export function Board({
                 <Text style={styles.group}>{sectionTitle[section.kind]}</Text>
                 <Text style={styles.group}>{section.items.length}</Text>
               </View>
-              {section.items.map((item) => (
-                item.link ? (
-                  <View key={item.key} style={styles.line}>
-                    <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(item)} style={styles.lineMain}>
-                      <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
-                      <Text style={[styles.ref, { maxWidth: 96, flexShrink: 0 }]} numberOfLines={1}>{item.link.ref}</Text>
-                      <Text style={styles.lineTitle} numberOfLines={1}>
-                        {item.title}
-                      </Text>
-                      <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>
-                        {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
-                      </Text>
-                      <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
-                      <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
-                    </Pressable>
-                    <Pressable colors={colors}
-                      accessibilityRole="link"
-                      accessibilityLabel={`Open ${item.link.ref} on GitHub`}
-                      hitSlop={6}
-                      style={styles.external}
-                      onPress={() => openLink(item, openExternalUrl)}
-                    >
-                      <Text style={styles.externalText}>↗</Text>
-                    </Pressable>
-                  </View>
-                ) : (
-                  <Pressable colors={colors} key={item.key} accessibilityRole="button" onPress={() => openItem(item)} style={styles.line}>
-                    <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
-                    <Text style={styles.lineTitle} numberOfLines={1}>
-                      {item.title}
-                    </Text>
-                    <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>
-                      {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
-                    </Text>
-                    <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
-                    <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
-                  </Pressable>
-                )
-              ))}
+              {section.items.map(itemRow)}
             </View>
           ))}
         </>
       ) : (
         <>
-      {reviews.length ? (
+      {reviews.some((review) => !reviewOwner(review, grouped)) ? (
         <View style={{ gap: 8 }}>
-          <Text style={styles.group}>Review requests · {reviews.length}</Text>
-          {reviews.map((review) => {
+          <Text style={styles.group}>Review requests · {reviews.filter((review) => !reviewOwner(review, grouped)).length}</Text>
+          {reviews.filter((review) => !reviewOwner(review, grouped)).map((review) => {
             const owner = reviewOwner(review, grouped);
             return (
               <View key={review.url} style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
@@ -564,7 +582,10 @@ export function Board({
         <Text style={styles.muted}>No agents labelled role=fo.</Text>
       ) : null}
       {STATUS_ORDER.map((status) => {
-        const group = grouped.filter((row) => row.status === status);
+        const group = grouped.filter((row) => {
+          const groupStatus = row.status === "idle" && waitingCount(row.id) ? "waiting on Kent" : row.status;
+          return groupStatus === status;
+        });
         const pinned = status === "waiting on Kent" && coAsk ? 1 : 0;
         if (group.length + pinned === 0) return null;
         return (
@@ -580,34 +601,18 @@ export function Board({
               </Text>
             </Pressable>
             {status === "waiting on Kent" && coAsk ? (
-              <Pressable colors={colors}
-                accessibilityRole="button"
-                onPress={coAsk.onPress}
-                style={[styles.row, { borderLeftColor: colors.statusWarning }]}
-              >
-                <Text style={styles.name}>Comms officer</Text>
-                <Text style={styles.text} numberOfLines={2}>
-                  {coAsk.text}
-                </Text>
-              </Pressable>
+              <View style={[styles.row, { borderLeftColor: colors.statusWarning }]}>{commsRow}</View>
             ) : null}
             {(status === "idle" && !showIdle ? [] : group).map((row) => {
               const task = tasks[row.id];
               const detail = [row.repo, task ? `${task.title} · ${task.stage}` : row.task]
                 .filter(Boolean)
                 .join(" · ");
-              const waitingFor = row.permission || row.next || replies[row.id]?.preview || "";
+              const waitingItems = queue.filter((item) => item.fo?.id === row.id);
+              const waitingFor = waitingItems.length ? "" : row.permission || row.next || replies[row.id]?.preview || "";
               return (
-                <Pressable colors={colors}
-                  key={row.id}
-                  accessibilityRole="button"
-                  onPress={() =>
-                    status === "waiting on Kent"
-                      ? setOpen({ id: row.id, gate: row.gates[0] ?? null })
-                      : navigation?.openAgent({ agentId: row.id })
-                  }
-                  style={[styles.row, { borderLeftColor: statusColor(row.status) }]}
-                >
+                <View key={row.id} style={[styles.row, { borderLeftColor: statusColor(status) }]}>
+                  <Pressable colors={colors} accessibilityRole="button" onPress={() => navigation?.openAgent({ agentId: row.id })}>
                   <View style={styles.owner}>
                     <Text style={[styles.name, { flexShrink: 1 }]}>
                       {row.title || row.id}
@@ -619,6 +624,7 @@ export function Board({
                     </Text>
                     <TabClosedBadge closed={row.tabClosed} colors={colors} />
                   </View>
+                  </Pressable>
                   {row.offline && status !== "offline" ? (
                     <Text style={styles.muted}>FO offline · a message will reopen it</Text>
                   ) : null}
@@ -627,28 +633,7 @@ export function Board({
                       {waitingFor}
                     </Text>
                   ) : null}
-                  {row.gates.length ? (
-                    <View style={{ gap: 2, marginTop: 2 }}>
-                      <Text style={{ color: colors.statusWarning }}>
-                        {row.gates.length === 1 ? "1 gate waiting" : `${row.gates.length} gates waiting`}
-                      </Text>
-                      {row.gates.slice(0, 3).map((gate) => (
-                        <Pressable colors={colors}
-                          key={gate.slug}
-                          accessibilityRole="button"
-                          onPress={() => setOpen({ id: row.id, gate })}
-                        >
-                          <Text style={[styles.muted, { color: colors.accent }]} numberOfLines={1}>
-                            {wasSent(gate.slug) ? "✓ " : ""}
-                            {gate.stage} · {gate.title || gate.slug}
-                          </Text>
-                        </Pressable>
-                      ))}
-                      {row.gates.length > 3 ? (
-                        <Text style={styles.muted}>+{row.gates.length - 3} more</Text>
-                      ) : null}
-                    </View>
-                  ) : null}
+                  {waitingItems.map(itemRow)}
                   {detail || status !== "busy" ? (
                     <Text style={styles.muted}>
                       {[detail, status === "busy" ? "" : ago(row.lastActivityAt)]
@@ -656,7 +641,7 @@ export function Board({
                         .join(" · ")}
                     </Text>
                   ) : null}
-                </Pressable>
+                </View>
               );
             })}
           </View>

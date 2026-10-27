@@ -12,6 +12,7 @@ const HOME = join(homedir(), ".local", "share", "paseo-fo-coordinator");
 const FILE = join(HOME, "reviews.json");
 const EVERY_MS = 5 * 60_000;
 const FIRST_MS = 30_000;
+let nextCheckAt: number | null = null;
 const MAX_PER_WAKE = 10;
 
 interface Store {
@@ -79,7 +80,7 @@ export async function checkReviews(paseo: PaseoApi | null): Promise<void> {
 
 export async function readReviewsHandler() {
   const store = await load();
-  return { requests: store.requests, checkedAt: store.checkedAt, error: store.error };
+  return { requests: store.requests, checkedAt: store.checkedAt, error: store.error, nextCheckAt };
 }
 
 export function startReviewPoller(getPaseo: () => PaseoApi | null): () => void {
@@ -93,9 +94,12 @@ export function startReviewPoller(getPaseo: () => PaseoApi | null): () => void {
       running = false;
     }
   };
-  const first = setTimeout(() => void tick(), FIRST_MS);
-  const timer = setInterval(() => void tick(), EVERY_MS);
+  const intervalAt = Date.now() + EVERY_MS;
+  nextCheckAt = Date.now() + FIRST_MS;
+  const first = setTimeout(() => { nextCheckAt = intervalAt; void tick(); }, FIRST_MS);
+  const timer = setInterval(() => { nextCheckAt = Date.now() + EVERY_MS; void tick(); }, EVERY_MS);
   return () => {
+    nextCheckAt = null;
     clearTimeout(first);
     clearInterval(timer);
   };

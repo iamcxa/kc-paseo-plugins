@@ -83,6 +83,7 @@ export const readReviews = defineRpc({
     requests: z.array(ReviewRequest),
     checkedAt: z.number().nullable(),
     error: z.string().nullable(),
+    nextCheckAt: z.number().nullable(),
   }),
 });
 
