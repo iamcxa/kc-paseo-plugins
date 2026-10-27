@@ -157,6 +157,7 @@ Manual checking now restores an errored comms timeline subscription, and the sou
 
 - Roborev (FO-run, package gap 5) on the round 6 heads: 1235 (1c78862), 1236 (9023ea4), 1238 (0c96b40), 1239 (4643e06), 1241 (f0b1992), 1242 (e8817b8) each one Medium, each repaired in cycles 2–7; clean on 86c54e5 (roborev:1244).
 - Pre-gate team pass 1 on 86c54e5: design partner SATISFIED (later, cosmetic: repeated owner names inside their own card and "GATE" under "Gates"; noted that runtime-360-v4/failure.png shows an opened question card, not the failure controls). Picky users A and B NOT SATISFIED, same block: By decision still turns an unread question with no next label into "Has a question for you", and next to an open gate on the same FO the question drops out of the view and its count (shared/queue.ts, buildQueue); only By FO shows the preview. FO authorizes one repair (cycle 8): question rows come from one shared builder used by both views. Under ADR 0008 a second unsatisfied team pass on this theme stops the round and asks the Captain.
+- Roborev clean on f10a3f2 (roborev:1246). Pre-gate team pass 2 on f10a3f2: design partner, picky A and picky B all SATISFIED (both views show the question beside its gate with matching counts; failure controls captured on the board in evidence/cycle-8/).
 
 ## Stage Report: implementation (cycle 5)
 
