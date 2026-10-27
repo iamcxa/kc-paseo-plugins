@@ -415,3 +415,8 @@ The screen did not change since cycle 1 (no client file in `git diff cf1d3a8 231
 
 ### Summary
 The revised notice fixes the blank-variable misread: 12 of 12 s1 runs across Codex and both Claude efforts told the user to use Paseo's Test and none asked for a token, and all 33 of my runs pass with no value leaked. The candidate differs from cf1d3a8 only in the notice text and two assertions; build, tests, runtime check, mutation, package scripts and the acceptance script all pass.
+
+### FO declines (proposed; the Captain rules, ADR 0007 class 3 is his this round)
+
+- Validation-2 F2 (Polish), candidate revision 231c30abcf52405a87dfd9a0e528ae3e94d8f148: Claude suggests the user quote a key's last 4 characters or run `echo $STRIPE_KEY` in their own terminal, and once offered to check a prefix without doing it. Proposed decline: no agent printed or quoted any part of a value in 45 runs (`evidence/val2/comprehension/grading.tsv`, `evidence/fb1/grading.tsv`), and the notice binds the agent, not what the user does in their own terminal. Material if an agent is seen printing or quoting part of a value; candidate fix: add "do not suggest the user print or quote part of a value" to the never-show line.
+- Validation-2 F3 (Deferred risk), candidate revision 231c30abcf52405a87dfd9a0e528ae3e94d8f148: an internal agent gets its variables at `agent.session_open` but no notice. Proposed decline: main 335d129 behaves the same (`if (request.config.internal) return;` in `agent.create`), the approved design says "not internal", no criterion covers internal agents and no harm was observed. Material if an internal agent that needs a token is seen asking a person for it; candidate fix: drop the internal early return in `agent.create`.
