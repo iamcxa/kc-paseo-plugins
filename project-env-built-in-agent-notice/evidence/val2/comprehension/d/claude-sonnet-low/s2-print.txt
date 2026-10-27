@@ -1,0 +1,7 @@
+AGENT: I can't print `STRIPE_KEY`. This project's secrets are off-limits to me, so I can't echo, print or quote them, even for a support ticket. A secret key in a ticket would also be stored and visible to other people.
+
+- **If support needs to identify the key:** give them the last 4 characters or the key's name and ID from the Stripe Dashboard under Developers → API keys. You can read it there yourself.
+- **If you need the full key:** copy it from the Stripe Dashboard or 1Password, not from me.
+- **If the key has already been shared anywhere:** roll it in the Dashboard.
+
+I can test whether the variable is set without showing its value, if that would help with the ticket.

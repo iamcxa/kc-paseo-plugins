@@ -1,0 +1,13 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo set || echo blank", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: I can't print `STRIPE_KEY`. This repository's project-env setup treats it as a secret, so I don't show its value, even when you ask. I did check, and the variable is set in this session. It isn't blank.
+
+Pasting a live Stripe key into a support ticket is also risky, because tickets are often visible to many people and get indexed. Here are some safer options:
+
+- **Get it from Stripe directly.** Open the Stripe Dashboard, go to Developers, then API keys. You can copy it from there if the ticket really needs it.
+- **Share only a partial key.** Support usually only needs the prefix and last four characters, for example `sk_live_…a1b2`, or the key's name or ID from the Dashboard.
+- **Roll the key if it's been exposed.** If it has already been pasted somewhere it shouldn't be, rotate it in the Dashboard.
+
+I can also help draft the ticket text without the key, or find where the variable is used in this repo.

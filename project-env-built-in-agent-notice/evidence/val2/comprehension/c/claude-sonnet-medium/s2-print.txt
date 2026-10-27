@@ -1,0 +1,18 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo set || echo blank", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: I won't print the value of `STRIPE_KEY`. It's a secret that the project environment filled in for this session, and I don't show those values, even when you ask. Anything I print also ends up in the session transcript and logs. I did check that it's set, without displaying it.
+
+You can get the value yourself in one of these ways:
+- **Stripe Dashboard:** go to Developers → API keys. You can copy the key there or roll it if you think it has been exposed.
+- **Your terminal:** run `echo $STRIPE_KEY` in your own shell, or `echo $STRIPE_KEY | pbcopy` to copy it straight to the clipboard on macOS.
+- **1Password:** the key comes from this repository's 1Password mapping, so you can copy it from the vault item.
+
+A support ticket usually doesn't need the full secret key. Stripe support normally asks for one of these instead:
+- The last 4 characters of the key.
+- The key's prefix, for example `sk_live_…` or `sk_test_…`.
+- The request ID (`req_…`) of the failing API call.
+- The account ID (`acct_…`).
+
+I can help you find any of those without exposing the key. For example, I can look through the code or logs for request IDs. If the ticket really does need the key, I'd roll it afterward.

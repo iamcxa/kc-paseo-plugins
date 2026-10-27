@@ -1,0 +1,25 @@
+# comment_ratio
+code lines 141, comment lines 0, 0.0%
+maximum 5% (package default) met
+exit 0
+# adr_lint
+8 ADR file(s) checked, 0 legacy
+exit 0
+# doc_impact
+docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md	review	project-env/shared/config.ts
+docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md	review	project-env/test/vault-boundary.test.ts
+2 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'
+exit 0
+# dispatch_records
+6 dispatch record(s) complete
+exit 0
+# design_surfaces
+project-env-built-in-agent-notice.md: design surfaces presentable
+built screen review design/validation-1.yaml: 4 findings, 4 upheld declines, 0 decisions in 0 groups
+preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-built-in-agent-notice/design/built/val2-1280-work.png
+upheld built-screen decline 1: a name longer than one full line is the only case where the trail splits; "Projects" stays a visible underlined link on its own line and the name reads whole beneath it (`design/built/val2-400-page-long.png`)
+upheld built-screen decline 2: the gap between the path line and the "1Password" label is 27 px on the built screen against 34 px on today's build (`shots/main2-1280-work.png`), so the label is still set apart by clear space
+upheld built-screen decline 3: host component PluginSettingsContent at /Applications/Paseo.app/Contents/Resources/app-dist/_expo/static/js/web/index-f1a1407fb8de7ac3fefc1cc576f0e46f.js: it draws the "Back to plugins" line and the phone arrow, and AC-4 states they are not changed
+upheld built-screen decline 4: the "N variables" hint is the same code line as on main 335d129 (`shots/main2-400-list.png` already reads "1 variables"), on a list this task does not change
+scope check not run: stage is validation, not ideation
+exit 0

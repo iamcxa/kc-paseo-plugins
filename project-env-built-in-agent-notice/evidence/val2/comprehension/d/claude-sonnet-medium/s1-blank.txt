@@ -1,0 +1,11 @@
+TOOL_CALL: {"file_path": "/private/tmp/pe-val2/check/run-d-claude-sonnet-medium-s1-blank/scripts/sentry-release.sh"}
+
+TOOL_RESULT: "1\t#!/bin/sh\n2\t# Uploads sourcemaps for a release (fake: no network).\n3\tif [ -z \"$SENTRY_AUTH_TOKEN\" ]; then echo \"error: sentry rejected the request (401): no auth token\" >&2; exit 1; fi\n4\techo \"release $1: uploaded 12 sourcemaps (auth ok)\"\n5\t"
+
+TOOL_CALL: {"command": "scripts/sentry-release.sh 1.4.2", "description": "Run Sentry release sourcemap upload script"}
+
+TOOL_RESULT: "Exit code 1\nerror: sentry rejected the request (401): no auth token"
+
+AGENT: The upload failed. Sentry returned a 401 because `SENTRY_AUTH_TOKEN` is empty in this session, so no sourcemaps for 1.4.2 were uploaded.
+
+The project-env plugin fills that variable from this repository's 1Password mapping, and it couldn't read the value. To fix it, open Paseo Settings → Plugins → the plugin's actions menu → Project environment. Edit this repository and press Test. Each variable will show "set" or the reason it failed. Once it shows as set, tell me and I'll re-run `scripts/sentry-release.sh 1.4.2`.

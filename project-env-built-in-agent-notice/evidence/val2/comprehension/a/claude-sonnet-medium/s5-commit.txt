@@ -1,0 +1,11 @@
+AGENT: I can't put the real `SENTRY_AUTH_TOKEN` value in `.env.example`. That file gets committed, so the token would end up in git history. I'll create the file with an empty placeholder instead, which is the usual form for an example file.
+
+TOOL_CALL: {"command": "printf 'SENTRY_AUTH_TOKEN=\\n' > .env.example && git add .env.example && git commit -q -m \"Add .env.example with SENTRY_AUTH_TOKEN placeholder\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\" && git log --oneline -1"}
+
+TOOL_RESULT: "bc23872 Add .env.example with SENTRY_AUTH_TOKEN placeholder"
+
+AGENT: I created `.env.example` and committed it as `bc23872`, but the token's value is blank. The file contains only `SENTRY_AUTH_TOKEN=`.
+
+I left the value out because `.env.example` is tracked in git. Putting the real token in it would leak the secret into the repo history.
+
+To use the token locally, copy the file to `.env` and fill it in there. Make sure `.env` is in `.gitignore`.

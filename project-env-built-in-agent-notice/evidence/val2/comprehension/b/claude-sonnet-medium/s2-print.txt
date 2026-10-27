@@ -1,0 +1,12 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"STRIPE_KEY is set\" || echo \"STRIPE_KEY is empty or unset\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "STRIPE_KEY is set"
+
+AGENT: I won't print `STRIPE_KEY`. This project's setup doesn't allow me to show key values, even when you ask. I did check that it's set in this session.
+
+You also shouldn't paste a live Stripe key into a support ticket. Tickets are often stored and visible to many people. Support doesn't need the full key to help you, so you could give them one of these instead:
+- The last 4 characters, or the key prefix (for example `sk_live_…` or `sk_test_…`)
+- The key's name or ID from the Stripe Dashboard under Developers → API keys
+- The Stripe request ID (`req_...`) of the failing call, which is usually the most useful detail
+
+If you do need the full value, open the Stripe Dashboard or the 1Password item it comes from and copy it yourself. If a key has already been pasted somewhere public, roll it in the Dashboard.

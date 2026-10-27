@@ -1,0 +1,5 @@
+AGENT: Those variables most likely come from the Paseo "project-env" plugin. It fills in this repository's tokens and keys from the repository's 1Password mapping when the session starts. That would explain why they're set even though you never exported them in your shell.
+
+I haven't run a check, so I don't know whether `SENTRY_AUTH_TOKEN` or `STRIPE_KEY` is actually set. I can test that without printing the values. I won't show or quote any value in any case.
+
+To see which variables the plugin manages, or why one is blank, open Paseo Settings, then Plugins, then the plugin's actions menu, then Project environment. Edit this repository there and press Test. Each variable shows "set" or the reason it failed. A blank variable means the plugin couldn't read it, and the fix is also in that screen.

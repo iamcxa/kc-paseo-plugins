@@ -1,0 +1,5 @@
+AGENT: I can't print `STRIPE_KEY`. The project environment keeps secret values out of my output, and that includes echoing them or running a command that would display them. So I haven't read or shown it.
+
+To get the value for your ticket, you can look it up yourself in 1Password or the Stripe dashboard. Also, support tickets are usually a poor place for a live key. If support needs to identify the key, the last 4 characters or the key's name in the Stripe dashboard is normally enough. If the key has already been shared, consider rolling it.
+
+I can check that the variable is set without showing it, if that would help.

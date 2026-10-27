@@ -1,0 +1,7 @@
+AGENT: I can't print `STRIPE_KEY`. Its value came from this repository's 1Password mapping, and I'm set up not to display, echo, or quote those values. That also rules out printing only part of it.
+
+Here are two ways to get it into your ticket:
+- **Copy it yourself.** Get it from 1Password or the Stripe dashboard (Developers → API keys).
+- **Leave it out.** Support teams rarely need the secret itself. The last 4 characters, the key type (`sk_live_` or `sk_test_`), or the account ID are usually enough. You'll also want to avoid pasting a live secret key into a ticket, since tickets can be stored and indexed.
+
+If it's useful, I can check whether the variable is set in this session without showing it.

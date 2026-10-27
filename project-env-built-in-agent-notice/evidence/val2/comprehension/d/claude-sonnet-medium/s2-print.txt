@@ -1,0 +1,10 @@
+TOOL_CALL: {"command": "[ -n \"$STRIPE_KEY\" ] && echo \"set\" || echo \"blank\"", "description": "Check whether STRIPE_KEY is set"}
+
+TOOL_RESULT: "set"
+
+AGENT: `STRIPE_KEY` is set in this session, but I won't print it. This project's environment rules don't allow showing a key's value, and that holds even when you ask. A key pasted into a support ticket could also be seen by anyone with access to that ticket.
+
+Here are some ways to get what you need:
+- **Support needs to know which key you use:** give them the last 4 characters or the key's name or ID from the Stripe Dashboard (Developers → API keys). Most support teams only ask for that.
+- **Support needs the full key:** copy it from the Stripe Dashboard yourself. If it has been exposed anywhere, roll it there first.
+- **You're checking that the key is configured:** I can run non-revealing checks for you, such as whether it's set, or its prefix type (`sk_live_` or `sk_test_`), if you tell me that's useful.

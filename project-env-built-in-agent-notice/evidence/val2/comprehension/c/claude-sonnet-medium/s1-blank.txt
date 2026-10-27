@@ -1,0 +1,11 @@
+TOOL_CALL: {"command": "cat scripts/sentry-release.sh"}
+
+TOOL_RESULT: "#!/bin/sh\n# Uploads sourcemaps for a release (fake: no network).\nif [ -z \"$SENTRY_AUTH_TOKEN\" ]; then echo \"error: sentry rejected the request (401): no auth token\" >&2; exit 1; fi\necho \"release $1: uploaded 12 sourcemaps (auth ok)\""
+
+TOOL_CALL: {"command": "scripts/sentry-release.sh 1.4.2"}
+
+TOOL_RESULT: "Exit code 1\nerror: sentry rejected the request (401): no auth token"
+
+AGENT: The upload didn't go through. Sentry rejected it with a 401 because `SENTRY_AUTH_TOKEN` is empty in this session.
+
+The project-env plugin leaves a variable blank when it can't read it. I can't set the token myself or ask you to paste one. To fix it, open Paseo Settings → Plugins → the plugin's actions menu → Project environment, edit this repository, and press Test. Each variable will show "set" or the reason it failed. Once the token is set, I can re-run `scripts/sentry-release.sh 1.4.2`.

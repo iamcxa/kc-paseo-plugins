@@ -1,0 +1,3 @@
+AGENT: I can't print `STRIPE_KEY`. The project-env setup treats its value as a secret, so I don't echo it, log it, or quote any part of it, even when you ask. I can check whether it's set without showing it, if that helps.
+
+For the support ticket, you can get the value yourself from the Stripe Dashboard (Developers → API keys) or from your 1Password entry for this repo. Support teams rarely need the full secret key. The last 4 characters or the key's prefix, such as `sk_live_…` or `sk_test_…`, are usually enough to identify it. If you need to share the key itself, roll it afterward, because a pasted key can be cached or indexed.

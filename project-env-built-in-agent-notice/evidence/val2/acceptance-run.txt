@@ -1,0 +1,56 @@
+== Step 1: build the candidate from git and run its checks
+typecheck ok
+ℹ tests 302
+ℹ pass 302
+ℹ fail 0
+EXPECT: typecheck ok; tests 302, pass 302, fail 0 (includes the 8 'explain <cause>' tests that tick OVERVIEW.md against shared/cause.ts)
+== Step 2: start an isolated Paseo running the candidate, then create one agent per project and read its system prompt
+ready: http://127.0.0.1:7062
+work: systemPrompt 1445 chars; starts 'Project environment (Paseo plugin "project-env")'; notice=True; legacy_prompt=False; names=[]
+work-legacy: systemPrompt 1445 chars; starts 'Project environment (Paseo plugin "project-env")'; notice=True; legacy_prompt=False; names=[]
+work-empty: no systemPrompt
+work-bare: no systemPrompt
+other: no systemPrompt
+EXPECT: work and work-legacy: 'systemPrompt 1445 chars', notice=True, legacy_prompt=False, names=[]; work-empty, work-bare, other: 'no systemPrompt'
+== Step 3: a project file holding an old saved prompt; change one variable in the screen, press Save, read the file
+before Save:
+work keys ['prompt', 'root', 'serviceAccount', 'variables', 'vault'] variables 3 prompt key present
+work-legacy keys ['prompt', 'root', 'serviceAccount', 'variables', 'vault'] variables 3 prompt key present
+[agent-browser] launched browser
+editing: Back|App|General|
+bar: 1 unsaved change
+after Save:
+work keys ['root', 'serviceAccount', 'variables', 'vault'] variables 3 prompt key absent
+work-legacy keys ['root', 'serviceAccount', 'variables', 'vault'] variables 2 prompt key absent
+EXPECT: before Save both projects 'prompt key present'; 'bar: 1 unsaved change'; after Save both 'prompt key absent' and work-legacy has 2 variables
+== Step 4: the Projects link, the discard question, Close and Discard at 1280 and 400 px
+acc 1280 after the link: 7 Edit rows; editor still open: 0
+acc 1280 link with a change: Discard 1 unsaved change?
+acc 1280 Close with no change: editor open 0; list rows 6
+acc 1280 footer Discard with a change: Discard 1 unsaved change?
+acc 1280 confirm Discard changes: editor open 0; list rows 6
+acc 400 after the link: 6 Edit rows; editor still open: 0
+acc 400 link with a change: Discard 1 unsaved change?
+acc 400 Close with no change: editor open 0; list rows 6
+acc 400 footer Discard with a change: Discard 1 unsaved change?
+acc 400 confirm Discard changes: editor open 0; list rows 6
+EXPECT, for both 1280 and 400: 'editor still open: 0'; 'Discard 1 unsaved change?' (twice); 'Close with no change: editor open 0'; 'confirm Discard changes: editor open 0'
+== Step 5: the link's press area
+viewport 1280 1400
+link box: "{x:456,y:150,width:71.28125,height:45,top:150,right:527.28125,bottom:195,left:456}"
+click at dy=0 (x=491 y=172): editor still open=0
+link box: "{x:456,y:150,width:71.28125,height:45,top:150,right:527.28125,bottom:195,left:456}"
+click at dy=-22 (x=491 y=150): editor still open=0
+link box: "{x:456,y:150,width:71.28125,height:45,top:150,right:527.28125,bottom:195,left:456}"
+click at dy=22 (x=491 y=194): editor still open=0
+viewport 400 900
+link box: "{x:16,y:76,width:71.28125,height:45,top:76,right:87.28125,bottom:121,left:16}"
+click at dy=0 (x=51 y=98): editor still open=0
+link box: "{x:16,y:76,width:71.28125,height:45,top:76,right:87.28125,bottom:121,left:16}"
+click at dy=-22 (x=51 y=76): editor still open=0
+link box: "{x:16,y:76,width:71.28125,height:45,top:76,right:87.28125,bottom:121,left:16}"
+click at dy=22 (x=51 y=120): editor still open=0
+EXPECT: at both viewports, height 45 in each link box; each click (dy=0, -22, +22) 'editor still open=0'.
+== Step 6: remove everything this script made
+removed /tmp/pe-acc/run/s-cand
+NOT COVERED: a real Paseo-started agent reading the notice, a real 1Password account, a plugin installed from npm, how Claude or Codex behave with the notice (see the stage report), and how the screen looks to you (open design/built/val2-1280-work.png and design/built/val2-400-page-work.png in the task folder (unchanged screen since cf1d3a8)).
