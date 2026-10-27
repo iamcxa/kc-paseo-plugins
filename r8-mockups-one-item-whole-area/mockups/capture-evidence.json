@@ -1,9 +1,9 @@
 {
-  "htmlSha256": "541bb02dccae9c3cd64d94c29d9e7605f7388c5bef6cdd8f08dbb83577a2e428",
+  "htmlSha256": "46077cab07d2dfe605931c9ccf0ee470199c591298866ae4ec23c57332c1056f",
   "browser": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "node": "v24.18.0",
   "network": "file URLs only; CDP pipe, no server; fresh temporary profile per viewport, removed after run",
-  "screenshots": 18,
+  "screenshots": 26,
   "results": [
     {
       "viewport": "1440x1000",
@@ -264,6 +264,44 @@
     },
     {
       "viewport": "1440x1000",
+      "state": "list-sent",
+      "width": 1440,
+      "height": 1000,
+      "pageWidth": 1440,
+      "pageHeight": 1000,
+      "bridge": {
+        "x": 320,
+        "y": 36,
+        "width": 1120,
+        "height": 964,
+        "top": 36,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 320
+      },
+      "buttons": []
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "list-relayed",
+      "width": 1440,
+      "height": 1000,
+      "pageWidth": 1440,
+      "pageHeight": 1000,
+      "bridge": {
+        "x": 320,
+        "y": 36,
+        "width": 1120,
+        "height": 964,
+        "top": 36,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 320
+      },
+      "buttons": []
+    },
+    {
+      "viewport": "1440x1000",
       "state": "back-list",
       "width": 1440,
       "height": 1000,
@@ -309,7 +347,59 @@
     },
     {
       "viewport": "1440x1000",
-      "interaction": "PASS: list → open → choose → required reason → cancel/reselect retains separate drafts → confirm → sent → back to queue → comms message; approve optional reason; hold required reason; full briefing expands"
+      "state": "review-ask",
+      "width": 1440,
+      "height": 1000,
+      "pageWidth": 1440,
+      "pageHeight": 1000,
+      "bridge": {
+        "x": 320,
+        "y": 36,
+        "width": 1120,
+        "height": 964,
+        "top": 36,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 320
+      },
+      "buttons": [
+        {
+          "label": "↑",
+          "width": 32,
+          "height": 32,
+          "bottom": 971
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "review-sent",
+      "width": 1440,
+      "height": 1000,
+      "pageWidth": 1440,
+      "pageHeight": 1000,
+      "bridge": {
+        "x": 320,
+        "y": 36,
+        "width": 1120,
+        "height": 964,
+        "top": 36,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 320
+      },
+      "buttons": [
+        {
+          "label": "↑",
+          "width": 32,
+          "height": 32,
+          "bottom": 971
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "interaction": "PASS: list → open → choose → required reason → cancel/reselect retains separate drafts → confirm → sent/relayed → queue retains gate → reopen progress; recorded → queue removes gate; unassigned review → prefilled comms ask → send in two clicks; comms message; approve optional reason; hold required reason; full briefing expands"
     },
     {
       "viewport": "360x780",
@@ -570,6 +660,44 @@
     },
     {
       "viewport": "360x780",
+      "state": "list-sent",
+      "width": 360,
+      "height": 780,
+      "pageWidth": 360,
+      "pageHeight": 780,
+      "bridge": {
+        "x": 0,
+        "y": 56,
+        "width": 360,
+        "height": 724,
+        "top": 56,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "buttons": []
+    },
+    {
+      "viewport": "360x780",
+      "state": "list-relayed",
+      "width": 360,
+      "height": 780,
+      "pageWidth": 360,
+      "pageHeight": 780,
+      "bridge": {
+        "x": 0,
+        "y": 56,
+        "width": 360,
+        "height": 724,
+        "top": 56,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "buttons": []
+    },
+    {
+      "viewport": "360x780",
       "state": "back-list",
       "width": 360,
       "height": 780,
@@ -615,7 +743,59 @@
     },
     {
       "viewport": "360x780",
-      "interaction": "PASS: list → open → choose → required reason → cancel/reselect retains separate drafts → confirm → sent → back to queue → comms message; approve optional reason; hold required reason; full briefing expands"
+      "state": "review-ask",
+      "width": 360,
+      "height": 780,
+      "pageWidth": 360,
+      "pageHeight": 780,
+      "bridge": {
+        "x": 0,
+        "y": 56,
+        "width": 360,
+        "height": 724,
+        "top": 56,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "label": "↑",
+          "width": 44,
+          "height": 44,
+          "bottom": 759
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "review-sent",
+      "width": 360,
+      "height": 780,
+      "pageWidth": 360,
+      "pageHeight": 780,
+      "bridge": {
+        "x": 0,
+        "y": 56,
+        "width": 360,
+        "height": 724,
+        "top": 56,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "label": "↑",
+          "width": 44,
+          "height": 44,
+          "bottom": 759
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "interaction": "PASS: list → open → choose → required reason → cancel/reselect retains separate drafts → confirm → sent/relayed → queue retains gate → reopen progress; recorded → queue removes gate; unassigned review → prefilled comms ask → send in two clicks; comms message; approve optional reason; hold required reason; full briefing expands"
     }
   ]
 }

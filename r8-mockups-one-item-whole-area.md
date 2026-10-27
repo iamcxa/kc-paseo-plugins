@@ -84,3 +84,20 @@ Chrome 在一般 sandbox 未回應；允許本機 headless 擷取後成功。只
 ### FO findings before the gate
 
 - Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-10-28) on the mockups: NOT SATISFIED. Passed: whole-area layout; desktop decision controls the same 32 px height as send, phone ≥ 44×44; no next-item control or history view; Confirm, required reasons and separate messaging kept; assumptions accepted except "back to list". Blocks: back-to-list removes a gate that is only sent or relayed (only a recorded one leaves the list; sent and relayed must reopen to show progress); the unassigned-review path (open, prefilled ask → send, 2 steps) is missing. Annoys: REVIEW.md asks nine questions — keep them as reference and ask the Captain for one direction decision on the first page; move capture instructions to EVIDENCE.md; cut "Your decision has been recorded" (repeats the heading); say 已記錄後 not 錄製後; the per-page draft limit is a prototype limit, not a new product rule. FO authorizes one revision.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Back to list: a gate that is only sent or relayed stays in the list and reopens to its progress; only a recorded gate leaves the pending list; add the unassigned-review state with a fictional review of an existing kind, open → prefilled ask → send (2 steps), at 1440 and 360
+  已送出／已轉送分別回到 list-sent／list-relayed，原閘門列仍在且重開到對應進度；只有 recorded 回清單移除閘門。虛構 example/demo-project #17 審查以開列即預填、再送出兩步完成；兩尺寸各有詢問前後 PNG。capture.mjs 實際點擊查核，若過早移出或遺失預填／收件人即失敗。
+- DONE: REVIEW.md: one direction question for the Captain on the first page ("go on this direction, or what to change"), the per-state questions kept below as reference; capture instructions moved to EVIDENCE.md; cut the on-screen "Your decision has been recorded"; 錄製後 → 已記錄後; state the per-page draft limit as a prototype limit; re-capture changed states one at a time; a short "## Stage Report: implementation (cycle 2)" section
+  index.html 與 REVIEW.md 首頁只問一個方向問題；各狀態細問留作參考，擷取說明移到 EVIDENCE.md；刪除已記錄重複句，修正用字並標明草稿是原型限制。逐張重擷取共 26 PNG、兩個尺寸離線路徑均 PASS；HTML 雜湊、圖片尺寸及 REVIEW 連結已核對。
+
+### Findings
+
+具體證據與命令見 mockups/EVIDENCE.md 及 capture-evidence.json。既有全區尺寸、桌面決定與 Send 同高 32px、手機至少 44×44、Confirm／必填理由／獨立傳訊的檢查均重跑通過；手機預填全文無須在欄位內捲動。
+套件檢查重跑：design_surfaces.py 退出 1，SKIPPED 已知缺口 2；number_guards.py 退出 0、PASS: no findings，無 ADR／migration，R4 缺口 3 路徑 SKIPPED；comment_ratio.py 退出 0，0 code／0 comment lines，0.0%；doc_impact.py 退出 0，0 documents。RoboRev 未跑：無產品程式變更及已知缺口 5。
+產品 base/candidate 均 b5381b18834ead9047778e96b27199ae0b3bd8e8。只修改本任務 mockups 與追加此報告；一般產品 worktree 與現行安裝不變，沒有 PR、真實傳訊或記錄。瀏覽器與新臨時 profile 已關閉／移除；無 localhost 服務。
+
+### Summary
+
+完成設計總監第一次審閱所列兩項阻擋與閱讀負擔修訂，保留單件全區方向與原語意。這是靜態原型的第二輪交付，不是設計接受；由 FO 安排複審及 Captain 的 go。

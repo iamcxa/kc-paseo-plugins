@@ -8,10 +8,10 @@ import { createHash } from 'node:crypto';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const chrome = process.argv[2] || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const states = ['list', 'open', 'reason-empty', 'reason-typed', 'sent', 'relayed', 'recorded', 'back-list', 'comms'];
+const states = ['list', 'open', 'reason-empty', 'reason-typed', 'sent', 'relayed', 'recorded', 'list-sent', 'list-relayed', 'back-list', 'comms', 'review-ask', 'review-sent'];
 const results = [];
 const source = await readFile(join(root, 'index.html'), 'utf8');
-assert(!/https?:\/\//.test(source), 'The mockup must have no remote URLs');
+assert(!/(?:src|href)=["']https?:\/\//i.test(source), 'The mockup must have no remote resource URLs');
 
 for (const [width, height] of [[1440, 1000], [360, 780]]) {
   const profile = await mkdtemp(join(tmpdir(), 'bridge-r8-capture-'));
@@ -66,6 +66,8 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
       await cdp('Page.navigate', { url: pathToFileURL(join(root, 'index.html')).href + '?state=' + state });
       await waitState(state);
     };
+    await go('review');
+    assert(await evaluate(`document.querySelector('.landing h2').textContent === '要照這個方向往下做，還是有哪裡要改？'`));
     for (const state of states) {
       await go(state);
       const geometry = await evaluate(`({ width: innerWidth, height: innerHeight, pageWidth: document.documentElement.scrollWidth, pageHeight: document.documentElement.scrollHeight, bridge: document.querySelector('.bridge').getBoundingClientRect().toJSON(), buttons: [...document.querySelectorAll('.control')].map(b=>({label:b.textContent.trim(),width:b.getBoundingClientRect().width,height:b.getBoundingClientRect().height,bottom:b.getBoundingClientRect().bottom})), confirmDisabled: document.querySelector('#confirm')?.disabled, reason: document.querySelector('#reason')?.value })`);
@@ -80,6 +82,7 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
         assert(button.width >= (width === 360 ? 44 : 32));
         assert(button.bottom <= height, `${button.label} must fit in the viewport`);
       }
+      if (state === 'review-ask') assert(await evaluate(`document.querySelector('#message').scrollHeight <= document.querySelector('#message').clientHeight`), 'Prefilled review ask must be readable without field scrolling');
       if (state === 'reason-empty') assert.equal(geometry.confirmDisabled, true);
       if (state === 'reason-typed') {
         assert.equal(geometry.confirmDisabled, false);
@@ -108,13 +111,41 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     assert(await evaluate(`document.querySelector('.result').textContent.includes('Sent to comms officer')`));
     assert.equal(await evaluate(`document.querySelectorAll('[data-choice]').length`), 0);
     await evaluate(`document.querySelector('.back').click()`);
+    await waitState('list-sent');
+    assert.equal(await evaluate(`document.querySelector('[data-gate-row]').getAttribute('href')`), '?state=sent');
+    await evaluate(`document.querySelector('[data-gate-row]').click()`);
+    await waitState('sent');
+    assert(await evaluate(`document.querySelector('.result-status').textContent === 'Sent to comms officer'`));
+    await go('relayed');
+    await evaluate(`document.querySelector('.back').click()`);
+    await waitState('list-relayed');
+    assert.equal(await evaluate(`document.querySelector('[data-gate-row]').getAttribute('href')`), '?state=relayed');
+    await evaluate(`document.querySelector('[data-gate-row]').click()`);
+    await waitState('relayed');
+    assert(await evaluate(`document.querySelector('.result-status').textContent === 'Relayed to Demo FO'`));
+    await go('recorded');
+    assert.equal(await evaluate(`document.body.textContent.includes('Your decision has been recorded')`), false);
+    await evaluate(`document.querySelector('.back').click()`);
     await waitState('back-list');
-    assert.equal(await evaluate(`document.querySelectorAll('a[href="?state=open"]').length`), 0);
+    assert.equal(await evaluate(`document.querySelectorAll('[data-gate-row]').length`), 0);
     await evaluate(`document.querySelector('a[href="?state=comms"]').click()`);
     await waitState('comms');
     assert(await evaluate(`document.querySelector('.scope').textContent.includes('Conversation with Comms officer')`));
     await evaluate(`const m=document.querySelector('#message');m.value='Use the morning review window.';m.dispatchEvent(new Event('input'));document.querySelector('#send').click()`);
     assert.equal(await evaluate(`document.querySelector('.bubble').textContent`), 'Use the morning review window.');
+    assert.equal(await evaluate(`document.querySelectorAll('.result').length`), 0);
+    await go('list');
+    await evaluate(`document.querySelector('a[href="?state=review-ask"]').click()`);
+    await waitState('review-ask');
+    const reviewAsk = 'Who should review example/demo-project#17 (https://example.invalid/example/demo-project/pull/17)?';
+    assert.equal(await evaluate(`document.querySelector('#message').value`), reviewAsk);
+    assert.equal(await evaluate(`document.querySelector('#send').disabled`), false);
+    assert.equal(await evaluate(`document.querySelectorAll('[data-choice]').length`), 0);
+    assert(await evaluate(`document.querySelector('.scope').textContent.includes('Conversation with Comms officer')`));
+    await evaluate(`document.querySelector('#send').click()`);
+    await waitState('review-sent');
+    assert.equal(await evaluate(`document.querySelector('.bubble').textContent`), reviewAsk);
+    assert.equal(await evaluate(`document.querySelector('#message').value`), '');
     assert.equal(await evaluate(`document.querySelectorAll('.result').length`), 0);
     await go('open');
     await evaluate(`document.querySelector('[data-choice="准"]').click()`);
@@ -124,7 +155,7 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     await go('open');
     await evaluate(`document.querySelector('[data-choice="暫緩"]').click()`);
     assert.equal(await evaluate(`document.querySelector('#confirm').disabled`), true);
-    results.push({ viewport: `${width}x${height}`, interaction: 'PASS: list → open → choose → required reason → cancel/reselect retains separate drafts → confirm → sent → back to queue → comms message; approve optional reason; hold required reason; full briefing expands' });
+    results.push({ viewport: `${width}x${height}`, interaction: 'PASS: list → open → choose → required reason → cancel/reselect retains separate drafts → confirm → sent/relayed → queue retains gate → reopen progress; recorded → queue removes gate; unassigned review → prefilled comms ask → send in two clicks; comms message; approve optional reason; hold required reason; full briefing expands' });
   } finally {
     await call('Browser.close').catch(() => browser.kill());
     if (browser.exitCode === null && browser.signalCode === null) await new Promise(resolve => { browser.once('exit', resolve); setTimeout(() => { browser.kill(); resolve(); }, 3000); });
