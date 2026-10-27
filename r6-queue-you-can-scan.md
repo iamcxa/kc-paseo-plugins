@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 6 — a queue the Captain can scan without opening each item
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
