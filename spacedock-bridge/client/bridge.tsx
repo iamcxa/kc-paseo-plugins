@@ -60,6 +60,7 @@ export function Bridge(props: BoardProps) {
       agentId={coId}
       onAsk={onAsk}
       seed={seed}
+      onSeeded={() => setSeed(null)}
     />
   ) : (
     <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted, padding: 16 }}>

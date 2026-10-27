@@ -10,6 +10,8 @@ import { discussionWindow } from "../shared/card";
 import { type KeyPressEvent, composerHandlers } from "../shared/composer";
 import { DECISION_CHIPS, type ChipWord, needsReason } from "../shared/relay";
 import { stopAgent } from "../shared/control";
+import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
+import { useDraft } from "./use-draft";
 
 const VISIBLE = 30;
 
@@ -49,6 +51,7 @@ function toLines(entries: readonly { item: TimelineItemLike; seqStart: number }[
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
+  gate?: { slug: string; stage: string } | null;
   onAsk?: (ask: string | null) => void;
   title?: string;
   placeholder?: string;
@@ -58,14 +61,20 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   onSent?: (text: string) => void;
   onChip?: (word: string, draft: string) => Promise<string | null>;
   seed?: { text: string; nonce: number } | null;
+  onSeeded?: () => void;
   discussion?: boolean;
 };
 
-export function CoChat({
+export function CoChat(props: Props) {
+  return <Chat key={draftKey(props.agentId, props.gate)} {...props} />;
+}
+
+function Chat({
   theme,
   layout,
   navigation,
   agentId,
+  gate,
   onAsk,
   title = "Comms officer",
   placeholder = "Message the comms officer",
@@ -75,12 +84,14 @@ export function CoChat({
   onSent,
   onChip,
   seed,
+  onSeeded,
   discussion,
 }: Props) {
   const paseo = usePaseo();
   const [lines, setLines] = useState<Line[]>([]);
   const [working, setWorking] = useState(false);
-  const [draft, setDraft] = useState("");
+  const key = draftKey(agentId, gate);
+  const [draft, setDraft, sending, setSending] = useDraft(key);
   const [boxHovered, setBoxHovered] = useState(false);
   const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
@@ -265,20 +276,22 @@ export function CoChat({
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
   useEffect(() => {
-    if (seed) setDraft(seed.text);
+    if (seed) {
+      seedDraft(key, seed.text);
+      onSeeded?.();
+    }
   }, [seed?.nonce]);
 
-  const [sending, setSending] = useState(false);
   const callStop = useRpc(stopAgent);
   const stop = async () => {
     const result = await callStop({ agentId });
     if (!result.stopped) setError(result.error ?? "Could not stop the agent.");
   };
   const { send, chip, onKeyPress } = composerHandlers({
-    draft: () => draft,
+    draft: () => readDraft(key),
     setDraft,
     setError,
-    sending: () => sending,
+    sending: () => readDraftSending(key),
     setSending,
     sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
     footer,
@@ -304,7 +317,7 @@ export function CoChat({
     ) : (
       <Pressable colors={colors}
         accessibilityRole="button"
-        accessibilityLabel="Send"
+        accessibilityLabel={`Send to ${title}`}
         style={[...sendStyle, draft.trim() && !sending ? null : styles.sendIdle]}
         disabled={sending || !draft.trim()}
         onPress={() => void send()}
@@ -390,6 +403,7 @@ export function CoChat({
           onPointerLeave={() => setBoxHovered(false)}
           style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
         >
+          <Text style={styles.hint}>↑ sends to {title}{sending ? " · sending…" : ""}</Text>
           <TextInput
             style={[styles.input, hasChips ? styles.inputWithRow : null, Platform.OS === "web" ? ({ outlineStyle: "none" } as unknown as TextStyle) : null]}
             value={draft}

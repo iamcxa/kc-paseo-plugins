@@ -21,14 +21,15 @@ export interface KeyPressEvent {
 // The handlers the composer's Enter key, round send button and decision chips call.
 export function composerHandlers(ports: ComposerPorts) {
   async function send(): Promise<void> {
-    const text = ports.draft().trim();
+    const submitted = ports.draft();
+    const text = submitted.trim();
     if (!text || ports.sending()) return;
     ports.setSending(true);
     try {
       const refusal = ports.beforeSend ? await ports.beforeSend() : null;
       if (refusal) return ports.setError(refusal);
       await ports.sendToAgent(ports.footer ? `${text}\n\n${ports.footer}` : text);
-      ports.setDraft("");
+      if (ports.draft() === submitted) ports.setDraft("");
       ports.setError("");
       ports.onSent?.(text);
     } catch (error) {
@@ -46,11 +47,12 @@ export function composerHandlers(ports: ComposerPorts) {
     }
     if (ports.sending()) return;
     ports.setSending(true);
+    const submitted = ports.draft();
     try {
-      const refusal = await onChip(word, ports.draft());
+      const refusal = await onChip(word, submitted);
       if (refusal) ports.setError(refusal);
       else {
-        ports.setDraft("");
+        if (ports.draft() === submitted) ports.setDraft("");
         ports.setError("");
       }
     } catch (error) {
