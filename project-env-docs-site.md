@@ -301,3 +301,77 @@ ADR: 0009
 ### Summary
 
 The docs site is delivered as Draft PR 58 at 48ecb5f: just-the-docs pinned at v0.12.0, the six pages with search, the one contrast rule (2.09 to 5.03), seven retaken pictures, the capture and check scripts as arguments, and ADR 0009. AC-1 passed at the candidate; AC-2 reached an agent with the variable set and found four word gaps, all fixed. Pages is not turned on and nothing outside this task's scope was touched.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 48ecb5f38bac6d8de9382a5bfddf52d38a70bddb (PR iamcxa/kc-paseo-plugins#58, base main bed5a66) against AC-1 and AC-2 and the approved revision 2 design: rebuild from git archive with the github-pages gem set, crawl it, confirm every internal path is absent (pages and search index), the six pages and seven pictures, scrollWidth at 400 and 1280 px, and the search label at or above 4.5:1; read every install and 1Password preparation statement against code, Paseo's docs or a run, and follow the Install and Prepare pages' words yourself on an isolated Paseo home up to an agent that starts with one mapped variable set, recording where the words fall short; check ADR 0009 quotes the Captain's words with the questions they answered; give a verdict.
+  Verdict recommended: PASSED (AC-1 met at the candidate; AC-2 run reached an agent with one variable set; five Polish findings below, none Material). Evidence `evidence/val/` (crawl.txt, checks.txt, preview.log, previews/, ac2/, capture-retake/, acceptance-out.txt). Build exit 0 from `git archive` (github-pages 232, ruby:3.3); crawl: 23 built files equal to `evidence/build-crawl.txt`, `INTERNAL PATHS PRESENT: none`, no excluded path in the 46 search-index pages, `LINK/IMAGE PROBLEMS: 0`; 7 picture files, 6 pages; scrollWidth equals the window on all 24 (1280/900/700/400); `checks.sh`: Reference blank-link visible at 1280 and 400, every picture in a link to itself, 6 page headings, changelog 27 of 27 distinct, 5 of 5 copy buttons, 0 split plugin names; label 5.03:1 measured at 1280 and, by my own probe, at 400 px (opacity 1, rgb 114,83,237; impl measured 2.09 without the rule).
+  Statements read against code, Paseo's and 1Password's pages (fetched 2026-10-28) or a run: `>=0.12.0` (`paseo-plugin.json`); `git:` source and the unsandboxed warning (run, Paseo docs); install through Settings > Plugins > Plugin source (run, installed on a fresh home); disabled until Enable plugins, then running (run); `brew install`, Developer > Integrate with 1Password CLI, `op vault list` approval, no expiry in the website wizard, accounts immutable, "ask your administrator", `--expires-in` units and `--raw` (1Password pages and `op ... --help`, no account call); Add More > Password, plus button for a vault (1Password support pages); token stored only after `checkToken` ok, single vault auto-picked, red "!" with reason, agent notice forbids printing (`server/secrets.ts`, `shared/token.ts`, `server/agent-notice.ts`).
+  AC-2 run (new isolated homes, ports 18481-18483 and 18484, own folder `/tmp/val-ds`, removed after): commands copied from the built page text by `ac2/extract.py` (no non-ASCII in any code block, fake `op` and `pbcopy` on PATH, fake `op` checked against the real `op --help` flags). Install 1, 2, 4 and Prepare 1, 3, 4a to 4c followed as written: reads "No token in Keychain" (once the harness keychain was emptied), Connected line, "All 1 set", Save; agent started in the repository (claude/haiku) reports STRIPE_SECRET_KEY set without showing it (`ac2/agent-log.txt`). Failure boundary: with the token gone the agent starts, the variable is blank, the conversation shows "Started without 1 project variable / STRIPE_SECRET_KEY, no token stored for this service account" and the agent sends the user to Test (`ac2/s6-blank-agent.png`). Skipped, named: Install 3a to 3c and Prepare 2 (need the 1Password app or a real account). Harness facts: the GitHub-installed plugin hard-codes `/opt/homebrew/bin/op` and `/usr/bin/security` so it was driven only to its empty screen; Prepare 4 used the repository-built plugin on the repository fakes with real git.
+  ADR 0009: Words 1 and 2 match the gate records of this task word for word (「just-the-docs」 answering 「回「換 just-the-docs」或「維持 minima」。」; 「准」 answering the attempt-2 question), `adr_lint.py docs/adr --since bed5a66 --require 0009` exit 0 (9 files); `number_guards.py check` PASS; `comment_ratio.py` 46 code lines, 0 comment lines, 0.0%, and I read the added `#` lines (usage lines and two pointers to ADR 0009, no narration); `doc_impact.py bed5a66 48ecb5f` lists ADR 0009 only, `updated`; `dispatch_records.py` 4 records complete.
+- DONE: Run the built screen review your validation principles require (design-director pass 2a on your own screenshots of the built site at 1280 and 400 px) and write its Built screen review lines; write the minimal acceptance script FO will rerun in a fresh shell.
+  Pass 2a saved as `design/validation-1.yaml` (23 pictures of my own build, `design/built-1/`): no MAJOR, 7 MINOR, all declined and all 7 upheld in pass 2b (`design/validation-declines-1.yaml`). Acceptance script below, run verbatim in a fresh bash on 2026-10-28 in 3m25s (`evidence/val/acceptance-out.txt`).
+- DONE: Record what the Captain should see in the screenshots and every unverified obligation (real Pages build, real 1Password account).
+  See the two sections below.
+
+### Built screen review
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: the Discard/Save bar is the plugin screen's bottom bar shown after every change, the 4c step names the control, and the AC-2 run found and used it on the built words (evidence/val/ac2/s4c-test.png).
+Built screen finding 2: declined: a failed-row picture exists (07-test-result.png); a reason popup and the conversation line need a failing Test and an agent run the capture harness does not draw, and the on-screen sentence reaches the cause heading by search (search-cause-1280.png, search-cause-400.png).
+Built screen finding 3: declined: AC-1 asks for a sidebar of the six pages and the design the Captain approved on 2026-10-28 puts the troubleshooting in Reference as the section "When a variable is blank", linked from Introduction, Prepare and the Reference opening line.
+Built screen finding 4: declined: a page contents list was not in the approved design and no accepted criterion asks for it.
+Built screen finding 5: declined: the steps inside the 1Password app need a real 1Password account to picture, which the capture harness (isolated Paseo, fake op) does not have; each step names its control in bold.
+Built screen finding 6: declined: AC-1 step 4 measures that every picture sits inside a link to its own full-size file, so a tap opens the browser's own image view.
+Built screen finding 7: declined: the plugin pictures are shown at their natural width (720 px crops of the real screens); stretching them would blur small text.
+Built screen decline check: design/validation-declines-1.yaml
+
+`design_surfaces.py check` on this task: "design surfaces presentable", 7 findings, 7 upheld declines, 0 decisions, exit 0.
+
+### Findings
+
+- F1 Polish: Prepare step 3 ends "copy something else to clear the clipboard", and step 4a then says "Paste the token"; the page never says to copy it back from the item the reader just saved it in. Trigger: reading the two steps in order; the run did not clear the clipboard. Value-ac[AC-2] reading: a place the words were short.
+- F2 Polish: Prepare 4 says "add the folder from the sidebar's Add project"; that button opens three choices (Search for directory, Clone from GitHub, New directory) and the page names none (run on port 18482: Search for directory, type the path, Open this path).
+- F3 Polish: Prepare step 2 says "Make one Secure Note per service" without saying how (New Item), and says the field picker "suggests that field, so you do not have to choose", but in the + Add flow no Suggested group appears (`s4b-picker.png`; `name` is set only when changing an existing variable's field, `client/settings-screen.tsx` `pickingVariable`).
+- F4 Polish: Prepare 3's expiry bullet says "paste its token again" without naming where (the Change button on the connected line, as Reference says); observed after the token was gone: the screen shows "No token in Keychain" and Change (`s5-after-restart.png`).
+- F5 Polish: Install 3b omits two lines of 1Password's own page: "Select your account at the top of the sidebar" before Settings, and macOS Big Sur 11 or later.
+- F6 Polish: the retaken pictures show the capture folder path (`/tmp/pe-docs/...`) and picture 02 shows a directory install, not the GitHub source a reader has; and the PR's "pixel-identical" holds only for the same folder path: my retake in `/tmp/val-ds/capwork` differs from the committed seven only in that path text and one check mark's edge (`capture-retake/`).
+- F7 Polish: every plugin picture is a Paseo screen on fakes; no 1Password app picture exists (Built screen finding 5).
+Rule for FO: AC-2 ends "every such place becomes a change to the pages before the task closes". I did not treat F1 to F5 as blocking: each was recoverable from the page or screen in the run and none breaches a protected boundary. FO decides whether to repair F1 to F4 (four sentences) before delivery.
+
+### What the Captain should see in the screenshots
+
+`design/built-1/` (open any) or the site from the acceptance script at `http://127.0.0.1:18491/kc-paseo-plugins/`: a left sidebar of six pages with the current one marked (Home, Introduction, Install, Prepare 1Password, Reference, Changelog) and a search box above the text (`home-1280.png`); below 800 px a menu button holding the sidebar and search (`menu-open-400.png`); Install and Prepare as numbered steps with Paseo screen pictures and copy buttons on commands (`install-1280.png`, `prepare-1280.png`); searching "rejected the token" lists the Reference cause heading first with a dark-purple page label (`search-cause-400.png`); no horizontal scroll at 400 px (`prepare-400.png`); a blank variable shows the "Started without 1 project variable" line in the agent's conversation (`evidence/val/ac2/s6-blank-agent.png`, run on fakes).
+
+### Unverified obligations
+
+- The real GitHub Pages build: the theme fetch by `jekyll-remote-theme` on GitHub's servers, search on the live site, and the site address (local build shows wrong GitHub canonical and og links because `jekyll-github-metadata` has no token). Pages is not turned on; that is the Captain's step.
+- A real 1Password account: Install 3a to 3c, Prepare 1 to 3 (vault, Secure Note and Add More > Password, `op service-account create ... --raw | pbcopy` against real `op`, whether a non-admin may create one), and the plugin installed from GitHub past its actions menu (it needs the real `op` and `security`).
+- Real Keychain storage; the copy button's hover and copied states; keyboard use; browsers other than the headless Chromium of agent-browser; the Captain's own Mac and Paseo version.
+- Not covered by the acceptance script: Prepare 4 in the app, any 1Password step, the live Pages address.
+
+### Minimal acceptance script
+
+Run in bash on a Mac with Docker (network), `paseo` 0.13, `agent-browser`, `python3` and `git`; it uses only `/tmp/ds-accept` and ports 18491 and 18492 and removes both at the end. Each comment line states the expected observation.
+
+```bash
+# Step 1: build the candidate site (needs Docker and network; about 1 to 2 minutes). Expect: exit 0 and "done in".
+rm -rf /tmp/ds-accept && mkdir -p /tmp/ds-accept/copy && git -C /Users/kent/Project/kc-paseo-plugins archive 48ecb5f38bac6d8de9382a5bfddf52d38a70bddb | tar -x -C /tmp/ds-accept/copy && bash /tmp/ds-accept/copy/docs/project-env/capture/build-site.sh /tmp/ds-accept/copy | tail -3; echo "build exit ${PIPESTATUS[0]}"
+# Step 2: crawl the built files. Expect: 23, INTERNAL PATHS PRESENT: none, 0 search-index paths that mention adr/dev2/journey, LINK/IMAGE PROBLEMS: 0.
+python3 -I /tmp/ds-accept/copy/docs/project-env/capture/crawl.py /tmp/ds-accept/copy/_site > /tmp/ds-accept/crawl.txt; sed -n '/^BUILT FILES/,/^INTERNAL/p' /tmp/ds-accept/crawl.txt | grep -c '^  '; grep -E '^(INTERNAL|LINK)' /tmp/ds-accept/crawl.txt; grep '^SEARCH INDEX' /tmp/ds-accept/crawl.txt | grep -c -E 'adr|dev2|journey'
+# Step 3: serve the site and run the page checks. Expect the output listed after the script.
+mkdir -p /tmp/ds-accept/serve && ln -sfn /tmp/ds-accept/copy/_site /tmp/ds-accept/serve/kc-paseo-plugins && (cd /tmp/ds-accept/serve && nohup python3 -m http.server 18491 --bind 127.0.0.1 >/dev/null 2>&1 &) ; sleep 2; bash /tmp/ds-accept/copy/docs/project-env/capture/checks.sh http://127.0.0.1:18491/kc-paseo-plugins
+# Step 4: take the pictures and measure page width. Expect 24 scrollWidth lines, each number equal to its width (400, 700, 900 or 1280), and 23 pictures in /tmp/ds-accept/previews (open install-400.png, search-cause-400.png).
+bash /tmp/ds-accept/copy/docs/project-env/capture/preview.sh http://127.0.0.1:18491/kc-paseo-plugins /tmp/ds-accept/previews | awk '{split($0,a,"scrollWidth="); n=split($0,p," "); print $0}' | tail -24; ls /tmp/ds-accept/previews/*.png | wc -l
+# Step 5: run the Install page's plugin command, copied from the built page, on a new isolated Paseo. Expect: the "Trusting plugin code" warning, then a list with paseo-project-env, status disabled.
+mkdir -p /tmp/ds-accept/home && printf '%s' '{"version":1,"daemon":{"listen":"127.0.0.1:18492","mcp":{"injectIntoAgents":false},"browserTools":{"enabled":false},"enableTerminalAgentHooks":false,"relay":{"enabled":false}},"pluginsEnabled":false,"features":{"dictation":{"enabled":false},"voiceMode":{"enabled":false},"webUi":{"enabled":false}}}' > /tmp/ds-accept/home/config.json && paseo daemon start --home /tmp/ds-accept/home --timeout 120 | head -1
+CMD=$(curl -s http://127.0.0.1:18491/kc-paseo-plugins/docs/project-env/install.html | python3 -I -c 'import sys,re,html; b=re.findall(r"<pre[^>]*>(.*?)</pre>",sys.stdin.read(),re.S); print(html.unescape(re.sub(r"<[^>]+>","",b[1])).strip())'); echo "$CMD"; bash -c "$CMD --home /tmp/ds-accept/home" | cut -c1-90
+# Step 6: clean up. Expect: "stopped".
+paseo daemon stop --home /tmp/ds-accept/home | tail -1; pkill -f 'http.server 18491'; rm -rf /tmp/ds-accept
+```
+
+Expected at step 3: `reference 1280` and `reference 400` read `true ; target exists = true`; Introduction `images=1`, Install `images=2`, Prepare `images=5`, each `images-not-in-a-link-to-themselves=0`; `install: code blocks=5 copy buttons=5`; `changelog: list items=27 distinct texts=27`; `home 400: plugin names split across lines = 0`; `search page label: ... contrast on white 5.03 to 1`.
+
+### Summary
+
+The candidate rebuilds from `git archive` to the designed 23-file site with no internal path in pages or search, six pages, seven pictures, no sideways scroll at 400 to 1280 px and a 5.03:1 search label. Following the built Install and Prepare words on isolated Paseo homes reached an agent with one mapped variable set, and the blank-variable case behaves as the pages say; the run found five Polish word gaps (F1 to F5) and the real-account and real-Pages checks stay the Captain's.

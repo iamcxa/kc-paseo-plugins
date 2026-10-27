@@ -1,0 +1,48 @@
+design_review:
+  preview: design/built-1/prepare-1280.png
+  adrs_read:
+    - /tmp/val-ds/copy/docs/adr/0009-the-docs-site-uses-the-just-the-docs-theme-pinned-at-v0-12-0.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: prepare-1280.png, section 4c Test and save (also reference-1280.png, Setup step 4)
+      seen: The text says "Choose Save", but the 4c picture and the "Connected" picture above it show only Test and + Add, and the only Save button is in the "New project, not saved yet" bar of the earlier picture, so a reader who has just run Test sees no Save.
+      fix: Put the save bar ("Discard / Save") into the 4c picture, or write "Save in the bar at the bottom of the screen" and name that bar.
+    - severity: MINOR
+      dimension: states
+      where: prepare-1280.png 4c; reference-1280.png "When a variable is blank"
+      seen: The troubleshooting section ("When a variable is blank", seven reasons) has no picture; the only failed-row picture is in Prepare 4c, and it shows the red "!" but not the reason the text says it gives, nor the "Started without N project variables" line the section tells the reader to look for.
+      fix: Add a picture of the "!" reason and of the conversation line to that section, or add an acceptance criterion that the section carries one.
+    - severity: MINOR
+      dimension: flow
+      where: any page at 1280 (sidebar), reference-1280.png
+      seen: The sidebar has six entries and none says troubleshooting; the blank-variable help is a section inside Reference, reached only by links from Introduction, Prepare and the Reference opening line, while AC-1 words it as a troubleshooting page.
+      fix: Decide whether AC-1 means a section of Reference; if it means a page, give it its own sidebar entry, otherwise reword AC-1 to say section.
+    - severity: MINOR
+      dimension: flow
+      where: prepare-1280.png (about 5500 px tall), reference-1280.png (about 2900 px), install-1280.png
+      seen: Prepare has four numbered steps and three sub-steps over about five screens, and Reference has eight sections, with no contents list or "on this page" cue, so a reader mid-page cannot see how far along or jump to a step.
+      fix: Add a short contents list at the top of Prepare, Install and Reference, using what the theme already provides.
+    - severity: MINOR
+      dimension: states
+      where: prepare-1280.png step 2 and Install step 3b (install-1280.png)
+      seen: The steps in the 1Password app itself (create a Secure Note per service, add a Password-type field, turn on Integrate with 1Password CLI) are text only; every picture is a Paseo plugin screen, and this is the step a reader who has never used 1Password's tools is most likely to get wrong.
+      fix: Add a picture of the 1Password item, or a small text example (item stripe, field STRIPE_SECRET_KEY, type Password) beside step 2.
+    - severity: MINOR
+      dimension: theme-size
+      where: intro-400.png, install-400.png, prepare-400.png
+      seen: At 400 px the plugin screens are shrunk to about half size, so the labels inside them are about 6 px and unreadable; the italic "Click or tap a picture to see it full size" is the only remedy, and no picture shows the enlarged state.
+      fix: Add a criterion that tapping a picture at 400 px opens it full size and can be closed, and capture that state.
+    - severity: MINOR
+      dimension: spacing
+      where: intro-1280.png, install-1280.png, prepare-1280.png
+      seen: At 1280 px the pictures stop about 16 px short of the right edge shared by the code blocks and the closing rule, while at 700 and 900 px they fill the column to that edge.
+      fix: Let the pictures fill the text column at 1280 too, or accept it as the theme's image width.
+  limitations:
+    - The ADR folder is not a git repository, so the records were read as files and the head check was not possible; only 0009 bears on how the screen looks.
+    - Pictures are still; I could not open the enlarged-picture state, keyboard focus, hover, visited-link colour or the "!" reason popup.
+    - I could not follow any link, so where "Source and overview" on Home leads and whether the anchors land correctly is unchecked.
+    - No picture shows alternative text, so whether the plugin screens have alt text is unchecked.
+    - The 1280 whole-page captures end the sidebar grey at 900 px (capture artefact, per the caller); the fixed-sidebar behaviour was not seen.
+    - Only the light scheme was built, and only 400, 700, 900 and 1280 px widths; phone landscape and print were not shown.
+    - The search lists at 1280 are cut at 900 px by the capture; the long lists were seen in full only at 400 px.

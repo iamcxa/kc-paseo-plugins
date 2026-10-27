@@ -1,0 +1,3 @@
+[User] Check whether the environment variable STRIPE_SECRET_KEY is set. Answer in one sentence and do not print any part of its value.
+[Shell] [ -n "$STRIPE_SECRET_KEY" ] && echo "set" || echo "not set"
+Yes, `STRIPE_SECRET_KEY` is set in this session (I checked without printing its value).

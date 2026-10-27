@@ -1,0 +1,33 @@
+design_decline_check:
+  adrs_read:
+    - /tmp/val-ds/copy/docs/adr/0009-the-docs-site-uses-the-just-the-docs-theme-pinned-at-v0-12-0.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: The Prepare page already shows the bottom bar with Discard and Save in the Add a project picture, the 4c text says Choose Save in bold, and evidence/val/ac2/s4c-test.png shows the same bar reading "3 unsaved changes" with a Save button right under the Test result, so a reader finds one Save.
+      change: none
+    - finding: 2
+      ruling: upheld
+      evidence: Reference "When a variable is blank" has one heading per reason, each worded as the screen shows it, and search-cause-1280.png and search-cause-400.png show a query on the on-screen sentence landing on the heading "1Password rejected the token" and its fix, while the 4c picture already shows the red "!" row.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: The sidebar in the pictures lists six pages (Home, Introduction, Install, Prepare 1Password, Reference, Changelog), ADR 0009 records the Captain's approval of "six pages in reader order with search", and Introduction, Prepare 4c and the Reference opening line each link to the section, so no reader is left without a route to the cause.
+      change: none
+      adr: /tmp/val-ds/copy/docs/adr/0009-the-docs-site-uses-the-just-the-docs-theme-pinned-at-v0-12-0.md
+    - finding: 4
+      ruling: upheld
+      evidence: Prepare is a numbered procedure read top to bottom with the step headings visible, Reference has headed sections that appear individually in the search lists in search-cause-1280.png, and no picture shows a reader who could act wrongly for lack of a contents list.
+      change: none
+    - finding: 5
+      ruling: upheld
+      evidence: Prepare step 2 already gives the text example the finding asked for (item title stripe, a Password-type field STRIPE_SECRET_KEY), and Install 3b names the control in bold and is followed by 3c, where op vault list tells the reader whether it worked.
+      change: none
+    - finding: 6
+      ruling: upheld
+      evidence: In the Prepare and Install sources every picture is wrapped in a link to its own full-size file, with the italic "Click or tap a picture to see it full size" above the first picture, so tapping at 400 px opens the browser's own image view; that view is not a site screen to capture.
+      change: none
+    - finding: 7
+      ruling: upheld
+      evidence: In the prepare-1280.png crops the plugin pictures are 720 px natural-size screens ending about 16 px short of the column edge, with their text sharp and readable at that size, so nothing is misleading or blocked.
+      change: none
