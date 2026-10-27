@@ -28,7 +28,12 @@ for w in 1280 400; do
   search $w search-none "zzzzqx"
 done
 for w in 700 900; do
-  ab set viewport $w 900 >/dev/null; ab open "$B/docs/project-env/install.html" >/dev/null; ab wait --load networkidle >/dev/null
+  ab set viewport $w 900 >/dev/null
+  for u in / /docs/project-env/ /docs/project-env/install.html /docs/project-env/prepare-1password.html /docs/project-env/reference.html /docs/project-env/changelog.html; do
+    ab open "$B$u" >/dev/null; ab wait --load networkidle >/dev/null
+    echo "$w $u scrollWidth=$(ab eval 'document.documentElement.scrollWidth')" >> "$O/scrollwidth.txt"
+  done
+  ab open "$B/docs/project-env/install.html" >/dev/null; ab wait --load networkidle >/dev/null
   ab screenshot --full "$O/install-$w.png" >/dev/null
   ab click '.site-button' >/dev/null 2>&1; ab screenshot "$O/install-menu-$w.png" >/dev/null 2>&1
 done

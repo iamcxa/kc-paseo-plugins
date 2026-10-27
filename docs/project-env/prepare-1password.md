@@ -70,11 +70,11 @@ A new project shows fields for the service account, its token and the vault.
 
 ### 4a. Name the account and save the token
 
-In **1Password service account**, type the service account's name, `agent-shop-api-dev-read`, and choose **Check**. This is also the name of the Keychain item that holds the token.
+In **1Password service account**, type the service account's name, `agent-shop-api-dev-read`, and choose **Check**. It reads "No token in Keychain" until you save one, which is expected. The name is also the name of the Keychain item that holds the token.
 
-Paste the token into **Service account token** and choose **Save token**. The plugin stores it in your login Keychain, and only after 1Password accepts it.
+Paste the token into **Service account token** and choose **Save token**. The plugin stores it in your login Keychain, and only after 1Password accepts it. The three fields then shrink to one line that starts with "Connected" and names the service account and the vault.
 
-Choose the **Vault**, `agent-shop-api-dev`.
+When the service account can read only one vault, the plugin picks it for you. If the **Vault** field is still there, choose `agent-shop-api-dev`.
 
 ### 4b. Add the variables
 
@@ -88,13 +88,15 @@ The connected project then lists each variable and the field behind it.
 
 ### 4c. Test and save
 
-Choose **Test**. The summary reads like "1 failed, 3 set", and a row that cannot be read shows a red "!" that gives the reason.
+Choose **Test**. The summary reads "All 1 set" when every variable can be read, or like "1 failed · 3 set" when one cannot, and a row that cannot be read shows a red "!" that gives the reason.
 
 [![After Test: 1 failed and 3 set, with the failed row marked](img/07-test-result.png)](img/07-test-result.png)
 
 Choose **Save**.
 
 Agents you start in this repository from now on get the variables. An agent that was already running keeps the environment it started with.
+
+To check, start a new agent in the repository and ask whether `STRIPE_SECRET_KEY` is set. It can tell you it is set. It will not show the value, because the plugin tells every agent not to print one.
 
 If a row fails, see [When a variable is blank](../../reference.md#when-a-variable-is-blank).
 

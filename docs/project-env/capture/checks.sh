@@ -18,4 +18,7 @@ for p in / docs/project-env/reference.html; do ab open "$B/$p" >/dev/null; ab wa
 ab set viewport 400 900 >/dev/null; ab open "$B/" >/dev/null; ab wait --load networkidle >/dev/null
 echo "home 400: plugin names split across lines = $(ab eval '[...document.querySelectorAll(".main-content code")].filter(c=>/^(project-env|spacedock-bridge)$/.test(c.textContent)&&c.getClientRects().length>1).length')"
 echo "copy check: built install page text contains plain-hyphen commands: $(curl -s "$B/docs/project-env/install.html" | grep -c 'paseo --version')"
+ab set viewport 1280 900 >/dev/null; ab open "$B/" >/dev/null; ab wait --load networkidle >/dev/null; ab wait 1500 >/dev/null
+ab fill '#search-input' keychai >/dev/null; ab press n >/dev/null; ab wait 800 >/dev/null
+echo "search page label: $(ab eval '(function(){var e=document.querySelector(".search-result-doc-parent .search-result-doc-title");var o=1,n=e;while(n&&n.nodeType==1){o*=parseFloat(getComputedStyle(n).opacity);n=n.parentElement}var c=getComputedStyle(e).color.match(/[\d.]+/g).map(Number);var f=c.map(v=>255+(v-255)*o);var L=a=>{var x=a.map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*x[0]+.7152*x[1]+.0722*x[2]};return "opacity "+o+" text "+f.map(Math.round).join(",")+" contrast on white "+(1.05/(L(f)+.05)).toFixed(2)+" to 1"})()')"
 ab close >/dev/null
