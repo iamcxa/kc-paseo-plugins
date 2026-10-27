@@ -36,7 +36,7 @@ Open Paseo, then **Settings**, then **Plugins**, and turn on **Enable plugins**.
 
 ## 3. Install the 1Password CLI
 
-The plugin reads 1Password through the `op` command. You also need the [1Password app for Mac](https://1password.com/downloads/mac) and a 1Password account. The plugin itself needs no sign-in to `op`, because it gives `op` a service account token each time it reads. You sign in as yourself for the next page, where you create a vault and a service account with your own account.
+The plugin reads 1Password through the `op` command. You also need the [1Password app for Mac](https://1password.com/downloads/mac) and a 1Password account, on macOS Big Sur 11.0.0 or later, as [1Password's CLI page](https://www.1password.dev/cli/get-started/) asks. The plugin itself needs no sign-in to `op`, because it gives `op` a service account token each time it reads. You sign in as yourself for the next page, where you create a vault and a service account with your own account.
 
 ### 3a. Install the command
 
@@ -54,7 +54,7 @@ op --version
 
 ### 3b. Turn on the app integration
 
-Open and unlock the 1Password app, choose **Settings**, then **Developer**, and turn on **Integrate with 1Password CLI**.
+Open and unlock the 1Password app, select your account at the top of the sidebar, choose **Settings**, then **Developer**, and turn on **Integrate with 1Password CLI**.
 
 ### 3c. Check you are signed in
 

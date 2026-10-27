@@ -25,14 +25,14 @@ Put only what this repository's agents need in this vault. Every secret in it is
 
 ## 2. Put each secret in the vault
 
-Make one **Secure Note** per service, in that vault.
+Make one **Secure Note** per service, in that vault. In the 1Password app, select **New Item** and choose the **Secure Note** category.
 
 - **Item title:** the service name, lowercase, words joined by hyphens, for example `stripe`. No project prefix: the vault name carries the project.
 - **A secret:** a field of type **Password**, for example `STRIPE_SECRET_KEY`.
 - **A setting that is not secret:** a field of type text, for example `STRIPE_ACCOUNT`.
 - **Field label:** the environment variable name the agent should receive, for example `STRIPE_SECRET_KEY`.
 
-Keep the note body empty, put no field inside a section, and use no `/` in a label. When a label equals the variable name, the plugin's field picker suggests that field, so you do not have to choose.
+Keep the note body empty, put no field inside a section, and use no `/` in a label. The plugin names each variable after the label of the field you pick, so a label that equals the variable name needs no renaming.
 
 To add a field, open the item, choose **Edit**, then **Add More**, pick **Password**, rename the field, and choose **Save**.
 
@@ -49,14 +49,14 @@ op service-account create \
 ```
 
 - `--vault agent-shop-api-dev:read_items` gives read access to that one vault. A service account cannot be changed after it is created, so make a new one if the vault changes.
-- `--expires-in` takes seconds, minutes, hours, days or weeks, such as `12h` or `30d`. When the account expires, agents start with blank variables until you create a new one and paste its token again.
+- `--expires-in` takes seconds, minutes, hours, days or weeks, such as `12h` or `30d`. When the account expires, agents start with blank variables until you create a new one and paste its token again, under **Change** on the connected line.
 - `--raw` prints only the token and `pbcopy` puts it on your clipboard instead of the screen. 1Password shows a token once.
 
-Paste the token into a new item in a vault only you read, titled with the service account's name, so you can find it again. Then copy something else to clear the clipboard.
+Paste the token into a new item in a vault only you read, titled with the service account's name, so you can find it again. Then copy something else to clear the clipboard. Step 4 asks for the token again, so you copy it back from that item.
 
 ## 4. Connect the repository in Paseo
 
-Open **Settings**, **Plugins**, the plugin's actions menu (the three dots), then **Project environment**. The repository must already be a project in Paseo; if the list is empty, add the folder from the sidebar's **Add project** first.
+Open **Settings**, **Plugins**, the plugin's actions menu (the three dots), then **Project environment**. The repository must already be a project in Paseo; if the list is empty, choose the sidebar's **Add project**, then **Search for directory**, type the folder's path and choose **Open this path** first.
 
 Under **Add a project**, open the menu and choose your repository.
 
@@ -72,7 +72,7 @@ A new project shows fields for the service account, its token and the vault.
 
 In **1Password service account**, type the service account's name, `agent-shop-api-dev-read`, and choose **Check**. It reads "No token in Keychain" until you save one, which is expected. That name is also the name of the Keychain item that holds the token.
 
-Paste the token into **Service account token** and choose **Save token**. The plugin stores it in your login Keychain, and only after 1Password accepts it. The three fields then shrink to one line that starts with "Connected" and names the service account and the vault.
+Copy the token back from the item you saved it in, then paste it into **Service account token** and choose **Save token**. The plugin stores it in your login Keychain, and only after 1Password accepts it. The three fields then shrink to one line that starts with "Connected" and names the service account and the vault.
 
 When the service account can read only one vault, the plugin picks it for you. If the **Vault** field is still there, choose `agent-shop-api-dev`.
 
