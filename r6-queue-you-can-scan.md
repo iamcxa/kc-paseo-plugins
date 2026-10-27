@@ -186,3 +186,20 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 Switching coordinators now clears the previous question and timestamp before the new connection completes. The regression test proves the identity mismatch on the prior head and the corrected pending and loaded states; the fix is committed and pushed to the existing Draft PR.
+
+## Stage Report: implementation (cycle 7)
+
+- DONE: roborev:1242 and its class: in By FO, an FO's unread-question preview is hidden only when a displayed row on that card represents that same question; any other combination of waiting items (gate, review, labelled question) keeps it visible as its own row; one table test over the combinations (unlabelled unread question alone, with a gate, with a review, with a labelled question row for the same reply) that fails on e8817b8
+  By FO derives its item rows and waiting counts from one list: missing unread questions are added unless a question row for the same FO already represents that preview. Gates, reviews and a different labelled question do not suppress it; an unlabelled question row uses the real preview. The mounted table test has 12 combinations across gate/review presence and absent/same/different labels; six combinations fail on e8817b8ce6da8608367dc4befaa96e48adec98a1 (red.log), all 12 pass after repair (green.log), checking exactly one unread preview, every waiting row/count and the question destination. Restoring blanket suppression or hiding on any ask row fails it.
+- DONE: npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 7)" section
+  tests.log: 133/133 pass, including the parent table test and its 12 cases; typecheck.log: exit 0. Candidate 86c54e5feb3bbec4a09a583bae96e826280980d4 is pushed to OPEN Draft PR #54 with the unchanged r5 base; pr54.json confirms no merge.
+
+### Findings
+
+roborev:1242 is the same By FO preview-loss class as 1236: the Captain lost an unread question when another waiting item existed, violating value-ac[AC-1] readable/reachable rows. This explicitly authorized class repair changes only board.tsx and its table test; By decision, source reads, relay behavior and permissions are unchanged.
+Evidence: r6-queue-you-can-scan/evidence/cycle-7/. comment_ratio PASS: 166 code lines, 0 comment lines, 0.0% (maximum 5%). doc_impact: 0 documents listed; existing overview remains accurate. number_guards and adr_lint PASS; no migration or decision record changed. design_surfaces SKIPPED: unchanged package gap 2; R4 gap 3 did not occur.
+roborev not run: package gap 5; FO reruns its gate on this pushed head and owns the recorded last-repair-cycle limit. No daemon/browser was launched; candidate/main/live worktrees were clean (safety.json). Independent review and validation remain with FO.
+
+### Summary
+
+By FO now retains an unread question as a separate row unless that same question is already represented, with counts taken from the displayed rows. The full combination table proves both the previous class failure and the repaired rendering and destination; the final authorized repair is committed and pushed to the existing Draft PR.
