@@ -19,6 +19,7 @@ export interface Scenario {
     >;
     raw?: Record<string, string>;
     delayMs?: Record<string, number>;
+    callDelayMs?: number;
     fail?: Record<string, { stderr: string; code?: number }>;
     vaultListFail?: { stderr: string; code?: number };
   };
