@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r7-one-clear-way-to-decide
+gates:
+    version: 1
+    records:
+        - id: gate:r7-one-clear-way-to-decide:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r7-one-clear-way-to-decide-backlog-1
+              briefing:
+                id: briefing:r7-one-clear-way-to-decide:backlog:attempt-1:revision-1
+                digest: sha256:45c0c1f05399e3787edafc8800cd6c5b0189351ab04b983ddc4058d4e98e01af
+                room-ref: ./r7-one-clear-way-to-decide/review/backlog/briefing-1
 ---
 
 Round 7 of the POC flywheel under ADR 0008: on the gate screen one text box both messages the officer and carries the decision reason, the discussion does not say whose conversation it is, and the phone decision buttons are small and close together.
