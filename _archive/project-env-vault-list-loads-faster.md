@@ -1,12 +1,12 @@
 ---
 id:
 title: The field picker's vault list loads faster
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-vault-list-loads-faster
-pr:
+pr: pr-merge:55
 gates:
     version: 1
     records:
@@ -66,8 +66,11 @@ gates:
                 reason: '「那就准」 — Captain in FO chat, 2026-10-27, on the validation gate (sha256:d9b904bf) after FO answered his question on how the speed-up works; FO had recommended approving. Approves validation and the two proposed declines (F1, F2 Deferred risk) at candidate 924d213e844c1e123bba6d56a8bc784f74c9ad54. Asked: Approve validation of the faster vault list (PR #55 at 924d213) and the two proposed declines? Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-27T03:20:52Z
+verdict: PASSED
+completed: 2026-10-27T15:02:22Z
+archived: 2026-10-27T15:02:22Z
 ---
 
 From the Captain's UAT of the vault re-point task on 2026-10-25: 「為何Loading the vault…要那麼久？」. FO's answer, read from code at main 7e038cd and rechecked at 0b55dfd on 2026-10-27: to build the field list, `listRefs` in `project-env/server/secrets.ts` runs `op item list` for the vault and then one `op item get` per item, one after another, so the wait grows with the number of items. The time per call has not been measured. On 2026-10-27 FO asked whether to open a task for it, recommending measuring first and then reading items concurrently; the Captain answered 「開」.
