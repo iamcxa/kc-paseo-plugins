@@ -153,6 +153,11 @@ Manual checking now restores an errored comms timeline subscription, and the sou
 - Chief-engineer drift call on 4643e0670b88 (roborev 1235, 1236, 1238, 1239): converging; repair 1239 by awaiting subscription readiness before the history read, with one race test; deferral would leave AC-2 false and reverting restores the 1238 defect.
 - Repair-cycle limit set by FO after roborev:1242 on e8817b8 (the second By FO preview finding after 1236): one class-level repair (cycle 7), then later roborev findings on this round go to `### FO declines` with a trigger unless they are High, and the round moves to the pre-gate team and validation.
 
+### FO findings before the gate
+
+- Roborev (FO-run, package gap 5) on the round 6 heads: 1235 (1c78862), 1236 (9023ea4), 1238 (0c96b40), 1239 (4643e06), 1241 (f0b1992), 1242 (e8817b8) each one Medium, each repaired in cycles 2–7; clean on 86c54e5 (roborev:1244).
+- Pre-gate team pass 1 on 86c54e5: design partner SATISFIED (later, cosmetic: repeated owner names inside their own card and "GATE" under "Gates"; noted that runtime-360-v4/failure.png shows an opened question card, not the failure controls). Picky users A and B NOT SATISFIED, same block: By decision still turns an unread question with no next label into "Has a question for you", and next to an open gate on the same FO the question drops out of the view and its count (shared/queue.ts, buildQueue); only By FO shows the preview. FO authorizes one repair (cycle 8): question rows come from one shared builder used by both views. Under ADR 0008 a second unsatisfied team pass on this theme stops the round and asks the Captain.
+
 ## Stage Report: implementation (cycle 5)
 
 - DONE: roborev:1239: on manual recheck, await the replacement subscription's readiness, recheck the cancellation and request guards, then read history; one mounted-hook race test: fail the subscription, click Check again, hold readiness unresolved, insert a question with no event, assert no history read starts before readiness, resolve readiness and assert the question appears from history; plus a cancelled attempt whose late readiness neither reads nor publishes; the test fails on 4643e06 and passes after the repair
