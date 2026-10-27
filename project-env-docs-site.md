@@ -406,7 +406,17 @@ Evidence `evidence/fb1/`: build exit 0 from `git archive fd87b72` (github-pages 
 
 ### Built screen review
 
-No picture changed since validation-1 (the diff above names two Markdown files and no image), so the review is not rerun: Built screen review: design/validation-1.yaml (7 findings, 7 upheld declines, `design_surfaces.py` exit 0 in cycle 1). The edited pages add sentences only and no new screen.
+No picture changed since validation-1 (the diff names two Markdown files and no image), so the review is not rerun; the cycle 1 report stands and its lines are repeated here for the check. The edited pages add sentences only and no new screen.
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: the Discard/Save bar is the plugin screen's bottom bar shown after every change, the 4c step names the control, and the AC-2 run found and used it on the built words (evidence/val/ac2/s4c-test.png).
+Built screen finding 2: declined: a failed-row picture exists (07-test-result.png); a reason popup and the conversation line need a failing Test and an agent run the capture harness does not draw, and the on-screen sentence reaches the cause heading by search (search-cause-1280.png, search-cause-400.png).
+Built screen finding 3: declined: AC-1 asks for a sidebar of the six pages and the design the Captain approved on 2026-10-28 puts the troubleshooting in Reference as the section "When a variable is blank", linked from Introduction, Prepare and the Reference opening line.
+Built screen finding 4: declined: a page contents list was not in the approved design and no accepted criterion asks for it.
+Built screen finding 5: declined: the steps inside the 1Password app need a real 1Password account to picture, which the capture harness (isolated Paseo, fake op) does not have; each step names its control in bold.
+Built screen finding 6: declined: AC-1 step 4 measures that every picture sits inside a link to its own full-size file, so a tap opens the browser's own image view.
+Built screen finding 7: declined: the plugin pictures are shown at their natural width (720 px crops of the real screens); stretching them would blur small text.
+Built screen decline check: design/validation-declines-1.yaml
 
 ### Findings
 
