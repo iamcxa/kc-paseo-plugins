@@ -1,7 +1,7 @@
 ---
 id:
 title: The project-env journey map matches what shipped and what release r1b now holds
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
