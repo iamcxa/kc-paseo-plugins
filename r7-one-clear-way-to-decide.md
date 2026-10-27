@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r7-one-clear-way-to-decide:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r7-one-clear-way-to-decide-validation-1
+              briefing:
+                id: briefing:r7-one-clear-way-to-decide:validation:attempt-1:revision-1
+                digest: sha256:8a78adf16c042f0e026800f9d7fedd05f710af4652b8fe94a98606bb2a9a66a3
+                room-ref: ./r7-one-clear-way-to-decide/review/validation/briefing-1
 started: 2026-10-27T15:08:01Z
 worktree: .worktrees/spacedock-ensign-r7-one-clear-way-to-decide
 pr: 57
