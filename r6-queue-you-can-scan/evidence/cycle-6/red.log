@@ -1,0 +1,30 @@
+✖ switching coordinators clears the previous question and timestamp while the new connection is pending (74.165ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2037.584333
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:11654
+✖ switching coordinators clears the previous question and timestamp while the new connection is pending (74.165ms)
+  AssertionError [ERR_ASSERTION]: a new coordinator cannot inherit the old question or age
+  + actual - expected
+  
+  + 'new|loading|Choose the old release window (you)|2026-10-27T00:00:00Z'
+  - 'new|loading|null|null'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/co-ask.test.mts:265:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'new|loading|Choose the old release window (you)|2026-10-27T00:00:00Z',
+    expected: 'new|loading|null|null',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

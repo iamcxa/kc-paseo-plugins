@@ -168,3 +168,20 @@ roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemo
 ### Summary
 
 History snapshots now start only after the replacement subscription is ready and the attempt is still current. The race and late-cancellation tests prove the repair, which is committed and pushed to the existing Draft PR.
+
+## Stage Report: implementation (cycle 6)
+
+- DONE: roborev:1241: in useCoAsk, any state update that assigns a new coordinator id clears ask and since when the previous id differs (no result carries one coordinator's question under another's id); check every setResult in the hook for the same pattern; a test that switches coordinators while the previous question is shown and the new subscription is pending, failing on f0b1992
+  Loading retains payload only when old.id equals coId; assigning a different id constructs ask:null/since:null. All four setResult sites were checked: failure already clears both fields; success uses guarded current-coordinator history; turn_started retains the id and clears ask. The mounted switch test fails on f0b1992638ba4260c1c0b5dba0e225dd87b6f11e with the old question/timestamp under “new” (red.log), then passes with both fields empty through pending subscription and history, followed by the new question/timestamp (green.log). Restoring the old loading spread fails it.
+- DONE: npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 6)" section
+  tests.log: 121/121 pass; typecheck.log: exit 0. Candidate e8817b8ce6da8608367dc4befaa96e48adec98a1 is pushed to OPEN Draft PR #54 with the unchanged r5 base; pr54.json confirms no merge.
+
+### Findings
+
+roborev:1241 affects the Captain switching comms coordinators while a question is shown: the previous request could be presented with a button targeting the new coordinator, violating value-ac[AC-1] correct readable/reachable rows. This explicitly authorized repair changes only use-co-ask.ts and its test; same-coordinator loading behavior and other state paths are preserved.
+Evidence: r6-queue-you-can-scan/evidence/cycle-6/. comment_ratio PASS: 150 code lines, 0 comment lines, 0.0% (maximum 5%). doc_impact: 0 documents listed; existing overview remains accurate. number_guards and adr_lint PASS; no migration or decision record changed. design_surfaces SKIPPED: unchanged package gap 2; R4 gap 3 did not occur.
+roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemon/browser was launched; candidate/main/live worktrees were clean (safety.json). Independent review and validation remain with FO.
+
+### Summary
+
+Switching coordinators now clears the previous question and timestamp before the new connection completes. The regression test proves the identity mismatch on the prior head and the corrected pending and loaded states; the fix is committed and pushed to the existing Draft PR.
