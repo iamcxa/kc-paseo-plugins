@@ -285,6 +285,9 @@ export function Board({
       },
       nextButtonText: { color: colors.accentForeground, fontSize: 12, fontWeight: "600" as const },
       sectionHead: { flexDirection: "row" as const, justifyContent: "space-between" as const },
+      queueRow: { padding: 4, borderRadius: 10, overflow: "hidden" as const },
+      itemAction: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+      itemContent: { flex: 1, minWidth: 0, gap: 5 },
       line: {
         gap: 5,
         paddingVertical: 9,
@@ -308,7 +311,6 @@ export function Board({
         fontSize: 12,
         fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
       },
-      lineMain: { flex: 1, minWidth: 0 },
     }),
     [colors, layout.compact],
   );
@@ -411,8 +413,9 @@ export function Board({
   };
 
   const itemRow = (item: QueueItem) => (
-    <View key={item.key} style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.lineMain]}>
+    <View key={item.key} style={styles.queueRow}>
+      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.itemAction]}>
+        <View style={styles.itemContent}>
         <Text style={styles.lineTitle} numberOfLines={2}>{item.title}</Text>
         <View style={styles.lineMeta}>
           <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
@@ -422,11 +425,13 @@ export function Board({
           <Text style={styles.lineAge}>{ago(item.since)}</Text>
           {item.link ? <Text style={styles.ref}>{item.link.ref}</Text> : null}
         </View>
+        </View>
+        {item.link ? <Pressable colors={colors} accessibilityRole="link" accessibilityLabel={`Open ${item.link.ref} on GitHub`} hitSlop={6} style={styles.external} onPress={(event) => { event.stopPropagation(); openLink(item, openExternalUrl); }}><Text style={styles.externalText}>↗</Text></Pressable> : null}
       </Pressable>
-      {item.link ? <Pressable colors={colors} accessibilityRole="link" accessibilityLabel={`Open ${item.link.ref} on GitHub`} hitSlop={6} style={styles.external} onPress={() => openLink(item, openExternalUrl)}><Text style={styles.externalText}>↗</Text></Pressable> : null}
     </View>
   );
   const commsRow = coAsk ? (
+    <View style={styles.queueRow}>
     <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
       <Text style={styles.lineTitle} numberOfLines={2}>{coAsk.text}</Text>
       <View style={styles.lineMeta}>
@@ -436,6 +441,7 @@ export function Board({
         <Text style={styles.lineAge}>{ago(coAsk.since)}</Text>
       </View>
     </Pressable>
+    </View>
   ) : null;
 
   const openRow = open ? grouped.find((row) => row.id === open.id) : undefined;
@@ -489,6 +495,7 @@ export function Board({
       {view === "decision" ? (
         <>
           {next ? (
+            <View style={styles.queueRow}>
             <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(next)} style={[styles.next, { borderLeftColor: kindColor[next.kind] }]}>
               <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
                 NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
@@ -517,6 +524,7 @@ export function Board({
                 </Pressable>
               </View>
             </Pressable>
+            </View>
           ) : null}
           {coAsk ? (
             <>
@@ -545,16 +553,17 @@ export function Board({
           {reviews.filter((review) => !reviewOwner(review, grouped)).map((review) => {
             const owner = reviewOwner(review, grouped);
             return (
-              <View key={review.url} style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
+              <View key={review.url} style={styles.queueRow}>
                 <Pressable colors={colors}
                   accessibilityRole="button"
-                  style={{ flex: 1, gap: 4 }}
+                  style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}
                   onPress={() =>
                     owner
                       ? setOpen({ id: owner.id, gate: null })
                       : askCo(`Who should review ${review.owner}/${review.repo}#${review.number} (${review.url})?`)
                   }
                 >
+                  <View style={styles.itemContent}>
                   <Text style={styles.name} numberOfLines={2}>
                     {review.title}
                   </Text>
@@ -563,15 +572,16 @@ export function Board({
                     {owner ? `with ${owner.title}` : "no FO yet — ask the comms officer"} ·{" "}
                     {ago(new Date(review.firstSeenAt).toISOString())}
                   </Text>
-                </Pressable>
+                  </View>
                 <Pressable colors={colors}
                   accessibilityRole="link"
                   accessibilityLabel="Open the pull request on GitHub"
                   hitSlop={6}
                   style={styles.external}
-                  onPress={() => void openExternalUrl(review.url)}
+                  onPress={(event) => { event.stopPropagation(); void openExternalUrl(review.url); }}
                 >
                   <Text style={styles.externalText}>GitHub ↗</Text>
+                </Pressable>
                 </Pressable>
               </View>
             );
