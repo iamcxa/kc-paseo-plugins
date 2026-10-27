@@ -5,9 +5,10 @@ export S=${1:?work dir} PORT=${2:?port}
 . "$(dirname "$0")/env.sh"
 [ -d "$CHECKOUT/project-env/client" ] || { echo "no project-env in $CHECKOUT"; exit 1; }
 paseo daemon stop --home "$S/home" >/dev/null 2>&1 || true
-if [ -e "$S" ] && [ -n "$(ls -A "$S")" ] && [ ! -f "$S/home/config.json" ]; then echo "$S is not an earlier capture directory"; exit 1; fi
+if [ -e "$S" ] && [ -n "$(ls -A "$S")" ] && [ ! -f "$S/$MARKER" ]; then echo "$S is not an earlier capture directory"; exit 1; fi
 rm -rf "$S"
 mkdir -p "$S/home/plugin-settings/$PLUGIN_ID" "$S/plugin/server/fakes"
+touch "$S/$MARKER"
 P="$CHECKOUT/project-env"
 cp -R "$P/client" "$P/shared" "$S/plugin/"
 cp -R "$P/server/." "$S/plugin/server/"
