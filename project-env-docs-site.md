@@ -385,3 +385,13 @@ Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，�
 Captain: 「修」 (FO chat, 2026-10-28)
 Asked: 「回「修」，或「先合併、之後再修」。」, after FO named validation-1 F1 to F5 at candidate 48ecb5f38bac6d8de9382a5bfddf52d38a70bddb as the places AC-2 says must become page changes before the task closes.
 Effect: F1 to F5 are repaired on PR #58, then validation reruns. F6 and F7 stay as recorded.
+
+## Feedback cycle 1 (validation-1 F1 to F5)
+
+New head `fd87b7281` on PR #58 (rejected candidate 48ecb5f), pages only: `docs/project-env/install.md` and `prepare-1password.md`; no picture, script, config or code block changed. Per the Captain's 「修」:
+- DONE: F1: Prepare 3 says step 4 asks for the token again so it is copied back from the saved item, and 4a starts "Copy the token back from the item you saved it in".
+- DONE: F2: Prepare 4 names the path: sidebar Add project, Search for directory, type the folder's path, Open this path (run on a fresh isolated home, 2026-10-28; the third choice, New directory, is not needed).
+- DONE: F3: Prepare 2 says select New Item and choose the Secure Note category (1Password's `support.1password.com/getting-started-mac/`, fetched 2026-10-28); the picker sentence now matches + Add (the plugin names each variable after the picked field's label; no "suggests" claim).
+- DONE: F4: Prepare 3's expiry bullet says the new token is pasted under Change on the connected line.
+- DONE: F5: Install 3 adds macOS Big Sur 11.0.0 or later and Install 3b adds "select your account at the top of the sidebar", both cited to 1Password's CLI page (`www.1password.dev/cli/get-started/`, fetched 2026-10-28).
+Evidence `evidence/fb1/`: build exit 0 from `git archive fd87b72` (github-pages 232); crawl file list equal to the 23 in `build-crawl.txt`, INTERNAL none, LINK/IMAGE 0; `checks.txt` all lines as before (27 of 27 entries, 5 of 5 copy buttons, 0 split names, label 5.03 to 1); 24 of 24 scrollWidth equal to the window; code blocks identical to those the AC-2 run copied. AC-2 steps touching the changed words rerun (`ac2/`): Prepare step 3 command from the rebuilt page put the token on the fake clipboard; the stored token was gone, the screen read "No token in Keychain", Change on the connected line took the copied token, Connected line returned, and an agent started in the repository reports STRIPE_SECRET_KEY set (`agent-log.txt`). Pictures: none changed, since the changed pages describe no new screen. Gates: roborev clean, `evidence=roborev:1282`; `doc_impact.py` lists ADR 0009 `updated` only (no change this cycle). Not rerun: anything needing a real account. F6 and F7 stay as the Captain left them.
