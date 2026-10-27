@@ -34,10 +34,9 @@ export function useCoAsk(coId: string): { ask: string | null; since: string | nu
       const current = ++request;
       setResult((old) => ({ ...old, id: coId, state: "loading" }));
       try {
-        const [page] = await Promise.all([
-          handle.timeline.refetch({ direction: "tail", limit: 120, projection: "projected" }),
-          subscription.ready,
-        ]);
+        await subscription.ready;
+        if (cancelled || current !== request) return;
+        const page = await handle.timeline.refetch({ direction: "tail", limit: 120, projection: "projected" });
         if (cancelled || current !== request) return;
         const status = page.agent?.status ?? handle.status;
         working = status === "running" || status === "initializing";

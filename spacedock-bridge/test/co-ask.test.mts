@@ -148,14 +148,17 @@ test("Check again restores an errored subscription and waits for live readiness 
   const retry = async () => act(async () => container.querySelector("button")!.click());
   t.after(async () => { await act(() => root.unmount()); assert.equal(subscriptions.filter((sub) => sub.active).length, 0); dom.window.close(); });
   await act(async () => root.render(createElement(PaseoApiProvider, { paseo, children: createElement(Question) })));
-  await act(async () => { reads[0].resolve(page()); subscriptions[0].ready.resolve(); });
+  await act(async () => subscriptions[0].ready.resolve());
+  await act(async () => reads[0].resolve(page()));
   assert.equal(container.querySelector("output")!.textContent, "loaded: none");
   await act(async () => emit(0, "error"));
   assert.equal(container.querySelector("output")!.textContent, "failed: none");
   await retry();
-  await act(async () => reads[1].resolve(page()));
-  assert.equal(container.querySelector("output")!.textContent, "loading: none", "history alone cannot prove live updates are connected");
+  assert.equal(reads.length, 1, "replacement readiness must precede the history snapshot");
+  assert.equal(container.querySelector("output")!.textContent, "loading: none");
   await act(async () => subscriptions[1].ready.resolve());
+  assert.equal(container.querySelector("output")!.textContent, "loading: none", "subscription alone cannot replace history");
+  await act(async () => reads[1].resolve(page()));
   assert.equal(container.querySelector("output")!.textContent, "loaded: none");
   await act(async () => { emit(1, "turn_completed"); flush(); });
   await act(async () => reads[2].resolve(page("Next: Choose the later release window (you)")));
@@ -167,11 +170,69 @@ test("Check again restores an errored subscription and waits for live readiness 
   assert.equal(reads.length, 3, "a disconnected source must not become healthy through an automatic history read");
   await retry();
   await act(async () => subscriptions[2].ready.reject(Error("still disconnected")));
-  await act(async () => reads[3].resolve(page()));
+  assert.equal(reads.length, 3, "failed subscription readiness must not start a history read");
   assert.equal(container.querySelector("output")!.textContent, "failed: none");
   await retry();
   await act(async () => subscriptions[3].ready.resolve());
   assert.equal(container.querySelector("output")!.textContent, "loading: none", "subscription alone cannot replace history");
-  await act(async () => reads[4].resolve(page("Next: Choose the final release window (you)")));
+  await act(async () => reads[3].resolve(page("Next: Choose the final release window (you)")));
   assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the final release window (you)");
+});
+
+test("manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness", async (t) => {
+  const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
+  Object.assign(globalThis, { window: dom.window, document: dom.window.document });
+  const container = dom.window.document.getElementById("root")!;
+  const root = createRoot(container);
+  t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
+  const subscriptions: { listener(value: PaseoAgentTimelineEvent): void; ready: Promise<void>; connect(): void; active: boolean }[] = [];
+  const history: Record<string, string> = { co: "", other: "Next: Choose the current question (you)" };
+  const reads: string[] = [];
+  const paseo = { agents: { ref: (id: string) => ({ status: "idle", subscribe: () => () => {}, timeline: {
+    refetch: async () => {
+      reads.push(id);
+      const text = history[id];
+      return { entries: text ? [{ seqStart: 1, item: { type: "assistant_message", text } }] : [] };
+    },
+    subscribe: (listener: (value: PaseoAgentTimelineEvent) => void) => {
+      let connect!: () => void;
+      const ready = new Promise<void>((resolve) => { connect = resolve; });
+      const record = { listener, ready, connect, active: true };
+      subscriptions.push(record);
+      return Object.assign(() => { record.active = false; }, { ready });
+    },
+  } }) } } as unknown as PaseoApi;
+  const fail = (index: number) => {
+    subscriptions[index].active = false;
+    subscriptions[index].listener({ agentId: "co", subscriptionId: String(index), event: { type: "error", error: "disconnected" } } as PaseoAgentTimelineEvent);
+  };
+  function Question({ id }: { id: string }) {
+    const { ask, state, retry } = useCoAsk(id);
+    return createElement("div", null, createElement("output", null, `${state}: ${ask ?? "none"}`), createElement("button", { onClick: retry }, "Check again"));
+  }
+  const render = (id: string) => act(async () => root.render(createElement(PaseoApiProvider, { paseo, children: createElement(Question, { id }) })));
+  const retry = () => act(async () => container.querySelector("button")!.click());
+  await render("co");
+  await act(async () => subscriptions[0].connect());
+  assert.equal(container.querySelector("output")!.textContent, "loaded: none");
+  assert.deepEqual(reads, ["co"]);
+  await act(async () => fail(0));
+  await retry();
+  history.co = "Next: Choose the window posted before reconnection (you)";
+  assert.deepEqual(reads, ["co"], "no history snapshot may start before replacement readiness");
+  assert.equal(container.querySelector("output")!.textContent, "loading: none");
+  await act(async () => subscriptions[1].connect());
+  assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the window posted before reconnection (you)");
+  assert.deepEqual(reads, ["co", "co"]);
+  await act(async () => fail(1));
+  await retry();
+  assert.deepEqual(reads, ["co", "co"]);
+  await render("other");
+  assert.equal(subscriptions[2].active, false);
+  await act(async () => subscriptions[3].connect());
+  assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the current question (you)");
+  assert.deepEqual(reads, ["co", "co", "other"]);
+  await act(async () => subscriptions[2].connect());
+  assert.deepEqual(reads, ["co", "co", "other"], "late readiness of a cancelled attempt must not read history");
+  assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the current question (you)");
 });
