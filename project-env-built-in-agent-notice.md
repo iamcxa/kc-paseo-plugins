@@ -452,3 +452,7 @@ UAT (Captain, 2026-10-27): OK — 「試用 OK」
 Before it he pasted a new qnow agent's answer to "where do this repo's keys come from": project-env from 1Password, the Keychain service-account token, the Settings path and OVERVIEW.md, with no value read.
 
 Cost: Captain messages 9; worker tokens not measured (reported: ideation 244626 and 315582, implementation 145506 and 162471, validation 198808 and 217827)
+
+### FO note on the observer's Override finding (2026-10-27)
+
+The validation-1 recommendation "accept for this merge" was the validator's. FO's own recommendation to the Captain, given in chat with that gate, was to revise the wording once more before merge, and he chose 「先改」, so his choice matched FO's recommendation and no `Override:` was owed. FO did not put that recommendation into the committed gate question or summary, which is why state cannot show it; the next gate carries FO's recommendation in its summary. The violation is on a Captain-recorded gate, not an FO-recorded one, so ADR 0007's demotion rule does not apply to it.
