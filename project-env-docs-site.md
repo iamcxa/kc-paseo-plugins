@@ -452,3 +452,8 @@ Expected at step 3: `reference 1280` and `reference 400` read `true ; target exi
 ### Summary
 
 Only the two Markdown pages changed and each of the five repairs reads true against its source or a run. The rebuilt site still crawls to the designed 23 files with no internal path, no sideways scroll and a 5.03:1 label, and the repaired Prepare and Install words took a new isolated home to an agent with the variable set.
+
+### FO declines (proposed; the Captain rules)
+
+- Validation-1 F6 (Polish), candidate revision fd87b7281313b875580eb91ae32985b46594418a: the pictures show the capture folder path (`/tmp/pe-docs/...`) and picture 02 shows a directory install. Proposed decline: the path is a scratch folder with no account, host or person name, the Install page's words give the GitHub command, and the capture script retakes the pictures (validation-1 `capture-retake/`). Material if a reader copies the path from a picture; candidate fix: retake with a neutral folder and a GitHub-installed plugin.
+- Validation-1 F7 (Polish), candidate revision fd87b7281313b875580eb91ae32985b46594418a: no picture of the 1Password app. Proposed decline: the app's screens belong to 1Password and change outside this repository; the Prepare page cites 1Password's own getting-started page for them (validation-2). Material if teammates get lost in the app steps; candidate fix: link 1Password's own screenshots step by step.
