@@ -82,6 +82,17 @@ gates:
                 id: briefing:project-env-built-in-agent-notice:validation:attempt-2:revision-1
                 digest: sha256:0c49ae9759cdec80cb07cb4bdda7cdc436bf672174a565eed09b0d0b179546ee
                 room-ref: ./project-env-built-in-agent-notice/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-built-in-agent-notice:validation:2
+                briefing: briefing:project-env-built-in-agent-notice:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-10-27T02:52:28.173465Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-27, on the validation gate attempt 2 (sha256:0c49ae97), approving validation and the two proposed declines (F2 Polish, F3 Deferred risk) at candidate 231c30abcf52405a87dfd9a0e528ae3e94d8f148. Asked: Approve validation of the built-in notice (PR #53 at 231c30a) and the two proposed declines? Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-25T13:53:45Z
 ---
 
