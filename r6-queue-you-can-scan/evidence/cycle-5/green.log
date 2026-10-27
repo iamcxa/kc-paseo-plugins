@@ -1,0 +1,12 @@
+✔ a reconnect detects the last displayed Captain question after earlier FO work (207.111167ms)
+✔ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (23.420625ms)
+✔ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (26.643083ms)
+✔ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (10.34675ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1688.623791

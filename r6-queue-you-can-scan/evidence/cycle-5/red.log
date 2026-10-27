@@ -1,0 +1,32 @@
+✖ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (52.741333ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 895.453
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:8487
+✖ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (52.741333ms)
+  AssertionError [ERR_ASSERTION]: no history snapshot may start before replacement readiness
+  + actual - expected
+  
+    [
+      'co',
+  +   'co'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/co-ask.test.mts:219:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'co', 'co' ],
+    expected: [ 'co' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

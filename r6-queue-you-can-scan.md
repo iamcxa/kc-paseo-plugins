@@ -151,3 +151,20 @@ Manual checking now restores an errored comms timeline subscription, and the sou
 
 - Correction to the Scope line "a third unsatisfied team pass stops the round": ADR 0008 (Limits and stops) says the team unsatisfied twice on one theme stops and asks the Captain; the ADR governs, so a second unsatisfied team pass stops this round. Flagged by chief-engineer 2026-10-27 in the drift call.
 - Chief-engineer drift call on 4643e0670b88 (roborev 1235, 1236, 1238, 1239): converging; repair 1239 by awaiting subscription readiness before the history read, with one race test; deferral would leave AC-2 false and reverting restores the 1238 defect.
+
+## Stage Report: implementation (cycle 5)
+
+- DONE: roborev:1239: on manual recheck, await the replacement subscription's readiness, recheck the cancellation and request guards, then read history; one mounted-hook race test: fail the subscription, click Check again, hold readiness unresolved, insert a question with no event, assert no history read starts before readiness, resolve readiness and assert the question appears from history; plus a cancelled attempt whose late readiness neither reads nor publishes; the test fails on 4643e06 and passes after the repair
+  load now awaits subscription.ready, checks cancelled/current request, then starts history and retains the post-read guard. The mounted race test failed on 4643e0670b88491c48b052ff560c41ecb72cff2e because history had already started (red.log); it passes with an event-free question inserted while readiness is pending, then loaded from history, plus a cancelled attempt whose late readiness neither reads nor overwrites the current question (green.log). Restoring concurrent ready/history or removing the pre-read cancellation guard fails it. The existing subscription test was adjusted to this required sequential order while retaining failure/live-delivery assertions.
+- DONE: npm test and typecheck pass; push to PR #54 (still Draft); a short "## Stage Report: implementation (cycle 5)" section
+  tests.log: 120/120 pass; typecheck.log: exit 0. Candidate f0b1992638ba4260c1c0b5dba0e225dd87b6f11e is pushed to OPEN Draft PR #54 with the unchanged r5 base; pr54.json confirms no merge.
+
+### Findings
+
+roborev:1239 affects the Captain after manual comms reconnection: a question posted between an early snapshot and subscription readiness could be lost while the source said loaded, violating value-ac[AC-2] honest checking. The FO follow-up and chief-engineer ruling authorize only this ordering repair; only use-co-ask.ts and its test changed, with no automatic recovery added.
+Evidence: r6-queue-you-can-scan/evidence/cycle-5/. comment_ratio PASS: 148 code lines, 0 comment lines, 0.0% (maximum 5%). doc_impact: 0 documents listed; existing overview remains accurate. number_guards and adr_lint PASS; no migration or decision record changed. design_surfaces SKIPPED: unchanged package gap 2; R4 gap 3 did not occur.
+roborev not run: package gap 5; FO reruns its gate on this pushed head. No daemon/browser was launched; candidate/main/live worktrees were clean (safety.json). Independent review and validation remain with FO.
+
+### Summary
+
+History snapshots now start only after the replacement subscription is ready and the attempt is still current. The race and late-cancellation tests prove the repair, which is committed and pushed to the existing Draft PR.
