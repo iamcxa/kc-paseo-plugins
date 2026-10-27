@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-27T19:08:50Z
+worktree: .worktrees/spacedock-ensign-r8-mockups-one-item-whole-area
 ---
 
 Step 2 of the round 8 design round: draw one mockup direction of the interaction model the Captain picked, so he can say go before any code is written.
