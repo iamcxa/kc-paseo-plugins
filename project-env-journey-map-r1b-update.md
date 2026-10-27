@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-journey-map-r1b-update:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-journey-map-r1b-update-validation-1
+              briefing:
+                id: briefing:project-env-journey-map-r1b-update:validation:attempt-1:revision-1
+                digest: sha256:577093dc3ffe23e681d1af4c285600b7071d197385af2d7f3cc0b86ea311b031
+                room-ref: ./project-env-journey-map-r1b-update/review/validation/briefing-1
 started: 2026-10-27T18:33:05Z
 ---
 

@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-journey-map-r1b-update:validation:attempt-1:revision-1",
+  "question": "Approve validation of the journey map update (PR #59 at 4135902) and the two proposed declines (F1, F2 Polish)? FO recommends approving. Approval lets FO merge it under ADR 0007 class 2; no plugin reload is needed.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-journey-map-r1b-update:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/12763b58b5c2beea1820b3834a41e0b4e5c32b9e/project-env-journey-map-r1b-update.md",
+      "rev": "sha256:ca8851dfd66a6a82dbf08f73c6e796c4e326d579a554a9088bcb36d06115560a",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation-1 PASSED at 4135902: lint exits 0, diff equals the approved six edits, four evidence symbols on main, PRs #21 #15 #17 #20 merged, read-the-docs quotes the Captain, agent-lays-out-vault out of r1b. FO fresh-shell rerun matched. External review rounds: 1 — Codex summary:6450874233 clean; roborev:1279 clean. Proposed declines: F1 and F2 stale question answers (fold-written, not edited by hand). delivery_gate question and check exit 0."
+    }
+  ]
+}
