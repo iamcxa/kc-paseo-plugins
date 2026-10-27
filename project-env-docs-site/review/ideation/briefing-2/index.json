@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-docs-site:ideation:attempt-2:revision-1",
+  "question": "Approve the revised docs site design (just-the-docs pinned at v0.12.0, six pages in reader order with search, two root wrapper files for Reference and Changelog) and AC-1 and AC-2 into implementation? FO recommends approving, which also allows one stylesheet rule that darkens the search result's page label to at least 4.5:1. Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-docs-site:ideation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/e06261bcaaa78e4d5801810e9b04d0e68bb1c1df/project-env-docs-site.md",
+      "rev": "sha256:068a49c3e52d30554af7de5f3ffee3b06a63462e67e1041b2ee8dc9a652ddd30",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve with the one contrast rule. Theme just-the-docs v0.12.0 (Captain amendment 1); sidebar Home, Introduction, Install, Prepare 1Password, Reference, Changelog; search on; dark scheme not used. New: Install step 3 now covers signing in to the 1Password CLI (design review MAJOR, fixed). Build github-pages 232: 23 files, no internal path, 0 link or image problems, no horizontal scroll at 400 to 1280 px; 25 previews. Needs decision: search label 2.1:1 contrast — FO recommends one rule in _sass/custom/custom.scss. Open for the Captain: two root wrapper files. Pages switch-on stays with the Captain at validation."
+    }
+  ]
+}
