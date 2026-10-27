@@ -1,4 +1,17 @@
-the PR is a draft
-project-env-built-in-agent-notice owes a special-role call (role_triggers.py reads the task as committed)
-next: hold the ask; mark the PR ready under the Captain's authority and let its CI finish.
-next: project-env-built-in-agent-notice has replacing amendment 1; dispatch kc-dev-flow-2:engineering-reviewer on opus with the question "do these amendments withdraw what the Captain approved, and what changes in the build?" and record `Reviewer: kc-dev-flow-2:engineering-reviewer opus <date> — <question>` under ## FO alignment; or, to decline, record `Reviewer: kc-dev-flow-2:engineering-reviewer not run <date>: <reason>` instead.
+PR head 231c30abcf52405a87dfd9a0e528ae3e94d8f148 equals dispatched candidate 231c30abcf52405a87dfd9a0e528ae3e94d8f148; no second reviewer outcome is missing
+point: deferred: 'Built screen finding 1: declined: a'
+point: deferred: 'Built screen finding 2: declined: the'
+point: deferred: 'Built screen finding 3: declined: host'
+point: deferred: 'Built screen finding 4: declined: the'
+point: deferred: "- F2 Deferred risk: the implementation's"
+point: deferred: 'Built screen finding 1: declined: a'
+point: deferred: 'Built screen finding 2: declined: the'
+point: deferred: 'Built screen finding 3: declined: host'
+point: deferred: 'Built screen finding 4: declined: the'
+point: deferred: '- F3 Deferred risk (carried from'
+point: deferred: '- Validation-2 F3 (Deferred risk), candidate'
+point: deferred: 'Declined: Polish, F2 Claude suggests the'
+point: more: 2 not shown
+class: other (verdict ask)
+record: project-env-built-in-agent-notice/merge/ask-1.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.
