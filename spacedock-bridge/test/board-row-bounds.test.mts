@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
-test("queue rows expose icon-only sibling accessible actions inside symmetric clipped bounds", async (t) => {
+test("queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds", async (t) => {
   const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -31,9 +31,9 @@ test("queue rows expose icon-only sibling accessible actions inside symmetric cl
   function flatten(style: unknown): Record<string, unknown> {
     return Array.isArray(style) ? Object.assign({}, ...style.map(flatten)) : (style ?? {}) as Record<string, unknown>;
   }
-  type Props = { children?: ReactNode; onPress?: (event: unknown) => void; accessibilityRole?: string; accessibilityLabel?: string; style?: unknown; accessible?: boolean };
-  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, style, accessible }: Props) =>
-    createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: onPress, style: flatten(style), "data-accessible": accessible }, children);
+  type Props = { children?: ReactNode; onPress?: (event: unknown) => void; accessibilityRole?: string; accessibilityLabel?: string; style?: unknown; accessible?: boolean; numberOfLines?: number };
+  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, style, accessible, numberOfLines }: Props) =>
+    createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: onPress, style: flatten(style), "data-accessible": accessible, "data-lines": numberOfLines }, children);
   const loader = Module as unknown as { _load(id: string, ...args: unknown[]): unknown };
   const original = loader._load;
   const restore = t.mock.method(loader, "_load", function (this: unknown, id: string, ...args: unknown[]) {
@@ -67,6 +67,14 @@ test("queue rows expose icon-only sibling accessible actions inside symmetric cl
     assert.ok(bounds);
     assert.equal(bounds.style.padding, "4px");
     assert.equal(bounds.style.borderRadius, "10px");
+    const number = linkLabel.match(/#\d+/)![0];
+    const ref = [...row.querySelectorAll<HTMLElement>("div")].find((e) => e.textContent === number);
+    assert.ok(ref, "every review action must visibly retain its pull request number");
+    assert.equal(ref.style.flexShrink, "0", "the number must never truncate");
+    const repo = ref.previousElementSibling as HTMLElement;
+    assert.ok(repo.textContent && !repo.textContent.includes("#"));
+    assert.equal(repo.getAttribute("data-lines"), "1", "the repository truncates to one line");
+    assert.equal(repo.style.flexShrink, "1");
     return { row, link };
   }
   for (const view of ["decision", "FO"]) {

@@ -80,7 +80,7 @@ function Chat({
   const styles = useMemo(() => {
     const pad = layout.compact ? 12 : 20;
     return {
-      screen: { flex: 1, backgroundColor: colors.surface0 },
+      screen: { flex: 1, minHeight: 0, backgroundColor: colors.surface0 },
       header: {
         flexDirection: "row" as const,
         justifyContent: "space-between" as const,
@@ -89,7 +89,8 @@ function Chat({
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
       },
-      list: { flex: 1 },
+      list: { flex: 1, minHeight: 0 },
+      composerScroll: { flexGrow: 0, flexShrink: 1, minHeight: 0 },
       listContent: {
         padding: pad,
         gap: 14,
@@ -375,7 +376,7 @@ function Chat({
         )}
       </ScrollView>
       {error ? <Text style={styles.danger}>{error}</Text> : null}
-      <View style={styles.composer}>
+      <ScrollView style={styles.composerScroll} contentContainerStyle={styles.composer} keyboardShouldPersistTaps="handled">
         <View
           onPointerEnter={() => setBoxHovered(true)}
           onPointerLeave={() => setBoxHovered(false)}
@@ -451,7 +452,7 @@ function Chat({
             </View>
           </View>
         ) : null}
-      </View>
+      </ScrollView>
     </View>
   );
 }

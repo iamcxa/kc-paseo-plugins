@@ -306,6 +306,7 @@ export function Board({
       lineTitle: { width: "100%" as const, color: colors.foreground, fontSize: 13, lineHeight: 18 },
       lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
       lineOwner: { minWidth: 0, flexShrink: 1 },
+      refRow: { flexDirection: "row" as const, minWidth: 0, maxWidth: "100%" as const },
       ref: {
         color: colors.foregroundMuted,
         fontSize: 12,
@@ -412,17 +413,27 @@ export function Board({
     if (item.fo) setOpen({ id: item.fo.id, gate: item.gate ?? null });
   };
 
+  const reference = (ref: string) => {
+    const split = ref.lastIndexOf("#");
+    return (
+      <View style={styles.refRow}>
+        <Text style={[styles.ref, { minWidth: 0, flexShrink: 1 }]} numberOfLines={1}>{ref.slice(0, split)}</Text>
+        <Text style={[styles.ref, { flexShrink: 0 }]}>{ref.slice(split)}</Text>
+      </View>
+    );
+  };
+
   const itemRow = (item: QueueItem) => (
     <View key={item.key} style={[styles.queueRow, styles.itemAction]}>
       <Pressable colors={colors} accessible accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.itemContent]}>
         <Text style={styles.lineTitle} numberOfLines={2}>{item.title}</Text>
+        {item.link ? reference(item.link.ref) : null}
         <View style={styles.lineMeta}>
           <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
           <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>{item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}</Text>
           <Text style={styles.kind}>{kindLabel[item.kind]}</Text>
           <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
           <Text style={styles.lineAge}>{ago(item.since)}</Text>
-          {item.link ? <Text style={styles.ref}>{item.link.ref}</Text> : null}
         </View>
       </Pressable>
       {item.link ? <Pressable colors={colors} accessible accessibilityRole="link" accessibilityLabel={`Open ${item.link.ref} on GitHub`} hitSlop={6} style={styles.external} onPress={() => openLink(item, openExternalUrl)}><Text style={styles.externalText}>↗</Text></Pressable> : null}
@@ -504,6 +515,7 @@ export function Board({
               <Text style={styles.nextTitle} numberOfLines={3}>
                 {next.title}
               </Text>
+              {next.link ? reference(next.link.ref) : null}
               <View style={styles.owner}>
                 <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
                   {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
@@ -568,8 +580,9 @@ export function Board({
                   <Text style={styles.name} numberOfLines={2}>
                     {review.title}
                   </Text>
+                  {reference(reviewRef(review, reviews))}
                   <Text style={styles.muted}>
-                    {review.owner}/{review.repo}#{review.number} · by {review.author} ·{" "}
+                    by {review.author} ·{" "}
                     {owner ? `with ${owner.title}` : "no FO yet — ask the comms officer"} ·{" "}
                     {ago(new Date(review.firstSeenAt).toISOString())}
                   </Text>
