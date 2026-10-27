@@ -90,3 +90,7 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 ### Summary
 
 已依核准的 poc 範圍完成無視覺互動模型文件，將可省掉的整步、增加的操作、未提供的資料與自身假設分開寫明。既有轉送與記錄語意未改；本報告是作者交付，並非設計總監通過、Captain 選定或後續視覺設計授權。
+
+### FO findings before the gate
+
+- Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-10-28) on INTERACTION-MODELS.md: NOT SATISFIED. Block: the page never answers the Captain's 「桌面決定區太窄」 — no model states that the decision uses the whole available area (the build still puts it in a 380 px side column). Annoys: "check result and original briefing" scored 0 although reading the original briefing cannot be done today — split it; the recommendation's main gain rests on an unproven "next item" — add the smaller model "one item uses the whole area, return to the list to choose"; the briefing-version question should name the briefing bound to that decision, with storage, retention and merging as the Captain's; the page is dense (~2,200 characters plus the table) — move checks to EVIDENCE.md. Twelve spot-checked counts were correct. Director's own pick: one item using the whole area, keep Confirm and separate messaging, return to the list after, without "next item". FO authorizes one revision.
