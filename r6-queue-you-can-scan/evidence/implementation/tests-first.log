@@ -1,0 +1,239 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (1.358167ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.181709ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (0.106583ms)
+✖ failed board sources reuse guarded reads; FO rows count and open each waiting destination (330.193833ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.718583ms)
+✔ an FO with no tab labels is not Tab closed (0.106584ms)
+✔ one true tab keeps an FO open across clients (0.387791ms)
+✔ a running FO is not Tab closed even when every tab is false (0.098292ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.148292ms)
+✔ an unknown tab value does not count as explicitly false (0.072417ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.05275ms)
+✔ Paseo's own permission attention is waiting on Kent (0.067334ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.101375ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.087834ms)
+✔ a new reply whose next step is the Captain's moves to waiting (9.257542ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (29.748917ms)
+✔ a next-owner label decides the group without reading the reply (0.193291ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.046459ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (0.14725ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.118542ms)
+✔ an offline FO with no gate waiting is left off the board (0.072625ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (8.8015ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (0.125417ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.473083ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.158667ms)
+✔ waiting time reads in seconds, minutes and hours (0.105542ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.488792ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.099792ms)
+✔ displayed replies join adjacent chunks but a visible tool separates them (1.808792ms)
+✔ hidden agent_message tools do not split a displayed reply; trailing visible tools do (0.177792ms)
+✔ a reconnect detects the last displayed Captain question after earlier FO work (258.4345ms)
+✔ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (10.5925ms)
+✔ native composer follows a keyboard already visible at mount (97.506083ms)
+✔ native composer follows a keyboard frame changes without a show event (69.631834ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (38.577042ms)
+✔ Enter sends the typed text to the FO and clears the box (0.913541ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.095875ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.081584ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.076292ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (0.110833ms)
+✔ a chip refusal keeps the draft (0.070916ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.066583ms)
+✔ 准 goes through with an empty box, via the comms officer (0.301292ms)
+✔ a decision chip sends the typed text as the reason (0.125666ms)
+✔ a second decision on the same briefing is refused and sends nothing (0.096125ms)
+✔ a failed send releases the claim and rethrows (0.331667ms)
+✔ a changed briefing refuses before claiming (0.079666ms)
+✔ an unloaded briefing refuses (0.075458ms)
+✔ polling a newer open briefing ignores the older briefing's resolution (201.676ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (11.207083ms)
+✔ mounted composers follow store updates, target changes and unsubscription (224.955791ms)
+✔ mounted composer reflects delayed send: clear (11.304459ms)
+✔ mounted composer reflects delayed send: edit (26.57525ms)
+✔ mounted composer reflects delayed send: refuse (10.075292ms)
+✔ mounted composer reflects delayed decision: clear (13.063375ms)
+✔ mounted composer reflects delayed decision: edit (8.84075ms)
+✔ mounted composer reflects delayed decision: refuse (13.407666ms)
+✔ reopening a pending send blocks button and Enter until success (9.874917ms)
+✔ reopening a pending send blocks button and Enter until failure (9.731917ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (0.562166ms)
+✔ a comms officer seed fills an empty draft and preserves non-empty text (0.081375ms)
+✔ stored draft clears after successful send (0.551708ms)
+✔ stored draft survives refused send (0.067292ms)
+✔ stored draft clears after successful decision (0.103209ms)
+✔ stored draft survives refused decision (0.068709ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (0.407667ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.146416ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.153875ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (0.132875ms)
+✔ the FO source stays loading until every question read settles (101.791084ms)
+✔ a failed FO question read marks the source incomplete and keeps successful questions (5.462166ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-ZoBGeN: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-ZoBGeN --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:306:5) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-ZoBGeN --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 394ms
+gates.read #2 start dirs=1
+gates.read #2 done 78ms
+gates.read #3 start dirs=1
+gates.read #3 done 4ms
+gates.read #4 start dirs=1
+gates.read #4 done 55ms
+gates.read #5 start dirs=1
+gates.read #5 done 0ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (587.483917ms)
+gates.read #6 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:104:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:137:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:130:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/gate-sources.test.mts:44:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+}
+gates.read #6 done 513ms
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:104:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:115:45)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/gate-sources.test.mts:48:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+}
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:104:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:115:45)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/fleet-mcp.ts:40:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/gate-sources.test.mts:57:3) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+}
+gates.read #7 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:66:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:104:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:137:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/tasks.ts:130:12)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/server/fleet-mcp.ts:46:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-8r5It2/removed/README.md'
+}
+gates.read #7 done 1ms
+✔ a removed workflow does not hide another workflow's gates or tasks (531.127125ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (1.055584ms)
+✔ a resolution is found by the briefing it answered (0.11575ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (170.531ms)
+✔ a git-root state URI gives the commit and path (0.333625ms)
+✔ bold and inline code are split out of a line (0.955125ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.374917ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.156875ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.139708ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.075167ms)
+✔ the last reply joins assistant text after the last user message (1.644917ms)
+✔ a status block's next step is the preview (0.290042ms)
+✔ without a next step the first line is the preview, clipped (0.116625ms)
+✔ a permission shows what it asks for (0.067042ms)
+✔ the next step is the Captain's when it names 你 or you (0.158916ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (0.371875ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.151875ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (16.141125ms)
+✔ a review with no FO has none (0.131875ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.243667ms)
+✔ an empty queue has no next card and one item has no rows (0.104375ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.145583ms)
+✔ a gate or question has no link to open (0.076125ms)
+✔ a captain question survives alongside the same FO's gate (0.216708ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.174292ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (0.371875ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (0.566042ms)
+✔ text already typed joins the chip word as the Captain's words (0.08425ms)
+✔ a decision id is d- and six base-36 characters (0.111209ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.084667ms)
+✔ revise and hold need a typed reason; approve does not (0.067708ms)
+✔ gh search output becomes review requests, dropping incomplete rows (0.929417ms)
+✔ only requests not seen before are new (0.106542ms)
+✔ the wake message is marked as automated data and names each pull request (0.238791ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (0.343958ms)
+✔ a well-formed request is exactly one routable line (0.119166ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (0.157334ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.133542ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.085958ms)
+✔ a spacedock status answer gives the task's title and stage (1.59575ms)
+✔ no matching task or unreadable output gives nothing (0.106375ms)
+✔ only a commissioned workflow README counts as a workflow directory (0.15075ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (3.584125ms)
+ℹ tests 115
+ℹ suites 0
+ℹ pass 114
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2141.774417
+
+✖ failing tests:
+
+test at test/board-retry.test.mts:10:1
+✖ failed board sources reuse guarded reads; FO rows count and open each waiting destination (330.193833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Loading/. Input:
+  
+  'Could not check tasks for /workflowBy decision · 2+By FO · 1+Could not check reviews — this list may be incompleteCheck again · tasksNext automatic review check: 11:13:25 AMNEXT · QUESTION · 3hChoose the release windowBridge FOOpenComms officer1Choose the release windowComms officerQUESTIONunknown+ New FOReading gates…'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/spacedock-bridge/test/board-retry.test.mts:59:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Could not check tasks for /workflowBy decision · 2+By FO · 1+Could not check reviews — this list may be incompleteCheck again · tasksNext automatic review check: 11:13:25 AMNEXT · QUESTION · 3hChoose the release windowBridge FOOpenComms officer1Choose the release windowComms officerQUESTIONunknown+ New FOReading gates…',
+    expected: /Loading/,
+    operator: 'match',
+    diff: 'simple'
+  }

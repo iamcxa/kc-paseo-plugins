@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-27T03:16:23.005Z",
+  "readOnly": true,
+  "candidateBase": "6f16429c24d4853c15698091f0fb42830185c951",
+  "co": {
+    "id": "bccc97d3-fe08-4f5e-8794-1af3ecff7209",
+    "status": "idle",
+    "labels": {
+      "role": "comms-officer"
+    },
+    "lastUserMessageAt": "2026-10-25T03:30:34.611Z",
+    "updatedAt": "2026-10-25T03:33:10.216Z",
+    "lastDisplayedReply": "✓ llms-points-at-formats 已經記錄（d-080ti2）。它沒有直接說「已記錄」，但說實作 worker 已經在跑，也沒有回報記錄失敗。"
+  },
+  "fo": {
+    "id": "1671c3a9-2c07-4b67-8f79-673c581e4797",
+    "status": "idle",
+    "labels": {
+      "role": "fo",
+      "repo": "subspace-relay",
+      "next-owner": "kent",
+      "next": "merge #447 (AGENTS.md order) after CI; merge #444 to send pair-once to staging",
+      "task": "pair-once",
+      "workflow-dir": "/Users/kent/conductor/workspaces/subspace-relay/beirut-dev2/docs/dev2"
+    },
+    "updatedAt": "2026-10-27T02:49:56.047Z"
+  },
+  "identity": {
+    "sameOriginatingRequest": "not established",
+    "sameOwner": "not established",
+    "sameDecisionTarget": "not established",
+    "sameUnansweredState": false,
+    "availableCodeFields": "CoAsk: final displayed assistant preview and timeline sequence key; BoardRow: agent id, task, next text, workflow directory. No shared originating request identifier for questions. Gate relay decision ids identify sent decisions, not originating asks.",
+    "qualifies": false,
+    "disposition": "Keep each source separately attributed; no merging or relay changes."
+  }
+}

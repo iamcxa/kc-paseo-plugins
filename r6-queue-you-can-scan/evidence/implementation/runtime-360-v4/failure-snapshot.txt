@@ -1,0 +1,12 @@
+- generic "Add a projectOpen a folder on your machineImport sessionOpen a Claude Code, Codex or other session y" [ref=e1] clickable [onclick]
+  - button "Back" [ref=e3]
+  - tab "FOs" [ref=e4]
+  - tab "Comms officer" [ref=e5]
+  - button "← Queue" [ref=e6]
+  - button "Hide briefing" [ref=e7]
+  - slider "Drag to resize the briefing; tap the grip to fit it to its content" [ref=e8]: 50
+    - generic [ref=e9] clickable [cursor:pointer, onclick, tabindex]
+  - link "Open full view" [ref=e10]
+  - textbox "Message Queue proof FO directly" [ref=e11]
+  - button "Send to Queue proof FO" [disabled, ref=e12]
+- generic [ref=e2] clickable [onclick]
