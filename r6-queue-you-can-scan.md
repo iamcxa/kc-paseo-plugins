@@ -69,8 +69,8 @@ Verified by: the recorded live-board check; duplicate and non-duplicate test cas
 
 Alignment: not needed: the Captain chose this theme in round 5 UAT; scope from the whole-product walk and chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
-Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra xhigh 2026-10-27 — scope round 6 (a queue the Captain can scan) after his round 5 UAT and the whole-product walk
-Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra xhigh 2026-10-27 — is round 6 converging after roborev 1235, 1236, 1238 and 1239 (1239 on the surface the 1238 fix touched); repair, decline or revert
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-10-27 — scope round 6 (a queue the Captain can scan) after his round 5 UAT and the whole-product walk
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-10-27 — is round 6 converging after roborev 1235, 1236, 1238 and 1239 (1239 on the surface the 1238 fix touched); repair, decline or revert
 
 ## Stage Report: implementation
 
@@ -151,7 +151,9 @@ Manual checking now restores an errored comms timeline subscription, and the sou
 
 - Correction to the Scope line "a third unsatisfied team pass stops the round": ADR 0008 (Limits and stops) says the team unsatisfied twice on one theme stops and asks the Captain; the ADR governs, so a second unsatisfied team pass stops this round. Flagged by chief-engineer 2026-10-27 in the drift call.
 - Chief-engineer drift call on 4643e0670b88 (roborev 1235, 1236, 1238, 1239): converging; repair 1239 by awaiting subscription readiness before the history read, with one race test; deferral would leave AC-2 false and reverting restores the 1238 defect.
-- Repair-cycle limit set by FO after roborev:1242 on e8817b8 (the second By FO preview finding after 1236): one class-level repair (cycle 7), then later roborev findings on this round go to `### FO declines` with a trigger unless they are High, and the round moves to the pre-gate team and validation.
+- Retracted 2026-10-27 after the pre-gate observer (README, FO steps: review findings, step 4: Material findings cannot use the record-only lane); no finding was declined under it. It read: Repair-cycle limit set by FO after roborev:1242 on e8817b8 (the second By FO preview finding after 1236): one class-level repair (cycle 7), then later roborev findings on this round go to `### FO declines` with a trigger unless they are High, and the round moves to the pre-gate team and validation.
+- Correction to the backlog gate's conn source "Captain chat 2026-10-26": the Captain said 「同意照這個「POC 堆疊版」做」 on 2026-10-23 (as in round 5's record). The recorded gate is not rewritten; this note carries the correct date.
+- Reviewer lines rewritten from "codex/gpt-6-astra xhigh" to "codex/gpt-6-astra:xhigh" so role_triggers.py reads both calls (it takes the model as one word); calls and dates unchanged.
 
 ### FO findings before the gate
 
