@@ -1,0 +1,77 @@
+design_review:
+  adrs_read:
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-docs-site/evidence/previews/ ({home,intro,install,prepare,reference,releases}-{1280,400}.png)
+  findings:
+    - severity: MAJOR
+      dimension: hierarchy
+      where: releases-1280.png and releases-400.png, the 0.1.0 section
+      seen: Four 0.1.0 lines appear twice with only the commit hash different ("refuse a reference outside the chosen vault before any read", "show each variable an agent started without on its timeline", "match a connected repository through symlinked or non-canonical paths", "name a failed variable's cause class, never raw tool output"), so 0.1.0 reads as 11 changes when it is 7.
+      fix: Collapse each pair into one line before publishing (or show one hash per line) so a reader does not count the same change twice.
+    - severity: MINOR
+      dimension: hierarchy
+      where: releases-1280.png, top of page
+      seen: The page title "Releases" is followed at once by a second heading "Changelog", then "0.2.0 (2026-10-27)" in a size close to "Changelog", so one block says the same thing twice and the version does not read as a level below it.
+      fix: Drop the "Changelog" heading, or make version headings one visible step smaller than the page's section heading.
+    - severity: MINOR
+      dimension: hierarchy
+      where: releases-1280.png and releases-400.png, every entry
+      seen: Entries are developer notes ("unsaved edits survive the settings screen re-mounting", "(#23) (af6aaec)" PR number plus commit hash on every line), listed alphabetically with 17 Features under 0.2.0, for a reader who has never used the plugin.
+      fix: Keep the file as shipped if that is the decision, but state in the brief that this page is the developer log and the Install and Reference pages are the reader's path; otherwise lead 0.2.0 with the few changes a user would notice.
+    - severity: MINOR
+      dimension: states
+      where: home-400.png, intro-400.png and every 400 picture, top bar
+      seen: The menu button is shown only closed; the open menu, which is the only way to reach the other four pages at 400 px, is not in the set, and no page shows which nav item is the current page at either size (all five labels look the same at 1280).
+      fix: Add a 400 px picture of the open menu, and add a criterion that the current page is marked in the nav at both sizes (or accept the stock minima behaviour in writing).
+    - severity: MINOR
+      dimension: system-fit
+      where: install-400.png, step 1 code block "paseo plugin add git:iamcxa/kc-paseo-plu"
+      seen: The one command the whole guide starts with is cut off at the right edge ("...kc-paseo-plu") with no cue that it scrolls or continues; the wrapped inline copy right under it holds the full name.
+      fix: Let code blocks wrap at 400 px (long commands in Prepare 1Password, such as the --vault line, sit right at the edge too), or add a criterion that the horizontal scroll exists and is visible.
+    - severity: MINOR
+      dimension: consistency
+      where: prepare-1280.png and prepare-400.png, "4. Connect the repository in Paseo"
+      seen: The page has H2 steps numbered 1 to 4, and step 4 holds its own numbered list 1 to 6 (ending "6. Choose Save"), so two number systems share the same digits on one page.
+      fix: Make the inner list lettered or bullet it, or turn the six actions into their own H2 steps.
+    - severity: MINOR
+      dimension: flow
+      where: prepare-400.png and install-400.png, embedded plugin screenshots
+      seen: The screenshots are shrunk to about 370 px wide and their text (labels, hints, field names) is too small to read, and nothing beside them says they open full size.
+      fix: Add a visible cue (for example a caption "Tap to see full size") under each screenshot, and add a criterion that the full-size picture opens at 400 px.
+    - severity: MINOR
+      dimension: flow
+      where: reference-1280.png and reference-400.png, "When a variable is blank"
+      seen: The troubleshooting section starts about 55 percent down a page of about 2600 px (4566 px at 400), and its nine causes are bold run-in lines, not headings, so a person who just saw a blank variable cannot scan to their cause; the Intro and Prepare pages link here by anchor only.
+      fix: Add a contents list at the top of Reference that links to "When a variable is blank", and make each cause a heading (the page text is shipped unchanged, so say whether a heading edit is allowed).
+    - severity: MINOR
+      dimension: hierarchy
+      where: intro-1280.png and intro-400.png, "Set it up"
+      seen: A numbered list mixes two real steps (Install, Prepare 1Password) with "3. If a variable comes up blank, see..." and "4. What changed in each version is on Releases", which are pointers and not steps.
+      fix: Keep the numbered list to the two steps and move the other two lines to a plain "Also" sentence.
+    - severity: MINOR
+      dimension: hierarchy
+      where: home-1280.png and home-400.png
+      seen: The home page names the Project environment page "Introduction and setup" while the nav calls it "Project environment" and its heading is "Project environment"; the footer repeats the site name twice (heading, then first column) and its blurb repeats the one-line description the page opens with.
+      fix: Use one name for the page in the link, nav and heading; drop the duplicate footer name column or the blurb.
+    - severity: MINOR
+      dimension: platform
+      where: home-400.png, menu button at top right
+      seen: The menu button is about 38 by 38 px, under the 44 px touch target usual on phones.
+      fix: Raise the button to at least 44 px or record the stock minima size as accepted.
+    - severity: MINOR
+      dimension: system-fit
+      where: install-1280.png, "brew install 1password-cli" and "paseo --version"; reference-1280.png "op --version"
+      seen: In the code font, hyphens draw as long dashes ("1password–cli", "––version"), which looks like an en dash to a person typing by hand.
+      fix: Check that copy and paste yields plain hyphens, and pick a code font where the hyphen stays short if it does not.
+    - severity: MINOR
+      dimension: hierarchy
+      where: install-1280.png, step 1 and step 2 text
+      seen: Step 1 says the plugin "shows disabled" until plugins are on, and step 2 says "A plugin you have installed reads disabled until you do", the same fact twice.
+      fix: Keep it in step 2 only.
+  limitations:
+    - The open menu, hover, focus and visited states of links and menu button are not in the pictures, so the nav at 400 px was judged only closed.
+    - Whether a code block scrolls sideways, and what a click on a screenshot opens, cannot be seen in a still picture.
+    - Only light site pages are shown (the embedded screenshots are dark); no dark-theme site and no tablet width.
+    - Embedded plugin screenshots are not under review; their wording was read only where the page text must match them.
+    - ADR 0003 (Mac only, token in the login Keychain) and ADR 0002 (blank and show) agree with what the Intro, Install and Reference pictures say; no finding rests on an ADR.

@@ -1,0 +1,46 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+  rulings:
+    - finding: 2
+      ruling: overruled
+      evidence: home-1280.png and releases-1280.png show "kc-paseo-plugins" ending at about x 449 and "Project environment" starting at about x 452, and header.html builds the nav from site.header_pages and each page's title, so the five labels filling the 800 px wrapper are the site's own choice, not a fixed part of the theme.
+      change: Free at least 20 px in the nav with no CSS, by shortening a page title (for example "Prepare 1Password" to "Prepare"; the title is also that page's heading, so keep it consistent with the Install heading) or by listing fewer pages in header_pages. Criterion: at 1280 px the gap between the site name and the first nav item is at least the 20 px gap between nav items, and the nav does not wrap or touch the site name at 800 and 600 px (not shown in the pictures).
+    - finding: 3
+      ruling: decision
+      evidence: header.html prints every nav item as a plain page-link anchor with no comparison to the current page, no aria-current and no slot (I looked for a prop, a class hook and a slot), and the pictures confirm that all five labels look alike on Reference, Changelog and Install; the page heading ("Reference", "Changelog", "Install") does tell a person where they are.
+      change: Only a site-owned copy of header.html (or custom CSS) can mark the current page, which departs from the stock minima look; the Captain decides whether to accept the stock nav (then record it as accepted) or to build the mark.
+      kind: host-look
+      owner: Captain
+    - finding: 7
+      ruling: decision
+      evidence: _layout.scss hard-codes the 36 px menu label and the "padding: 5px 10px" page-link rows at the palm breakpoint (about 38 px with border, and 34 px rows in menu-open-400.png), with no variable or prop to change them.
+      change: Only a custom stylesheet departs from the stock sizes; the Captain decides whether to accept the stock minima touch sizes or to override them to at least 44 px.
+      kind: host-look
+      owner: Captain
+    - finding: 8
+      ruling: overruled
+      evidence: home-400.png and reference-1280.png show the footer heading and the first footer column both reading "kc-paseo-plugins", and footer.html fills that column from site.author and falls back to site.title only when no author is set, so the repeat is a config gap; the home link is now "Project environment" as stated.
+      change: Set author in the site config so the footer's first column no longer repeats the site title. Criterion: the footer shows the site name once, and the description line is the only other footer text.
+    - finding: 9
+      ruling: upheld
+      evidence: home-1280.png and home-400.png show the footer ending exactly at the bottom of the 900 px window, while reference-1280.png and releases-1280.png show it directly after the content; _base.scss makes body a column of min-height 100vh and _layout.scss gives .page-content flex: 1, so the footer is pinned to the window bottom, and nobody is misled or blocked by empty space.
+      change: none
+    - finding: 10
+      ruling: overruled
+      evidence: reference-1280.png shows "When a variable is blank" starting about 47 percent down a page of about 2990 px with no link or list above it, and the reason's claim that the nav's Reference item links straight to the heading does not hold because header.html builds each nav href from the page url alone, with no anchor.
+      change: Add a generated contents list (kramdown "{:toc}", which cannot go stale) or one line near the top of Reference linking to "When a variable is blank". Criterion: a link to that heading is visible without scrolling on Reference at 1280 and 400 px, and it jumps to the heading.
+    - finding: 11
+      ruling: upheld
+      evidence: releases-1280.png shows "0.2.0" as a blue link and "0.1.0" as plain text, which is the release-please output for a first release; the asymmetry misleads no one and blocks nothing, and the generated file would overwrite a hand edit.
+      change: none
+    - finding: 12
+      ruling: upheld
+      evidence: releases-1280.png and releases-400.png show the page titled "Changelog" with dated version headings, Features and Bug Fixes groups and commit links, and the nav label is also "Changelog", so a person is not misled about what the page is; the repeated "project-env:" prefix is generated text.
+      change: none
+    - finding: 13
+      ruling: upheld
+      evidence: reference-1280.png "Setup" (four steps) agrees with the Install and Prepare pages in prepare-1280.png and install-1280.png (service account, Add a project, Save token, pick the vault, Add, Test, Save), so the repeated text shows no contradiction a person would act on wrongly.
+      change: none

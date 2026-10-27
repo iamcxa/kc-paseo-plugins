@@ -1,0 +1,91 @@
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+ # kc-paseo-plugins
+ 
+-Paseo plugins by Kent. Install one with `paseo plugin add github:iamcxa/kc-paseo-plugins:<plugin>`.
++Paseo plugins by Kent. Install one with `paseo plugin add git:iamcxa/kc-paseo-plugins:<plugin>`.
+ 
+-- `project-env`: per-project environment variables from 1Password, with a built-in notice telling each new agent where they come from.
+-- `spacedock-bridge`: a Paseo screen and panel for running Spacedock first officers: decisions, review requests, a comms officer chat and a fleet board.
++- `project-env`: per-project environment variables from 1Password, with a built-in notice telling each new agent where they come from. [Introduction](docs/project-env/index.md).
++- `spacedock-bridge`: a Paseo screen and panel for running Spacedock first officers: decisions, review requests, a comms officer chat and a fleet board. [Source and overview](https://github.com/iamcxa/kc-paseo-plugins/tree/main/spacedock-bridge).
+--- a/project-env/OVERVIEW.md
++++ b/project-env/OVERVIEW.md
+@@ -1,5 +1,7 @@
+ Project environment gives the agents Paseo starts in a repository the secrets they need, as environment variables read from 1Password. You map each variable name to a 1Password field once. Every new agent in that repository then starts with the values already set, so nobody pastes a token into a chat.
+ 
++If a variable is blank, go to [When a variable is blank](#when-a-variable-is-blank).
++
+ ## How it works
+ 
+ You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the login Keychain of the Mac that runs Paseo. When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
+@@ -9,7 +11,7 @@
+ ## Setup
+ 
+ 1. In 1Password, create a read-only service account for one vault that holds only what this repository's agents need. Give it an expiry.
+-2. In Paseo, open Settings, Plugins, the plugin's actions menu, then Project environment. Edit the repository, choose Change, enter the service account name and paste its token. Pick the vault.
++2. In Paseo, open Settings, Plugins, the plugin's actions menu, then Project environment. Under Add a project choose the repository, enter the service account name, paste its token and choose Save token. Pick the vault.
+ 3. Choose Add to map a variable name to a field in the vault.
+ 4. Choose Test, then Save.
+ 
+@@ -39,18 +41,34 @@
+ 
+ Each reason below is written as the screen shows it.
+ 
+-**No token stored for this service account.** The plugin found no token in the login Keychain under that service account name. Paste the token again under Change. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
++### No token stored for this service account
+ 
+-**1Password rejected the token.** The token has expired, was revoked, or was copied wrongly. Create or copy a new token and paste it under Change.
++The plugin found no token in the login Keychain under that service account name. Paste the token again under Change. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
+ 
+-**Field not found in the vault.** The reference names an item or field that is not there: it was renamed or deleted, no field is picked yet ("Pick a field"), or the service account cannot see that vault. Pick the field again, or check the service account's access in 1Password.
++### 1Password rejected the token
+ 
+-**1Password could not be reached.** The network failed, or 1Password did not answer within 20 seconds as the agent was starting. Check the network, then press Test and start a new agent.
++The token has expired, was revoked, or was copied wrongly. Create or copy a new token and paste it under Change.
+ 
+-**The 1Password field is empty.** The field exists but holds nothing or only spaces. Fill it in 1Password, then press Test or start a new agent.
++### Field not found in the vault
+ 
+-**Reference points outside the chosen vault.** The mapping names a different vault than the one connected. The plugin refuses it without reading, and the row shows "≠" and "Outside the chosen vault" before any Test. Pick a field in the connected vault, or change the vault.
++The reference names an item or field that is not there: it was renamed or deleted, no field is picked yet ("Pick a field"), or the service account cannot see that vault. Pick the field again, or check the service account's access in 1Password.
+ 
+-**Reserved name.** The variable is called something the plugin never sets: `PATH`, `HOME`, `NODE_OPTIONS`, a name Paseo sets itself, or one that makes a program load other code. The agent keeps its own value, and the row reads "Not applied". Remove the variable or give it another name.
++### 1Password could not be reached
+ 
+-**1Password returned an error the plugin does not recognise.** The 1Password CLI failed in a way the plugin cannot sort, for example `op` is not installed or not on the path Paseo uses. The plugin shows only this fixed sentence, because the raw error could carry a secret. Check that `op --version` works in a terminal, press Test, and look at the plugin's Logs.
++The network failed, or 1Password did not answer within 20 seconds as the agent was starting. Check the network, then press Test and start a new agent.
++
++### The 1Password field is empty
++
++The field exists but holds nothing or only spaces. Fill it in 1Password, then press Test or start a new agent.
++
++### Reference points outside the chosen vault
++
++The mapping names a different vault than the one connected. The plugin refuses it without reading, and the row shows "≠" and "Outside the chosen vault" before any Test. Pick a field in the connected vault, or change the vault.
++
++### Reserved name
++
++The variable is called something the plugin never sets: `PATH`, `HOME`, `NODE_OPTIONS`, a name Paseo sets itself, or one that makes a program load other code. The agent keeps its own value, and the row reads "Not applied". Remove the variable or give it another name.
++
++### 1Password returned an error the plugin does not recognise
++
++The 1Password CLI failed in a way the plugin cannot sort, for example `op` is not installed or not on the path Paseo uses. The plugin shows only this fixed sentence, because the raw error could carry a secret. Check that `op --version` works in a terminal, press Test, and look at the plugin's Logs.
+--- a/project-env/CHANGELOG.md
++++ b/project-env/CHANGELOG.md
+@@ -43,14 +43,10 @@
+ * **project-env:** import the project-env plugin ([b12c1f8](https://github.com/iamcxa/kc-paseo-plugins/commit/b12c1f804a76006453bc08f9289d3d4df92724a8))
+ * **project-env:** new agents get each resolved variable; failed, empty and late ones arrive empty ([e061a0f](https://github.com/iamcxa/kc-paseo-plugins/commit/e061a0f5751bc6e651c71b85d73699902c514037))
+ * **project-env:** refuse a reference outside the chosen vault before any read ([3797ed6](https://github.com/iamcxa/kc-paseo-plugins/commit/3797ed6f035e2ee793ae9f9a5f2cf106c436dba6))
+-* **project-env:** refuse a reference outside the chosen vault before any read ([a30ad63](https://github.com/iamcxa/kc-paseo-plugins/commit/a30ad6357ae0fb3f2d02f5e990c0d9a28dea7022))
+ * **project-env:** show each variable an agent started without on its timeline ([cf563c6](https://github.com/iamcxa/kc-paseo-plugins/commit/cf563c6da888c8b235d4aafe6fd54e7e5ca2580f))
+-* **project-env:** show each variable an agent started without on its timeline ([90074f6](https://github.com/iamcxa/kc-paseo-plugins/commit/90074f64b9d49c55f61a09662cac9b31a173fb87))
+ 
+ 
+ ### Bug Fixes
+ 
+ * **project-env:** match a connected repository through symlinked or non-canonical paths ([ae64fde](https://github.com/iamcxa/kc-paseo-plugins/commit/ae64fde9fe38990eef3be6f70aaeca99c11a3392))
+-* **project-env:** match a connected repository through symlinked or non-canonical paths ([2defea5](https://github.com/iamcxa/kc-paseo-plugins/commit/2defea5e13c58735ee736f3d77dd4597f092ed00))
+ * **project-env:** name a failed variable's cause class, never raw tool output ([dac8940](https://github.com/iamcxa/kc-paseo-plugins/commit/dac8940ca4ef5598cdcd9288fb9bc53681dde9a2))
+-* **project-env:** name a failed variable's cause class, never raw tool output ([f53d485](https://github.com/iamcxa/kc-paseo-plugins/commit/f53d485f1e963388e8a8b513f483bdb24d65f6e5))

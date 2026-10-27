@@ -1,0 +1,79 @@
+design_review:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-docs-site/evidence/previews/
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: install-1280.png and install-400.png, "5. Add your repository", against prepare-1280.png "4. Connect the repository in Paseo"
+      seen: Install step 5 tells the person to open Add a project and choose the repository, then says "Leave this screen and go on to prepare 1Password", and Prepare step 4 tells them to open the same menu and choose the repository again, with a screenshot reading "New project, not saved yet"; nothing says whether the first choice was kept or lost.
+      fix: End Install at step 4, or say in step 5 that nothing is saved yet and the person returns to this screen in Prepare 1Password step 4.
+    - severity: MINOR
+      dimension: spacing
+      where: every 1280 picture, top bar (e.g. home-1280.png, reference-1280.png)
+      seen: The site name "kc-paseo-plugins" touches the first nav item "Project environment" with a gap of a few pixels, so the bar reads as one string while the other nav items have wide gaps.
+      fix: Add a gap of at least one nav-item gap between the site name and the nav.
+    - severity: MINOR
+      dimension: states
+      where: every 1280 picture and menu-open-400.png, nav
+      seen: No nav item shows it is the current page (all five labels look alike on Reference, Changelog and Install, and in the open menu), so a person on Reference cannot tell where they are. Round 1 asked for a criterion or a written acceptance, and neither is in the set.
+      fix: Mark the current page in the nav at both sizes, or write that the stock minima look is accepted.
+    - severity: MINOR
+      dimension: system-fit
+      where: install-400.png, step 1 code block "git:iamcxa/kc-paseo-plugins:project-er"
+      seen: The first command the guide has the person run is still cut off at the right edge with no cue that it scrolls, although the wrapped inline copy under it shows the whole string.
+      fix: Wrap long code at 400 px, or add a criterion that the code block scrolls sideways and shows it does.
+    - severity: MINOR
+      dimension: system-fit
+      where: install-1280.png "paseo --version", "brew install 1password-cli"; reference-1280.png "op --version"; home-1280.png "kc-paseo-plugins:<plugin>"
+      seen: In the code font every hyphen draws as a long dash ("paseo ––version", "1password–cli", "kc–paseo–plugins"), which a person typing by hand will read as an en dash. Round 1 raised this and the pictures are unchanged.
+      fix: Pick a code font whose hyphen stays short, or add a criterion that a copied command pastes with plain hyphens.
+    - severity: MINOR
+      dimension: flow
+      where: install-400.png and prepare-400.png, embedded screenshots; intro-400.png, intro screenshot
+      seen: At 400 px the screenshots are about 370 px wide and their labels are unreadable. The line "Tap a picture to see it full size" is present on Install and Prepare, once before the first picture, but the Intro screenshot has no such line and the later pictures (Install steps 4 and 5, Prepare "Add a variable" and "Test") have none.
+      fix: Add the same cue under the Intro screenshot, and add a criterion that every picture on the three pages opens full size at 400 px.
+    - severity: MINOR
+      dimension: platform
+      where: home-400.png menu button; menu-open-400.png menu rows
+      seen: The menu button is about 38 by 38 px and the open-menu rows sit 34 px apart with small right-aligned text, both under the 44 px touch target.
+      fix: Raise the button and row height to at least 44 px, or record the stock minima size as accepted.
+    - severity: MINOR
+      dimension: hierarchy
+      where: home-1280.png and home-400.png, and the footer of every page
+      seen: The site name appears in the header, the home heading, the footer heading and the footer's first column, and the footer blurb "Plugins for Paseo, with setup guides." repeats the sentence the home page opens with. The home page also links to Intro as "Project environment: introduction and setup" while the nav and the heading say "Project environment".
+      fix: Drop the footer name column (or the blurb), and use one name for the Intro page in the home link, nav and heading.
+    - severity: MINOR
+      dimension: spacing
+      where: home-1280.png and home-400.png, between the plugin list and the footer
+      seen: About 430 px (1280) and 290 px (400) of blank space sits between the two bullets and the footer, so the page looks unfinished.
+      fix: Let the footer follow the content, or fill the home page with a link to the Install page as the first step.
+    - severity: MINOR
+      dimension: flow
+      where: reference-1280.png and reference-400.png, "When a variable is blank"
+      seen: Each cause is now a heading, which fixes round 1, but the section still starts about 47 percent down a page of about 2990 px (4810 px at 400) and nothing at the top lists the nine causes, so a person who came from the nav sees none of them.
+      fix: Add a contents list at the top of Reference linking to "When a variable is blank" and the nine cause headings.
+    - severity: MINOR
+      dimension: consistency
+      where: releases-1280.png and releases-400.png, version headings
+      seen: "0.2.0" is a blue link and "0.1.0" is plain text, so one version looks clickable and the other does not.
+      fix: Link both versions or neither.
+    - severity: MINOR
+      dimension: hierarchy
+      where: releases-1280.png and releases-400.png, every entry
+      seen: "project-env:" is bolded at the start of all 24 lines, in a log that has only one plugin, and each line ends with two parenthesised links "(#23) (af6aaec)"; nothing on the page says it is the developer log (only the Intro does), and 0.2.0 lists 17 features alphabetically.
+      fix: Add one sentence under the title saying this is the developer log and the Install and Reference pages are the reader's path; drop the repeated prefix or move it to the page heading.
+    - severity: MINOR
+      dimension: hierarchy
+      where: intro-1280.png "Set it up" and "How it fits together", reference-1280.png "Setup" and "How it works", install-1280.png, prepare-1280.png
+      seen: The same setup procedure and the same facts (token in the login Keychain, "Started without N project variables", read-only service account) are stated on Intro, Reference and the two step pages, so a change to one needs three edits and a reader meets the four steps three times.
+      fix: Keep the Reference "Setup" as a two-line pointer to Install and Prepare 1Password, or record that the overview is shipped unchanged and the repetition is accepted.
+  limitations:
+    - Round 1 findings now fixed in the pictures: the four duplicated 0.1.0 lines (0.1.0 now reads as 5 features and 2 fixes), the extra "Changelog" heading, the open menu, the Set it up pointers, the Install "disabled" repeat, the Prepare double numbering, and the missing full-size cue.
+    - Hover, focus and visited states and the nav at 400 px on pages other than home are not shown; the open menu is shown only on the home page.
+    - A still picture cannot show whether a code block scrolls sideways, whether a screenshot opens full size, or whether copied commands keep plain hyphens.
+    - Only widths 1280 and 400 are shown; the nav was not seen at about 600 to 900 px, where five labels may crowd.
+    - Only light site pages are shown; the embedded plugin screenshots are dark and are not under review.
+    - No ADR settles a finding; the Intro, Reference and Install statements about the Keychain, Mac-only support and blanked variables agree with ADR 0001, 0002 and 0003.
