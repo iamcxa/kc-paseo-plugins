@@ -93,6 +93,7 @@ Visible change: A public page introduces project-env and gives a new teammate in
 Direction alignment with the Captain: done — he asked for the introduction, docs and a Markdown-based page on 2026-10-27 and chose docs first (「可以，先文件」); the page's scope and the Pages switch-on are confirmed at the ideation gate.
 Release review: paseo-project-env/r1b at bed5a6644c646e91c9cbc235807f33bce878cc8f — review-release run 2026-10-28 (signal 4, before the first implementation dispatch), `project-env-docs-site/release-review-r1b.md`: this task can be dispatched; it does not finish r1b; the map edit, the interrogation and the other r1b tasks wait for the Captain.
 Map footprints: not needed: no journey answer is recorded by this task; the ideation report lists the stories for a later map update.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-10-28: amendment 1 (「just-the-docs」) came while the ideation gate was open, and the Captain approved the revised design that carries it on 2026-10-28 (ideation attempt 2, 「准」), so no approval was withdrawn after it was given; the build is checked against that design by validation cycles 1 and 2.
 
 ## Captain amendments
 
