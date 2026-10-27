@@ -101,3 +101,4 @@ Chrome 在一般 sandbox 未回應；允許本機 headless 擷取後成功。只
 ### Summary
 
 完成設計總監第一次審閱所列兩項阻擋與閱讀負擔修訂，保留單件全區方向與原語意。這是靜態原型的第二輪交付，不是設計接受；由 FO 安排複審及 Captain 的 go。
+- Design director pass 2 on d0f7d1a: NOT SATISFIED — the earlier blocks and reading load are fixed, but two click-through paths of the static prototype show wrong results: reopening after Confirm shows a fixed "request changes" and sample reason instead of the confirmed choice; going to the comms officer and back resets progress (the gate offers decision controls again, a recorded gate reappears). Layout, proportions and exclusions pass. Second unsatisfied team pass on this theme: under ADR 0008 the FO stops and asks the Captain before another revision.
