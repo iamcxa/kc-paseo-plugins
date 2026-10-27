@@ -1,7 +1,7 @@
 ---
 id:
 title: A public docs page introduces project-env and walks a new teammate through setup
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -63,7 +63,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate attempt 2 (sha256:289c8068), FO having recommended approval; approval also allows one stylesheet rule darkening the search result''s page label to at least 4.5:1, and keeps the two root wrapper files (he did not object). Asked: Approve the revised docs site design (just-the-docs pinned at v0.12.0, six pages in reader order with search, two root wrapper files) and AC-1 and AC-2 into implementation? ... Say if you object to any part.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-27T15:33:59Z
 ---
 
