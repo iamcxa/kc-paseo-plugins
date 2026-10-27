@@ -132,3 +132,21 @@ Queue hover and press feedback now have explicit symmetric row bounds and spacin
 ### Summary
 
 Every queue row action and GitHub link is now a separately labelled accessible sibling, including the featured and unassigned review paths, while the cycle-2 bounds remain. Candidate 0895937 is pushed to Draft PR #57; independent verification and the new-head review remain with FO.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: roborev:1259: every per-row GitHub link in the queue is icon-only with the full repository reference as its accessibility label (as other queue rows already do), so a long repository name never narrows the title or the Open action; a mounted or browser check with a very long repository name at 360 and 1440 px that fails on 0895937 (title and Open action keep their width), while the cycle 2 geometry and cycle 3 two-accessible-controls checks still pass
+  Candidate 04f90b876bf0f2765343477513fabd08b7b3a2d0 changes only the featured and unassigned link text nodes to ↗, matching ordinary rows; full reference accessibility labels and handlers remain unchanged. At 360 and 1440 (fixed 380px desktop pane), 89/100-character names preserve all short-name title widths and the 55.44px Open affordance; every link stays 26.48px wide. Untouched 0895937 fails the same width assertion at both widths: the link grows to 689.91px, title/action content width falls to 0 and Open extends outside it (base-360/, base-1440/). The original geometry assertions still pass (4px equal insets, 10px/12px row gaps); mounted/browser checks retain sibling roles/labels and separate actions.
+- DONE: npm test and typecheck pass; push to PR #57 (still Draft); a short "## Stage Report: implementation (cycle 4)" section
+  npm test 139/139 and typecheck pass (tests.log, typecheck.log). Pushed 04f90b8 is verified OPEN/Draft on PR #57 with the original round-6 base (pr57.json); rerunnable capture.py/falsifier.py and results are under evidence/cycle-4/.
+
+### Findings
+
+- Evidence: cycle-4/README.md declares prerequisites, runtime paths and sequential reruns. runtime-360-v2/ and verified-1440/ bind 24 short/long measurements and screenshots to the candidate, including ordinary, featured and unassigned review links in both views. The fixture changes only synthetic entry/SDK/review-RPC boundaries and explicitly uses a 380px desktop Board pane; product modules are copied unchanged.
+- Falsifiability: base-360/ and base-1440/ fail actual row-width equality before icon-text assertions, so they prove the title collapse rather than a text-only difference. base-test/ also rejects the old featured reference text with the final mounted test; restoring reference text, truncating accessible labels, nesting controls or narrowing the title/Open action fails the retained checks.
+- Package checks: comment_ratio 2 code lines / 0 comments / 0.0%, below the 20-line enforcement floor; doc_impact lists none, overview unaffected; ADR lint and number guards pass, no ADR/migration changes. Migration guard skipped (no migrations-path); design_surfaces SKIPPED: known package gap 2; R4 gap 3 did not occur. roborev not run: package gap 5, FO reruns on 04f90b8.
+- Cleanup/scope: safety.json verifies all six temporary roots removed, captured daemon PIDs stopped, fresh browsers closed and candidate/main/live worktrees clean. Only board.tsx and its existing mounted test changed. No decision, relay/recording, draft, queue data, routing, readiness, merge, release or live-install change; POC boundary unchanged. Browser layout and mounted accessibility structure are proven; native VoiceOver/painting and independent acceptance remain outside this proof.
+
+### Summary
+
+All queue GitHub links are now icon-only while keeping their complete accessible references. Candidate 04f90b8 is pushed to Draft PR #57 with preserved widths, geometry and separate accessible actions; independent verification and new-head review remain with FO.
