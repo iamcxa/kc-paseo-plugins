@@ -1,0 +1,25 @@
+{
+  "candidate": "4d5d8982cf1e8262be808be6ad81bc04bcede5f5",
+  "pr": 57,
+  "draft": true,
+  "status": {
+    "candidate": "## spacedock-ensign/r7-one-clear-way-to-decide...origin/spacedock-ensign/r7-one-clear-way-to-decide",
+    "main": "## main...origin/main [behind 1]",
+    "live": "## HEAD (no branch)"
+  },
+  "cleanupFiles": [
+    "base-test/cleanup.json",
+    "baseline-probe-360/cleanup.json",
+    "baseline-probe-360-v2/cleanup.json",
+    "runtime-360/cleanup.json",
+    "runtime-360-v2/cleanup.json",
+    "verified-1440/cleanup.json",
+    "verified-360/cleanup.json"
+  ],
+  "probeDeletionRetry": {
+    "root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.closed-proof-59_qmyoy",
+    "removed": true,
+    "reason": "captured daemon PID already verified stopped by finally; bundle-cache deletion race retried"
+  },
+  "protectedProductFilesUnchanged": true
+}

@@ -94,3 +94,21 @@ Messages and gate decisions now have separate drafts and explicit actions, the c
 ### FO findings before the gate
 
 - Roborev (FO-run, package gap 5) clean on 1969785 (roborev:1251).
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Captain's screenshot /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/walks/round-6/captain/colour-difference.png (「色差在這裡，注意看“審#1306文字左右背景有差異”」): first find, read-only, which style paints the lighter background on the "CL merges …" queue row (hover, focus, pressed, next or selected) and why its box is inset on the left, runs to the right edge and ends flush on the next row's title; report the cause with the symbol; then make every queue row highlight share the row's own bounds with symmetric insets and spacing so it never touches the next row's text, in both views
+  Read-only diagnosis before edits is in evidence/cycle-2/cause-before-code.md: FeedbackPressable hover paints colors.border on itemRow/styles.line; no selected/focus fill applies, and styles.next belongs only to the featured card. itemRow/styles.lineMain expanded to a zero-gutter, unclipped parent and the Questions section had only gap:2. Candidate 4d5d8982cf1e8262be808be6ad81bc04bcede5f5 gives every queue-row family a shared styles.queueRow wrapper with padding:4, overflow:hidden and radius:10, including the row link in its bounds; both views reuse itemRow.
+- DONE: A capture at 360 and 1440 px of a highlighted row followed by another row in both views, measuring the highlight box against the row box (left and right inset equal, no overlap with the next row); a test or check that fails on 1969785 if the box geometry is a pure-style property you can assert; npm test and typecheck pass; push to PR #57 (still Draft); a short "## Stage Report: implementation (cycle 2)" section
+  verified-360/ and verified-1440/ contain four inspected hover PNGs and hover/focus/pressed DOM measurements bound to 4d5d898: equal 4px left/right insets, no overlap and next-row gaps of 10px By decision / 12px By FO. The new mounted Board test fails against untouched 1969785 (base-test/base-test.log), passes on the candidate and checks GitHub-link/card actions; npm test 139/139 and typecheck pass. PR #57 is pushed, OPEN and still Draft on 4d5d898 with its original round-6 base (pr57.json).
+
+### Findings
+
+- Evidence and reruns: r7-one-clear-way-to-decide/evidence/cycle-2/README.md, capture.py and falsifier.py; base-test/ demonstrates that removing the new symmetric clipping wrapper fails the test. The same mounted test fails if the GitHub link bubbles into the row/card action. Browser checks fail on unequal/sub-4px insets, missing clipping or a gap below 8px.
+- Source/host limit: the unchanged web probe shows zero own insets and a 2px row gap, hover-only border color, transparent focus and a distinct dimmed pressed state. It does not reproduce the native screenshot's exact 8px-left/0px-right offset; native painting and final Captain confirmation remain unverified. The repair makes the missing source-level bounds explicit; no native acceptance is claimed.
+- Package checks: comment_ratio 18 added code lines / 0 comments / 0.0%, below the 20-line enforcement floor; doc_impact lists none, existing overview unaffected; ADR lint and number guards pass, no ADR/migration change. Migration guard skipped (no migrations-path). design_surfaces SKIPPED: known POC package gap 2; R4 gap 3 did not occur. roborev not run: package gap 5, FO reruns on 4d5d898 (the earlier 1969785 clean result is not reused for this head).
+- Cleanup: safety.json verifies isolated roots removed, captured daemon PIDs stopped, browsers closed and candidate/main/live worktrees clean. One stopped probe's bundle-cache deletion race required the owned-root retry recorded in probe-cleanup-retry.json. No relay/recording, draft-store, keyboard, queue-building, live daemon, release, readiness or merge change; only board.tsx and its new mounted test changed. POC boundary unchanged.
+
+### Summary
+
+Queue hover and press feedback now have explicit symmetric row bounds and spacing in both views. Candidate 4d5d898 is pushed to Draft PR #57; the new geometry and action checks pass, with native confirmation and independent/team review remaining for FO.

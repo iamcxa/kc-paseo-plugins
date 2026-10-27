@@ -1,0 +1,28 @@
+✖ queue highlights have their own symmetric clipped bounds and links keep their action (526.2435ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1748.82625
+
+✖ failing tests:
+
+test at test/board-row-bounds.test.mts:10:1
+✖ queue highlights have their own symmetric clipped bounds and links keep their action (526.2435ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '' !== '4px'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r7-one-clear-way-to-decide/.row-bounds-base-hm_b5zd3/spacedock-bridge/test/board-row-bounds.test.mts:57:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: '4px',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
