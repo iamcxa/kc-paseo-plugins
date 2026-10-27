@@ -114,3 +114,5 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 ### Summary
 
 已按三項修訂要求交付較小的建議案，主要收益是決定可用整個區域；保留確認和獨立傳訊，不靠新增下一件來證明價值。原簡報回讀獨立標為缺口，下一步由 FO 安排設計總監複審。
+- Design director pass 2 on 6014610: SATISFIED (the desktop width complaint answered per model; "next item" an option; rereading the original briefing marked not possible today; page about 1,300 characters). Director's pick: one item uses the whole area, back to the list after.
+- Captain's pick, 2026-10-28, asked 「第 8 輪設計稿要用哪種操作方式？」, answered 「單件全區 (Recommended)」.
