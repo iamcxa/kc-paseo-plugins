@@ -9,6 +9,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+GRANTS = {
+    "同意照這個「POC 堆疊版」做": "2026-10-23",
+    "可以，我授權你在飛輪過程中推送及開 ＰＲ": "2026-10-23",
+}
+
 
 def sections(text, heading):
     out, cur = [], None
@@ -60,6 +65,19 @@ def main(argv):
                 failures.append(f"FO decline without a candidate revision: {item[:80]}")
             if "Would become Material" not in item:
                 failures.append(f"FO decline without its Material trigger (not a decline? give it its own heading): {item[:80]}")
+
+    for quote, source in re.findall(r"quote: (.+)\n\s+source: '?(.+?)'?$", text, re.M):
+        known = GRANTS.get(quote.strip())
+        for date in re.findall(r"\d{4}-\d{2}-\d{2}", source):
+            corrected = any(quote.strip() in item and known in item and item.startswith("- Correction")
+                            for sec in sections(text, "### FO notes") for item in bullets(sec))
+            if known and date != known and not corrected:
+                failures.append(f"gate conn source dates 「{quote.strip()}」 {date}; the Captain said it on {known}")
+
+    for sec in sections(text, "### FO notes"):
+        for item in bullets(sec):
+            if "FO declines" in item and not item.startswith("- Retracted"):
+                failures.append(f"FO note sends findings to FO declines as a rule; decide each finding instead: {item[:80]}")
 
     for f in failures:
         print("FAIL", f)
