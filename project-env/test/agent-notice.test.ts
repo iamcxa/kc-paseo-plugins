@@ -86,6 +86,8 @@ describe("the notice a new agent receives", () => {
   it("says what a blank variable means and where to look", () => {
     assert.ok(agentNotice.includes("press Test"));
     assert.ok(agentNotice.includes("OVERVIEW.md"));
+    assert.ok(agentNotice.includes("Setting it by hand is not the fix"));
+    assert.ok(agentNotice.includes("do not suggest setting one in the environment"));
   });
 });
 
