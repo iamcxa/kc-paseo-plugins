@@ -224,3 +224,13 @@ Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，�
 
 - Validation-1 F1 (Polish), candidate revision 41359025bec74c8b9b84918d09dfeb2c2f0a7e48: `write-prompt` q1 still answers "they stay for Kent's own use" while the story is now `gap`. Proposed decline: the approved design left question answers untouched, and the kc-journey-map skill says a question's `answer`, `status` and `source` may be written by `lib/journey-fold.mjs` and are not rewritten by hand; the story's `gap` status already says the box is gone. Material if the map is read as claiming the prompt box exists; candidate fix: answer the question through the fold in its own task.
 - Validation-1 F2 (Polish), candidate revision 41359025bec74c8b9b84918d09dfeb2c2f0a7e48: the four stories now `exists` keep "Gap: …" answers describing the pre-r1.5 behaviour. Proposed decline: same reason; the answers record what was true when the questions were settled, and the lint passes. Material if a reader takes those answers as today's state; candidate fix: the same fold task.
+
+### FO merge (ADR 0007 class 2, 2026-10-28)
+
+After the Captain approved validation (「准」, 2026-10-28), FO merged PR iamcxa/kc-paseo-plugins#59 by squash with `--match-head-commit 41359025bec74c8b9b84918d09dfeb2c2f0a7e48` (delivery_gate check exit 0, GitGuardian pass, Codex clean, no Codex line comment); merge commit 637d05404ccafa198d9f283e1d7d2183c8304dea. No plugin reload: the PR changes only the journey file.
+
+## UAT
+
+Not run: a journey-map edit has nothing to try on the live plugin; the Captain accepted it at validation.
+
+Cost: Captain messages 4; worker tokens not measured (reported: ideation 130776, implementation 76556, validation 85065)
