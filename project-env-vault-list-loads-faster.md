@@ -275,3 +275,11 @@ Classes 1 and 3 stay with the Captain: demoted on 2026-10-25 (archived project-e
 ### FO acceptance rerun (2026-10-27)
 
 FO ran `evidence/val/acceptance.sh` in a fresh `env -i` shell against 924d213: the four concurrency tests 4 pass on the change and 3 pass, 1 fail ("never has more than four item reads open at once") on main; server timing at 200 ms main to change 10 items 3425 to 1511 ms, 30 items 8492 to 2810, 100 items 26712 to 7394, each with the same list and skips, N+1 op calls and a peak of 4 reads at once; PASS, exit 0 (`evidence/fo-acceptance-rerun-924d213.txt`).
+
+### FO merge and reload (ADR 0007 class 2, 2026-10-27)
+
+After the Captain approved validation (「那就准」, 2026-10-27), FO merged PR iamcxa/kc-paseo-plugins#55 by squash with `--match-head-commit 924d213e844c1e123bba6d56a8bc784f74c9ad54` (delivery_gate check exit 0, GitGuardian pass, Codex clean, no Codex review or line comment); merge commit e66c7e50da8800826e2b54fb47b9becd4012d3a2 at 2026-10-27T05:03:17Z. Reload route: (1) backup `~/.paseo-backup-project-env-20261021/projects-20261027T130324.json`, byte-identical; (2) `git fetch origin`, origin/main contains e66c7e5; (3) clean main checkout at 0b55dfd, 0 ahead, `merge --ff-only`, HEAD equals origin/main e66c7e5; (4) `npm ci`, 0 vulnerabilities; (5) `paseo plugin reload paseo-project-env`: running. After reload the settings file is byte-identical to the backup. No probe agent was run this time: the change does not touch session-open injection, and the Captain's UAT exercises the picker.
+
+## UAT
+
+Pending: the Captain's UAT on the live plugin.
