@@ -32,7 +32,9 @@ export function useCoAsk(coId: string): { ask: string | null; since: string | nu
     const load = async () => {
       if (cancelled || disconnected) return;
       const current = ++request;
-      setResult((old) => ({ ...old, id: coId, state: "loading" }));
+      setResult((old) => old.id === coId
+        ? { ...old, state: "loading" }
+        : { id: coId, ask: null, since: null, state: "loading" });
       try {
         await subscription.ready;
         if (cancelled || current !== request) return;

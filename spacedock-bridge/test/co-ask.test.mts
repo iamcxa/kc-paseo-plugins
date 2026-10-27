@@ -236,3 +236,35 @@ test("manual reconnection reads after readiness and a cancelled attempt cannot r
   assert.deepEqual(reads, ["co", "co", "other"], "late readiness of a cancelled attempt must not read history");
   assert.equal(container.querySelector("output")!.textContent, "loaded: Choose the current question (you)");
 });
+
+test("switching coordinators clears the previous question and timestamp while the new connection is pending", async (t) => {
+  const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
+  Object.assign(globalThis, { window: dom.window, document: dom.window.document });
+  const container = dom.window.document.getElementById("root")!;
+  const root = createRoot(container);
+  t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
+  const oldTimestamp = "2026-10-27T00:00:00Z";
+  const newTimestamp = "2026-10-27T01:00:00Z";
+  const page = (text: string, timestamp: string) => ({ entries: [{ seqStart: 1, timestamp, item: { type: "assistant_message", text } }] });
+  let connect!: () => void;
+  const ready = new Promise<void>((resolve) => { connect = resolve; });
+  let read!: (value: ReturnType<typeof page>) => void;
+  const history = new Promise<ReturnType<typeof page>>((resolve) => { read = resolve; });
+  const paseo = { agents: { ref: (id: string) => ({ status: "idle", subscribe: () => () => {}, timeline: {
+    subscribe: () => Object.assign(() => {}, { ready: id === "old" ? Promise.resolve() : ready }),
+    refetch: () => id === "old" ? Promise.resolve(page("Next: Choose the old release window (you)", oldTimestamp)) : history,
+  } }) } } as unknown as PaseoApi;
+  function Question({ id }: { id: string }) {
+    const { ask, since, state } = useCoAsk(id);
+    return createElement("output", null, `${id}|${state}|${ask}|${since}`);
+  }
+  const render = (id: string) => act(async () => root.render(createElement(PaseoApiProvider, { paseo, children: createElement(Question, { id }) })));
+  await render("old");
+  assert.equal(container.textContent, `old|loaded|Choose the old release window (you)|${oldTimestamp}`);
+  await render("new");
+  assert.equal(container.textContent, "new|loading|null|null", "a new coordinator cannot inherit the old question or age");
+  await act(async () => connect());
+  assert.equal(container.textContent, "new|loading|null|null", "the previous payload stays cleared until the new history arrives");
+  await act(async () => read(page("Next: Choose the new release window (you)", newTimestamp)));
+  assert.equal(container.textContent, `new|loaded|Choose the new release window (you)|${newTimestamp}`);
+});
