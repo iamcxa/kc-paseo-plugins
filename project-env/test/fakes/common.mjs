@@ -15,7 +15,10 @@ export function boot(tool) {
     }
   };
   const log = (extra = {}) =>
-    appendFileSync(join(dir, "calls.jsonl"), `${JSON.stringify({ tool, argv, pid: process.pid, ...extra })}\n`);
+    appendFileSync(join(dir, "calls.jsonl"), `${JSON.stringify({ tool, argv, pid: process.pid, start: Date.now(), ...extra })}\n`);
+  process.on("exit", () =>
+    appendFileSync(join(dir, "ends.jsonl"), `${JSON.stringify({ pid: process.pid, at: Date.now() })}\n`),
+  );
   const writeState = (state) => writeFileSync(statePath, JSON.stringify(state));
   const fail = (stderr, code = 1) => {
     process.stderr.write(`${stderr}\n`);

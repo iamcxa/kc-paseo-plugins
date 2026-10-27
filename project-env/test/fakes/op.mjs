@@ -10,6 +10,10 @@ if (!known) fail("[ERROR] 401 Authentication: invalid service account token");
 
 const accountData = scenario.op.accounts[account];
 const [cmd, sub] = argv;
+if (cmd === "item") {
+  const wait = scenario.op.delayMs?.[sub === "get" ? `item get ${argv[2]}` : "item list"] ?? scenario.op.callDelayMs;
+  if (wait) await new Promise((r) => setTimeout(r, wait));
+}
 
 if (cmd === "read") {
   const ref = argv[argv.length - 1];
