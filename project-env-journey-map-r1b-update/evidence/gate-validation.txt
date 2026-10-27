@@ -1,0 +1,7 @@
+Question: Approve validation of the journey map update (PR iamcxa/kc-paseo-plugins#59 at 41359025bec74c8b9b84918d09dfeb2c2f0a7e48) and the two proposed declines? FO recommends approving. Approval lets FO merge it under ADR 0007 class 2; no plugin reload is needed (docs only).
+Merge ask: PR #59 at 41359025bec74c8b9b84918d09dfeb2c2f0a7e48 edits docs/journey/project-env/give-agents-their-project-setup.yaml with the six approved edits only.
+Sufficiency: validation-1 PASSED at 4135902 with no Material or Needs decision finding; journey lint exits 0, the diff equals the approved six-edit design, the four evidence symbols are on main and their PRs merged; FO's fresh-shell acceptance rerun matched.
+Necessity: one journey file changes; without it the map shows shipped r1.5 work as gaps, keeps agent-lays-out-vault in r1b against the Captain's ruling, and fails its own lint.
+Reviews: external review rounds: 1 — Codex summary:6450874233 clean on 41359025b; local roborev:1279 clean on 41359025b (development feedback, not a round).
+Declined: Polish, F1 write-prompt q1 answer is stale text (answers are written by the fold tool, not by hand; the story's gap status already says the box is gone).
+Declined: Polish, F2 four exists stories keep "Gap:" answers from before r1.5 (same reason; lint passes).
