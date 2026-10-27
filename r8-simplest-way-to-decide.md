@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-10-27T18:43:04Z
+worktree: .worktrees/spacedock-ensign-r8-simplest-way-to-decide
 ---
 
 Round 8 of the POC flywheel under ADR 0008 is a design round with no product code: before any mockup, find the simplest usable way for the Captain to do his deciding tasks in the Bridge, on desktop and on phone.
