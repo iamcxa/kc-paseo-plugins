@@ -32,6 +32,7 @@ gates:
                 state: consumed
 started: 2026-10-27T03:07:01Z
 worktree: .worktrees/spacedock-ensign-r6-queue-you-can-scan
+pr: 54
 ---
 
 Round 6 of the POC flywheel under ADR 0008: queue titles are cut to a few words, an FO card mixes its items without separate taps, a failed check offers no way to look again, and the comms officer's question shows no age.
