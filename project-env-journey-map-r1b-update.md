@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-journey-map-r1b-update:ideation:attempt-1:revision-1
                 digest: sha256:e932eb2e47aecac943823ac94c5b699e6caec47d2f6d34c1829e6b67e24c33ff
                 room-ref: ./project-env-journey-map-r1b-update/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-journey-map-r1b-update:ideation:1
+                briefing: briefing:project-env-journey-map-r1b-update:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T18:47:56.335216Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate (sha256:e932eb2e), FO having recommended approval; approval also accepts the sixth edit (write-prompt and new-agent-instructions to gap). Asked: Approve the journey map edit design and AC-1 into implementation, including a sixth edit ...? Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-27T18:33:05Z
 ---
 
