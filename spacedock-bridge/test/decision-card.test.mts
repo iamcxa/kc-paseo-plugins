@@ -51,10 +51,10 @@ test("polling a newer open briefing ignores the older briefing's resolution", as
   };
   await act(async () => { root.render(createElement(DecisionCard, props)); });
   const poll = async () => { const callback = [...intervals.values()][0]; assert.ok(callback, "an unresolved briefing keeps polling"); await act(async () => callback()); };
-  assert.match(container.querySelector("output")!.textContent!, /add a reason/);
+  assert.equal(container.querySelector("output")!.textContent, "准,要求修改,暫緩|Message FO directly");
   await poll();
   assert.match(container.textContent!, /second/);
-  assert.match(container.querySelector("output")!.textContent!, /add a reason/);
+  assert.equal(container.querySelector("output")!.textContent, "准,要求修改,暫緩|Message FO directly");
   assert.doesNotMatch(container.textContent!, /Recorded: approved/);
   await poll();
   assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");
