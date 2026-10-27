@@ -16,6 +16,20 @@ gates:
                 id: briefing:r6-queue-you-can-scan:backlog:attempt-1:revision-1
                 digest: sha256:6e1ab56f564e5f4c83fc57326d9d29f736124f3c02e41e2d14dec6305c2f42aa
                 room-ref: ./r6-queue-you-can-scan/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r6-queue-you-can-scan:backlog:1
+                briefing: briefing:r6-queue-you-can-scan:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-27T03:05:12.732803Z"
+                decision: approve
+                reason: 'Accepts direction: Captain chose this theme in round 5 UAT; scope bounded by chief-engineer and frozen; stays inside the POC boundary; stacked unmerged on #49.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-26, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 6 of the POC flywheel under ADR 0008: queue titles are cut to a few words, an FO card mixes its items without separate taps, a failed check offers no way to look again, and the comms officer's question shows no age.
