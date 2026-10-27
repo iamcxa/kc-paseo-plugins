@@ -108,6 +108,7 @@ Direction alignment with the Captain: done — he approved opening the task on 2
 Result: this task's Scope; the ideation gate shows the notice text and the document.
 Release review: not needed: a small addition to what the r1 injection already does; it adds no journey story.
 Map footprints: not needed: no journey story or open map question is attached to this task.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-10-27: amendment 1 (2026-10-25) came before the ideation gate, and the Captain approved the design that carries it, AC-3 included, on 2026-10-26 (「准」, ideation attempt 2), so no approval was withdrawn after it was given; the build is checked against that approved design by validation cycles 1 and 2.
 
 ## Captain amendments
 
