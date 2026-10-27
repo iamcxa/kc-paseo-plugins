@@ -4,8 +4,8 @@ set -e
 export S=${1:?work dir} PORT=${2:?port}
 . "$(dirname "$0")/env.sh"
 [ -d "$CHECKOUT/project-env/client" ] || { echo "no project-env in $CHECKOUT"; exit 1; }
-paseo daemon stop --home "$S/home" >/dev/null 2>&1 || true
 if [ -e "$S" ] && [ -n "$(ls -A "$S")" ] && [ ! -f "$S/$MARKER" ]; then echo "$S is not an earlier capture directory"; exit 1; fi
+paseo daemon stop --home "$S/home" >/dev/null 2>&1 || true
 rm -rf "$S"
 mkdir -p "$S/home/plugin-settings/$PLUGIN_ID" "$S/plugin/server/fakes"
 touch "$S/$MARKER"
