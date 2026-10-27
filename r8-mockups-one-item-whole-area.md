@@ -80,3 +80,7 @@ Chrome 在一般 sandbox 未回應；允許本機 headless 擷取後成功。只
 ### Summary
 
 完成「單件全區、回清單選事」單一方向，保留獨立傳訊、必填理由、Confirm 及送出／轉送／記錄的差別。交付靜態 HTML、18 張 PNG、逐頁問題及可重製的離線檢查；POC 範圍止於設計稿，獨立設計總監審閱與 Captain 的 go 仍由 FO 接續。
+
+### FO findings before the gate
+
+- Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-10-28) on the mockups: NOT SATISFIED. Passed: whole-area layout; desktop decision controls the same 32 px height as send, phone ≥ 44×44; no next-item control or history view; Confirm, required reasons and separate messaging kept; assumptions accepted except "back to list". Blocks: back-to-list removes a gate that is only sent or relayed (only a recorded one leaves the list; sent and relayed must reopen to show progress); the unassigned-review path (open, prefilled ask → send, 2 steps) is missing. Annoys: REVIEW.md asks nine questions — keep them as reference and ask the Captain for one direction decision on the first page; move capture instructions to EVIDENCE.md; cut "Your decision has been recorded" (repeats the heading); say 已記錄後 not 錄製後; the per-page draft limit is a prototype limit, not a new product rule. FO authorizes one revision.
