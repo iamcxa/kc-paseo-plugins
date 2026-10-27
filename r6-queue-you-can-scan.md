@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 6 — a queue the Captain can scan without opening each item
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'Captain chat 2026-10-26, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Round 6 of the POC flywheel under ADR 0008: queue titles are cut to a few words, an FO card mixes its items without separate taps, a failed check offers no way to look again, and the comms officer's question shows no age.
