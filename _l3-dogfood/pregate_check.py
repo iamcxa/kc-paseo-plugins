@@ -79,6 +79,20 @@ def main(argv):
             if "FO declines" in item and not item.startswith("- Retracted"):
                 failures.append(f"FO note sends findings to FO declines as a rule; decide each finding instead: {item[:80]}")
 
+    for sec in sections(text, "### FO notes"):
+        for item in bullets(sec):
+            if "after the backlog gate" in item and item.startswith("- Added"):
+                if not any("Captain ruling" in other and "」" in other for other in bullets(sec)):
+                    failures.append(f"scope added after the backlog gate without a Captain ruling quoted under FO notes: {item[:80]}")
+
+    dispatch = task.parent / slug / "dispatch"
+    for record in sorted(dispatch.glob("*-followup-*.md")) if dispatch.is_dir() else []:
+        body = record.read_text()
+        corrected = any(record.name in item and item.startswith("- Process correction")
+                        for sec in sections(text, "### FO notes") for item in bullets(sec))
+        if "fix authorization" in body and re.search(r"\bread-only\b", body.split("## Scope notes")[0]) and not corrected:
+            failures.append(f"{record.name}: one dispatch asks for a read-only diagnosis and authorizes the fix; dispatch them separately")
+
     for f in failures:
         print("FAIL", f)
     print("PASS pre-gate record check" if not failures else f"{len(failures)} failure(s)")
