@@ -228,3 +228,32 @@ By FO now retains an unread question as a separate row unless that same question
 ### Summary
 
 Both views now retain unread question text and counts through the same shared builder, including combinations with gates, reviews and separately labelled questions. The regression table fails on the previous head and passes at f10a3f2; the new head has complete 360/1440 board and failed-source captures.
+
+## Stage Report: validation
+
+- DONE: Independent verdict on AC-1, AC-2 and AC-3 for PR #54 at the candidate head, from your own npm ci / typecheck / test run; your own rerun of the AC-1 fixture at 360 and 1440 px in both views (long titles wrap and stay readable, several items per FO are separate rows opening the right destination, counts match rows, an unlabelled unread question beside a gate shows its preview in both views, the comms question shows an honest age or "unknown"); your own mutation of the shared question builder showing the table test fails; your own isolated-daemon runtime check of a failed source: "Check again" goes pending then loaded or failed again, and the review source shows its next automatic check
+  Own npm ci/typecheck and 133/133 tests pass; ac1-{360-run2,1440}/ and runtime-360/ + question-1440/ prove both views, rows/destinations/counts/ages and retained unread preview; mutation.log rejects six combinations; runtime-360/observed.json proves pending → loaded/failed and a real review next-check.
+- DONE: A minimal acceptance script the FO can rerun as written in a fresh shell, with each step's expected output
+  Run `python3 /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r6-queue-you-can-scan/evidence/validation-1/acceptance.py`; fresh-shell execution passed all five expected PASS lines in 75.5s (acceptance-run.txt; acceptance-dlxcth_r/); README.md lists prerequisites, exact outputs and limits.
+- DONE: Material findings and limits, including that the draft store, keyboard hook and composer are unchanged, no persistence, timer, backoff or background recovery was added, and duplicate asks stay as two attributed rows (i4 did not qualify); do not re-report roborev findings 1235–1242 unless their evidence changes
+  No Material finding or POC crossing observed; safety.json proves unchanged draft store, keyboard hook and composers, eight owned daemons stopped/homes removed and candidate/main/live clean; identical comms/FO wording remains two attributed rows, with no common identity established.
+
+### Findings
+
+Verdict: PASSED — AC-1, AC-2 and AC-3 at candidate f10a3f29a43fb09adff4beda268799f514f7b43b, base 6f16429c24d4853c15698091f0fb42830185c951. No new findings; no candidate edit or commit.
+Evidence root: r6-queue-you-can-scan/evidence/validation-1/README.md. pr54-live.json independently confirms OPEN Draft PR #54 at this head with the required r5 base and no merge.
+AC-1: both widths/views show four 36px/two-line titles, six separate FO waiting rows, matching counts and correct four gate/review/question/comms destinations; ages are 2h or unknown. Both widths retain an unlabelled unread preview beside its gate, count two. Screenshots were visually inspected.
+Falsifier: disabling only the shared buildQueue unread fallback in a throwaway copy fails six of 12 table cases (seven including the parent), on “show the actual unread question exactly once”; copy removed. Existing implementation base-layout failure supports necessity but is not claimed as a fresh independent base run.
+AC-2: isolated runtime holds replacement subscription readiness after Check again, observes Loading with retry removed, then releases to loaded; repeats to continued failure. Mounted board/co-ask tests prove automatic/manual overlap, stale-response rejection and late-readiness cancellation; deleting guards or readiness ordering fails them. Actual server review scheduling supplies the visible next-check time; no immediate review retry is offered.
+AC-3: recorded live identity evidence at evidence/implementation/live-identity.json establishes no common request/owner/target/unanswered identity; current schemas still supply none. Own mounted/browser runs keep identical asks as two separately attributed comms/FO rows; i4 did not qualify.
+Goal sufficiency/minimal necessity: layout, per-item rows, shared preview and age support AC-1; guarded manual reads/readiness and honest existing schedule support AC-2; preserving source attribution supports AC-3. Existing interval durations are unchanged. No new persistence, timer, backoff, polling path, background recovery, relay protocol, permission or decision-recording duty was added.
+Protected files: use-draft.ts, shared/drafts.ts, use-composer-padding.ts, co-chat.tsx and decision-card.tsx are byte-identical to base (safety.json).
+Package checks: comment_ratio exit 0 (157 code/0 comment, 0.0%, max 5%); doc_impact exit 0 (zero listed; changed OVERVIEW claims match behavior); number_guards exit 0; dispatch_records exit 0 (nine complete, requests trace to AC-1/2/3 and recorded FO dispositions).
+ADR lint: `python3 /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.30.0/scripts/adr_lint.py docs/adr --since 6f16429c24d4853c15698091f0fb42830185c951 --require 0008` exits 0, seven records checked; ADR 0008 is Accepted at base and candidate, sha256:d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f.
+SKIPPED: design_surfaces.py exit 1 is known package gap 2 (missing FO Surfaces/Visible change); number-guard R4 gap 3 did not occur. roborev not run: package gap 5; FO owns the recorded 1246 clean result. No changed evidence warrants reopening findings 1235–1242.
+Limits: synthetic browser/SDK and guarded-read proof; no native-phone UAT, live external recovery, Captain acceptance, gate approval, merge or release. Initial sandbox socket/network refusals and existing-output-directory rejection are harness limits documented in README.md, not product failures.
+Cleanup: safety.json rechecks all eight captured daemon PIDs absent, homes/profile roots removed, mutation copy removed, and candidate/main/live worktrees clean. Only this task's report/evidence are committed to the state checkout. The live daemon was not changed.
+
+### Summary
+
+Independent POC validation passes all three acceptance criteria at the exact dispatched head, with a failing mutation and an exercised five-step acceptance script. FO retains the fresh-shell rerun, gate decision and any later delivery action; the stacked PR remains Draft and unmerged.

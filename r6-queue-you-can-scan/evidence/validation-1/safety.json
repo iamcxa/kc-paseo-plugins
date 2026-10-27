@@ -1,0 +1,131 @@
+{
+  "candidate": {
+    "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan",
+    "head": "f10a3f29a43fb09adff4beda268799f514f7b43b",
+    "branch": "spacedock-ensign/r6-queue-you-can-scan",
+    "status": ""
+  },
+  "main": {
+    "path": "/Users/kent/Project/kc-paseo-plugins",
+    "head": "0b55dfd1a534b8dbd04bd1739ca2037e92202f55",
+    "branch": "main",
+    "status": ""
+  },
+  "live": {
+    "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+    "head": "6f16429c24d4853c15698091f0fb42830185c951",
+    "branch": "",
+    "status": ""
+  },
+  "cleanup": [
+    {
+      "fixture": "ac1-360-run2",
+      "captured_daemon_pid": 71086,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-qg4v9cfw",
+      "home_removed": true,
+      "ports": [
+        54901,
+        54902
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "ac1-1440",
+      "captured_daemon_pid": 53980,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-rmb68l8t",
+      "home_removed": true,
+      "ports": [
+        53004,
+        53005
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "question-1440",
+      "captured_daemon_pid": 62724,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-yqd4_w5d",
+      "home_removed": true,
+      "ports": [
+        54049,
+        54050
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "runtime-360",
+      "captured_daemon_pid": 63034,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-cply_ctm",
+      "home_removed": true,
+      "ports": [
+        54155,
+        54156
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "acceptance-dlxcth_r/question-1440",
+      "captured_daemon_pid": 11974,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-q9vxdxmx",
+      "home_removed": true,
+      "ports": [
+        60018,
+        60019
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "acceptance-dlxcth_r/runtime-360",
+      "captured_daemon_pid": 11938,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-3935fb2h",
+      "home_removed": true,
+      "ports": [
+        60019,
+        60020
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "acceptance-dlxcth_r/ac1-1440",
+      "captured_daemon_pid": 2861,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-obkqwexz",
+      "home_removed": true,
+      "ports": [
+        59598,
+        59599
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    },
+    {
+      "fixture": "acceptance-dlxcth_r/ac1-360",
+      "captured_daemon_pid": 2863,
+      "isolated_root": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r6-queue-you-can-scan/.closed-proof-h0rhf9vg",
+      "home_removed": true,
+      "ports": [
+        59599,
+        59600
+      ],
+      "browser_closed": true,
+      "pidAlive": false
+    }
+  ],
+  "unchangedFiles": {
+    "spacedock-bridge/client/use-draft.ts": "2a29e9f67d38c592328e60cca80254a9ab1221efae3f21cce20557ee30d5ece6",
+    "spacedock-bridge/shared/drafts.ts": "1b3e1aecaf6fce9a895b8d23c6595849f25aef385ce52be6e98757bfb16e22c3",
+    "spacedock-bridge/client/use-composer-padding.ts": "6f8d7b7b74790a3357e2d3fea0c17048ffcb171fa55b02245c496b0652a84cbf",
+    "spacedock-bridge/client/co-chat.tsx": "9073726906efc02c9921fc0f63220e9df92505d1057d3b0d44d968b44657ba83",
+    "spacedock-bridge/client/decision-card.tsx": "d3290fb94426c15d5eaff50c978ec2dacc26570f46258352a4dba241a7440251"
+  },
+  "versions": {
+    "node": "v24.18.0",
+    "npm": "11.12.0",
+    "paseo": "0.13.0",
+    "agent-browser": "agent-browser 0.32.0"
+  }
+}

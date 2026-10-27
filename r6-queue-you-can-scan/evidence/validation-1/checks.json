@@ -1,0 +1,27 @@
+{
+  "comment_ratio": {
+    "exit": 0,
+    "output": "code lines 157, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+  },
+  "doc_impact": {
+    "exit": 0,
+    "output": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n"
+  },
+  "adr_lint": {
+    "exit": 0,
+    "output": "7 ADR file(s) checked, 0 legacy\n"
+  },
+  "number_guards": {
+    "exit": 0,
+    "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 0b55dfd1a534 head f10a3f29a43f merge-base 78ce6c1cbcf1\n"
+  },
+  "design_surfaces": {
+    "exit": 1,
+    "output": "r6-queue-you-can-scan.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nr6-queue-you-can-scan.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is validation, not ideation\n"
+  },
+  "dispatch_records": {
+    "exit": 0,
+    "output": "9 dispatch record(s) complete\n"
+  },
+  "adr0008sha256": "d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f"
+}
