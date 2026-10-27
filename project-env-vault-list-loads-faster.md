@@ -1,7 +1,7 @@
 ---
 id:
 title: The field picker's vault list loads faster
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
