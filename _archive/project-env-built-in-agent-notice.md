@@ -1,12 +1,12 @@
 ---
 id:
 title: Every agent that receives project variables is told where they come from and what to do when one is blank
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-built-in-agent-notice
-pr:
+pr: pr-merge:53
 gates:
     version: 1
     records:
@@ -92,8 +92,11 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-27, on the validation gate attempt 2 (sha256:0c49ae97), approving validation and the two proposed declines (F2 Polish, F3 Deferred risk) at candidate 231c30abcf52405a87dfd9a0e528ae3e94d8f148. Asked: Approve validation of the built-in notice (PR #53 at 231c30a) and the two proposed declines? Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-25T13:53:45Z
+verdict: PASSED
+completed: 2026-10-27T03:15:40Z
+archived: 2026-10-27T03:15:40Z
 ---
 
 From the Captain's UAT discussion on 2026-10-24. He found the default-prompt box 「稍嫌多餘」 but liked using it to tell agents 「這個 repo 的金鑰都已經在環境變數裡，不要叫使用者貼 token，也不要把值印出來」, and asked whether a default like that should also 「讓agent 知道有這個套件存在，有問題可以知道排查方向，例如讀取套件文件」. He approved opening the task with 「開」, and asked 「是否不需要列出有哪些金鑰？」; the FO recommends not listing them, and he confirms at the ideation gate.
