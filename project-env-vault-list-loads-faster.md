@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-vault-list-loads-faster:validation:attempt-1:revision-1
                 digest: sha256:d9b904bf462889971a7c0f0c1390157089a48adaea17a3cfd0a41134cd540d9e
                 room-ref: ./project-env-vault-list-loads-faster/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-vault-list-loads-faster:validation:1
+                briefing: briefing:project-env-vault-list-loads-faster:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-27T05:02:44.291977Z"
+                decision: approve
+                reason: '「那就准」 — Captain in FO chat, 2026-10-27, on the validation gate (sha256:d9b904bf) after FO answered his question on how the speed-up works; FO had recommended approving. Approves validation and the two proposed declines (F1, F2 Deferred risk) at candidate 924d213e844c1e123bba6d56a8bc784f74c9ad54. Asked: Approve validation of the faster vault list (PR #55 at 924d213) and the two proposed declines? Approval lets FO merge and reload under ADR 0007 class 2; the Captain then gives UAT.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-27T03:20:52Z
 ---
 
