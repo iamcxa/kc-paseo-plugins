@@ -70,6 +70,7 @@ Verified by: the recorded live-board check; duplicate and non-duplicate test cas
 Alignment: not needed: the Captain chose this theme in round 5 UAT; scope from the whole-product walk and chief-engineer triage recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra xhigh 2026-10-27 — scope round 6 (a queue the Captain can scan) after his round 5 UAT and the whole-product walk
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra xhigh 2026-10-27 — is round 6 converging after roborev 1235, 1236, 1238 and 1239 (1239 on the surface the 1238 fix touched); repair, decline or revert
 
 ## Stage Report: implementation
 
