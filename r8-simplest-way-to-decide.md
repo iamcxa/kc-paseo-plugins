@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r8-simplest-way-to-decide
+gates:
+    version: 1
+    records:
+        - id: gate:r8-simplest-way-to-decide:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r8-simplest-way-to-decide-backlog-1
+              briefing:
+                id: briefing:r8-simplest-way-to-decide:backlog:attempt-1:revision-1
+                digest: sha256:35e4a6acac237f064ae8e8de77df90557d4d6c4f4aefbb73bf94db43b7129a08
+                room-ref: ./r8-simplest-way-to-decide/review/backlog/briefing-1
 ---
 
 Round 8 of the POC flywheel under ADR 0008 is a design round with no product code: before any mockup, find the simplest usable way for the Captain to do his deciding tasks in the Bridge, on desktop and on phone.
