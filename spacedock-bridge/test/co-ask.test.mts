@@ -59,3 +59,48 @@ test("a reconnect detects the last displayed Captain question after earlier FO w
   });
   assert.equal(container.textContent, "loaded: Choose the theme (you)");
 });
+
+
+test("manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses", async (t) => {
+  const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
+  Object.assign(globalThis, { window: dom.window, document: dom.window.document });
+  const container = dom.window.document.getElementById("root")!;
+  const root = createRoot(container);
+  t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
+  type Page = { entries: { seqStart: number; timestamp?: string; item: { type: string; text: string } }[] };
+  const reads: { resolve(page: Page): void; reject(error: Error): void }[] = [];
+  const scheduled: (() => void)[] = [];
+  t.mock.method(globalThis, "setTimeout", (fn: () => void) => { scheduled.push(fn); return 1; });
+  t.mock.method(globalThis, "clearTimeout", () => {});
+  let event!: (value: PaseoAgentTimelineEvent) => void;
+  let retry!: () => void;
+  const handle = { status: "idle", subscribe: () => () => {}, timeline: {
+    refetch: () => new Promise<Page>((resolve, reject) => reads.push({ resolve, reject })),
+    subscribe: (fn: typeof event) => { event = fn; return Object.assign(() => {}, { ready: Promise.resolve() }); },
+  } };
+  const paseo = { agents: { ref: () => handle } } as unknown as PaseoApi;
+  function Question() {
+    const result = useCoAsk("co"); retry = result.retry;
+    return createElement("output", null, `${result.state}|${result.ask}|${result.since}`);
+  }
+  const page = (timestamp?: string): Page => ({ entries: [{ seqStart: 2, timestamp, item: { type: "assistant_message", text: "Next: Choose release (you)" } }] });
+  await act(async () => root.render(createElement(PaseoApiProvider, { paseo, children: createElement(Question) })));
+  await act(async () => reads[0].reject(Error("offline")));
+  assert.match(container.textContent!, /^failed/);
+  await act(async () => retry());
+  assert.match(container.textContent!, /^loading/);
+  await act(async () => reads[1].reject(Error("still offline")));
+  assert.match(container.textContent!, /^failed/);
+  await act(async () => retry());
+  await act(async () => reads[2].resolve(page("2026-10-27T00:00:00Z")));
+  assert.match(container.textContent!, /^loaded\|Choose release \(you\)\|2026-10-27T00:00:00Z$/);
+  await act(async () => {
+    event({ agentId: "co", subscriptionId: "fixture", event: { type: "subscription_restored" } });
+    scheduled.pop()!();
+  });
+  await act(async () => retry());
+  await act(async () => reads[4].resolve(page()));
+  assert.equal(container.textContent, "loaded|Choose release (you)|null");
+  await act(async () => reads[3].reject(Error("stale")));
+  assert.equal(container.textContent, "loaded|Choose release (you)|null");
+});

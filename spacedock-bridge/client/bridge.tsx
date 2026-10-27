@@ -1,5 +1,5 @@
 import { useRpc } from "@getpaseo/plugin/client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { openCoordinator } from "../shared/coordinator";
@@ -13,21 +13,26 @@ export function Bridge(props: BoardProps) {
   const [coId, setCoId] = useState("");
   const [error, setError] = useState("");
   const [tab, setTab] = useState<"fos" | "co">("fos");
-  const { ask, state: askState } = useCoAsk(coId);
+  const { ask, since, state: askState, retry: retryAsk } = useCoAsk(coId);
   const commsState = error ? "failed" : askState;
-  const coAsk = ask ? { text: ask, onPress: () => setTab("co") } : null;
+  const coAsk = ask ? { text: ask, since, onPress: () => setTab("co") } : null;
   const [seed, setSeed] = useState<{ text: string; nonce: number } | null>(null);
   const onAskCo = useCallback((text: string) => {
     setSeed({ text, nonce: Date.now() });
     setTab("co");
   }, []);
 
-  useEffect(() => {
-    callOpenCoordinator({}).then(
-      ({ agentId }) => setCoId(agentId),
-      (e: unknown) => setError(String(e)),
+  const coordinatorRequest = useRef(0);
+  const connectCoordinator = useCallback(() => {
+    const request = ++coordinatorRequest.current;
+    setError("");
+    return callOpenCoordinator({}).then(
+      ({ agentId }) => { if (request === coordinatorRequest.current) setCoId(agentId); },
+      (e: unknown) => { if (request === coordinatorRequest.current) setError(String(e)); },
     );
   }, [callOpenCoordinator]);
+  useEffect(() => { void connectCoordinator(); return () => { ++coordinatorRequest.current; }; }, [connectCoordinator]);
+  const retryComms = () => error ? void connectCoordinator() : retryAsk();
 
   const colors = theme.colors;
   const styles = useMemo(
@@ -85,7 +90,7 @@ export function Bridge(props: BoardProps) {
             </Pressable>
           ))}
         </View>
-        <View style={styles.pane}>{tab === "fos" ? <Board {...props} coAsk={coAsk} commsState={commsState} onAskCo={onAskCo} /> : chat}</View>
+        <View style={styles.pane}>{tab === "fos" ? <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} /> : chat}</View>
       </View>
     );
   }
@@ -95,7 +100,7 @@ export function Bridge(props: BoardProps) {
       <View style={styles.pane}>{chat}</View>
       <View style={styles.divider} />
       <View style={styles.boardPane}>
-        <Board {...props} coAsk={coAsk} commsState={commsState} onAskCo={onAskCo} />
+        <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} />
       </View>
     </View>
   );
