@@ -1,0 +1,24 @@
+== 1. candidate checkout from git archive (scratch git repo so the lint's git grep works)
+ok
+== 2. journey lint with explicit repo root: expect exit 0 and last line 'all lints pass'
+exit=0
+all lints pass
+== 3. diff against base touches only the journey file: expect exactly one path, 13 insertions, 11 deletions
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+docs/journey/project-env/give-agents-their-project-setup.yaml
+== 4. each exists story's evidence symbol has a non-test hit on origin/main (bed5a66): expect 4 'ok' lines
+origin/main is bed5a6644c646e91c9cbc235807f33bce878cc8f
+ok storeToken non-test hits=7
+ok tokenStatus non-test hits=7
+ok nameFromLabel non-test hits=7
+ok testProject non-test hits=4
+== 5. the four stories' tasks are merged into main: expect 4 'MERGED' lines
+#21 MERGED
+#15 MERGED
+#17 MERGED
+#20 MERGED
+== 6. read-the-docs quotes the Captain; agent-lays-out-vault carries no release; promptStyle gone from main
+read-the-docs quote lines (expect 1): 1
+agent-lays-out-vault release lines (expect 0): 0
+promptStyle hits on main (expect 0): 0
+exit=0

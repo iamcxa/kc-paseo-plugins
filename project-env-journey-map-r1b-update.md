@@ -192,3 +192,16 @@ The six edits are applied as designed and AC-1 clauses (a), (b) and (c) pass at 
 ### Summary
 
 PASSED: the candidate is a one-file journey edit identical to the approved six-edit design, the lint exits 0 from a git archive, evidence symbols are on main, the four r1.5 PRs are merged, the quote and r1b removal are as ruled. Two Polish findings (stale answer text) and the unverified list above remain; none blocks AC-1.
+
+### FO acceptance rerun (2026-10-28)
+
+FO ran `evidence/val/acceptance.sh` in a fresh `env -i` shell against 4135902: all six steps gave the expected output, exit 0 (`evidence/fo-acceptance-rerun-4135902.txt`).
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，這輪維持」 on 2026-10-26, not restored in writing since). FO merges under class 2 only after his approved validation.
+
+### FO declines (proposed; the Captain rules)
+
+- Validation-1 F1 (Polish), candidate revision 41359025bec74c8b9b84918d09dfeb2c2f0a7e48: `write-prompt` q1 still answers "they stay for Kent's own use" while the story is now `gap`. Proposed decline: the approved design left question answers untouched, and the kc-journey-map skill says a question's `answer`, `status` and `source` may be written by `lib/journey-fold.mjs` and are not rewritten by hand; the story's `gap` status already says the box is gone. Material if the map is read as claiming the prompt box exists; candidate fix: answer the question through the fold in its own task.
+- Validation-1 F2 (Polish), candidate revision 41359025bec74c8b9b84918d09dfeb2c2f0a7e48: the four stories now `exists` keep "Gap: …" answers describing the pre-r1.5 behaviour. Proposed decline: same reason; the answers record what was true when the questions were settled, and the lint passes. Material if a reader takes those answers as today's state; candidate fix: the same fold task.
