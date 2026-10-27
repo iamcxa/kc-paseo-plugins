@@ -16,6 +16,20 @@ gates:
                 id: briefing:r8-simplest-way-to-decide:backlog:attempt-1:revision-1
                 digest: sha256:35e4a6acac237f064ae8e8de77df90557d4d6c4f4aefbb73bf94db43b7129a08
                 room-ref: ./r8-simplest-way-to-decide/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r8-simplest-way-to-decide:backlog:1
+                briefing: briefing:r8-simplest-way-to-decide:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-10-27T18:42:18.000406Z"
+                decision: approve
+                reason: 'Accepts direction: the Captain chose this design-round form on 2026-10-28 and asked for the simplest UX before any UI work; step 1 has no visuals, no product code and no PR.'
+                conn:
+                    quote: 可以，注意要先找出適用情境中最簡單易用的 UX再做設計，不要急著做 UI 改進
+                    source: 'Captain chat 2026-10-28, answering 「第 8 輪照上面的方式改成設計稿回合、主題用這兩個回饋，可以嗎？」; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 8 of the POC flywheel under ADR 0008 is a design round with no product code: before any mockup, find the simplest usable way for the Captain to do his deciding tasks in the Bridge, on desktop and on phone.
