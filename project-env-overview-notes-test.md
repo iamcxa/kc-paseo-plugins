@@ -1,7 +1,7 @@
 ---
 id:
 title: The troubleshooting-notes test passes again on main
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate (sha256:01d43125), FO having recommended approval. Asked: Approve the notes-test fix design (the test matches each cause''s ### heading line ...) and AC-1 into implementation? Say if you object to any part.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-28T12:10:48Z
 ---
 
