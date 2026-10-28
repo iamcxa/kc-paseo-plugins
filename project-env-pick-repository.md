@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-pick-repository
-pr:
+pr: iamcxa/kc-paseo-plugins#61
 journey: paseo-project-env
 journey-release: r1b
 journey-story: pick-repository
