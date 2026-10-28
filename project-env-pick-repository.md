@@ -32,6 +32,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-pick-repository:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-pick-repository-ideation-1
+              briefing:
+                id: briefing:project-env-pick-repository:ideation:attempt-1:revision-1
+                digest: sha256:a4fa7e4d9c604769a4b51dddcb3b1289e53e03a5c855f6a2e43ce1af2223ae7b
+                room-ref: ./project-env-pick-repository/review/ideation/briefing-1
 started: 2026-10-28T01:10:58Z
 ---
 

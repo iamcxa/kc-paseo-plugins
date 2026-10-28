@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-pick-repository:ideation:attempt-1:revision-1",
+  "question": "Approve the pick-repository design (the Add a project row always says what to do next: no project, all configured, list failed with Try again; select unchanged) and AC-1 and AC-2 into implementation, accepting the 8 px label shift between the loading row and the select row? FO recommends approving. Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-pick-repository:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/ae2bd1fe847886beb3d642e72eaf772b6da1eb4d/project-env-pick-repository.md",
+      "rev": "sha256:f1c970770cf69469aeee11391073bb88436e2b72b5dc5e4205e95e572c528226",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Four states plus loading, previews at 1280 and 400 px; steps match the docs' Prepare page and a running Paseo 0.13.0. One pure function in shared/project-list.ts, one component, one Prepare sentence; screenshot 03 unchanged. 6 unit tests; removing either new branch fails one. AC-2 (added by the worker): failed Try again returns to the failure sentence; a repository added via the sidebar appears without reload. Failure is ~7 s after opening (Paseo retries 3 times). Open point: 8 px label shift (director overruled the decline). design_surfaces exit 0."
+    }
+  ]
+}
