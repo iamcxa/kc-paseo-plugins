@@ -1,0 +1,9 @@
+PR head 7d74145fc65b1b21251bf3cf07b41bbd400b98e2 equals dispatched candidate 7d74145fc65b1b21251bf3cf07b41bbd400b98e2; no second reviewer outcome is missing
+point: deferred: 'Declined: Polish, F1 OVERVIEW setup step'
+point: deferred: 'Declined: Polish, F2 refocusing a failed'
+point: deferred: 'Declined: Polish, F3 Try again tap'
+point: surface: 'ui'
+point: title: 'feat(project-env): the Add a project row'
+class: other (verdict ask)
+record: project-env-pick-repository/merge/ask-1.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.
