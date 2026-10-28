@@ -146,3 +146,35 @@ The 8 failures are one cause: #58 made the cause sentences headings without the 
 ### Summary
 
 The test now requires the exact line `### <causeSentence(cause) without its period>`; no other file changed. AC-1 holds at the candidate: green suite, clean typecheck, and each of the eight heading deletions fails exactly its own cause test. Falsifier for the diff: reverting it brings back the 8 failures measured at d973876 (298 pass / 8 fail). No findings; no ADR added or changed.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate ad347406fba976ba59417461ed4d0786145d0c52 (PR iamcxa/kc-paseo-plugins#62, base main d973876) against AC-1: from git archive run `npm ci && npm test` (306 of 306) and `npm run typecheck`, confirm the diff against d973876 is only the approved three-line change to project-env/test/agent-notice.test.ts, and run the per-heading deletion yourself (each deletion fails exactly its own cause's test); give a verdict.
+  Verdict: PASSED, no findings. Archive of ad34740 in /tmp: `npm ci` ok, `npm test` 306 tests / 306 pass / 0 fail, `npm run typecheck` exit 0 (`evidence/val/npm-test-candidate.txt`). `git diff d973876 ad34740`: one file, 3 insertions 2 deletions, hunk identical to the approved `evidence/agent-notice.test.ts.diff`. I deleted each of the 8 `### ` lines in turn and ran the full `npm test`: every run 305 pass / 1 fail, and the one failure is `explain <cause> with the words the screen shows` for exactly the cause whose heading was removed (no-token, rejected-token, missing-field, unreachable, empty, outside-vault, reserved-name, unexpected; heading to cause mapping read from `causeText` in `shared/cause.ts`); `evidence/val/mutation-run-validator.txt`. Falsifier of the diff: reverting it restores the 8 failures measured at d973876 (298 / 8), per ideation evidence; I did not rerun that.
+  Other checks at the candidate (package 0.32.0): adr_lint `--since d973876` exit 0 (no ADR added or changed); comment_ratio 3 code lines, 0 comment lines, exit 0; doc_impact 0 documents mention the change; dispatch_records 3 records complete; design_surfaces presentable (Surfaces: none, no built screen review owed); no `## Number guards` section. PR #62 is open and draft, head ad34740, its only check (GitGuardian) passed.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell and record every unverified obligation.
+  Script at `evidence/val/acceptance.sh` (six steps, about 1 minute; I ran it in a fresh `env -i` shell and it printed every expected line). Not covered: the docs site rendering of the headings, the other 7 workflows' tests (none in this repo besides project-env), and the live plugin (the test reads shipped notes only).
+
+### Findings
+
+None.
+
+### Unverified obligations
+
+- Repository CI for project-env tests: PR #62 shows only a GitGuardian check, so no CI run of `npm test` exists; the 306 of 306 here is a local run on Node of this machine, not a CI result.
+- The pre-fix 298 / 8 baseline is taken from the ideation report, not rerun here.
+- Dispatch named package root 0.32.1; the validation skill loaded 0.32.0, whose scripts I used as the skill instructs. Both are installed; results were not compared across the two.
+
+### Minimal acceptance script
+
+Run `sh /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-overview-notes-test/evidence/val/acceptance.sh` (needs git, node, npm; works on a temp copy, changes nothing in the repository). Expected, in order:
+1. `git diff --stat d973876 ad34740`: `project-env/test/agent-notice.test.ts | 5 +++--`, 1 file changed, 3 insertions, 2 deletions.
+2. `npm ci ok`.
+3. `ℹ tests 306`, `ℹ pass 306`, `ℹ fail 0`.
+4. `typecheck exit 0`.
+5. After deleting the line `### Reserved name` from the copy's `OVERVIEW.md`: `ℹ tests 306`, `ℹ pass 305`, `ℹ fail 1`, and the failing test `explain reserved-name with the words the screen shows`.
+Does not cover: other headings (the full eight are in `evidence/val/mutation-run-validator.txt`), CI, the rendered docs site.
+
+### Summary
+
+Candidate ad34740 passes AC-1: the suite is green, typecheck is clean, the diff is only the approved three-line test change, and each of the eight heading deletions fails exactly its own cause's test. No findings; recommend PASSED. Nothing was changed in the repository or the live plugin; work copies are in /tmp.

@@ -1,0 +1,16 @@
+delete line 44 [### No token stored for this service account] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (1.115916ms);
+delete line 48 [### 1Password rejected the token] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (3.009375ms);
+delete line 52 [### Field not found in the vault] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (2.963ms);
+delete line 56 [### 1Password could not be reached] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (1.246792ms);
+delete line 60 [### The 1Password field is empty] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (1.007917ms);
+delete line 64 [### Reference points outside the chosen vault] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (2.007959ms);
+delete line 68 [### Reserved name] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (3.931916ms);
+delete line 72 [### 1Password returned an error the plugin does not recognise] exit=1 ℹ tests 306 ℹ pass 305 ℹ fail 1  failed: ✖ failing tests:;✖ the troubleshooting notes (0.98775ms);
+line 44: ✖ explain no-token with the words the screen shows
+line 48: ✖ explain rejected-token with the words the screen shows
+line 52: ✖ explain missing-field with the words the screen shows
+line 56: ✖ explain unreachable with the words the screen shows
+line 60: ✖ explain empty with the words the screen shows
+line 64: ✖ explain outside-vault with the words the screen shows
+line 68: ✖ explain reserved-name with the words the screen shows
+line 72: ✖ explain unexpected with the words the screen shows
