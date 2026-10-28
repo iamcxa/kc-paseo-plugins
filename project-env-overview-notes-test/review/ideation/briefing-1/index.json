@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-overview-notes-test:ideation:attempt-1:revision-1",
+  "question": "Approve the notes-test fix design (the test matches each cause's ### heading line, the sentence without its final period; OVERVIEW.md and cause.ts unchanged) and AC-1 into implementation? FO recommends approving. Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-overview-notes-test:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/b931eee654a3fc93b3c006a3be5051be7b784df2/project-env-overview-notes-test.md",
+      "rev": "sha256:f47f96c8221f74e1d457175817faa1eef167f8fd43baee14dc39962bbb8e9519",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. One test, three lines. On a throwaway copy of d973876: baseline 298/306 with the same 8 failures; with the diff 306/306 and typecheck clean; deleting each cause heading in turn fails exactly that cause's test. Headings stay because the docs site links to them; causeSentence keeps its period for the screen. Must land before pick-repository's validation."
+    }
+  ]
+}
