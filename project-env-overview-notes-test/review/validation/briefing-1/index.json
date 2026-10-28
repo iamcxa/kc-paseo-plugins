@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-overview-notes-test:validation:attempt-1:revision-1",
+  "question": "Approve validation of the notes-test fix (PR #62 at ad34740)? FO recommends approving. Approval lets FO merge it under ADR 0007 class 2, unless the Captain says he merges or holds; no plugin reload is needed.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-overview-notes-test:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/ba2f830deac2531ff698cb8f3fd3d9827ca85520/project-env-overview-notes-test.md",
+      "rev": "sha256:826409e7762bd70402f2b944cf02c889a61640354b15165d5ad49989dfc2b116",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation-1 PASSED at ad34740, no findings: npm test 306/306, typecheck clean, diff equals the approved three lines, each of eight heading deletions fails exactly its own test. FO fresh-shell rerun matched. External review rounds: 1 — Codex summary:6469032886 clean after one stall and one re-request; roborev:1302 clean. delivery_gate question and check exit 0. Turns main green for pick-repository's validation."
+    }
+  ]
+}

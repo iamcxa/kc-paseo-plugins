@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-overview-notes-test:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-overview-notes-test-validation-1
+              briefing:
+                id: briefing:project-env-overview-notes-test:validation:attempt-1:revision-1
+                digest: sha256:d4fd06e37a0ee3c97af58f88307edc6a61f2c94d0c90767a6a69f9212cab3580
+                room-ref: ./project-env-overview-notes-test/review/validation/briefing-1
 started: 2026-10-28T12:10:48Z
 ---
 
