@@ -1,0 +1,18 @@
+diff --git a/project-env/test/agent-notice.test.ts b/project-env/test/agent-notice.test.ts
+index f3ddbe3..c01469e 100644
+--- a/project-env/test/agent-notice.test.ts
++++ b/project-env/test/agent-notice.test.ts
+@@ -92,10 +92,11 @@ describe("the notice a new agent receives", () => {
+ });
+ 
+ describe("the troubleshooting notes", () => {
+-  const notes = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8");
++  const lines = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8").split("\n");
+   for (const cause of CAUSES) {
+     it(`explain ${cause} with the words the screen shows`, () => {
+-      assert.ok(notes.includes(causeSentence(cause)), causeSentence(cause));
++      const heading = `### ${causeSentence(cause).slice(0, -1)}`;
++      assert.ok(lines.includes(heading), heading);
+     });
+   }
+ });

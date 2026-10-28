@@ -1,0 +1,49 @@
+== deleted heading: No token stored for this service account
+✖ the troubleshooting notes (0.951959ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain no-token with the words the screen shows (0.466167ms)
+== deleted heading: 1Password rejected the token
+✖ the troubleshooting notes (0.962417ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain rejected-token with the words the screen shows (0.376625ms)
+== deleted heading: Field not found in the vault
+✖ the troubleshooting notes (0.927375ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain missing-field with the words the screen shows (0.392584ms)
+== deleted heading: 1Password could not be reached
+✖ the troubleshooting notes (0.946458ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain unreachable with the words the screen shows (0.370459ms)
+== deleted heading: The 1Password field is empty
+✖ the troubleshooting notes (2.172958ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain empty with the words the screen shows (0.869208ms)
+== deleted heading: Reference points outside the chosen vault
+✖ the troubleshooting notes (0.927917ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain outside-vault with the words the screen shows (0.364333ms)
+== deleted heading: Reserved name
+✖ the troubleshooting notes (1.632833ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain reserved-name with the words the screen shows (0.677166ms)
+== deleted heading: 1Password returned an error the plugin does not recognise
+✖ the troubleshooting notes (0.947ms)
+ℹ pass 305
+ℹ fail 1
+✖ explain unexpected with the words the screen shows (0.33975ms)
+== restored
+ℹ pass 306
+ℹ fail 0
+== heading kept as bold-less plain line (not a heading)
+✖ the troubleshooting notes (0.919542ms)
+ℹ pass 305
+ℹ fail 1
+✖ failing tests:
+✖ explain reserved-name with the words the screen shows (0.357417ms)

@@ -44,7 +44,7 @@ Stop condition: `npm test` passes on the candidate and the acceptance criterion 
 ## Acceptance criteria
 
 **AC-1**: On the candidate `npm test` passes, and the troubleshooting-notes test still fails when one cause heading is removed from `OVERVIEW.md`.
-Verified by: `npm test` from a git archive of the candidate, plus a mutation run that deletes one cause heading and shows exactly that cause's test failing.
+Verified by: from a `git archive` of the candidate, `cd project-env && npm ci && npm test` reports 306 tests, 0 failures; then for each of the eight cause headings, delete that one `### ` line from `OVERVIEW.md` and run `npm test`: it reports 305 passed and 1 failed, and the failure is `explain <that cause> with the words the screen shows`. Reproduced on a throwaway copy of d973876 with the diff below: `evidence/mutation-run.txt` in this task's folder.
 
 ## FO alignment
 
@@ -53,3 +53,66 @@ Visible change: none
 Direction alignment with the Captain: done — he answered 「開」 on 2026-10-28 to FO's recommendation to fix this before validating pick-repository.
 Release review: not needed: a test repair with no journey story.
 Map footprints: not needed: no journey question is touched.
+
+## Design
+
+**Press release.** `npm test` on main passes again, 306 of 306, and the troubleshooting-notes test still guards what it was written for: every reason a variable can come up blank has its own heading in `OVERVIEW.md`.
+
+**FAQ.**
+- *What is wrong?* The test looks for each reason's sentence with its final period; #58 made those sentences `###` headings with no period. Nothing in the plugin's running code changed.
+- *Why match the heading instead of changing `OVERVIEW.md`?* Putting the periods back, or going back to bold sentences, would undo #58's headings, which the docs site renders as its reference page (`reference.md` includes `OVERVIEW.md`, and other pages link to `#when-a-variable-is-blank`) and is a rewording the Scope excludes.
+- *Why not just drop the period from the old substring check?* A bare `includes` of "Reserved name" or "1Password rejected the token" would pass if those words appeared anywhere in the page, such as a body sentence. The test exists to prove a heading is there, so the new check matches the whole line `### <sentence without its period>`. This comparison is reasoning, not a measured run.
+- *Is `causeSentence` changed?* No. It still returns the sentence with a period, which the screen and `test-marks.test.ts` rely on; the test removes the period with `.slice(0, -1)`, safe because `test-marks.test.ts` asserts every `causeSentence(c)` matches `^...\.$`.
+
+**Existing-code check.** Existing code: `causeSentence`, `CAUSES` and the test. Observation: on d973876, `npm test` gives 306 tests, 298 pass, 8 fail, all `explain <cause> with the words the screen shows` (reproduced on a throwaway `git archive`). Conclusion: repair the test in place; no new function, no change to `shared/cause.ts` or `OVERVIEW.md`.
+
+```mermaid
+flowchart LR
+  A[CAUSES: eight cause ids] --> B["causeSentence(cause) + period"]
+  B --> C["test strips the period and adds '### '"]
+  D["OVERVIEW.md split into lines"] --> E{"a line equals the heading?"}
+  C --> E
+  E -- yes --> F[that cause's test passes]
+  E -- "no: heading deleted, reworded or demoted" --> G[that cause's test fails, named by cause id]
+```
+
+**The exact diff** (`evidence/agent-notice.test.ts.diff`, applies with `git apply` to d973876):
+
+```diff
+ describe("the troubleshooting notes", () => {
+-  const notes = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8");
++  const lines = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8").split("\n");
+   for (const cause of CAUSES) {
+     it(`explain ${cause} with the words the screen shows`, () => {
+-      assert.ok(notes.includes(causeSentence(cause)), causeSentence(cause));
++      const heading = `### ${causeSentence(cause).slice(0, -1)}`;
++      assert.ok(lines.includes(heading), heading);
+     });
+   }
+ });
+```
+
+**Evidence on a throwaway copy** (d973876 plus the diff; repository and branch untouched): `npm test` 306 of 306 pass (baseline 298 pass, 8 fail); `npm run typecheck` clean; all eight single-heading deletions each fail exactly their own cause test; demoting `### Reserved name` to a plain line also fails exactly `explain reserved-name`. Files: `evidence/` in this task's folder.
+
+**Limits.** `lines.includes` needs the heading line to be exactly `### ` plus the sentence, so adding trailing spaces, a different heading level or rewording a heading fails the test; that is the intended guard. The test file assumes `OVERVIEW.md` uses `\n` line ends, as it does today.
+
+**Profile.** Pilot holds: a test-only change, no credentials, data or release duty.
+
+### Needs decision
+
+None. The choice between matching the heading in the test and an equivalent change is routine wording and test placement, taken in the recommendation above. Past rulings checked: ADRs 0001 to 0008 name no behaviour for this test; ADR 0002 (a failing variable shows its plain reason) is kept, since the screen text is unchanged; `git -C docs/dev2/.spacedock-state grep -n 'Override:'` finds only archived prose about other areas.
+
+### Batch overlap
+
+`project-env-pick-repository` (live, in implementation) changes `shared/project-list.ts`, `test/project-list.test.ts`, `client/settings-screen.tsx` and the Prepare step 4 sentence in `docs/project-env/prepare-1password.md`; this task changes only `project-env/test/agent-notice.test.ts`. No shared file, check, table or numbered record, except that pick-repository's `npm test` run would stop showing the 8 failures once this lands. Recommended order: this task first, so pick-repository validates against a green `npm test`.
+
+## Stage Report: ideation
+
+- DONE: Design the smallest change your Scope names: read `causeSentence`, `CAUSES` and the troubleshooting-notes test in `project-env/test/agent-notice.test.ts` and the cause headings in `project-env/OVERVIEW.md` on main, choose between matching the heading form in the test and an equivalent change, and write it as the exact diff; keep AC-1 and give it a reproducible evidence clause; run `npm test` and the mutation on a throwaway copy with the diff applied.
+  Chose to match the heading line in the test (`lines.includes("### " + causeSentence(cause).slice(0, -1))`); `OVERVIEW.md` and `shared/cause.ts` unchanged; exact diff in `## Design` and `evidence/agent-notice.test.ts.diff`. AC-1 kept with a command-level evidence clause. Throwaway copy of d973876: baseline 298 pass / 8 fail; with diff 306/306 and typecheck clean; each of 8 heading deletions fails exactly its own cause test (`evidence/mutation-run.txt`). AC-1 current evidence: held on the throwaway copy, not yet on a real candidate.
+- DONE: Name any decision the Captain must make (at most one), with a recommendation.
+  None needed; ADRs 0001 to 0008 and `Override:` lines checked, none governs this test.
+
+### Summary
+
+The 8 failures are one cause: #58 made the cause sentences headings without the final period. The smallest fix is a three-line test change that matches the heading line, which also keeps the test from passing on the same words elsewhere in the page. `design_surfaces.py check` reports presentable (Surfaces: none). Nothing was committed to the repository; the throwaway copies are in /tmp.
