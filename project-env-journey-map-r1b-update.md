@@ -239,3 +239,6 @@ Cost: Captain messages 4; worker tokens not measured (reported: ideation 130776,
 
 - Scope: the Captain's ideation approval (「准」, 2026-10-28) accepted a sixth edit, so the approved scope is six edits: the five listed in `## Scope` plus (6) `write-prompt` and `new-agent-instructions` set to `gap` without evidence. AC-1 (b) is checked against `design/journey-six-edits.diff`, which is what implementation and validation used. FO did not carry this into `## Scope` before archive.
 - UAT: the `## UAT` line above was FO's own reading, not the Captain's words. ADR 0007 keeps UAT with him; FO asks him for it, and his words go below.
+
+UAT (Captain, 2026-10-28): OK — 「ok 這個文件目前會怎樣跟著被更新？」
+Asked: FO asked for both UATs together (「地圖更新的 UAT 也還在等你，如果都沒問題，可以一起回 OK」); his "ok" answers both, and the question that follows is about the docs site.
