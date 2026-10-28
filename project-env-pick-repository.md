@@ -1,7 +1,7 @@
 ---
 id:
 title: A new teammate can add a repository even when Paseo has no project or the project list fails
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -50,7 +50,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate (sha256:a4fa7e4d), FO having recommended approval; approval keeps AC-2 and accepts the 8 px label shift. Asked: Approve the pick-repository design ... and AC-1 and AC-2 into implementation, accepting the 8 px label shift between the loading row and the select row? Say if you object to any part.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-28T01:10:58Z
 ---
 
