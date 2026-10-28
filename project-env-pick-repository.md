@@ -243,3 +243,17 @@ Built screen review: design/validation-1.yaml
 
 ### Summary
 Recommend PASSED for 7d74145: every AC-1 state and AC-2 sequence was reproduced on an isolated Paseo from `git archive`, tests (312/312) and typecheck pass, and each new branch is caught by a unit test when removed. The design director found nothing on the built screens; remaining items are Polish or declared limits. I made no product change and left no daemon, browser session or temp folder behind.
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，這輪維持」 on 2026-10-26, not restored in writing since). FO merges and reloads under class 2 only after his approved validation.
+
+### FO declines (proposed; the Captain rules)
+
+- Validation-1 F1 (Polish), candidate revision 7d74145fc65b1b21251bf3cf07b41bbd400b98e2: `project-env/OVERVIEW.md` setup step 2 does not mention the new no-project, all-listed and failed rows. Proposed decline: the step is still true, the screen's own sentences say what to do, and the docs' Prepare page carries the new steps (validation-1 doc-site check). Material if a reader of OVERVIEW alone gets stuck on an empty list; candidate fix: one sentence in OVERVIEW setup step 2.
+- Validation-1 F2 (Polish), candidate revision 7d74145fc65b1b21251bf3cf07b41bbd400b98e2: refocusing the window with a failed list shows "Loading…" for about 7 s, then the failure again. Proposed decline: it is the host query's refetch-on-focus and retry, it heals itself, and it never shows a wrong state (implementation and validation-1 notes). Material if a person reports the flip as confusing; candidate fix: disable refetch-on-focus for this query.
+- Validation-1 F3 (Polish), candidate revision 7d74145fc65b1b21251bf3cf07b41bbd400b98e2: Try again's tap target is about 32 px at 400 px. Proposed decline: it matches the existing Edit button in the same card, and the design director raised no finding on the built screen. Material if a touch user misses it; candidate fix: a taller button in this row.
+
+### Local extension doc-site (round 1, validation)
+
+Asked: follow the Prepare page's words through the changed screen. Caught: nothing stale — step 4 matches the screen word for word and `img/03-add-project.png` matches run d; the Jekyll site was not built (Markdown read only). Cost: part of the validation run, no extra cycle. By hand: FO wrote the line into the validation scope notes.
