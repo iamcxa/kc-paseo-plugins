@@ -51,6 +51,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-pick-repository:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-pick-repository-validation-1
+              briefing:
+                id: briefing:project-env-pick-repository:validation:attempt-1:revision-1
+                digest: sha256:70c89fc3954c0fb2ef5ce0323f09b6089b77164c73e31f39757f7600119bf187
+                room-ref: ./project-env-pick-repository/review/validation/briefing-1
 started: 2026-10-28T01:10:58Z
 ---
 

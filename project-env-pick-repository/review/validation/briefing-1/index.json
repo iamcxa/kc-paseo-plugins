@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-pick-repository:validation:attempt-1:revision-1",
+  "question": "Approve validation of pick-repository (PR #61 at 7d74145) and the three proposed declines (F1 to F3 Polish)? FO recommends approving. Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-pick-repository:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/558d63a8cfdea1c654be175dbae6f38df97d9c7e/project-env-pick-repository.md",
+      "rev": "sha256:2d7cc2897a3a3c5676f47dde3e70e8c6cc6a3da974315e7e0314984d5e5eefb2",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation-1 PASSED at 7d74145: AC-1 four states and AC-2 flows reproduced on an isolated Paseo; 312/312 tests; each new branch caught; built screen review no findings; doc-site local extension round 1 found nothing stale. FO acceptance rerun matched. External review rounds: 1 — Codex summary:6470690096 clean; roborev:1292 clean. Proposed declines: F1 OVERVIEW step wording, F2 7 s Loading flip on refocus, F3 32 px Try again. delivery_gate question and check exit 0."
+    }
+  ]
+}
