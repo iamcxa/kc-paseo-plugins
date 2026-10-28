@@ -1,0 +1,18 @@
+== 1. diff against base is one test file, 3 added and 2 removed lines
+ project-env/test/agent-notice.test.ts | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+== 2. clean install
+npm ci ok
+== 3. full suite: expect 'tests 306', 'pass 306', 'fail 0'
+ℹ tests 306
+ℹ pass 306
+ℹ fail 0
+== 4. typecheck: expect exit 0
+typecheck exit 0
+== 5. delete one cause heading: expect 'pass 305', 'fail 1', failing test 'explain reserved-name ...'
+  ✖ explain reserved-name with the words the screen shows
+ℹ fail 1
+ℹ pass 305
+ℹ tests 306
+== done (work copy: /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/tmp.oZ5dnvfLQi, safe to delete)
+exit=0

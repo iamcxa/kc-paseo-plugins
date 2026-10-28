@@ -178,3 +178,11 @@ Does not cover: other headings (the full eight are in `evidence/val/mutation-run
 ### Summary
 
 Candidate ad34740 passes AC-1: the suite is green, typecheck is clean, the diff is only the approved three-line test change, and each of the eight heading deletions fails exactly its own cause's test. No findings; recommend PASSED. Nothing was changed in the repository or the live plugin; work copies are in /tmp.
+
+### FO acceptance rerun (2026-10-28)
+
+FO ran `evidence/val/acceptance.sh` in a fresh `env -i` shell against ad34740: the diff is the one three-line test change, 306 of 306 pass, typecheck exit 0, and deleting `### Reserved name` fails exactly `explain reserved-name`; exit 0 (`evidence/fo-acceptance-rerun-ad34740.txt`).
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，這輪維持」 on 2026-10-26, not restored in writing since). FO merges under class 2 only after his approved validation.
