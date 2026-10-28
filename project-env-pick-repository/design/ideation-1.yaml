@@ -1,0 +1,44 @@
+design_review:
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-pick-repository/design/previews.html
+  adrs_read:
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  findings:
+    - severity: MAJOR
+      dimension: flow
+      where: preview-1-no-project-1280.png, preview-2-all-configured-1280.png and their -400 pictures
+      seen: Both text-only rows tell the person to leave for Paseo's sidebar and "come back here", but the row has no control and no picture shows how it updates on return. Only the list-fails state has a button (Try again), and extra-after-retry-400.png shows a refresh only after that button.
+      fix: Give states 1 and 2 the same outlined "Check again" button as Try again (or add an acceptance criterion, with a picture, that the list re-reads when the person returns), so the row cannot keep saying "Paseo has no project yet" after they added one.
+    - severity: MINOR
+      dimension: hierarchy
+      where: preview-2-all-configured-1280.png
+      seen: The row says "Every project in Paseo is already set up" directly under two rows that read "0 variables · agent-shop-api-dev-read", which can read as not set up.
+      fix: Reword to "Every project in Paseo is already listed above." (or a criterion that the wording matches what the rows show).
+    - severity: MINOR
+      dimension: states
+      where: Try again disabled "Trying…" state; loading state at 400; loading, list-fails and select states with configured rows above
+      seen: The proposal says "Trying…" is disabled and that configured rows stay above the row in every state, but no picture shows "Trying…", loading at 400, or loading or failure with configured rows. extra-after-retry-400.png shows only a successful retry, so a retry that fails again would redraw the same row with no visible sign it ran.
+      fix: Add pictures of "Trying…" (1280 and 400), loading at 400, and failure with one configured row above, and a criterion that a failed retry shows "Trying…" before the message returns.
+    - severity: MINOR
+      dimension: spacing
+      where: extra-loading-1280.png, preview-3-list-fails-1280.png, preview-4-one-unconfigured-1280.png
+      seen: The row is a text row about 70px tall with the label near the top in loading and failure, then becomes a single-line row about 66px tall with the label centred (y 215 to y 223) once the select appears, so the label jumps when loading ends or a retry succeeds.
+      fix: Give the loading, failure and select rows one minimum height with the label on the same baseline, or accept the shift and say so.
+    - severity: MINOR
+      dimension: states
+      where: preview-4-one-unconfigured-1280.png (select only)
+      seen: Only a closed select with a single "Choose…" is shown; an open list with many or long project names, and a path or name that overflows at 400, are not shown.
+      fix: Add a picture of the open select with many items and one long name at 400, or mark it as unchanged from today and out of this review.
+    - severity: MINOR
+      dimension: theme-size
+      where: all pictures
+      seen: Every picture is dark theme, at 1280 and 400 only. The 11px grey help text in states 1 to 3 is the lowest-contrast text on the screen.
+      fix: Add a light-theme picture of state 1 or 2 (the longest text), or state that the plugin inherits the host's tokens.
+  limitations:
+    - Only static pictures in dark theme at 1280 and 400; I could not check how the list updates on return from Paseo, the Try again behaviour, or the open select.
+    - Both configured rows in preview-2 show the same vault name (agent-shop-api-dev-read); I treated it as fixture data, not design.
+    - The today-none-*.png pictures were not reviewed (context only).
+    - No ADR bears on this row's look or on the host Projects component; I opened ADR 0001 to 0005 and none settles a question here. ADRs 0006 to 0008 are about the delivery process and I did not open them.

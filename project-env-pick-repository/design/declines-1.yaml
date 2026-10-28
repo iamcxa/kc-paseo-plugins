@@ -1,0 +1,20 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  rulings:
+    - finding: 4
+      ruling: overruled
+      evidence: "extra-loading-1280.png and preview-3-list-fails-1280.png show a two-line row (card y 190 to 258, label at y 215), while preview-4-one-unconfigured-1280.png shows a one-line row (card y 190 to 254, label at y 223), so the label still jumps 8px when loading ends; the declaration gives SettingsSelect the same SettingsRowProps as SettingsRow and SettingsAction (label, hint, error, children, testID), so the select row can carry a hint line and the plugin needs no minimum height or baseline prop."
+      change: "Give the select row a one-line hint (for example 'Choose a project Paseo knows about') so loading, failure and select are all label-plus-hint rows; add a criterion that the label sits at the same y in the loading, failure and select screenshots at 1280 and 400."
+    - finding: 5
+      ruling: upheld
+      evidence: "preview-4-one-unconfigured-1280.png shows the plain closed SettingsSelect with 'Choose...' that the declaration describes (options are only label and value, so the open list and its overflow belong to the host), and nothing in the picture is a state a person would act on wrongly."
+      change: none
+    - finding: 6
+      ruling: upheld
+      evidence: "SettingsRowProps in ui.d.ts has no colour, size or style prop, the grey hint in preview-1-no-project-1280.png and preview-3-list-fails-1280.png is the host's own hint style and stays legible, and the finding's own alternative fix is to state that the plugin inherits the host's tokens."
+      change: none

@@ -1,0 +1,76 @@
+--- /tmp/pick-repo-ideation/today/project-env/client/settings-screen.tsx	2026-10-28 08:35:31
++++ /tmp/pick-repo-ideation/src/project-env/client/settings-screen.tsx	2026-10-28 09:33:29
+@@ -39,6 +39,7 @@
+ import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
+ import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
+ import { countPointingAt, markedOutside, type PillView, pillView, repointLine, settleConnection } from "../shared/ref";
++import { type AddProjectState, addProjectLine, addProjectState } from "../shared/project-list";
+ import { type OpenProject, openProject, useOpenProject } from "./open-project";
+ import {
+   canReadVault,
+@@ -1151,15 +1152,41 @@
+   );
+ }
+ 
++function AddProject({ state, theme, onChoose, onRetry }: { state: AddProjectState; theme: Theme; onChoose: (root: string) => void; onRetry: () => void }) {
++  if (state.kind === "choose") {
++    return (
++      <SettingsSelect
++        label="Add a project"
++        value=""
++        options={[
++          { label: "Choose…", value: "" },
++          ...state.candidates.map((p) => ({ label: p.projectDisplayName, value: p.projectRootPath })),
++        ]}
++        onValueChange={(root) => root && onChoose(root)}
++      />
++    );
++  }
++  if (state.kind === "loading") {
++    return (
++      <SettingsRow label="Add a project">
++        <Text style={{ color: theme.colors.foregroundMuted }}>Loading…</Text>
++      </SettingsRow>
++    );
++  }
++  const line = addProjectLine(state);
++  if (state.kind === "failed") {
++    return <SettingsAction label="Add a project" hint={line.hint} actionLabel="Try again" onPress={onRetry} />;
++  }
++  return <SettingsRow label="Add a project" hint={line.hint} />;
++}
++
+ function Configured({ settings, theme }: { settings: Ready; theme: Theme }) {
+   const paseo = usePaseo();
+   const editing = useOpenProject();
+   const known = useQuery({ queryKey: ["projects"], queryFn: () => paseo.projects.list() });
+ 
+   const configured = settings.values.projects;
+-  const candidates = (known.data?.projects ?? []).filter(
+-    (p) => !configured.some((c) => c.root === p.projectRootPath),
+-  );
++  const addState = addProjectState(known, configured.map((c) => c.root));
+   const open = (project: Project) => openProject.begin(project, settings.revision);
+   const done = () => {
+     openProject.close(editing?.session);
+@@ -1189,19 +1216,7 @@
+             onPress={() => open(p)}
+           />
+         ))}
+-        {candidates.length > 0 ? (
+-          <SettingsSelect
+-            label="Add a project"
+-            value=""
+-            options={[
+-              { label: "Choose…", value: "" },
+-              ...candidates.map((p) => ({ label: p.projectDisplayName, value: p.projectRootPath })),
+-            ]}
+-            onValueChange={(root) =>
+-              root && open({ root, serviceAccount: "", vault: "", variables: [] })
+-            }
+-          />
+-        ) : null}
++        <AddProject state={addState} theme={theme} onChoose={(root) => open({ root, serviceAccount: "", vault: "", variables: [] })} onRetry={() => void known.refetch()} />
+       </SettingsCard>
+     </SettingsSection>
+   );
