@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-overview-notes-test:validation:attempt-1:revision-1
                 digest: sha256:d4fd06e37a0ee3c97af58f88307edc6a61f2c94d0c90767a6a69f9212cab3580
                 room-ref: ./project-env-overview-notes-test/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-overview-notes-test:validation:1
+                briefing: briefing:project-env-overview-notes-test:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-28T13:27:33.826626Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the validation gate (sha256:d4fd06e3), FO having recommended approval, at candidate ad347406fba976ba59417461ed4d0786145d0c52. Asked: Approve validation of the notes-test fix (PR #62 at ad34740)? Approval lets FO merge it under ADR 0007 class 2, unless the Captain says he merges or holds; no plugin reload is needed.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-28T12:10:48Z
 ---
 
