@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-overview-notes-test:ideation:attempt-1:revision-1
                 digest: sha256:01d43125af5a0fe56c6fdf059f6bb26c16e424dc96126e44ec6914fc0fa8957c
                 room-ref: ./project-env-overview-notes-test/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-overview-notes-test:ideation:1
+                briefing: briefing:project-env-overview-notes-test:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-28T12:18:22.560862Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate (sha256:01d43125), FO having recommended approval. Asked: Approve the notes-test fix design (the test matches each cause''s ### heading line ...) and AC-1 into implementation? Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-28T12:10:48Z
 ---
 
