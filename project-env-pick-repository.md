@@ -40,6 +40,17 @@ gates:
                 id: briefing:project-env-pick-repository:ideation:attempt-1:revision-1
                 digest: sha256:a4fa7e4d9c604769a4b51dddcb3b1289e53e03a5c855f6a2e43ce1af2223ae7b
                 room-ref: ./project-env-pick-repository/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-pick-repository:ideation:1
+                briefing: briefing:project-env-pick-repository:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-28T06:04:10.04285Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the ideation gate (sha256:a4fa7e4d), FO having recommended approval; approval keeps AC-2 and accepts the 8 px label shift. Asked: Approve the pick-repository design ... and AC-1 and AC-2 into implementation, accepting the 8 px label shift between the loading row and the select row? Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-28T01:10:58Z
 ---
 
