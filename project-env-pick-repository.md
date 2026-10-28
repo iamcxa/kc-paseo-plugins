@@ -197,3 +197,7 @@ The "Add a project" row gets a pure state function (loading, failed, none, all-c
 
 ### Summary
 The Add a project row now draws one of five states from a pure function, the Prepare step 4 sentence follows, and the Draft PR (#61) carries the evidence summary. AC-1 and AC-2 hold on the real branch build; the docs pictures are unchanged by the branch. Open for FO: the 8 pre-existing `OVERVIEW.md` test failures on main.
+
+### Local extension doc-site (round 1)
+
+Asked (implementation, before the trial was written down): retake the docs pictures with `docs/project-env/capture/` and confirm none changed; one Prepare-page sentence was in the approved design. Caught: nothing stale — the capture diff shows no picture changed by this branch (03-add-project.png differs from the committed file by a 13 x 9 px check mark, the same on base), and the Prepare step 4 sentence was updated in the PR. Cost: one capture run inside implementation; no extra cycle. By hand: FO wrote the line into the implementation checklist; validation will carry the doc-site validation line.
