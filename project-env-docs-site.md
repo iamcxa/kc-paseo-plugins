@@ -488,4 +488,7 @@ After the Captain approved validation (「准」, 2026-10-28), FO merged PR iamc
 
 ## UAT
 
-Pending: the Captain checks https://iamcxa.github.io/kc-paseo-plugins/ (theme, search, pictures) and, with a real 1Password account, the sign-in and service-account steps.
+UAT (Captain, 2026-10-28): OK — 「ok 這個文件目前會怎樣跟著被更新？」
+Asked: FO asked him to check the live site (theme, sidebar, search, pictures, phone) and, optionally, the real-account sign-in and service-account steps, and to answer both UATs together. The optional real-account run is not recorded as done.
+
+Cost: Captain messages 11; worker tokens not measured (reported: ideation 312091 and 257611, implementation 214150 and 242315, validation 236143 and 257499, theme research 80119)
