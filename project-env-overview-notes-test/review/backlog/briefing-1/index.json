@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-overview-notes-test:backlog:attempt-1:revision-1",
+  "question": "要不要開一個小的修正任務？我建議開，而且在「選 repo」驗收之前先修好…回「開」或「先不用」。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-overview-notes-test:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/1b913790543429666285683951a11e28e0806529/project-env-overview-notes-test.md",
+      "rev": "sha256:0a33042eb95bd373f02846a9d5fb7f9961a004db7d29b66bcff54bd8629ac4d0",
+      "mediaType": "text/markdown",
+      "summary": "Opens a test repair: main fails 8 troubleshooting-notes tests since #58 turned the cause sentences into headings without a final period. Fix the test to match the heading form while still failing when a cause is missing. 7b63c31 passes 306/306; d973876 fails 8. FO recommendation: open."
+    }
+  ]
+}
