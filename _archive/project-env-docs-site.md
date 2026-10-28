@@ -1,12 +1,12 @@
 ---
 id:
 title: A public docs page introduces project-env and walks a new teammate through setup
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-docs-site
-pr:
+pr: pr-merge:58
 journey: paseo-project-env
 journey-release: r1b
 journey-story: install-one-command
@@ -82,8 +82,11 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-28, on the validation gate attempt 2 (sha256:45a2365b), FO having recommended approval; approves validation and the two proposed declines (F6, F7 Polish) at candidate fd87b7281313b875580eb91ae32985b46594418a, the merge, and turning on GitHub Pages from main at the root. Asked: Approve validation of the docs site (PR #58 at fd87b72) and the two proposed declines? ... Approval lets FO merge it and then turn on GitHub Pages from main at the root, publishing the site; the Captain then checks the live site and gives UAT.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-27T15:33:59Z
+verdict: PASSED
+completed: 2026-10-28T01:04:26Z
+archived: 2026-10-28T01:04:26Z
 ---
 
 From the Captain on 2026-10-27, before opening project-env to the recce team: 「顯然還缺 plugin 介紹，文件說明，以及可以的話應該架一個基於 github md 檔案的 release page…方便大家看設定看文件看圖片等」. FO's research (`research/2026-10-27-1password-agents-and-docs-site.md` in this state checkout) recommended GitHub Pages with its built-in Jekyll from the repository's Markdown. Asked which to do first, the docs page or agent-organised vaults, he answered 「可以，先文件」. FO checked on 2026-10-27: `project-env/OVERVIEW.md` has one line on prerequisites and no install steps for the 1Password CLI; the journey map (`docs/journey/project-env/give-agents-their-project-setup.yaml`) marks the install story `unverified` and its prerequisite and plugin-enable stories `gap`.
