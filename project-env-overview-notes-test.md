@@ -205,3 +205,11 @@ FO ran `evidence/val/acceptance.sh` in a fresh `env -i` shell against ad34740: t
 ## ADR 0007 classes for this task
 
 Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，這輪維持」 on 2026-10-26, not restored in writing since). FO merges under class 2 only after his approved validation.
+
+### FO merge (ADR 0007 class 2, 2026-10-28)
+
+After the Captain approved validation (「准」, 2026-10-28), FO merged PR iamcxa/kc-paseo-plugins#62 by squash with `--match-head-commit ad347406fba976ba59417461ed4d0786145d0c52` (delivery_gate check exit 0, GitGuardian pass, mergeable CLEAN, Codex clean, no Codex line comment); merge commit ce7b2224f8715c101c791111d2147bdc58268fe1. `npm test` on a git archive of origin/main after the merge: see the next line. No plugin reload: one test file.
+
+## UAT
+
+Pending: the Captain's word on this test-only fix.
