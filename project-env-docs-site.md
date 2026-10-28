@@ -72,6 +72,17 @@ gates:
                 id: briefing:project-env-docs-site:validation:attempt-1:revision-1
                 digest: sha256:45a2365b6b0b40b49fc62f6249e5a1ad399e11d6bcaa8c08f7a2730b2bcca53a
                 room-ref: ./project-env-docs-site/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-docs-site:validation:1
+                briefing: briefing:project-env-docs-site:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-28T00:35:03.976565Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-28, on the validation gate attempt 2 (sha256:45a2365b), FO having recommended approval; approves validation and the two proposed declines (F6, F7 Polish) at candidate fd87b7281313b875580eb91ae32985b46594418a, the merge, and turning on GitHub Pages from main at the root. Asked: Approve validation of the docs site (PR #58 at fd87b72) and the two proposed declines? ... Approval lets FO merge it and then turn on GitHub Pages from main at the root, publishing the site; the Captain then checks the live site and gives UAT.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-27T15:33:59Z
 ---
 
