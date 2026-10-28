@@ -56,7 +56,7 @@ Paste the token into a new item in a vault only you read, titled with the servic
 
 ## 4. Connect the repository in Paseo
 
-Open **Settings**, **Plugins**, the plugin's actions menu (the three dots), then **Project environment**. The repository must already be a project in Paseo; if the list is empty, choose the sidebar's **Add project**, then **Search for directory**, type the folder's path and choose **Open this path** first.
+Open **Settings**, **Plugins**, the plugin's actions menu (the three dots), then **Project environment**. The repository must already be a project in Paseo. If the **Projects** section says Paseo has no project yet, or that every project is already listed, add the repository first: choose the sidebar's **Add project**, then **Search for directory**, type the folder's path and choose **Open this path**, then return here. If it says Paseo did not return its project list, choose **Try again**.
 
 Under **Add a project**, open the menu and choose your repository.
 
