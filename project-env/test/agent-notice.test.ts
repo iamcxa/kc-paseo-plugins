@@ -92,10 +92,11 @@ describe("the notice a new agent receives", () => {
 });
 
 describe("the troubleshooting notes", () => {
-  const notes = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8");
+  const lines = readFileSync(join(import.meta.dirname, "../OVERVIEW.md"), "utf8").split("\n");
   for (const cause of CAUSES) {
     it(`explain ${cause} with the words the screen shows`, () => {
-      assert.ok(notes.includes(causeSentence(cause)), causeSentence(cause));
+      const heading = `### ${causeSentence(cause).slice(0, -1)}`;
+      assert.ok(lines.includes(heading), heading);
     });
   }
 });
