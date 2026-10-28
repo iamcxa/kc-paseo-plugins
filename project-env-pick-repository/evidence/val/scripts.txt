@@ -1,0 +1,17 @@
+## comment_ratio
+code lines 122, comment lines 0, 0.0%
+maximum 5% (package default) met
+exit 0
+## adr_lint
+8 ADR file(s) checked, 0 legacy
+exit 0
+## doc_impact
+0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'
+exit 0
+## design_surfaces
+project-env-pick-repository.md: built screen review not run: a ui task with a design review needs a 'Built screen review:' line or a quoted waiver
+scope check not run: stage is validation, not ideation
+exit 1
+## dispatch_records
+3 dispatch record(s) complete
+exit 0

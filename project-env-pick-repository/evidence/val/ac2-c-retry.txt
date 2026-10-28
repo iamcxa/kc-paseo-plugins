@@ -1,0 +1,23 @@
+[agent-browser] launched browser
+[agent-browser] launched browser
+== 1. opened, cause present (localStorage pe_ok=null):
+- StaticText "Add a project"
+- StaticText "Paseo did not return its project list, so no project can be chosen yet."
+- button "Try again" [ref=e27]
+- StaticText "Try again"
+== 2. Try again pressed while the cause remains, right after the press:
+- StaticText "Add a project"
+- StaticText "Loading…"
+== 3. after the retry fails again:
+- StaticText "Add a project"
+- StaticText "Paseo did not return its project list, so no project can be chosen yet."
+- button "Try again" [ref=e27]
+- StaticText "Try again"
+== 4. cause lifted (localStorage pe_ok=1), Try again pressed:
+- StaticText "Add a project"
+- button "Add a project: Choose…" [expanded=false, ref=e27]
+- StaticText "Choose…"
+== 5. after the retry succeeds:
+- StaticText "Add a project"
+- button "Add a project: Choose…" [expanded=false, ref=e27]
+- StaticText "Choose…"

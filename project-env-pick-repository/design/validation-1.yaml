@@ -1,0 +1,13 @@
+design_review:
+  preview: evidence/val/ac1-c-400.png
+  adrs_read: none
+  findings: []
+  limitations:
+    - "ADR folder: I listed docs/adr at b5381b18834ead9047778e96b27199ae0b3bd8e8 (8 records, 0001 to 0008). None has a title about how the screen looks or about host components, so I opened none and no question was settled by a record."
+    - "AC-1 and AC-2 as pictured hold. Case a (no project), b (all configured), c (list fails) and d (one unconfigured) each show a sentence or a working select, never an empty section. Failure shows Try again. Retry shows Loading... then the failure row again, then the select once the cause is gone. The after-add picture lists shop-api in the select."
+    - "Not shown, already accepted at ideation: the open select with many or long names, the light theme, and the about 8 px label shift between the loading row and the select row. The pictures show nothing worse (the shift is about 8 px, from y=215 to y=223)."
+    - "The tap targets at 400 px (Try again about 32 px tall, Edit about 30 px) are under 44 px. They match the existing Edit button and the host button style, so I did not raise a finding. No touch-device picture exists to settle it."
+    - "The help text in case a and case b tells the person to use Paseo's sidebar (Add project, Search for directory, Open this path). The 400 px pictures show no sidebar, so I cannot tell from them whether those labels and that path exist on a phone-width layout. A screenshot of the narrow Paseo sidebar would settle it."
+    - "The pictures do not show what happens after a project is chosen in the select, so the step after Choose... is not reviewed."
+    - "The pictures cannot show the first-load Loading row on screen open, a real slow list, a resize while the screen is open, or a keyboard or screen-reader path through Try again and the select."
+    - "The pictures show this Mac's host name in the sidebar, which I ignored as instructed."

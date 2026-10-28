@@ -1,0 +1,36 @@
+== step 1: the candidate's own tests. Expect: typecheck exit 0; 312 pass, 0 fail
+typecheck exit 0
+ℹ tests 312
+ℹ pass 312
+ℹ fail 0
+== step 2: the four AC-1 states at 1280 and 400 px. Expect the quoted text in each
+3
+3
+3
+2
+2
+== step 3: AC-2 retry. Expect Try again -> Loading… -> failure sentence + Try again -> (cause lifted) select
+== 1. opened, cause present (localStorage pe_ok=null):
+- StaticText "Paseo did not return its project list, so no project can be chosen yet."
+== 2. Try again pressed while the cause remains, right after the press:
+- StaticText "Loading…"
+== 3. after the retry fails again:
+- StaticText "Paseo did not return its project list, so no project can be chosen yet."
+== 4. cause lifted (localStorage pe_ok=1), Try again pressed:
+- button "Add a project: Choose…" [expanded=false, ref=e27]
+- StaticText "Choose…"
+== 5. after the retry succeeds:
+- button "Add a project: Choose…" [expanded=false, ref=e27]
+- StaticText "Choose…"
+== step 4: AC-2 return flow. Expect: no-project sentence, then (no reload, window.__nr=1) the select, whose menu lists shop-api
+== 1. screen opened, Paseo has no project:
+- StaticText "Paseo has no project yet. In Paseo's sidebar choose Add project, then Search for directory, type the folder's path and choose Open this path. Then come back here."
+== 2. repository added through the sidebar (Add project, Search for directory, Open this path); sidebar now lists:
+== 3. screen opened again in the same session (no reload: window.__nr=1):
+- button "Add a project: Choose…" [expanded=false, ref=e27]
+== 4. the select opened lists:
+- menuitem "shop-api" [ref=e5]
+== step 5: look at the pictures in /tmp/pickrepo-accept/out: ac1-{a,b,c,d}-{1280,400}.png. Expect a sentence or a select in the Projects card in every picture, never an empty card
+      18
+== step 6: clean up
+torn down

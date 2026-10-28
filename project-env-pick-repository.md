@@ -201,3 +201,45 @@ The Add a project row now draws one of five states from a pure function, the Pre
 ### Local extension doc-site (round 1)
 
 Asked (implementation, before the trial was written down): retake the docs pictures with `docs/project-env/capture/` and confirm none changed; one Prepare-page sentence was in the approved design. Caught: nothing stale — the capture diff shows no picture changed by this branch (03-add-project.png differs from the committed file by a 13 x 9 px check mark, the same on base), and the Prepare step 4 sentence was updated in the PR. Cost: one capture run inside implementation; no extra cycle. By hand: FO wrote the line into the implementation checklist; validation will carry the doc-site validation line.
+
+## Stage Report: validation
+
+- DONE: Independently check candidate 7d74145fc65b1b21251bf3cf07b41bbd400b98e2 (PR iamcxa/kc-paseo-plugins#61; implementation commit 6188efd plus a merge of main ce7b222, which brings in the notes-test fix) against AC-1 and AC-2 and the approved design: from git archive run `npm ci && npm test` and `npm run typecheck`; run the four AC-1 states at 1280 and 400 px and the AC-2 sequences yourself on an isolated Paseo; check the empty-state and failure branches are each caught by a unit test when removed; give a verdict.
+  Verdict: PASSED (recommended). From `git archive` of the candidate: `npm ci`, typecheck exit 0, `npm test` 312 pass 0 fail (the 8 notes failures are gone with ce7b222); AC-1 runs a-d at 1280 and 400 px, AC-2 retry and return flow on isolated Paseo 0.13.0 (ports 8812-8815): all as expected. Removing the `none` line fails 1 test; making error read as loading fails 1 (`evidence/val/mutation-val.txt`). PR head is the candidate, Draft, mergeStateStatus CLEAN.
+- DONE: Run the built screen review your validation principles require (design-director pass 2a on your own screenshots of the built screen at 1280 and 400 px) and write its Built screen review lines; write the minimal acceptance script FO will rerun in a fresh shell.
+  The director returned no findings, so there are no `Built screen finding` lines, and no MINOR to decline, so no pass 2b. Acceptance script: `evidence/val/acceptance.sh` (run once end to end by me in a fresh shell, `evidence/val/acceptance-run.txt`).
+- DONE: Record what the Captain should see in the screenshots and every unverified obligation.
+  Below, under What the Captain should see and Unverified.
+
+Built screen review: design/validation-1.yaml
+
+(The director viewed all 12 pictures listed in `design/validation-1.as-returned.yaml`. The check accepts one `preview:` path, so `validation-1.yaml` names `evidence/val/ac1-c-400.png`; its other lines are as returned.)
+
+### Checks run (exit codes)
+- `comment_ratio.py d973876 7d74145`: 0 comment lines of 122, exit 0. `adr_lint.py docs/adr --since d973876`: 8 files, exit 0 (candidate adds no ADR). `doc_impact.py d973876 7d74145`: 0 documents listed, exit 0. `dispatch_records.py <task folder>`: 3 records complete, exit 0. Number guards: no `db` surface, no ADR reserved, none owed. `design_surfaces.py check` after the Built screen review line: "design surfaces presentable", exit 0 (`evidence/val/design-surfaces-after.txt`; `scripts.txt` holds the run before the line existed).
+- Local extension doc-site: the Prepare page step 4 sentence (source at the candidate; I did not build the Jekyll site, which needs Docker and network) matches the screen word for word: "Projects" section, "Paseo has no project yet", "every project is already listed" (screen: "already listed above"), "Paseo did not return its project list", "Try again", and the sidebar words Add project, Search for directory, Open this path (checked in Paseo 0.13.0 in run a, `ac2-a-return-flow.txt`). `img/03-add-project.png` shows the select with unconfigured projects and equals run d's screen. Install page: no sentence touches this screen. Nothing found that no longer matches.
+- Goal sufficiency and minimal necessity at this candidate: each changed surface maps to AC-1/AC-2 (`shared/project-list.ts` and its test = the states and the two falsifiers; `AddProject` = the row; Prepare sentence = the design's Docs change). The test-file edit in the diff is main's #62, not this task. Nothing to delete found.
+
+### What the Captain should see
+- `ac1-a-1280.png`, `ac1-a-400.png`: Projects card with one row "Add a project" and grey text "Paseo has no project yet. In Paseo's sidebar choose Add project, then Search for directory, type the folder's path and choose Open this path. Then come back here." No control.
+- `ac1-b-*`: rows shop-api and web-app (each with Edit), then "Add a project" with "Every project in Paseo is already listed above..." and the same steps.
+- `ac1-c-*`: "Add a project", "Paseo did not return its project list, so no project can be chosen yet." and an outlined "Try again" button at the right (400 px keeps it beside the text, nothing scrolls sideways: scrollWidth 400).
+- `ac1-d-*`: "Add a project" with the "Choose…" select, as on main and as in the Prepare page's picture.
+- `ac2-c-retry-loading-1280.png` ("Loading…" right after Try again while the cause remains), `ac2-c-retry-failed-again-1280.png` (failure sentence and button again), `ac2-c-after-retry-1280.png` (select), `ac2-a-after-add-1280.png` (screen reopened after adding through the sidebar, no reload: select).
+- The pictures show this Mac's host name in the sidebar; working evidence, not docs pictures. All under `evidence/val/`.
+
+### Findings
+- F1 Polish: `project-env/OVERVIEW.md` setup step 2 says "Under **Add a project** choose the repository" and does not mention the new no-project, all-listed and failed rows. Not wrong, and `doc_impact.py` lists no document; no user-visible loss.
+- F2 Polish: a focus refetch with a failed list flips the failed row to "Loading…" for about 7 s and back (implementation reported it; I did not re-measure it). Self-heals; no harm.
+- F3 Polish: the 400 px tap target of Try again is about 32 px tall, as the existing Edit button; the director raised no finding.
+- The label shift of about 8 px between the loading row and the select row is the Captain-accepted residual (ideation gate); the pictures show nothing worse.
+
+### Unverified
+- A real daemon failure of `paseo.projects.list()`: the failure in run c is injected by editing `queryFn` in the copied plugin only, as AC-1 says. Unit tests prove the states; runs prove wiring for the injected failure.
+- The built Jekyll site (Prepare page rendered) was not built or viewed; only its Markdown source and the committed picture were read.
+- Light theme, the open select with many or long names, a touch device, and the sidebar's Add project path at phone width (the 400 px root page shows "Add a project / Open a folder on your machine" and an "Open menu" button; I did not walk the add-repository steps at 400 px).
+- The step after choosing a project in the select (unchanged code path, not exercised by me).
+- PR CI: only GitGuardian is reported on #61; no other check exists to read.
+
+### Summary
+Recommend PASSED for 7d74145: every AC-1 state and AC-2 sequence was reproduced on an isolated Paseo from `git archive`, tests (312/312) and typecheck pass, and each new branch is caught by a unit test when removed. The design director found nothing on the built screens; remaining items are Polish or declared limits. I made no product change and left no daemon, browser session or temp folder behind.
