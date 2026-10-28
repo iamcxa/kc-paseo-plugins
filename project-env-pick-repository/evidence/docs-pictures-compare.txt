@@ -1,0 +1,18 @@
+docs pictures retaken with docs/project-env/capture/ on commit 6188efd (work dir /tmp/pe-docs, as the committed ones) vs docs/project-env/img:
+01-enable-plugins.png identical
+02-actions-menu.png identical
+03-add-project.png differs bbox=(661, 216, 674, 225) pixels=35
+04-connect-1password.png identical
+05-field-picker.png identical
+06-variables.png identical
+07-test-result.png identical
+
+Same capture on base d973876 (control) vs docs/project-env/img, and branch capture vs base capture:
+01-enable-plugins.png | base vs img: identical | branch vs base: identical
+02-actions-menu.png | base vs img: identical | branch vs base: identical
+03-add-project.png | base vs img: differs bbox=(661, 216, 674, 225) | branch vs base: identical
+04-connect-1password.png | base vs img: identical | branch vs base: identical
+05-field-picker.png | base vs img: identical | branch vs base: identical
+06-variables.png | base vs img: identical | branch vs base: identical
+07-test-result.png | base vs img: identical | branch vs base: identical
+(capture.sh ran from a copy of docs/project-env/capture with env.sh CHECKOUT pointing at the worktree/base checkout and SESSION=pr-impl-cap, so the shared browser session name was not used)

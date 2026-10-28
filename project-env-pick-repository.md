@@ -175,3 +175,25 @@ None. Reason: nothing here widens Scope; AC-2 is an added criterion that Scope's
 
 ### Summary
 The "Add a project" row gets a pure state function (loading, failed, none, all-configured, choose) and one component: a text row with the Add project steps, a Try again row on failure, the unchanged select otherwise. The screen already re-reads the list when reopened, so no refresh button is added. No decision for the Captain; no repository file, branch or commit was made (throwaway copies under /tmp, evidence under this task's folder).
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, starting from design/evidence/ in this task's folder: the pure function in shared/project-list.ts with its unit tests, the Add a project row's five states in Configured (no project, all configured, list failed with Try again, loading, the select unchanged), and the one Prepare-page sentence in docs/project-env/prepare-1password.md.
+  Commit 6188efd on spacedock-ensign/project-env-pick-repository (base d973876): `shared/project-list.ts`, `test/project-list.test.ts` (6 tests), `AddProject` in `client/settings-screen.tsx`, Prepare step 4 sentence as in `### Docs change`. Draft code taken from design/evidence; only formatting and wiring (`onChoose`, `onRetry`) written fresh.
+- DONE: Land AC-1 and AC-2 evidence on the real branch build with the clauses they name (isolated Paseo, the four runs at 1280 and 400 px, the failed-retry sequence, a repository added through the sidebar appearing without reload, the unit tests failing when either new branch is removed), retake the docs screenshots with docs/project-env/capture/ and confirm none changed, under this task's state folder.
+  `evidence/ac1-{a,b,c,d}.txt` and `ac1-*-{1280,400}.png` (a, b, d also `-full.png`); `ac2-c-retry.txt` + pictures; `ac2-a-return-flow.txt`; `mutation-real.txt` (empty-state branch removed: 1 fails; failure branch removed: 1 fails); `docs-pictures-compare.txt` (no docs picture changed by the branch; base capture gives the same 13 x 9 px difference in 03). Scripts under `harness/`.
+- DONE: Run `npm test` (rerun the load-sensitive session-open deadline test alone if it is the only failure), `npm run typecheck`, the roborev gate, `design_surfaces.py check` on this task and `doc_impact.py <base> <candidate>`, then open the Draft PR.
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/61. `npm run typecheck` passes. `npm test` 304 of 312 pass; the 8 failures are not from this change (see Findings). roborev gate exit 0: `clean on 6188efd08; evidence=roborev:1292`. `design_surfaces.py check` exit 0 ("design surfaces presentable"). `doc_impact.py d973876 HEAD`: 0 documents listed; the Prepare page was updated by design. `comment_ratio.py`: 0 comment lines, 0.0%, maximum 5% met. Number guards: no `db` surface and no ADR, none owed.
+
+### Falsifiers
+- Row never empty: the empty-state test fails when the `none` branch is removed, and the failure test fails when the `failed` branch is removed (`mutation-real.txt`); wiring is shown by runs a, b, c at both widths, not by the unit test.
+- Without the change, run (a) and (b) draw no row at all (`design/today-none-*.png`, ideation).
+
+### Findings
+- `npm test` has 8 failures in `test/agent-notice.test.ts` ("the troubleshooting notes": each cause sentence must appear in `project-env/OVERVIEW.md`; headings there lack the final period). Same 8 fail on a clean checkout of base d973876 (#58 edited OVERVIEW.md); not touched here. Needs an owner.
+- `agent-browser screenshot --full` re-fires a focus refetch; a failed row flips to "Loading…" for about 7 s (three retries) and back. A person refocusing the window with a failed list sees the same flip. Not Material by the disposition rules (no harm, row self-heals); recorded so a validator does not rediscover it. (c) pictures use a tall viewport instead.
+- Failure in run (c) is injected in the copied plugin (`localStorage` flag), not a real daemon failure; the AC-1 clause names exactly that edit.
+- Pictures show this Mac's host name; they stay under this folder and are not in the PR.
+
+### Summary
+The Add a project row now draws one of five states from a pure function, the Prepare step 4 sentence follows, and the Draft PR (#61) carries the evidence summary. AC-1 and AC-2 hold on the real branch build; the docs pictures are unchanged by the branch. Open for FO: the 8 pre-existing `OVERVIEW.md` test failures on main.

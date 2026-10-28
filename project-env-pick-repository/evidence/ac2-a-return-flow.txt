@@ -1,0 +1,16 @@
+[agent-browser] launched browser
+[agent-browser] launched browser
+== 1. screen opened, Paseo has no project:
+- StaticText "Add a project"
+- StaticText "Paseo has no project yet. In Paseo's sidebar choose Add project, then Search for directory, type the folder's path and choose Open this path. Then come back here."
+== 2. repository added through the sidebar (Add project, Search for directory, Open this path); sidebar now lists:
+- generic "New workspaceHistorySearchSchedulesWorkspacesSshop-apiNew workspace\n    To pick up a draggable item," [ref=e1] clickable [onclick]
+- button "S shop-api Create a new workspace for shop-api Project actions" [ref=e15]
+== 3. screen opened again in the same session (no reload: window.__nr=1):
+- StaticText "Add a project"
+- button "Add a project: Choose…" [expanded=false, ref=e27]
+- StaticText "Choose…"
+== 4. the select opened lists:
+- generic "New workspaceHistorySearchSchedulesWorkspacesSshop-apiNew workspace\n    To pick up a draggable item," [ref=e1] clickable [onclick]
+- generic "Choose…shop-api" [ref=e2] clickable [onclick]
+- menuitem "shop-api" [ref=e5]

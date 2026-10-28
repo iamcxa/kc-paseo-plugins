@@ -1,0 +1,20 @@
+unmutated (commit 6188efd):
+ℹ tests 6
+ℹ pass 6
+ℹ fail 0
+mutation: empty-state branch removed:
+  ✖ Paseo has no project: says so and names how to add one (0.891625ms)
+✖ add a project: what the section says (2.726333ms)
+ℹ tests 6
+ℹ pass 5
+ℹ fail 1
+✖ failing tests:
+✖ Paseo has no project: says so and names how to add one (0.891625ms)
+mutation: failure branch removed:
+  ✖ the list failed and nothing was ever loaded: failed, so the screen offers Try again (0.567917ms)
+✖ add a project: what the section says (2.613541ms)
+ℹ tests 6
+ℹ pass 5
+ℹ fail 1
+✖ failing tests:
+✖ the list failed and nothing was ever loaded: failed, so the screen offers Try again (0.567917ms)
