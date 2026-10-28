@@ -1,0 +1,40 @@
+# see docs/adr/0009-the-docs-site-uses-the-just-the-docs-theme-pinned-at-v0-12-0.md
+title: kc-paseo-plugins
+description: Plugins for Paseo, with setup guides.
+remote_theme: just-the-docs/just-the-docs@v0.12.0
+plugins:
+  - jekyll-remote-theme
+search_enabled: true
+enable_copy_code_button: true
+search:
+  heading_level: 3
+
+defaults:
+  - scope: { path: "" }
+    values: { layout: default }
+  - scope: { path: "README.md" }
+    values: { title: "Home", nav_order: 1 }
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - docs/adr
+  - docs/dev2
+  - docs/dev2-poc
+  - docs/journey
+  - docs/project-env/capture
+  - project-env/OVERVIEW.md
+  - project-env/CHANGELOG.md
+  - project-env/client
+  - project-env/server
+  - project-env/shared
+  - project-env/test
+  - project-env/index.client.tsx
+  - project-env/index.server.ts
+  - project-env/package.json
+  - project-env/package-lock.json
+  - project-env/paseo-plugin.json
+  - project-env/tsconfig.json
+  - spacedock-bridge
+  - release-please-config.json
