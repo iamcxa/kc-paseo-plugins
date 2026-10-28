@@ -1,12 +1,12 @@
 ---
 id:
 title: The project-env journey map matches what shipped and what release r1b now holds
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-journey-map-r1b-update
-pr:
+pr: pr-merge:59
 gates:
     version: 1
     records:
@@ -66,8 +66,11 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-28, on the validation gate (sha256:577093dc), FO having recommended approval; approves validation and the two proposed declines (F1, F2 Polish) at candidate 41359025bec74c8b9b84918d09dfeb2c2f0a7e48. Asked: Approve validation of the journey map update (PR #59 at 4135902) and the two proposed declines? Approval lets FO merge it under ADR 0007 class 2; no plugin reload is needed.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-27T18:33:05Z
+verdict: PASSED
+completed: 2026-10-28T00:59:16Z
+archived: 2026-10-28T00:59:16Z
 ---
 
 The r1b release review of 2026-10-28 (`project-env-docs-site/release-review-r1b.md` in this state checkout) found `docs/journey/project-env/give-agents-their-project-setup.yaml` out of date: four r1.5 stories that merged (#21, #15, #17, #20) still read `gap`, r1b's `slice_because` says no plugin code is needed although four of its stories need code, and the introduction, reference and changelog pages the Captain asked for (「plugin 介紹，文件說明」, 2026-10-27) belong to no story. The Captain ruled 「移出」 on 2026-10-28: story `agent-lays-out-vault` leaves r1b. Asked whether to open a task for the map edit, recommending it, he answered 「開」.
