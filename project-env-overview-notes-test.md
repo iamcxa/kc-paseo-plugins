@@ -1,7 +1,7 @@
 ---
 id:
 title: The troubleshooting-notes test passes again on main
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
