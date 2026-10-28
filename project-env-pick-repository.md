@@ -10,6 +10,28 @@ pr:
 journey: paseo-project-env
 journey-release: r1b
 journey-story: pick-repository
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-pick-repository:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-pick-repository-backlog-1
+              briefing:
+                id: briefing:project-env-pick-repository:backlog:attempt-1:revision-1
+                digest: sha256:057906b5c4cb51de90b971c96d1e4aa250ff48372b33375b9805953fccecd65f
+                room-ref: ./project-env-pick-repository/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-pick-repository:backlog:1
+                briefing: briefing:project-env-pick-repository:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-28T01:10:18.577205Z"
+                decision: approve
+                reason: '「r1b開。跟 dev2 fo 講這個需求」 — Captain in FO chat, 2026-10-28. Asked: 「下一件要你決定的：要不要開 r1b 的第一個程式任務「選 repo」？我建議開，而且先做這個…回「開」或「先不用」。」 FO read 「r1b開」 as opening this task, the one asked; the other r1b code tasks are asked one at a time.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Journey release r1b story `pick-repository` ("Pick the repository from Paseo's project list") is a gap. FO read `Configured` in `project-env/client/settings-screen.tsx` at origin/main 7b63c31 on 2026-10-28: the "Add a project" select is drawn only when `candidates.length > 0`, so when Paseo has no project, every project is already configured, or `paseo.projects.list()` fails, the section shows nothing and says nothing. The r1b release review (`project-env-docs-site/release-review-r1b.md`) and the docs-site AC-2 run both met it; the Prepare page works around it with words. Asked whether to open this task first among r1b's code tasks, recommending it, the Captain answered 「r1b開。跟 dev2 fo 講這個需求」 on 2026-10-28.
