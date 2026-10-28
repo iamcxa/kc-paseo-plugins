@@ -1,7 +1,7 @@
 ---
 id:
 title: A new teammate can add a repository even when Paseo has no project or the project list fails
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
