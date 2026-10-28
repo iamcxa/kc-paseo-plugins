@@ -1,0 +1,14 @@
+{
+  "class": "other",
+  "head": "ad347406fba976ba59417461ed4d0786145d0c52",
+  "model": "not run",
+  "necessity": "one test file changes; without it main keeps failing eight tests since #58 and every later PR's validation inherits them.",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: acceptance-not-run: 'Script at `evidence/val/acceptance.sh` (six steps, about'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#62",
+  "sufficiency": "validation-1 PASSED at ad34740 with no findings: npm test 306 of 306, typecheck exit 0, the diff equals the approved change, and each of the eight heading deletions fails exactly its own cause's test;",
+  "time": "2026-10-28T13:07:03Z",
+  "verdict": "ask"
+}
