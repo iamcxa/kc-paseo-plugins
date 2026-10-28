@@ -1,0 +1,37 @@
+Candidate ad347406fba976ba59417461ed4d0786145d0c52 (git archive copy, npm ci done): npm test tests 306 pass 306 fail 0; npm run typecheck exit 0.
+== deleted line 44: ### No token stored for this service account
+ℹ pass 305
+ℹ fail 1
+✖ explain no-token with the words the screen shows (1.220792ms)
+== deleted line 48: ### 1Password rejected the token
+ℹ pass 305
+ℹ fail 1
+✖ explain rejected-token with the words the screen shows (0.362541ms)
+== deleted line 52: ### Field not found in the vault
+ℹ pass 305
+ℹ fail 1
+✖ explain missing-field with the words the screen shows (0.422833ms)
+== deleted line 56: ### 1Password could not be reached
+ℹ pass 305
+ℹ fail 1
+✖ explain unreachable with the words the screen shows (0.968125ms)
+== deleted line 60: ### The 1Password field is empty
+ℹ pass 305
+ℹ fail 1
+✖ explain empty with the words the screen shows (0.403542ms)
+== deleted line 64: ### Reference points outside the chosen vault
+ℹ pass 305
+ℹ fail 1
+✖ explain outside-vault with the words the screen shows (0.4145ms)
+== deleted line 68: ### Reserved name
+ℹ pass 305
+ℹ fail 1
+✖ explain reserved-name with the words the screen shows (0.33475ms)
+== deleted line 72: ### 1Password returned an error the plugin does not recognise
+ℹ pass 305
+ℹ fail 1
+✖ explain unexpected with the words the screen shows (0.471666ms)
+== restored
+ℹ tests 306
+ℹ pass 306
+ℹ fail 0

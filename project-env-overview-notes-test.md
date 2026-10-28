@@ -135,3 +135,14 @@ None. The choice between matching the heading in the test and an equivalent chan
 ### Summary
 
 The 8 failures are one cause: #58 made the cause sentences headings without the final period. The smallest fix is a three-line test change that matches the heading line, which also keeps the test from passing on the same words elsewhere in the page. `design_surfaces.py check` reports presentable (Surfaces: none). Nothing was committed to the repository; the throwaway copies are in /tmp.
+
+## Stage Report: implementation
+
+- DONE: Apply the approved diff (evidence/agent-notice.test.ts.diff in this task's folder) to project-env/test/agent-notice.test.ts and nothing else.
+  `git apply` on d973876; commit ad34740 touches only `project-env/test/agent-notice.test.ts` (3 insertions, 2 deletions); branch `spacedock-ensign/project-env-overview-notes-test`.
+- DONE: Land AC-1's evidence at the candidate commit: `npm ci && npm test` from a git archive of the candidate (306 of 306), `npm run typecheck`, and the per-heading deletion run showing each deletion fails exactly its own cause's test; then run the roborev gate and doc_impact.py, and open the Draft PR.
+  Archive of ad34740: `npm ci` ok, `npm test` 306 tests / 306 pass / 0 fail, `npm run typecheck` exit 0. Deleting each of the 8 `### ` cause headings: 305 pass, 1 fail, the failure is that cause's own `explain <cause> with the words the screen shows` (all 8 match; `evidence/mutation-run-candidate.txt`). roborev: `clean on ad347406f; evidence=roborev:1302` (exit 0, first run). doc_impact.py ad34740 vs d973876: `0 document(s) mention what changed`, nothing to record. comment_ratio: 0 comment lines of 3 code lines, not enforced (<20). design_surfaces: presentable. Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/62
+
+### Summary
+
+The test now requires the exact line `### <causeSentence(cause) without its period>`; no other file changed. AC-1 holds at the candidate: green suite, clean typecheck, and each of the eight heading deletions fails exactly its own cause test. Falsifier for the diff: reverting it brings back the 8 failures measured at d973876 (298 pass / 8 fail). No findings; no ADR added or changed.
