@@ -104,3 +104,18 @@ Chrome 在一般 sandbox 未回應；允許本機 headless 擷取後成功。只
 - Design director pass 2 on d0f7d1a: NOT SATISFIED — the earlier blocks and reading load are fixed, but two click-through paths of the static prototype show wrong results: reopening after Confirm shows a fixed "request changes" and sample reason instead of the confirmed choice; going to the comms officer and back resets progress (the gate offers decision controls again, a recorded gate reappears). Layout, proportions and exclusions pass. Second unsatisfied team pass on this theme: under ADR 0008 the FO stops and asks the Captain before another revision.
 - Captain ruling 2026-10-28 on the stop, asked 「設計稿方向已通過設計總監，只剩「可點擊示範」兩條路徑沒記住狀態。要怎麼做？」, answered 「你先看截圖定方向 (Recommended)」 (option text: he reviews the screenshots now and says go or what to change; the two prototype paths are not fixed in the mockup and become acceptance items for the code round).
 - Captain request 2026-10-28: 「把 review.md 做成一個 htlm 入口，分成左右兩欄，這樣比較好審核，不然要一直跳來跳去」. FO asks the designer for review.html (no change to the mockups themselves).
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: The Captain's words: 「把 review.md 做成一個 htlm 入口，分成左右兩欄，這樣比較好審核，不然要一直跳來跳去」 — add /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-mockups-one-item-whole-area/mockups/review.html, self-contained and offline: the one direction question at the top; a left column listing every state from REVIEW.md in order (title and its reference question), a right column showing the selected state's desktop and phone PNGs side by side or stacked, with a desktop/phone toggle and previous/next keys (arrow keys) so he never leaves the page; the first state selected on load; a link to the live index.html state; no change to the mockups, REVIEW.md content or PNGs; open it in a headless browser once at 1440 wide and save review-entry.png as a check; a short "## Stage Report: implementation (cycle 3)" section
+  新增 mockups/review.html 與 review-entry.png；一次新的 1440×1000 headless Chrome session 實際驗證 13 項標題／問題／連結順序、26 張圖片載入、桌面／手機／並排切換、四個方向鍵與首尾邊界；初始選第一項。若順序錯誤、圖片失聯或鍵盤／尺寸切換失效，對應查核會失敗。
+
+### Findings
+
+只新增審閱入口與檢查圖，並追加本報告。現有 index.html、REVIEW.md、所有原 PNG 及擷取資料均未改；Captain 留待程式回合處理的兩條原型狀態路徑未修。可操作示意連結開新分頁，審閱狀態與圖片切換留在本頁。
+comment_ratio.py 重跑退出 0：0 code／0 comment lines，0.0%，未達 20 行；產品 base/candidate 均 b5381b18834ead9047778e96b27199ae0b3bd8e8。design_surfaces 與 R4 的既知套件缺口 2／3、RoboRev 無產品程式變更及缺口 5 的 SKIPPED 處置不變。
+沒有 localhost 服務、Paseo daemon 操作、產品程式或 PR；擷取瀏覽器已關閉、新臨時 profile 已移除。
+
+### Summary
+
+已把既有逐頁審閱內容做成左右雙欄入口，頂端保留單一方向問題，選圖不必離開頁面。僅改善審閱方式，未變更圖稿或替 Captain 記錄接受。

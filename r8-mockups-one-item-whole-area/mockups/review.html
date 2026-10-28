@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'">
+<title>單件全區 · 設計稿審閱</title>
+<style>
+:root{color-scheme:dark;--bg:#151a17;--panel:#1b211d;--border:#343e37;--text:#eef2ef;--muted:#a7b3aa;--accent:#89cf9a}
+*{box-sizing:border-box}body{margin:0;color:var(--text);background:var(--bg);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,a{font:inherit}button{color:inherit;cursor:pointer}button:disabled{opacity:.35;cursor:default}a{color:var(--accent);text-decoration:none}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}h1,h2,p,figure{margin:0}header{padding:20px 24px 16px;border-bottom:1px solid var(--border)}h1{font-size:21px;font-weight:600;line-height:1.4}.note{margin-top:6px;color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:336px minmax(0,1fr);height:calc(100dvh - 103px);min-height:400px}.sidebar{overflow:auto;border-right:1px solid var(--border);padding:12px}.sidebar ol{list-style:none;padding:0;margin:0}.state{display:block;text-align:left;width:100%;padding:12px;border:1px solid transparent;border-radius:9px;background:transparent;margin-bottom:4px}.state:hover{background:#242d26}.state[aria-current=true]{background:#25362a;border-color:#60996e}.state-title{font-weight:600;display:block}.state-question{font-size:12px;color:var(--muted);display:block;margin-top:4px}.preview{min-width:0;overflow:auto;padding:20px 24px 32px}.preview-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.preview h2{font-size:19px}.reference{font-size:13px;color:var(--muted);margin-top:5px;max-width:760px}.controls{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0 20px;flex-wrap:wrap}.switches,.pager{display:flex;align-items:center;gap:6px}.switches{padding:3px;border:1px solid var(--border);border-radius:9px}.switches button,.pager button{padding:6px 12px;min-height:34px;border:1px solid transparent;border-radius:6px;background:transparent}.switches button[aria-pressed=true]{background:#354739;color:var(--text)}.pager button{border-color:var(--border)}.position{color:var(--muted);font-size:12px;min-width:42px;text-align:center}.images{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:20px;align-items:start}.images[data-mode=desktop],.images[data-mode=phone]{grid-template-columns:minmax(0,1fr)}.images[data-mode=desktop] .phone,.images[data-mode=phone] .desktop{display:none}figure{min-width:0}figcaption{font-size:12px;color:var(--muted);margin-bottom:10px}img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:7px;background:#181c1a}.images[data-mode=phone] .phone{width:min(360px,100%);margin-inline:auto}.reference-link{font-size:13px;white-space:nowrap;padding:6px 0}.key-note{font-size:12px;color:var(--muted);margin-top:20px}
+@media(max-width:1000px){.layout{grid-template-columns:300px minmax(0,1fr)}.images{grid-template-columns:minmax(0,1fr)}.phone{width:min(360px,100%);margin-inline:auto}.preview{padding:18px}}
+@media(max-width:680px){header{padding:16px}h1{font-size:18px}.layout{display:block;height:auto;min-height:0}.sidebar{max-height:260px;border-right:0;border-bottom:1px solid var(--border)}.preview-header{flex-direction:column;gap:5px}.preview{overflow:visible}}
+</style>
+<header><h1>要照這個方向往下做，還是有哪裡要改？</h1><p class="note">單件全區 · 左邊選狀態，右邊看圖。各狀態的細問只供參考，不需逐題回答。</p></header>
+<div class="layout">
+<nav class="sidebar" aria-label="設計稿狀態"><ol id="states"></ol></nav>
+<main class="preview">
+<div class="preview-header"><div><h2 id="title"></h2><p class="reference" id="question"></p></div><a id="live" class="reference-link" target="_blank" rel="noopener">開啟可操作示意 ↗</a></div>
+<div class="controls"><div class="switches" role="group" aria-label="顯示尺寸"><button data-mode="both" aria-pressed="true">並排</button><button data-mode="desktop" aria-pressed="false">桌面</button><button data-mode="phone" aria-pressed="false">手機</button></div><div class="pager"><button id="previous" aria-label="上一個狀態">← 上一個</button><span class="position" id="position" aria-live="polite"></span><button id="next" aria-label="下一個狀態">下一個 →</button></div></div>
+<div class="images" id="images" data-mode="both"><figure class="desktop"><figcaption>桌面 · 1440 × 1000</figcaption><img id="desktop" alt=""></figure><figure class="phone"><figcaption>手機 · 360 × 780</figcaption><img id="phone" alt=""></figure></div>
+<p class="key-note">←／↑ 上一個狀態 · →／↓ 下一個狀態。圖片使用虛構資料；可操作示意仍有已知原型限制。</p>
+</main></div>
+<script>
+const states=[{"title": "清單", "question": "你能直接從清單辨識要處理的問題與收件人嗎？", "html": "index.html?state=list", "desktop": "1440-list.png", "phone": "360-list.png"}, {"title": "單件全區", "question": "把 Bridge 全區交給這件事後，讀簡報、對話及做決定的空間夠嗎？", "html": "index.html?state=open", "desktop": "1440-open.png", "phone": "360-open.png"}, {"title": "已選要求修改，理由空白", "question": "你能看出選了結果但還缺理由、尚不能確認嗎？", "html": "index.html?state=reason-empty", "desktop": "1440-reason-empty.png", "phone": "360-reason-empty.png"}, {"title": "已填理由", "question": "普通訊息與決定理由的區別，以及 Confirm 會送出的內容，清楚嗎？", "html": "index.html?state=reason-typed", "desktop": "1440-reason-typed.png", "phone": "360-reason-typed.png"}, {"title": "已送出", "question": "你能看出現在只是送到通訊官，還沒有記錄嗎？", "html": "index.html?state=sent", "desktop": "1440-sent.png", "phone": "360-sent.png"}, {"title": "已轉送", "question": "你能看出仍在等負責推進工作的代理核對並記錄嗎？", "html": "index.html?state=relayed", "desktop": "1440-relayed.png", "phone": "360-relayed.png"}, {"title": "已記錄", "question": "這個結果與理由足以讓你確定眼前這次決定已完成嗎？", "html": "index.html?state=recorded", "desktop": "1440-recorded.png", "phone": "360-recorded.png"}, {"title": "已送出後回清單", "question": "尚未記錄的閘門仍在原清單，點開能回到送出進度，清楚嗎？", "html": "index.html?state=list-sent", "desktop": "1440-list-sent.png", "phone": "360-list-sent.png"}, {"title": "已轉送後回清單", "question": "點開仍在清單中的閘門時，能看出它已轉送但尚未記錄嗎？", "html": "index.html?state=list-relayed", "desktop": "1440-list-relayed.png", "phone": "360-list-relayed.png"}, {"title": "已記錄後回清單", "question": "只有已記錄的閘門離開待決清單，這樣能繼續選事嗎？", "html": "index.html?state=back-list", "desktop": "1440-back-list.png", "phone": "360-back-list.png"}, {"title": "通訊官問題", "question": "從清單開通訊官問題後，是否清楚現在訊息送給通訊官？", "html": "index.html?state=comms", "desktop": "1440-comms.png", "phone": "360-comms.png"}, {"title": "未分派審查，已預填詢問", "question": "從未分派審查開到預填詢問後，你能直接送給通訊官嗎？", "html": "index.html?state=review-ask", "desktop": "1440-review-ask.png", "phone": "360-review-ask.png"}, {"title": "審查詢問已送出", "question": "你能看出這只送出了指派詢問，並沒有完成審查或記錄決定嗎？", "html": "index.html?state=review-sent", "desktop": "1440-review-sent.png", "phone": "360-review-sent.png"}];
+let selected=0;
+const list=document.getElementById('states');
+for(const [i,state] of states.entries()){
+ const li=document.createElement('li');
+ const button=document.createElement('button');button.className='state';
+ const title=document.createElement('span');title.className='state-title';title.textContent=(i+1)+'. '+state.title;
+ const question=document.createElement('span');question.className='state-question';question.textContent=state.question;
+ button.append(title,question);button.addEventListener('click',()=>select(i));li.append(button);list.append(li);
+}
+function select(index){
+ selected=Math.max(0,Math.min(states.length-1,index));const state=states[selected];
+ document.getElementById('title').textContent=state.title;
+ document.getElementById('question').textContent=state.question;
+ document.getElementById('live').href=state.html;
+ for(const mode of ['desktop','phone']){const img=document.getElementById(mode);img.src=state[mode];img.alt=state.title+' · '+(mode==='desktop'?'桌面':'手機');}
+ document.querySelectorAll('.state').forEach((button,i)=>button.setAttribute('aria-current',String(i===selected)));
+ document.getElementById('previous').disabled=selected===0;document.getElementById('next').disabled=selected===states.length-1;
+ document.getElementById('position').textContent=(selected+1)+' / '+states.length;
+ document.querySelector('.state[aria-current=true]').scrollIntoView({block:'nearest'});
+}
+function setMode(mode){document.getElementById('images').dataset.mode=mode;document.querySelectorAll('[data-mode]').forEach(button=>{if(button.tagName==='BUTTON')button.setAttribute('aria-pressed',String(button.dataset.mode===mode))});}
+for(const button of document.querySelectorAll('button[data-mode]'))button.addEventListener('click',()=>setMode(button.dataset.mode));
+document.getElementById('previous').addEventListener('click',()=>select(selected-1));document.getElementById('next').addEventListener('click',()=>select(selected+1));
+document.addEventListener('keydown',event=>{const step=({ArrowLeft:-1,ArrowUp:-1,ArrowRight:1,ArrowDown:1})[event.key];if(step){event.preventDefault();select(selected+step);}});
+select(0);
+</script>
+</html>
