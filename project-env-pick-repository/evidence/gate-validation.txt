@@ -1,0 +1,8 @@
+Question: Approve validation of pick-repository (PR iamcxa/kc-paseo-plugins#61 at 7d74145fc65b1b21251bf3cf07b41bbd400b98e2) and the three proposed declines (F1 to F3 Polish)? FO recommends approving. Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.
+Merge ask: PR #61 at 7d74145fc65b1b21251bf3cf07b41bbd400b98e2 makes the Add a project row say what to do when Paseo has no unconfigured project or the project list fails (with Try again), keeps the select unchanged, and updates one Prepare-page sentence.
+Sufficiency: validation-1 PASSED at 7d74145 with no Material or Needs decision finding; AC-1 four states at 1280 and 400 px and AC-2 retry and return flows reproduced on an isolated Paseo; 312/312 tests; each new branch caught by a unit test; built screen review no findings; FO's acceptance rerun matched.
+Necessity: the PR adds shared/project-list.ts with its test, the AddProject row in the settings screen and one docs sentence; without it a new teammate with no Paseo project sees an empty card and no next step.
+Reviews: external review rounds: 1 — Codex summary:6470690096 clean on 7d74145fc; local roborev:1292 clean on 6188efd (development feedback, not a round).
+Declined: Polish, F1 OVERVIEW setup step 2 does not mention the new rows (still true; the screen and the Prepare page carry the steps).
+Declined: Polish, F2 refocusing a failed list shows Loading… for about 7 s (host refetch; heals itself; never a wrong state).
+Declined: Polish, F3 Try again tap target about 32 px at 400 px (same as the existing Edit button; director raised nothing).

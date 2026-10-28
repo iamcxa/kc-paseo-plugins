@@ -257,3 +257,7 @@ Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，�
 ### Local extension doc-site (round 1, validation)
 
 Asked: follow the Prepare page's words through the changed screen. Caught: nothing stale — step 4 matches the screen word for word and `img/03-add-project.png` matches run d; the Jekyll site was not built (Markdown read only). Cost: part of the validation run, no extra cycle. By hand: FO wrote the line into the validation scope notes.
+
+### FO acceptance rerun (2026-10-28)
+
+FO ran `evidence/val/acceptance.sh` in bash against 7d74145: typecheck exit 0, 312 pass 0 fail; the failed row, Loading… after Try again, the failure again, the select once the cause is lifted; the no-project sentence, then the select listing shop-api after a repository was added through the sidebar with no reload; 8 pictures; torn down, exit 0 (`evidence/fo-acceptance-rerun-7d74145.txt`).
