@@ -280,3 +280,11 @@ Asked: follow the Prepare page's words through the changed screen. Caught: nothi
 ### FO acceptance rerun (2026-10-28)
 
 FO ran `evidence/val/acceptance.sh` in bash against 7d74145: typecheck exit 0, 312 pass 0 fail; the failed row, Loading… after Try again, the failure again, the select once the cause is lifted; the no-project sentence, then the select listing shop-api after a repository was added through the sidebar with no reload; 8 pictures; torn down, exit 0 (`evidence/fo-acceptance-rerun-7d74145.txt`).
+
+### FO merge and reload (ADR 0007 class 2, 2026-10-29)
+
+After the Captain approved validation (「准」, 2026-10-29), FO merged PR iamcxa/kc-paseo-plugins#61 by squash with `--match-head-commit 7d74145fc65b1b21251bf3cf07b41bbd400b98e2` (delivery_gate check exit 0, GitGuardian pass, mergeable CLEAN, Codex clean, no Codex line comment); merge commit f5d93bd521a738b6807cec6076c0509eefeddde7. Reload route: (1) backup `~/.paseo-backup-project-env-20261021/projects-20261029T082123.json`, byte-identical; (2) `git fetch origin`, origin/main contains f5d93bd; (3) clean main checkout at b5381b1, 0 ahead, `merge --ff-only`, HEAD equals origin/main f5d93bd (this also brings the live checkout the merged #58, #59, #62 and the workflow syncs); (4) `npm ci`, 0 vulnerabilities; (5) `paseo plugin reload paseo-project-env`: running. After reload the settings file is byte-identical to the backup.
+
+## UAT
+
+Pending: the Captain's UAT on the live plugin.
