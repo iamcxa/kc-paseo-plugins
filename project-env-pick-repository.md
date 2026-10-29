@@ -59,6 +59,17 @@ gates:
                 id: briefing:project-env-pick-repository:validation:attempt-1:revision-1
                 digest: sha256:70c89fc3954c0fb2ef5ce0323f09b6089b77164c73e31f39757f7600119bf187
                 room-ref: ./project-env-pick-repository/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-pick-repository:validation:1
+                briefing: briefing:project-env-pick-repository:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-29T00:20:57.281545Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-29, on the validation gate (sha256:70c89fc3), FO having recommended approval; approves validation and the three proposed declines (F1 to F3 Polish) at candidate 7d74145fc65b1b21251bf3cf07b41bbd400b98e2. Asked: Approve validation of pick-repository (PR #61 at 7d74145) and the three proposed declines? Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-28T01:10:58Z
 ---
 
