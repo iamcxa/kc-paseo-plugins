@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-resume-blank-notice:ideation:attempt-1:revision-1",
+  "question": "Approve the resume-notice design (a 'Resumed without N project variables' row at the end of the first turn after a resume, not repeated for the same failure) and AC-1 into implementation? FO recommends approving, which also accepts that the line shows when that first turn ends, not when the chat is opened. Say if you object to any part.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-resume-blank-notice:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/62b5638f02a8f859375ca33809df0565fa8d4a58/project-env-resume-blank-notice.md",
+      "rev": "sha256:e5a5614143bdc8e5e2c05c5ffabc6c75bab0e0ebee6250899c1934f164b116cb",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Gap confirmed on isolated Paseo 0.14.0: a resume fires agent.session_open with reason resume, an unreadable variable goes blank, and no line shows. Candidate: 320/320 tests, 6 of 6 mutations killed; row at turn end stays visible, a row at turn start is folded by the default Chat display, and an append in the opening hook fails. Viewing a released agent also resumes it, so the repeat rule matters. Not observed: unreadable case on an unpatched one-hour release, real provider, desktop app, failed turn. design_surfaces exit 0."
+    }
+  ]
+}

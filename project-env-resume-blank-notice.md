@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-resume-blank-notice:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-resume-blank-notice-ideation-1
+              briefing:
+                id: briefing:project-env-resume-blank-notice:ideation:attempt-1:revision-1
+                digest: sha256:ddd599e5bdd7a7536dbcef12b695d71595168bfb30cd80c43c64667e23c14952
+                room-ref: ./project-env-resume-blank-notice/review/ideation/briefing-1
 started: 2026-10-30T14:42:08Z
 ---
 
