@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.2.0...project-env-v0.3.0) (2026-10-30)
+
+
+### Features
+
+* **project-env:** the Add a project row always says what to do next when Paseo has no project, every project is set up, or the list fails ([#61](https://github.com/iamcxa/kc-paseo-plugins/issues/61)) ([f5d93bd](https://github.com/iamcxa/kc-paseo-plugins/commit/f5d93bd521a738b6807cec6076c0509eefeddde7))
+
 ## [0.2.0](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.1.0...project-env-v0.2.0) (2026-10-27)
 
 
