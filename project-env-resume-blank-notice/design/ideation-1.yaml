@@ -1,0 +1,35 @@
+design_review:
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/shots/index.html
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+    - docs/adr/0007-the-project-env-fo-decides-by-record-the-decisions-the-captain-did-not-keep.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: cand-both-1280.png and cand-both-400.png (the "both" state)
+      seen: The "both" pictures show only the "Resumed without 2 project variables" row; the earlier start-time row is out of frame, so the pictures never show the two warning rows together, and the proposal's rule that a different set adds a new line, or that a repeat adds nothing, is not drawn anywhere.
+      fix: Add a picture of one conversation with the start row and the resume row both in frame (and, if the resume list repeats a name already shown at start, say in the proposal whether it is listed again), so a person can see the two rows are distinguishable and not contradictory.
+    - severity: MINOR
+      dimension: states
+      where: cand-*-1280 / cand-*-400 (all states)
+      seen: Only 1 to 3 variables with short single-line reasons are shown; there is no picture with many variables (for example 10 or more) or a long reason, and none of the turn while it is still running or ending in an error or a stop.
+      fix: Add a many-variables picture to settle growth of the row (or a cap with "and N more"), and state in the proposal what a person sees when the first turn after resume is cancelled or fails before its final reply.
+    - severity: MINOR
+      dimension: spacing
+      where: cand-three-400.png and cand-three-400-light.png
+      seen: At 400 px the long name STRIPE_WEBHOOK_SIGNING_SECRET_FOR_PRODUCTION breaks mid-word ("PRODUCTIO" / "N") and the reason wraps with the dash left dangling at a line end ("— the" / "1Password field is empty"), so a variable name reads as two names.
+      fix: Break names only at underscores (or let a long name scroll), and when the name plus reason does not fit, put the reason on its own line under the name instead of after the dash.
+    - severity: MINOR
+      dimension: theme-size
+      where: cand-three-1280-light.png, cand-three-400-light.png
+      seen: In light theme the reasons are drawn in a pale grey at a small size beside black monospace names; the reason is the part a person acts on, and it is the faintest text in the row.
+      fix: Raise the reason text to the host's secondary-text colour used for body-level help, and confirm its contrast in both themes with a measured value in the built screenshots.
+  limitations:
+    - I opened 9 of the 13 candidate pictures (cand-three 1280 and 400 dark, cand-three 400 light, cand-both 1280 and 400 dark, cand-one 1280 light, cand-one 400 dark, and main-three 1280 dark); the rest I judged only from their listed titles in cand-seen.txt, not by looking.
+    - The pictures are static; I could not see the row appear, so whether it shows only after the turn ends, and whether it stays under the final reply of an older turn once later turns exist, is not drawn (only a finished turn is shown).
+    - The proposal's claim about the "Collapse turns" setting is only half shown: the turn is folded into one summary line and the row sits outside it in the pictures, but the opposite placement (row at turn start, folded away) is not pictured, and no picture shows the other Chat display setting.
+    - The row's content (variable name and reason, never a value) matches docs/adr/0002 (Accepted), and that record rules that a failed variable is blanked and shown, so I raised no finding on showing it; the pictures cannot show the build or the vault, so the real reasons and the text of the four reasons classes (docs/adr/0004 adds "reserved name") are not checked; the three reasons shown are not the reserved-name reason.
+    - Test-fixture text in the pictures (reply texts cut off mid-sentence, the "Sent by 8b2c2fc2-..." line, "Ten second stream", "Load test") is the throwaway agent's, not the design, and I did not review it.

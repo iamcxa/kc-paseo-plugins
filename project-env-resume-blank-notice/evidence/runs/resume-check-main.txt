@@ -1,0 +1,54 @@
+== healthy
+  session_open reason=create env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.created
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.turn_started
+  event agent.turn_ended
+  -- conversation after resume-1.txt
+     items: 46
+  -- conversation after resume-2.txt
+     items: 69
+== lost
+  session_open reason=create env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.created
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  -- conversation after resume-1.txt
+     items: 46
+  -- conversation after resume-2.txt
+     items: 69
+== blank
+  session_open reason=create env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.created
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  -- conversation after resume-1.txt
+     3 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}]}
+     items: 48
+  -- conversation after resume-2.txt
+     3 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}]}
+     items: 71
+agents: healthy=28aeba5c-c188-4662-a352-5eade087636e lost=188c9a4a-c593-43a0-bd3a-63c25956ff18 blank=b00def04-dce1-4be9-9946-6bab0ab8bc40

@@ -1,0 +1,23 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: overruled
+      evidence: Neither cand-both-tall-1280.png (whole conversation, no start-time warning row between the "start both" message and the first reply) nor cand-both-tall-full-1280.png (turn one is cut off at the top, only the "Resumed without 2 project variables" row is drawn) shows a start row anywhere, so the pictures do not show the two rows together; "page text holds both titles" is not something either picture settles.
+      change: Provide one built or fixture picture with the start row and the resume row both in frame (for example the Full display scrolled to the top of turn one, then the resume row), or, if the fixture cannot draw the start row, add a validation criterion that a built screenshot of one conversation shows both rows, and that a name repeated at resume is listed again under the resume title.
+    - finding: 2
+      ruling: upheld
+      evidence: cand-three-400.png and cand-three-1280-light.png show the row listing each variable on its own line below a reply cut off mid-sentence with "Worked for 3s", so the stopped case is drawn and nothing is hidden or mislabelled; growth with more variables is the same one-line-per-variable stack, and the failed-turn case is an undrawn state recorded as a known limit.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: In cand-three-400.png and cand-three-400-light.png the full name STRIPE_WEBHOOK_SIGNING_SECRET_FOR_PRODUCTION is present across two lines ("PRODUCTIO" then "N" at the start of the next line, same column) and the dash reason follows legibly, so a person can still read which variable failed and why.
+      change: none
+    - finding: 4
+      ruling: decision
+      evidence: The decline rests on the host theme token theme.colors.foregroundMuted but gives no path to its declaration, so it cannot be checked against it; the picture itself (cand-three-1280-light.png) shows the reason in grey at a measured 4.83:1 against the white row background (names 17.35:1), legible but the faintest text in the row.
+      change: The Captain decides whether the reason keeps the start row's muted token (4.83:1 in light, consistent with the start row) or moves to a stronger host token; if the caller names the declaration path of the token, this decline can be re-checked and would then stand on the measured contrast.
+      kind: host-look
+      owner: Captain

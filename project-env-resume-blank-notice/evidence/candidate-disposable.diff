@@ -1,0 +1,353 @@
+diff --git a/project-env/OVERVIEW.md b/project-env/OVERVIEW.md
+index f0ee4b1..46f16c1 100644
+--- a/project-env/OVERVIEW.md
++++ b/project-env/OVERVIEW.md
+@@ -6,7 +6,7 @@ If a variable is blank, go to [When a variable is blank](#when-a-variable-is-bla
+ 
+ You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the login Keychain of the Mac that runs Paseo. When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
+ 
+-A variable that cannot be read is set to an empty value and the agent still starts. A line at the start of the new conversation, "Started without N project variables", names each one and the reason.
++A variable that cannot be read is set to an empty value and the agent still starts. A line in the conversation, "Started without N project variables" for a new agent or "Resumed without N project variables" when a paused agent resumes, names each one and the reason.
+ 
+ ## Setup
+ 
+@@ -35,7 +35,7 @@ It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain,
+ 
+ A blank variable means the plugin could not read it. The agent started anyway with that variable empty, so it never runs on an old value of the same name. There are three places to see the reason:
+ 
+-- The line "Started without N project variables" at the start of the new conversation lists each variable and why.
++- The line "Started without N project variables" in a new conversation, or "Resumed without N project variables" when a paused agent picks up again, lists each variable and why. The resumed line appears when the first turn after the resume ends, not when you open the conversation, and is not repeated while the same variables stay blank.
+ - **Settings**, **Plugins**, the actions menu, **Project environment**: edit the repository and press **Test**. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
+ - The plugin's Logs, in the same actions menu, hold one line per failed variable with the reason class and never a value.
+ 
+diff --git a/project-env/client/missing-variables-row.tsx b/project-env/client/missing-variables-row.tsx
+index 3991bfe..e878cfb 100644
+--- a/project-env/client/missing-variables-row.tsx
++++ b/project-env/client/missing-variables-row.tsx
+@@ -5,13 +5,13 @@ import { causeWords, missingVariablesTitle } from "../shared/cause";
+ import type { MissingVariablesData } from "../shared/config";
+ 
+ export function MissingVariablesRow({ item, theme }: PluginTimelineItemProps<MissingVariablesData>) {
+-  const { variables } = item.data;
++  const { variables, resumed } = item.data;
+   return (
+     <View style={{ flexDirection: "row", gap: 8, paddingVertical: 6 }}>
+       <Icon name="TriangleAlert" size={16} color={theme.colors.statusWarning} />
+       <View style={{ flex: 1, gap: 2 }}>
+         <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>
+-          {missingVariablesTitle(variables.length)}
++          {missingVariablesTitle(variables.length, resumed === true)}
+         </Text>
+         {variables.map((v) => (
+           <Text key={v.name} style={{ color: theme.colors.foregroundMuted, fontSize: 13 }}>
+diff --git a/project-env/server/agent-notice.ts b/project-env/server/agent-notice.ts
+index 6d1f6c3..c3b1ced 100644
+--- a/project-env/server/agent-notice.ts
++++ b/project-env/server/agent-notice.ts
+@@ -7,7 +7,7 @@ export const agentNotice = [
+   "The environment variables in this session that hold this repository's tokens and keys were filled in by the project-env plugin from this repository's 1Password mapping. They are already set; use them as they are.",
+   "- Never show a value, even when the user asks: do not print, echo or log it, do not run a command that outputs it (printenv, env, echo $NAME) even if you would keep the output to yourself, do not commit it, and do not quote any part of it. To check that a variable is set, test it without showing it, for example [ -n \"$NAME\" ].",
+   "- Do not ask the user to paste, export, set, add or send a token or key, and do not suggest setting one in the environment or in a file.",
+-  "- A variable that is empty here could not be read, and the plugin blanked it on purpose. Setting it by hand is not the fix and the user is never to be asked to: do not guess a value, work around it, or tell the user to set or supply it. Tell the user it is blank and that the fix is in Paseo: ask them to open Paseo Settings, Plugins, the plugin's actions menu, Project environment, edit this repository and press Test: each variable shows \"set\" or the reason it failed. Paseo also shows the user a \"Started without N project variables\" line at the start of this conversation with the same reasons.",
++  "- A variable that is empty here could not be read, and the plugin blanked it on purpose. Setting it by hand is not the fix and the user is never to be asked to: do not guess a value, work around it, or tell the user to set or supply it. Tell the user it is blank and that the fix is in Paseo: ask them to open Paseo Settings, Plugins, the plugin's actions menu, Project environment, edit this repository and press Test: each variable shows \"set\" or the reason it failed. Paseo also shows the user a line in this conversation, \"Started without N project variables\" or, after the agent was paused and resumed, \"Resumed without N project variables\", with the same reasons.",
+   "- The plugin's troubleshooting notes (OVERVIEW.md in the project-env plugin package) list every reason and what to do.",
+ ].join("\n");
+ 
+diff --git a/project-env/server/contribute.ts b/project-env/server/contribute.ts
+index 3256bdf..3fc151d 100644
+--- a/project-env/server/contribute.ts
++++ b/project-env/server/contribute.ts
+@@ -1,5 +1,6 @@
+-import type { PluginServerContext } from "@getpaseo/plugin/server";
++import type { PluginHookContext, PluginServerContext } from "@getpaseo/plugin/server";
+ import * as rpc from "../shared/config.ts";
++import { randomUUID } from "node:crypto";
+ import type { Project } from "../shared/config.ts";
+ import { hasVariables, withNotice } from "./agent-notice.ts";
+ import { failureLine } from "./cause.ts";
+@@ -36,21 +37,24 @@ export function contribute(server: PluginServerContext, tools: Tools) {
+       console.error(failureLine(project.root, r.name, r.cause ?? "unexpected"));
+     }
+     const failed = opened.results.filter((r) => !r.ok);
+-    if (request.reason === "create") notices.record(request.agentId, failed);
++    if (request.reason === "create" || request.reason === "resume") {
++      notices.record(request.agentId, failed, { resumed: request.reason === "resume" });
++    }
+     return opened.request;
+   });
+ 
+-  server.on("agent.created", ({ agent }, { paseo }) =>
++  const addLine = ({ agent }: { agent: { id: string } }, { paseo }: { paseo: PluginHookContext["paseo"] }) =>
+     notices.flush(agent.id, (data) =>
+       paseo.agents.ref(agent.id).timeline.append({
+         type: "plugin",
+-        id: rpc.missingVariablesRowId,
++        id: data.resumed ? `${rpc.missingVariablesRowId}-resumed-${randomUUID()}` : rpc.missingVariablesRowId,
+         kind: rpc.missingVariablesKind,
+         version: rpc.missingVariablesVersion,
+         data,
+       }),
+-    ),
+-  );
++    );
++  server.on("agent.created", addLine);
++  server.on("agent.turn_ended", addLine);
+   server.on("agent.closed", ({ agent }) => notices.drop(agent.id));
+ 
+   server.handle(rpc.tokenStatus, ({ serviceAccount }) => secrets.tokenStatus(serviceAccount));
+diff --git a/project-env/server/missing-variables-notice.ts b/project-env/server/missing-variables-notice.ts
+index c7d528c..e9eb105 100644
+--- a/project-env/server/missing-variables-notice.ts
++++ b/project-env/server/missing-variables-notice.ts
+@@ -15,24 +15,43 @@ interface Options {
+   log?: (line: string) => void;
+ }
+ 
++interface Pending {
++  at: number;
++  resumed: boolean;
++  variables: MissingVariablesData["variables"];
++}
++
++const signature = (variables: MissingVariablesData["variables"]) =>
++  variables
++    .map((v) => `${v.name}\0${v.cause}`)
++    .sort()
++    .join("\n");
++
+ export function createNotices({ now = Date.now, log = console.error }: Options = {}) {
+-  const pending = new Map<string, { at: number; variables: MissingVariablesData["variables"] }>();
++  const pending = new Map<string, Pending>();
++  const shown = new Map<string, string>();
+ 
+   function prune(at: number) {
+     for (const [agentId, entry] of pending) {
+-      if (at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
++      if (!entry.resumed && at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
+     }
+   }
+ 
+-  function record(agentId: string, failures: Failure[]) {
++  function record(agentId: string, failures: Failure[], { resumed = false } = {}) {
+     try {
+       const at = now();
+       prune(at);
+-      if (failures.length === 0) return;
+-      pending.set(agentId, {
+-        at,
+-        variables: failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" })),
+-      });
++      const variables = failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }));
++      if (resumed) {
++        pending.delete(agentId);
++        if (variables.length === 0) {
++          shown.set(agentId, "");
++          return;
++        }
++        if (shown.get(agentId) === signature(variables)) return;
++      }
++      if (variables.length === 0) return;
++      pending.set(agentId, { at, resumed, variables });
+     } catch (error) {
+       reportFailure(agentId, error);
+     }
+@@ -43,7 +62,8 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
+     if (!entry) return;
+     pending.delete(agentId);
+     try {
+-      await appendRow({ variables: entry.variables });
++      await appendRow({ variables: entry.variables, ...(entry.resumed ? { resumed: true as const } : {}) });
++      shown.set(agentId, signature(entry.variables));
+     } catch (error) {
+       reportFailure(agentId, error);
+     }
+diff --git a/project-env/shared/cause.ts b/project-env/shared/cause.ts
+index aae2e05..29eb888 100644
+--- a/project-env/shared/cause.ts
++++ b/project-env/shared/cause.ts
+@@ -39,8 +39,9 @@ export function causeWords(id: string): string {
+   return Object.hasOwn(causeText, id) ? causeText[id as Cause] : "reason not available";
+ }
+ 
+-export function missingVariablesTitle(count: number): string {
+-  return count === 1 ? "Started without 1 project variable" : `Started without ${count} project variables`;
++export function missingVariablesTitle(count: number, resumed = false): string {
++  const verb = resumed ? "Resumed" : "Started";
++  return count === 1 ? `${verb} without 1 project variable` : `${verb} without ${count} project variables`;
+ }
+ 
+ export function causeSentence(cause: Cause | undefined): string {
+diff --git a/project-env/shared/config.ts b/project-env/shared/config.ts
+index 54df4b8..9032cb1 100644
+--- a/project-env/shared/config.ts
++++ b/project-env/shared/config.ts
+@@ -100,6 +100,7 @@ export const missingVariablesRowId = "project-env-missing-variables";
+ // `cause` stays a plain string on the wire so a client older than the daemon still draws the row.
+ export const missingVariablesData = z.object({
+   variables: z.array(z.object({ name: z.string(), cause: z.string() })).min(1),
++  resumed: z.literal(true).optional(),
+ });
+ export type MissingVariablesData = z.infer<typeof missingVariablesData>;
+ 
+diff --git a/project-env/test/missing-variables.test.ts b/project-env/test/missing-variables.test.ts
+index 8b227a5..af40983 100644
+--- a/project-env/test/missing-variables.test.ts
++++ b/project-env/test/missing-variables.test.ts
+@@ -1,5 +1,5 @@
+ import assert from "node:assert/strict";
+-import { mkdtempSync, realpathSync, rmSync } from "node:fs";
++import { mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+ import { tmpdir } from "node:os";
+ import { join } from "node:path";
+ import { afterEach, describe, it, mock } from "node:test";
+@@ -89,9 +89,13 @@ function harness(variables: [string, string][], scenario: Scenario, appendFails
+         ...overrides,
+       },
+     });
+-  const fire = (name: "agent.created" | "agent.closed", agentId = "a1") =>
++  const fire = (name: "agent.created" | "agent.closed" | "agent.turn_ended", agentId = "a1") =>
+     on.get(name)!({ agent: { id: agentId } }, ctx);
+-  return { open, fire, appended, world };
++  const setScenario = (next: Scenario) => {
++    const current = JSON.parse(readFileSync(join(world.dir, "scenario.json"), "utf8"));
++    writeFileSync(join(world.dir, "scenario.json"), JSON.stringify({ ...next, git: current.git }));
++  };
++  return { open, fire, appended, world, setScenario };
+ }
+ 
+ const accounts = {
+@@ -166,17 +170,125 @@ describe("the missing-variables row", () => {
+     assert.equal(h.world.calls().filter((c) => c.tool === "op").length, 0);
+   });
+ 
+-  for (const reason of ["resume", "refresh", "import"] as const) {
++  for (const reason of ["refresh", "import"] as const) {
+     it(`a ${reason} opening still resolves but adds no line`, async () => {
+       silenceConsole();
+       const h = harness(failing, scenario);
+       const opened = (await h.open({ reason })) as { env: Record<string, string> };
+       assert.equal(opened.env.GOOD, VALUE);
+       await h.fire("agent.created");
++      await h.fire("agent.turn_ended");
+       assert.equal(h.appended.length, 0);
+     });
+   }
+ 
++  describe("a resumed agent", () => {
++    it("shows a line naming each unreadable variable when the next turn ends, not at the opening", async () => {
++      silenceConsole();
++      const h = harness(failing, scenario);
++      const opened = (await h.open({ reason: "resume" })) as { env: Record<string, string> };
++      assert.equal(opened.env.GOOD, VALUE);
++      assert.equal(opened.env.MISSING, "");
++      assert.equal(h.appended.length, 0);
++      await h.fire("agent.turn_ended");
++      assert.equal(h.appended.length, 1);
++      const row = h.appended[0].item as { id: string; kind: string; data: { resumed?: true; variables: { name: string; cause: string }[] } };
++      assert.equal(row.kind, "missing-variables");
++      assert.equal(row.data.resumed, true);
++      assert.deepEqual(row.data.variables.map((v) => v.name), ["MISSING", "BLANK", "ODD"]);
++      assert.notEqual(row.id, rpc.missingVariablesRowId);
++      assert.doesNotThrow(() => rpc.missingVariablesData.parse(row.data));
++      assert.ok(!JSON.stringify(h.appended).includes(VALUE));
++    });
++
++    it("adds the line once per opening, never again at a later turn end", async () => {
++      silenceConsole();
++      const h = harness(failing, scenario);
++      await h.open({ reason: "resume" });
++      await h.fire("agent.turn_ended");
++      await h.fire("agent.turn_ended");
++      assert.equal(h.appended.length, 1);
++    });
++
++    it("does not repeat the line when it is released and resumed again with the same failure", async () => {
++      silenceConsole();
++      const h = harness(failing, scenario);
++      for (let i = 0; i < 3; i++) {
++        await h.open({ reason: "resume" });
++        await h.fire("agent.turn_ended");
++        await h.fire("agent.closed");
++      }
++      assert.equal(h.appended.length, 1);
++    });
++
++    it("does not repeat a failure the new agent already showed when it started", async () => {
++      silenceConsole();
++      const h = harness(failing, scenario);
++      await h.open();
++      await h.fire("agent.created");
++      await h.fire("agent.closed");
++      await h.open({ reason: "resume" });
++      await h.fire("agent.turn_ended");
++      assert.equal(h.appended.length, 1);
++      assert.equal((h.appended[0].item as { id: string }).id, rpc.missingVariablesRowId);
++    });
++
++    it("adds a new line at the end when the failure changes", async () => {
++      silenceConsole();
++      const h = harness(failing, scenario);
++      await h.open({ reason: "resume" });
++      await h.fire("agent.turn_ended");
++      await h.fire("agent.closed");
++      h.setScenario({ ...scenario, op: { accounts: { a: { refs: { "op://V/i/good": VALUE, "op://V/i/blank": "" } } } } });
++      await h.open({ reason: "resume" });
++      await h.fire("agent.turn_ended");
++      assert.equal(h.appended.length, 2);
++      const ids = h.appended.map((a) => (a.item as { id: string }).id);
++      assert.notEqual(ids[0], ids[1]);
++    });
++
++    it("shows the same failure again after a resume in which every variable was readable", async () => {
++      silenceConsole();
++      const notices = createNotices();
++      const rows: unknown[] = [];
++      const failure = [{ name: "GOOD", cause: "empty" as const }];
++      for (const failures of [failure, failure, [], failure]) {
++        notices.record("a1", failures, { resumed: true });
++        await notices.flush("a1", async (row) => void rows.push(row));
++      }
++      assert.equal(rows.length, 2);
++    });
++
++    it("waits beyond ten minutes for the turn to end", async () => {
++      silenceConsole();
++      let t = 0;
++      const notices = createNotices({ now: () => t });
++      notices.record("a1", [{ name: "GOOD", cause: "empty" }], { resumed: true });
++      t = 3 * 60 * 60 * 1000;
++      notices.record("a2", [{ name: "GOOD", cause: "empty" }], { resumed: true });
++      const rows: unknown[] = [];
++      await notices.flush("a1", async (row) => void rows.push(row));
++      assert.equal(rows.length, 1);
++    });
++
++    it("adds nothing when the agent is released before a turn ends", async () => {
++      silenceConsole();
++      const h = harness(failing, scenario);
++      await h.open({ reason: "resume" });
++      await h.fire("agent.closed");
++      await h.fire("agent.turn_ended");
++      assert.equal(h.appended.length, 0);
++    });
++
++    it("adds no line when every variable is readable", async () => {
++      silenceConsole();
++      const h = harness([["GOOD", "op://V/i/good"]], scenario);
++      await h.open({ reason: "resume" });
++      await h.fire("agent.turn_ended");
++      assert.equal(h.appended.length, 0);
++    });
++  });
++
+   it("an opening with every variable set adds no line", async () => {
+     silenceConsole();
+     const h = harness([["GOOD", "op://V/i/good"]], scenario);
+@@ -269,5 +381,7 @@ describe("the row's words", () => {
+   it("counts the variables in the title", () => {
+     assert.equal(missingVariablesTitle(1), "Started without 1 project variable");
+     assert.equal(missingVariablesTitle(3), "Started without 3 project variables");
++    assert.equal(missingVariablesTitle(1, true), "Resumed without 1 project variable");
++    assert.equal(missingVariablesTitle(2, true), "Resumed without 2 project variables");
+   });
+ });

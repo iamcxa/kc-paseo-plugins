@@ -1,0 +1,17 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  rulings:
+    - finding: 2
+      ruling: overruled
+      evidence: The pictures show only turns that ended normally (cand-three-400.png and cand-both-startandresume-full-1280.png end in "Worked for 3s"), so the decline's reason ("a failed turn is not drawn, a known limit") says nothing about what a person sees when the first turn after resume fails, and a failed turn is the one a blanked variable is most likely to cause. The many-variables half is fine as declined, because the picture shows the row growing one line per variable and ADR 0002 needs nothing more.
+      change: Add the criterion "after a resume with blanked variables, a first turn that is cancelled or ends in an error is screenshotted, and the row shows (or the proposal states in one sentence that it does not and why)". If the row cannot show on a failed turn, the person is not told why a variable is blank, so that gap goes to the Captain as a recorded decision and does not stay a silent known limit.
+    - finding: 3
+      ruling: upheld
+      evidence: cand-three-400.png and cand-three-400-light.png break the 44-character name only at 400 px ("...PRODUCTIO" then "N — field not found in the vault"), and the em dash right after the lone "N" makes it read as one wrapped name, so the person is not misled or blocked; the 1280 picture (cand-three-1280-light.png) shows it on one line.
+      change: none
+    - finding: 4
+      ruling: upheld
+      evidence: contracts.d.ts declares PluginTheme.colors with only two text tokens, foreground and foregroundMuted, so there is no other secondary-text colour to move to; cand-three-1280-light.png and cand-both-startandresume-full-1280.png show the reason in the same grey as the start row's, and it stays readable in both themes. No contrast value was measured, and none is needed, since the colour is the host's own token.
+      change: none

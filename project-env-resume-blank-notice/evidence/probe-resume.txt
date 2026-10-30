@@ -1,0 +1,21 @@
+{"at":"2026-10-30T15:01:29.887Z","hook":"agent.session_open","reason":"create","purpose":"interactive","agentId":"d607b0d1-bd18-400d-8016-b859dc0415ef","blank":[]}
+{"at":"2026-10-30T15:01:29.893Z","event":"agent.created","agentId":"d607b0d1-bd18-400d-8016-b859dc0415ef"}
+{"at":"2026-10-30T15:01:29.896Z","probe":"event","name":"agent.turn_started","agentId":"d607b0d1-bd18-400d-8016-b859dc0415ef","hasPending":false}
+{"at":"2026-10-30T15:01:39.901Z","probe":"event","name":"agent.turn_ended","agentId":"d607b0d1-bd18-400d-8016-b859dc0415ef","hasPending":false}
+{"at":"2026-10-30T15:01:39.907Z","probe":"append","where":"turn_ended (same id again)","agentId":"d607b0d1-bd18-400d-8016-b859dc0415ef","rowId":"probe-turn-row","ok":true,"seq":174}
+{"at":"2026-10-30T15:01:41.322Z","hook":"agent.session_open","reason":"create","purpose":"interactive","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","blank":["STRIPE_KEY"]}
+{"at":"2026-10-30T15:01:41.329Z","event":"agent.created","agentId":"b791937b-6404-47cb-93a8-e1869c181c80"}
+{"at":"2026-10-30T15:01:41.331Z","probe":"event","name":"agent.turn_started","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","hasPending":false}
+{"at":"2026-10-30T15:01:51.332Z","probe":"event","name":"agent.turn_ended","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","hasPending":false}
+{"at":"2026-10-30T15:01:51.334Z","probe":"append","where":"turn_ended (same id again)","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","rowId":"probe-turn-row","ok":true,"seq":179}
+{"at":"2026-10-30T15:02:26.672Z","event":"agent.closed","agentId":"d607b0d1-bd18-400d-8016-b859dc0415ef"}
+{"at":"2026-10-30T15:02:26.673Z","event":"agent.closed","agentId":"b791937b-6404-47cb-93a8-e1869c181c80"}
+{"at":"2026-10-30T15:02:34.045Z","hook":"agent.session_open","reason":"resume","purpose":"interactive","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","blank":["STRIPE_KEY"]}
+{"at":"2026-10-30T15:02:34.047Z","probe":"append","where":"in-hook","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","rowId":"probe-inhook","ok":false,"error":"Request failed: Unknown agent 'b791937b-6404-47cb-93a8-e1869c181c80' requestType=agent.timeline.append.request code=hand"}
+{"at":"2026-10-30T15:02:34.050Z","probe":"event","name":"agent.turn_started","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","hasPending":true}
+{"at":"2026-10-30T15:02:34.053Z","probe":"append","where":"turn_started","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","rowId":"probe-turn-row","ok":true,"seq":183}
+{"at":"2026-10-30T15:02:34.349Z","probe":"append","where":"after-300ms","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","rowId":"probe-300","ok":true,"seq":188}
+{"at":"2026-10-30T15:02:37.054Z","probe":"append","where":"after-3s","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","rowId":"probe-3s","ok":true,"seq":237}
+{"at":"2026-10-30T15:02:44.056Z","probe":"event","name":"agent.turn_ended","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","hasPending":false}
+{"at":"2026-10-30T15:02:44.057Z","probe":"append","where":"turn_ended (same id again)","agentId":"b791937b-6404-47cb-93a8-e1869c181c80","rowId":"probe-turn-row","ok":true,"seq":357}
+{"at":"2026-10-30T15:03:26.674Z","event":"agent.closed","agentId":"b791937b-6404-47cb-93a8-e1869c181c80"}
