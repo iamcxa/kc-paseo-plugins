@@ -1,7 +1,7 @@
 ---
 id:
 title: An agent that resumes without a project variable tells the person why
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
