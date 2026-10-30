@@ -39,6 +39,8 @@ export function contribute(server: PluginServerContext, tools: Tools) {
     const failed = opened.results.filter((r) => !r.ok);
     if (request.reason === "create" || request.reason === "resume") {
       notices.record(request.agentId, failed, { resumed: request.reason === "resume" });
+    } else if (failed.length === 0) {
+      notices.record(request.agentId, [], { resumed: true });
     }
     return opened.request;
   });

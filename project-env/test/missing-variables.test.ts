@@ -14,6 +14,7 @@ import { makeWorld, type Scenario } from "./world.ts";
 const cleanups: (() => void)[] = [];
 afterEach(() => {
   mock.restoreAll();
+  mock.timers.reset();
   for (const c of cleanups.splice(0)) c();
 });
 
@@ -257,6 +258,21 @@ describe("the missing-variables row", () => {
         await notices.flush("a1", async (row) => void rows.push(row));
       }
       assert.equal(rows.length, 2);
+    });
+
+    it("shows the same failure again after a refresh in which every variable was readable", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.closed");
+      h.setScenario({ keychain: scenario.keychain, op: { accounts: { a: { refs: { "op://V/i/good": VALUE, "op://V/i/nope": VALUE, "op://V/i/blank": VALUE, "op://V/i/odd": VALUE } } } } });
+      await h.open({ reason: "refresh" });
+      h.setScenario(scenario);
+      mock.timers.enable({ apis: ["Date"], now: Date.now() + 16 * 60 * 1000 });
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 2);
     });
 
     it("waits beyond ten minutes for the turn to end", async () => {
