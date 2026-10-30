@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, realpathSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, it, mock } from "node:test";
@@ -14,6 +14,7 @@ import { makeWorld, type Scenario } from "./world.ts";
 const cleanups: (() => void)[] = [];
 afterEach(() => {
   mock.restoreAll();
+  mock.timers.reset();
   for (const c of cleanups.splice(0)) c();
 });
 
@@ -89,9 +90,13 @@ function harness(variables: [string, string][], scenario: Scenario, appendFails 
         ...overrides,
       },
     });
-  const fire = (name: "agent.created" | "agent.closed", agentId = "a1") =>
+  const fire = (name: "agent.created" | "agent.closed" | "agent.turn_ended", agentId = "a1") =>
     on.get(name)!({ agent: { id: agentId } }, ctx);
-  return { open, fire, appended, world };
+  const setScenario = (next: Scenario) => {
+    const current = JSON.parse(readFileSync(join(world.dir, "scenario.json"), "utf8"));
+    writeFileSync(join(world.dir, "scenario.json"), JSON.stringify({ ...next, git: current.git }));
+  };
+  return { open, fire, appended, world, setScenario };
 }
 
 const accounts = {
@@ -166,16 +171,154 @@ describe("the missing-variables row", () => {
     assert.equal(h.world.calls().filter((c) => c.tool === "op").length, 0);
   });
 
-  for (const reason of ["resume", "refresh", "import"] as const) {
+  for (const reason of ["refresh", "import"] as const) {
     it(`a ${reason} opening still resolves but adds no line`, async () => {
       silenceConsole();
       const h = harness(failing, scenario);
       const opened = (await h.open({ reason })) as { env: Record<string, string> };
       assert.equal(opened.env.GOOD, VALUE);
       await h.fire("agent.created");
+      await h.fire("agent.turn_ended");
       assert.equal(h.appended.length, 0);
     });
   }
+
+  describe("a resumed agent", () => {
+    it("shows a line naming each unreadable variable when the next turn ends, not at the opening", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      const opened = (await h.open({ reason: "resume" })) as { env: Record<string, string> };
+      assert.equal(opened.env.GOOD, VALUE);
+      assert.equal(opened.env.MISSING, "");
+      assert.equal(h.appended.length, 0);
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 1);
+      const row = h.appended[0].item as { id: string; kind: string; data: { resumed?: true; variables: { name: string; cause: string }[] } };
+      assert.equal(row.kind, "missing-variables");
+      assert.equal(row.data.resumed, true);
+      assert.deepEqual(row.data.variables.map((v) => v.name), ["MISSING", "BLANK", "ODD"]);
+      assert.notEqual(row.id, rpc.missingVariablesRowId);
+      assert.doesNotThrow(() => rpc.missingVariablesData.parse(row.data));
+      assert.ok(!JSON.stringify(h.appended).includes(VALUE));
+    });
+
+    it("adds the line once per opening, never again at a later turn end", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 1);
+    });
+
+    it("does not repeat the line when it is released and resumed again with the same failure", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      for (let i = 0; i < 3; i++) {
+        await h.open({ reason: "resume" });
+        await h.fire("agent.turn_ended");
+        await h.fire("agent.closed");
+      }
+      assert.equal(h.appended.length, 1);
+    });
+
+    it("does not repeat a failure the new agent already showed when it started", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open();
+      await h.fire("agent.created");
+      await h.fire("agent.closed");
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 1);
+      assert.equal((h.appended[0].item as { id: string }).id, rpc.missingVariablesRowId);
+    });
+
+    it("adds a new line at the end when the failure changes", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.closed");
+      h.setScenario({ ...scenario, op: { accounts: { a: { refs: { "op://V/i/good": VALUE, "op://V/i/blank": "" } } } } });
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 2);
+      const ids = h.appended.map((a) => (a.item as { id: string }).id);
+      assert.notEqual(ids[0], ids[1]);
+    });
+
+    it("shows the same failure again after a resume in which every variable was readable", async () => {
+      silenceConsole();
+      const notices = createNotices();
+      const rows: unknown[] = [];
+      const failure = [{ name: "GOOD", cause: "empty" as const }];
+      for (const failures of [failure, failure, [], failure]) {
+        notices.record("a1", failures, { resumed: true });
+        await notices.flush("a1", async (row) => void rows.push(row));
+      }
+      assert.equal(rows.length, 2);
+    });
+
+    it("shows the same failure again after a refresh in which every variable was readable", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.closed");
+      h.setScenario({ keychain: scenario.keychain, op: { accounts: { a: { refs: { "op://V/i/good": VALUE, "op://V/i/nope": VALUE, "op://V/i/blank": VALUE, "op://V/i/odd": VALUE } } } } });
+      await h.open({ reason: "refresh" });
+      h.setScenario(scenario);
+      mock.timers.enable({ apis: ["Date"], now: Date.now() + 16 * 60 * 1000 });
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 2);
+    });
+
+    it("shows a failure again when a refresh read one of the shown variables while another still failed", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.closed");
+      h.setScenario({ ...scenario, op: { ...scenario.op, accounts: { a: { refs: { ...accounts.a.refs, "op://V/i/nope": VALUE } } } } });
+      await h.open({ reason: "refresh" });
+      h.setScenario(scenario);
+      mock.timers.enable({ apis: ["Date"], now: Date.now() + 16 * 60 * 1000 });
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 2);
+    });
+
+    it("waits beyond ten minutes for the turn to end", async () => {
+      silenceConsole();
+      let t = 0;
+      const notices = createNotices({ now: () => t });
+      notices.record("a1", [{ name: "GOOD", cause: "empty" }], { resumed: true });
+      t = 3 * 60 * 60 * 1000;
+      notices.record("a2", [{ name: "GOOD", cause: "empty" }], { resumed: true });
+      const rows: unknown[] = [];
+      await notices.flush("a1", async (row) => void rows.push(row));
+      assert.equal(rows.length, 1);
+    });
+
+    it("adds nothing when the agent is released before a turn ends", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.closed");
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 0);
+    });
+
+    it("adds no line when every variable is readable", async () => {
+      silenceConsole();
+      const h = harness([["GOOD", "op://V/i/good"]], scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 0);
+    });
+  });
 
   it("an opening with every variable set adds no line", async () => {
     silenceConsole();
@@ -269,5 +412,7 @@ describe("the row's words", () => {
   it("counts the variables in the title", () => {
     assert.equal(missingVariablesTitle(1), "Started without 1 project variable");
     assert.equal(missingVariablesTitle(3), "Started without 3 project variables");
+    assert.equal(missingVariablesTitle(1, true), "Resumed without 1 project variable");
+    assert.equal(missingVariablesTitle(2, true), "Resumed without 2 project variables");
   });
 });
