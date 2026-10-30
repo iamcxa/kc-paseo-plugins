@@ -1,0 +1,17 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: All pictures I opened (val-one-full-1280, val-both-full-1280, val-three-full-400, valv-failed-1280-light) show a row present, and the finding's own fix allows recording a no-row behaviour as proven by a test or log when no picture can show it; a row that is absent leaves a person with nothing to be misled by or to act on, and no picture can show "nothing", so the decline names the harness output and the unit tests as the proof (I did not open that output file, it is not one of my inputs).
+      change: none
+    - finding: 2
+      ruling: upheld
+      evidence: val-three-full-400.png and valv-three-400-light.png show the wrapped reason ("1Password field is empty", "1Password could not be reached") starting flush left in grey under the bright monospace names, so each entry stays distinguishable by name colour and font and a person is not misled; the declaration missing-variables-row.tsx is the plugin's own component (not a host one) and renders the same title/entry structure for the start and resume rows, so a layout change would also alter the "Started without" row owned by the earlier ideation finding 3.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: valv-failed-1280-light.png shows the one-variable row in light theme, and valv-three-1280-light.png the three-variable row, both with legible title, name and grey reason; the declaration shows the same component with a map over variables, so two variables is the same row with one fewer line and no defect is visible.
+      change: none

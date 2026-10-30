@@ -1,0 +1,10 @@
+import { createNotices } from "/tmp/val-cand/project-env/server/missing-variables-notice.ts";
+const n = createNotices({ log: () => {} });
+const rows: any[] = [];
+const f = [{ name: "STRIPE_KEY", cause: "missing-field" }] as any;
+n.record("a", f, { resumed: true });
+n.retain("a", []);
+await n.flush("a", async (d: any) => { rows.push(d); });
+n.record("a", f, { resumed: true });
+await n.flush("a", async (d: any) => { rows.push(d); });
+console.log("rows after: resume(fail) -> refresh(all readable) -> turn end -> resume(same fail) -> turn end:", rows.length);

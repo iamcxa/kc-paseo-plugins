@@ -1,0 +1,28 @@
+design_review:
+  preview: evidence/val/shots/val-failed-full-1280.png
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: no picture of a resume with every variable readable, and none of a later resume that fails the same way
+      seen: All twelve pictures show a row present (1, 2 or 3 variables, after a failed turn, or beside a hidden earlier row); none shows a resumed conversation with no row, and none shows a repeated identical failure adding nothing, which are the second half of AC-1 and two clauses of the approved proposal.
+      fix: Add a first-turn-after-resume picture with all variables readable and one with a second identical failing resume, both at 1280 and 400, or record that these two behaviours are proven by a test or log instead of a picture.
+    - severity: MINOR
+      dimension: spacing
+      where: val-three-full-400.png and valv-three-400-light.png (three variables, narrow)
+      seen: When a reason wraps (for example "the 1Password field is empty" and "1Password could not be reached") its second line starts flush left under the monospace names with no hanging indent and no gap between variables, so a wrapped reason line looks like a fourth entry and the three entries run together as a block of six lines.
+      fix: Give each variable line a hanging indent or a small gap between variables so a wrapped reason stays attached to its name; if this is only possible by changing the shared host row, record it as a decision for the Captain with the mid-word wrap already upheld.
+    - severity: MINOR
+      dimension: theme-size
+      where: val-one-full-*.png, val-both-full-*.png (dark only)
+      seen: The one-variable and two-variable rows are shown only in dark theme; light theme is shown only for the three-variable and failed cases, which do cover the same row, so no defect is visible, but the combination is untested.
+      fix: Accept the light three-variable and failed pictures as covering the row, or add one light picture of the two-variable row.
+  limitations:
+    - The replies above the row are cut mid-sentence in val-three, val-both and val-one ("flips correctl", "and the", "is acti") while the footer already reads "Worked for 3s"; I treat this as the mock provider's truncation, not the change, and cannot tell from a still whether the row ever appears before the reply finishes.
+    - A still picture cannot show a live resume, the idle-hour release that triggers it, or a real vault; the reasons shown are fake-secret causes only.
+    - In val-both the earlier "Started without" row is folded by Paseo's default Chat display, so the ordering of the two rows (new row at the end) cannot be seen; only the later row is visible.
+    - Mid-word wrap of long names at 400 px and the grey reason colour were declined and upheld earlier; the pictures show nothing new about them (the grey stays readable in light theme at both sizes), so I did not re-raise them.
+    - No picture shows keyboard focus, screen-reader text or the row's behaviour on copy or select; the row has no control, so touch target size does not apply.
+    - Records 0002 and 0004 bear on what the row says (variable and reason, never a value); they settle no visual question, and no value appears in any picture.

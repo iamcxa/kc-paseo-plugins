@@ -1,0 +1,11 @@
+✖ the missing-variables row (16314.26125ms)
+ℹ tests 322
+ℹ pass 316
+ℹ fail 6
+✖ failing tests:
+✖ shows a line naming each unreadable variable when the next turn ends, not at the opening (852.957875ms)
+✖ adds the line once per opening, never again at a later turn end (829.494958ms)
+✖ does not repeat the line when it is released and resumed again with the same failure (1286.874459ms)
+✖ adds a new line at the end when the failure changes (1080.299833ms)
+✖ shows the same failure again after a refresh in which every variable was readable (1297.835458ms)
+✖ shows a failure again when a refresh read one of the shown variables while another still failed (1287.271375ms)

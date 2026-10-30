@@ -1,0 +1,31 @@
+created at 00:45:01: healthy=c7d3add7-ba38-4f30-8fc3-5b9353257e76 lost=cb3c37ee-7e7a-4810-aceb-644d9790a6ba
+released at 01:46:04
+2
+== healthy
+  at=2026-10-30T16:45:01.048Z session_open reason=create purpose=interactive env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  at=2026-10-30T16:45:01.055Z event agent.created
+  at=2026-10-30T16:45:01.057Z event agent.turn_started
+  at=2026-10-30T16:45:11.057Z event agent.turn_ended
+  at=2026-10-30T16:45:11.057Z event agent.turn_ended
+  at=2026-10-30T17:45:58.114Z event agent.closed
+  at=2026-10-30T17:46:21.840Z session_open reason=resume purpose=interactive env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  at=2026-10-30T17:46:21.843Z event agent.turn_started
+  at=2026-10-30T17:46:31.843Z event agent.turn_ended
+  at=2026-10-30T17:46:31.844Z event agent.turn_ended
+  -- conversation after resume-1.txt
+     items: 40
+== lost
+  at=2026-10-30T16:45:01.819Z session_open reason=create purpose=interactive env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  at=2026-10-30T16:45:01.822Z event agent.created
+  at=2026-10-30T16:45:01.823Z event agent.turn_started
+  at=2026-10-30T16:45:11.825Z event agent.turn_ended
+  at=2026-10-30T16:45:11.825Z event agent.turn_ended
+  at=2026-10-30T17:45:58.115Z event agent.closed
+  at=2026-10-30T17:46:07.095Z session_open reason=resume purpose=interactive env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  at=2026-10-30T17:46:07.099Z event agent.turn_started
+  at=2026-10-30T17:46:17.104Z event agent.turn_ended
+  at=2026-10-30T17:46:17.104Z event agent.turn_ended
+  -- conversation after resume-1.txt
+     347 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}],"resumed":true}
+     items: 41
+agents: healthy=c7d3add7-ba38-4f30-8fc3-5b9353257e76 lost=cb3c37ee-7e7a-4810-aceb-644d9790a6ba

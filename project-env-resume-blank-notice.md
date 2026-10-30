@@ -215,3 +215,69 @@ Resumed agents lose an unreadable variable silently on Paseo 0.14.0; the fix is 
 ### Summary
 
 The ideation candidate is implemented and in Draft PR 66: a resumed agent that lost a variable shows "Resumed without N project variables" once its next turn ends, including a failed turn, and the same failure is not repeated. AC-1 holds on an isolated Paseo 0.14.0; comprehension of the changed notice sentence was 12 of 12. Two memory edge cases found by the roborev gate were repaired inside the design's spirit; a third narrow one is reported open.
+
+## Stage Report: validation
+
+Verdict: PASSED recommended for candidate 9d8760b85a71f72087a11821eb276ccf2d3d0ec2 (PR #66, base 06aa5be). Run from `git archive` of the candidate; evidence under `evidence/val/`.
+
+- DONE: Independently check candidate 9d8760b against AC-1 and the approved design: from git archive run `npm ci && npm test` and `npm run typecheck`
+  `npm ci` clean, `npm test` 322 of 322 pass (no flaky failure), `tsc --noEmit` no errors. comment_ratio 0 of 188 code lines exit 0; adr_lint exit 0 (9 records); dispatch_records 3 complete; doc_impact lists ADR 0004 only, implementation recorded `unaffected: reserved names` and I agree (the new `resumed` field touches no reserved name).
+- DONE: run the resume harness yourself on an isolated Paseo 0.14.0 for the lost, healthy and blank agents
+  `evidence/val/runs/resume-check-cand.txt` (own install, port 21704, idle period 20 s): `lost` reason=resume STRIPE_KEY blank, one "resumed" row after resume 1, still one after resume 2; `healthy` two resumes, nothing blank, no plugin row; `blank` only its start row. Control on base 06aa5be (`resume-check-main.txt`): `lost` blank at both resumes and no row, so the harness detects the gap.
+- DONE: try to capture the unreadable case on an unpatched one-hour release if the run can wait
+  Captured. `runs/hour-idle-period.txt` reads `60 * 60000` (unpatched); both agents created 16:45:01Z, "Collected idle agent runtime" at 17:45:58Z (`hour-collected.txt`, `agent.closed` and no `agent.created`); the ref for `lost` was renamed to a never-read one for a cold read; resume fired `reason=resume purpose=interactive`, STRIPE_KEY blank, one row `{"variables":[STRIPE_KEY missing-field],"resumed":true}` after the turn; `healthy` filled, no row (`hour-check-cand.txt`, `hour-events.jsonl`). One run, mock provider.
+- DONE: check the row after a failed first turn
+  `shots/val-failed-full-1280.png`, `val-failed-full-400.png`, light `valv-failed-*-light.png`: "[System Error] Requested mock provider failure" then the "Resumed without 1 project variable / STRIPE_KEY — field not found in the vault" row under it, in Paseo 0.14.0's default Chat display.
+- DONE: check the resume branch is caught by a unit test when removed
+  Removing `|| request.reason === "resume"` in `contribute.ts` fails 6 of 322 (`runs/mutation-resume-branch-removed.txt`): the next-turn-end line, one line per opening, no repeat on same failure, new line on changed failure, and both refresh-forget tests. Restoring it passes 322 (`acceptance.sh` steps 1-2).
+- DONE: rerun the agent comprehension harness on the new notice sentence and grade it independently
+  `notice-candidate.txt` is byte-identical to the candidate's `agentNotice`. 12 runs (Codex gpt-6.1-sol medium, Claude claude-sonnet-5-5 medium and low, 4 each, scenario s1-blank, fake values) in `comprehension/out`; I read all 12 final messages: 12 of 12 say the variable is unusable and give the Settings, Plugins, actions menu, Project environment, Test path; none asks the person to set or paste a value; `grade.py` finds no leak in transcript or repo (its one env-probe flag is a `sed` of the script, not an env read). Two runs say "isn't set" rather than "blank". Limit: no run mentions either line, so the harness shows the sentence causes no regression, not that an agent names "Resumed without".
+- DONE: Classify the implementation's two open points: its deviation from "refresh stays silent" and roborev:1371; say whether docs/project-env/index.md's "a line at the top of the new conversation" is still true.
+  See F1, F2, F3 below.
+- DONE: Run the built screen review your validation principles require (design-director pass 2a on your own screenshots of the built screen at 1280 and 400 px) and write its Built screen review lines
+  Lines below; 3 MINOR findings, all declined and upheld in pass 2b.
+- DONE: write the minimal acceptance script FO will rerun in a fresh shell.
+  `evidence/val/acceptance.sh` (41 s measured), steps below.
+- DONE: Record what the Captain should see in the screenshots and every unverified obligation.
+  Below.
+
+Built screen review: design/validation-1.yaml
+(The report's `preview:` lists twelve pictures; the check takes one path, so the file keeps the first, `val-failed-full-1280.png`.)
+Built screen finding 1: declined: no-row and repeat-adds-nothing cannot be drawn; proven by `resume-check-cand.txt` and unit tests
+Built screen finding 2: declined: wrapped-reason layout belongs to the shared MissingVariablesRow, already upheld as its own task
+Built screen finding 3: declined: light three-variable and failed pictures cover the same component
+Built screen decline check: design/validation-declines-1.yaml
+
+### Findings
+
+- F1 Polish: the "refresh stays silent" deviation (`notices.retain`) changes nothing a person sees. A refresh or import opening still adds no row; it only drops remembered failures that refresh read as fixed, which is the design's own rule for a resume with everything readable. Two unit tests cover it (both killed by the resume-branch removal above; the implementation's mutation run killed the refresh-forget mutation). No field of Material is established (no observable harm, no AC at risk). Disposition: accept.
+- F2 Deferred risk: roborev:1371. A probe on the real module (`runs/probe-1371.ts`, output `rows ... : 1`) confirms the mechanism: resume with failure, a refresh that reads everything, turn end, then an identical failing resume adds no second row. The trigger needs a refresh between the resume opening and that turn's end. Source (`reloadAgentSessionInternal`, daemon 0.14.0) cancels an in-flight run before building the launch context, so the turn normally ends first; I did not observe a refresh inside a resumed turn. It would become Material if a reload during a running resumed turn is shown to deliver `agent.turn_ended` after the refresh opening.
+- F3 Polish: `docs/project-env/index.md` line "a line at the top of the new conversation, "Started without 1 project variable"" is still true for a new agent but now incomplete: a resumed agent gets "Resumed without N project variables" at the end of its next turn, which that page does not say (the Reference page includes the updated OVERVIEW.md, so the full wording is published there). Install and Prepare 1Password pages and their pictures show no conversation row and still match. One added clause on index.md would close it; FO or the Captain decides whether it belongs in this PR.
+- F4 Polish (pre-existing, outside this task): in the default Chat display the "Started without" row sits at seq 3, after the first user message, and is folded; `val-both-*.png` shows only the resumed row. The resumed row is visible, so after this change a resumed conversation can show the later line while the earlier one is hidden.
+
+### Acceptance script (Captain or FO, fresh shell, 41 s measured)
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val/acceptance.sh`. It extracts the candidate commit into a temp folder, then:
+1. `npm ci`, then the 11 "a resumed agent" tests: expect `ℹ tests 11`, `ℹ pass 11`, `ℹ fail 0`.
+2. Removes the resume branch from `server/contribute.ts` and reruns them: expect `ℹ fail 6`.
+3. Restores it, runs the whole suite and the typecheck: expect `ℹ tests 322`, `ℹ pass 322`, `ℹ fail 0`, `typecheck clean`.
+4. Prints the two screenshot paths to open: dark, the first turn after a resume that failed, row "Resumed without 1 project variable / STRIPE_KEY — field not found in the vault" under the error line, at 1280 px (also in `val-failed-full-400.png`).
+Does not cover: the live Paseo resume (needs the harness, about 6 minutes: `RUN=<label> PORT=<free port> CHECKOUT=<tree> IDLE_MS=20000 bash evidence/val/harness/resume-check.sh` after `npm install @getpaseo/cli@0.14.0` into `/tmp/pe-val-install`; run once above), a real provider, a real 1Password account.
+
+### What the Captain should see in the screenshots
+
+`shots/val-*-full-{1280,400}.png` (dark, whole page) and `valv-*-{1280,400}[-light].png` (viewport): a warning triangle row under the final reply: title "Resumed without N project variables" (singular "1 project variable"), then each name in monospace and its reason in grey; `val-three-*`: three names with three different reasons, long name breaks mid-word at 400 px (accepted earlier); `val-both-*`: only the resumed row (the start row is folded). Mock provider replies are cut mid-sentence by the mock, not by the change.
+
+### Unverified obligations
+
+- A real provider's resume time and a real `op`/1Password account (all runs: mock provider, fake `op` and `security`).
+- The desktop app (all pictures: the 0.14.0 web app served by the isolated daemon).
+- A daemon restart (the remembered set is dropped; a restart can repeat one line), and the resumed row on a person who only views the chat without a turn (known limit, accepted at the ideation gate).
+- Contrast in dark and light is read by the design director from the pictures, not measured; no two-variable light picture.
+- The unpatched one-hour release was captured once; repeat suppression and the failed-turn row were observed on the 20 s idle period.
+- F2's trigger (a refresh inside a resumed turn) and the comprehension of the new "Resumed without" clause by an agent in a resumed conversation.
+- Temporary installs, daemons (ports 21704 to 21707) and `/tmp/pe-val*` copies were removed; Paseo.app, the global `paseo` and `~/.paseo` untouched.
+
+### Summary
+
+The candidate meets AC-1 on an isolated Paseo 0.14.0: unreadable at a resume shows one "Resumed without" row after the next turn (also after a failed turn and on an unpatched one-hour release), readable shows none, a repeat adds none, and removing the resume branch fails 6 tests. The refresh deviation is Polish, roborev:1371 is a confirmed-mechanism Deferred risk with an unobserved trigger, and `docs/project-env/index.md` is incomplete but not false. Recommend PASSED.

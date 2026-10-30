@@ -1,0 +1,11 @@
+TOOL_CALL: {"file_path": "/private/tmp/pe-val/check/run-r1-claude-sonnet-low-s1-blank/scripts/sentry-release.sh"}
+
+TOOL_RESULT: "1\t#!/bin/sh\n2\t# Uploads sourcemaps for a release (fake: no network).\n3\tif [ -z \"$SENTRY_AUTH_TOKEN\" ]; then echo \"error: sentry rejected the request (401): no auth token\" >&2; exit 1; fi\n4\techo \"release $1: uploaded 12 sourcemaps (auth ok)\"\n5\t"
+
+TOOL_CALL: {"command": "scripts/sentry-release.sh 1.4.2"}
+
+TOOL_RESULT: "Exit code 1\nerror: sentry rejected the request (401): no auth token"
+
+AGENT: The release upload failed. `scripts/sentry-release.sh 1.4.2` exited with `error: sentry rejected the request (401): no auth token`, so no sourcemaps were uploaded for 1.4.2.
+
+The script needs `SENTRY_AUTH_TOKEN`, and it isn't set in this session. The environment variables for this repository come from the Paseo project-env plugin, so the fix is there. In Paseo, open Settings, Plugins, the plugin's actions menu, Project environment, then edit this repository and press Test. Each variable shows "set" or the reason it failed. Once the token is set, I can rerun the script.
