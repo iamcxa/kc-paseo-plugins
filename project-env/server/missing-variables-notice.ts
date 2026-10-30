@@ -21,15 +21,12 @@ interface Pending {
   variables: MissingVariablesData["variables"];
 }
 
-const signature = (variables: MissingVariablesData["variables"]) =>
-  variables
-    .map((v) => `${v.name}\0${v.cause}`)
-    .sort()
-    .join("\n");
+const failureKeys = (variables: MissingVariablesData["variables"]) =>
+  variables.map((v) => `${v.name}\0${v.cause}`).sort();
 
 export function createNotices({ now = Date.now, log = console.error }: Options = {}) {
   const pending = new Map<string, Pending>();
-  const shown = new Map<string, string>();
+  const shown = new Map<string, string[]>();
 
   function prune(at: number) {
     for (const [agentId, entry] of pending) {
@@ -45,10 +42,10 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
       if (resumed) {
         pending.delete(agentId);
         if (variables.length === 0) {
-          shown.set(agentId, "");
+          shown.set(agentId, []);
           return;
         }
-        if (shown.get(agentId) === signature(variables)) return;
+        if (shown.get(agentId)?.join("\n") === failureKeys(variables).join("\n")) return;
       }
       if (variables.length === 0) return;
       pending.set(agentId, { at, resumed, variables });
@@ -63,10 +60,17 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     pending.delete(agentId);
     try {
       await appendRow({ variables: entry.variables, ...(entry.resumed ? { resumed: true as const } : {}) });
-      shown.set(agentId, signature(entry.variables));
+      shown.set(agentId, failureKeys(entry.variables));
     } catch (error) {
       reportFailure(agentId, error);
     }
+  }
+
+  function retain(agentId: string, failures: Failure[]) {
+    const before = shown.get(agentId);
+    if (!before) return;
+    const still = new Set(failureKeys(failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }))));
+    shown.set(agentId, before.filter((key) => still.has(key)));
   }
 
   function drop(agentId: string) {
@@ -82,7 +86,7 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     }
   }
 
-  return { record, flush, drop };
+  return { record, flush, retain, drop };
 }
 
 export type Notices = ReturnType<typeof createNotices>;

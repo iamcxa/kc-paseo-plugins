@@ -275,6 +275,21 @@ describe("the missing-variables row", () => {
       assert.equal(h.appended.length, 2);
     });
 
+    it("shows a failure again when a refresh read one of the shown variables while another still failed", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.closed");
+      h.setScenario({ ...scenario, op: { ...scenario.op, accounts: { a: { refs: { ...accounts.a.refs, "op://V/i/nope": VALUE } } } } });
+      await h.open({ reason: "refresh" });
+      h.setScenario(scenario);
+      mock.timers.enable({ apis: ["Date"], now: Date.now() + 16 * 60 * 1000 });
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 2);
+    });
+
     it("waits beyond ten minutes for the turn to end", async () => {
       silenceConsole();
       let t = 0;
