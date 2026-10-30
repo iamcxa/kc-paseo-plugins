@@ -7,6 +7,28 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-resume-blank-notice:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-resume-blank-notice-backlog-1
+              briefing:
+                id: briefing:project-env-resume-blank-notice:backlog:attempt-1:revision-1
+                digest: sha256:c5e6c599004f3e61597c795c17b036c63db4e778a61786cf111ee12ad75cf3d6
+                room-ref: ./project-env-resume-blank-notice/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-resume-blank-notice:backlog:1
+                briefing: briefing:project-env-resume-blank-notice:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-30T14:41:48.149008Z"
+                decision: approve
+                reason: '「開」 — Captain in FO chat, 2026-10-30. Asked: 「要不要開一個小任務，在隔離環境用 0.14.0 實測「agent 恢復時讀不到變數」的情況，有問題就補上提示？我建議開…回「開」或「先不用」。」 FO had recommended opening it.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Paseo 0.14.0 (released 2026-10-29) "Release eligible agent runtimes after one idle hour, resuming the saved session on the next prompt" (its release notes, read with `gh release view v0.14.0 -R getpaseo/paseo` on 2026-10-30). In `agent.session_open` in `project-env/server/contribute.ts` on main, a variable that cannot be read is blanked for every opening, but the "Started without N project variables" line is recorded only when `request.reason === "create"`. FO has not run this on 0.14.0; whether a release and resume fires `agent.session_open` is unverified. Asked whether to open a small task to test it on 0.14.0 and add the notice if it is a problem, recommending it, the Captain answered 「開」 on 2026-10-30.
