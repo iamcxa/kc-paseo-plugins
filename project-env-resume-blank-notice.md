@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-resume-blank-notice:ideation:attempt-1:revision-1
                 digest: sha256:ddd599e5bdd7a7536dbcef12b695d71595168bfb30cd80c43c64667e23c14952
                 room-ref: ./project-env-resume-blank-notice/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-resume-blank-notice:ideation:1
+                briefing: briefing:project-env-resume-blank-notice:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-10-30T16:11:53.951434Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-10-31, on the ideation gate (sha256:ddd599e5), FO having recommended approval; approval also accepts that the line shows when the first turn after a resume ends, not when the chat is opened. Asked: Approve the resume-notice design ... and AC-1 into implementation? FO recommends approving, which also accepts that the line shows when that first turn ends, not when the chat is opened. Say if you object to any part.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-10-30T14:42:08Z
 ---
 
