@@ -1,7 +1,7 @@
 ---
 id:
 title: An agent that resumes without a project variable tells the person why
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-31, on the ideation gate (sha256:ddd599e5), FO having recommended approval; approval also accepts that the line shows when the first turn after a resume ends, not when the chat is opened. Asked: Approve the resume-notice design ... and AC-1 into implementation? FO recommends approving, which also accepts that the line shows when that first turn ends, not when the chat is opened. Say if you object to any part.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-10-30T14:42:08Z
 ---
 
