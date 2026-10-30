@@ -1,0 +1,65 @@
+== healthy
+  session_open reason=create env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.created
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  -- conversation after resume-1.txt
+     items: 46
+  -- conversation after resume-2.txt
+     items: 68
+== lost
+  session_open reason=create env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "filled"}
+  event agent.created
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  -- conversation after resume-1.txt
+     361 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}],"resumed":true}
+     items: 47
+  -- conversation after resume-2.txt
+     361 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}],"resumed":true}
+     items: 70
+== blank
+  session_open reason=create env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.created
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  event agent.closed
+  session_open reason=resume env={"SENTRY_AUTH_TOKEN": "filled", "STRIPE_KEY": "blank"}
+  event agent.turn_started
+  event agent.turn_ended
+  event agent.turn_ended
+  -- conversation after resume-1.txt
+     3 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}]}
+     items: 48
+  -- conversation after resume-2.txt
+     3 plugin missing-variables {"variables":[{"name":"STRIPE_KEY","cause":"missing-field"}]}
+     items: 71
+agents: healthy=4e9bdeec-02b2-43b1-9793-6be1362d2b96 lost=2fa28fad-fe28-4b79-8e56-874c083f5b54 blank=b055e8f9-e46c-4c47-9de6-692942fd5392

@@ -188,3 +188,30 @@ Is it acceptable that the line shows when the first turn after the resume ends r
 ### Summary
 
 Resumed agents lose an unreadable variable silently on Paseo 0.14.0; the fix is a "Resumed without N project variables" row appended at the end of the first turn after the resume, remembered per agent so the same failure is not repeated, with one agent-notice sentence updated. The row goes at turn end because the default Chat display folds a row placed at turn start; all runtime evidence was on the mock provider with fake `op`, and the unpatched-hour unreadable case was not captured. Isolated daemons, ports 9411 to 9417 and install copies are removed.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design exactly, starting from evidence/candidate-disposable.diff: the "Resumed without N project variables" row at the end of the first turn after a resume, the per-agent memory so the same failure is not repeated, the agent-notice sentence and the two OVERVIEW.md sentences.
+  Candidate applied clean (51481d2), plus two roborev repairs on the memory (33d3c62, 9d8760b); branch spacedock-ensign/project-env-resume-blank-notice on base 06aa5bee; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/66. Deviation from "refresh stays silent": a refresh now silently forgets the shown variables it read (`retain` in `missing-variables-notice.ts`); no row, no UI change.
+- DONE: Land AC-1's evidence at the candidate commit with evidence/harness/resume-check.sh (adapted: own install, port 19604), plus the unit test that fails when the resume branch is removed.
+  `evidence/impl/runs/resume-check-impl-cand.txt` at 9d8760b: `lost` reason=resume STRIPE_KEY blank, one "Resumed" row (seq 361) after resume 1, none added by resume 2; `healthy` no row; `blank` only its start row. Earlier run at 51481d2 in `resume-check-impl-cand-51481d2.txt`. `runs/mutations-impl.txt`: "resume branch removed" fails 6 tests; same-failure check, ten-minute expiry, fixed row id, missing turn_ended handler, title and refresh-forget mutations each fail 1 to 11.
+- DONE: A screenshot of a failed first turn, and whole-page pictures at 1280 and 400 px.
+  `evidence/impl/shots/cand-failed-full-{1280,400}.png` (mock "Requested mock provider failure" turn, row under it), plus `cand-{one,three,both}-full-{1280,400}.png`, dark theme, Paseo 0.14.0 default Chat display; taken at 51481d2, the row code is unchanged since.
+- DONE: A rerun of the agent comprehension harness on the new notice sentence (Codex gpt-6.1-sol medium, Claude claude-sonnet-5-5 medium and low, at least 4 runs per cell, blank-variable scenario).
+  12 runs, 4 per cell (`evidence/impl/comprehension/out/r1..r4`, `run4.sh`, notice `notice-resume.txt`): every run says the variable is blank and gives the Settings, Plugins, Project environment, Test path; `grade.py`: no leak in transcript or repo, no env probe. Read by me, not independently graded.
+- DONE: Run `npm test`, `npm run typecheck`, the roborev gate, `design_surfaces.py check` and `doc_impact.py <base> <candidate>`.
+  `npm test` 322 of 322 (session-open deadline test not the cause of any failure), typecheck clean, design_surfaces "presentable", `comment_ratio.py` 0 of 188 code lines. doc_impact lists only `docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md`: unaffected: it governs reserved names; the `resumed` field added to `shared/config.ts` does not touch them. Roborev: three runs (`roborev:1367`, `1369`, `1371`), the first two fixed; the last, `evidence=roborev:1371` at 9d8760b, is open (below).
+- DONE: Docs (doc-site extension): retake the docs pictures and compare; update docs or say `docs: no change` with the capture diff.
+  Retaken on 0.14.0 (`evidence/impl/docs-capture/new`): 05 and 07 identical; 01, 02, 04, 06 differ in a 13 px text band (the plugin and repository path, `diff04-new-over-committed.png`), 03 in 10 pixels. docs: no change to pictures. Sentences: `project-env/OVERVIEW.md` two sentences updated (intro and "When a variable is blank"); `docs/project-env/index.md` "A failure is visible, not silent" still true for a new agent and left alone (finding below).
+- DONE: Open the Draft PR.
+  PR 66, draft, base main; body carries evidence, limits and `without-it unanswered: none`.
+
+### Findings for FO
+
+- Open roborev finding (Medium, fix budget of two used): if a refresh reads every variable between a resume's opening and the end of that turn, the later flush still remembers the failure, so one later identical failure is suppressed. Trigger unobserved; Deferred risk. Would become Material if refresh during a running turn is shown to happen.
+- `docs/project-env/index.md` line "a line at the top of the new conversation" describes only the start row; the resumed row is not mentioned there. Not in the design's two-sentence scope; FO to say if a third sentence belongs in this PR.
+- Not exercised: unreadable variable on an unpatched one-hour release, real provider resume time, desktop app, dark-theme contrast; runtime evidence is on the mock provider with a 20 s idle period. Validation owns the real-screen pictures at 1280 and 400 px.
+
+### Summary
+
+The ideation candidate is implemented and in Draft PR 66: a resumed agent that lost a variable shows "Resumed without N project variables" once its next turn ends, including a failed turn, and the same failure is not repeated. AC-1 holds on an isolated Paseo 0.14.0; comprehension of the changed notice sentence was 12 of 12. Two memory edge cases found by the roborev gate were repaired inside the design's spirit; a third narrow one is reported open.
