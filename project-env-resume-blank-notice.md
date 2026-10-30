@@ -5,7 +5,7 @@ status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
-worktree:
+worktree: .worktrees/spacedock-ensign-project-env-resume-blank-notice
 pr:
 gates:
     version: 1
