@@ -281,3 +281,7 @@ Does not cover: the live Paseo resume (needs the harness, about 6 minutes: `RUN=
 ### Summary
 
 The candidate meets AC-1 on an isolated Paseo 0.14.0: unreadable at a resume shows one "Resumed without" row after the next turn (also after a failed turn and on an unpatched one-hour release), readable shows none, a repeat adds none, and removing the resume branch fails 6 tests. The refresh deviation is Polish, roborev:1371 is a confirmed-mechanism Deferred risk with an unobserved trigger, and `docs/project-env/index.md` is incomplete but not false. Recommend PASSED.
+
+### Local extension doc-site (round 2)
+
+Asked: implementation retakes the docs pictures and updates changed words; validation follows the built pages through the changed screens. Caught: `docs/project-env/index.md` "a line at the top of the new conversation" is true for a new agent but incomplete for a resumed one (validation-1 F3, also raised by implementation), which `doc_impact.py` did not list. Pictures: no change. Cost: one capture run in implementation and part of validation; a possible extra small repair, pending the Captain. By hand: FO wrote both lines into the scope notes.
