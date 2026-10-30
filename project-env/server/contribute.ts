@@ -1,5 +1,6 @@
-import type { PluginServerContext } from "@getpaseo/plugin/server";
+import type { PluginHookContext, PluginServerContext } from "@getpaseo/plugin/server";
 import * as rpc from "../shared/config.ts";
+import { randomUUID } from "node:crypto";
 import type { Project } from "../shared/config.ts";
 import { hasVariables, withNotice } from "./agent-notice.ts";
 import { failureLine } from "./cause.ts";
@@ -36,21 +37,24 @@ export function contribute(server: PluginServerContext, tools: Tools) {
       console.error(failureLine(project.root, r.name, r.cause ?? "unexpected"));
     }
     const failed = opened.results.filter((r) => !r.ok);
-    if (request.reason === "create") notices.record(request.agentId, failed);
+    if (request.reason === "create" || request.reason === "resume") {
+      notices.record(request.agentId, failed, { resumed: request.reason === "resume" });
+    }
     return opened.request;
   });
 
-  server.on("agent.created", ({ agent }, { paseo }) =>
+  const addLine = ({ agent }: { agent: { id: string } }, { paseo }: { paseo: PluginHookContext["paseo"] }) =>
     notices.flush(agent.id, (data) =>
       paseo.agents.ref(agent.id).timeline.append({
         type: "plugin",
-        id: rpc.missingVariablesRowId,
+        id: data.resumed ? `${rpc.missingVariablesRowId}-resumed-${randomUUID()}` : rpc.missingVariablesRowId,
         kind: rpc.missingVariablesKind,
         version: rpc.missingVariablesVersion,
         data,
       }),
-    ),
-  );
+    );
+  server.on("agent.created", addLine);
+  server.on("agent.turn_ended", addLine);
   server.on("agent.closed", ({ agent }) => notices.drop(agent.id));
 
   server.handle(rpc.tokenStatus, ({ serviceAccount }) => secrets.tokenStatus(serviceAccount));

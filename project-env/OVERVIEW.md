@@ -6,7 +6,7 @@ If a variable is blank, go to [When a variable is blank](#when-a-variable-is-bla
 
 You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the login Keychain of the Mac that runs Paseo. When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
 
-A variable that cannot be read is set to an empty value and the agent still starts. A line at the start of the new conversation, "Started without N project variables", names each one and the reason.
+A variable that cannot be read is set to an empty value and the agent still starts. A line in the conversation, "Started without N project variables" for a new agent or "Resumed without N project variables" when a paused agent resumes, names each one and the reason.
 
 ## Setup
 
@@ -35,7 +35,7 @@ It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, 
 
 A blank variable means the plugin could not read it. The agent started anyway with that variable empty, so it never runs on an old value of the same name. There are three places to see the reason:
 
-- The line "Started without N project variables" at the start of the new conversation lists each variable and why.
+- The line "Started without N project variables" in a new conversation, or "Resumed without N project variables" when a paused agent picks up again, lists each variable and why. The resumed line appears when the first turn after the resume ends, not when you open the conversation, and is not repeated while the same variables stay blank.
 - **Settings**, **Plugins**, the actions menu, **Project environment**: edit the repository and press **Test**. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
 - The plugin's Logs, in the same actions menu, hold one line per failed variable with the reason class and never a value.
 

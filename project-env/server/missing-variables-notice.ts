@@ -15,24 +15,43 @@ interface Options {
   log?: (line: string) => void;
 }
 
+interface Pending {
+  at: number;
+  resumed: boolean;
+  variables: MissingVariablesData["variables"];
+}
+
+const signature = (variables: MissingVariablesData["variables"]) =>
+  variables
+    .map((v) => `${v.name}\0${v.cause}`)
+    .sort()
+    .join("\n");
+
 export function createNotices({ now = Date.now, log = console.error }: Options = {}) {
-  const pending = new Map<string, { at: number; variables: MissingVariablesData["variables"] }>();
+  const pending = new Map<string, Pending>();
+  const shown = new Map<string, string>();
 
   function prune(at: number) {
     for (const [agentId, entry] of pending) {
-      if (at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
+      if (!entry.resumed && at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
     }
   }
 
-  function record(agentId: string, failures: Failure[]) {
+  function record(agentId: string, failures: Failure[], { resumed = false } = {}) {
     try {
       const at = now();
       prune(at);
-      if (failures.length === 0) return;
-      pending.set(agentId, {
-        at,
-        variables: failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" })),
-      });
+      const variables = failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }));
+      if (resumed) {
+        pending.delete(agentId);
+        if (variables.length === 0) {
+          shown.set(agentId, "");
+          return;
+        }
+        if (shown.get(agentId) === signature(variables)) return;
+      }
+      if (variables.length === 0) return;
+      pending.set(agentId, { at, resumed, variables });
     } catch (error) {
       reportFailure(agentId, error);
     }
@@ -43,7 +62,8 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     if (!entry) return;
     pending.delete(agentId);
     try {
-      await appendRow({ variables: entry.variables });
+      await appendRow({ variables: entry.variables, ...(entry.resumed ? { resumed: true as const } : {}) });
+      shown.set(agentId, signature(entry.variables));
     } catch (error) {
       reportFailure(agentId, error);
     }
