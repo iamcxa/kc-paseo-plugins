@@ -1,0 +1,11 @@
+findings on acf6a0e46; evidence=roborev:1382
+## Review Findings
+
+- **Severity**: Medium
+- **Location**: project-env/server/missing-variables-notice.ts:42–48
+- **Problem**: A partial recovery during resume does not clear remembered failures until the notice is appended. If two variables were previously reported, one recovers during resume, and the agent closes before its turn ends, the pending update is discarded. If both variables fail on the next resume, the stale remembered set suppresses the warning about the renewed failure.
+- **Fix**: Forget recovered variables on every session read, independently of notice delivery. Add coverage for partial recovery followed by closing before a turn ends.
+
+## Summary
+
+The change adds resumed-agent warnings and suppresses repeated warnings, but can miss a renewed failure after partial recovery.

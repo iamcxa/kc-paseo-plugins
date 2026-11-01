@@ -291,3 +291,12 @@ Asked: implementation retakes the docs pictures and updates changed words; valid
 Captain: 「補」 (FO chat, 2026-11-01)
 Asked: 「要你決定的：文件網站介紹頁的一句話…我建議在這個 PR 補一個子句，再做一次簡短複驗…回「補」或「不補」。」, about validation-1 F3 at candidate 9d8760b85a71f72087a11821eb276ccf2d3d0ec2.
 Effect: one clause is added to `docs/project-env/index.md` on PR #66, then a short recheck.
+
+## Feedback cycle 1 (validation-1 F3)
+
+Head: acf6a0e46 on PR #66's branch (pushed), one docs commit on top of 9d8760b; only `docs/project-env/index.md` changed.
+
+- DONE: added one sentence to the "A failure is visible, not silent." bullet: "A resumed agent that can no longer read a variable gets a "Resumed without N project variables" line when its next turn ends."
+- DONE: rebuilt the site with `docs/project-env/capture/build-site.sh` (ruby:3.3, github-pages gem set, built from `git archive` of the branch plus the edit); the built `docs/project-env/index.html` carries the sentence (`evidence/fb1/page-sentence.txt`, `build-site.txt`).
+- DONE: `npm test` 322 of 322, `npm run typecheck` clean (no code changed).
+- Roborev gate at acf6a0e (`evidence=roborev:1382`, `evidence/fb1/roborev-gate.txt`): one Medium finding, on code this docs-only repair did not touch and was told not to change: a partial recovery at a resume is forgotten only when the notice is appended, so if the agent is released before its turn ends and both variables then fail again, the next resume's warning is suppressed. Same family as the open finding in the implementation report (stale remembered set); unobserved trigger, Deferred risk. Not fixed; FO to decide whether it returns to a code repair.
