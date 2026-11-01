@@ -1,0 +1,21 @@
+== 1. the change since the rejected candidate is one file
+ docs/project-env/index.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+== 2. the sentence on the introduction page
+A resumed agent that can no longer read a variable gets a "Resumed without N project variables" line when its next turn ends.
+== 3. resumed-agent tests, then with the resume branch removed (expect 6 fail)
+ℹ tests 11
+ℹ pass 11
+ℹ fail 0
+ℹ tests 11
+ℹ pass 5
+ℹ fail 6
+== 4. whole suite and typecheck on the unmodified candidate
+ℹ tests 322
+ℹ pass 322
+ℹ fail 0
+typecheck clean
+== 5. screenshots to open (unchanged client code since the first validation)
+/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val/shots/val-failed-full-1280.png
+/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val/shots/val-failed-full-400.png
+exit=0

@@ -348,3 +348,17 @@ Unchanged from cycle 1 (real provider and 1Password, desktop app, daemon restart
 ### Summary
 
 The only change since the rejected candidate is one accurate sentence on the introduction page, confirmed in the source diff and in the rebuilt site, and checks are unchanged (322 of 322, typecheck clean, built-screen review stands). roborev:1371 and 1382 are one stale-memory cause that only suppresses a repeat of an already-seen failure after a recovery; AC-1 holds and both stay Deferred risk. Recommend PASSED.
+
+### FO acceptance rerun (2026-11-01)
+
+FO ran `evidence/val2/acceptance.sh` in a fresh `env -i` shell against acf6a0e: the 11 resumed-agent tests pass, removing the resume branch fails 6, the whole suite 322 pass 0 fail, typecheck clean; exit 0 (`evidence/fo-acceptance-rerun-acf6a0e.txt`).
+
+## ADR 0007 classes for this task
+
+Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，這輪維持」 on 2026-10-26, not restored in writing since). FO merges under class 2 only after his approved validation.
+
+### FO declines (proposed; the Captain rules)
+
+- Validation F1 (Polish), candidate revision acf6a0e4685b8bd1f5eb941b2abd2a259f08d8c2: `notices.retain` forgets shown variables a refresh read, unlike the design's "refresh stays silent". Proposed decline of any change: no row or UI differs, and it is the design's own rule for a resume with everything readable (validation-1). Material if a refresh is seen to add or drop a row; candidate fix: none needed.
+- Validation F2 and F5 (Deferred risk), roborev:1371 and roborev:1382, candidate revision acf6a0e4685b8bd1f5eb941b2abd2a259f08d8c2: one cause on two paths, the "last shown" memory is written only at a turn-end flush, so a repeat of a failure already shown can be suppressed after a recovery that reached no flush (module probe `evidence/val2/probe-1371-1382.ts`; not seen in a running daemon). Proposed decline: AC-1 holds, the first unreadable variable after a resume always shows, and "an identical set adds nothing" is the approved design. Material if a person misses a real failure this way in a supported flow; candidate fix: apply each opening's failures to the memory at the opening and let the flush only decide display.
+- Validation F4 (Polish, pre-existing), candidate revision acf6a0e4685b8bd1f5eb941b2abd2a259f08d8c2: the "Started without" row can be folded by Paseo 0.14.0's default Chat display. Proposed decline: outside this task's Scope and unchanged by it. Material when the Captain upgrades to 0.14.0 and misses that line; candidate fix: its own task.
