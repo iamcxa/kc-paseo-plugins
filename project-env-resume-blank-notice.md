@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-resume-blank-notice
-pr:
+pr: iamcxa/kc-paseo-plugins#66
 gates:
     version: 1
     records:
@@ -285,3 +285,9 @@ The candidate meets AC-1 on an isolated Paseo 0.14.0: unreadable at a resume sho
 ### Local extension doc-site (round 2)
 
 Asked: implementation retakes the docs pictures and updates changed words; validation follows the built pages through the changed screens. Caught: `docs/project-env/index.md` "a line at the top of the new conversation" is true for a new agent but incomplete for a resumed one (validation-1 F3, also raised by implementation), which `doc_impact.py` did not list. Pictures: no change. Cost: one capture run in implementation and part of validation; a possible extra small repair, pending the Captain. By hand: FO wrote both lines into the scope notes.
+
+### Captain disposition of validation-1 F3 (2026-11-01)
+
+Captain: 「補」 (FO chat, 2026-11-01)
+Asked: 「要你決定的：文件網站介紹頁的一句話…我建議在這個 PR 補一個子句，再做一次簡短複驗…回「補」或「不補」。」, about validation-1 F3 at candidate 9d8760b85a71f72087a11821eb276ccf2d3d0ec2.
+Effect: one clause is added to `docs/project-env/index.md` on PR #66, then a short recheck.
