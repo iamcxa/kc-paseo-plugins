@@ -1,0 +1,4 @@
+1371 expect 2 rows if every failure is shown (got fewer = suppressed): rows shown = 1
+1382 expect 2 rows if every failure is shown (got fewer = suppressed): rows shown = 1
+control: partial recovery then its turn ends, later [A,B] again: rows shown = 3
+control: all readable at a resume, release, later [A,B] again: rows shown = 2

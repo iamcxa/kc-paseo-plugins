@@ -300,3 +300,51 @@ Head: acf6a0e46 on PR #66's branch (pushed), one docs commit on top of 9d8760b; 
 - DONE: rebuilt the site with `docs/project-env/capture/build-site.sh` (ruby:3.3, github-pages gem set, built from `git archive` of the branch plus the edit); the built `docs/project-env/index.html` carries the sentence (`evidence/fb1/page-sentence.txt`, `build-site.txt`).
 - DONE: `npm test` 322 of 322, `npm run typecheck` clean (no code changed).
 - Roborev gate at acf6a0e (`evidence=roborev:1382`, `evidence/fb1/roborev-gate.txt`): one Medium finding, on code this docs-only repair did not touch and was told not to change: a partial recovery at a resume is forgotten only when the notice is appended, so if the agent is released before its turn ends and both variables then fail again, the next resume's warning is suppressed. Same family as the open finding in the implementation report (stale remembered set); unobserved trigger, Deferred risk. Not fixed; FO to decide whether it returns to a code repair.
+
+## Stage Report: validation (cycle 2)
+
+Verdict: PASSED recommended for candidate acf6a0e4685b8bd1f5eb941b2abd2a259f08d8c2 (PR #66 after feedback cycle 1; rejected candidate 9d8760b). Run from `git archive`; evidence under `evidence/val2/`.
+
+- DONE: Re-review candidate acf6a0e for validation-1 F3: confirm the diff against 9d8760b is the one sentence in docs/project-env/index.md and nothing else
+  `git diff --name-only 9d8760b acf6a0e` lists only `docs/project-env/index.md`, 1 insertion and 1 deletion; 9d8760b is an ancestor. comment_ratio 0 of 188 exit 0, adr_lint exit 0, dispatch_records 5 complete, doc_impact the same single ADR 0004 line as in cycle 1 (candidate code unchanged, so the recorded `unaffected` stands).
+- DONE: read it against the behaviour you observed
+  The added sentence "A resumed agent that can no longer read a variable gets a "Resumed without N project variables" line when its next turn ends." matches the runs in `evidence/val/runs/`: the row is appended at the turn end after a resume that reads a variable as unreadable, not at the opening (`resume-check-cand.txt`, `hour-check-cand.txt`), and an agent that was blank from the start gets no second row. It does not say "not repeated while the same variables stay blank" (OVERVIEW.md and the Reference page carry that); not false, and F3 is closed.
+- DONE: rebuild the site and confirm the page shows it
+  `docs/project-env/capture/build-site.sh` (Docker, github-pages 232, 38 s, `evidence/val2/site-build.txt`) on the archive: built `docs/project-env/index.html` contains the sentence; `reference.html` carries both OVERVIEW.md sentences.
+- DONE: rerun `npm test` and `npm run typecheck` from git archive
+  `npm ci`, `npm test` 322 of 322, `tsc --noEmit` clean.
+- DONE: update the acceptance script for the new head
+  `evidence/val2/acceptance.sh` (42 s measured), steps below.
+- DONE: Classify roborev:1382 (Medium, server/missing-variables-notice.ts ...), together with roborev:1371: say whether the two are one cause, whether either changes AC-1, and what would make them Material.
+  See F5.
+- DONE: Built screen review: no client file changed since validation-1 (confirm with the diff); if so, say so instead of rerunning it.
+  Confirmed: the only changed file is `docs/project-env/index.md`, no file under `project-env/client/` or `shared/`; the pictures of validation 1 stand (taken at 9d8760b).
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: no-row and repeat-adds-nothing cannot be drawn; proven by `resume-check-cand.txt` and unit tests
+Built screen finding 2: declined: wrapped-reason layout belongs to the shared MissingVariablesRow, already upheld as its own task
+Built screen finding 3: declined: light three-variable and failed pictures cover the same component
+Built screen decline check: design/validation-declines-1.yaml
+
+### Findings
+
+- F5 Deferred risk: roborev:1371 and roborev:1382 are one cause on two paths, and neither changes AC-1. Cause: `shown` (the failures a person last saw) is written only when a resumed row is flushed at a turn end, from the snapshot taken at that resume's opening, so a later observation that cannot reach a flush leaves it stale. 1371: a refresh that reads everything between the opening and the flush is overwritten by the flush. 1382: a resume that reads only some of the failures, followed by a release before any turn ends (`drop`), never updates `shown`. A probe on the real module (`evidence/val2/probe-1371-1382.ts`, output `.txt`) reproduces both: 1 row where 2 are expected; controls: the same partial recovery with its turn ending gives 3 rows, a full recovery then release gives 2. AC-1 stands: the first unreadable variable after a resume always shows a row (harness, hour run), and "an identical set adds nothing" is the Captain-approved design; these two only suppress a repeat of a set the person already saw, after a recovery in between. The all-readable case the design promises ("a later failure shows again") is intact.
+- F5 trigger and what would make it Material: 1382's trigger is more likely than 1371's, because a view-only resume (opening a released chat resumes it with no turn, ideation FAQ) followed by the idle-hour release drops the pending line with no turn end; 1371 needs a reload during a resumed turn (the daemon cancels the in-flight run first; unobserved). Neither is observed in a user's workflow. Each would be Material if the Captain rules, or an AC states, that a variable which recovered (even partly) and fails again must always be shown again, or if a person is shown to miss a real failure this way in a supported flow. I believe one repair covers both (apply each opening's observed failures to `shown` at the opening, and let the flush only decide display); I did not build or test it. Disposition: keep as Deferred risk; the Captain may rule to fix it in this PR or a follow-up.
+
+### Acceptance script (Captain or FO, fresh shell, 42 s measured)
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val2/acceptance.sh`. It extracts the candidate into a temp folder, then:
+1. Prints the diff stat since the rejected candidate: expect `docs/project-env/index.md | 2 +-` and `1 file changed`.
+2. Greps the new sentence from `docs/project-env/index.md`: expect it printed once.
+3. `npm ci`, then the 11 "a resumed agent" tests (expect `ℹ pass 11`), then with the resume branch removed (expect `ℹ fail 6`).
+4. Full suite (expect `ℹ pass 322`, `ℹ fail 0`) and `typecheck clean`.
+5. Prints the two screenshot paths to open: dark, first turn after a resume that failed, "Resumed without 1 project variable / STRIPE_KEY — field not found in the vault" under the error line.
+Does not cover: the rendered site (needs Docker: `bash docs/project-env/capture/build-site.sh <copy>` then open `_site/docs/project-env/index.html`; run once above), the live resume (harness, about 6 minutes, run in cycle 1 including an unpatched one-hour release), a real provider, a real 1Password account.
+
+### Unverified obligations
+
+Unchanged from cycle 1 (real provider and 1Password, desktop app, daemon restart, view-only resume shows nothing until a turn ends, measured contrast, comprehension of the "Resumed without" clause), plus: F5 is reproduced at module level only, not in a running daemon. `/tmp/val2-cand` and `/tmp/x` copies removed; Paseo.app, the global `paseo` and `~/.paseo` untouched.
+
+### Summary
+
+The only change since the rejected candidate is one accurate sentence on the introduction page, confirmed in the source diff and in the rebuilt site, and checks are unchanged (322 of 322, typecheck clean, built-screen review stands). roborev:1371 and 1382 are one stale-memory cause that only suppresses a repeat of an already-seen failure after a recovery; AC-1 holds and both stay Deferred risk. Recommend PASSED.
