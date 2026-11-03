@@ -1,0 +1,82 @@
+✖ identical slugs in two workflows keep separate recipients (257.671ms)
+✖ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (87.867458ms)
+✖ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (52.549542ms)
+gates.read #1 start dirs=2
+gates.read #1 done 270ms
+✖ each active briefing identity survives the server, RPC schema, attachment and queue (296.088583ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 848.754666
+
+✖ failing tests:
+
+test at test/gate-identity-class.test.mts:1:876
+✖ identical slugs in two workflows keep separate recipients (257.671ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve B workflow? — B FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle5-baseline-z_0trgju/spacedock-bridge/test/helpers/bridge-host.mts:89:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle5-baseline-z_0trgju/spacedock-bridge/test/gate-identity-class.test.mts:25:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/gate-identity-class.test.mts:1:1901
+✖ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (87.867458ms)
+  AssertionError [ERR_ASSERTION]: the first gate's message cannot appear in the second
+  + actual - expected
+  
+  + 'First message'
+  - ''
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle5-baseline-z_0trgju/spacedock-bridge/test/gate-identity-class.test.mts:55:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'First message',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/gate-identity-class.test.mts:1:1901
+✖ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (52.549542ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(finish)
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle5-baseline-z_0trgju/spacedock-bridge/test/gate-identity-class.test.mts:50:43)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/gate-identity.test.mts:1:382
+✖ each active briefing identity survives the server, RPC schema, attachment and queue (296.088583ms)
+  AssertionError [ERR_ASSERTION]: same slugs in different workflows retain their exact recipient through the pipeline
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle5-baseline-z_0trgju/spacedock-bridge/test/gate-identity.test.mts:36:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

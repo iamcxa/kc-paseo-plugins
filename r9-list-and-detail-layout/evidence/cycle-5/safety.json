@@ -1,0 +1,77 @@
+{
+  "head": "a30049f2a2ef57c2b01a6da5592a246951fb4bc3",
+  "branch": "spacedock-ensign/r9-list-and-detail-layout",
+  "candidateStatus": "",
+  "mainStatus": "",
+  "liveStatus": "",
+  "remote": "a30049f2a2ef57c2b01a6da5592a246951fb4bc3\trefs/heads/spacedock-ensign/r9-list-and-detail-layout",
+  "files": {
+    "spacedock-bridge/OVERVIEW.md": {
+      "sha256": "7a2f27dabac75f94e9571cc8484250f9486009735f053889add1da18ca4e6d14",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/board.tsx": {
+      "sha256": "92b43d65055033b461a8c21ab9dad405373fee97eb7c07cc89a58ebfffd29668",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/co-chat.tsx": {
+      "sha256": "248016c9a649c91ccd5c018504bb6255ac6e9ba9ee87546bb4eb94586f7822a0",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/decision-card.tsx": {
+      "sha256": "40f9d1cccf3897c0bab33c162dae976e0e6665174e3015e66d400304caaa558c",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/server/gate.ts": {
+      "sha256": "a2644227c0949f651a0ec60e2675800a0d3b25f07876f5bce453e4c4133da6f5",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/server/tasks.ts": {
+      "sha256": "835f452088529a959b1cde630fd1170fec4d98b06322efd47a2bcfe39ca0d1fb",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/board.ts": {
+      "sha256": "2896631e96b915a0e54a3f2c89541a9a9e25ae86b4dfa1f73cd0bfa1ada1bb5a",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/drafts.ts": {
+      "sha256": "17e4cf64e142aff068407887276f5e8d48ae91138b9b330e48e604b328a2ce12",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/gate-identity.ts": {
+      "sha256": "7b39bb0584979398187bf1ba95eef68a62dc3fefb143c7c3a6ee8fe7861b8ec6",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/queue.ts": {
+      "sha256": "5daedd5961928540af0614154ddc720d459eefe3bca077309fa3182744dec65b",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/tasks.ts": {
+      "sha256": "8314051871e3616ea5c61fae04f21bd91c6db3328965835623a709e24d356a5a",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/gate-identity-class.test.mts": {
+      "sha256": "649cf33b5ac491893ff1ba20d9d352511a6b15e06b07aa302622c2730e116609",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/gate-identity.test.mts": {
+      "sha256": "93121ddf6b501eb1b4fecd0f8ec8f08bb072ad65b291c135d24e6876e4d22769",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/helpers/bridge-host.mts": {
+      "sha256": "0e1dcc30661712efbd98330101a311911c667c3b19f358bb445c91459e631437",
+      "matchesCommit": true
+    }
+  },
+  "temporaryBaselineRoots": [],
+  "tests": {
+    "passed": 235,
+    "failed": 0,
+    "newTests": 3,
+    "strengthenedPipelineTest": 1,
+    "baselineCorePasses": 0,
+    "baselineCoreFailures": 4,
+    "typecheckExit": 0
+  },
+  "scope": "mounted React DOM/RPC gate identity proof; protocol/message/record schemas unchanged; no daemon/browser/provider/native-device action"
+}

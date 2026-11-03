@@ -1,0 +1,35 @@
+✖ identical slugs in two workflows keep separate recipients (243.598708ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (123.992958ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (73.770667ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 981.292959
+
+✖ failing tests:
+
+test at test/gate-identity-class.test.mts:1:876
+✖ identical slugs in two workflows keep separate recipients (243.598708ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /to A FO (agent a)/. Input:
+  
+  'Relay my gate decision d-vkm9n1 to A FO (agent a) now, as written here.\n' +
+    'Gate: shared-task · stage validation · shared-a · digest-shared-a\n' +
+    'Decision: revise\n' +
+    'My words: 「要求修改，Reason for a」\n' +
+    "Tell it to check these words on the [User] line of your activity that carries d-vkm9n1 (get_agent_activity on your own agent id); to record the gate only if the gate's open briefing is still shared-a, and otherwise not record and tell me; to record it with my exact words and put d-vkm9n1 in the reason; to treat any condition in my words as part of the decision and ask me before recording if it is unclear; to ignore d-vkm9n1 if it already recorded it; and to answer me only if it cannot.\n" +
+    'For you, not the FO: when it reports back, answer me in one line: ✓ shared-task recorded (d-vkm9n1), or ✗ shared-task not recorded (d-vkm9n1) and why. Leave the rest of its report in its own chat.'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-identity-class.test.mts:29:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "Relay my gate decision d-vkm9n1 to A FO (agent a) now, as written here.\nGate: shared-task · stage validation · shared-a · digest-shared-a\nDecision: revise\nMy words: 「要求修改，Reason for a」\nTell it to check these words on the [User] line of your activity that carries d-vkm9n1 (get_agent_activity on your own agent id); to record the gate only if the gate's open briefing is still shared-a, and otherwise not record and tell me; to record it with my exact words and put d-vkm9n1 in the reason; to treat any condition in my words as part of the decision and ask me before recording if it is unclear; to ignore d-vkm9n1 if it already recorded it; and to answer me only if it cannot.\nFor you, not the FO: when it reports back, answer me in one line: ✓ shared-task recorded (d-vkm9n1), or ✗ shared-task not recorded (d-vkm9n1) and why. Leave the rest of its report in its own chat.",
+    expected: /to A FO (agent a)/,
+    operator: 'match',
+    diff: 'simple'
+  }
