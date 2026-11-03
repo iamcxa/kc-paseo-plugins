@@ -1,0 +1,106 @@
+✖ reopen keeps the confirmed choice and reason (311.086542ms)
+✖ sent and relayed progress survives a comms detour (48.297041ms)
+✖ a recorded item never becomes actionable again (33.929625ms)
+✔ switching items keeps separate drafts and rejects stale actions (70.080666ms)
+✖ errors and progress stay with their own source and owner (37.347208ms)
+✔ status priority covers every waiting kind in LIST-AND-DETAIL (0.604292ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (0.570792ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 3
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1252.19975
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:398
+✖ reopen keeps the confirmed choice and reason (311.086542ms)
+  AssertionError [ERR_ASSERTION]: visible control: Confirm decision
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:75:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:14:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:818
+✖ sent and relayed progress survives a comms detour (48.297041ms)
+  AssertionError [ERR_ASSERTION]: visible control: Confirm decision
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:75:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:24:38)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:1274
+✖ a recorded item never becomes actionable again (33.929625ms)
+  AssertionError [ERR_ASSERTION]: visible control: Confirm decision
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:75:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:36:54)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:2629
+✖ errors and progress stay with their own source and owner (37.347208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Cannot read co|Could not read/. Input:
+  
+  'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 2\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '43m ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '43m ago\n' +
+    '+ New FO\n' +
+    'Gates read 6:42:46 PM · 2 open\n' +
+    '↗ Comms officer conversation\n' +
+    '← List\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:71:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Waiting on you · 2\nBy decision · 2\nBy FO · 2\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n43m ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n43m ago\n+ New FO\nGates read 6:42:46 PM · 2 open\n↗ Comms officer conversation\n← List\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Cannot read co|Could not read/,
+    operator: 'match',
+    diff: 'simple'
+  }

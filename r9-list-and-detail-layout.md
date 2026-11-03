@@ -69,3 +69,7 @@ Verified by: one status-priority function with a table test over every waiting k
 Alignment: not needed: the Captain accepted the design on 2026-11-03; scope and split from chief-engineer, recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-03 — scope round 9 (build the accepted list-beside-wide-detail design; one round or split)
+
+### FO notes
+
+- Captain 2026-11-03, asked 「要把 comms 入口移到清單最上方嗎？」, answered 「我覺得要搬到最顯眼的地方，不然沒辦法區別，而且操作重點應該是盡可能讓 comm officier 可以成為指揮官。目前的 UI 好的地方在於切換時更明確，但是我認為，大方向跟指揮官談，細節必要時可以去跟不同 FO 聊，或是去 checking 進度。但是現在這樣 UX 感覺不太像是這樣。但仍然我覺得這個方向會比現在更好」. FO put the implementation worker on hold (no further edits, no push) before asking how to proceed.

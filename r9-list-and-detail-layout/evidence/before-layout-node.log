@@ -1,0 +1,110 @@
+✖ reopen keeps the confirmed choice and reason (232.425917ms)
+✖ sent and relayed progress survives a comms detour (8.159459ms)
+✖ a recorded item never becomes actionable again (6.785333ms)
+✖ switching items keeps separate drafts and rejects stale actions (6.387291ms)
+✖ errors and progress stay with their own source and owner (6.662ms)
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/shared/list-status' imported from /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/list-status.test.mts
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at nextStep (node:internal/modules/customization_hooks:189:26)
+    at resolveBaseSync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+    at resolveDirectorySync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+    at resolveTsPathsSync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605)
+    at resolve (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:16832) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/shared/list-status'
+}
+
+Node.js v24.18.0
+✖ test/list-status.test.mts (280.701416ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 0
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1046.165708
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:398
+✖ reopen keeps the confirmed choice and reason (232.425917ms)
+  Error: The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.
+      at setValueForStyles (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:2747:15)
+      at setProp (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:17218:11)
+      at setInitialProperties (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:18005:13)
+      at completeWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11391:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at completeUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15268:19)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15149:11)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
+      at renderRootSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14936:11)
+      at performWorkOnRoot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14462:44)
+
+test at test/bridge-continuity.test.mts:1:818
+✖ sent and relayed progress survives a comms detour (8.159459ms)
+  Error: The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.
+      at setValueForStyles (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:2747:15)
+      at setProp (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:17218:11)
+      at setInitialProperties (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:18005:13)
+      at completeWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11391:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at completeUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15268:19)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15149:11)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
+      at renderRootSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14936:11)
+      at performWorkOnRoot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14462:44)
+
+test at test/bridge-continuity.test.mts:1:1274
+✖ a recorded item never becomes actionable again (6.785333ms)
+  Error: The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.
+      at setValueForStyles (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:2747:15)
+      at setProp (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:17218:11)
+      at setInitialProperties (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:18005:13)
+      at completeWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11391:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at completeUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15268:19)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15149:11)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
+      at renderRootSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14936:11)
+      at performWorkOnRoot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14462:44)
+
+test at test/bridge-continuity.test.mts:1:1890
+✖ switching items keeps separate drafts and rejects stale actions (6.387291ms)
+  Error: The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.
+      at setValueForStyles (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:2747:15)
+      at setProp (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:17218:11)
+      at setInitialProperties (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:18005:13)
+      at completeWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11391:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at completeUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15268:19)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15149:11)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
+      at renderRootSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14936:11)
+      at performWorkOnRoot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14462:44)
+
+test at test/bridge-continuity.test.mts:1:2629
+✖ errors and progress stay with their own source and owner (6.662ms)
+  Error: The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.
+      at setValueForStyles (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:2747:15)
+      at setProp (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:17218:11)
+      at setInitialProperties (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:18005:13)
+      at completeWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11391:18)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at completeUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15268:19)
+      at performUnitOfWork (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:15149:11)
+      at workLoopSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14956:41)
+      at renderRootSync (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14936:11)
+      at performWorkOnRoot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:14462:44)
+
+test at test/list-status.test.mts:1:1
+✖ test/list-status.test.mts (280.701416ms)
+  'test failed'
