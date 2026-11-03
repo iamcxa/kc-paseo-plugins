@@ -16,6 +16,20 @@ gates:
                 id: briefing:r9-commander-first:backlog:attempt-1:revision-1
                 digest: sha256:45dfae0c0e5f9303a7a3a8f536ea1a16fa5c90d326c134498ae983890c18d48f
                 room-ref: ./r9-commander-first/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r9-commander-first:backlog:1
+                briefing: briefing:r9-commander-first:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-11-03T10:51:17.784743Z"
+                decision: approve
+                reason: 'Accepts direction: the Captain asked on 2026-11-03 to redesign first with the comms officer as the commander; no code; director first.'
+                conn:
+                    quote: 先改設計，我確認看看
+                    source: 'Captain chat 2026-11-03, answering whether to redesign first or adjust round 9 while building; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Before round 9's code continues, redesign the accepted list-beside-wide-detail layout so the comms officer is the commander the Captain talks to first, with FO conversations and progress as drill-downs.
