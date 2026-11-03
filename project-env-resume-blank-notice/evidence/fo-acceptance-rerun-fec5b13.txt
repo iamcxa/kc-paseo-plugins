@@ -1,0 +1,23 @@
+== 1. the change since the previous candidate is two files
+ project-env/server/missing-variables-notice.ts | 34 ++++++++++++---------
+ project-env/test/missing-variables.test.ts     | 42 ++++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+), 15 deletions(-)
+== 2. the three new regression tests on the candidate (expect 3 pass)
+ℹ tests 3
+ℹ pass 3
+ℹ fail 0
+== 3. the same tests with the previous candidate's notice code (expect 3 fail)
+ℹ tests 3
+ℹ pass 0
+ℹ fail 3
+== 4. 30000 random open/refresh/turn-end/release sequences against an independent oracle (expect 0 mismatches)
+fuzz: 30000 sequences, 0 mismatches against the oracle
+== 5. whole suite and typecheck (expect 325 pass, typecheck clean)
+ℹ tests 325
+ℹ pass 325
+ℹ fail 0
+typecheck clean
+== 6. screenshots to open (client code unchanged since the first validation)
+/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val3/../val/shots/val-failed-full-1280.png
+/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val3/../val/shots/val-failed-full-400.png
+exit=0

@@ -433,3 +433,13 @@ Unchanged from cycles 1 and 2 (real provider and 1Password, desktop app, daemon 
 ### Summary
 
 The two-file repair makes every opening update the remembered failures at once, so a recovery no turn end flushed can no longer be undone; the three regression tests fail on acf6a0e and pass on fec5b13, my own sequences and a 30000-sequence check against an independent oracle agree with the approved rule, and the resume harness behaves as before. Checks are 325 of 325 with a clean typecheck, and no screen changed. Recommend PASSED.
+
+### FO acceptance rerun (2026-11-03)
+
+FO ran `evidence/val3/acceptance.sh` in a fresh `env -i` shell against fec5b13: the two-file diff, the 3 new tests pass and fail on the previous notice code, 30000 random sequences with 0 mismatches, 325 pass 0 fail, typecheck clean; exit 0 (`evidence/fo-acceptance-rerun-fec5b13.txt`).
+
+### FO declines, revised after feedback cycle 2 (proposed; the Captain rules)
+
+The earlier proposed decline of F2/F5 (roborev:1371/1382) is withdrawn: the Captain ruled 「修」 and validation cycle 3 closed it at fec5b137b8d3955999aab0db084da49f4e2c3ea2. Still proposed:
+- Validation F1 (Polish), candidate revision fec5b137b8d3955999aab0db084da49f4e2c3ea2: a refresh updates the per-agent memory without adding a row. Proposed decline: no row or UI differs; it is the design's rule for a clean opening (validation cycles 1 and 3). Material if a refresh is seen to add or drop a row; candidate fix: none needed.
+- Validation F4 (Polish, pre-existing), candidate revision fec5b137b8d3955999aab0db084da49f4e2c3ea2: the "Started without" row can be folded by Paseo 0.14.0's default Chat display. Proposed decline: outside this task's Scope and unchanged by it; the Captain now runs 0.14.0. Material if he misses that line; candidate fix: its own task.
