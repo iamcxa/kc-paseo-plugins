@@ -1,0 +1,1483 @@
+{
+  "htmlSha256": "5909ad2b8d8b99296c5a84d63417c45ca367037f35963ddd30e3b753a350d491",
+  "reviewSha256": "ffb74c36eacd482282298debbe32e08b2ffd6996b842a98dd7b76798f6e18e43",
+  "browser": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "node": "v24.18.0",
+  "screenshotCount": 16,
+  "reviewScreenshot": "review-entry.png (separate file check)",
+  "network": "Local file URLs only; CDP pipe; no localhost, server or daemon; sequential capture; fresh temporary profile per viewport",
+  "tests": [
+    {
+      "name": "1440: all 8 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "status": "passed"
+    },
+    {
+      "name": "1440: actual home defaults to Commander; pinned card precedes Board; mobile opens Board in one click; one click back keeps draft; no-ask counts 6/1/2/2/1",
+      "status": "passed"
+    },
+    {
+      "name": "1440: commander ask counted once at top; four kind groups stay; Questions 2 means pinned ask + one FO row; Gate filter shows 2 and never hides commander",
+      "status": "passed"
+    },
+    {
+      "name": "1440: each local drilldown has visible one-click Commander return; native permission is an offline destination, has no local decision widget",
+      "status": "passed"
+    },
+    {
+      "name": "1440: unassigned review still opens prefilled inquiry then Send; shares commander draft without overwriting existing text or deciding gate",
+      "status": "passed"
+    },
+    {
+      "name": "1440: all three choices and exact reasons survive Commander round trips before Confirm, sent, relayed, and recorded reopen; drafts isolated, sent rows stay, recorded row leaves; no extra send or history",
+      "status": "passed"
+    },
+    {
+      "name": "1440: checking existing progress preserves waiting/your-turn icons and Export FO receipt ownership; no aggregate progress data",
+      "status": "passed"
+    },
+    {
+      "name": "1440: commander failure/loading stays scoped to its source, card and conversation; unrelated FO stays normal",
+      "status": "passed"
+    },
+    {
+      "name": "360: all 8 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "status": "passed"
+    },
+    {
+      "name": "360: actual home defaults to Commander; pinned card precedes Board; mobile opens Board in one click; one click back keeps draft; no-ask counts 6/1/2/2/1",
+      "status": "passed"
+    },
+    {
+      "name": "360: commander ask counted once at top; four kind groups stay; Questions 2 means pinned ask + one FO row; Gate filter shows 2 and never hides commander",
+      "status": "passed"
+    },
+    {
+      "name": "360: each local drilldown has visible one-click Commander return; native permission is an offline destination, has no local decision widget",
+      "status": "passed"
+    },
+    {
+      "name": "360: unassigned review still opens prefilled inquiry then Send; shares commander draft without overwriting existing text or deciding gate",
+      "status": "passed"
+    },
+    {
+      "name": "360: all three choices and exact reasons survive Commander round trips before Confirm, sent, relayed, and recorded reopen; drafts isolated, sent rows stay, recorded row leaves; no extra send or history",
+      "status": "passed"
+    },
+    {
+      "name": "360: checking existing progress preserves waiting/your-turn icons and Export FO receipt ownership; no aggregate progress data",
+      "status": "passed"
+    },
+    {
+      "name": "360: commander failure/loading stays scoped to its source, card and conversation; unrelated FO stays normal",
+      "status": "passed"
+    },
+    {
+      "name": "360: Board return preserves scroll; Confirm and Send fit 360x480 simulation; physical keyboard remains unverified",
+      "status": "passed"
+    }
+  ],
+  "baseline": [
+    {
+      "viewport": "1440x1000",
+      "source": "file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/index.html",
+      "defaultView": "list",
+      "commanderPinned": false,
+      "returnToCommsClicks": 1,
+      "goal": "fails commander-default/top; phone return takes two clicks"
+    },
+    {
+      "viewport": "360x780",
+      "source": "file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/index.html",
+      "defaultView": "list",
+      "commanderPinned": false,
+      "returnToCommsClicks": 2,
+      "goal": "fails commander-default/top; phone return takes two clicks"
+    }
+  ],
+  "cleanup": [
+    {
+      "viewport": "1440x1000",
+      "browserPid": 76916,
+      "browserStopped": true,
+      "freshProfileRemoved": true
+    },
+    {
+      "viewport": "360x780",
+      "browserPid": 77010,
+      "browserStopped": true,
+      "freshProfileRemoved": true
+    }
+  ],
+  "results": [
+    {
+      "viewport": "1440x1000",
+      "state": "home",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "commander-question",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "board",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "open",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 840,
+        "width": 870,
+        "height": 160,
+        "top": 840,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 896,
+          "width": 63.421875,
+          "height": 32,
+          "top": 896,
+          "right": 1403,
+          "bottom": 928,
+          "left": 1339.578125
+        },
+        {
+          "label": "Approve",
+          "x": 740.859375,
+          "y": 950,
+          "width": 73.109375,
+          "height": 32,
+          "top": 950,
+          "right": 813.96875,
+          "bottom": 982,
+          "left": 740.859375
+        },
+        {
+          "label": "Request changes",
+          "x": 821.96875,
+          "y": 950,
+          "width": 123.5,
+          "height": 32,
+          "top": 950,
+          "right": 945.46875,
+          "bottom": 982,
+          "left": 821.96875
+        },
+        {
+          "label": "Hold",
+          "x": 953.46875,
+          "y": 950,
+          "width": 52.40625,
+          "height": 32,
+          "top": 950,
+          "right": 1005.875,
+          "bottom": 982,
+          "left": 953.46875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "fo-question",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "return-commander",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · relay"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "progress-board",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "progress-detail",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "fileRequestsOnly": true,
+      "runtimeErrors": 0
+    },
+    {
+      "viewport": "360x780",
+      "state": "home",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "commander-question",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "board",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": null,
+      "dock": null,
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "open",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 606.5,
+        "width": 360,
+        "height": 173.5,
+        "top": 606.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 645,
+          "width": 66.421875,
+          "height": 44,
+          "top": 645,
+          "right": 337,
+          "bottom": 689,
+          "left": 270.578125
+        },
+        {
+          "label": "Approve",
+          "x": 12,
+          "y": 724,
+          "width": 108,
+          "height": 44,
+          "top": 724,
+          "right": 120,
+          "bottom": 768,
+          "left": 12
+        },
+        {
+          "label": "Request changes",
+          "x": 126,
+          "y": 724,
+          "width": 108,
+          "height": 44,
+          "top": 724,
+          "right": 234,
+          "bottom": 768,
+          "left": 126
+        },
+        {
+          "label": "Hold",
+          "x": 240,
+          "y": 724,
+          "width": 108,
+          "height": 44,
+          "top": 724,
+          "right": 348,
+          "bottom": 768,
+          "left": 240
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "fo-question",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "return-commander",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · relay"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "progress-board",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": null,
+      "dock": null,
+      "controls": [],
+      "rows": [
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "progress-detail",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "fileRequestsOnly": true,
+      "runtimeErrors": 0
+    }
+  ]
+}
