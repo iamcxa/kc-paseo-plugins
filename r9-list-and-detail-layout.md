@@ -74,6 +74,7 @@ Alignment: not needed: the Captain accepted the design on 2026-11-03; scope and 
 Release review: not needed: spacedock-bridge has no journey map yet.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-03 — scope round 9 (build the accepted list-beside-wide-detail design; one round or split)
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-03 — is round 9 converging after roborev 1430, 1432 and 1437 in the retained-surface class; which rule closes it, repair or decline 1437
+Reviewer: kc-dev-flow-2:engineering-reviewer codex/gpt-6-astra:xhigh 2026-11-04 — do these amendments withdraw what the Captain approved, and what changes in the build?
 
 ### FO notes
 
