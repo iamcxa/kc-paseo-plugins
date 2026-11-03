@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-resume-blank-notice:validation:attempt-1:revision-1",
+  "question": "Approve validation of the resume notice (PR #66 at fec5b13) and the two proposed declines (F1, F4 Polish)? FO recommends approving. Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-resume-blank-notice:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/5c05ab689b89517b0327b54db50283c1cc51262a/project-env-resume-blank-notice.md",
+      "rev": "sha256:9f6658971b7e5443a3fc483e5da14841a3556f93f13129fcdfae6f3089d996f9",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation cycle 3 PASSED at fec5b13: Codex P2 and roborev 1371/1382 repaired per 「修」; 3 regression tests fail on the old code and pass here; 30000 random sequences match the approved rule; AC-1 on an isolated 0.14.0 (one unpatched one-hour release captured earlier); 325/325 tests. FO acceptance rerun matched. External review rounds: 2 — Codex P2 on acf6a0e repaired, then Codex summary:6552511969 clean on fec5b13; roborev:1447 clean. Proposed declines: F1 refresh updates memory silently; F4 pre-existing fold of Started-without row. delivery_gate question and check exit 0."
+    }
+  ]
+}

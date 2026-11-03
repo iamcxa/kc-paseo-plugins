@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-resume-blank-notice:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-resume-blank-notice-validation-1
+              briefing:
+                id: briefing:project-env-resume-blank-notice:validation:attempt-1:revision-1
+                digest: sha256:8bedffded8f81676dd09a8651431d5127fc9782e221736c2f7bcb5561a900bfa
+                room-ref: ./project-env-resume-blank-notice/review/validation/briefing-1
 started: 2026-10-30T14:42:08Z
 ---
 
