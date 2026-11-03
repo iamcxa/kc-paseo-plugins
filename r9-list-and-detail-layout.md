@@ -70,6 +70,7 @@ Verified by: one status-priority function with a table test over every waiting k
 Alignment: not needed: the Captain accepted the design on 2026-11-03; scope and split from chief-engineer, recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-03 — scope round 9 (build the accepted list-beside-wide-detail design; one round or split)
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-03 — is round 9 converging after roborev 1430, 1432 and 1437 in the retained-surface class; which rule closes it, repair or decline 1437
 
 ### FO notes
 
@@ -154,3 +155,4 @@ Closed the retained-reader repair class across detail identity, briefing, decisi
 - Evidence is in cycle-3/. A baseline diagnostic timed out while Node formatted a failed DOM-object equality assertion; presence assertions now use booleans, and the full bounded replay exits 1 with 49 failures and 6 passes. baseline-before-boolean-assertions.log retains the diagnostic; baseline-cleanup.json/runtime-cleanup.json verify temporary cleanup and no surviving baseline test children. No daemon/browser was launched.
 - Package checks pass: comment-ratio.log 0/133 code lines, 0.0% against 5%; adr-lint.log seven records; number-guards.log PASS, no migrations path; doc-impact.log zero referenced documents. No ADR or migration added.
 - SKIPPED: design_surfaces.py known package gap 2; no new browser/provider/native-device proof in cycle 3, and original visual captures remain bound to 3f4e56c. SKIPPED: RoboRev daemon access, package gap 5; FO reruns on pushed c916545. No ready-state, merge, release or live daemon/install action occurred.
+- Roborev:1437 on c916545 (Medium): a retained card keeps a loaded decision claim and never rechecks it, so a claim released by another client still shows as sent and hides the decision controls until reload — the third finding in the retained-surface class. FO called chief-engineer before any further repair.
