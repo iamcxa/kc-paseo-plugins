@@ -1,9 +1,11 @@
+import { gateKey, type GateIdentityFields } from "./gate-identity";
+
 const drafts = new Map<string, string>();
 const sending = new Set<string>();
 const subscribers = new Map<string, Set<() => void>>();
 
-export function draftKey(agentId: string, gate?: { slug: string; stage: string } | null): string {
-  return JSON.stringify(gate ? [agentId, gate.slug, gate.stage] : [agentId]);
+export function draftKey(agentId: string, gate?: GateIdentityFields | null): string {
+  return JSON.stringify(gate ? [agentId, gateKey(gate)] : [agentId]);
 }
 
 export function readDraft(key: string): string {

@@ -34,6 +34,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const subscriptionFailures = new Set<string>();
   const timelineListeners = new Map<string, Set<(event: any) => void>>();
   const sent: { id: string; text: string }[] = [];
+  const sendOverrides = new Map<string, (text: string) => Promise<void>>();
   const attempts = new Map<string, { stage: string; briefingId: string; title: string }>();
   const briefing = (slug: string) => ({ briefingId: `brief-${slug}`, digest: `digest-${slug}`, slug, stage: "validation", question: `Approve ${slug}?`, artifacts: [{ summary: `Summary ${slug}`, markdown: "Evidence" }], ...attempts.get(slug) });
   let deferred: ((value: any) => void) | null = null;
@@ -62,7 +63,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const readOverrides = new Map<string, () => Promise<any>>();
   const paseo = { agents: {
     list: async () => ({ subscription: { subscribe: (h: any) => { snapshots.add(h.snapshot); h.snapshot({ entries: agents.map(agent => ({ agent })) }); }, release() {} } }),
-    ref: (id: string) => ({ status: "idle", subscribe: (fn: () => void) => { const set = listeners.get(id) ?? new Set(); set.add(fn); listeners.set(id, set); return () => set.delete(fn); }, send: async (text: string) => { sent.push({ id, text }); }, timeline: {
+    ref: (id: string) => ({ status: "idle", subscribe: (fn: () => void) => { const set = listeners.get(id) ?? new Set(); set.add(fn); listeners.set(id, set); return () => set.delete(fn); }, send: async (text: string) => { sent.push({ id, text }); await sendOverrides.get(id)?.(text); }, timeline: {
       refetch: async ({ projection }: any) => { reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { entries: timeline.get(id) ?? [], agent: { status: "idle" } }; },
       subscribe: (fn: (event: any) => void) => { const set = timelineListeners.get(id) ?? new Set(); set.add(fn); timelineListeners.set(id, set); return Object.assign(() => set.delete(fn), { ready: subscriptionFailures.has(id) ? Promise.reject(new Error(`Subscription failed ${id}`)) : Promise.resolve() }); },
     } }),
@@ -99,5 +100,5 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const poll = async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 15_000) timer.callback(); }); };
   t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
   await render();
-  return { readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
+  return { sendOverrides, readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
 }

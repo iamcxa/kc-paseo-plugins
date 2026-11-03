@@ -1,5 +1,6 @@
 import { defineRpc } from "@getpaseo/plugin";
 import { z } from "zod";
+import type { GateIdentityFields } from "./gate-identity";
 
 export const WORKFLOW_DIR_LABEL = "workflow-dir";
 
@@ -18,13 +19,8 @@ export function parseTaskStatus(output: string): TaskStatus | null {
   }
 }
 
-export interface AwaitingGate {
-  slug: string;
+export interface AwaitingGate extends GateIdentityFields {
   title: string;
-  stage: string;
-  preparedAt?: string;
-  briefingId?: string;
-  workflowDir?: string;
 }
 
 export function parseAwaitingGates(output: string): AwaitingGate[] {

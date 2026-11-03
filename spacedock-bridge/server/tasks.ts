@@ -13,6 +13,7 @@ import {
   readTasks,
 } from "../shared/tasks";
 import { gateIdentity } from "./gate";
+import { gateKey } from "../shared/gate-identity";
 
 const run = promisify(execFile);
 const FRESH_MS = 30_000;
@@ -150,7 +151,7 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
   );
   const seen = new Set<string>();
   const gates = lists.flat().filter((gate) => {
-    const key = JSON.stringify([gate.workflowDir, gate.slug, gate.stage, gate.briefingId]);
+    const key = gateKey(gate);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

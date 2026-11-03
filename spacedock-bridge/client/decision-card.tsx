@@ -18,6 +18,7 @@ import type { AwaitingGate } from "../shared/tasks";
 import { CoChat } from "./co-chat";
 import { MarkdownView } from "./markdown-view";
 import { useKeyboardHeight } from "./use-composer-padding";
+import { gateKey } from "../shared/gate-identity";
 
 const UNHANDLED_MS = 10 * 60_000;
 const CHIPS = Object.keys(DECISION_CHIPS) as ChipWord[];
@@ -43,6 +44,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
 export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, onProgress }: Props) {
   const [{ fo, gate, title }] = useState(() => ({ fo: { ...openedFo }, gate: openedGate ? { ...openedGate } : null, title: openedTitle }));
   const workflowDir = gate?.workflowDir ?? fo.workflowDir;
+  const identity = gate ? gateKey({ ...gate, workflowDir }) : null;
   const colors = theme.colors;
   const callBriefing = useRpc(readGateBriefing);
   const [briefing, setBriefing] = useState<GateBriefingData | null>(null);
@@ -59,8 +61,8 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   const [now, setNow] = useState(Date.now());
   const [claim, setClaim] = useState<DecisionRecordData | null>(null);
   const [relayed, setRelayed] = useState(false);
-  const sentByBriefing = useRef(new Map<string, Sent>()).current;
-  const sent = briefing ? sentByBriefing.get(briefing.briefingId) : undefined;
+  const sentByGate = useRef(new Map<string, Sent>()).current;
+  const sent = identity ? sentByGate.get(identity) : undefined;
   const callClaim = useRpc(claimDecision);
   const callReadDecision = useRpc(readDecision);
   const callRelease = useRpc(releaseDecision);
@@ -114,7 +116,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
       const { record } = await callReadDecision({ briefingId: briefing.briefingId });
       if (request !== claimRequest.current || revision !== submissionRevision.current || localPending || submitting.current) return;
       setClaim(record);
-      if (!record) sentByBriefing.delete(briefing.briefingId);
+      if (!record && identity) sentByGate.delete(identity);
       setClaimLoaded(true);
       setClaimProblem("");
     } catch (error) {
@@ -174,7 +176,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
     return () => clearInterval(timer);
   }, [briefing, recorded, closed, load, readClaim, checkRelay]);
 
-  const target = JSON.stringify([fo.id, workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
+  const target = JSON.stringify([fo.id, identity, briefing?.briefingId, briefing?.digest]);
   const currentTarget = useRef(target);
   const visibleRef = useRef(visible);
   visibleRef.current = visible;
@@ -219,8 +221,8 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
             sendToCoordinator: (agentId, text) => paseo.agents.ref(agentId).send(text),
             release: (decisionId) => callRelease({ decisionId }),
             markSent: ({ text }) => {
-              if (!briefing || !gate) return;
-              sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: gate.slug });
+              if (!briefing || !gate || !identity) return;
+              sentByGate.set(identity, { at: Date.now(), text, slug: gate.slug });
               setNow(Date.now());
             },
           },
@@ -233,15 +235,15 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
         ++submissionRevision.current;
       }
     },
-    [gate, briefing, beforeSend, callClaim, callRelease, callOpenCoordinator, fo.title, fo.id, paseo],
+    [gate, identity, briefing, beforeSend, callClaim, callRelease, callOpenCoordinator, fo.title, fo.id, paseo],
   );
 
   const onSent = useCallback(
     (text: string) => {
-      if (briefing) sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: briefing.slug });
+      if (briefing && identity) sentByGate.set(identity, { at: Date.now(), text, slug: briefing.slug });
       setNow(Date.now());
     },
-    [briefing],
+    [briefing, identity],
   );
 
   const [areaHeight, setAreaHeight] = useState(0);
@@ -461,7 +463,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
           layout={layout}
           navigation={navigation}
           agentId={fo.id}
-          gate={gate}
+          gate={gate ? { ...gate, workflowDir } : null}
           title={fo.title || "FO"}
           placeholder={`Message ${foName(fo.title || "the FO")} directly`}
           decisionTarget={target}

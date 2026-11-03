@@ -33,6 +33,7 @@ test("each active briefing identity survives the server, RPC schema, attachment 
     const rows = toRows([root, second].map((workflow, index) => ({ id: `fo-${index}`, title: "FO", cwd: workflow, status: "idle", updatedAt: "2026-11-03T00:00:00Z", labels: { role: "fo", task: "task", "workflow-dir": workflow } })));
     const queue = buildQueue(attachGates(rows, checked.gates), []);
     assert.equal(queue.length, 2);
+    assert.ok(queue.every(item => item.gate?.workflowDir === item.fo?.workflowDir), "same slugs in different workflows retain their exact recipient through the pipeline");
     for (const item of queue) {
       assert.equal((item.gate as { briefingId?: string }).briefingId, briefingId);
       assert.ok(item.gate?.workflowDir === root || item.gate?.workflowDir === second);

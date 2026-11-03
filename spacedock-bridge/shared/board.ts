@@ -1,3 +1,4 @@
+import { gateKey } from "./gate-identity";
 import type { PaseoApi } from "@getpaseo/client";
 import { type PermissionLike, permissionPreview, lastReply, nextStepIsCaptains, replyPreview } from "./preview";
 import type { AwaitingGate } from "./tasks";
@@ -192,7 +193,9 @@ export function attachGates(
 ): BoardRow[] {
   const byId = new Map(rows.map((row) => [row.id, { ...row, gates: [] as AwaitingGate[] }]));
   for (const gate of gates) {
+    const identity = gateKey(gate);
     const owner =
+      rows.find(row => row.task && gateKey({ ...gate, workflowDir: row.workflowDir, slug: row.task }) === identity) ??
       rows.find((row) => row.task === gate.slug) ??
       rows.find((row) => row.workflowDir === gate.workflowDir);
     if (!owner) continue;

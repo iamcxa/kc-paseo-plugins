@@ -1,3 +1,4 @@
+import { gateKey } from "../shared/gate-identity";
 import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
@@ -116,7 +117,7 @@ export async function gateIdentity(workflowDir: string, slug: string, stage: str
     const path = await entityPath(state, slug);
     const attempt = findOpenAttempt(frontmatterOf(await readFile(path, "utf8")), stage);
     if (!attempt) return {};
-    const key = `${workflowDir}\n${attempt.briefingId}`;
+    const key = gateKey({ workflowDir, slug, stage, briefingId: attempt.briefingId });
     const known = preparedCache.get(key);
     if (known) return { briefingId: attempt.briefingId, preparedAt: known };
     const index = join(resolve(dirname(path), attempt.roomRef), "index.json");

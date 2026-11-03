@@ -6,6 +6,7 @@ import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { TabClosedBadge } from "./tab-closed-badge";
 import {
   type BoardRow,
+  type WorkflowGate,
   type ReplyFact,
   attachGates,
   observeBoard,
@@ -129,9 +130,7 @@ export function Board({
   }, [refreshTasks, taskKey]);
 
   const callReadGates = useRpc(readGates);
-  const [gates, setGates] = useState<
-    { workflowDir: string; slug: string; title: string; stage: string }[]
-  >([]);
+  const [gates, setGates] = useState<WorkflowGate[]>([]);
   const [gatesAt, setGatesAt] = useState<string>("");
   const [gateCheck, setGateCheck] = useState<{ key: string; state: SourceState; failed: string[] }>({ key: "", state: "loading", failed: [] });
   const gateRequest = useRef(0);

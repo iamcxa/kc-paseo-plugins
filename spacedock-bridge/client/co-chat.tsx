@@ -15,10 +15,11 @@ import { stopAgent } from "../shared/control";
 import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
 import { useComposerPadding } from "./use-composer-padding";
+import type { GateIdentityFields } from "../shared/gate-identity";
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
-  gate?: { slug: string; stage: string } | null;
+  gate?: GateIdentityFields | null;
   title?: string;
   placeholder?: string;
   chips?: readonly string[];
