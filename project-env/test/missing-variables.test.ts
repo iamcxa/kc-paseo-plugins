@@ -275,6 +275,48 @@ describe("the missing-variables row", () => {
       assert.equal(h.appended.length, 2);
     });
 
+    it("shows the same failure again when a refresh read it before the turn that showed the first line ended", async () => {
+      silenceConsole();
+      const h = harness(failing, scenario);
+      await h.open({ reason: "resume" });
+      h.setScenario({ keychain: scenario.keychain, op: { accounts: { a: { refs: { "op://V/i/good": VALUE, "op://V/i/nope": VALUE, "op://V/i/blank": VALUE, "op://V/i/odd": VALUE } } } } });
+      await h.open({ reason: "refresh" });
+      await h.fire("agent.turn_ended");
+      await h.fire("agent.closed");
+      h.setScenario(scenario);
+      mock.timers.enable({ apis: ["Date"], now: Date.now() + 16 * 60 * 1000 });
+      await h.open({ reason: "resume" });
+      await h.fire("agent.turn_ended");
+      assert.equal(h.appended.length, 2);
+    });
+
+    it("keeps a recovery that no turn end ever flushed: Codex's record, retain, flush, record, flush", async () => {
+      silenceConsole();
+      const notices = createNotices();
+      const rows: unknown[] = [];
+      const failure = [{ name: "GOOD", cause: "empty" as const }];
+      notices.record("a1", failure, { resumed: true });
+      notices.retain("a1", []);
+      await notices.flush("a1", async (row) => void rows.push(row));
+      notices.record("a1", failure, { resumed: true });
+      await notices.flush("a1", async (row) => void rows.push(row));
+      assert.equal(rows.length, 2);
+    });
+
+    it("shows a renewed failure after a partial recovery at a resume whose turn never ended", async () => {
+      silenceConsole();
+      const notices = createNotices();
+      const rows: unknown[] = [];
+      const both = [{ name: "A", cause: "empty" as const }, { name: "B", cause: "empty" as const }];
+      notices.record("a1", both, { resumed: true });
+      await notices.flush("a1", async (row) => void rows.push(row));
+      notices.record("a1", [both[1]], { resumed: true });
+      notices.drop("a1");
+      notices.record("a1", both, { resumed: true });
+      await notices.flush("a1", async (row) => void rows.push(row));
+      assert.equal(rows.length, 2);
+    });
+
     it("shows a failure again when a refresh read one of the shown variables while another still failed", async () => {
       silenceConsole();
       const h = harness(failing, scenario);

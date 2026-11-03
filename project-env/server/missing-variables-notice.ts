@@ -27,6 +27,7 @@ const failureKeys = (variables: MissingVariablesData["variables"]) =>
 export function createNotices({ now = Date.now, log = console.error }: Options = {}) {
   const pending = new Map<string, Pending>();
   const shown = new Map<string, string[]>();
+  const current = new Map<string, string[]>();
 
   function prune(at: number) {
     for (const [agentId, entry] of pending) {
@@ -34,21 +35,22 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     }
   }
 
+  function observe(agentId: string, keys: string[]) {
+    current.set(agentId, keys);
+    const before = shown.get(agentId);
+    if (before) shown.set(agentId, before.filter((key) => keys.includes(key)));
+  }
+
   function record(agentId: string, failures: Failure[], { resumed = false } = {}) {
     try {
       const at = now();
       prune(at);
       const variables = failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }));
-      if (resumed) {
-        pending.delete(agentId);
-        if (variables.length === 0) {
-          shown.set(agentId, []);
-          return;
-        }
-        if (shown.get(agentId)?.join("\n") === failureKeys(variables).join("\n")) return;
-      }
-      if (variables.length === 0) return;
-      pending.set(agentId, { at, resumed, variables });
+      const keys = failureKeys(variables);
+      if (resumed) pending.delete(agentId);
+      const repeats = resumed && (shown.get(agentId) ?? []).join("\n") === keys.join("\n");
+      if (variables.length > 0 && !repeats) pending.set(agentId, { at, resumed, variables });
+      observe(agentId, keys);
     } catch (error) {
       reportFailure(agentId, error);
     }
@@ -60,17 +62,15 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     pending.delete(agentId);
     try {
       await appendRow({ variables: entry.variables, ...(entry.resumed ? { resumed: true as const } : {}) });
-      shown.set(agentId, failureKeys(entry.variables));
+      const still = current.get(agentId) ?? [];
+      shown.set(agentId, failureKeys(entry.variables).filter((key) => still.includes(key)));
     } catch (error) {
       reportFailure(agentId, error);
     }
   }
 
   function retain(agentId: string, failures: Failure[]) {
-    const before = shown.get(agentId);
-    if (!before) return;
-    const still = new Set(failureKeys(failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }))));
-    shown.set(agentId, before.filter((key) => still.has(key)));
+    observe(agentId, failureKeys(failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }))));
   }
 
   function drop(agentId: string) {
