@@ -1,0 +1,17 @@
+### prev
+    ✖ shows the same failure again when a refresh read it before the turn that showed the first line ended (1607.387333ms)
+    ✖ keeps a recovery that no turn end ever flushed: Codex's record, retain, flush, record, flush (0.69875ms)
+    ✖ shows a renewed failure after a partial recovery at a resume whose turn never ended (0.256791ms)
+ℹ tests 3
+ℹ pass 0
+ℹ fail 3
+✖ shows the same failure again when a refresh read it before the turn that showed the first line ended (1607.387333ms)
+✖ keeps a recovery that no turn end ever flushed: Codex's record, retain, flush, record, flush (0.69875ms)
+✖ shows a renewed failure after a partial recovery at a resume whose turn never ended (0.256791ms)
+### cand
+    ✔ shows the same failure again when a refresh read it before the turn that showed the first line ended (1657.807917ms)
+    ✔ keeps a recovery that no turn end ever flushed: Codex's record, retain, flush, record, flush (0.326459ms)
+    ✔ shows a renewed failure after a partial recovery at a resume whose turn never ended (0.182917ms)
+ℹ tests 3
+ℹ pass 3
+ℹ fail 0

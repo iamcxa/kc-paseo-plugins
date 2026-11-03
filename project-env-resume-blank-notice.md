@@ -383,3 +383,53 @@ Head: fec5b137b on PR #66's branch (pushed over SSH), two code commits on top of
 - DONE: resume-check.sh on Paseo 0.14.0 (throwaway npm install, own home, port 19606, fake `op`/`security`, idle period 20 s) at fec5b13, `evidence/fb2/runs/resume-check-fb2.txt`: `lost` reason=resume STRIPE_KEY blank, one "Resumed" row after resume 1, none added by resume 2; `healthy` no row; `blank` only its start row. Same as acf6a0e's run.
 - DONE: roborev gate (`--base 06aa5bee`): `evidence/fb2/roborev-gate.txt` at ae46e7f found one Low (notice memory entries never cleaned: `current` kept an entry for every agent); fixed in fec5b13 (an agent with no remembered failure leaves no entry); the rerun is `clean on fec5b137b; evidence=roborev:1447` (`roborev-gate-2.txt`). The three earlier open findings (1371, 1382, Codex P2) are the repaired cause.
 - Limits: unchanged from the implementation report (mock provider, shortened idle period, no unpatched one-hour unreadable case, no real provider, no desktop app). The row UI did not change, so the pictures are not retaken. `shown` and `current` still live for the daemon's lifetime for an agent with a remembered failure, as designed ("kept across a release, dropped with the daemon").
+
+## Stage Report: validation (cycle 3)
+
+Verdict: PASSED recommended for candidate fec5b137b8d3955999aab0db084da49f4e2c3ea2 (PR #66 after feedback cycle 2; previous candidate acf6a0e). Run from `git archive`; evidence under `evidence/val3/`.
+
+- DONE: Re-review candidate fec5b137 for Codex P2 (comment 4434175350) and roborev:1371/1382: confirm the diff against acf6a0e touches only project-env/server/missing-variables-notice.ts and its test
+  `git diff --name-only acf6a0e fec5b13` lists exactly those two files (+34/-15 and +42); comment_ratio 0 of 229 code lines exit 0, adr_lint exit 0, dispatch_records 7 complete, doc_impact the same single ADR 0004 line (unaffected, as before).
+- DONE: read the new memory logic against the approved design (first unreadable variable after a resume always shows, an identical set adds nothing, a different set adds a row, a clean resume clears)
+  `record` compares the new set with `shown` as it was before this opening, so the first failure (empty `shown`) shows, an identical set adds nothing, a different or smaller set adds a row, and an all-readable resume cancels a pending line and empties both maps. `observe` applies every opening's failures to `current` and narrows `shown` at once, and `flush` stores `displayed ∩ current`, so a recovery no flush saw is no longer undone. The Codex P2 cause (flush restoring an older failure after `retain`) is that last line. Empty entries are deleted, closing the Low the implementation found. One consequence, acceptable: a pending resumed row is still shown at the turn end even if a refresh found the variable recovered meanwhile, and the memory then forgets it.
+- DONE: run each new regression test on acf6a0e and on fec5b137 yourself
+  `evidence/val3/runs/new-tests-on-prev-and-cand.txt`: acf6a0e's code with the candidate's test file fails all 3 (`1 !== 2` rows) and fec5b13 passes all 3: Codex's record, retain, flush, record, flush; the refresh-before-turn-end path (1371); the partial recovery then release path (1382).
+- DONE: try one sequence of your own that the three tests do not cover
+  `evidence/val3/probe-sequences.ts`: 9 explicit sequences (identical set across a same-failure refresh adds nothing, a release before the first turn ends shows one line, a clean resume cancels a pending line, create row then identical resume adds nothing, create then clean resume then failure shows again, a different set adds a row, refresh-only recovery and re-failure then the shown set shows again, a refresh that fixes the variable mid-turn) all as expected; plus 30000 random sequences of resume, refresh, create, turn end and release over variables A, B, C against an oracle I wrote from the approved rule: 0 mismatches. Control: the same probe on acf6a0e gives 1 failed explicit sequence and 756 fuzz mismatches (`probe-sequences-prev-control.txt`), so it detects the bug class.
+- DONE: rerun the resume harness on an isolated Paseo 0.14.0
+  `evidence/val3/runs/resume-check-cand.txt` (own install, port 21711, idle period 20 s, fake `op`/`security`): `lost` reason=resume STRIPE_KEY blank, one "resumed" row (seq 354) after resume 1 and none added after resume 2; `healthy` two resumes, nothing blank, no plugin row; `blank` only its start row. Same as cycles 1 and 2.
+- DONE: rerun `npm test` and `npm run typecheck` from git archive
+  `npm ci`, `npm test` 325 of 325, `tsc --noEmit` clean.
+- DONE: update the acceptance script
+  `evidence/val3/acceptance.sh` (37 s measured), steps below.
+- DONE: Built screen review: no client file changed (confirm with the diff); if so, say so instead of rerunning it.
+  Confirmed: only the two files above changed, nothing under `project-env/client/` or `shared/`; the pictures of validation 1 stand.
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: no-row and repeat-adds-nothing cannot be drawn; proven by `resume-check-cand.txt` and unit tests
+Built screen finding 2: declined: wrapped-reason layout belongs to the shared MissingVariablesRow, already upheld as its own task
+Built screen finding 3: declined: light three-variable and failed pictures cover the same component
+Built screen decline check: design/validation-declines-1.yaml
+
+### Findings
+
+- F5 closed: the Deferred risk from cycle 2 (roborev:1371 and 1382, one stale-memory cause) and Codex P2 are repaired by the candidate; the module-level reproductions that gave 1 row now give 2, and the random check finds no divergence from the rule. No new finding.
+
+### Acceptance script (Captain or FO, fresh shell, 37 s measured)
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val3/acceptance.sh`. It extracts the candidate into a temp folder, then:
+1. Prints the diff stat since the previous candidate: expect two files, `missing-variables-notice.ts` and its test.
+2. `npm ci`, then the three new regression tests on the candidate: expect `ℹ pass 3`.
+3. The same tests with the previous candidate's notice code swapped in: expect `ℹ fail 3`.
+4. 30000 random sequences against the oracle: expect `0 mismatches against the oracle`.
+5. Full suite and typecheck: expect `ℹ pass 325`, `ℹ fail 0`, `typecheck clean`.
+6. Prints the two screenshot paths to open (unchanged screen, dark, failed first turn).
+Does not cover: the live resume (harness, about 7 minutes, run above on an isolated Paseo 0.14.0), the unpatched one-hour release (captured in cycle 1 at 9d8760b, not rerun; the server hook wiring in `contribute.ts` is unchanged since then), a real provider, a real 1Password account.
+
+### Unverified obligations
+
+Unchanged from cycles 1 and 2 (real provider and 1Password, desktop app, daemon restart, a view-only resume shows nothing until a turn ends, measured contrast, agent comprehension of the "Resumed without" clause), plus: the roborev gate result (`clean on fec5b137b; evidence=roborev:1447`) is read from the implementation's `evidence/fb2/roborev-gate-2.txt`, not rerun; the new memory logic is exercised at module level and by one harness run on the mock provider, not in a daemon sequence with a refresh. Temp copies, the isolated daemon on port 21711 and `/tmp/pe-val3*` were removed; Paseo.app, the global `paseo` and `~/.paseo` untouched.
+
+### Summary
+
+The two-file repair makes every opening update the remembered failures at once, so a recovery no turn end flushed can no longer be undone; the three regression tests fail on acf6a0e and pass on fec5b13, my own sequences and a 30000-sequence check against an independent oracle agree with the approved rule, and the resume harness behaves as before. Checks are 325 of 325 with a clean typecheck, and no screen changed. Recommend PASSED.

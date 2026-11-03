@@ -1,0 +1,10 @@
+ok   rows=1 want=1  identical set across a refresh that read the same failure adds nothing
+ok   rows=1 want=1  resume twice with a release before the first turn ended shows the line once
+ok   rows=2 want=2  a clean resume cancels a pending line and clears memory
+ok   rows=1 want=1  a clean resume while a line is pending cancels it
+ok   rows=1 want=1  create row then resume with the same failure adds nothing
+ok   rows=2 want=2  create row, a clean resume, then the failure at a resume shows again
+ok   rows=2 want=2  a different set adds a row
+ok   rows=2 want=2  refresh-only recovery then refresh-only re-failure, then resume with the shown set
+ok   rows=2 want=2  a refresh that fixes the variable during the turn still shows the opening's row, then a later failure shows again
+fuzz: 30000 sequences, 0 mismatches against the oracle

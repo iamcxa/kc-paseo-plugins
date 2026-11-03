@@ -1,0 +1,13 @@
+ok   rows=1 want=1  identical set across a refresh that read the same failure adds nothing
+ok   rows=1 want=1  resume twice with a release before the first turn ended shows the line once
+ok   rows=2 want=2  a clean resume cancels a pending line and clears memory
+ok   rows=1 want=1  a clean resume while a line is pending cancels it
+ok   rows=1 want=1  create row then resume with the same failure adds nothing
+ok   rows=2 want=2  create row, a clean resume, then the failure at a resume shows again
+ok   rows=2 want=2  a different set adds a row
+ok   rows=2 want=2  refresh-only recovery then refresh-only re-failure, then resume with the shown set
+FAIL rows=1 want=2  a refresh that fixes the variable during the turn still shows the opening's row, then a later failure shows again
+MISMATCH want 3 got 2 create["A","B","C"] flush resume[] create["A","C"] flush resume["A"] refresh["C"] resume["A","C"] drop resume["A","C"] resume["C"] flush flush resume["A","C"]
+MISMATCH want 2 got 3 resume["B"] flush refresh["B"] resume["A","B"] resume["B","C"] flush resume["C"] drop resume["B","C"] drop resume["C"] refresh["A","B"] flush resume[]
+MISMATCH want 2 got 1 resume["A","B","C"] resume["A","B","C"] drop flush resume[] create["A","B","C"] flush flush resume["A","C"] create["B"] resume["A","B","C"] flush drop resume["A","C"]
+fuzz: 30000 sequences, 756 mismatches against the oracle
