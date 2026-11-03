@@ -53,8 +53,15 @@ def main(argv):
     rt = subprocess.run([sys.executable, str(package / "scripts/role_triggers.py"), str(state), slug],
                         capture_output=True, text=True)
     print(rt.stdout.strip() or rt.stderr.strip())
-    if rt.returncode != 0:
+    owed = [l for l in rt.stdout.splitlines() if l.startswith("next:")]
+    # Captain 2026-10-27: 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」 — role_triggers ranks only Claude model names.
+    astra_ok = lambda l: ("engineering-reviewer on opus" in l or "chief-engineer" in l and "on opus" in l) and re.search(
+        r"^Reviewer: kc-dev-flow-2:" + ("engineering-reviewer" if "engineering-reviewer" in l else "chief-engineer") + r" codex/gpt-6-astra:xhigh \d{4}-\d{2}-\d{2} — ",
+        text, re.M)
+    if rt.returncode != 0 and not (owed and all(astra_ok(l) for l in owed)):
         failures.append("role_triggers.py: a chief-engineer or engineering-reviewer call is owed or unreadable")
+    elif rt.returncode != 0:
+        print("note: role_triggers wants an opus call; accepted a codex/gpt-6-astra:xhigh Reviewer line under the Captain's model mapping")
 
     if "chief-engineer" in text.split("## FO alignment")[0] + "".join(text.split("## FO alignment")[1:]) and "Reviewer: kc-dev-flow-2:chief-engineer" not in text:
         failures.append("chief-engineer is named in the task but no `Reviewer: kc-dev-flow-2:chief-engineer` line is recorded under ## FO alignment")
