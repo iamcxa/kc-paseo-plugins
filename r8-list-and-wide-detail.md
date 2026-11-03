@@ -108,3 +108,4 @@ design_surfaces.py exit 1 仍缺 Surfaces／Visible change：SKIPPED 已知套�
 
 把參考的篩選件數、單一主狀態、動作措辭、問句／結果優先及手機底部固定操作帶入提案；工具權限沿用原生會話，不在 Bridge 批准。原十項基本數字不變，可選篩選與隱藏事項的還原成本另列；保留既有確認、理由、傳訊及轉送記錄語意。
 - Design director pass 2 (2026-11-03): SATISFIED — each reference strength adopted or adapted with counts (a filter adds one step; switching to a filtered-out item is 2 on desktop, 3 on phone); the tool-permission request keeps the native session and does not adopt in-place approval; one direction decision for the Captain.
+- Captain ruling 2026-11-03 on step A, asked 「照這個方向畫設計稿，可以嗎？」, answered 「可以」: step B draws the list-beside-wide-detail direction in LIST-AND-DETAIL.md.
