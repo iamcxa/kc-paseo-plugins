@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, execFileSync } from 'node:child_process';
 import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -8,6 +8,9 @@ import assert from 'node:assert/strict';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const chrome = process.argv[2] || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const cycleOne=execFileSync('git',['-C',join(root,'../..'),'show','73250c176526eedc534afb512e7b46bd5e2b0b97:r9-commander-first/mockups/index.html'],{encoding:'utf8'});
+const baselineFile=join(root,'.cycle-1-baseline.html');
+await writeFile(baselineFile,cycleOne,{flag:'wx'});
 const source = await readFile(join(root, 'index.html'), 'utf8');
 const review = await readFile(join(root, 'review.html'), 'utf8');
 const states = JSON.parse(source.match(/<script id="scenarios" type="application\/json">([\s\S]*?)<\/script>/)[1]);
@@ -21,6 +24,7 @@ const results = [], tests = [], cleanup = [], baseline = [];
 const pass = name => tests.push({ name, status: 'passed' });
 const hash = text => createHash('sha256').update(text).digest('hex');
 
+try {
 for (const [width, height] of [[1440, 1000], [360, 780]]) {
   const profile = await mkdtemp(join(tmpdir(), 'r9-commander-' ));
   const browser = spawn(chrome, ['--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check', '--disable-background-networking', '--host-resolver-rules=MAP * ~NOTFOUND', '--remote-debugging-pipe', `--user-data-dir=${profile}`, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe', 'pipe', 'pipe'] });
@@ -86,6 +90,15 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     let returnClicks=1;
     if(width===360){await click('[data-open=gate]');await click('.back');await click('.item[data-open=comms]');assert.equal((await snap()).view,'comms');returnClicks=2;}
     baseline.push({viewport:`${width}x${height}`,source:previousFile,defaultView:'list',commanderPinned:false,returnToCommsClicks:returnClicks,goal:'fails commander-default/top; phone return takes two clicks'});
+    await cdp('Page.navigate',{url:pathToFileURL(baselineFile).href+'?state=board'});
+    await waitFor(`document.readyState==='complete'&&!!window.mock`);
+    const previousGeometry=await evaluate(`({queueScroll:document.querySelector('.queue-scroll').clientHeight,pinned:document.querySelector('.commander-pinned').getBoundingClientRect().height})`);
+    await click('[data-by=fo]');
+    assert.equal(await evaluate(`document.querySelectorAll('[data-open=fo-research]').length`),0);
+    await go('board');
+    const currentGeometry=await evaluate(`({queueScroll:document.querySelector('.queue-scroll').clientHeight,pinned:document.querySelector('.commander-pinned').getBoundingClientRect().height})`);
+    baseline.push({cycle:1,viewport:`${width}x${height}`,sourceSha256:hash(cycleOne),before:previousGeometry,after:currentGeometry,regainedListHeight:currentGeometry.queueScroll-previousGeometry.queueScroll,noWaitingFoReachableBefore:false});
+    if(width===360){assert(previousGeometry.pinned>90);assert.equal(currentGeometry.pinned,0);assert(Math.abs(currentGeometry.queueScroll-previousGeometry.queueScroll-previousGeometry.pinned)<1);}
     for (const state of states) {
       await go(state.id);
       if(width===360&&state.id==='progress-board') await evaluate(`document.querySelector('.item[data-open=gate2]').scrollIntoView({block:'center'})`);
@@ -133,24 +146,53 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
 
     await go('commander-question');
     assert.deepEqual(await evaluate(`[...document.querySelectorAll('.filter b')].map(x=>x.textContent)`),['7','1','2','2','2']);
-    assert.equal(await evaluate(`document.querySelectorAll('.item[data-open=comms]').length`),0);
+    assert.equal(await evaluate(`document.querySelectorAll('.item[data-open=comms]').length`),1);
     assert.equal(await evaluate(`document.querySelectorAll('.commander-card .status').length`),1);
     assert.equal(await evaluate(`document.querySelector('.briefing h1').textContent`),'Which review window should we use?');
     await click('.back');
     assert.deepEqual(await evaluate(`[...document.querySelectorAll('.kind-group')].map(x=>x.dataset.group)`),['permission','review','gate','ask']);
-    assert.deepEqual(await evaluate(`[...document.querySelectorAll('.kind-group .group-count')].map(x=>x.textContent)`),['1','2','2','1']);
+    assert.deepEqual(await evaluate(`[...document.querySelectorAll('.kind-group .group-count')].map(x=>x.textContent)`),['1','2','2','2']);
     await click('[data-filter=ask]');
-    assert.equal(await evaluate(`document.querySelectorAll('.item').length`),1);
+    assert.equal(await evaluate(`document.querySelectorAll('.item').length`),2);
     assert.equal(await evaluate(`document.querySelector('.filter[data-filter=ask] b').textContent`),'2');
     assert.equal(await evaluate(`document.querySelector('.countline').textContent`),'2 question items shown');
-    assert(await evaluate(`document.querySelector('.commander-card').getBoundingClientRect().height>0`));
+    assert(await evaluate(`document.querySelector('${width===360?'.commander-home':'.commander-card'}').getBoundingClientRect().height>0`));
     await click('[data-filter=gate]');
     assert.equal(await evaluate('document.querySelectorAll(".item").length'),2);
     assert.equal(await evaluate(`document.querySelector('.filter[data-filter=all] b').textContent`),'7');
-    assert(await evaluate(`document.querySelector('.commander-card').getBoundingClientRect().height>0`));
+    assert(await evaluate(`document.querySelector('${width===360?'.commander-home':'.commander-card'}').getBoundingClientRect().height>0`));
     await click('[data-filter=all]');
-    pass(`${width}: commander ask counted once at top; four kind groups stay; Questions 2 means pinned ask + one FO row; Gate filter shows 2 and never hides commander`);
+    pass(`${width}: commander ask counted once at top; four kind groups stay; Questions 2 means commander ask + one FO row (phone in group, desktop pinned); Gate filter shows 2 and keeps top return`);
 
+    await go('home');let rosterClicks=0;
+    if(width===360){await click('.back');rosterClicks++;}
+    await click('[data-by=fo]');rosterClicks++;
+    assert.deepEqual(await evaluate(`[...document.querySelectorAll('.fo-row')].map(x=>x.dataset.open)`),['fo-demo','fo-export','fo-review','fo-research']);
+    assert(await evaluate(`document.querySelector('.fo-row[data-open=fo-research]').textContent.includes('0 waiting items')`));
+    assert.equal(await evaluate(`document.querySelectorAll('.filter').length`),0);
+    await click('[data-open=fo-research]');rosterClicks++;
+    assert.equal(rosterClicks,width===360?3:2);
+    assert.equal((await snap()).view,'fo-research');
+    assert.equal(await evaluate(`document.querySelector('.message-head').textContent.trim()`),'Message to Research FO');
+    assert.equal(await evaluate(`document.querySelectorAll('[data-choice],#confirm').length`),0);
+    await fill('#message','Tell me more about the two approaches.');await click('#send');
+    assert.deepEqual((await snap()).messages['fo-research'],['Tell me more about the two approaches.']);
+    assert.equal((await snap()).messages.comms,undefined);
+    await fill('#message','Keep a follow-up draft.');await click('.commander-home');
+    await openFrom('fo-research');
+    assert.equal(await evaluate(`document.querySelector('#message').value`),'Keep a follow-up draft.');
+    await click('.commander-home');
+    assert.equal((await snap()).view,'comms');
+    pass(`${width}: all four FOs reachable regardless of pending items; no-waiting Research FO opens in ${rosterClicks} clicks, has correct conversation/send target and preserved draft, one-click Commander return`);
+    await go('home');
+    assert(await evaluate(`document.querySelector('.example-label').textContent.includes('Example')`));
+    assert(await evaluate(`document.querySelector('.example-thread').textContent.includes('Captain')&&document.querySelector('.example-thread').textContent.includes('Demo FO says:')`));
+    if(width===360){
+      await click('.back');assert.equal(await evaluate(`document.querySelector('.commander-pinned').getBoundingClientRect().height`),0);
+      await click('.commander-home');assert.equal(await evaluate(`document.querySelector('.home-intro').getBoundingClientRect().height`),0);
+      assert.equal(await evaluate(`document.querySelector('.commander-navowner').getBoundingClientRect().height`),0);
+    }
+    pass(`${width}: marked fictional Captain-direction / named FO-relay example; phone has no repeated entry card or home introduction; measured list height saved against cycle 1`);
     for(const id of ['gate','gate2','fo','assigned','review','permission']){
       await go('board');await click(`[data-open="${id}"]`);
       assert.equal((await snap()).view,id);
@@ -259,5 +301,6 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     cleanup.push({ viewport: `${width}x${height}`, browserPid: browser.pid, browserStopped: browser.exitCode !== null || browser.signalCode !== null, freshProfileRemoved: true });
   }
 }
+} finally { await rm(baselineFile); }
 await writeFile(join(root, 'capture-evidence.json'), JSON.stringify({ htmlSha256: hash(source), reviewSha256: hash(review), browser: chrome, node: process.version, screenshotCount: results.filter(x=>x.state).length, reviewScreenshot: 'review-entry.png (separate file check)', network: 'Local file URLs only; CDP pipe; no localhost, server or daemon; sequential capture; fresh temporary profile per viewport', tests, baseline, cleanup, results }, null, 2) + '\n');
 console.log(`PASS: ${results.filter(x=>x.state).length} state PNGs, ${tests.length} checks; browsers stopped and profiles removed`);

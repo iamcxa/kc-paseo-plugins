@@ -85,3 +85,22 @@ main、live 與本任務空派工 worktree 的 HEAD／branch／clean 狀態不�
 ### FO findings before the gate
 
 - Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-11-03) on COMMANDER-FIRST.md and the mockups: NOT SATISFIED. Block: "go to an FO for detail" works only for FOs with a pending item — By FO only groups waiting items, so an FO with nothing waiting cannot be reached, though the current product lists every FO; keep the full FO list and add the path, recounting it (the 1/2 steps hold only for FOs with a question). Annoys: phone repeats the return-to-commander control with a ~100 px entry card and repeats title, subtitle and instructions on home — cut and state the list height lost; show an example of the existing capability "Captain gives direction → the comms officer relays an FO's answer by name" so it reads like a command conversation. Passed: counts spot-checked (approve 3/4, change 5/6, answer comms 3/3, unassigned-review ask 2/3), structure and semantics, review.html images load. FO authorizes one revision.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Keep the full FO list the current product has (every FO, not only those with waiting items) and add the path "go to an FO with nothing waiting to talk detail", drawn and counted at 1440 and 360; correct the "go to one FO for detail" counts so they say which apply to FOs with and without a pending item
+  [完整名單](r9-commander-first/mockups/index.html?state=all-fos)列四位 FO，無待辦 Research FO 可開對話、正確傳訊與保留草稿；桌面 2／手機 3 步，待答問題列才是 1／2，已更正 [操作數](r9-commander-first/design/COMMANDER-FIRST.md)。若由待辦推導名單，21 組檢查中的無待辦 FO 路徑便找不到目標。
+- DONE: Phone: remove the repeated return-to-commander entry card and the repeated title, subtitle and instructions on home; state the list height regained; on home, show an example conversation using only what the comms officer does today — the Captain gives direction, the comms officer relays an FO's answer by name — marked as an example; re-capture changed states one at a time; review.html still loads images from file:// (recheck two states); a short "## Stage Report: implementation (cycle 2)" section
+  [capture-evidence.json](r9-commander-first/mockups/capture-evidence.json) 記錄 360 清單可捲動高 406→505 px（+99），舊版反證及 10 態 × 2 尺寸順序擷取；[file:// 檢查](r9-commander-first/mockups/review-file-check.json) 的 home／all-fos 桌／機自然寬皆 1440／360。若保留手機卡片／介紹、漏範例或具名 FO 轉述，對應檢查會失敗。
+
+### Findings
+
+修正先前遺漏：By FO 現從完整既有 FO 集合列名，不套待辦種類篩選；沒有待辦仍有對話入口，沒有把 0 waiting 說成工作完成。手機移除重複入口與介紹，通訊官待答題留在問題組；首頁明標虛構範例，只有 Captain 給方向與 Comms officer 具名轉述，未擴張權限。
+
+[package-checks.json](r9-commander-first/mockups/package-checks.json)：design_surfaces exit 1 依已知 gap 2 SKIPPED；number_guards exit 0（scope 非 ideation、無 migration path），沒有 R4 failure／gap 3；comment_ratio 以產品 base＝head `316c9eff7bd6ce2f5e15db7382dea1aba1197a26` exit 0、code 0／comment 0，doc_impact exit 0、0 documents。RoboRev 未跑：設計限定且 gap 5；未改產品、分支、PR、daemon 或第八輪。
+
+[boundary-check.json](r9-commander-first/mockups/boundary-check.json) 對照第二輪前置快照，四棵程式工作樹的 HEAD、branch、status、diff 與未追蹤檔雜湊不變；暫停中的程式樹仍保留接手前他人的修改。三個 capture browser PID 已退出、fresh profiles 與暫存舊版 HTML 已刪除。boundary-crossed: no；真實送達、外部宿主返回、原簡報回讀與真機鍵盤仍未驗。
+
+### Summary
+
+補回所有 FO 的完整名單和無待辦對話路徑，區分有待答問題與無待辦的操作數。手機實得 99 px 清單高度，首頁以明標範例呈現既有方向／轉述能力；20 張狀態圖、21 組檢查與兩態 file:// 圖片檢查通過，待設計總監重審及 Captain 方向確認。

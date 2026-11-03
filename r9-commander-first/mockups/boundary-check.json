@@ -1,4 +1,5 @@
 {
+  "cycle": 2,
   "checks": [
     {
       "root": "/Users/kent/Project/kc-paseo-plugins",
@@ -31,9 +32,25 @@
   ],
   "earlierRoundStateUnchanged": true,
   "captureBrowserPidsStopped": true,
+  "temporaryBaselineRemoved": true,
   "htmlMatchesEvidence": true,
-  "states": 8,
-  "statePNGs": 16,
+  "states": 10,
+  "statePNGs": 20,
   "reviewPNG": 1,
-  "fileImagesTwoStates": true
+  "fileImagesTwoStates": true,
+  "phoneListHeight": {
+    "cycle": 1,
+    "viewport": "360x780",
+    "sourceSha256": "5909ad2b8d8b99296c5a84d63417c45ca367037f35963ddd30e3b753a350d491",
+    "before": {
+      "queueScroll": 406,
+      "pinned": 98.1875
+    },
+    "after": {
+      "queueScroll": 505,
+      "pinned": 0
+    },
+    "regainedListHeight": 99,
+    "noWaitingFoReachableBefore": false
+  }
 }

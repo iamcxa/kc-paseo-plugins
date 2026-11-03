@@ -57,14 +57,14 @@ try {
   }
   observed.push({ state: 'home', ...(await imagesFor('home')) });
   assert.equal(observed[0].title, '首頁 · 指揮官');
-  await evaluate(`document.querySelectorAll('.state')[states.findIndex(x=>x.id==='progress-board')].click()`);
-  observed.push({ state: 'progress-board', ...(await imagesFor('progress-board')) });
+  await evaluate(`document.querySelectorAll('.state')[states.findIndex(x=>x.id==='all-fos')].click()`);
+  observed.push({ state: 'all-fos', ...(await imagesFor('all-fos')) });
   assert(await evaluate(`getComputedStyle(document.querySelector('.layout')).gridTemplateColumns.split(' ').length===2`));
   await evaluate(`document.querySelector('[data-mode=phone]').click()`);
   assert(await evaluate(`document.querySelector('.screens').classList.contains('phone')`));
   await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowRight',code:'ArrowRight',windowsVirtualKeyCode:39});
   await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowRight',code:'ArrowRight',windowsVirtualKeyCode:39});
-  await imagesFor('progress-detail');
+  await imagesFor('fo-no-waiting');
   await evaluate(`document.querySelector('[data-mode=desktop]').click()`);
   assert(await evaluate(`document.querySelector('.screens').classList.contains('desktop')`));
   await evaluate(`document.querySelectorAll('.state')[states.findIndex(x=>x.id==='home')].click()`);
@@ -87,4 +87,4 @@ try {
   await assert.rejects(access(profile));
 }
 await writeFile(join(root, 'review-file-check.json'), JSON.stringify({ reviewSha256: createHash('sha256').update(html).digest('hex'), url: pathToFileURL(join(root, 'review.html')).href, browser: chrome, freshProfile: true, securityBypassFlags: false, viewport: '1440x1000', observed, pageRequests: requests, twoColumnLayout: true, sizeToggles: true, arrowKeys: true, preselectedState: 'home', contentPolicyViolations: 0, scriptExceptions: 0, screenshot: 'review-entry.png', cleanup: { browserPid: browser.pid, browserStopped: true, profileRemoved: true } }, null, 2) + '\n');
-console.log('PASS: file:// review loads both desktop/phone images for home and progress-board; no CSP violations; review-entry.png saved; browser stopped and fresh profile removed.');
+console.log('PASS: file:// review loads both desktop/phone images for home and all-fos; no CSP violations; review-entry.png saved; browser stopped and fresh profile removed.');

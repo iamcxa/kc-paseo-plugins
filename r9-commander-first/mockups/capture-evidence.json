@@ -1,14 +1,14 @@
 {
-  "htmlSha256": "5909ad2b8d8b99296c5a84d63417c45ca367037f35963ddd30e3b753a350d491",
-  "reviewSha256": "ffb74c36eacd482282298debbe32e08b2ffd6996b842a98dd7b76798f6e18e43",
+  "htmlSha256": "bf0cec11039a48105298392ccd94e9781021905adb6dc9b8d45b27b854a9814e",
+  "reviewSha256": "58f04f14e5c9b7a05432f3b81731d09687f3897f4250d0268b5810a3fd1aefd2",
   "browser": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "node": "v24.18.0",
-  "screenshotCount": 16,
+  "screenshotCount": 20,
   "reviewScreenshot": "review-entry.png (separate file check)",
   "network": "Local file URLs only; CDP pipe; no localhost, server or daemon; sequential capture; fresh temporary profile per viewport",
   "tests": [
     {
-      "name": "1440: all 8 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "name": "1440: all 10 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
       "status": "passed"
     },
     {
@@ -16,7 +16,15 @@
       "status": "passed"
     },
     {
-      "name": "1440: commander ask counted once at top; four kind groups stay; Questions 2 means pinned ask + one FO row; Gate filter shows 2 and never hides commander",
+      "name": "1440: commander ask counted once at top; four kind groups stay; Questions 2 means commander ask + one FO row (phone in group, desktop pinned); Gate filter shows 2 and keeps top return",
+      "status": "passed"
+    },
+    {
+      "name": "1440: all four FOs reachable regardless of pending items; no-waiting Research FO opens in 2 clicks, has correct conversation/send target and preserved draft, one-click Commander return",
+      "status": "passed"
+    },
+    {
+      "name": "1440: marked fictional Captain-direction / named FO-relay example; phone has no repeated entry card or home introduction; measured list height saved against cycle 1",
       "status": "passed"
     },
     {
@@ -40,7 +48,7 @@
       "status": "passed"
     },
     {
-      "name": "360: all 8 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "name": "360: all 10 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
       "status": "passed"
     },
     {
@@ -48,7 +56,15 @@
       "status": "passed"
     },
     {
-      "name": "360: commander ask counted once at top; four kind groups stay; Questions 2 means pinned ask + one FO row; Gate filter shows 2 and never hides commander",
+      "name": "360: commander ask counted once at top; four kind groups stay; Questions 2 means commander ask + one FO row (phone in group, desktop pinned); Gate filter shows 2 and keeps top return",
+      "status": "passed"
+    },
+    {
+      "name": "360: all four FOs reachable regardless of pending items; no-waiting Research FO opens in 3 clicks, has correct conversation/send target and preserved draft, one-click Commander return",
+      "status": "passed"
+    },
+    {
+      "name": "360: marked fictional Captain-direction / named FO-relay example; phone has no repeated entry card or home introduction; measured list height saved against cycle 1",
       "status": "passed"
     },
     {
@@ -86,24 +102,54 @@
       "goal": "fails commander-default/top; phone return takes two clicks"
     },
     {
+      "cycle": 1,
+      "viewport": "1440x1000",
+      "sourceSha256": "5909ad2b8d8b99296c5a84d63417c45ca367037f35963ddd30e3b753a350d491",
+      "before": {
+        "queueScroll": 650,
+        "pinned": 104.1875
+      },
+      "after": {
+        "queueScroll": 650,
+        "pinned": 104.1875
+      },
+      "regainedListHeight": 0,
+      "noWaitingFoReachableBefore": false
+    },
+    {
       "viewport": "360x780",
       "source": "file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/index.html",
       "defaultView": "list",
       "commanderPinned": false,
       "returnToCommsClicks": 2,
       "goal": "fails commander-default/top; phone return takes two clicks"
+    },
+    {
+      "cycle": 1,
+      "viewport": "360x780",
+      "sourceSha256": "5909ad2b8d8b99296c5a84d63417c45ca367037f35963ddd30e3b753a350d491",
+      "before": {
+        "queueScroll": 406,
+        "pinned": 98.1875
+      },
+      "after": {
+        "queueScroll": 505,
+        "pinned": 0
+      },
+      "regainedListHeight": 99,
+      "noWaitingFoReachableBefore": false
     }
   ],
   "cleanup": [
     {
       "viewport": "1440x1000",
-      "browserPid": 76916,
+      "browserPid": 44065,
       "browserStopped": true,
       "freshProfileRemoved": true
     },
     {
       "viewport": "360x780",
-      "browserPid": 77010,
+      "browserPid": 44165,
       "browserStopped": true,
       "freshProfileRemoved": true
     }
@@ -292,6 +338,13 @@
         },
         {
           "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        },
+        {
+          "id": "comms",
           "statuses": 1,
           "phase": "your",
           "icon": "◆",
@@ -848,6 +901,110 @@
     },
     {
       "viewport": "1440x1000",
+      "state": "all-fos",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": []
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "fo-no-waiting",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": []
+    },
+    {
+      "viewport": "1440x1000",
       "fileRequestsOnly": true,
       "runtimeErrors": 0
     },
@@ -1016,6 +1173,13 @@
         },
         {
           "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        },
+        {
+          "id": "comms",
           "statuses": 1,
           "phase": "your",
           "icon": "◆",
@@ -1473,6 +1637,71 @@
           "text": "Waiting · record"
         }
       ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "all-fos",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": null,
+      "dock": null,
+      "controls": [],
+      "rows": []
+    },
+    {
+      "viewport": "360x780",
+      "state": "fo-no-waiting",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": null,
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": []
     },
     {
       "viewport": "360x780",
