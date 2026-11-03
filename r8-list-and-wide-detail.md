@@ -62,3 +62,24 @@ Verified by: one page for step A; review.html for step B; his choice and his go 
 
 Alignment: not needed: the Captain chose to try this layout and asked for the reference evaluation on 2026-11-03, recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+
+## Stage Report: implementation
+
+- DONE: Reference evaluation of zhjiang22/agent-observatory (read with gh api from github.com/zhjiang22/paseo-plugins, folder agent-observatory: README.md, OVERVIEW.md, assets/*.png; no licence, so reference only — copy no code, text or asset): for every waiting or attention state it shows, how it is introduced (row label, colour/icon/text, label priority, quick-filter chip and count, grouping, the detail's first content, primary action and wording, secondary actions, phone behaviour, legend), each citing its README section or screenshot; then a mapping to Bridge's waiting kinds (open gate, recorded or no-longer-open gate, FO question, comms officer question, review, unassigned review, loading and failed sources, closed FO) with adopt / adapt / skip and a reason (AC-1)
+  design/EVIDENCE.md 逐態檢視參考 README／OVERVIEW／全部 PNG，列明標記、優先、篩選與計數、分組、詳情、主要／次要動作、手機及圖例；每個 Bridge 等待種類有來源與取捨。作者文件、合成截圖及未知各自標明；非產品實跑。
+- DONE: Operation counts for the list-beside-wide-detail model on the same ten tasks as /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-simplest-way-to-decide/design/INTERACTION-MODELS.md, next to the earlier three models; where the comms officer conversation lives in this model (a list row, a detail tab, or other), with counts per option; your own assumptions flagged
+  design/LIST-AND-DETAIL.md 並排同十項任務的四案；design/EVIDENCE.md 展開全部路徑，CHECKS.txt 重算 38 個任務數值及 18 個通訊官路徑數值；若移除確認、插入中間導覽或改變起點，計數即不成立。
+- DONE: /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/design/LIST-AND-DETAIL.md: one page with the recommendation, what gets worse and the open questions for the Captain at the top, then the state presentation table, the mapping and the counts; detail and citations in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/design/EVIDENCE.md; a short stage report (AC-2)
+  design/LIST-AND-DETAIL.md 一頁以建議、代價及待裁事項開頭，列狀態取捨、四案數字與通訊官位置；細節集中 EVIDENCE.md。交付步驟 A 文字供審，不等於設計總監通過或 Captain 的 go。
+
+### Findings
+
+參考版本固定 28cc223a6327dea712751bc6a3fb2cce9f265d65；LICENSE 現為 MIT，派工「無 licence」已過時，仍只參考、未複製任何程式／文字／資產。Bridge 唯讀版本 316c9eff7bd6ce2f5e15db7382dea1aba1197a26；派工 worktree 未用，無產品提交、推送、PR、daemon 操作、新 ADR 或 migration。
+套件輸出見 design/CHECKS.txt：design_surfaces.py exit 1 缺 Surfaces／Visible change，SKIPPED 已知套件缺口 2；number_guards.py exit 0，PASS: no findings，無 migrations-path，R4 路徑 SKIPPED 已知套件缺口 3。未擅改任務欄位。
+comment_ratio.py exit 0：0 code／0 comment lines；doc_impact.py exit 0：0 documents，無須更新其他文件；兩者以固定產品 SHA 對自身比較，不能用來宣稱設計驗收。RoboRev 未跑：無程式變更，且已知套件缺口 5。
+文字重算 56 個數值路徑、21 個本地文件連結通過；git diff --check 通過。無可執行新介面，未量測耗時、真機鍵盤或端到端送達。原簡報回讀仍缺；舊原型重入遺失選擇／進度尚未修，已保留為後續驗收要求。
+
+### Summary
+
+建議桌面清單旁放單件詳情，通訊官從清單開同一詳情區，手機一次一頁；桌面換件少返回清單一步，批准仍三步。已完成參考逐態評估與同口徑計數，只交付文字設計；由 FO 接續安排設計總監審查，通過後才可進步驟 B，Captain 尚未接受本案。
