@@ -366,3 +366,9 @@ Classes 1 and 3 stay with the Captain (demoted 2026-10-25, kept by 「可以，�
 ### Codex round 1 on acf6a0e (2026-11-01)
 
 External review rounds: 1 — Codex review:5726153468 on acf6a0e46: one P2 line finding in `project-env/server/missing-variables-notice.ts`, "Preserve recovery state when flushing a pending resume notice" (comment 4434175350). It is the same cause as roborev:1371 and roborev:1382 (validation cycle 2 F5). FO asks the Captain whether to repair it; no gate is prepared until he rules.
+
+### Captain disposition of Codex round 1 P2 and roborev:1371/1382 (2026-11-03)
+
+Captain: 「修」 (FO chat, 2026-11-03)
+Asked: 「…這是同一個原因第三次被獨立抓到…建議的修法：每次開啟 agent 時就更新記憶，回合結束時只決定要不要顯示…回「修」或「先合併」。」, about Codex comment 4434175350 (P2) and roborev:1371 and roborev:1382 at candidate acf6a0e4685b8bd1f5eb941b2abd2a259f08d8c2.
+Effect: the stale "last shown" memory is repaired on PR #66 so a recovery that reaches no turn-end flush is not lost; then validation reruns and Codex is asked again.
