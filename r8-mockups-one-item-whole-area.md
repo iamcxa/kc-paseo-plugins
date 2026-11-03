@@ -119,3 +119,4 @@ comment_ratio.py 重跑退出 0：0 code／0 comment lines，0.0%，未達 20 �
 ### Summary
 
 已把既有逐頁審閱內容做成左右雙欄入口，頂端保留單一方向問題，選圖不必離開頁面。僅改善審閱方式，未變更圖稿或替 Captain 記錄接受。
+- Superseded as the round 8 direction on 2026-11-03: asked 「第 8 輪設計稿要不要改成 Observatory 那種「左邊窄清單、右邊寬詳情」？」, the Captain answered 「可以試試看，你也可以看一下他在每個 gate/等待的介紹全面評估一下」. These mockups stay as reference for r8-list-and-wide-detail.
