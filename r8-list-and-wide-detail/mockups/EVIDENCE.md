@@ -84,3 +84,11 @@
 每件閘門的顯示都從 `owner(id)` 取得目標，未再固定寫 Demo FO。擷取腳本真的確認第二件 Export FO 閘門，注入該件 relayed／recorded 收據，再核對畫面寫 Export FO、沒有 Demo FO，並確認第一件仍是 open。若回復全域錯誤旗標或固定 owner，這兩組檢查會失敗。
 
 最新 `capture-evidence.json` 重跑全部原重入路徑，加上分組／圖形文字與第二閘門 owner，共 18 組；46 張狀態圖逐張擷取，review-entry.png 是 open 預選。前輪 capture.log 保留為 capture-cycle-3.log；本輪第一次已通過後再縮減清單留白，其輸出留於 capture-cycle-4-spacing.log，最新完整證據仍以 capture.log 及相符 HTML 雜湊為準。
+
+## 第五輪：從磁碟開啟審閱圖
+
+Captain 回報「審閱頁看不到圖片」。本輪只把 review.html 的圖片來源政策顯式加入 `file:`（另補檔尾換行）；頁面其餘內容、index.html 及 46 張狀態圖不變。政策不再依賴各 Chromium 宿主對本機檔案的 `self` 判斷；連線限制仍為 none。
+
+`node check-review.mjs` 從真正的 file:// URL、全新 headless Chrome profile 開頁，未加略過網頁安全的旗標。預選 open 與實際點選的 list-relayed，其桌面／手機兩張圖的 naturalWidth 都分別為 1440／360；沒有 CSP 違規、程式例外或遠端請求，再回 open 儲存 review-entry.png。瀏覽器已退出、profile 已移除，記於 review-file-check.json／review-file-check.log。
+
+本輪審閱頁的最新 SHA-256 以 review-file-check.json 為準；capture-evidence.json 保留第四輪的稿件與頁面版本證據，沒有為這個入口修正重跑全部狀態圖。FINAL-CHECKS-CYCLE-5.txt 比對 index.html 及全部狀態 PNG 與本輪起點位元組相同；Captain 原瀏覽器重新開頁仍由 FO 接續確認。

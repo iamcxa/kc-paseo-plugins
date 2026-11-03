@@ -150,3 +150,19 @@ PACKAGE-CHECKS-CYCLE-4.txt：design_surfaces.py exit 1 缺 Surfaces／Visible ch
 清單恢復種類分組，以圖形及文字區分等你、等別人與已完成，並把來源錯誤及各閘門的進度綁回自己的對象。保留已通過的寬詳情、控制比例及兩條重入路徑；交付更新的本地稿件與證據，由 FO 安排複審。
 - Design director pass 2 on the step B mockups (2026-11-03): SATISFIED — grouping and icon-plus-text status separate whose move it is; failed source and relay/record targets bound to their real source and owner; review.html opens on the open gate with one direction question. Read routing and PNGs only; the real-phone keyboard stays unverified.
 - Captain report 2026-11-03: 「審閱頁看不到圖片」. FO diagnosis (read-only): review.html carries a Content-Security-Policy with img-src 'self' data:; opened as a file:// page in a Chromium browser, 'self' does not match local files, so every PNG is blocked; all 23 states' PNGs exist. The earlier round 8 review.html carries the same policy. FO asks the designer for the fix.
+
+
+## Stage Report: implementation (cycle 5)
+
+- DONE: The Captain's words: 「審閱頁看不到圖片」. Cause: review.html's Content-Security-Policy allows img-src 'self' data:, and a file:// page in a Chromium browser does not count local files as 'self', so every PNG is blocked. Make the images load when review.html is opened directly from disk in a Chromium-based browser (for example add file: to img-src, or drop the meta policy for this offline page), keep every other behaviour; check by opening it from a file:// URL in a fresh headless Chromium profile and confirming both images of the preselected state and of one other state have a natural width above 0; save review-entry.png; a short "## Stage Report: implementation (cycle 5)" section
+  review.html 的 img-src 加 file:，其餘僅檔尾換行；check-review.mjs 用全新 headless Chrome 從 file:// 開頁，open 與實際切換的 list-relayed 兩組圖 naturalWidth 均為 1440／360，無 CSP 違規；回 open 儲存 review-entry.png。任何圖未載入或切換失效都會使檢查失敗。
+
+### Findings
+
+mockups/review-file-check.json／.log 綁定本輪 review.html SHA-256、兩組實際圖片 URL 及尺寸；沒有安全性略過旗標、頁面遠端請求或程式例外。瀏覽器已退出、全新 profile 已移除；FINAL-CHECKS-CYCLE-5.txt 另確認 PID 不存在。
+index.html 與 46 張狀態 PNG 比對本輪起點位元組相同，沒有重畫或重跑全套。前輪 capture-evidence.json 保留其原 review SHA；本輪入口證據以 review-file-check.json 為準。原瀏覽器重新開頁仍須 Captain 確認，不把 headless 結果當作其原始宿主驗收。
+PACKAGE-CHECKS-CYCLE-5.txt：design_surfaces.py exit 1，SKIPPED 缺 Surfaces／Visible change 的已知缺口 2；number_guards.py exit 0，R4 路徑 SKIPPED 缺口 3；comment_ratio.py exit 0、0 code／0 comment lines；doc_impact.py exit 0、0 documents。RoboRev 未跑：無產品程式變更且缺口 5。
+
+### Summary
+
+審閱頁明確允許本機圖片，保留原有狀態、尺寸切換與導覽程式。兩個狀態的桌面／手機圖片已由實際 file:// 讀取驗證，僅交付入口政策修正與檢查證據；由 FO 回報並請 Captain 重開確認。
