@@ -1,0 +1,75 @@
+✖ a late failure from the first read cannot overwrite a successful reopen (187.875209ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 634.317042
+
+✖ failing tests:
+
+test at test/gate-continuity-repair.test.mts:1:3066
+✖ a late failure from the first read cannot overwrite a successful reopen (187.875209ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Stale first read failed/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '! Check\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 8:31:42 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'Briefing error\n' +
+    'Error: Stale first read failed\n' +
+    'Briefing error\n' +
+    'Error: Stale first read failed\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n' +
+    'Decide via comms officer\n' +
+    '准\n' +
+    '要求修改\n' +
+    '暫緩\n' +
+    '\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-continuity-repair.test.mts:79:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n! Check\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:31:42 PM · 2 open\n← Commander\nBoard\n← Queue\nBriefing error\nError: Stale first read failed\nBriefing error\nError: Stale first read failed\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\nDecide via comms officer\n准\n要求修改\n暫緩\n\n',
+    expected: /Stale first read failed/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

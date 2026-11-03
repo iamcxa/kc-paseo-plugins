@@ -1,0 +1,60 @@
+{
+  "head": "625c62841250d951c89a75190c6feefdc7f5ee5f",
+  "branch": "spacedock-ensign/r9-list-and-detail-layout",
+  "candidateStatus": "",
+  "mainStatus": "",
+  "liveStatus": "",
+  "remote": "625c62841250d951c89a75190c6feefdc7f5ee5f\trefs/heads/spacedock-ensign/r9-list-and-detail-layout",
+  "files": {
+    "spacedock-bridge/OVERVIEW.md": {
+      "sha256": "106a991691c4b40d58cb296d3b553ca40d58ca989c8681f4a2a26a6dd606eae4",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/decision-card.tsx": {
+      "sha256": "f053b7d70be5e62d52a8bfc6961d7b1fb181d0abf4522b5bb102a1244af9ae0c",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/server/gate.ts": {
+      "sha256": "a762a9161b688cb92ac91379e59e768c4568084a4439ad53cd05966150a8130f",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/server/tasks.ts": {
+      "sha256": "294990bf56313d3acdb7b6fb26d307f53ae3f85e683435afbb47de48a49c4d68",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/board.ts": {
+      "sha256": "ceb501cb5f658bd51432a0b92b748f2d7efe60013d02a24f9833755a2976fc36",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/queue.ts": {
+      "sha256": "4c3ce1c367b8ad285221a73ccf8512332ab1fd796c18d1b9ed06c9f8dfe8f36d",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/tasks.ts": {
+      "sha256": "9bc70131d4870a70ce21a84c206c6cfda087175912726a966a180e46cb63b997",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/gate-continuity-repair.test.mts": {
+      "sha256": "0b0137043dd90cee964630f11e5d21df05ca70a1e75fc2f045b5c2a07e2d2627",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/gate-identity.test.mts": {
+      "sha256": "7a453b6f93b18b6e3acf53d15d49347dec95f8ee66ce6c37e8dcef75c9b530fe",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/helpers/bridge-host.mts": {
+      "sha256": "f0842c158c52a53cd96ac693ee524fb1cbb83801b0afe60f674e3d341bdf2a45",
+      "matchesCommit": true
+    }
+  },
+  "temporaryBaselineRoots": [],
+  "tests": {
+    "passed": 159,
+    "failed": 0,
+    "newTests": 7,
+    "coreBaselineFailures": 5,
+    "fullSuiteLog": "npm-test.log",
+    "typecheckExit": 0
+  },
+  "scope": "cycle 2 logic regressions; original visual captures remain bound to 3f4e56c, no new browser or provider proof"
+}

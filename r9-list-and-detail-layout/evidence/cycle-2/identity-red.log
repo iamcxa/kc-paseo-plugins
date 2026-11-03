@@ -1,0 +1,31 @@
+gates.read #1 start dirs=1
+gates.read #1 done 293ms
+✖ each active briefing identity survives the server, RPC schema, attachment and queue (306.497458ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 531.024208
+
+✖ failing tests:
+
+test at test/gate-identity.test.mts:1:382
+✖ each active briefing identity survives the server, RPC schema, attachment and queue (306.497458ms)
+  AssertionError [ERR_ASSERTION]: a missing waiting-time commit must not discard the attempt identity
+  
+  undefined !== 'one'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-identity.test.mts:28:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'one',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

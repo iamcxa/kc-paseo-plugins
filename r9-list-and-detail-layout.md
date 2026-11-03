@@ -112,3 +112,23 @@ Implemented the commander-first session navigation and shared detail at 3f4e56ca
 ### FO findings before the gate
 
 - Roborev (FO-run, package gap 5) on 3f4e56c (roborev:1430): High — completion is keyed by workflow and task slug only, so recording one stage's gate hides the same task's next-stage gate from the queue and counts; Medium — a failed first briefing read never retries when the retained card is reopened and polling never starts, so decisions stay unavailable until reload. FO authorizes cycle 2.
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: roborev:1430 High: completion and retained details are keyed per gate attempt (workflow, task, stage and attempt or briefing id), so a recorded gate never hides a newer open gate of the same task from the queue or counts; a test with successive stages of one task that fails on 3f4e56c
+  Server/RPC/queue preserve the source workflow and briefing identity. Mounted tests cover successive stages and same-stage attempts while the old Done entry retains its result/reason and no actions; cycle-2/baseline-final-tests.log rejects 3f4e56c and scoped-tests.log passes the repair.
+- DONE: roborev:1430 Medium: an unresolved briefing read retries when its retained card becomes active again (or from a visible retry control), keeping drafts, and polling starts once the briefing loads; a test for failed-first-read then reopen that fails on 3f4e56c; npm test and typecheck pass; push to PR #68 (still Draft); a short "## Stage Report: implementation (cycle 2)" section
+  Reopen retries thrown/error replies without clearing message drafts; loaded open briefings poll without a prior send. Stale failed reads cannot overwrite a successful reopen. cycle-2/npm-test.log passes 159 tests; typecheck.log exits 0; pr68.json verifies Draft/open, assigned base and pushed head 625c62841250d951c89a75190c6feefdc7f5ee5f.
+
+### Summary
+
+Repaired attempt-scoped completion/detail identity and recovery of retained briefing reads in 625c62841250d951c89a75190c6feefdc7f5ee5f, pushed to existing Draft PR #68. Seven new tests pass with all 159 tests and typecheck; independent exact-head RoboRev remains with the FO.
+
+### Findings
+
+- Five core regression cases fail against exact 3f4e56c: two later-attempt variants, thrown/error first-read variants, and server/RPC/attachment/queue identity across distinct workflows. The new server test also preserves identity without a waiting-time commit. Two supplementary tests cover active replacement and late failure; all seven pass on the repair.
+- The first expanded baseline run stalled in a supplementary case after four reproduced failures and was interrupted; baseline-interrupted.log is retained. The bounded core replay exits 1 with five failures; baseline-final.json and baseline-cleanup.json record its scope and removal. No temporary baseline root remains.
+- cycle-2/safety.json verifies exact committed source bytes, pushed SHA, clean candidate/main/live worktrees and no temporary baseline roots. Existing owner routing, draft storage, Confirm/reason rules, permissions, sending/relay/record contracts and host imports remain unchanged; OVERVIEW.md describes the recovery/identity behavior.
+- Package checks pass: comment-ratio.log 1/33 code lines, 3.0% against 5%; adr-lint.log seven records; number-guards.log PASS with no migrations path; doc-impact.log zero referenced documents. No ADR or migration added.
+- SKIPPED: design_surfaces.py retains known package gap 2; no layout change or new browser capture in cycle 2. Original visual evidence remains bound to 3f4e56c. SKIPPED: RoboRev daemon access, package gap 5; FO reruns on pushed 625c628. No ready-state, merge, release or live daemon/install action occurred.

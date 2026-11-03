@@ -1,0 +1,76 @@
+✖ a recorded gate does not suppress a new implementation attempt of the same task (242.835542ms)
+✖ a recorded gate does not suppress a new validation attempt of the same task (73.878333ms)
+✖ a failed first briefing read retries on reopen and keeps its draft (throw) (53.357458ms)
+✖ a failed first briefing read retries on reopen and keeps its draft (answer) (50.611291ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1138.639416
+
+✖ failing tests:
+
+test at test/gate-continuity-repair.test.mts:1:174
+✖ a recorded gate does not suppress a new implementation attempt of the same task (242.835542ms)
+  AssertionError [ERR_ASSERTION]: the later attempt has its own pending count
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-continuity-repair.test.mts:17:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 1\nBy decision · 1\nBy FO · 3\nAll 1\nPermissions 0\nReviews 0\nGates 1\nQuestions 0\nGates\n1\n◆ Your turn\nApprove b?\nB FO\nGATE\n2h ago\n+ New FO\nGates read 8:25:27 PM · 2 open\nDone this session\n✓ Done\nApprove a?\nA FO\nGATE\n2h ago\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Waiting on you · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/gate-continuity-repair.test.mts:1:174
+✖ a recorded gate does not suppress a new validation attempt of the same task (73.878333ms)
+  AssertionError [ERR_ASSERTION]: the later attempt has its own pending count
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-continuity-repair.test.mts:17:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 1\nBy decision · 1\nBy FO · 3\nAll 1\nPermissions 0\nReviews 0\nGates 1\nQuestions 0\nGates\n1\n◆ Your turn\nApprove b?\nB FO\nGATE\n2h ago\n+ New FO\nGates read 8:25:27 PM · 2 open\nDone this session\n✓ Done\nApprove a?\nA FO\nGATE\n2h ago\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Waiting on you · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/gate-continuity-repair.test.mts:1:1532
+✖ a failed first briefing read retries on reopen and keeps its draft (throw) (53.357458ms)
+  AssertionError [ERR_ASSERTION]: reactivating the unresolved card retries its reader
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-continuity-repair.test.mts:45:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/gate-continuity-repair.test.mts:1:1532
+✖ a failed first briefing read retries on reopen and keeps its draft (answer) (50.611291ms)
+  AssertionError [ERR_ASSERTION]: reactivating the unresolved card retries its reader
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/gate-continuity-repair.test.mts:45:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

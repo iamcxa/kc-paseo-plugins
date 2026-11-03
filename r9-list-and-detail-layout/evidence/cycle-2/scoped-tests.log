@@ -1,0 +1,21 @@
+✔ a recorded gate does not suppress a new implementation attempt of the same task (271.079ms)
+✔ a recorded gate does not suppress a new validation attempt of the same task (102.482542ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (throw) (52.075125ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (answer) (27.14425ms)
+✔ a retained active attempt never adopts its replacement's briefing (26.479417ms)
+✔ a late failure from the first read cannot overwrite a successful reopen (30.482ms)
+gates.read #1 start dirs=2
+gates.read #1 done 334ms
+gates.read #2 start dirs=2
+gates.read #2 done 54ms
+gates.read #3 start dirs=2
+gates.read #3 done 58ms
+✔ each active briefing identity survives the server, RPC schema, attachment and queue (475.776917ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 913.524292
