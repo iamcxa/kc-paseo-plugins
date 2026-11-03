@@ -83,3 +83,7 @@ comment_ratio.py exit 0：0 code／0 comment lines；doc_impact.py exit 0：0 do
 ### Summary
 
 建議桌面清單旁放單件詳情，通訊官從清單開同一詳情區，手機一次一頁；桌面換件少返回清單一步，批准仍三步。已完成參考逐態評估與同口徑計數，只交付文字設計；由 FO 接續安排設計總監審查，通過後才可進步驟 B，Captain 尚未接受本案。
+
+### FO findings before the gate
+
+- Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-11-03) on LIST-AND-DETAIL.md: NOT SATISFIED. Blocks: the reference's strengths are not carried into the proposal — quick filters by the existing item kinds and counts are skipped on "no new data", which does not rule them out; the phone bottom-fixed actions and one main status per item need an explicit adopt or skip with a reason; the tool-permission request (the current list's top-priority item, which opens the native agent session) is missing from the mapping — add its prompt, destination and main action, and state that the reference's in-place approval is not adopted. Passed: five reference states spot-checked against its README and screenshots; counts (approve 3, change 5, briefing then approve 4, unassigned-review ask 2); comms opened from the list; no semantic or data change. Annoys: cut the "awaiting director, no mockups or code" line, move term definitions to EVIDENCE.md, say "reason and message drafts". The director also noted its own step 1 review missed the master-detail model. FO authorizes one revision.
