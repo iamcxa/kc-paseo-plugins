@@ -109,3 +109,22 @@ design_surfaces.py exit 1 仍缺 Surfaces／Visible change：SKIPPED 已知套�
 把參考的篩選件數、單一主狀態、動作措辭、問句／結果優先及手機底部固定操作帶入提案；工具權限沿用原生會話，不在 Bridge 批准。原十項基本數字不變，可選篩選與隱藏事項的還原成本另列；保留既有確認、理由、傳訊及轉送記錄語意。
 - Design director pass 2 (2026-11-03): SATISFIED — each reference strength adopted or adapted with counts (a filter adds one step; switching to a filtered-out item is 2 on desktop, 3 on phone); the tool-permission request keeps the native session and does not adopt in-place approval; one direction decision for the Captain.
 - Captain ruling 2026-11-03 on step A, asked 「照這個方向畫設計稿，可以嗎？」, answered 「可以」: step B draws the list-beside-wide-detail direction in LIST-AND-DETAIL.md.
+
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Before drawing, list your assumptions in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/ASSUMPTIONS.md; then one mockup direction of /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/design/LIST-AND-DETAIL.md as self-contained static HTML with fictional data and one PNG per state at 1440x1000 and 360x780, Paseo's existing look as the base: list with quick filters and counts (all, permissions, reviews, gates, questions) and one main status per row; a tool-permission request selected (goes to the native session); an open gate in the wide detail (question and summary first, conversation with its scope label, message box and send, decision controls in proportion with send on desktop); a decision chosen with its reason (empty required reason, and typed); after Confirm (sent/relayed, then recorded — the row stays until recorded); a recorded gate reopened (result and reason first); an FO question; the comms officer opened from the list; an unassigned review (prefilled ask → send); a failed source; phone list and phone detail with bottom-fixed actions; a filter applied
+  繪圖前先寫 mockups/ASSUMPTIONS.md；index.html 同一方向共 21 狀態、兩尺寸 42 PNG，含權限原生目的地、寬詳情、理由空／已填、送出／轉送／記錄、重開、問題、審查、失敗與篩選。capture-evidence.json 的幾何及人工開圖核對桌面 Send／決定同高 32px，手機主控制至少 44×44 且固定下緣；改回窄詳情或控制溢出會使檢查失敗。
+- DONE: Hard exclusions, widgets included: no in-place permission approval, no next-item control beyond selecting another row, no unread/later/running filters, no new data, storage or history view, no change to Confirm, required reasons or separate messaging, no product code, code branch or PR; the prototype's state paths must keep the confirmed choice on reopen and keep progress when going via the comms officer; /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/review.html two-column like round 8's (states left, desktop/phone right, toggle, arrow keys, one direction question on top) and REVIEW.md; a short "## Stage Report: implementation (cycle 3)" section
+  mockups/review.html 左列狀態、右列兩尺寸，切換及方向鍵實跑通過，REVIEW.md 逐態連結齊全。14 組檢查對三種確切選擇及理由執行重開、sent／relayed 經通訊官再回、recorded 後瀏覽器返回；寫死選擇或返回重置進度會失敗。所有送出均離線模擬，無新增保存、歷史、下一件或原地權限批准。
+
+### Findings
+
+最新 mockups/capture.log／capture-evidence.json：42 張狀態 PNG、review-entry.png、14 組檢查通過；FINAL-CHECKS.txt 核對最終 HTML 雜湊、43 圖尺寸、72 個本地連結及兩個瀏覽器 PID 已不存在。Chrome 僅 file/data 頁面請求，逐張擷取，全新 profile 已移除；無 localhost、Paseo daemon 或真實代理操作。
+初次擷取先讀尚未產生的手機圖，後修正順序；第二次抓到手機返回清單位置被隱藏列覆蓋，已修且重跑；第三次清理觀察過早，最終版等待實際退出。舊輸出留在 capture-attempt-1..3.log，不當最終通過證據；詳見 mockups/EVIDENCE.md。
+PACKAGE-CHECKS.txt：design_surfaces.py exit 1 缺 Surfaces／Visible change，SKIPPED 已知缺口 2；number_guards.py exit 0、PASS: no findings，R4 路徑 SKIPPED 缺口 3；comment_ratio.py exit 0、0 code／0 comment lines，doc_impact.py exit 0、0 documents。兩者比較未變產品 SHA，不能當作原型驗收；RoboRev 未跑：無產品程式變更且缺口 5。
+產品仍 316c9eff7bd6ce2f5e15db7382dea1aba1197a26；主倉 main 與 live 不變，沒有新 ADR、migration、產品提交或 PR。已記錄件重開只證明本次文件導覽，跨重載重置、真實原生權限、實體鍵盤、來源恢復及端到端送達未驗證。
+
+### Summary
+
+完成清單旁寬詳情的一套靜態稿與雙欄審閱入口，保留確認、理由與訊息分開及送出／轉送／記錄的差別。先前原型的確切選擇與通訊官往返重置問題已由這次離線路徑實測覆蓋；這是交付稿件，設計總監審查與 Captain 對稿件的接受由 FO 接續。

@@ -1,0 +1,9 @@
+file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/capture.mjs:66
+      throw new Error('Condition did not become true: ' + expression);
+            ^
+
+Error: Condition did not become true: document.readyState === "complete" && document.querySelectorAll(".state").length === 21 && [...document.images].every(x=>x.complete && x.naturalWidth>0)
+    at waitFor (file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/capture.mjs:66:13)
+    at async file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r8-list-and-wide-detail/mockups/capture.mjs:196:7
+
+Node.js v24.18.0

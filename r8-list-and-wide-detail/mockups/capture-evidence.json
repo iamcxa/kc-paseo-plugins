@@ -1,0 +1,3311 @@
+{
+  "htmlSha256": "f18a1ffec33fd5185d375e1ff79a7c5f36ccaa580aeb51d36571b88baca4cf9d",
+  "reviewSha256": "a7720fffbb7b861e553ea2c122a901e04670dd3d0c67586acdd38a132c3626ad",
+  "browser": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "node": "v24.18.0",
+  "screenshotCount": 42,
+  "reviewScreenshot": "review-entry.png",
+  "network": "Local file URLs only; CDP pipe; no localhost, server or daemon; sequential capture; fresh temporary profile per viewport",
+  "tests": [
+    {
+      "name": "1440: all 21 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "status": "passed"
+    },
+    {
+      "name": "1440: kind counts 7/1/2/2/2; filter preserves global counts; permission row directly opens native destination without local approval",
+      "status": "passed"
+    },
+    {
+      "name": "1440: unassigned review opens prefilled coordinator then Send in two clicks; no decision sent; existing coordinator draft not overwritten",
+      "status": "passed"
+    },
+    {
+      "name": "1440: all three exact choices/reasons survive reopen, coordinator round trips at sent and relayed, receipt to recorded, and browser-back reopen; no reset, resend controls or history page",
+      "status": "passed"
+    },
+    {
+      "name": "1440: cancel/reselect retains separate reason/message drafts; another gate is isolated; By FO retains all individual items",
+      "status": "passed"
+    },
+    {
+      "name": "1440: failed source displays known lower bounds and Retry; failed conversation cannot masquerade as empty",
+      "status": "passed"
+    },
+    {
+      "name": "360: all 21 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "status": "passed"
+    },
+    {
+      "name": "360: kind counts 7/1/2/2/2; filter preserves global counts; permission row directly opens native destination without local approval",
+      "status": "passed"
+    },
+    {
+      "name": "360: unassigned review opens prefilled coordinator then Send in two clicks; no decision sent; existing coordinator draft not overwritten",
+      "status": "passed"
+    },
+    {
+      "name": "360: all three exact choices/reasons survive reopen, coordinator round trips at sent and relayed, receipt to recorded, and browser-back reopen; no reset, resend controls or history page",
+      "status": "passed"
+    },
+    {
+      "name": "360: cancel/reselect retains separate reason/message drafts; another gate is isolated; By FO retains all individual items",
+      "status": "passed"
+    },
+    {
+      "name": "360: failed source displays known lower bounds and Retry; failed conversation cannot masquerade as empty",
+      "status": "passed"
+    },
+    {
+      "name": "360: return keeps list scroll; fixed actions remain reachable in 360x480 viewport (not physical keyboard proof)",
+      "status": "passed"
+    },
+    {
+      "name": "Review entry: 21 local image pairs, two-column navigation, mode toggle and arrow key work offline",
+      "status": "passed"
+    }
+  ],
+  "cleanup": [
+    {
+      "viewport": "1440x1000",
+      "browserPid": 73193,
+      "browserStopped": true,
+      "freshProfileRemoved": true
+    },
+    {
+      "viewport": "360x780",
+      "browserPid": 75764,
+      "browserStopped": true,
+      "freshProfileRemoved": true
+    }
+  ],
+  "results": [
+    {
+      "viewport": "1440x1000",
+      "state": "list",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "permission",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "controls": [],
+      "rows": []
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "open",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 840,
+        "width": 870,
+        "height": 160,
+        "top": 840,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 896,
+          "width": 63.421875,
+          "height": 32,
+          "top": 896,
+          "right": 1403,
+          "bottom": 928,
+          "left": 1339.578125
+        },
+        {
+          "label": "Approve",
+          "x": 740.859375,
+          "y": 950,
+          "width": 73.109375,
+          "height": 32,
+          "top": 950,
+          "right": 813.96875,
+          "bottom": 982,
+          "left": 740.859375
+        },
+        {
+          "label": "Request changes",
+          "x": 821.96875,
+          "y": 950,
+          "width": 123.5,
+          "height": 32,
+          "top": 950,
+          "right": 945.46875,
+          "bottom": 982,
+          "left": 821.96875
+        },
+        {
+          "label": "Hold",
+          "x": 953.46875,
+          "y": 950,
+          "width": 52.40625,
+          "height": 32,
+          "top": 950,
+          "right": 1005.875,
+          "bottom": 982,
+          "left": 953.46875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "reason-empty",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 753.5,
+        "width": 870,
+        "height": 246.5,
+        "top": 753.5,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 809.5,
+          "width": 63.421875,
+          "height": 32,
+          "top": 809.5,
+          "right": 1403,
+          "bottom": 841.5,
+          "left": 1339.578125
+        },
+        {
+          "label": "Approve",
+          "x": 740.859375,
+          "y": 863.5,
+          "width": 73.109375,
+          "height": 32,
+          "top": 863.5,
+          "right": 813.96875,
+          "bottom": 895.5,
+          "left": 740.859375
+        },
+        {
+          "label": "Request changes",
+          "x": 821.96875,
+          "y": 863.5,
+          "width": 123.5,
+          "height": 32,
+          "top": 863.5,
+          "right": 945.46875,
+          "bottom": 895.5,
+          "left": 821.96875
+        },
+        {
+          "label": "Hold",
+          "x": 953.46875,
+          "y": 863.5,
+          "width": 52.40625,
+          "height": 32,
+          "top": 863.5,
+          "right": 1005.875,
+          "bottom": 895.5,
+          "left": 953.46875
+        },
+        {
+          "label": "Confirm Request changes",
+          "x": 1172.171875,
+          "y": 950,
+          "width": 172,
+          "height": 32,
+          "top": 950,
+          "right": 1344.171875,
+          "bottom": 982,
+          "left": 1172.171875
+        },
+        {
+          "label": "Cancel",
+          "x": 1351.171875,
+          "y": 950,
+          "width": 64.828125,
+          "height": 32,
+          "top": 950,
+          "right": 1416,
+          "bottom": 982,
+          "left": 1351.171875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ],
+      "confirmDisabled": true,
+      "reason": ""
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "reason-typed",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 753.5,
+        "width": 870,
+        "height": 246.5,
+        "top": 753.5,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 809.5,
+          "width": 63.421875,
+          "height": 32,
+          "top": 809.5,
+          "right": 1403,
+          "bottom": 841.5,
+          "left": 1339.578125
+        },
+        {
+          "label": "Approve",
+          "x": 740.859375,
+          "y": 863.5,
+          "width": 73.109375,
+          "height": 32,
+          "top": 863.5,
+          "right": 813.96875,
+          "bottom": 895.5,
+          "left": 740.859375
+        },
+        {
+          "label": "Request changes",
+          "x": 821.96875,
+          "y": 863.5,
+          "width": 123.5,
+          "height": 32,
+          "top": 863.5,
+          "right": 945.46875,
+          "bottom": 895.5,
+          "left": 821.96875
+        },
+        {
+          "label": "Hold",
+          "x": 953.46875,
+          "y": 863.5,
+          "width": 52.40625,
+          "height": 32,
+          "top": 863.5,
+          "right": 1005.875,
+          "bottom": 895.5,
+          "left": 953.46875
+        },
+        {
+          "label": "Confirm Request changes",
+          "x": 1172.171875,
+          "y": 950,
+          "width": 172,
+          "height": 32,
+          "top": 950,
+          "right": 1344.171875,
+          "bottom": 982,
+          "left": 1172.171875
+        },
+        {
+          "label": "Cancel",
+          "x": 1351.171875,
+          "y": 950,
+          "width": 64.828125,
+          "height": 32,
+          "top": 950,
+          "right": 1416,
+          "bottom": 982,
+          "left": 1351.171875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ],
+      "confirmDisabled": false,
+      "reason": "Please add the missing rollback check."
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "sent",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "relayed",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "recorded",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "recorded-reopened",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "fo-question",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "comms",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "review-assigned",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "review-ask",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 794,
+        "width": 870,
+        "height": 206,
+        "top": 794,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Ask who should review",
+          "x": 1252.0625,
+          "y": 940,
+          "width": 150.9375,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1252.0625
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "review-sent",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "source-failed",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "source-failed-list",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "filter-gates",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "list-sent",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "list-relayed",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "back-list",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "closed",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "fileRequestsOnly": true,
+      "runtimeErrors": 0
+    },
+    {
+      "viewport": "360x780",
+      "state": "list",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "permission",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "controls": [],
+      "rows": []
+    },
+    {
+      "viewport": "360x780",
+      "state": "open",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 606.5,
+        "width": 360,
+        "height": 173.5,
+        "top": 606.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 645,
+          "width": 66.421875,
+          "height": 44,
+          "top": 645,
+          "right": 337,
+          "bottom": 689,
+          "left": 270.578125
+        },
+        {
+          "label": "Approve",
+          "x": 12,
+          "y": 724,
+          "width": 108,
+          "height": 44,
+          "top": 724,
+          "right": 120,
+          "bottom": 768,
+          "left": 12
+        },
+        {
+          "label": "Request changes",
+          "x": 126,
+          "y": 724,
+          "width": 108,
+          "height": 44,
+          "top": 724,
+          "right": 234,
+          "bottom": 768,
+          "left": 126
+        },
+        {
+          "label": "Hold",
+          "x": 240,
+          "y": 724,
+          "width": 108,
+          "height": 44,
+          "top": 724,
+          "right": 348,
+          "bottom": 768,
+          "left": 240
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "reason-empty",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 476.5,
+        "width": 360,
+        "height": 303.5,
+        "top": 476.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 515,
+          "width": 66.421875,
+          "height": 44,
+          "top": 515,
+          "right": 337,
+          "bottom": 559,
+          "left": 270.578125
+        },
+        {
+          "label": "Approve",
+          "x": 12,
+          "y": 594,
+          "width": 108,
+          "height": 44,
+          "top": 594,
+          "right": 120,
+          "bottom": 638,
+          "left": 12
+        },
+        {
+          "label": "Request changes",
+          "x": 126,
+          "y": 594,
+          "width": 108,
+          "height": 44,
+          "top": 594,
+          "right": 234,
+          "bottom": 638,
+          "left": 126
+        },
+        {
+          "label": "Hold",
+          "x": 240,
+          "y": 594,
+          "width": 108,
+          "height": 44,
+          "top": 594,
+          "right": 348,
+          "bottom": 638,
+          "left": 240
+        },
+        {
+          "label": "Confirm Request changes",
+          "x": 12,
+          "y": 724,
+          "width": 268.171875,
+          "height": 44,
+          "top": 724,
+          "right": 280.171875,
+          "bottom": 768,
+          "left": 12
+        },
+        {
+          "label": "Cancel",
+          "x": 287.171875,
+          "y": 724,
+          "width": 60.828125,
+          "height": 44,
+          "top": 724,
+          "right": 348,
+          "bottom": 768,
+          "left": 287.171875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ],
+      "confirmDisabled": true,
+      "reason": ""
+    },
+    {
+      "viewport": "360x780",
+      "state": "reason-typed",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 476.5,
+        "width": 360,
+        "height": 303.5,
+        "top": 476.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 515,
+          "width": 66.421875,
+          "height": 44,
+          "top": 515,
+          "right": 337,
+          "bottom": 559,
+          "left": 270.578125
+        },
+        {
+          "label": "Approve",
+          "x": 12,
+          "y": 594,
+          "width": 108,
+          "height": 44,
+          "top": 594,
+          "right": 120,
+          "bottom": 638,
+          "left": 12
+        },
+        {
+          "label": "Request changes",
+          "x": 126,
+          "y": 594,
+          "width": 108,
+          "height": 44,
+          "top": 594,
+          "right": 234,
+          "bottom": 638,
+          "left": 126
+        },
+        {
+          "label": "Hold",
+          "x": 240,
+          "y": 594,
+          "width": 108,
+          "height": 44,
+          "top": 594,
+          "right": 348,
+          "bottom": 638,
+          "left": 240
+        },
+        {
+          "label": "Confirm Request changes",
+          "x": 12,
+          "y": 724,
+          "width": 268.171875,
+          "height": 44,
+          "top": 724,
+          "right": 280.171875,
+          "bottom": 768,
+          "left": 12
+        },
+        {
+          "label": "Cancel",
+          "x": 287.171875,
+          "y": 724,
+          "width": 60.828125,
+          "height": 44,
+          "top": 724,
+          "right": 348,
+          "bottom": 768,
+          "left": 287.171875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ],
+      "confirmDisabled": false,
+      "reason": "Please add the missing rollback check."
+    },
+    {
+      "viewport": "360x780",
+      "state": "sent",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "relayed",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "recorded",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "recorded-reopened",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "fo-question",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "comms",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "review-assigned",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "review-ask",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 562,
+        "width": 360,
+        "height": 218,
+        "top": 562,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Ask who should review",
+          "x": 176.921875,
+          "y": 715,
+          "width": 160.078125,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 176.921875
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "review-sent",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 663,
+        "width": 360,
+        "height": 117,
+        "top": 663,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "source-failed",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "source-failed-list",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "filter-gates",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "list-sent",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "list-relayed",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "back-list",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": [],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "closed",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1
+        },
+        {
+          "id": "assigned",
+          "statuses": 1
+        },
+        {
+          "id": "review",
+          "statuses": 1
+        },
+        {
+          "id": "gate2",
+          "statuses": 1
+        },
+        {
+          "id": "fo",
+          "statuses": 1
+        },
+        {
+          "id": "comms",
+          "statuses": 1
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "fileRequestsOnly": true,
+      "runtimeErrors": 0
+    }
+  ]
+}
