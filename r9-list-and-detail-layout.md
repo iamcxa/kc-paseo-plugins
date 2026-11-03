@@ -53,6 +53,9 @@ consumer: the Captain, deciding from the Bridge on desktop and phone.
 - POC boundary: session-only presentation memory; no new persistent storage, history, recovery duty or integration; no change to Confirm, required reasons, permissions, or what is sent, relayed or recorded; no in-place permission approval, next-item control, or unread/later/running filters. Any needed host (Paseo) extension returns to the Captain.
 - Flywheel delivery (ADR 0008, 「可以，我授權你在飛輪過程中推送及開 ＰＲ」): seventh stack layer on `spacedock-ensign/r7-one-clear-way-to-decide` at 316c9ef; Draft PR with that base; nothing merges.
 - Non-goals: round 10's detail reading order, action wording, proportions and phone bottom actions; historical briefing retrieval; the real-phone keyboard check (the Captain's device, after round 10).
+Non-goals: round 10's detail reading order, action wording, proportions and phone bottom actions; historical briefing retrieval; the real-phone keyboard check.
+Budget: the ADR 0008 flywheel window — round 9 of at most 10, ending 2026-11-06.
+Stop condition: ADR 0008 Limits and stops (team unsatisfied twice on this round, FO record violations in two consecutive rounds, a POC boundary crossed, or a host capability the plugin SDK lacks).
 
 ## Acceptance criteria
 
@@ -79,6 +82,22 @@ Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-03 — is
 - Added after the backlog gate: round 9's design reference becomes r9-commander-first (home is the comms officer conversation; a pinned Commander card tops the board; By FO lists every FO; one tap back to the commander from any drill-down), on top of r8-list-and-wide-detail.
 - Captain ruling on that scope addition, 2026-11-03, asked 「照這個方向做，還是有哪裡要改？確認後，我就讓第 9 輪的工人照這個方向繼續寫程式，它先前寫的測試大多用得上。」, answered 「就這樣」.
 - Worker question 2026-11-03: the accepted mockups reopen a recorded item through browser history, but the Paseo plugin screen props (@getpaseo/plugin 0.12) expose no back/history subscription or route mutation, so a recorded item that has left the pending list cannot be reopened after returning to the Commander. FO ruling (implementation choice, no scope or acceptance change): do not wait for a host capability; meet the accepted "recorded item reopened" state with session-only in-plugin memory — items recorded this session stay reachable at the end of the board under the existing "done" status, uncounted and never actionable, reopening to result and reason; no host history, storage or history page. Flagged for the design director's comparison and the Captain's trial.
+- Process corrections after the round 9 pre-gate observer (2026-11-04): the seed lacked Budget and Stop condition lines — added from ADR 0008 without changing scope; the commander-first scope addition and the Done section are now `## Captain amendments` entries (the Done section first ruled by FO as an implementation choice, then by the Captain 「留著 (Recommended)」); the FO decline of roborev 1450's second finding moved under `### FO declines`.
+- Process correction: implementation-1-followup-3.md through implementation-1-followup-8.md authorized repairs from roborev text without a separate investigation dispatch; from round 10 each repair is preceded by an investigation dispatch whose record names it.
+
+## Captain amendments
+
+### Amendment 1 — 2026-11-03, chat
+Captain: 「就這樣」 (chat, 2026-11-03)
+Asked: 照這個方向做，還是有哪裡要改？確認後，我就讓第 9 輪的工人照這個方向繼續寫程式，它先前寫的測試大多用得上。 (the r9-commander-first mockups, state task r9-commander-first)
+Supersedes: none
+Design: "The comms officer conversation opens in the shared detail from its question row and from an always-available, uncounted entry; an unassigned review opens it directly with the prefilled ask, keeping drafts." (## Scope)
+
+### Amendment 2 — 2026-11-04, chat
+Captain: 「留著 (Recommended)」 (chat, 2026-11-04)
+Asked: 「已完成區」（這次使用期間記錄過的事留在戰況板最下面，可點開看結果）要留著嗎？只在你選 A 或 B 時需要；你核准的設計稿原本寫「不加歷史清單」。
+Supersedes: none
+Design: "| 已記錄／不再開放 | 原詳情先顯示結果及理由，或只說不再開放；停止提供決定；回清單 | 調整：已完成和已讀分開；不加歷史清單，不承諾原簡報可回讀。[來源](EVIDENCE.md#bridge-對應與限制) |" (r8-list-and-wide-detail/design/LIST-AND-DETAIL.md)
 
 ## Stage Report: implementation
 
@@ -219,7 +238,7 @@ Unified gate naming with one shared gateKey(workflow, slug, stage, briefing/atte
 ### FO declines
 
 - roborev:1441 on a30049f2a2ef57c2b01a6da5592a246951fb4bc3 — decision records and claims match by briefing id only, so two workflows with the same task slug at the same stage would share a claim. Declined as a known risk by the Captain's ruling 2026-11-03, asked 「決定紀錄只用簡報編號辨認（兩個工作流程有同名任務、同階段時會混淆），這輪要怎麼處理？」, answered 「先記成已知風險 (Recommended)」. Pre-existing at 316c9ef (server/decisions.ts). Would become Material: when two watched workflows hold open gates with the same task slug and stage at the same time, or a card shows a decision as sent that the Captain did not make.
-
+- roborev:1450 (second finding) on 224b03f2da6eefc89d7a055ac95be2d858eaa5c5 — an attempt resolved and replaced by someone else before the Captain confirms is marked closed and its recorded result does not enter the session Done section. FO-declined as Deferred risk: the Captain's own confirmed decisions (AC-2's named tests) are kept; this race needs another actor to resolve and replace the attempt during his open card, and the record stays in the workflow. Would become Material: if the Captain reports a gate that vanished from the board after someone else resolved it while he had it open, or a replaced attempt hides a result he needs.
 
 ## Stage Report: implementation (cycle 6)
 
@@ -263,7 +282,6 @@ Fixed retained question identity so a later question from the same officer opens
 - scope-check.json confirms server/shared decision and gate/relay files, shared gate identity, draft store, decision composer, useDraft and status/count logic are unchanged; DecisionCard's read/claim/relay/record logic is byte-identical. RoboRev 1441/1445 High is not repaired per the Captain's known-risk ruling. Discussion drafts keep their existing recipient scope across question details; no new storage, history, protocol or routing behavior is added.
 - Package checks pass: comment-ratio.log 22 added code lines/0 comments, 0.0% against 5%; adr-lint.log seven records; number-guards.log PASS with no migration path; doc-impact.log zero referenced documents. OVERVIEW.md describes question identity/age; no ADR or migration added.
 - SKIPPED: design_surfaces.py known package gap 2; RoboRev daemon access known package gap 5, FO reruns on pushed 224b03f. No new browser/provider/native-device proof was requested or produced; prior fourteen changed-state captures remain bound to fdd9081 and the full visual fixture to 3f4e56c. No live daemon/install, round 10, ready-state, merge or release action occurred.
-- roborev:1450 (second finding) on 224b03f2da6eefc89d7a055ac95be2d858eaa5c5 — an attempt resolved and replaced by someone else before the Captain confirms is marked closed and its recorded result does not enter the session Done section. FO-declined as Deferred risk: the Captain's own confirmed decisions (AC-2's named tests) are kept; this race needs another actor to resolve and replace the attempt during his open card, and the record stays in the workflow. Would become Material: if the Captain reports a gate that vanished from the board after someone else resolved it while he had it open, or a replaced attempt hides a result he needs.
 
 
 ## Stage Report: validation
