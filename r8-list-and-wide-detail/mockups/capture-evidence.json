@@ -1,14 +1,18 @@
 {
-  "htmlSha256": "f18a1ffec33fd5185d375e1ff79a7c5f36ccaa580aeb51d36571b88baca4cf9d",
-  "reviewSha256": "a7720fffbb7b861e553ea2c122a901e04670dd3d0c67586acdd38a132c3626ad",
+  "htmlSha256": "ee398aaa10c28090efa3f6d16610d431839cdc9c5ab0362a9c962d4bf169ee60",
+  "reviewSha256": "8544665ce47019839932be41cd286eeb8208576b4edd2d6b7d85cd3135ca07fc",
   "browser": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "node": "v24.18.0",
-  "screenshotCount": 42,
+  "screenshotCount": 46,
   "reviewScreenshot": "review-entry.png",
   "network": "Local file URLs only; CDP pipe; no localhost, server or daemon; sequential capture; fresh temporary profile per viewport",
   "tests": [
     {
-      "name": "1440: all 21 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "name": "1440: all 23 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "status": "passed"
+    },
+    {
+      "name": "1440: four kind groups and counts; diamond/text for your turn, clock/text for waiting, check/text in terminal detail; no done-history rows",
       "status": "passed"
     },
     {
@@ -28,11 +32,19 @@
       "status": "passed"
     },
     {
-      "name": "1440: failed source displays known lower bounds and Retry; failed conversation cannot masquerade as empty",
+      "name": "1440: failed/loading comms source affects only comms item and conversation; separate FO row and transcript stay healthy; scoped counts and retry",
       "status": "passed"
     },
     {
-      "name": "360: all 21 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "name": "1440: second gate relay and record target Export FO; first gate remains open and is not the receipt owner",
+      "status": "passed"
+    },
+    {
+      "name": "360: all 23 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks",
+      "status": "passed"
+    },
+    {
+      "name": "360: four kind groups and counts; diamond/text for your turn, clock/text for waiting, check/text in terminal detail; no done-history rows",
       "status": "passed"
     },
     {
@@ -52,7 +64,11 @@
       "status": "passed"
     },
     {
-      "name": "360: failed source displays known lower bounds and Retry; failed conversation cannot masquerade as empty",
+      "name": "360: failed/loading comms source affects only comms item and conversation; separate FO row and transcript stay healthy; scoped counts and retry",
+      "status": "passed"
+    },
+    {
+      "name": "360: second gate relay and record target Export FO; first gate remains open and is not the receipt owner",
       "status": "passed"
     },
     {
@@ -60,20 +76,20 @@
       "status": "passed"
     },
     {
-      "name": "Review entry: 21 local image pairs, two-column navigation, mode toggle and arrow key work offline",
+      "name": "Review entry: ${states.length} local image pairs; open gate preselected, two-column navigation, mode toggle and arrow key work offline",
       "status": "passed"
     }
   ],
   "cleanup": [
     {
       "viewport": "1440x1000",
-      "browserPid": 73193,
+      "browserPid": 62413,
       "browserStopped": true,
       "freshProfileRemoved": true
     },
     {
       "viewport": "360x780",
-      "browserPid": 75764,
+      "browserPid": 62953,
       "browserStopped": true,
       "freshProfileRemoved": true
     }
@@ -110,31 +126,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -234,31 +271,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -370,31 +428,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ],
       "confirmDisabled": true,
@@ -508,31 +587,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ],
       "confirmDisabled": false,
@@ -591,31 +691,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · relay"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -672,31 +793,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -753,27 +895,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -830,27 +990,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -907,31 +1085,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -988,31 +1187,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1069,31 +1289,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1150,31 +1391,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1231,31 +1493,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1312,31 +1595,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "error",
+          "icon": "!",
+          "text": "Check · source failed"
         }
       ]
     },
@@ -1371,31 +1675,256 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "error",
+          "icon": "!",
+          "text": "Check · source failed"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "source-failed-fo",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        },
+        {
+          "id": "comms",
+          "statuses": 1,
+          "phase": "error",
+          "icon": "!",
+          "text": "Check · source failed"
+        }
+      ]
+    },
+    {
+      "viewport": "1440x1000",
+      "state": "source-loading",
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "documentHeight": 1000,
+      "queue": {
+        "x": 240,
+        "y": 52,
+        "width": 330,
+        "height": 948,
+        "top": 52,
+        "right": 570,
+        "bottom": 1000,
+        "left": 240
+      },
+      "detail": {
+        "x": 570,
+        "y": 52,
+        "width": 870,
+        "height": 948,
+        "top": 52,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "dock": {
+        "x": 570,
+        "y": 884,
+        "width": 870,
+        "height": 116,
+        "top": 884,
+        "right": 1440,
+        "bottom": 1000,
+        "left": 570
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 1339.578125,
+          "y": 940,
+          "width": 63.421875,
+          "height": 32,
+          "top": 940,
+          "right": 1403,
+          "bottom": 972,
+          "left": 1339.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        },
+        {
+          "id": "comms",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · source loading"
         }
       ]
     },
@@ -1430,11 +1959,17 @@
       "rows": [
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         }
       ]
     },
@@ -1469,31 +2004,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · relay"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1528,31 +2084,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1587,27 +2164,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1664,27 +2259,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1724,31 +2337,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1848,31 +2482,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -1984,31 +2639,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ],
       "confirmDisabled": true,
@@ -2122,31 +2798,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ],
       "confirmDisabled": false,
@@ -2205,31 +2902,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · relay"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2286,31 +3004,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2367,27 +3106,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2444,27 +3201,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2521,31 +3296,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2602,31 +3398,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2683,31 +3500,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2740,10 +3578,10 @@
       },
       "dock": {
         "x": 0,
-        "y": 562,
+        "y": 575.5,
         "width": 360,
-        "height": 218,
-        "top": 562,
+        "height": 204.5,
+        "top": 575.5,
         "right": 360,
         "bottom": 780,
         "left": 0
@@ -2764,31 +3602,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2821,10 +3680,10 @@
       },
       "dock": {
         "x": 0,
-        "y": 663,
+        "y": 676.5,
         "width": 360,
-        "height": 117,
-        "top": 663,
+        "height": 103.5,
+        "top": 676.5,
         "right": 360,
         "bottom": 780,
         "left": 0
@@ -2845,31 +3704,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -2926,31 +3806,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "error",
+          "icon": "!",
+          "text": "Check · source failed"
         }
       ]
     },
@@ -2985,31 +3886,256 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "error",
+          "icon": "!",
+          "text": "Check · source failed"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "source-failed-fo",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        },
+        {
+          "id": "comms",
+          "statuses": 1,
+          "phase": "error",
+          "icon": "!",
+          "text": "Check · source failed"
+        }
+      ]
+    },
+    {
+      "viewport": "360x780",
+      "state": "source-loading",
+      "width": 360,
+      "height": 780,
+      "documentWidth": 360,
+      "documentHeight": 780,
+      "queue": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "detail": {
+        "x": 0,
+        "y": 52,
+        "width": 360,
+        "height": 728,
+        "top": 52,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "dock": {
+        "x": 0,
+        "y": 676.5,
+        "width": 360,
+        "height": 103.5,
+        "top": 676.5,
+        "right": 360,
+        "bottom": 780,
+        "left": 0
+      },
+      "controls": [
+        {
+          "label": "Send ↗",
+          "x": 270.578125,
+          "y": 715,
+          "width": 66.421875,
+          "height": 44,
+          "top": 715,
+          "right": 337,
+          "bottom": 759,
+          "left": 270.578125
+        }
+      ],
+      "rows": [
+        {
+          "id": "permission",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
+        },
+        {
+          "id": "assigned",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
+        },
+        {
+          "id": "review",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
+        },
+        {
+          "id": "gate",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "gate2",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
+        },
+        {
+          "id": "fo",
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
+        },
+        {
+          "id": "comms",
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · source loading"
         }
       ]
     },
@@ -3044,11 +4170,17 @@
       "rows": [
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         }
       ]
     },
@@ -3083,31 +4215,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · relay"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -3142,31 +4295,52 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "waiting",
+          "icon": "◷",
+          "text": "Waiting · record"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -3201,27 +4375,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },
@@ -3278,27 +4470,45 @@
       "rows": [
         {
           "id": "permission",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · permission"
         },
         {
           "id": "assigned",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · review"
         },
         {
           "id": "review",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · find owner"
         },
         {
           "id": "gate2",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · decide"
         },
         {
           "id": "fo",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         },
         {
           "id": "comms",
-          "statuses": 1
+          "statuses": 1,
+          "phase": "your",
+          "icon": "◆",
+          "text": "Your turn · reply"
         }
       ]
     },

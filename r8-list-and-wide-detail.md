@@ -129,3 +129,22 @@ PACKAGE-CHECKS.txt：design_surfaces.py exit 1 缺 Surfaces／Visible change，S
 
 完成清單旁寬詳情的一套靜態稿與雙欄審閱入口，保留確認、理由與訊息分開及送出／轉送／記錄的差別。先前原型的確切選擇與通訊官往返重置問題已由這次離線路徑實測覆蓋；這是交付稿件，設計總監審查與 Captain 對稿件的接受由 FO 接續。
 - Design director pass 1 on the step B mockups (2026-11-03): NOT SATISFIED. Blocks: the list scans worse than the reference — pending approval, awaiting reply and relayed all appear as the same small amber text and kind grouping is gone; status labels must separate "your turn" from "waiting on someone else"; the failed-source state marks another owner's question and conversation as failed although only the comms officer source failed, and index.html routes the second gate's relay/record target to the first owner. Annoys: cut the repeated "Separate from a decision"; shorten the empty detail to "select an item"; preselect the open gate in review.html. Passed: detail 870 px beside a 330 px list; decision controls 32 px like Send, 44 px on phone; exclusions kept; both state paths correct (read in the routing, not clicked — FO denied its request to drive the Captain's Dia browser with Computer Use). Counting: FO counts unsatisfied director passes per deliverable (step A text, step B mockups), as for round 8's first two tasks; a second unsatisfied pass on these mockups stops and asks the Captain. FO authorizes one revision.
+
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: List scanning: restore kind grouping in the list, and give each row one status marker that clearly separates "your turn" (permission, open gate, question, unassigned review) from "waiting on someone else" (sent, relayed, source loading) and "done" (recorded, no longer open), using shape or icon plus text, not colour alone; compare at 1440 and 360 against agent-observatory assets/screenshot-sessions.png and screenshot-mobile.png for how quickly states read; reference only, copy no asset
+  恢復四種事項分組及件數；每列一個 ◆ Your turn／◷ Waiting／! Check 圖形加文字，保留詳情的完成用 ✓ Done，已完成不加回待決列。以 gh api 開參考兩圖，與本稿 1440／360 對照，差異及高度代價見 mockups/EVIDENCE.md「與參考圖的視覺對照」；未複製資產、未宣稱量測速度。移除分組或狀態圖形會使 capture.mjs 的檢查失敗。
+- DONE: Bind errors and progress to their real source, item and owner: a failed comms officer source marks only comms officer items and the comms conversation; another FO's question and conversation stay normal; each gate's relay and record target is its own owner in index.html; cut the repeated "Separate from a decision", shorten the empty detail to "select an item", preselect the open gate in review.html; re-capture changed states one at a time; a short "## Stage Report: implementation (cycle 4)" section
+  commsSource 只影響通訊官列及其對話，新增同一失敗下 FO 正常與 loading 狀態；第二閘門 relay／record 由 owner(id) 顯示 Export FO。兩尺寸實際點擊驗證隔離與第二 owner；改回全域失敗或 Demo FO 會失敗。刪重複字、空詳情縮為 Select an item、review.html 預選 open，46 張狀態圖逐張重擷取。
+
+### Findings
+
+最新 mockups/capture.log／capture-evidence.json：23 個狀態、兩尺寸 46 PNG、審閱入口及 18 組檢查通過；包含前三種確切選擇與理由重開、通訊官往返，以及本輪來源／owner 隔離。FINAL-CHECKS.txt 核對最終 HTML 雜湊、47 圖尺寸、78 個本地連結及兩個瀏覽器 PID 不存在。全新 profile 已清除，沒有 localhost、Paseo daemon 或遠端頁面請求。
+視覺對照只證明分組、圖形及責任文字可分辨；不是閱讀耗時實測。手機仍需捲動；list-sent／list-relayed 捲到 Gates，來源狀態捲到 Questions，讓兩種責任及錯誤隔離同屏，沒有改排序或加入新歷史。
+PACKAGE-CHECKS-CYCLE-4.txt：design_surfaces.py exit 1 缺 Surfaces／Visible change，SKIPPED 已知缺口 2；number_guards.py exit 0、PASS: no findings，R4 路徑 SKIPPED 缺口 3；comment_ratio.py exit 0、0 code／0 comment lines；doc_impact.py exit 0、0 documents。兩者比較未變產品，不當原型驗收；RoboRev 未跑：無產品程式變更且缺口 5。
+只改本任務 mockups 及追加報告；產品仍 316c9eff7bd6ce2f5e15db7382dea1aba1197a26，無程式分支提交、PR、新保存或真實代理操作。原生路由、真機鍵盤及實際送達仍不在證據範圍；本稿未代替設計總監複審。
+
+### Summary
+
+清單恢復種類分組，以圖形及文字區分等你、等別人與已完成，並把來源錯誤及各閘門的進度綁回自己的對象。保留已通過的寬詳情、控制比例及兩條重入路徑；交付更新的本地稿件與證據，由 FO 安排複審。

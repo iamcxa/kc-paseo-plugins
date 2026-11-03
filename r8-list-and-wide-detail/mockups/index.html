@@ -12,31 +12,126 @@
 .detail{min-width:0;min-height:0;display:flex;flex-direction:column}.detail-nav{height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:0 22px}.back{padding:6px 0;font-size:12px;color:var(--muted)}.detail-nav .small{color:var(--muted)}.reading{overflow:auto;min-height:0;flex:1}.briefing{padding:25px 28px 20px;max-width:960px}.briefing .label{color:var(--green);margin-bottom:10px}.owner{margin:12px 0 16px;font-size:12px;color:var(--muted)}.summary{font-size:14px;line-height:1.7;max-width:700px;color:#d4ddd6}.briefing details{margin-top:18px;font-size:13px;color:var(--muted)}summary{cursor:pointer;list-style:none;color:var(--green)}.full{padding:14px 0;max-width:700px}.full p+p{margin-top:8px}.scope{padding:10px 28px;border-block:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted)}.scope button{padding:0;color:var(--muted);font-size:11px;white-space:nowrap}.transcript{padding:22px 28px;font-size:13px;color:#d9e0db;max-width:950px}.speaker{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}.bubble{margin-top:16px;padding:10px 12px;background:#25372a;border-left:2px solid var(--green);overflow-wrap:anywhere}.result-box{margin-top:16px;padding:13px 16px;background:#223228;border-left:2px solid var(--green)}.result-box .result-state{color:var(--green);font-size:13px;margin-bottom:6px}.result-box .result-decision{font-size:17px;font-weight:550}.result-box .result-reason{margin-top:6px;font-size:13px}.result-box .muted{font-size:12px;margin-top:8px}.progress-box{background:#292c23;border-left-color:var(--amber)}.progress-box .result-state{color:var(--amber)}
 .dock{flex:none;border-top:1px solid var(--line);background:var(--bg);padding:14px 24px 18px}.messagebox{border:1px solid #3b4a40;border-radius:10px;padding:9px 12px}.message-head{font-size:10px;color:var(--muted);display:flex;justify-content:space-between}.input-line{display:flex;align-items:flex-end;gap:10px;margin-top:5px}.input-line textarea{border:0;background:transparent;resize:none;flex:1;min-width:0;height:43px;line-height:1.5;font-size:13px;padding:4px 0}.input-line textarea:focus{outline:none}.control{height:32px;min-width:32px;border:1px solid #4a5b4f;border-radius:7px;padding:4px 12px;font-size:12px;white-space:nowrap}.send{background:var(--button);border-color:var(--button);color:#fff;min-width:32px;padding:4px 10px}.choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}.choices .small{margin-right:4px;font-size:11px;color:var(--muted)}.choice[aria-pressed=true]{border-color:var(--green);background:#2b4132;color:#c6eed4}.reasonbox{margin-top:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:end}.reasonbox label{font-size:11px;color:var(--muted);grid-column:1/-1}.reasonbox textarea{background:#1c241e;border:1px solid #4a5b4f;border-radius:7px;resize:none;height:52px;padding:8px 10px;font-size:12px;min-width:0}.confirm-actions{display:flex;gap:7px}.confirm{background:var(--button);border-color:var(--button);color:#fff}.hint{font-size:10px;color:var(--muted);margin-top:8px}.empty{margin:auto;text-align:center;padding:32px}.empty .empty-icon{width:46px;height:46px;border:1px solid #45544a;border-radius:12px;margin:0 auto 18px;display:grid;place-items:center;color:var(--green);font-size:23px}.empty h1{font-size:21px;margin-bottom:8px}.empty p{font-size:13px;color:var(--muted)}.native{display:flex;flex-direction:column;height:100%;min-height:0}.native-content{padding:32px;max-width:850px}.native-content .label{color:var(--green);margin-bottom:14px}.native-content p{margin-top:16px;color:var(--muted)}.native-note{border:1px solid var(--line);padding:18px;border-radius:8px;margin-top:24px}.native-note p{font-size:13px}.toast{padding:8px 14px;background:#22372a;font-size:12px;color:var(--green)}
 .input-line.inquiry{display:block}.input-line.inquiry textarea{width:100%}.input-line.inquiry .send{display:block;margin-left:auto;max-width:none}
-@media(max-width:760px){.frame{grid-template-columns:1fr}.host{display:none}.topbar{height:52px;padding:0 16px}.topbar small{font-size:10px}.workspace{display:flex;flex-direction:column}.workspace .queue{flex:1;border:0}.workspace.has-detail .queue{display:none}.workspace:not(.has-detail) .detail{display:none}.detail{height:100%;flex:1}.queue-head{padding:14px 12px 10px}.queue-title{margin-bottom:8px}.view-switch{margin-bottom:8px}.view-switch button{min-height:44px;padding:8px 0}.filters{gap:6px}.filter{min-height:44px;font-size:11px;padding:6px 10px}.queue-scroll{padding:0 6px 10px}.item{padding:13px 10px;min-height:94px}.item .item-title{font-size:14px}.item-meta{font-size:11px}.status{font-size:11px}.kind{font-size:9px}.source{padding:0 14px 8px;font-size:10px}.source button{min-height:44px}.conversation-link{padding:4px 8px}.conversation-link button{min-height:44px}.detail-nav{height:44px;padding:0 14px}.back{min-height:44px;font-size:12px}.detail-nav .small{font-size:10px}.briefing{padding:17px 16px 16px}.briefing .label{font-size:9px;margin-bottom:8px}h1{font-size:19px}.owner{font-size:11px;margin:9px 0 10px}.summary{font-size:12px;line-height:1.65}.briefing details{font-size:12px;margin-top:12px}.scope{font-size:10px;padding:10px 16px;align-items:center}.scope button{font-size:10px;min-height:24px}.transcript{padding:14px 16px;font-size:12px}.dock{padding:10px 12px 12px}.messagebox{padding:8px 10px}.input-line{gap:8px}.input-line textarea{font-size:12px;height:44px}.control{height:44px;min-width:44px;padding:6px 10px;font-size:12px}.send{padding:6px 10px;font-size:13px;max-width:160px;overflow:hidden;text-overflow:ellipsis}.message-head{font-size:9px}.choices{gap:6px;margin-top:8px}.choices .small{width:100%;font-size:10px;line-height:1.2}.choice{flex:1;padding:6px 5px;font-size:11px}.reasonbox{display:block;margin-top:8px}.reasonbox label{display:block;font-size:10px;margin-bottom:4px}.reasonbox textarea{width:100%;height:48px;font-size:11px}.confirm-actions{margin-top:6px}.confirm{flex:1}.hint{font-size:9px;margin-top:6px}.native-content{padding:22px 16px}.native-content h1{font-size:19px}.native-content p{font-size:13px}.empty h1{font-size:18px}}
+.kind-group{margin:0 0 5px}.kind-group .group-label{margin:0;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:9px 10px 5px;font-size:11px;font-weight:550;letter-spacing:.04em}.kind-group:first-child .group-label{border-top:0;padding-top:5px}.group-label .group-count{font-weight:400;font-size:10px}.status{display:inline-flex;align-items:center;gap:6px;border:1px solid #655634;border-radius:5px;padding:3px 6px;font-size:11px;line-height:1.25;background:#302c20;color:#ecd2a0}.status-icon{display:inline-block;width:13px;text-align:center;font-size:13px;line-height:1}.status[data-state=waiting]{color:#c0d3df;border-color:#4b626f;background:#253139}.status[data-state=done]{color:#a4dfb8;border-color:#416b4d;background:#21382a}.status[data-state=error]{color:#f0bab3;border-color:#82504a;background:#392721}.result-state .status{font-size:13px}.item-top{align-items:center;margin-bottom:3px}.item{padding:8px 10px;margin:1px 0}.group-label .group-count{color:var(--muted)}
+@media(max-width:760px){.frame{grid-template-columns:1fr}.host{display:none}.topbar{height:52px;padding:0 16px}.topbar small{font-size:10px}.workspace{display:flex;flex-direction:column}.workspace .queue{flex:1;border:0}.workspace.has-detail .queue{display:none}.workspace:not(.has-detail) .detail{display:none}.detail{height:100%;flex:1}.queue-head{padding:14px 12px 10px}.queue-title{margin-bottom:8px}.view-switch{margin-bottom:8px}.view-switch button{min-height:44px;padding:8px 0}.filters{gap:6px}.filter{min-height:44px;font-size:11px;padding:6px 10px}.queue-scroll{padding:0 6px 10px}.item{padding:9px 10px;min-height:80px}.item .item-title{font-size:14px}.item-meta{font-size:11px}.status{font-size:11px}.kind{font-size:9px}.source{padding:0 14px 8px;font-size:10px}.source button{min-height:44px}.conversation-link{padding:4px 8px}.conversation-link button{min-height:44px}.detail-nav{height:44px;padding:0 14px}.back{min-height:44px;font-size:12px}.detail-nav .small{font-size:10px}.briefing{padding:17px 16px 16px}.briefing .label{font-size:9px;margin-bottom:8px}h1{font-size:19px}.owner{font-size:11px;margin:9px 0 10px}.summary{font-size:12px;line-height:1.65}.briefing details{font-size:12px;margin-top:12px}.scope{font-size:10px;padding:10px 16px;align-items:center}.scope button{font-size:10px;min-height:24px}.transcript{padding:14px 16px;font-size:12px}.dock{padding:10px 12px 12px}.messagebox{padding:8px 10px}.input-line{gap:8px}.input-line textarea{font-size:12px;height:44px}.control{height:44px;min-width:44px;padding:6px 10px;font-size:12px}.send{padding:6px 10px;font-size:13px;max-width:160px;overflow:hidden;text-overflow:ellipsis}.message-head{font-size:9px}.choices{gap:6px;margin-top:8px}.choices .small{width:100%;font-size:10px;line-height:1.2}.choice{flex:1;padding:6px 5px;font-size:11px}.reasonbox{display:block;margin-top:8px}.reasonbox label{display:block;font-size:10px;margin-bottom:4px}.reasonbox textarea{width:100%;height:48px;font-size:11px}.confirm-actions{margin-top:6px}.confirm{flex:1}.hint{font-size:9px;margin-top:6px}.native-content{padding:22px 16px}.native-content h1{font-size:19px}.native-content p{font-size:13px}.empty h1{font-size:18px}}
 </style>
 <div id="app"></div>
 <script id="scenarios" type="application/json">[
- {"id":"list","title":"清單與件數","note":"全部七件，種類篩選與主要狀態。"},
- {"id":"permission","title":"工具權限 → 原生會話","note":"直接到原生目的地，Bridge 不提供原地批准。"},
- {"id":"open","title":"開放閘門","note":"問題、摘要、對話範圍及獨立的訊息與決定。"},
- {"id":"reason-empty","title":"修改・理由空白","note":"必填理由空白，確認不能送出。"},
- {"id":"reason-typed","title":"修改・理由已填","note":"理由與訊息草稿分開，確認動作說清楚。"},
- {"id":"sent","title":"已送出","note":"待通訊官轉送，原列仍在。"},
- {"id":"relayed","title":"已轉送","note":"待 FO 記錄，原列仍在。"},
- {"id":"recorded","title":"已記錄","note":"先結果與理由，待決清單移除原件。"},
- {"id":"recorded-reopened","title":"已記錄件重開","note":"返回先前詳情，保留同一決定與理由，不加歷史頁。"},
- {"id":"fo-question","title":"FO 問題","note":"問句先行，明示訊息送給誰。"},
- {"id":"comms","title":"通訊官對話","note":"從清單開啟，等待時間與收件人清楚。"},
- {"id":"review-assigned","title":"已分派審查","note":"找負責人和外部審查是不同動作。"},
- {"id":"review-ask","title":"未分派審查・預填詢問","note":"開列直接到通訊官，預填後可送出。"},
- {"id":"review-sent","title":"審查詢問已送出","note":"只問了負責人，沒有代替完成審查。"},
- {"id":"source-failed","title":"來源失敗・對話","note":"只說已知件數，保留重查與可讀的對話錯誤。"},
- {"id":"source-failed-list","title":"來源失敗・清單","note":"手機清單同樣不能把未知寫成零。"},
- {"id":"filter-gates","title":"只看閘門","note":"兩件閘門，篩選數仍來自全部集合。"},
- {"id":"list-sent","title":"已送出後回清單","note":"原列留下，再開仍是同一已送決定。"},
- {"id":"list-relayed","title":"已轉送後回清單","note":"原列留下，再開仍顯示待記錄。"},
- {"id":"back-list","title":"已記錄後回清單","note":"六件待辦，閘門件數減一。"},
- {"id":"closed","title":"閘門不再開放","note":"停止供決定，但不能稱作已記錄。"}
+ {
+  "id": "list",
+  "title": "清單與件數",
+  "note": "全部七件，種類篩選與主要狀態。"
+ },
+ {
+  "id": "permission",
+  "title": "工具權限 → 原生會話",
+  "note": "直接到原生目的地，Bridge 不提供原地批准。"
+ },
+ {
+  "id": "open",
+  "title": "開放閘門",
+  "note": "問題、摘要、對話範圍及獨立的訊息與決定。"
+ },
+ {
+  "id": "reason-empty",
+  "title": "修改・理由空白",
+  "note": "必填理由空白，確認不能送出。"
+ },
+ {
+  "id": "reason-typed",
+  "title": "修改・理由已填",
+  "note": "理由與訊息草稿分開，確認動作說清楚。"
+ },
+ {
+  "id": "sent",
+  "title": "已送出",
+  "note": "待通訊官轉送，原列仍在。"
+ },
+ {
+  "id": "relayed",
+  "title": "已轉送",
+  "note": "待 FO 記錄，原列仍在。"
+ },
+ {
+  "id": "recorded",
+  "title": "已記錄",
+  "note": "先結果與理由，待決清單移除原件。"
+ },
+ {
+  "id": "recorded-reopened",
+  "title": "已記錄件重開",
+  "note": "返回先前詳情，保留同一決定與理由，不加歷史頁。"
+ },
+ {
+  "id": "fo-question",
+  "title": "FO 問題",
+  "note": "問句先行，明示訊息送給誰。"
+ },
+ {
+  "id": "comms",
+  "title": "通訊官對話",
+  "note": "從清單開啟，等待時間與收件人清楚。"
+ },
+ {
+  "id": "review-assigned",
+  "title": "已分派審查",
+  "note": "找負責人和外部審查是不同動作。"
+ },
+ {
+  "id": "review-ask",
+  "title": "未分派審查・預填詢問",
+  "note": "開列直接到通訊官，預填後可送出。"
+ },
+ {
+  "id": "review-sent",
+  "title": "審查詢問已送出",
+  "note": "只問了負責人，沒有代替完成審查。"
+ },
+ {
+  "id": "source-failed",
+  "title": "通訊官來源失敗・對話",
+  "note": "只標記通訊官及其對話，FO 內容保持正常。"
+ },
+ {
+  "id": "source-failed-list",
+  "title": "來源失敗・清單",
+  "note": "只有通訊官問題需查核，其他來源的件數與狀態保持正常。"
+ },
+ {
+  "id": "source-failed-fo",
+  "title": "通訊官失敗・FO 正常",
+  "note": "同一來源失敗下，另一位 FO 的問題與對話仍正常。"
+ },
+ {
+  "id": "source-loading",
+  "title": "通訊官來源載入中",
+  "note": "時鐘圖形加等待文字，不冒充需要回答或讀取成功。"
+ },
+ {
+  "id": "filter-gates",
+  "title": "只看閘門",
+  "note": "兩件閘門，篩選數仍來自全部集合。"
+ },
+ {
+  "id": "list-sent",
+  "title": "已送出後回清單",
+  "note": "原列留下，再開仍是同一已送決定。"
+ },
+ {
+  "id": "list-relayed",
+  "title": "已轉送後回清單",
+  "note": "原列留下，再開仍顯示待記錄。"
+ },
+ {
+  "id": "back-list",
+  "title": "已記錄後回清單",
+  "note": "六件待辦，閘門件數減一。"
+ },
+ {
+  "id": "closed",
+  "title": "閘門不再開放",
+  "note": "停止供決定，但不能稱作已記錄。"
+ }
 ]</script>
 <script>
 const scenarios=JSON.parse(document.getElementById('scenarios').textContent);
@@ -46,9 +141,8 @@ const initial=fixtures.has(requested)?requested:'list';
 const sampleReason='Please add the missing rollback check.';
 const reviewAsk='Who should review example/demo-project#17 (https://example.invalid/example/demo-project/pull/17)?';
 const titles={gate:'Approve the draft checklist?',gate2:'Approve the sample export?',fo:'Which preview should we show first?',comms:'Which review window should we use?',assigned:'Review the checklist export',review:'Who should review the rollback notes?'};
-const model={view:'list',filter:'all',by:'decision',failed:initial.startsWith('source-failed'),toast:'',drafts:{},messages:{},gates:{gate:{stage:'open',choice:null,reason:'',confirmed:null},gate2:{stage:'open',choice:null,reason:'',confirmed:null}}};
+const model={view:'list',filter:'all',by:'decision',commsSource:initial==='source-loading'?'loading':initial.startsWith('source-failed')?'failed':'loaded',toast:'',drafts:{},messages:{},gates:{gate:{stage:'open',choice:null,reason:'',confirmed:null},gate2:{stage:'open',choice:null,reason:'',confirmed:null}}};
 const scrollPositions={};let renderedQueueKey='';let renderedItem='';
-let selectedBeforeNative='list';
 const e=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const owner=id=>id==='comms'||id==='review'?'Comms officer':id==='assigned'?'Review FO':id==='gate2'?'Export FO':'Demo FO';
 function seed(){
@@ -58,7 +152,7 @@ function seed(){
   gate.stage=initial==='back-list'||initial.startsWith('recorded')?'recorded':initial.includes('relayed')?'relayed':'sent';
   gate.choice='Request changes';gate.reason=sampleReason;gate.confirmed={choice:gate.choice,reason:sampleReason};
   model.view=initial.startsWith('list-')||initial==='back-list'?'list':'gate';
- }else model.view=({open:'gate','fo-question':'fo','review-assigned':'assigned','review-ask':'review','review-sent':'review','source-failed':'fo','source-failed-list':'list','filter-gates':'list',closed:'gate'})[initial]||initial;
+ }else model.view=({open:'gate','fo-question':'fo','review-assigned':'assigned','review-ask':'review','review-sent':'review','source-failed':'comms','source-failed-list':'list','source-failed-fo':'fo','source-loading':'comms','filter-gates':'list',closed:'gate'})[initial]||initial;
  if(initial==='closed')gate.stage='closed';
  if(initial==='filter-gates')model.filter='gate';
  if(initial==='review-ask')model.drafts.comms=reviewAsk;
@@ -66,32 +160,34 @@ function seed(){
 }
 seed();
 function draftKey(id){return id==='review'?'comms':id;}
-function statusFor(gate){return ({open:'Decision needed',sent:'Sent · waiting for relay',relayed:'Relayed · waiting for record',recorded:'Recorded',closed:'No longer open'})[gate.stage];}
+function statusFor(gate){return ({open:{phase:'your',status:'Your turn · decide'},sent:{phase:'waiting',status:'Waiting · relay'},relayed:{phase:'waiting',status:'Waiting · record'},recorded:{phase:'done',status:'Done · recorded'},closed:{phase:'done',status:'Done · closed'}})[gate.stage];}
+function marker(text,phase){return `<span class="status" data-state="${phase}"><span class="status-icon" aria-hidden="true">${({your:'◆',waiting:'◷',done:'✓',error:'!'})[phase]}</span><span class="status-text">${e(text)}</span></span>`;}
 function items(){
- const all=[{id:'permission',kind:'permission',title:'Allow access to the sample report folder?',status:'Permission needed',owner:'Demo FO',age:'5m'},
- {id:'assigned',kind:'review',title:titles.assigned,status:'Review needed',owner:'Review FO',age:'25m'},
- {id:'review',kind:'review',title:titles.review,status:'No FO assigned',owner:'example/demo-project #17',age:'35m'}];
- for(const id of ['gate','gate2']){const g=model.gates[id];if(!['recorded','closed'].includes(g.stage))all.push({id,kind:'gate',title:titles[id],status:statusFor(g),owner:owner(id),age:id==='gate'?'2h':'45m',closed:id==='gate'});}
- all.push({id:'fo',kind:'ask',title:titles.fo,status:model.failed?'Needs checking':'Reply needed',owner:'Demo FO',age:'20m'},{id:'comms',kind:'ask',title:titles.comms,status:model.failed?'Needs checking':'Reply needed',owner:'Comms officer',age:'12m'});return all;
+ const all=[{id:'permission',kind:'permission',title:'Allow access to the sample report folder?',phase:'your',status:'Your turn · permission',owner:'Demo FO',age:'5m'},
+ {id:'assigned',kind:'review',title:titles.assigned,phase:'your',status:'Your turn · review',owner:'Review FO',age:'25m'},
+ {id:'review',kind:'review',title:titles.review,phase:'your',status:'Your turn · find owner',owner:'example/demo-project #17',age:'35m'}];
+ for(const id of ['gate','gate2']){const g=model.gates[id];if(!['recorded','closed'].includes(g.stage))all.push({id,kind:'gate',title:titles[id],...statusFor(g),owner:owner(id),age:id==='gate'?'2h':'45m',closed:id==='gate'});}
+ const source=model.commsSource;
+ all.push({id:'fo',kind:'ask',title:titles.fo,phase:'your',status:'Your turn · reply',owner:'Demo FO',age:'20m'},{id:'comms',kind:'ask',title:titles.comms,phase:source==='failed'?'error':source==='loading'?'waiting':'your',status:source==='failed'?'Check · source failed':source==='loading'?'Waiting · source loading':'Your turn · reply',owner:'Comms officer',age:'12m'});return all;
 }
 function shell(content,native=false){return `<div class="frame"><aside class="host" aria-label="Paseo navigation"><div class="nav">＋ &nbsp; New workspace</div><div class="nav">◷ &nbsp; History</div><div class="nav">⌕ &nbsp; Search</div><div class="nav">◷ &nbsp; Schedules</div><div class="nav ${native?'':'active'}">♧ &nbsp; Bridge</div><div class="project"><span class="label">Workspaces</span><p>▣ &nbsp; Sample workspace</p><p class="small muted">● &nbsp; main</p></div><div class="foot small">⊞ &nbsp; ◉ &nbsp; ▤</div></aside><main class="shell"><header class="topbar"><span>${native?'Demo FO':'Bridge'}</span><small>Sample workspace</small></header>${content}</main></div>`;}
 function list(){
  const all=items(),counts={all:all.length,permission:0,review:0,gate:0,ask:0};all.forEach(i=>counts[i.kind]++);
  const shown=all.filter(i=>model.filter==='all'||i.kind===model.filter);
- const row=i=>`<button class="item ${model.view===i.id?'selected':''}" data-open="${i.id}" aria-label="${e(i.title)}" ${model.view===i.id?'aria-current="true"':''}><span class="item-top"><span class="status">${e(i.status)}</span><span class="kind">${({permission:'PERMISSION',review:'REVIEW',gate:'GATE',ask:'QUESTION'})[i.kind]}</span></span><span class="item-title">${e(i.title)}</span><span class="item-meta">${e(i.owner)} · ${i.age}${i.closed?'<span class="closed-note">Tab closed</span>':''}</span>${i.id==='permission'?'<span class="item-meta" style="color:var(--green)">Handle in native session ↗</span>':''}</button>`;
- let rows=shown.map(row).join('');if(model.by==='fo'){rows='';for(const name of [...new Set(shown.map(i=>i.owner))])rows+=`<div class="group-label">${e(name)}</div>`+shown.filter(i=>i.owner===name).map(row).join('');}
- const count=k=>model.failed&&(k==='all'||k==='ask')?'≥'+counts[k]:String(counts[k]);
- return `<aside class="queue" aria-label="Waiting items"><div class="queue-head"><div class="queue-title"><h2>Waiting on you</h2><span class="small muted">${model.failed?'Known ':''}${all.length} items</span></div><div class="view-switch" role="tablist"><button data-by="decision" class="${model.by==='decision'?'active':''}" role="tab" aria-selected="${model.by==='decision'}">By decision</button><button data-by="fo" class="${model.by==='fo'?'active':''}" role="tab" aria-selected="${model.by==='fo'}">By FO</button></div><div class="filters" aria-label="Filter by kind">${[['all','All'],['permission','Permissions'],['review','Reviews'],['gate','Gates'],['ask','Questions']].map(([key,label])=>`<button class="filter" data-filter="${key}" aria-pressed="${model.filter===key}">${label}<b>${count(key)}</b></button>`).join('')}</div></div><div class="source ${model.failed?'failed':''}">${model.failed?'Could not check the comms officer.<br>This list may be incomplete.<button data-retry>Check comms officer again</button>':'Sources checked just now'}</div><div class="queue-scroll">${model.filter!=='all'?`<div class="countline">${shown.length} ${({permission:'permission',review:'review',gate:'gate',ask:'question'})[model.filter]} items shown</div>`:''}${rows}</div><div class="conversation-link"><button data-open="comms">Conversation with Comms officer &nbsp; ↗</button></div></aside>`;
+ const row=i=>`<button class="item ${model.view===i.id?'selected':''}" data-open="${i.id}" aria-label="${e(i.title)}" ${model.view===i.id?'aria-current="true"':''}><span class="item-top">${marker(i.status,i.phase)}<span class="kind">${({permission:'PERMISSION',review:'REVIEW',gate:'GATE',ask:'QUESTION'})[i.kind]}</span></span><span class="item-title">${e(i.title)}</span><span class="item-meta">${e(i.owner)} · ${i.age}${i.closed?'<span class="closed-note">Tab closed</span>':''}</span>${i.id==='permission'?'<span class="item-meta" style="color:var(--green)">Handle in native session ↗</span>':''}</button>`;
+ let rows='';if(model.by==='decision'){for(const [kind,title] of [['permission','Permissions'],['review','Reviews'],['gate','Gates'],['ask','Questions']]){const group=shown.filter(i=>i.kind===kind);if(group.length)rows+=`<section class="kind-group" data-group="${kind}"><h3 class="group-label">${title}<span class="group-count">${group.length}</span></h3>${group.map(row).join('')}</section>`;}}if(model.by==='fo'){rows='';for(const name of [...new Set(shown.map(i=>i.owner))])rows+=`<div class="group-label">${e(name)}</div>`+shown.filter(i=>i.owner===name).map(row).join('');}
+ const count=k=>model.commsSource!=='loaded'&&(k==='all'||k==='ask')?'≥'+counts[k]:String(counts[k]);
+ return `<aside class="queue" aria-label="Waiting items"><div class="queue-head"><div class="queue-title"><h2>Queue</h2><span class="small muted">${model.commsSource!=='loaded'?'Known ':''}${all.length} items</span></div><div class="view-switch" role="tablist"><button data-by="decision" class="${model.by==='decision'?'active':''}" role="tab" aria-selected="${model.by==='decision'}">By decision</button><button data-by="fo" class="${model.by==='fo'?'active':''}" role="tab" aria-selected="${model.by==='fo'}">By FO</button></div><div class="filters" aria-label="Filter by kind">${[['all','All'],['permission','Permissions'],['review','Reviews'],['gate','Gates'],['ask','Questions']].map(([key,label])=>`<button class="filter" data-filter="${key}" aria-pressed="${model.filter===key}">${label}<b>${count(key)}</b></button>`).join('')}</div></div><div class="source ${model.commsSource==='failed'?'failed':''}">${model.commsSource==='failed'?'Could not check the comms officer.<br>This list may be incomplete.<button data-retry>Check comms officer again</button>':model.commsSource==='loading'?'Reading the comms officer…<br>This list may be incomplete.':'Sources checked just now'}</div><div class="queue-scroll">${model.filter!=='all'?`<div class="countline">${shown.length} ${({permission:'permission',review:'review',gate:'gate',ask:'question'})[model.filter]} items shown</div>`:''}${rows}</div><div class="conversation-link"><button data-open="comms">Conversation with Comms officer &nbsp; ↗</button></div></aside>`;
 }
 function nav(id){return `<nav class="detail-nav"><button class="back" data-open="list">← Queue</button><span class="small">${e(owner(id))}</span></nav>`;}
-function conversation(id){const key=draftKey(id),who=owner(id);return `<section class="conversation"><div class="scope"><span>Conversation with ${who} · includes other tasks</span><button data-native="${id}">Open full view ↗</button></div><div class="transcript">${model.failed?'<p class="conversation-error">Could not load this conversation. Open the full view to check it.</p>':`<span class="speaker">${who} · just now</span><p>${id==='comms'||id==='review'?'I can coordinate the review. Which window should we use?':id==='fo'?'The preview is ready. Which part should I show first?':id==='assigned'?'The sample export is ready for a review.':'The draft is ready. Please check the remaining items before the review.'}</p>`}${(model.messages[key]||[]).map(t=>`<p class="bubble">${e(t)}</p>`).join('')}</div></section>`;}
-function gateBriefing(id){const g=model.gates[id],done=g.stage==='recorded',closed=g.stage==='closed',progress=['sent','relayed'].includes(g.stage),c=g.confirmed;return `<section class="briefing"><div class="label">Gate · Validation · Sample workspace</div>${done||closed||progress?`<div class="result-box ${done?'':'progress-box'}" aria-label="Decision result"><div class="result-state">${done?'Recorded by Demo FO':closed?'This gate is no longer open':g.stage==='sent'?'Sent to Comms officer':'Relayed to Demo FO'}</div>${c?`<p class="result-decision">${e(c.choice)}</p><p class="result-reason">${e(c.reason||'No reason supplied.')}</p>`:''}${progress?`<p class="muted">${g.stage==='sent'?'Waiting for the comms officer to relay your decision.':'Waiting for Demo FO to record your decision.'}</p>`:''}${closed?'<p class="muted">No decision is available here.</p>':''}</div><h1 style="margin-top:18px">${titles[id]}</h1>`:`<h1>${titles[id]}</h1>`}<p class="owner">${owner(id)} · ${done?'decision recorded':closed?'gate closed':"waiting "+(id==='gate'?'2h':'45m')}${id==='gate'?'<span class="closed-note">Tab closed</span>':''}</p>${done||closed||progress?'':`<p class="summary">The draft checklist is ready. Review the sample preview and remaining checks before proceeding.</p><details><summary>Read full briefing ›</summary><div class="full"><p>Check the sample preview, the fictional export and the review window.</p><p>The rollback check is still missing. Request a revision if the draft is not ready.</p></div></details>`}</section>`;}
+function conversation(id){const key=draftKey(id),who=owner(id);return `<section class="conversation"><div class="scope"><span>Conversation with ${who} · includes other tasks</span><button data-native="${id}">Open full view ↗</button></div><div class="transcript">${key==='comms'&&model.commsSource==='failed'?'<p class="conversation-error">Could not load the Comms officer conversation. Open the full view to check it.</p>':key==='comms'&&model.commsSource==='loading'?'<p class="conversation-loading">Reading the Comms officer conversation…</p>':`<span class="speaker">${who} · just now</span><p>${id==='comms'||id==='review'?'I can coordinate the review. Which window should we use?':id==='fo'?'The preview is ready. Which part should I show first?':id==='assigned'?'The sample export is ready for a review.':'The draft is ready. Please check the remaining items before the review.'}</p>`}${(model.messages[key]||[]).map(t=>`<p class="bubble">${e(t)}</p>`).join('')}</div></section>`;}
+function gateBriefing(id){const g=model.gates[id],done=g.stage==='recorded',closed=g.stage==='closed',progress=['sent','relayed'].includes(g.stage),c=g.confirmed,who=owner(id);return `<section class="briefing"><div class="label">Gate · Validation · Sample workspace</div>${done||closed||progress?`<div class="result-box ${done?'':'progress-box'}" aria-label="Decision result"><div class="result-state">${marker(done?'Done · recorded by '+who:closed?'Done · no longer open':g.stage==='sent'?'Waiting · relay to '+who:'Waiting · record by '+who,done||closed?'done':'waiting')}</div>${c?`<p class="result-decision">${e(c.choice)}</p><p class="result-reason">${e(c.reason||'No reason supplied.')}</p>`:''}${progress?`<p class="muted">${g.stage==='sent'?'Sent to Comms officer · waiting for relay to '+who+'.':'Relayed to '+who+' · waiting for its record.'}</p>`:''}${closed?'<p class="muted">No decision is available here.</p>':''}</div><h1 style="margin-top:18px">${titles[id]}</h1>`:`<h1>${titles[id]}</h1>`}<p class="owner">${owner(id)} · ${done?'decision recorded':closed?'gate closed':"waiting "+(id==='gate'?'2h':'45m')}${id==='gate'?'<span class="closed-note">Tab closed</span>':''}</p>${done||closed||progress?'':`<p class="summary">The draft checklist is ready. Review the sample preview and remaining checks before proceeding.</p><details><summary>Read full briefing ›</summary><div class="full"><p>Check the sample preview, the fictional export and the review window.</p><p>The rollback check is still missing. Request a revision if the draft is not ready.</p></div></details>`}</section>`;}
 function otherBriefing(id){return `<section class="briefing"><div class="label">${id==='review'?'Review · No FO assigned · 35m':id==='assigned'?'Review · example/demo-project #21 · 25m':id==='comms'?'Comms officer · waiting 12m':'Question · Demo FO · waiting 20m'}</div><h1>${id==='review'?'Find an owner for the rollback review':titles[id]}</h1>${id==='review'?'<p class="owner">example/demo-project #17 · inquiry to Comms officer</p>':`<p class="owner">Reply to ${owner(id)}</p>`}${id==='assigned'?'<button class="back" data-external>Open review on GitHub ↗</button>':''}</section>`;}
-function dock(id){const key=draftKey(id),g=model.gates[id],canDecide=g?.stage==='open',who=owner(id),draft=model.drafts[key]||'',inquiry=id==='review'&&draft===reviewAsk;return `<footer class="dock"><div class="messagebox"><div class="message-head"><span>Message to ${who}${id==='review'?' · review owner inquiry':''}</span><span>Separate from a decision</span></div><div class="input-line ${inquiry?'inquiry':''}"><textarea id="message" aria-label="Message to ${who}" placeholder="Message ${who}" ${inquiry?'style="height:96px"':''}>${e(draft)}</textarea><button id="send" class="control send" aria-label="${inquiry?'Ask who should review':'Send to '+who}" ${!draft.trim()?'disabled':''}>${inquiry?'Ask who should review':'Send ↗'}</button></div></div>${canDecide?`<div class="choices"><span class="small">Decide via Comms officer</span>${['Approve','Request changes','Hold'].map(choice=>`<button class="control choice" data-choice="${choice}" aria-pressed="${g.choice===choice}">${choice}</button>`).join('')}</div>${g.choice?`<div class="reasonbox"><label for="reason">Reason for ${e(g.choice)} · ${g.choice==='Approve'?'optional':'required'}</label><textarea id="reason" aria-label="Decision reason" placeholder="${g.choice==='Approve'?'Optional reason':'Add a reason before confirming'}">${e(g.reason)}</textarea><div class="confirm-actions"><button id="confirm" class="control confirm" ${g.choice!=='Approve'&&!g.reason.trim()?'disabled':''}>Confirm ${g.choice}</button><button id="cancel" class="control">Cancel</button></div></div>`:''}`:''}</footer>`;}
+function dock(id){const key=draftKey(id),g=model.gates[id],canDecide=g?.stage==='open',who=owner(id),draft=model.drafts[key]||'',inquiry=id==='review'&&draft===reviewAsk;return `<footer class="dock"><div class="messagebox"><div class="message-head"><span>Message to ${who}${id==='review'?' · review owner inquiry':''}</span></div><div class="input-line ${inquiry?'inquiry':''}"><textarea id="message" aria-label="Message to ${who}" placeholder="Message ${who}" ${inquiry?'style="height:96px"':''}>${e(draft)}</textarea><button id="send" class="control send" aria-label="${inquiry?'Ask who should review':'Send to '+who}" ${!draft.trim()?'disabled':''}>${inquiry?'Ask who should review':'Send ↗'}</button></div></div>${canDecide?`<div class="choices"><span class="small">Decide via Comms officer</span>${['Approve','Request changes','Hold'].map(choice=>`<button class="control choice" data-choice="${choice}" aria-pressed="${g.choice===choice}">${choice}</button>`).join('')}</div>${g.choice?`<div class="reasonbox"><label for="reason">Reason for ${e(g.choice)} · ${g.choice==='Approve'?'optional':'required'}</label><textarea id="reason" aria-label="Decision reason" placeholder="${g.choice==='Approve'?'Optional reason':'Add a reason before confirming'}">${e(g.reason)}</textarea><div class="confirm-actions"><button id="confirm" class="control confirm" ${g.choice!=='Approve'&&!g.reason.trim()?'disabled':''}>Confirm ${g.choice}</button><button id="cancel" class="control">Cancel</button></div></div>`:''}`:''}</footer>`;}
 function native(){return `<section class="native" aria-label="Native agent session"><nav class="detail-nav"><button class="back" data-open="list">← Bridge</button><span class="small">Native agent session</span></nav><div class="native-content"><div class="label">Permission request · Demo FO</div><h1>Allow access to the sample report folder?</h1><p>Demo FO is waiting for a tool permission.</p><div class="native-note"><h2>Continue in this agent session</h2><p>The provider’s permission request is handled here.</p><p class="small">Native-session destination shown for review.</p></div></div></section>`;}
-function render(){const previousQueue=document.querySelector('.queue-scroll'),previousReading=document.querySelector('.reading');if(previousQueue?.offsetHeight)scrollPositions[renderedQueueKey]=previousQueue.scrollTop;if(previousReading?.offsetHeight)scrollPositions['reading:'+renderedItem]=previousReading.scrollTop;const id=model.view;if(id==='permission'){document.getElementById('app').innerHTML=shell(native(),true);bind();return;}const open=id!=='list';let content=open?nav(id)+`<div class="reading">${model.gates[id]?gateBriefing(id):otherBriefing(id)}${conversation(id)}</div>`+dock(id):`<div class="empty"><div class="empty-icon">▤</div><h1>Choose something to handle</h1><p>The question, context and next action appear here.</p></div>`;document.getElementById('app').innerHTML=shell(`<div class="workspace ${open?'has-detail':''}">${list()}<section class="detail" aria-label="Selected item">${model.toast?`<div class="toast" role="status">${e(model.toast)}</div>`:''}${content}</section></div>`);renderedQueueKey='queue:'+model.by+':'+model.filter;renderedItem=id;document.querySelector('.queue-scroll').scrollTop=scrollPositions[renderedQueueKey]||0;const reading=document.querySelector('.reading');if(reading)reading.scrollTop=scrollPositions['reading:'+id]||0;bind();}
+function render(){const previousQueue=document.querySelector('.queue-scroll'),previousReading=document.querySelector('.reading');if(previousQueue?.offsetHeight)scrollPositions[renderedQueueKey]=previousQueue.scrollTop;if(previousReading?.offsetHeight)scrollPositions['reading:'+renderedItem]=previousReading.scrollTop;const id=model.view;if(id==='permission'){document.getElementById('app').innerHTML=shell(native(),true);bind();return;}const open=id!=='list';let content=open?nav(id)+`<div class="reading">${model.gates[id]?gateBriefing(id):otherBriefing(id)}${conversation(id)}</div>`+dock(id):`<div class="empty"><h1>Select an item</h1></div>`;document.getElementById('app').innerHTML=shell(`<div class="workspace ${open?'has-detail':''}">${list()}<section class="detail" aria-label="Selected item">${model.toast?`<div class="toast" role="status">${e(model.toast)}</div>`:''}${content}</section></div>`);renderedQueueKey='queue:'+model.by+':'+model.filter;renderedItem=id;document.querySelector('.queue-scroll').scrollTop=scrollPositions[renderedQueueKey]||0;const reading=document.querySelector('.reading');if(reading)reading.scrollTop=scrollPositions['reading:'+id]||0;bind();}
 function navigate(view){model.toast='';if(view==='review'&&!model.drafts.comms)model.drafts.comms=reviewAsk;model.view=view;history.pushState({view},'',location.pathname+location.search+'#'+view);render();}
-function bind(){document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>navigate(b.dataset.open));document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{model.filter=b.dataset.filter;render();});document.querySelectorAll('[data-by]').forEach(b=>b.onclick=()=>{model.by=b.dataset.by;render();});document.querySelector('[data-retry]')?.addEventListener('click',()=>{model.failed=false;model.toast='Source checked · sample data';render();});document.querySelectorAll('[data-native]').forEach(b=>b.onclick=()=>{selectedBeforeNative=model.view;model.toast='Full agent view would open here · offline preview';render();});document.querySelector('[data-external]')?.addEventListener('click',()=>{model.toast='GitHub review destination · offline preview';render();});
+function bind(){document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>navigate(b.dataset.open));document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{model.filter=b.dataset.filter;render();});document.querySelectorAll('[data-by]').forEach(b=>b.onclick=()=>{model.by=b.dataset.by;render();});document.querySelector('[data-retry]')?.addEventListener('click',()=>{model.commsSource='loaded';model.toast='Source checked · sample data';render();});document.querySelectorAll('[data-native]').forEach(b=>b.onclick=()=>{model.toast='Full agent view would open here · offline preview';render();});document.querySelector('[data-external]')?.addEventListener('click',()=>{model.toast='GitHub review destination · offline preview';render();});
  const id=model.view,key=draftKey(id),g=model.gates[id];document.getElementById('message')?.addEventListener('input',event=>{model.drafts[key]=event.target.value;document.getElementById('send').disabled=!event.target.value.trim();});document.getElementById('send')?.addEventListener('click',()=>{const text=(model.drafts[key]||'').trim();if(!text)return;(model.messages[key]??=[]).push(text);model.drafts[key]='';model.toast=id==='review'?'Inquiry sent to Comms officer':'Message sent to '+owner(id);render();});document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{g.choice=b.dataset.choice;render();});document.getElementById('reason')?.addEventListener('input',event=>{g.reason=event.target.value;document.getElementById('confirm').disabled=g.choice!=='Approve'&&!g.reason.trim();});document.getElementById('cancel')?.addEventListener('click',()=>{g.choice=null;render();});document.getElementById('confirm')?.addEventListener('click',()=>{if(!g||!g.choice||g.choice!=='Approve'&&!g.reason.trim())return;g.confirmed={choice:g.choice,reason:g.reason};g.stage='sent';render();});}
 history.replaceState({view:model.view},'',location.pathname+location.search+'#'+model.view);
 addEventListener('popstate',event=>{model.view=event.state?.view||'list';model.toast='';render();});

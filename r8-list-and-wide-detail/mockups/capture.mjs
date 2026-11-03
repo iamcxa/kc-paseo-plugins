@@ -80,11 +80,13 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     };
     for (const state of states) {
       await go(state.id);
-      const geometry = await evaluate(`(() => {const rect=s=>document.querySelector(s)?.getBoundingClientRect().toJSON();return {width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth,documentHeight:document.documentElement.scrollHeight,queue:rect('.queue'),detail:rect('.detail'),dock:rect('.dock'),controls:[...document.querySelectorAll('.control')].filter(x=>x.getClientRects().length).map(x=>({label:x.textContent.trim(),...x.getBoundingClientRect().toJSON()})),rows:[...document.querySelectorAll('.item')].map(x=>({id:x.dataset.open,statuses:x.querySelectorAll('.status').length})),confirmDisabled:document.querySelector('#confirm')?.disabled,reason:document.querySelector('#reason')?.value}})()`);
+      if(width===360&&['list-sent','list-relayed'].includes(state.id)) await evaluate(`document.querySelector('.item[data-open=gate]').scrollIntoView({block:'center'})`);
+      if(state.id.startsWith('source-')) await evaluate(`(() => {const list=document.querySelector('.queue');if(list?.offsetHeight)document.querySelector('.item[data-open=comms]')?.scrollIntoView({block:'center'});})()`);
+      const geometry = await evaluate(`(() => {const rect=s=>document.querySelector(s)?.getBoundingClientRect().toJSON();return {width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth,documentHeight:document.documentElement.scrollHeight,queue:rect('.queue'),detail:rect('.detail'),dock:rect('.dock'),controls:[...document.querySelectorAll('.control')].filter(x=>x.getClientRects().length).map(x=>({label:x.textContent.trim(),...x.getBoundingClientRect().toJSON()})),rows:[...document.querySelectorAll('.item')].map(x=>({id:x.dataset.open,statuses:x.querySelectorAll('.status').length,phase:x.querySelector('.status')?.dataset.state,icon:x.querySelector('.status-icon')?.textContent,text:x.querySelector('.status-text')?.textContent})),confirmDisabled:document.querySelector('#confirm')?.disabled,reason:document.querySelector('#reason')?.value}})()`);
       assert.equal(geometry.width, width); assert.equal(geometry.height, height);
       assert.equal(geometry.documentWidth, width, state.id + ': horizontal overflow');
       assert.equal(geometry.documentHeight, height, state.id + ': document overflow');
-      geometry.rows.forEach(row => assert.equal(row.statuses, 1, 'One main status per item'));
+      geometry.rows.forEach(row => {assert.equal(row.statuses, 1, 'One main status per item');assert.equal(row.icon,({your:'◆',waiting:'◷',done:'✓',error:'!'})[row.phase]);assert(row.text.length>3);});
       if (width === 1440 && geometry.queue) assert(geometry.detail.width > 2 * geometry.queue.width, 'Detail must be materially wider than list');
       if (geometry.dock) assert(Math.abs(geometry.dock.bottom - height) <= 1, state.id + ': actions stay at viewport bottom');
       geometry.controls.forEach(control => {
@@ -101,8 +103,16 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
       await writeFile(join(root, `${width}-${state.id}.png`), Buffer.from(data, 'base64'));
       results.push({ viewport: `${width}x${height}`, state: state.id, ...geometry });
     }
-    pass(`${width}: all 21 fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks`);
+    pass(`${width}: all ${states.length} fixtures render; geometry, one status, platform controls, bottom dock, source and native destination checks`);
 
+    await go('list');
+    assert.deepEqual(await evaluate(`[...document.querySelectorAll('.kind-group')].map(x=>x.dataset.group)`),['permission','review','gate','ask']);
+    assert.deepEqual(await evaluate(`[...document.querySelectorAll('.kind-group .group-count')].map(x=>x.textContent)`),['1','2','2','2']);
+    assert(await evaluate(`[...document.querySelectorAll('.item .status')].every(x=>x.dataset.state==='your' && x.querySelector('.status-icon').textContent==='◆' && x.textContent.includes('Your turn'))`));
+    for(const stage of ['list-sent','list-relayed']){await go(stage);assert.equal(await evaluate(`document.querySelector('.item[data-open=gate] .status').dataset.state`),'waiting');assert.equal(await evaluate(`document.querySelector('.item[data-open=gate] .status-icon').textContent`),'◷');assert.equal(await evaluate(`document.querySelector('.item[data-open=gate2] .status').dataset.state`),'your');}
+    await go('recorded');assert.equal(await evaluate(`document.querySelector('.result-state .status').dataset.state`),'done');assert.equal(await evaluate(`document.querySelector('.result-state .status-icon').textContent`),'✓');
+    await go('closed');assert.equal(await evaluate(`document.querySelector('.result-state .status').dataset.state`),'done');
+    pass(`${width}: four kind groups and counts; diamond/text for your turn, clock/text for waiting, check/text in terminal detail; no done-history rows`);
     await go('list');
     assert.deepEqual(await evaluate(`[...document.querySelectorAll('.filter b')].map(x=>x.textContent)`), ['7','1','2','2','2']);
     await click('[data-filter="gate"]');
@@ -176,10 +186,30 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     await go('source-failed-list');
     assert.deepEqual(await evaluate(`[...document.querySelectorAll('.filter b')].map(x=>x.textContent)`), ['≥7','1','2','2','≥2']);
     await click('[data-retry]');
-    assert.equal((await snap()).failed, false);
+    assert.equal((await snap()).commsSource, 'loaded');
     await go('source-failed'); assert(await evaluate('!!document.querySelector(".conversation-error")'));
+    assert.equal((await snap()).view,'comms');
+    assert.equal(await evaluate(`document.querySelector('.item[data-open=comms] .status').dataset.state`),'error');
+    assert.equal(await evaluate(`document.querySelector('.item[data-open=fo] .status').dataset.state`),'your');
     assert(!await evaluate('document.body.textContent.includes("No messages yet")'));
-    pass(`${width}: failed source displays known lower bounds and Retry; failed conversation cannot masquerade as empty`);
+    await openFrom('fo');assert.equal(await evaluate('document.querySelectorAll(".conversation-error,.conversation-loading").length'),0);
+    assert(await evaluate(`document.querySelector('.transcript').textContent.includes('The preview is ready')`));
+    await go('source-loading');assert(await evaluate('!!document.querySelector(".conversation-loading")'));
+    assert.equal(await evaluate(`document.querySelector('.item[data-open=comms] .status').dataset.state`),'waiting');
+    assert.equal(await evaluate(`document.querySelector('.item[data-open=fo] .status').dataset.state`),'your');
+    await openFrom('fo');assert.equal(await evaluate('document.querySelectorAll(".conversation-error,.conversation-loading").length'),0);
+    pass(`${width}: failed/loading comms source affects only comms item and conversation; separate FO row and transcript stay healthy; scoped counts and retry`);
+
+    await go('list');await click('[data-open="gate2"]');await click('[data-choice="Hold"]');await fill('#reason','Reason bound to the export owner.');await click('#confirm');
+    assert(await evaluate(`document.querySelector('.result-box').textContent.includes('relay to Export FO')`));
+    await evaluate('mock.receive("relayed","gate2")');
+    assert(await evaluate(`document.querySelector('.result-box').textContent.includes('Relayed to Export FO')`));
+    assert(!await evaluate(`document.querySelector('.result-box').textContent.includes('Demo FO')`));
+    await evaluate('mock.receive("recorded","gate2")');
+    assert(await evaluate(`document.querySelector('.result-state').textContent.includes('recorded by Export FO')`));
+    assert(!await evaluate(`document.querySelector('.result-box').textContent.includes('Demo FO')`));
+    assert.equal((await snap()).gates.gate.stage,'open');
+    pass(`${width}: second gate relay and record target Export FO; first gate remains open and is not the receipt owner`);
 
     if (width === 360) {
       await go('list'); await evaluate('document.querySelector(".queue-scroll").scrollTop=120');
@@ -194,17 +224,19 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     if (width === 360) {
       await resize(1440, 1000);
       await cdp('Page.navigate', { url: pathToFileURL(join(root, 'review.html')).href });
-      await waitFor('document.readyState === "complete" && document.querySelectorAll(".state").length === 21 && [...document.images].every(x=>x.complete && x.naturalWidth>0)');
+      await waitFor('document.readyState === "complete" && document.querySelectorAll(".state").length === 23 && [...document.images].every(x=>x.complete && x.naturalWidth>0)');
       assert.equal(await evaluate('document.querySelector("header h1").textContent'), '照這個方向往下做，還是有哪裡要改？');
+      const openIndex=states.findIndex(x=>x.id==='open');
+      assert.equal(await evaluate('document.getElementById("title").textContent'),states[openIndex].title);
       await click('[data-mode="phone"]'); assert(await evaluate('document.querySelector(".screens").classList.contains("phone")'));
       await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'ArrowRight', code: 'ArrowRight', windowsVirtualKeyCode: 39 });
       await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'ArrowRight', code: 'ArrowRight', windowsVirtualKeyCode: 39 });
-      assert.equal(await evaluate('document.getElementById("title").textContent'), states[1].title);
-      await click('.state[data-index="0"]'); await click('[data-mode="both"]');
+      assert.equal(await evaluate('document.getElementById("title").textContent'), states[states.findIndex(x=>x.id==='open')+1].title);
+      await click(`.state[data-index="${openIndex}"]`); await click('[data-mode="both"]');
       await waitFor('[...document.images].every(x=>x.complete && x.naturalWidth>0)');
       const shot = await cdp('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
       await writeFile(join(root, 'review-entry.png'), Buffer.from(shot.data, 'base64'));
-      pass('Review entry: 21 local image pairs, two-column navigation, mode toggle and arrow key work offline');
+      pass('Review entry: ${states.length} local image pairs; open gate preselected, two-column navigation, mode toggle and arrow key work offline');
     }
     assert.deepEqual(runtimeErrors, [], 'No runtime exceptions');
     assert(requests.every(url => url.startsWith('file:') || url.startsWith('data:')), 'Only local file requests');

@@ -2,7 +2,7 @@
 
 照這個方向往下做，還是有哪裡要改？
 
-入口：[review.html](review.html)。同一方向，左列狀態、右看桌面／手機，可切換尺寸或用左右鍵。所有資料虛構；可點擊示意只保留本次頁面記憶體，重新載入會重置。
+入口：[review.html](review.html)，預選開放閘門。左列狀態、右看桌面／手機，可切換尺寸或用左右鍵。所有資料虛構；可點擊示意只保留本次頁面記憶體，重新載入會重置。
 
 ## 清單與件數
 
@@ -88,17 +88,29 @@
 
 [HTML](index.html?state=review-sent) · [桌面](1440-review-sent.png) · [手機](360-review-sent.png)
 
-## 來源失敗・對話
+## 通訊官來源失敗・對話
 
-只說已知件數，保留重查與可讀的對話錯誤。
+只標記通訊官及其對話，FO 內容保持正常。
 
 [HTML](index.html?state=source-failed) · [桌面](1440-source-failed.png) · [手機](360-source-failed.png)
 
 ## 來源失敗・清單
 
-手機清單同樣不能把未知寫成零。
+只有通訊官問題需查核，其他來源的件數與狀態保持正常。
 
 [HTML](index.html?state=source-failed-list) · [桌面](1440-source-failed-list.png) · [手機](360-source-failed-list.png)
+
+## 通訊官失敗・FO 正常
+
+同一來源失敗下，另一位 FO 的問題與對話仍正常。
+
+[HTML](index.html?state=source-failed-fo) · [桌面](1440-source-failed-fo.png) · [手機](360-source-failed-fo.png)
+
+## 通訊官來源載入中
+
+時鐘圖形加等待文字，不冒充需要回答或讀取成功。
+
+[HTML](index.html?state=source-loading) · [桌面](1440-source-loading.png) · [手機](360-source-loading.png)
 
 ## 只看閘門
 
