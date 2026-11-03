@@ -108,3 +108,7 @@ Implemented the commander-first session navigation and shared detail at 3f4e56ca
 - SKIPPED: design_surfaces.py reports absent Surfaces/Visible change fields in the FO-owned task (known package gap 2); report retained as design-surfaces.log. SKIPPED: RoboRev daemon access (known package gap 5); FO runs the dispatched gate on pushed 3f4e56c with base 316c9ef.
 - Capability boundary: existing useDraft/shared drafts and decision/relay/recording contracts remain unchanged. Retained mounted cards replace the old global sent presentation cache; no storage, history route, permissions, native approval or new host imports were added. The mockup host-history dependency returned to FO and follow-up 2 supplied the session Done route.
 - Cleanup/limits: safety.json verifies matching candidate hashes, clean candidate/main/live worktrees, removed isolated homes and closed ports; captured PIDs were stopped and fresh browsers closed. Real provider delivery, physical phone keyboard/native accessibility and independent design acceptance are unverified. No live daemon/install, ready-state, merge or release action occurred.
+
+### FO findings before the gate
+
+- Roborev (FO-run, package gap 5) on 3f4e56c (roborev:1430): High — completion is keyed by workflow and task slug only, so recording one stage's gate hides the same task's next-stage gate from the queue and counts; Medium — a failed first briefing read never retries when the retained card is reopened and polling never starts, so decisions stay unavailable until reload. FO authorizes cycle 2.
