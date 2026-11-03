@@ -87,3 +87,23 @@ comment_ratio.py exit 0：0 code／0 comment lines；doc_impact.py exit 0：0 do
 ### FO findings before the gate
 
 - Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-11-03) on LIST-AND-DETAIL.md: NOT SATISFIED. Blocks: the reference's strengths are not carried into the proposal — quick filters by the existing item kinds and counts are skipped on "no new data", which does not rule them out; the phone bottom-fixed actions and one main status per item need an explicit adopt or skip with a reason; the tool-permission request (the current list's top-priority item, which opens the native agent session) is missing from the mapping — add its prompt, destination and main action, and state that the reference's in-place approval is not adopted. Passed: five reference states spot-checked against its README and screenshots; counts (approve 3, change 5, briefing then approve 4, unassigned-review ask 2); comms opened from the list; no semantic or data change. Annoys: cut the "awaiting director, no mockups or code" line, move term definitions to EVIDENCE.md, say "reason and message drafts". The director also noted its own step 1 review missed the master-detail model. FO authorizes one revision.
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Carry the reference's strengths into the proposal or reject each with a reason: quick filters built from the existing item kinds and their counts (no new data needed), one main status per list item by priority, the state-dependent primary action wording in the detail, result- or question-first detail, and phone bottom-fixed actions; add rows to the main page saying adopt or adapt for each, with counts where they change any of the ten tasks
+  主頁新增五項採用／調整及操作影響；EVIDENCE.md 補既有種類計數、每件主狀態優先、逐態動作文字、閱讀順序與手機底部固定規則。預設全部保留 3／5／4／2；可選篩選加 1，跨被隱藏事項先還原再選。
+- DONE: Add the tool-permission request to the mapping: how its row is introduced, that it opens the native agent session (the current destination), its main action wording, and an explicit line that the reference's in-place approval is not adopted
+  主頁與 EVIDENCE.md 明列工具權限的既有提示、FO、等待時間，以及「到原生會話處理權限」直達既有 navigation.openAgent；不採用原地批准。開原生入口 1、先篩選再開 2；原生授權完成數未驗證。
+- DONE: Trim LIST-AND-DETAIL.md: cut the "awaiting director, no mockups or code" line, move term definitions to EVIDENCE.md, write "reason and message drafts"; a short "## Stage Report: implementation (cycle 2)" section
+  主頁刪等待審查／無稿無程式句，定義移至 EVIDENCE.md，改為「理由與訊息草稿」；約 1,519 中文字、57 行，詳細規則留在證據頁。此節只追加，不改前次報告或 FO 回饋。
+
+### Findings
+
+design/CHECKS-CYCLE-2.txt：65 個明列數值路徑按動作重算、主頁十項四欄與證據表、25 個本地文件及標題連結均通過；數字是文字模型預測，非介面或真機證明。移除 Confirm、加入中間處理頁、把隱藏事項換件少算還原一步，都會推翻相應數字。
+design_surfaces.py exit 1 仍缺 Surfaces／Visible change：SKIPPED 已知套件缺口 2。number_guards.py exit 0，PASS: no findings；R4 路徑 SKIPPED 已知缺口 3。comment_ratio.py exit 0，0 code／0 comment lines；doc_impact.py exit 0，0 documents，未列其他待更新文件。RoboRev 未跑：無程式變更且已知缺口 5。
+產品 base/candidate 仍 316c9eff7bd6ce2f5e15db7382dea1aba1197a26；只改本任務 design 與追加報告，沒有新 ADR、資料保存、原地權限批准、真實代理操作或 PR。手機鍵盤、底部可達性與重入保留草稿仍須後續稿件／實作驗收；設計總監複審由 FO 安排。
+
+### Summary
+
+把參考的篩選件數、單一主狀態、動作措辭、問句／結果優先及手機底部固定操作帶入提案；工具權限沿用原生會話，不在 Bridge 批准。原十項基本數字不變，可選篩選與隱藏事項的還原成本另列；保留既有確認、理由、傳訊及轉送記錄語意。
