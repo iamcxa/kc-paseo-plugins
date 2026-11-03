@@ -93,6 +93,35 @@ def main(argv):
         if "fix authorization" in body and re.search(r"\bread-only\b", body.split("## Scope notes")[0]) and not corrected:
             failures.append(f"{record.name}: one dispatch asks for a read-only diagnosis and authorizes the fix; dispatch them separately")
 
+    for field in ("Non-goals:", "Budget:", "Stop condition:"):
+        if not re.search(rf"^{field}[ \t]*\S", text, re.M):
+            failures.append(f"seed has no non-empty `{field}` line")
+
+    if any("after the backlog gate" in item and item.startswith("- Added")
+           for sec in sections(text, "### FO notes") for item in bullets(sec)) and "\n## Captain amendments\n" not in text:
+        failures.append("scope added after the backlog gate but no `## Captain amendments` entry")
+
+    declines = [l for l in text.splitlines() if "FO-declined" in l]
+    inside = [" ".join(sec) for sec in sections(text, "### FO declines")]
+    for l in declines:
+        if not any(l.strip() in block for block in inside):
+            failures.append(f"FO decline outside `### FO declines`: {l.strip()[:80]}")
+
+    if dispatch.is_dir():
+        records = sorted(dispatch.glob("*-followup-*.md"), key=lambda r: int(re.search(r"followup-(\d+)", r.name).group(1)))
+        seen_investigation = False
+        for record in records:
+            first = record.read_text().splitlines()[0] if record.read_text() else ""
+            if "investigation" in first.lower():
+                seen_investigation = True
+                continue
+            if "fix authorization" in first.lower() and not seen_investigation:
+                corrected = any(record.name in item and item.startswith("- Process correction")
+                                for sec in sections(text, "### FO notes") for item in bullets(sec))
+                if not corrected:
+                    failures.append(f"{record.name}: fix authorization with no preceding investigation dispatch")
+            seen_investigation = False
+
     for f in failures:
         print("FAIL", f)
     print("PASS pre-gate record check" if not failures else f"{len(failures)} failure(s)")
