@@ -236,6 +236,9 @@ Unified gate naming with one shared gateKey(workflow, slug, stage, briefing/atte
 
 - Pre-gate team pass 2 on 224b03f: design director, picky A and picky B all SATISFIED (neutral board headline; FOs with nothing waiting show only their conversation; successive questions keep their titles; commander-first layout, Done section and host differences accepted).
 
+- Validation-1 PASSED AC-1..3 at 224b03f. FO reran evidence/validation-1/acceptance.py in a fresh shell: all five steps PASS on the first run (254 tests).
+- Engineering-reviewer (2026-11-04) on the amendments: both withdraw only the named design text, no acceptance criterion; the build is consistent (Board.open defaults to the commander; Board.recordedItems with DecisionCard.recorded keep results without decision controls; filterCounts excludes completed items); validation-1 still covers AC-1..3; proceed.
+
 ### FO declines
 
 - roborev:1441 on a30049f2a2ef57c2b01a6da5592a246951fb4bc3 — decision records and claims match by briefing id only, so two workflows with the same task slug at the same stage would share a claim. Declined as a known risk by the Captain's ruling 2026-11-03, asked 「決定紀錄只用簡報編號辨認（兩個工作流程有同名任務、同階段時會混淆），這輪要怎麼處理？」, answered 「先記成已知風險 (Recommended)」. Pre-existing at 316c9ef (server/decisions.ts). Would become Material: when two watched workflows hold open gates with the same task slug and stage at the same time, or a card shows a decision as sent that the Captain did not make.
