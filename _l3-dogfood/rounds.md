@@ -164,3 +164,4 @@ Per-round section format:
 
 ## Round 9 — 2026-11-03 — r9-list-and-detail-layout (stack layer 7 on #57)
 - Chief-engineer (codex/gpt-6-astra:xhigh): build the accepted design in two rounds — round 9 layout and navigation with state continuity, round 10 detail order, action wording, proportions and phone bottom actions; risk: the real-phone keyboard may need host support beyond the plugin contract. Limit note: ADR 0008 allows 10 rounds or until 2026-11-06; rounds 9 and 10 use the last two.
+- Captain 2026-11-03 on where the comms officer lives: 「我覺得要搬到最顯眼的地方，不然沒辦法區別，而且操作重點應該是盡可能讓 comm officier 可以成為指揮官。目前的 UI 好的地方在於切換時更明確，但是我認為，大方向跟指揮官談，細節必要時可以去跟不同 FO 聊，或是去 checking 進度。但是現在這樣 UX 感覺不太像是這樣。但仍然我覺得這個方向會比現在更好」. FO held the round 9 worker.
