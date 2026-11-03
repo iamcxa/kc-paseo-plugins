@@ -149,3 +149,4 @@ PACKAGE-CHECKS-CYCLE-4.txt：design_surfaces.py exit 1 缺 Surfaces／Visible ch
 
 清單恢復種類分組，以圖形及文字區分等你、等別人與已完成，並把來源錯誤及各閘門的進度綁回自己的對象。保留已通過的寬詳情、控制比例及兩條重入路徑；交付更新的本地稿件與證據，由 FO 安排複審。
 - Design director pass 2 on the step B mockups (2026-11-03): SATISFIED — grouping and icon-plus-text status separate whose move it is; failed source and relay/record targets bound to their real source and owner; review.html opens on the open gate with one direction question. Read routing and PNGs only; the real-phone keyboard stays unverified.
+- Captain report 2026-11-03: 「審閱頁看不到圖片」. FO diagnosis (read-only): review.html carries a Content-Security-Policy with img-src 'self' data:; opened as a file:// page in a Chromium browser, 'self' does not match local files, so every PNG is blocked; all 23 states' PNGs exist. The earlier round 8 review.html carries the same policy. FO asks the designer for the fix.
