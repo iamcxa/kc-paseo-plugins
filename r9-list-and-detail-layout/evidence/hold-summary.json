@@ -1,0 +1,58 @@
+{
+  "files": [
+    {
+      "title": "spacedock-bridge/client/board.tsx"
+    },
+    {
+      "title": "spacedock-bridge/client/bridge.tsx"
+    },
+    {
+      "title": "spacedock-bridge/client/co-chat.tsx"
+    },
+    {
+      "title": "spacedock-bridge/client/decision-card.tsx"
+    },
+    {
+      "title": "spacedock-bridge/shared/list-status.ts"
+    },
+    {
+      "title": "spacedock-bridge/test/bridge-continuity.test.mts"
+    },
+    {
+      "title": "spacedock-bridge/test/helpers/bridge-host.mts"
+    },
+    {
+      "title": "spacedock-bridge/test/list-status.test.mts"
+    }
+  ],
+  "tests": [
+    {
+      "name": "reopen keeps the confirmed choice and reason",
+      "status": "failed"
+    },
+    {
+      "name": "sent and relayed progress survives a comms detour",
+      "status": "failed"
+    },
+    {
+      "name": "a recorded item never becomes actionable again",
+      "status": "failed"
+    },
+    {
+      "name": "switching items keeps separate drafts and rejects stale actions",
+      "status": "passed"
+    },
+    {
+      "name": "errors and progress stay with their own source and owner",
+      "status": "failed"
+    },
+    {
+      "name": "status priority covers every waiting kind in LIST-AND-DETAIL",
+      "status": "passed"
+    },
+    {
+      "name": "counts retain pending progress, exclude finished items and distinguish incomplete from zero",
+      "status": "passed"
+    }
+  ]
+}
