@@ -38,6 +38,17 @@ gates:
                 id: briefing:r8-list-and-wide-detail:validation:attempt-1:revision-1
                 digest: sha256:67317ef054a0ce5aba63b4735db39098c6d2819bbb26225519aa7858c9e2ec2f
                 room-ref: ./r8-list-and-wide-detail/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r8-list-and-wide-detail:validation:1
+                briefing: briefing:r8-list-and-wide-detail:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-03T10:29:16.656683Z"
+                decision: approve
+                reason: 'Captain chat 2026-11-03, asked 「照這個方向做，還是有哪裡要改？」, answered 「照這個方向做可以」: the list-beside-wide-detail mockups are the design reference for round 9.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-03T07:06:52Z
 worktree: .worktrees/spacedock-ensign-r8-list-and-wide-detail
 ---
