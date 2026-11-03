@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 8 — design round, list beside a wide detail, with every waiting state presented clearly
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'Captain chat 2026-11-03, answering 「第 8 輪設計稿要不要改成 Observatory 那種「左邊窄清單、右邊寬詳情」？」; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Redo the round 8 design for the layout the Captain wants to try — a narrow list that stays visible beside a wide detail — and first evaluate how a better-rated plugin presents each kind of waiting item, before any mockup.
