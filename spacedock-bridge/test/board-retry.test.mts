@@ -29,8 +29,8 @@ test("failed board sources reuse guarded reads; FO rows count and open each wait
     if (subscriptions === 1) throw Error("offline");
     return { subscription: { subscribe: (handlers: { snapshot(value: unknown): void }) => handlers.snapshot({ entries: [{ agent }] }), release: () => { released++; } } };
   } } };
-  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean };
-  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress }, children);
+  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean; style?: any };
+  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled, style }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress, style: Array.isArray(style) ? Object.assign({}, ...style.filter(Boolean)) : style }, children);
   const loader = Module as unknown as { _load(id: string, ...args: unknown[]): unknown };
   const originalLoad = loader._load;
   const restore = t.mock.method(loader, "_load", function (this: unknown, id: string, ...args: unknown[]) {
@@ -77,11 +77,11 @@ test("failed board sources reuse guarded reads; FO rows count and open each wait
   assert.equal([...container.querySelectorAll("[role=button]")].filter((e) => e.textContent!.includes("Choose the release window")).length, 2, "identical text from comms and FO remains separately attributed");
   for (const slug of ["first", "second", "third", "fourth"]) {
     await click(`Approve ${slug} complete proposal — Bridge FO`);
-    assert.equal(container.querySelector("output")!.textContent, slug);
+    assert.equal(([...container.querySelectorAll("output")].find(e => { for (let p = e.parentElement; p; p = p.parentElement) if (p.style.display === "none") return false; return true; })!).textContent, slug);
     await click("Queue");
   }
   await click("Choose the release window — Bridge FO");
-  assert.equal(container.querySelector("output")!.textContent, "question");
+  assert.equal(([...container.querySelectorAll("output")].find(e => { for (let p = e.parentElement; p; p = p.parentElement) if (p.style.display === "none") return false; return true; })!).textContent, "question");
   await click("Queue");
   assert.ok(container.textContent!.includes("unknown"));
   await act(() => root.unmount());

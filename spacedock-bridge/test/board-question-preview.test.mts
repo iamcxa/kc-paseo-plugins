@@ -38,8 +38,8 @@ test("both board views share unread-question rows and counts across waiting-item
   const readReviews = async () => ({ requests: scenario.review ? [{ url: "https://github.com/example/bridge/pull/12", owner: "example", repo: "bridge", number: 12, title: "Review the adapter", author: "fixture", firstSeenAt: Date.now() }] : [], checkedAt: Date.now(), error: null, nextCheckAt: null });
   const readGates = async () => ({ gates: scenario.gate ? [{ workflowDir: "/workflow", slug: "gate-task", title: "Approve the adapter", stage: "validation" }] : [], failedWorkflowDirs: [] });
   const readTasks = async () => ({ tasks: {}, failedWorkflowDirs: [] });
-  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean };
-  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress }, children);
+  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean; style?: any };
+  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled, style }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress, style: Array.isArray(style) ? Object.assign({}, ...style.filter(Boolean)) : style }, children);
   const loader = Module as unknown as { _load(id: string, ...args: unknown[]): unknown };
   const originalLoad = loader._load;
   const restore = t.mock.method(loader, "_load", function (this: unknown, id: string, ...args: unknown[]) {
@@ -75,7 +75,7 @@ test("both board views share unread-question rows and counts across waiting-item
       const question = container.querySelector('[aria-label="Choose the release window (you) — Question FO"]') ?? (next?.textContent!.includes(preview) ? next : undefined);
       assert.ok(question, `${view}: the unread question keeps its own destination`);
       await act(async () => (question as HTMLElement).click());
-      assert.equal(container.querySelector("output")!.textContent, "question-fo|question");
+      assert.equal(([...container.querySelectorAll("output")].find(e => { for (let p = e.parentElement; p; p = p.parentElement) if (p.style.display === "none") return false; return true; })!).textContent, "question-fo|question");
       await act(async () => container.querySelector("button")!.click());
     }
   });

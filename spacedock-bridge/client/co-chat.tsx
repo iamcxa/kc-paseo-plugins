@@ -4,6 +4,7 @@ import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Keyboard, Platform, ScrollView, Text, View, type TextStyle } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
+import type { SourceState } from "../shared/board-empty";
 import { type Line, toLines } from "../shared/chat-lines";
 import { MarkdownView } from "./markdown-view";
 import { discussionWindow } from "../shared/card";
@@ -29,6 +30,9 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   seed?: { text: string; nonce: number } | null;
   onSeeded?: () => void;
   discussion?: boolean;
+  active?: boolean;
+  sourceState?: SourceState;
+  sourceError?: string;
 };
 
 export function CoChat(props: Props) {
@@ -52,6 +56,9 @@ function Chat({
   seed,
   onSeeded,
   discussion,
+  active: visible = true,
+  sourceState = "loaded",
+  sourceError,
 }: Props) {
   const paseo = usePaseo();
   const [lines, setLines] = useState<Line[]>([]);
@@ -63,6 +70,8 @@ function Chat({
   const decision = useSyncExternalStore(subscribeReason, reasonSnapshot, reasonSnapshot);
   const chosen = decision.target === decisionTarget ? decision.word : null;
   const active = useRef(true);
+  const visibleRef = useRef(visible);
+  visibleRef.current = visible;
   const currentTarget = useRef(decisionTarget);
   currentTarget.current = decisionTarget;
   useEffect(() => {
@@ -72,7 +81,15 @@ function Chat({
   const [boxHovered, setBoxHovered] = useState(false);
   const [boxFocused, setBoxFocused] = useState(false);
   const [error, setError] = useState("");
+  const [conversation, setConversation] = useState<SourceState>("loading");
+  const [readError, setReadError] = useState("");
+  const readRequest = useRef(0);
   const scroller = useRef<ScrollView>(null);
+  const scrollPosition = useRef(0);
+  const followTail = useRef(true);
+  useEffect(() => {
+    if (visible) scroller.current?.scrollTo({ y: scrollPosition.current, animated: false });
+  }, [visible]);
   const colors = theme.colors;
   const paddingBottom = useComposerPadding(layout, Keyboard);
   const mono = Platform.OS === "ios" ? "Menlo" : "monospace";
@@ -214,19 +231,26 @@ function Chat({
   }, [colors, layout.compact, mono]);
 
   const load = useCallback(async () => {
+    const request = ++readRequest.current;
     try {
       const page = await paseo.agents
         .ref(agentId)
         .timeline.refetch({ direction: "tail", limit: 120, projection: "projected" });
+      if (request !== readRequest.current) return;
       setLines(toLines(page.entries));
-      setError("");
+      setConversation("loaded");
+      setReadError("");
     } catch (e) {
-      setError(String(e));
+      if (request !== readRequest.current) return;
+      setConversation("failed");
+      setReadError(String(e));
     }
   }, [paseo, agentId]);
 
   useEffect(() => {
     setLines([]);
+    setConversation("loading");
+    setReadError("");
     const handle = paseo.agents.ref(agentId);
     let timer: ReturnType<typeof setTimeout> | undefined;
     const soon = () => {
@@ -240,10 +264,11 @@ function Chat({
         setWorking(false);
       soon();
     });
-    subscription.ready.catch((e: unknown) => setError(String(e)));
+    subscription.ready.catch((e: unknown) => { ++readRequest.current; setConversation("failed"); setReadError(String(e)); });
     const stopHandle = handle.subscribe(soon);
     void load();
     return () => {
+      ++readRequest.current;
       clearTimeout(timer);
       subscription();
       stopHandle();
@@ -273,7 +298,7 @@ function Chat({
     sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
     footer,
     beforeSend: () => checkComposerTarget(
-      () => active.current && currentTarget.current === decisionTarget,
+      () => active.current && visibleRef.current && currentTarget.current === decisionTarget,
       beforeSend,
     ),
     onSent,
@@ -336,11 +361,22 @@ function Chat({
       )}
       <ScrollView
         ref={scroller}
+        accessibilityLabel={`Conversation messages with ${title}`}
         style={styles.list}
         contentContainerStyle={styles.listContent}
-        onContentSizeChange={() => scroller.current?.scrollToEnd({ animated: false })}
+        scrollEventThrottle={100}
+        onScroll={({ nativeEvent }) => {
+          if (!visibleRef.current) return;
+          scrollPosition.current = nativeEvent.contentOffset.y;
+          followTail.current = nativeEvent.contentOffset.y + nativeEvent.layoutMeasurement.height >= nativeEvent.contentSize.height - 24;
+        }}
+        onContentSizeChange={() => {
+          if (visibleRef.current && followTail.current) scroller.current?.scrollToEnd({ animated: false });
+        }}
       >
-        {lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
+        {sourceState === "failed" || conversation === "failed" ? <Text style={styles.danger}>Could not read {title}: {sourceError || readError || "source unavailable"}</Text>
+          : sourceState === "loading" || conversation === "loading" ? <Text style={styles.muted}>Loading conversation with {title}…</Text>
+          : lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
         {earlier > 0 ? (
           <Pressable colors={colors} accessibilityRole="button" onPress={() => setShowEarlier((value) => !value)}>
             <Text style={styles.toggle}>
