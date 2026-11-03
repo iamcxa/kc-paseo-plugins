@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r8-list-and-wide-detail:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r8-list-and-wide-detail-validation-1
+              briefing:
+                id: briefing:r8-list-and-wide-detail:validation:attempt-1:revision-1
+                digest: sha256:67317ef054a0ce5aba63b4735db39098c6d2819bbb26225519aa7858c9e2ec2f
+                room-ref: ./r8-list-and-wide-detail/review/validation/briefing-1
 started: 2026-11-03T07:06:52Z
 worktree: .worktrees/spacedock-ensign-r8-list-and-wide-detail
 ---
