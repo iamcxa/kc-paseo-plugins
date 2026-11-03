@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 9 — design pass, the comms officer as the commander, with the list as the board
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'Captain chat 2026-11-03, answering whether to redesign first or adjust round 9 while building; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Before round 9's code continues, redesign the accepted list-beside-wide-detail layout so the comms officer is the commander the Captain talks to first, with FO conversations and progress as drill-downs.
