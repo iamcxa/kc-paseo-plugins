@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r9-commander-first
+gates:
+    version: 1
+    records:
+        - id: gate:r9-commander-first:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r9-commander-first-backlog-1
+              briefing:
+                id: briefing:r9-commander-first:backlog:attempt-1:revision-1
+                digest: sha256:45dfae0c0e5f9303a7a3a8f536ea1a16fa5c90d326c134498ae983890c18d48f
+                room-ref: ./r9-commander-first/review/backlog/briefing-1
 ---
 
 Before round 9's code continues, redesign the accepted list-beside-wide-detail layout so the comms officer is the commander the Captain talks to first, with FO conversations and progress as drill-downs.
