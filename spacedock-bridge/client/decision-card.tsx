@@ -64,10 +64,14 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   const callClaim = useRpc(claimDecision);
   const callReadDecision = useRpc(readDecision);
   const callRelease = useRpc(releaseDecision);
+  const submissionRevision = useRef(0);
+  const submitting = useRef(false);
 
   const readRequest = useRef(0);
   const load = useCallback(async () => {
     const request = ++readRequest.current;
+    const revision = submissionRevision.current;
+    const localPending = submitting.current;
     if (!gate) return null;
     const answer = await callBriefing({
       workflowDir,
@@ -75,7 +79,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
       stage: gate.stage,
       briefingId: gate.briefingId ?? briefing?.briefingId,
     }).catch(error => {
-      if (request === readRequest.current) setProblem(String(error));
+      if (request === readRequest.current && revision === submissionRevision.current && !localPending && !submitting.current) setProblem(String(error));
       return null;
     });
     if (!answer) return null;
@@ -86,6 +90,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
         ? answer.recorded
         : previous,
     );
+    if (revision !== submissionRevision.current || localPending || submitting.current) return answer;
     if (answer.briefing && !replaced) setBriefing(answer.briefing);
     setClosed(replaced || !answer.briefing && !answer.error);
     setProblem(answer.error ?? "");
@@ -93,7 +98,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   }, [callBriefing, workflowDir, gate, briefing?.briefingId]);
 
   useEffect(() => {
-    if (visible && (!briefing || problem)) void load().catch(error => setProblem(String(error)));
+    if (visible) void load().catch(error => setProblem(String(error)));
     return () => { ++readRequest.current; };
   }, [visible, fo.id, fo.workflowDir, gate?.slug, gate?.stage, gate?.briefingId]);
 
@@ -103,18 +108,21 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   const readClaim = useCallback(async () => {
     if (!briefing) return;
     const request = ++claimRequest.current;
+    const revision = submissionRevision.current;
+    const localPending = submitting.current;
     try {
       const { record } = await callReadDecision({ briefingId: briefing.briefingId });
-      if (request !== claimRequest.current) return;
-      setClaim(current => record ?? current);
+      if (request !== claimRequest.current || revision !== submissionRevision.current || localPending || submitting.current) return;
+      setClaim(record);
+      if (!record) sentByBriefing.delete(briefing.briefingId);
       setClaimLoaded(true);
       setClaimProblem("");
     } catch (error) {
-      if (request === claimRequest.current) setClaimProblem(String(error));
+      if (request === claimRequest.current && revision === submissionRevision.current && !localPending && !submitting.current) setClaimProblem(String(error));
     }
   }, [briefing?.briefingId, callReadDecision]);
   useEffect(() => {
-    if (visible && briefing && (!claimLoaded || claimProblem)) void readClaim();
+    if (visible && briefing) void readClaim();
     return () => { ++claimRequest.current; };
   }, [visible, briefing?.briefingId]);
 
@@ -128,6 +136,11 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   const [relayProblem, setRelayProblem] = useState("");
   const [relayLoaded, setRelayLoaded] = useState(false);
   const relayRequest = useRef(0);
+  useEffect(() => {
+    setRelayed(false);
+    setRelayLoaded(false);
+    setRelayProblem("");
+  }, [claim?.decisionId]);
   const checkRelay = useCallback(async () => {
     if (!claim) return;
     const request = ++relayRequest.current;
@@ -146,7 +159,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   }, [claim, paseo]);
 
   useEffect(() => {
-    if (visible && claim && (!relayLoaded || relayProblem)) void checkRelay();
+    if (visible && claim) void checkRelay();
     return () => { ++relayRequest.current; };
   }, [visible, claim?.decisionId]);
 
@@ -155,10 +168,11 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
     const timer = setInterval(() => {
       setNow(Date.now());
       void load().catch(error => setProblem(String(error)));
+      void readClaim();
       void checkRelay();
     }, 15_000);
     return () => clearInterval(timer);
-  }, [briefing, recorded, closed, load, checkRelay]);
+  }, [briefing, recorded, closed, load, readClaim, checkRelay]);
 
   const target = JSON.stringify([fo.id, workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
   const currentTarget = useRef(target);
@@ -191,25 +205,34 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const onChip = useCallback(
-    (word: string, draft: string) =>
-      decideGate(
-        {
-          beforeSend,
-          claim: callClaim,
-          setClaim,
-          openCoordinator: () => callOpenCoordinator({}),
-          sendToCoordinator: (agentId, text) => paseo.agents.ref(agentId).send(text),
-          release: (decisionId) => callRelease({ decisionId }),
-          markSent: ({ text }) => {
-            if (!briefing || !gate) return;
-            sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: gate.slug });
-            setNow(Date.now());
+    async (word: string, draft: string) => {
+      submitting.current = true;
+      ++submissionRevision.current;
+      ++claimRequest.current;
+      try {
+        return await decideGate(
+          {
+            beforeSend,
+            claim: callClaim,
+            setClaim,
+            openCoordinator: () => callOpenCoordinator({}),
+            sendToCoordinator: (agentId, text) => paseo.agents.ref(agentId).send(text),
+            release: (decisionId) => callRelease({ decisionId }),
+            markSent: ({ text }) => {
+              if (!briefing || !gate) return;
+              sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: gate.slug });
+              setNow(Date.now());
+            },
           },
-        },
-        { gate, briefing, fo: { id: fo.id, title: fo.title || fo.id } },
-        word,
-        draft,
-      ),
+          { gate, briefing, fo: { id: fo.id, title: fo.title || fo.id } },
+          word,
+          draft,
+        );
+      } finally {
+        submitting.current = false;
+        ++submissionRevision.current;
+      }
+    },
     [gate, briefing, beforeSend, callClaim, callRelease, callOpenCoordinator, fo.title, fo.id, paseo],
   );
 

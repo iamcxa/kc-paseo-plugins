@@ -85,5 +85,5 @@ test("failed board sources reuse guarded reads; FO rows count and open each wait
   await click("Queue");
   assert.ok(container.textContent!.includes("unknown"));
   await act(() => root.unmount());
-  assert.equal(released, 1);
+  assert.equal(released, subscriptions - 1, "every successful initial or reactivation subscription is released");
 });

@@ -352,11 +352,11 @@ export function Board({
   const wasBoardVisible = useRef(boardVisible);
   useEffect(() => {
     if (boardVisible && !wasBoardVisible.current) {
-      if (foState !== "loaded") setFoRead(value => value + 1);
-      if (sources.gates !== "loaded") void refreshGates(true);
-      if (taskState !== "loaded") void refreshTasks();
-      if (reviewState !== "loaded") void refreshReviews();
-      if (commsState !== "loaded") onRetryComms?.();
+      setFoRead(value => value + 1);
+      void refreshGates(true);
+      void refreshTasks();
+      void refreshReviews();
+      onRetryComms?.();
     }
     wasBoardVisible.current = boardVisible;
   }, [boardVisible]);

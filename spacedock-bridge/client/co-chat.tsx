@@ -295,13 +295,13 @@ function Chat({
   }, [paseo, agentId, load, subscriptionAttempt]);
 
   const retry = () => {
-    if (sourceState !== "loaded") onRetrySource?.();
+    onRetrySource?.();
     if (disconnected.current) setSubscriptionAttempt(attempt => attempt + 1);
     else void load();
   };
   const wasVisible = useRef(visible);
   useEffect(() => {
-    if (visible && !wasVisible.current && (conversation !== "loaded" || sourceState !== "loaded")) retry();
+    if (visible && !wasVisible.current) retry();
     wasVisible.current = visible;
   }, [visible]);
 

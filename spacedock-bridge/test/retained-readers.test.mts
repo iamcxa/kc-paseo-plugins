@@ -241,3 +241,124 @@ for (const recovery of ["reactivate", "retry control"]) {
     assert.match(h.text(), /Waiting on you · 2/);
   });
 }
+
+
+for (const surface of surfaces) {
+  test(`retained surface table: ${surface.name} × loaded value changes then reactivate`, async t => {
+    const h = await mountBridge(t);
+    if (surface.reader === "relay" || surface.reader === "claim") h.claims.set("brief-a", claim);
+    await open(h, surface); await h.type(label(surface), "Freshness draft");
+    const composer = h.find(label(surface));
+    await away(h, surface);
+    if (surface.reader === "briefing") {
+      const read = h.rpc["gate.briefing"];
+      h.rpc["gate.briefing"] = async (input: unknown) => { const reply = await read(input); return { ...reply, briefing: { ...reply.briefing, artifacts: [{ summary: "Fresh briefing", markdown: "Fresh evidence" }] } }; };
+    } else if (surface.reader === "claim") h.claims.delete("brief-a");
+    else h.timeline.set(surface.mode === "commander" ? "co" : "a", [{ seqStart: 1, item: { type: surface.reader === "relay" ? "user_message" : "assistant_message", text: surface.reader === "relay" ? claim.decisionId : "Next: Fresh conversation (you)" } }]);
+    await open(h, surface);
+    assert.ok(h.find(label(surface)) === composer, "refresh preserves the mounted surface");
+    assert.equal((composer as HTMLTextAreaElement).value, "Freshness draft");
+    if (surface.reader === "briefing") assert.match(h.text(), /Fresh briefing/);
+    else if (surface.reader === "claim") { assert.ok(h.find("Choose 准"), "released claim no longer blocks a decision"); assert.doesNotMatch(h.text(), /Sent to the comms officer/); }
+    else if (surface.reader === "relay") assert.match(h.text(), /Relayed to A FO/);
+    else assert.match(h.text(), /Fresh conversation/);
+    if (surface.reader === "question") assert.match(h.text(), /Waiting on you · 3/);
+  });
+}
+
+test("retained surface table: claim released by another client then reopen", async t => {
+  const h = await mountBridge(t);
+  h.claims.set("brief-a", claim);
+  await h.click("Approve a? — A FO");
+  assert.match(h.text(), /Sent to the comms officer/);
+  await h.type("Message A FO", "Keep released-claim draft");
+  await h.click("Back to Commander"); h.claims.delete("brief-a");
+  await h.click("Approve a? — A FO");
+  assert.ok(h.find("Choose 准"));
+  assert.doesNotMatch(h.text(), /Sent to the comms officer|Relayed to A FO/);
+  assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Keep released-claim draft");
+  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
+  assert.equal(h.sent.length, 1);
+});
+
+for (const oldRecord of [null, { ...claim, decisionId: "older-external-claim" }]) {
+  test(`retained surface table: refresh read overlaps a local send (${oldRecord ? "old claim" : "null"}); the local send wins`, async t => {
+    const h = await mountBridge(t);
+    await h.click("Approve a? — A FO"); await h.click("Back to Commander");
+    let finishRead!: (reply: { record: typeof oldRecord }) => void;
+    h.rpc["decisions.read"] = () => new Promise(resolve => { finishRead = resolve; });
+    await h.click("Approve a? — A FO");
+    assert.ok(finishRead, "a loaded claim is refreshed on reopen");
+    let finishOpen!: (reply: { agentId: string }) => void;
+    h.rpc["coordinator.open"] = () => new Promise(resolve => { finishOpen = resolve; });
+    await h.click("Choose 暫緩"); await h.type("Reason for 暫緩", "New local reason");
+    await h.click("Confirm 暫緩 via comms officer");
+    assert.ok(finishOpen, "the local submission is in progress");
+    const local = h.claims.get("brief-a");
+    await act(async () => finishRead({ record: oldRecord }));
+    assert.match(h.text(), /New local reason/);
+    assert.ok(!h.find("Choose 准"));
+    assert.doesNotMatch(h.text(), /older-external-claim/);
+    await h.click("Back to Commander"); await h.click("Approve a? — A FO");
+    assert.ok(!h.find("Choose 准"), "reactivation during a send does not clear its claim");
+    const finishDuringSend = finishRead;
+    await act(async () => finishOpen({ agentId: "co" }));
+    await act(async () => finishDuringSend({ record: oldRecord }));
+    assert.ok(!h.find("Choose 准"), "a read started during the send stays stale after completion");
+    assert.match(h.text(), /New local reason/);
+    assert.equal(h.sent.length, 1);
+    assert.equal(h.claims.get("brief-a").decisionId, local.decisionId);
+    assert.match(h.sent[0].text, /New local reason/);
+  });
+}
+
+test("reactivation refreshes gate closure and recorded results without reviving recorded actions", async t => {
+  const h = await mountBridge(t); await h.click("Approve a? — A FO");
+  await h.click("Back to Commander");
+  h.records.set("brief-a", { decision: "revise", reason: "Recorded by another client" });
+  await h.click("Approve a? — A FO");
+  assert.match(h.text(), /Recorded: revise/); assert.ok(!h.find("Choose 准"));
+  await h.click("Back to Commander"); h.records.delete("brief-a"); h.claims.delete("brief-a");
+  await h.click("Approve a? — A FO");
+  assert.match(h.text(), /Recorded: revise/); assert.ok(!h.find("Choose 准"));
+});
+
+for (const source of ["gates", "tasks", "review source"]) {
+  test(`retained phone board: ${source} × loaded value changes then reactivate`, async t => {
+    const h = await mountBridge(t, true);
+    h.agents[0].labels = { ...h.agents[0].labels, task: "a" } as any; await h.publishAgents();
+    await h.click("Board"); await h.click("Back to Commander");
+    const name = source === "review source" ? "reviews.read" : `${source}.read`;
+    const read = h.rpc[name]; let calls = 0;
+    h.rpc[name] = (input: unknown) => { ++calls; return read(input); };
+    await h.click("Board"); assert.ok(calls > 0, "a successful live source is refreshed on return too");
+  });
+}
+
+
+for (const result of ["closed", "recorded"] as const) {
+  test(`retained surface table: briefing refresh overlaps a local send (${result})`, async t => {
+    const h = await mountBridge(t); await h.click("Approve a? — A FO"); await h.click("Back to Commander");
+    const read = h.rpc["gate.briefing"]; let calls = 0;
+    let finishRead!: (value: any) => void;
+    h.rpc["gate.briefing"] = (input: unknown) => ++calls === 1 ? new Promise(resolve => { finishRead = resolve; }) : read(input);
+    await h.click("Approve a? — A FO"); assert.ok(finishRead);
+    let finishOpen!: (value: { agentId: string }) => void;
+    h.rpc["coordinator.open"] = () => new Promise(resolve => { finishOpen = resolve; });
+    await h.click("Choose 准"); await h.click("Confirm 准 via comms officer"); assert.ok(finishOpen);
+    await act(async () => finishRead({ briefing: null, error: null, recorded: result === "recorded" ? { decision: "approve", reason: "Authoritative recorded result" } : null }));
+    assert.ok(!h.find("Choose 准"));
+    assert.match(h.text(), result === "recorded" ? /Authoritative recorded result/ : /Waiting on you · 2/);
+    await act(async () => finishOpen({ agentId: "co" }));
+    assert.equal(h.sent.length, 1);
+    if (result === "recorded") { await h.click("Back to Commander"); await h.click("Approve a? — A FO"); assert.ok(!h.find("Choose 准")); }
+  });
+}
+
+test("an authoritative released claim clears cached local sent progress on reopen", async t => {
+  const h = await mountBridge(t); await h.click("Approve a? — A FO");
+  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
+  await h.click("Back to Commander"); h.claims.delete("brief-a");
+  await h.click("Approve a? — A FO");
+  assert.ok(h.find("Choose 准")); assert.doesNotMatch(h.text(), /Sent to the comms officer|Sent · not recorded yet/);
+});
