@@ -39,7 +39,7 @@ test("a recorded item never becomes actionable again", async t => {
   await h.poll();
   assert.match(h.text(), /Recorded: approve/);
   assert.equal(h.find("Choose 准"), undefined);
-  assert.match(h.text(), /Waiting on you · 1/, "finished item leaves pending counts");
+  assert.match(h.text(), /Board · 1/, "finished item leaves pending counts");
   await h.click("Commander");
   assert.match(h.text(), /Done this session/);
   assert.equal(h.sent.length, 1);
@@ -126,7 +126,7 @@ test("a recorded item reopens to its result and reason this session and is never
   assert.match(h.text(), /Preserve the observed failure/);
   assert.equal(h.find("Choose 准"), undefined);
   assert.equal(h.sent.length, 1);
-  assert.match(h.text(), /Waiting on you · 1/);
+  assert.match(h.text(), /Board · 1/);
   assert.match(h.text(), /Permissions 0/);
 });
 

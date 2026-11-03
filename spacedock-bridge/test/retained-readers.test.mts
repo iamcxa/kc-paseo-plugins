@@ -198,7 +198,7 @@ for (const source of ["gates", "tasks", "review source"] as const) {
       if (recovery === "reactivate") { await h.click("Back to Commander"); await h.click("Board"); }
       else await h.click(`Check ${source} again`);
       assert.ok(!h.find(`Check ${source} again`));
-      assert.match(h.text(), /Waiting on you · 2/);
+      assert.match(h.text(), /Board · 2/);
     });
   }
 }
@@ -222,7 +222,7 @@ for (const source of ["gates", "tasks", "review source"] as const) {
       else await h.click(`Check ${source} again`);
       await act(async () => { for (const reject of rejects) reject(new Error("Late board read failed")); });
       assert.ok(!h.find(`Check ${source} again`));
-      assert.match(h.text(), /Waiting on you · 2/);
+      assert.match(h.text(), /Board · 2/);
     });
   }
 }
@@ -238,7 +238,7 @@ for (const recovery of ["reactivate", "retry control"]) {
     if (recovery === "reactivate") { await h.click("Back to Commander"); await h.click("Board"); }
     else await h.click("Check FOs again");
     assert.ok(!h.find("Check FOs again"));
-    assert.match(h.text(), /Waiting on you · 2/);
+    assert.match(h.text(), /Board · 2/);
   });
 }
 
@@ -262,7 +262,7 @@ for (const surface of surfaces) {
     else if (surface.reader === "claim") { assert.ok(h.find("Choose 准"), "released claim no longer blocks a decision"); assert.doesNotMatch(h.text(), /Sent to the comms officer/); }
     else if (surface.reader === "relay") assert.match(h.text(), /Relayed to A FO/);
     else assert.match(h.text(), /Fresh conversation/);
-    if (surface.reader === "question") assert.match(h.text(), /Waiting on you · 3/);
+    if (surface.reader === "question") assert.match(h.text(), /Board · 3/);
   });
 }
 
@@ -348,7 +348,7 @@ for (const result of ["closed", "recorded"] as const) {
     await h.click("Choose 准"); await h.click("Confirm 准 via comms officer"); assert.ok(finishOpen);
     await act(async () => finishRead({ briefing: null, error: null, recorded: result === "recorded" ? { decision: "approve", reason: "Authoritative recorded result" } : null }));
     assert.ok(!h.find("Choose 准"));
-    assert.match(h.text(), result === "recorded" ? /Authoritative recorded result/ : /Waiting on you · 2/);
+    assert.match(h.text(), result === "recorded" ? /Authoritative recorded result/ : /Board · 2/);
     await act(async () => finishOpen({ agentId: "co" }));
     assert.equal(h.sent.length, 1);
     if (result === "recorded") { await h.click("Back to Commander"); await h.click("Approve a? — A FO"); assert.ok(!h.find("Choose 准")); }

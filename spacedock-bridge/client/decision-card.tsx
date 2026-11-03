@@ -38,10 +38,11 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   onBack(recorded?: boolean): void;
   active?: boolean;
   title?: string;
+  conversationOnly?: boolean;
   onProgress?: (progress: ItemProgress) => void;
 };
 
-export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, onProgress }: Props) {
+export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, conversationOnly = false, onProgress }: Props) {
   const [{ fo, gate, title }] = useState(() => ({ fo: { ...openedFo }, gate: openedGate ? { ...openedGate } : null, title: openedTitle }));
   const workflowDir = gate?.workflowDir ?? fo.workflowDir;
   const identity = gate ? gateKey({ ...gate, workflowDir }) : null;
@@ -371,7 +372,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
         <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to list" onPress={() => onBack(Boolean(recorded))}>
           <Text style={styles.back}>← Queue</Text>
         </Pressable>
-        {layout.compact ? (
+        {layout.compact && !conversationOnly ? (
           <Pressable
             colors={colors}
             accessibilityRole="button"
@@ -402,7 +403,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
       {briefing && (!claimLoaded || claimProblem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry decision record" onPress={() => void readClaim()}><Text style={styles.toggle}>Retry decision record</Text></Pressable> : null}
       {claim && (!relayLoaded || relayProblem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry delivery status" onPress={() => void checkRelay()}><Text style={styles.toggle}>Retry delivery status</Text></Pressable> : null}
       <View style={{ flex: 1 }} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
-      {briefingCollapsed ? (
+      {conversationOnly ? null : briefingCollapsed ? (
         <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, minHeight: 44 }}>
           <Text style={[styles.question, { flex: 1 }]} numberOfLines={1}>{briefing?.question || gate?.title || fo.title}</Text>
         </View>
@@ -467,7 +468,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
           title={fo.title || "FO"}
           placeholder={`Message ${foName(fo.title || "the FO")} directly`}
           decisionTarget={target}
-          discussion
+          discussion={!conversationOnly}
           active={visible}
           chips={showDecisions ? CHIPS : undefined}
           footer={showDecisions ? footer : undefined}

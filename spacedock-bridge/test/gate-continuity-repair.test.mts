@@ -11,10 +11,10 @@ for (const nextStage of ["implementation", "validation"]) {
     const old = h.claims.get("brief-a");
     h.records.set("brief-a", { decision: "revise", reason: `${old.decisionId} ${old.words}` });
     await h.poll(); await h.click("Back to Commander");
-    assert.match(h.text(), /Waiting on you · 1/);
+    assert.match(h.text(), /Board · 1/);
     h.attempts.set("a", { stage: nextStage, briefingId: `next-${nextStage}`, title: "Approve the next attempt?" });
     await h.pollGates();
-    assert.match(h.text(), /Waiting on you · 2/, "the later attempt has its own pending count");
+    assert.match(h.text(), /Board · 2/, "the later attempt has its own pending count");
     await h.click("Approve the next attempt? — A FO");
     assert.ok(h.find("Choose 准"), "a newer attempt is actionable even if the prior gate was recorded");
     assert.doesNotMatch(h.text(), /Recorded: revise/, "the old result stays with the old detail");

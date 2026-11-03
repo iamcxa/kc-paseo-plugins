@@ -449,7 +449,7 @@ export function Board({
       </Pressable>
     </View> : null}
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.screen}>
-      <Text style={{ color: colors.foreground, fontSize: 18, fontWeight: "600" }}>Waiting on you · {counts.all}</Text>
+      <Text style={{ color: colors.foreground, fontSize: 18, fontWeight: "600" }}>Board · {counts.all}</Text>
       {message ? (
         <Text style={{ color: colors.statusDanger }}>{message}</Text>
       ) : null}
@@ -565,6 +565,7 @@ export function Board({
       {Object.values(visited).map(item => item.fo ? (
         <View key={item.key} style={{ flex: 1, minHeight: 0, display: open === item.key ? "flex" : "none" }}>
           <DecisionCard theme={theme} layout={layout} navigation={navigation} fo={item.fo} gate={item.gate ?? null}
+            conversationOnly={item.key === `f:${item.fo.id}`}
             active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
             onBack={(recorded) => { setOpen(comms && !layout.compact ? "comms" : null); if (recorded) void refreshGates(true); }} />
         </View>
