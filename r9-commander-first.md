@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 9 — design pass, the comms officer as the commander, with the list as the board
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
