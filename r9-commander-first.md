@@ -81,3 +81,7 @@ main、live 與本任務空派工 worktree 的 HEAD／branch／clean 狀態不�
 ### Summary
 
 完成先談指揮官、從待辦深入 FO／閘門、一步返回的單一提案，保留清單掃描與寬詳情，明列手機多一步的代價。交付自包含 HTML、16 張狀態圖、可直接從磁碟開啟的審閱頁及離線證據；仍待設計總監審閱與 Captain 的逐字方向答案，不代替 AC-2 接受或改動任務階段。
+
+### FO findings before the gate
+
+- Design director pass 1 (codex/gpt-6-astra:xhigh, 2026-11-03) on COMMANDER-FIRST.md and the mockups: NOT SATISFIED. Block: "go to an FO for detail" works only for FOs with a pending item — By FO only groups waiting items, so an FO with nothing waiting cannot be reached, though the current product lists every FO; keep the full FO list and add the path, recounting it (the 1/2 steps hold only for FOs with a question). Annoys: phone repeats the return-to-commander control with a ~100 px entry card and repeats title, subtitle and instructions on home — cut and state the list height lost; show an example of the existing capability "Captain gives direction → the comms officer relays an FO's answer by name" so it reads like a command conversation. Passed: counts spot-checked (approve 3/4, change 5/6, answer comms 3/3, unassigned-review ask 2/3), structure and semantics, review.html images load. FO authorizes one revision.
