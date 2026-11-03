@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-03T07:06:52Z
+worktree: .worktrees/spacedock-ensign-r8-list-and-wide-detail
 ---
 
 Redo the round 8 design for the layout the Captain wants to try — a narrow list that stays visible beside a wide detail — and first evaluate how a better-rated plugin presents each kind of waiting item, before any mockup.
