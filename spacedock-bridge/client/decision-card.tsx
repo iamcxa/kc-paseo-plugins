@@ -39,11 +39,12 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   active?: boolean;
   title?: string;
   conversationOnly?: boolean;
+  questionSince?: string;
   onProgress?: (progress: ItemProgress) => void;
 };
 
-export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, conversationOnly = false, onProgress }: Props) {
-  const [{ fo, gate, title }] = useState(() => ({ fo: { ...openedFo }, gate: openedGate ? { ...openedGate } : null, title: openedTitle }));
+export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, conversationOnly = false, questionSince: openedQuestionSince, onProgress }: Props) {
+  const [{ fo, gate, title, questionSince }] = useState(() => ({ fo: { ...openedFo }, gate: openedGate ? { ...openedGate } : null, title: openedTitle, questionSince: openedQuestionSince }));
   const workflowDir = gate?.workflowDir ?? fo.workflowDir;
   const identity = gate ? gateKey({ ...gate, workflowDir }) : null;
   const colors = theme.colors;
@@ -362,7 +363,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
         {foName(fo.title || fo.id)}
       </Text>
       <TabClosedBadge closed={fo.tabClosed} colors={colors} />
-      {gateFinished ? null : <Text style={styles.fo}>{waiting(gate?.preparedAt || fo.lastActivityAt, now)}</Text>}
+      {gateFinished ? null : <Text style={styles.fo}>{waiting(gate?.preparedAt || questionSince || fo.lastActivityAt, now)}</Text>}
     </View>
   );
 

@@ -59,12 +59,18 @@ export function buildQueue(
       ),
     );
     const reply = replies[row.id];
-    if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate)))
-      items.push({ key: `a:${row.id}`, kind: "ask", title: row.next || reply?.preview || "Has a question for you", detail: "", since, fo: row });
+    const addQuestion = (title: string, ownReply?: ReplyFact) => items.push({
+      key: JSON.stringify(["q", row.id, ownReply?.messageId ?? null, ownReply?.since ?? row.attentionAt ?? null, title]),
+      kind: "ask", title, detail: "", since: ownReply?.since || since, fo: row,
+    });
+    if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate))) {
+      const title = row.next || reply?.preview || "Has a question for you";
+      addQuestion(title, reply && replyPreview(title) === reply.preview ? reply : undefined);
+    }
     if (reply?.onCaptain && reply.preview) {
       const represented = items.some((item) => item.fo?.id === row.id && item.kind === "ask" && replyPreview(item.title) === reply.preview);
       if (!represented)
-        items.push({ key: `unread:${row.id}`, kind: "ask", title: reply.preview, detail: "", since, fo: row });
+        addQuestion(reply.preview, reply);
     }
   }
   for (const review of reviews)

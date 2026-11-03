@@ -566,6 +566,7 @@ export function Board({
         <View key={item.key} style={{ flex: 1, minHeight: 0, display: open === item.key ? "flex" : "none" }}>
           <DecisionCard theme={theme} layout={layout} navigation={navigation} fo={item.fo} gate={item.gate ?? null}
             conversationOnly={item.key === `f:${item.fo.id}`}
+            questionSince={item.kind === "ask" ? item.since : undefined}
             active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
             onBack={(recorded) => { setOpen(comms && !layout.compact ? "comms" : null); if (recorded) void refreshGates(true); }} />
         </View>

@@ -100,6 +100,8 @@ export const STATUS_ORDER: readonly BoardStatus[] = [
 export interface ReplyFact {
   preview: string;
   onCaptain: boolean;
+  messageId?: string;
+  since?: string;
 }
 
 function byGroupThenTitle(a: BoardRow, b: BoardRow): number {
@@ -148,7 +150,12 @@ export async function observeBoard(
       const promise = Promise.resolve().then(async () => {
         const { entries } = await paseo.agents.ref(row.id).timeline.refetch({ direction: "tail", limit: 30, projection: "projected" });
         const reply = lastReply(entries.map((entry) => entry.item));
-        return { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply) };
+        const message = [...entries].reverse().find(entry => entry.item.type === "assistant_message" && entry.item.text);
+        return {
+          preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply),
+          ...(message?.seqStart != null ? { messageId: String(message.seqStart) } : {}),
+          ...(message?.timestamp ? { since: message.timestamp } : {}),
+        };
       });
       fetched.set(row.id, { at: row.lastActivityAt, promise });
       void promise.catch(() => { if (fetched.get(row.id)?.promise === promise) fetched.delete(row.id); });
