@@ -1,0 +1,19 @@
+✔ reopen keeps the confirmed choice and reason (230.295208ms)
+✔ sent and relayed progress survives a comms detour (101.259584ms)
+✔ a recorded item never becomes actionable again (65.501917ms)
+✔ switching items keeps separate drafts and rejects stale actions (75.542458ms)
+✔ errors and progress stay with their own source and owner (275.903959ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (78.723042ms)
+✔ an FO with nothing waiting is reachable from By FO (38.175833ms)
+✔ a recorded item reopens to its result and reason this session and is never actionable (64.357958ms)
+✔ an ordinary message never consumes the gate decision controls (35.209958ms)
+✔ status priority covers every waiting kind in LIST-AND-DETAIL (0.764041ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (0.558292ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1442.301292

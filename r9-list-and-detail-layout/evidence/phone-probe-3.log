@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 132, in <module>
+    label=bounds[0]['label'];browser('hover','[aria-label='+json.dumps(label,ensure_ascii=False)+']');browser('screenshot',dest/f'{width}-{view}-hover.png')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 31, in browser
+    def browser(*command): return run([args.browser,'--session',session,'--config',root/'browser.json',*command],command_env=dict(env,HOME=os.environ['HOME']))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 29, in run
+    if p.returncode: raise RuntimeError(p.stderr.strip() or p.stdout.strip())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ✗ Element '[aria-label="Open unassigned#23 on GitHub"]' is covered by <div.css-g5y9jx.unistyles_28r5fnc9h57 inside div#root> at its click point, so the input would land on that element instead. Dismiss or interact with the covering element first (it is often a dialog, banner, or sticky header).

@@ -1,0 +1,184 @@
+✖ reopen keeps the confirmed choice and reason (204.739875ms)
+✖ sent and relayed progress survives a comms detour (17.806667ms)
+✖ a recorded item never becomes actionable again (16.278375ms)
+✖ switching items keeps separate drafts and rejects stale actions (16.397708ms)
+✖ errors and progress stay with their own source and owner (223.948792ms)
+✖ every drill-down returns to the commander in one step keeping drafts and progress (11.245084ms)
+✖ an FO with nothing waiting is reachable from By FO (12.20525ms)
+✖ a recorded item reopens to its result and reason this session and is never actionable (12.347291ms)
+✖ an ordinary message never consumes the gate decision controls (13.029375ms)
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/shared/list-status' imported from /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/list-status.test.mts
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at nextStep (node:internal/modules/customization_hooks:189:26)
+    at resolveBaseSync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+    at resolveDirectorySync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+    at resolveTsPathsSync (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605)
+    at resolve (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:16832) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/shared/list-status'
+}
+
+Node.js v24.18.0
+✖ test/list-status.test.mts (100.832083ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 994.13075
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:404
+✖ reopen keeps the confirmed choice and reason (204.739875ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve a? — A FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at openA (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:6:65)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:11:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:858
+✖ sent and relayed progress survives a comms detour (17.806667ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve a? — A FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at openA (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:6:65)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:23:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:1330
+✖ a recorded item never becomes actionable again (16.278375ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve a? — A FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at openA (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:6:65)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:36:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:1926
+✖ switching items keeps separate drafts and rejects stale actions (16.397708ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve a? — A FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at openA (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:6:65)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:50:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:2768
+✖ errors and progress stay with their own source and owner (223.948792ms)
+  AssertionError [ERR_ASSERTION]: visible control: Commander
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:71:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:3383
+✖ every drill-down returns to the commander in one step keeping drafts and progress (11.245084ms)
+  AssertionError [ERR_ASSERTION]: phone opens on the commander
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:85:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:4507
+✖ an FO with nothing waiting is reachable from By FO (12.20525ms)
+  AssertionError [ERR_ASSERTION]: visible control: Filter gate
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:107:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:4824
+✖ a recorded item reopens to its result and reason this session and is never actionable (12.347291ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve a? — A FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at openA (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:6:65)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:116:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:5691
+✖ an ordinary message never consumes the gate decision controls (13.029375ms)
+  AssertionError [ERR_ASSERTION]: visible control: Approve a? — A FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at openA (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:6:65)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-baseline-9jlwsizr/spacedock-bridge/test/bridge-continuity.test.mts:135:41)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/list-status.test.mts:1:1
+✖ test/list-status.test.mts (100.832083ms)
+  'test failed'

@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 102, in <module>
+    if width==360: click('Board')
+                   ^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 44, in click
+    browser('mouse','move',position['x'],position['y']);browser('mouse','down');browser('wait',30);browser('mouse','up')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 31, in browser
+    def browser(*command): return run([args.browser,'--session',session,'--config',root/'browser.json',*command],command_env=dict(env,HOME=os.environ['HOME']))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/combined_capture.py", line 29, in run
+    if p.returncode: raise RuntimeError(p.stderr.strip() or p.stdout.strip())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Missing arguments for: mouse move
+Usage: agent-browser mouse move <x> <y>

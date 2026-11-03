@@ -1,0 +1,52 @@
+✔ reopen keeps the confirmed choice and reason (277.844625ms)
+✔ sent and relayed progress survives a comms detour (110.897ms)
+✔ a recorded item never becomes actionable again (82.523583ms)
+✔ switching items keeps separate drafts and rejects stale actions (76.129625ms)
+✔ errors and progress stay with their own source and owner (288.221125ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (47.238125ms)
+✔ an FO with nothing waiting is reachable from By FO (20.315042ms)
+✖ a recorded item reopens to its result and reason this session and is never actionable (34.3205ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1702.660875
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:4843
+✖ a recorded item reopens to its result and reason this session and is never actionable (34.3205ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Done this session/. Input:
+  
+  'Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 1\n' +
+    'By decision · 1\n' +
+    'By FO · 3\n' +
+    'All 1\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 1\n' +
+    'Questions 0\n' +
+    '+ New FO\n' +
+    'Gates read 7:54:00 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:123:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Commander\nComms officer\nWaiting on you · 1\nBy decision · 1\nBy FO · 3\nAll 1\nPermissions 0\nReviews 0\nGates 1\nQuestions 0\n+ New FO\nGates read 7:54:00 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Done this session/,
+    operator: 'match',
+    diff: 'simple'
+  }

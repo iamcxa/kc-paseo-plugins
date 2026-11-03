@@ -1,0 +1,179 @@
+{
+  "head": "3f4e56ca94049c969c31a01e8aa1d96797c9b785",
+  "candidate_clean": true,
+  "main_and_live_clean": true,
+  "capture_hashes_match_candidate": true,
+  "png_count": 90,
+  "continuity": [
+    {
+      "width": 1440,
+      "continuity": {
+        "scroll_before": 60,
+        "scroll_after": 60,
+        "independent_drafts": true,
+        "sent_once": true
+      }
+    },
+    {
+      "width": 360,
+      "continuity": {
+        "scroll_before": 60,
+        "scroll_after": 60,
+        "independent_drafts": true,
+        "sent_once": true
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "run": "capture-accepted",
+      "pid": 58171,
+      "home_removed": true,
+      "ports": [
+        61123,
+        61124
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-1",
+      "pid": 38233,
+      "home_removed": true,
+      "ports": [
+        55286,
+        55287
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "phone-probe",
+      "pid": 98129,
+      "home_removed": true,
+      "ports": [
+        59013,
+        59014
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-verified",
+      "pid": 83463,
+      "home_removed": true,
+      "ports": [
+        61585,
+        61586
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-complete",
+      "pid": 38874,
+      "home_removed": true,
+      "ports": [
+        64059,
+        64060
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "scroll-phone-visible",
+      "pid": 54923,
+      "home_removed": true,
+      "ports": [
+        64516,
+        64517
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "phone-probe-2",
+      "pid": 16247,
+      "home_removed": true,
+      "ports": [
+        59317,
+        59318
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "phone-probe-3",
+      "pid": 24077,
+      "home_removed": true,
+      "ports": [
+        59745,
+        59746
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-accepted-final",
+      "pid": 77260,
+      "home_removed": true,
+      "ports": [
+        49330,
+        49331
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "scroll-probe",
+      "pid": 77264,
+      "home_removed": true,
+      "ports": [
+        61394,
+        61395
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-3",
+      "pid": 67254,
+      "home_removed": true,
+      "ports": [
+        57101,
+        57102
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-2",
+      "pid": 49375,
+      "home_removed": true,
+      "ports": [
+        55831,
+        55832
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-final",
+      "pid": 32507,
+      "home_removed": true,
+      "ports": [
+        60378,
+        60379
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "capture-delivery",
+      "pid": 59401,
+      "home_removed": true,
+      "ports": [
+        64695,
+        64696
+      ],
+      "browser_closed": true
+    },
+    {
+      "run": "scroll-phone-probe",
+      "pid": 21895,
+      "home_removed": true,
+      "ports": [
+        63636,
+        63637
+      ],
+      "browser_closed": true
+    }
+  ]
+}

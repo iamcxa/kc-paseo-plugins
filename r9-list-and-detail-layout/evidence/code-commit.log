@@ -1,0 +1,6 @@
+[spacedock-ensign/r9-list-and-detail-layout 3f4e56c] feat(spacedock-bridge): open on commander and retain item detail across navigation
+ 14 files changed, 533 insertions(+), 358 deletions(-)
+ create mode 100644 spacedock-bridge/shared/list-status.ts
+ create mode 100644 spacedock-bridge/test/bridge-continuity.test.mts
+ create mode 100644 spacedock-bridge/test/helpers/bridge-host.mts
+ create mode 100644 spacedock-bridge/test/list-status.test.mts

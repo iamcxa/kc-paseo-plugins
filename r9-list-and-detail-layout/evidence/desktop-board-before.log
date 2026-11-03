@@ -1,0 +1,28 @@
+✖ desktop board navigation keeps the commander as the default detail (171.860583ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 606.542417
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:5998
+✖ desktop board navigation keeps the commander as the default detail (171.860583ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message Comms officer"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:146:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

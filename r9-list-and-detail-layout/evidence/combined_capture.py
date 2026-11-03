@@ -9,6 +9,9 @@ parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--paseo',type=Path,default=Path('/Users/kent/.local/bin/paseo'))
 parser.add_argument('--browser',type=Path,default=Path('/Users/kent/.npm-global/bin/agent-browser'))
 parser.add_argument('--web-dist',type=Path,default=Path('/Applications/Paseo.app/Contents/Resources/app-dist'))
+parser.add_argument('--width',type=int,choices=[360,1440])
+parser.add_argument('--probe',action='store_true')
+parser.add_argument('--scroll-only',action='store_true')
 args=parser.parse_args()
 wt=args.worktree.resolve(); dest=args.output.resolve(); dest.mkdir(parents=True,exist_ok=False)
 root=Path(tempfile.mkdtemp(prefix='.r9-capture-',dir=wt)); session='r9-'+uuid.uuid4().hex[:10]
@@ -37,7 +40,15 @@ def wait(predicate):
 def el(label): return 'Array.from(document.querySelectorAll("[aria-label]")).filter(e=>e.checkVisibility()).find(e=>e.getAttribute("aria-label")==='+json.dumps(label,ensure_ascii=False)+')'
 def click(label):
  wait(lambda:evaluate('Boolean('+el(label)+')'))
- browser('click','[aria-label='+json.dumps(label,ensure_ascii=False)+']')
+ position=evaluate('(()=>{const e='+el(label)+';e.scrollIntoView({block:"nearest"});const r=e.getBoundingClientRect();const h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {x:r.x+r.width/2,y:r.y+r.height/2,hit:e.contains(h)}})()')
+ assert position['hit'],(label,position)
+ browser('mouse','move',round(position['x']),round(position['y']));browser('mouse','down');browser('wait',30);browser('mouse','up')
+
+def fill(label,text):
+ wait(lambda:evaluate('Boolean('+el(label)+')'))
+ evaluate('(()=>{const e='+el(label)+';e.focus();e.select()})()');browser('keyboard','inserttext',text)
+ assert evaluate(el(label)+'.value')==text,(label,'visible value did not retain input')
+
 def prefix(text): return 'Array.from(document.querySelectorAll("[role=button],[role=tab]")).filter(e=>e.checkVisibility()).find(e=>e.textContent.trim().startsWith('+json.dumps(text)+'))'
 def textclick(text): evaluate(prefix(text)+'.click()')
 def open_gate(): click('Accept the retry proof before continuing? — Demo FO')
@@ -46,6 +57,7 @@ def snapshot(name,width):
  browser('screenshot',dest/f'{width}-{name}.png')
  info=evaluate('''(()=>({text:document.body.innerText,overflow:document.documentElement.scrollWidth>innerWidth,rows:Array.from(document.querySelectorAll('[role=button],[role=link]')).filter(e=>e.checkVisibility()).map(e=>({label:e.getAttribute('aria-label'),text:e.textContent,rect:(()=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}})()}))}))()''')
  info.update(state=name,width=width); observations.append(info)
+ (dest/'observed.json').write_text(json.dumps(observations,ensure_ascii=False,indent=2))
  assert not info['overflow'], (name,width,'horizontal overflow')
 try:
  for p in ['home','daemon','bin']: (root/p).mkdir()
@@ -82,12 +94,12 @@ try:
  browser('find','text','Direct connection','click');browser('fill','[aria-label="Host"]','127.0.0.1');browser('fill','[aria-label="Port"]',str(port));textclick('Connect')
  wait(lambda:evaluate('Boolean('+prefix('Bridge')+')'));textclick('Bridge')
  wait(lambda:evaluate('Boolean(globalThis.__r9)'))
- scenarios=['home','commander-question','board','open','reason-empty','reason-typed','sent','relayed','recorded','recorded-reopened','fo-question','comms','review-assigned','review-ask','review-sent','source-failed','source-failed-list','source-failed-fo','source-loading','filter-gates','list-sent','list-relayed','back-list','closed','return-commander','progress-board','progress-detail','all-fos','fo-no-waiting','long-titles','list']
- for width,height in [(1440,1000),(360,780)]:
+ scenarios=['home','commander-question','board','permission','open','reason-empty','reason-typed','sent','relayed','recorded','recorded-reopened','fo-question','comms','review-assigned','review-ask','review-sent','source-failed','source-failed-list','source-failed-fo','source-loading','filter-gates','list-sent','list-relayed','back-list','closed','return-commander','progress-board','progress-detail','all-fos','fo-no-waiting','long-titles','list']
+ for width,height in [(w,h) for w,h in [(1440,1000),(360,780)] if not args.width or w==args.width]:
   browser('set','viewport',width,height);browser('wait',400)
   if evaluate('Boolean(document.querySelector(\'[aria-label="Open menu"]\'))'):
    evaluate('document.querySelector(\'[aria-label="Open menu"]\').click()');browser('wait',200);textclick('Bridge');evaluate('document.querySelector(\'[aria-label="Close menu"]\')?.click()')
-  for scenario in scenarios:
+  for scenario in ([] if args.scroll_only else ['board'] if args.probe else scenarios):
    evaluate('globalThis.__r9.scenarioChange('+json.dumps(scenario)+')');browser('wait',250)
    if scenario in ['source-failed','source-loading','home','commander-question','comms']: pass
    else:
@@ -95,22 +107,63 @@ try:
      state='recorded' if scenario in ['recorded','recorded-reopened','back-list'] else 'relayed' if scenario in ['relayed','list-relayed','progress-board','progress-detail'] else 'sent'
      evaluate('globalThis.__r9.progress('+json.dumps(state)+')')
     if width==360: click('Board')
-    if scenario in ['open','reason-empty','reason-typed','sent','relayed','recorded','recorded-reopened','closed','return-commander','progress-detail']:
+    if scenario=='permission':click('Permission: Run the requested command — Permission FO')
+    elif scenario in ['open','reason-empty','reason-typed','sent','relayed','recorded','recorded-reopened','closed','return-commander','progress-detail']:
      open_gate()
      if scenario in ['reason-empty','reason-typed']:
       click('Choose 要求修改')
-      if scenario=='reason-typed':browser('fill','[aria-label="Reason for 要求修改"]','Keep the failure visible')
+      if scenario=='reason-typed':fill('Reason for 要求修改','Keep the failure visible')
      if scenario=='return-commander': click('Back to Commander')
     elif scenario in ['fo-question','source-failed-fo']: click('Which retry limit should we use? (you) — Demo FO')
     elif scenario=='review-assigned': click('Review the adapter proof — Demo FO')
     elif scenario in ['review-ask','review-sent']:
      click('Review the unassigned change — no FO')
      if scenario=='review-sent':click('Send to Comms officer')
-    elif scenario in ['filter-gates','progress-board']:click('Filter gate')
+    elif scenario in ['list-sent','list-relayed','back-list','progress-board']:
+     open_gate();click('Board')
+     if scenario=='progress-board':click('Filter gate')
+    elif scenario=='filter-gates':click('Filter gate')
     elif scenario in ['all-fos','fo-no-waiting']:
      textclick('By FO')
      if scenario=='fo-no-waiting':click('Conversation with Research FO')
+   if scenario=='recorded-reopened':
+    click('Back to Commander')
+    if width==360:click('Board')
+    open_gate()
    snapshot(scenario,width)
+   if scenario in ['board','list','list-sent','list-relayed','back-list','source-failed-list']:
+    textclick('By FO');snapshot(scenario+'-by-fo',width)
+  if not args.probe:
+   evaluate('globalThis.__r9.scenarioChange("continuity")');browser('wait',400)
+   fill('Message Comms officer','Commander draft stays here')
+   scroll=el('Conversation messages with Comms officer')
+   try:wait(lambda:evaluate(scroll+'.scrollHeight>'+scroll+'.clientHeight+100'))
+   except Exception:
+    (dest/'scroll-timeout.json').write_text(json.dumps(evaluate('(()=>Array.from(document.querySelectorAll("[aria-label] a,[aria-label] div,[aria-label]")).filter(e=>e.getAttribute("aria-label")?.includes("Conversation messages")).map(e=>({label:e.getAttribute("aria-label"),height:e.clientHeight,scroll:e.scrollHeight,html:e.outerHTML.slice(0,700),text:e.textContent.slice(0,400),parent:e.parentElement.outerHTML.slice(0,200)})))()'),indent=2))
+    browser('screenshot',dest/'scroll-timeout.png')
+    raise
+   browser('wait',400)
+   evaluate(scroll+'.scrollTop=60');browser('wait',200)
+   before=evaluate(scroll+'.scrollTop')
+   if before<=0:
+    (dest/'scroll-info.json').write_text(json.dumps(evaluate('(()=>{const e='+scroll+';return {html:e.outerHTML.slice(0,1000),height:e.clientHeight,content:e.scrollHeight,overflow:getComputedStyle(e).overflowY,containers:Array.from(e.querySelectorAll("div")).filter(x=>x.scrollHeight>x.clientHeight).map(x=>({height:x.clientHeight,content:x.scrollHeight,overflow:getComputedStyle(x).overflowY,html:x.outerHTML.slice(0,200)}))}})()'),indent=2))
+    browser('screenshot',dest/'scroll-error.png')
+   assert before>0
+   if width==360:click('Board')
+   open_gate();click('Choose 要求修改');fill('Reason for 要求修改','Keep the error visible')
+   fill('Message Demo FO','Independent FO message')
+   click('Back to Commander');browser('wait',200)
+   assert evaluate(el('Message Comms officer')+'.value')=='Commander draft stays here'
+   after=evaluate(scroll+'.scrollTop');assert abs(before-after)<2,(width,before,after)
+   if width==360:click('Board')
+   open_gate()
+   assert evaluate('document.querySelector("[aria-label=\\"Reason for \\u8981\\u6c42\\u4fee\\u6539\\"]").value')=='Keep the error visible'
+   assert evaluate(el('Message Demo FO')+'.value')=='Independent FO message'
+   click('Confirm 要求修改 via comms officer');click('Back to Commander')
+   if width==360:click('Board')
+   open_gate();assert evaluate('document.body.innerText.includes("Sent to the comms officer")')
+   observations.append({'width':width,'continuity':{'scroll_before':before,'scroll_after':after,'independent_drafts':True,'sent_once':evaluate('globalThis.__r9.sent.length')==1}})
+   snapshot('continuity-return',width)
   # Both views with long references; hover and focus must stay within each row wrapper.
   evaluate('globalThis.__r9.scenarioChange("long-titles")');browser('wait',200)
   if width==360:click('Board')
@@ -120,10 +173,13 @@ try:
    bounds=evaluate('''(()=>Array.from(document.querySelectorAll('[role=link][aria-label^="Open "]')).filter(e=>e.checkVisibility()&&e.getAttribute('aria-label').endsWith(' on GitHub')).map(e=>{const r=e.getBoundingClientRect(),p=e.parentElement.getBoundingClientRect();return {label:e.getAttribute('aria-label'),link:{x:r.x,y:r.y,w:r.width,h:r.height},parent:{x:p.x,y:p.y,w:p.width,h:p.height},inside:r.left>=p.left&&r.right<=p.right&&r.top>=p.top&&r.bottom<=p.bottom}}))()''')
    assert bounds and all(x['inside'] for x in bounds),(width,view,bounds)
    observations.append({'width':width,'view':view,'bounds':bounds})
-   label=bounds[0]['label'];browser('hover','[aria-label='+json.dumps(label,ensure_ascii=False)+']');browser('screenshot',dest/f'{width}-{view}-hover.png')
-   browser('focus','[aria-label='+json.dumps(label,ensure_ascii=False)+']');browser('screenshot',dest/f'{width}-{view}-focus.png')
+   label=bounds[0]['label']
+   pos=evaluate('(()=>{const e='+el(label)+';e.scrollIntoView({block:"nearest"});const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))}})()')
+   assert pos['hit'],(label,pos)
+   browser('mouse','move',round(pos['x']),round(pos['y']));browser('screenshot',dest/f'{width}-{view}-hover.png')
+   evaluate(el(label)+'.focus()');assert evaluate(el(label)+'===document.activeElement');browser('screenshot',dest/f'{width}-{view}-focus.png')
  (dest/'observed.json').write_text(json.dumps(observations,ensure_ascii=False,indent=2))
- print(json.dumps({'captures':len([x for x in observations if 'state'in x]),'states':len(scenarios),'widths':[1440,360]}),flush=True)
+ print(json.dumps({'captures':len([x for x in observations if 'state'in x]),'reference_states':len(scenarios),'states_captured':len(set(x['state'] for x in observations if 'state' in x)),'widths':sorted(set(x['width'] for x in observations))}),flush=True)
 finally:
  try:browser('close')
  except Exception:pass
