@@ -38,6 +38,17 @@ gates:
                 id: briefing:r9-commander-first:validation:attempt-1:revision-1
                 digest: sha256:687aa4801dd1837379cd0df0c7ed96f43aac22183a4b6a857ee861fa14eee9ad
                 room-ref: ./r9-commander-first/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r9-commander-first:validation:1
+                briefing: briefing:r9-commander-first:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-03T11:43:43.066242Z"
+                decision: approve
+                reason: 'Captain chat 2026-11-03, asked 「照這個方向做，還是有哪裡要改？確認後，我就讓第 9 輪的工人照這個方向繼續寫程式，它先前寫的測試大多用得上。」, answered 「就這樣」: commander-first is round 9''s design reference.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-03T10:51:48Z
 worktree: .worktrees/spacedock-ensign-r9-commander-first
 ---
