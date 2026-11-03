@@ -1,0 +1,679 @@
+✔ retained surface table: gate briefing × identity changed upstream (275.341625ms)
+✔ retained surface table: gate briefing × failed read then reactivate (60.708542ms)
+✔ retained surface table: gate briefing × failed read then retry control (46.231542ms)
+✔ retained surface table: gate conversation × identity changed upstream (66.65275ms)
+✔ retained surface table: gate conversation × failed read then reactivate (34.897667ms)
+✔ retained surface table: gate conversation × failed read then retry control (18.958709ms)
+✔ retained surface table: assigned review conversation × identity changed upstream (26.36475ms)
+✔ retained surface table: assigned review conversation × failed read then reactivate (24.772041ms)
+✔ retained surface table: assigned review conversation × failed read then retry control (18.592584ms)
+✔ retained surface table: FO conversation × identity changed upstream (53.897958ms)
+✔ retained surface table: FO conversation × failed read then reactivate (41.169208ms)
+✔ retained surface table: FO conversation × failed read then retry control (30.961417ms)
+✔ retained surface table: commander conversation × identity changed upstream (54.467459ms)
+✔ retained surface table: commander conversation × failed read then reactivate (273.090583ms)
+✔ retained surface table: commander conversation × failed read then retry control (227.25175ms)
+✔ retained surface table: decision record × identity changed upstream (32.370917ms)
+✔ retained surface table: decision record × failed read then reactivate (22.117375ms)
+✔ retained surface table: decision record × failed read then retry control (18.793125ms)
+✔ retained surface table: relay status × identity changed upstream (21.617208ms)
+✔ retained surface table: relay status × failed read then reactivate (20.618166ms)
+✔ retained surface table: relay status × failed read then retry control (17.022584ms)
+✔ retained surface table: commander question × identity changed upstream (21.408208ms)
+✔ retained surface table: commander question × failed read then reactivate (262.478459ms)
+✔ retained surface table: commander question × failed read then retry control (228.065708ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (50.553417ms)
+✔ retained surface table: gate briefing × unresolved read then reactivate (42.990666ms)
+✔ retained surface table: gate conversation × unresolved read then reactivate (39.657125ms)
+✔ retained surface table: assigned review conversation × unresolved read then reactivate (34.786875ms)
+✔ retained surface table: FO conversation × unresolved read then reactivate (13.933209ms)
+✔ retained surface table: commander conversation × unresolved read then reactivate (229.614708ms)
+✔ retained surface table: decision record × unresolved read then reactivate (23.0385ms)
+✔ retained surface table: relay status × unresolved read then reactivate (16.422041ms)
+✔ retained surface table: commander question × unresolved read then reactivate (222.101667ms)
+✔ retained subscription: gate × ready failure recovers with draft (17.848333ms)
+✔ retained subscription: gate × event failure recovers with draft (19.487958ms)
+✔ retained subscription: fo × ready failure recovers with draft (30.086375ms)
+✔ retained subscription: fo × event failure recovers with draft (40.804ms)
+✔ retained subscription: commander × ready failure recovers with draft (55.411542ms)
+✔ retained subscription: commander × event failure recovers with draft (54.899458ms)
+✔ commander connection reader × failed read then reactivate (49.044208ms)
+✔ commander connection reader × failed read then retry control (15.902375ms)
+✔ retained phone board: gates × failed read then reactivate (14.228833ms)
+✔ retained phone board: gates × failed read then retry control (12.350666ms)
+✔ retained phone board: tasks × failed read then reactivate (17.21025ms)
+✔ retained phone board: tasks × failed read then retry control (12.326542ms)
+✔ retained phone board: review source × failed read then reactivate (13.173792ms)
+✔ retained phone board: review source × failed read then retry control (12.331667ms)
+✔ retained phone board: gates × unresolved read then reactivate (11.88725ms)
+✔ retained phone board: gates × unresolved read then retry control (11.494291ms)
+✔ retained phone board: tasks × unresolved read then reactivate (15.210667ms)
+✔ retained phone board: tasks × unresolved read then retry control (12.490333ms)
+✔ retained phone board: review source × unresolved read then reactivate (12.348875ms)
+✔ retained phone board: review source × unresolved read then retry control (11.31475ms)
+✔ retained phone board: FO question reader × failed read then reactivate (15.785916ms)
+✔ retained phone board: FO question reader × failed read then retry control (13.764875ms)
+✖ retained surface table: gate briefing × loaded value changes then reactivate (22.023125ms)
+✖ retained surface table: gate conversation × loaded value changes then reactivate (15.318ms)
+✖ retained surface table: assigned review conversation × loaded value changes then reactivate (15.392834ms)
+✖ retained surface table: FO conversation × loaded value changes then reactivate (14.338417ms)
+✖ retained surface table: commander conversation × loaded value changes then reactivate (13.037875ms)
+✖ retained surface table: decision record × loaded value changes then reactivate (20.978125ms)
+✖ retained surface table: relay status × loaded value changes then reactivate (15.045833ms)
+✖ retained surface table: commander question × loaded value changes then reactivate (13.238125ms)
+✖ retained surface table: claim released by another client then reopen (22.055584ms)
+✖ retained surface table: refresh read overlaps a local send (null); the local send wins (14.389291ms)
+✖ retained surface table: refresh read overlaps a local send (old claim); the local send wins (18.714ms)
+✖ reactivation refreshes gate closure and recorded results without reviving recorded actions (15.666125ms)
+✖ retained phone board: gates × loaded value changes then reactivate (12.751708ms)
+✖ retained phone board: tasks × loaded value changes then reactivate (12.00625ms)
+✖ retained phone board: review source × loaded value changes then reactivate (11.545792ms)
+✖ retained surface table: briefing refresh overlaps a local send (closed) (14.694542ms)
+✖ retained surface table: briefing refresh overlaps a local send (recorded) (16.948459ms)
+✖ an authoritative released claim clears cached local sent progress on reopen (16.842375ms)
+ℹ tests 73
+ℹ suites 0
+ℹ pass 55
+ℹ fail 18
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3784.119583
+
+✖ failing tests:
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: gate briefing × loaded value changes then reactivate (22.023125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Fresh briefing/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n' +
+    'Decide via comms officer\n' +
+    '准\n' +
+    '要求修改\n' +
+    '暫緩\n' +
+    '\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:261:47)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\n← Commander\nBoard\n← Queue\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\nDecide via comms officer\n准\n要求修改\n暫緩\n\n',
+    expected: /Fresh briefing/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: gate conversation × loaded value changes then reactivate (15.318ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Fresh conversation/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n' +
+    'Decide via comms officer\n' +
+    '准\n' +
+    '要求修改\n' +
+    '暫緩\n' +
+    '\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:264:17)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\n← Commander\nBoard\n← Queue\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\nDecide via comms officer\n准\n要求修改\n暫緩\n\n',
+    expected: /Fresh conversation/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: assigned review conversation × loaded value changes then reactivate (15.392834ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Fresh conversation/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 3\n' +
+    'By decision · 3\n' +
+    'By FO · 3\n' +
+    'All 3\n' +
+    'Permissions 0\n' +
+    'Reviews 1\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Reviews\n' +
+    '1\n' +
+    '◆ Your turn\n' +
+    'Review the change\n' +
+    'a\n' +
+    '#42\n' +
+    'A FO\n' +
+    'REVIEW REQUEST\n' +
+    '498253h ago\n' +
+    '↗\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'QUESTION · A\n' +
+    'Review the change\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:264:17)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 3\nBy decision · 3\nBy FO · 3\nAll 3\nPermissions 0\nReviews 1\nGates 2\nQuestions 0\nReviews\n1\n◆ Your turn\nReview the change\na\n#42\nA FO\nREVIEW REQUEST\n498253h ago\n↗\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\n← Commander\nBoard\n← Queue\nQUESTION · A\nReview the change\nA FO\nwaiting 3h\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\n',
+    expected: /Fresh conversation/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: FO conversation × loaded value changes then reactivate (14.338417ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Fresh conversation/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'QUESTION · A\n' +
+    'Conversation with A FO\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:264:17)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 9:11:38 PM · 2 open\n← Commander\nBoard\n← Queue\nQUESTION · A\nConversation with A FO\nA FO\nwaiting 3h\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\n',
+    expected: /Fresh conversation/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: commander conversation × loaded value changes then reactivate (13.037875ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Fresh conversation/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:264:17)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Fresh conversation/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: decision record × loaded value changes then reactivate (20.978125ms)
+  AssertionError [ERR_ASSERTION]: released claim no longer blocks a decision
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:262:51)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: relay status × loaded value changes then reactivate (15.045833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Relayed to A FO/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'Sent to the comms officer\n' +
+    'approve 「准」 · waiting for the relay, 0 min\n' +
+    'Sent to the comms officer\n' +
+    'approve 「准」 · waiting for the relay, 0 min\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:263:49)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\n← Commander\nBoard\n← Queue\nSent to the comms officer\napprove 「准」 · waiting for the relay, 0 min\nSent to the comms officer\napprove 「准」 · waiting for the relay, 0 min\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\n',
+    expected: /Relayed to A FO/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11611
+✖ retained surface table: commander question × loaded value changes then reactivate (13.238125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Fresh conversation/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:264:17)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Fresh conversation/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:13078
+✖ retained surface table: claim released by another client then reopen (22.055584ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Choose 准"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:277:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:13841
+✖ retained surface table: refresh read overlaps a local send (null); the local send wins (14.389291ms)
+  AssertionError [ERR_ASSERTION]: a loaded claim is refreshed on reopen
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:291:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:13841
+✖ retained surface table: refresh read overlaps a local send (old claim); the local send wins (18.714ms)
+  AssertionError [ERR_ASSERTION]: a loaded claim is refreshed on reopen
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:291:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:15371
+✖ reactivation refreshes gate closure and recorded results without reviving recorded actions (15.666125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Recorded: revise/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 9:11:38 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to A FO\n' +
+    'Decide via comms officer\n' +
+    '准\n' +
+    '要求修改\n' +
+    '暫緩\n' +
+    '\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:320:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 9:11:38 PM · 2 open\n← Commander\nBoard\n← Queue\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\nDecide via comms officer\n准\n要求修改\n暫緩\n\n',
+    expected: /Recorded: revise/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:16046
+✖ retained phone board: gates × loaded value changes then reactivate (12.751708ms)
+  AssertionError [ERR_ASSERTION]: a successful live source is refreshed on return too
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:334:36)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:16046
+✖ retained phone board: tasks × loaded value changes then reactivate (12.00625ms)
+  AssertionError [ERR_ASSERTION]: a successful live source is refreshed on return too
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:334:36)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:16046
+✖ retained phone board: review source × loaded value changes then reactivate (11.545792ms)
+  AssertionError [ERR_ASSERTION]: a successful live source is refreshed on return too
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:334:36)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:16596
+✖ retained surface table: briefing refresh overlaps a local send (closed) (14.694542ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(finishRead)
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:345:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:16596
+✖ retained surface table: briefing refresh overlaps a local send (recorded) (16.948459ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(finishRead)
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:345:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:17703
+✖ an authoritative released claim clears cached local sent progress on reopen (16.842375ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Choose 准"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle4-baseline-sb6c26mt/spacedock-bridge/test/retained-readers.test.mts:363:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,930 @@
+[
+  {
+    "name": "only checked, empty sources can claim nothing is waiting and a zero count",
+    "status": "passed"
+  },
+  {
+    "name": "a source failure makes both the empty text and the count incomplete until success",
+    "status": "passed"
+  },
+  {
+    "name": "gate failures name only the failed workflows while successful gates stay counted",
+    "status": "passed"
+  },
+  {
+    "name": "unlabelled alone",
+    "status": "passed"
+  },
+  {
+    "name": "unlabelled with gate",
+    "status": "passed"
+  },
+  {
+    "name": "unlabelled with review",
+    "status": "passed"
+  },
+  {
+    "name": "label represents the same reply",
+    "status": "passed"
+  },
+  {
+    "name": "different labelled question",
+    "status": "passed"
+  },
+  {
+    "name": "unlabelled with gate and review",
+    "status": "passed"
+  },
+  {
+    "name": "same reply label with gate",
+    "status": "passed"
+  },
+  {
+    "name": "different label with gate",
+    "status": "passed"
+  },
+  {
+    "name": "same reply label with review",
+    "status": "passed"
+  },
+  {
+    "name": "different label with review",
+    "status": "passed"
+  },
+  {
+    "name": "same reply label with gate and review",
+    "status": "passed"
+  },
+  {
+    "name": "different label with gate and review",
+    "status": "passed"
+  },
+  {
+    "name": "both board views share unread-question rows and counts across waiting-item combinations",
+    "status": "passed"
+  },
+  {
+    "name": "failed board sources reuse guarded reads; FO rows count and open each waiting destination",
+    "status": "passed"
+  },
+  {
+    "name": "By FO keeps every FO and each assigned review reachable",
+    "status": "passed"
+  },
+  {
+    "name": "queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds",
+    "status": "passed"
+  },
+  {
+    "name": "all known tabs false marks an idle or error FO Tab closed without moving or hiding it",
+    "status": "passed"
+  },
+  {
+    "name": "an FO with no tab labels is not Tab closed",
+    "status": "passed"
+  },
+  {
+    "name": "one true tab keeps an FO open across clients",
+    "status": "passed"
+  },
+  {
+    "name": "a running FO is not Tab closed even when every tab is false",
+    "status": "passed"
+  },
+  {
+    "name": "archived and lifecycle-closed FOs retain the offline path without a Tab closed badge",
+    "status": "passed"
+  },
+  {
+    "name": "an unknown tab value does not count as explicitly false",
+    "status": "passed"
+  },
+  {
+    "name": "a pending permission is waiting on Kent even when requiresAttention is false",
+    "status": "passed"
+  },
+  {
+    "name": "Paseo's own permission attention is waiting on Kent",
+    "status": "passed"
+  },
+  {
+    "name": "running without a prompt is busy, a read idle agent is idle",
+    "status": "passed"
+  },
+  {
+    "name": "an unread finished reply is a new reply until its next step names Kent",
+    "status": "passed"
+  },
+  {
+    "name": "a new reply whose next step is the Captain's moves to waiting",
+    "status": "passed"
+  },
+  {
+    "name": "only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title",
+    "status": "passed"
+  },
+  {
+    "name": "a next-owner label decides the group without reading the reply",
+    "status": "passed"
+  },
+  {
+    "name": "an FO that is running again is busy even with an unread earlier reply",
+    "status": "passed"
+  },
+  {
+    "name": "an FO's spacedock gates sit under it and make it wait on the Captain",
+    "status": "passed"
+  },
+  {
+    "name": "an archived or closed FO is offline, and its gates still show under it",
+    "status": "passed"
+  },
+  {
+    "name": "an offline FO with no gate waiting is left off the board",
+    "status": "passed"
+  },
+  {
+    "name": "an idle FO whose next step is the Captain's waits on him even after its reply is read",
+    "status": "passed"
+  },
+  {
+    "name": "a gate keeps the time it started waiting when it is attached to its FO",
+    "status": "passed"
+  },
+  {
+    "name": "reopen keeps the confirmed choice and reason",
+    "status": "passed"
+  },
+  {
+    "name": "sent and relayed progress survives a comms detour",
+    "status": "passed"
+  },
+  {
+    "name": "a recorded item never becomes actionable again",
+    "status": "passed"
+  },
+  {
+    "name": "switching items keeps separate drafts and rejects stale actions",
+    "status": "passed"
+  },
+  {
+    "name": "errors and progress stay with their own source and owner",
+    "status": "passed"
+  },
+  {
+    "name": "every drill-down returns to the commander in one step keeping drafts and progress",
+    "status": "passed"
+  },
+  {
+    "name": "an FO with nothing waiting is reachable from By FO",
+    "status": "passed"
+  },
+  {
+    "name": "a recorded item reopens to its result and reason this session and is never actionable",
+    "status": "passed"
+  },
+  {
+    "name": "an ordinary message never consumes the gate decision controls",
+    "status": "passed"
+  },
+  {
+    "name": "desktop board navigation keeps the commander as the default detail",
+    "status": "passed"
+  },
+  {
+    "name": "the label line is kind, stage and repo, and a gate-less card is a question",
+    "status": "passed"
+  },
+  {
+    "name": "the FO line drops the model name but keeps a title that is only a model name",
+    "status": "passed"
+  },
+  {
+    "name": "waiting time reads in seconds, minutes and hours",
+    "status": "passed"
+  },
+  {
+    "name": "collapsed, the discussion starts at the FO's latest message and counts the messages before it",
+    "status": "passed"
+  },
+  {
+    "name": "one message has nothing earlier, and no FO message falls back to the last message",
+    "status": "passed"
+  },
+  {
+    "name": "displayed replies join adjacent chunks but a visible tool separates them",
+    "status": "passed"
+  },
+  {
+    "name": "hidden agent_message tools do not split a displayed reply; trailing visible tools do",
+    "status": "passed"
+  },
+  {
+    "name": "a reconnect detects the last displayed Captain question after earlier FO work",
+    "status": "passed"
+  },
+  {
+    "name": "manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses",
+    "status": "passed"
+  },
+  {
+    "name": "Check again restores an errored subscription and waits for live readiness plus history before later questions appear",
+    "status": "passed"
+  },
+  {
+    "name": "manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness",
+    "status": "passed"
+  },
+  {
+    "name": "switching coordinators clears the previous question and timestamp while the new connection is pending",
+    "status": "passed"
+  },
+  {
+    "name": "native composer follows a keyboard already visible at mount",
+    "status": "passed"
+  },
+  {
+    "name": "native composer follows a keyboard frame changes without a show event",
+    "status": "passed"
+  },
+  {
+    "name": "mounted native layout follows keyboard height, replaces Android clearance, and removes listeners",
+    "status": "passed"
+  },
+  {
+    "name": "message and reason share a shrinkable scroll area inside keyboard padding",
+    "status": "passed"
+  },
+  {
+    "name": "Enter sends the typed text to the FO and clears the box",
+    "status": "passed"
+  },
+  {
+    "name": "the round send button path sends the same text, with the footer, to the FO",
+    "status": "passed"
+  },
+  {
+    "name": "Shift+Enter and an IME confirm do not send; an empty box sends nothing",
+    "status": "passed"
+  },
+  {
+    "name": "a refusal from beforeSend keeps the draft and shows the refusal",
+    "status": "passed"
+  },
+  {
+    "name": "a decision chip passes the typed text to onChip, not to the FO, and clears the box on success",
+    "status": "passed"
+  },
+  {
+    "name": "a chip refusal keeps the draft",
+    "status": "passed"
+  },
+  {
+    "name": "\u8981\u6c42\u4fee\u6539 and \u66ab\u7de9 refuse an empty reason before claiming or sending anything",
+    "status": "passed"
+  },
+  {
+    "name": "\u51c6 goes through with an empty box, via the comms officer",
+    "status": "passed"
+  },
+  {
+    "name": "a decision chip sends the typed text as the reason",
+    "status": "passed"
+  },
+  {
+    "name": "a second decision on the same briefing is refused and sends nothing",
+    "status": "passed"
+  },
+  {
+    "name": "a failed send releases the claim and rethrows",
+    "status": "passed"
+  },
+  {
+    "name": "a changed briefing refuses before claiming",
+    "status": "passed"
+  },
+  {
+    "name": "an unloaded briefing refuses",
+    "status": "passed"
+  },
+  {
+    "name": "polling a newer open briefing ignores the older briefing's resolution",
+    "status": "passed"
+  },
+  {
+    "name": "message never decides",
+    "status": "passed"
+  },
+  {
+    "name": "decision uses only its reason",
+    "status": "passed"
+  },
+  {
+    "name": "both actions keep the other draft",
+    "status": "passed"
+  },
+  {
+    "name": "a changed briefing or officer cannot receive a stale action",
+    "status": "passed"
+  },
+  {
+    "name": "pending, failure and duplicate presses keep existing behavior",
+    "status": "passed"
+  },
+  {
+    "name": "draft subscriptions notify only their target and stop after unsubscribe",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composers follow store updates, target changes and unsubscription",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composer reflects delayed send: clear",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composer reflects delayed send: edit",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composer reflects delayed send: refuse",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composer reflects delayed decision: clear",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composer reflects delayed decision: edit",
+    "status": "passed"
+  },
+  {
+    "name": "mounted composer reflects delayed decision: refuse",
+    "status": "passed"
+  },
+  {
+    "name": "reopening a pending send blocks button and Enter until success",
+    "status": "passed"
+  },
+  {
+    "name": "reopening a pending send blocks button and Enter until failure",
+    "status": "passed"
+  },
+  {
+    "name": "drafts survive remount reads, isolated by agent, gate and stage",
+    "status": "passed"
+  },
+  {
+    "name": "a comms officer seed fills an empty draft and preserves non-empty text",
+    "status": "passed"
+  },
+  {
+    "name": "stored draft clears after successful send",
+    "status": "passed"
+  },
+  {
+    "name": "stored draft survives refused send",
+    "status": "passed"
+  },
+  {
+    "name": "stored draft clears after successful decision",
+    "status": "passed"
+  },
+  {
+    "name": "stored draft survives refused decision",
+    "status": "passed"
+  },
+  {
+    "name": "a delayed send keeps a newer remounted draft: New reply after remount",
+    "status": "passed"
+  },
+  {
+    "name": "a delayed send keeps a newer remounted draft: Original reply",
+    "status": "passed"
+  },
+  {
+    "name": "a delayed decision keeps a newer remounted draft: New reply after remount",
+    "status": "passed"
+  },
+  {
+    "name": "a delayed decision keeps a newer remounted draft: Original reply",
+    "status": "passed"
+  },
+  {
+    "name": "the FO source stays loading until every question read settles",
+    "status": "passed"
+  },
+  {
+    "name": "a failed FO question read marks the source incomplete and keeps successful questions",
+    "status": "passed"
+  },
+  {
+    "name": "a recorded gate does not suppress a new implementation attempt of the same task",
+    "status": "passed"
+  },
+  {
+    "name": "a recorded gate does not suppress a new validation attempt of the same task",
+    "status": "passed"
+  },
+  {
+    "name": "a failed first briefing read retries on reopen and keeps its draft (throw)",
+    "status": "passed"
+  },
+  {
+    "name": "a failed first briefing read retries on reopen and keeps its draft (answer)",
+    "status": "passed"
+  },
+  {
+    "name": "a retained active attempt never adopts its replacement's briefing",
+    "status": "passed"
+  },
+  {
+    "name": "a late failure from the first read cannot overwrite a successful reopen",
+    "status": "passed"
+  },
+  {
+    "name": "each active briefing identity survives the server, RPC schema, attachment and queue",
+    "status": "passed"
+  },
+  {
+    "name": "gate read failures reach the board, and a return refresh replaces the existing snapshot",
+    "status": "passed"
+  },
+  {
+    "name": "a removed workflow does not hide another workflow's gates or tasks",
+    "status": "passed"
+  },
+  {
+    "name": "the open attempt is the latest one neither withdrawn nor resolved, for that stage",
+    "status": "passed"
+  },
+  {
+    "name": "a resolution is found by the briefing it answered",
+    "status": "passed"
+  },
+  {
+    "name": "opening a closed gate without a briefing ID returns its latest stage resolution",
+    "status": "passed"
+  },
+  {
+    "name": "a git-root state URI gives the commit and path",
+    "status": "passed"
+  },
+  {
+    "name": "status priority covers every waiting kind in LIST-AND-DETAIL",
+    "status": "passed"
+  },
+  {
+    "name": "counts retain pending progress, exclude finished items and distinguish incomplete from zero",
+    "status": "passed"
+  },
+  {
+    "name": "bold and inline code are split out of a line",
+    "status": "passed"
+  },
+  {
+    "name": "a reply becomes paragraphs, list items and a fenced status block",
+    "status": "passed"
+  },
+  {
+    "name": "a status block is recognised by its Remaining or \u5269\u9918 line",
+    "status": "passed"
+  },
+  {
+    "name": "quoted lines become one quote block that keeps its line breaks",
+    "status": "passed"
+  },
+  {
+    "name": "Enter sends, but not while an input method is composing or with Shift",
+    "status": "passed"
+  },
+  {
+    "name": "the last reply joins assistant text after the last user message",
+    "status": "passed"
+  },
+  {
+    "name": "a status block's next step is the preview",
+    "status": "passed"
+  },
+  {
+    "name": "without a next step the first line is the preview, clipped",
+    "status": "passed"
+  },
+  {
+    "name": "a permission shows what it asks for",
+    "status": "passed"
+  },
+  {
+    "name": "the next step is the Captain's when it names \u4f60 or you",
+    "status": "passed"
+  },
+  {
+    "name": "a Paseo agent envelope is read as its sender, kind and body",
+    "status": "passed"
+  },
+  {
+    "name": "a user-message envelope or an unclosed one is not shown as coming from an agent",
+    "status": "passed"
+  },
+  {
+    "name": "items sort by kind first, then oldest first; one FO can own several items",
+    "status": "passed"
+  },
+  {
+    "name": "a review with no FO has none",
+    "status": "passed"
+  },
+  {
+    "name": "the next card is the first queue item and the sections keep the queue order",
+    "status": "passed"
+  },
+  {
+    "name": "an empty queue has no next card and one item has no rows",
+    "status": "passed"
+  },
+  {
+    "name": "each review item carries its own repo#number and URL, and opening it passes that URL",
+    "status": "passed"
+  },
+  {
+    "name": "a gate or question has no link to open",
+    "status": "passed"
+  },
+  {
+    "name": "a captain question survives alongside the same FO's gate",
+    "status": "passed"
+  },
+  {
+    "name": "a gate alone or its repeated label does not add an empty or duplicate question",
+    "status": "passed"
+  },
+  {
+    "name": "attaching a gate does not promote an FO-owned next step into a Captain question",
+    "status": "passed"
+  },
+  {
+    "name": "a chip becomes a relay order carrying the decision and the Captain's exact words",
+    "status": "passed"
+  },
+  {
+    "name": "text already typed joins the chip word as the Captain's words",
+    "status": "passed"
+  },
+  {
+    "name": "a decision id is d- and six base-36 characters",
+    "status": "passed"
+  },
+  {
+    "name": "delivery moves sent, relayed, recorded, and asks for a check after ten minutes",
+    "status": "passed"
+  },
+  {
+    "name": "revise and hold need a typed reason; approve does not",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate briefing \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate briefing \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate briefing \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate conversation \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate conversation \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate conversation \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: assigned review conversation \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: assigned review conversation \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: assigned review conversation \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: FO conversation \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: FO conversation \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: FO conversation \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander conversation \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander conversation \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander conversation \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: decision record \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: decision record \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: decision record \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: relay status \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: relay status \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: relay status \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander question \u00d7 identity changed upstream",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander question \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander question \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "a gate uses its own source workflow even when first opened under another officer workflow",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate briefing \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate conversation \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: assigned review conversation \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: FO conversation \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander conversation \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: decision record \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: relay status \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander question \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained subscription: gate \u00d7 ready failure recovers with draft",
+    "status": "passed"
+  },
+  {
+    "name": "retained subscription: gate \u00d7 event failure recovers with draft",
+    "status": "passed"
+  },
+  {
+    "name": "retained subscription: fo \u00d7 ready failure recovers with draft",
+    "status": "passed"
+  },
+  {
+    "name": "retained subscription: fo \u00d7 event failure recovers with draft",
+    "status": "passed"
+  },
+  {
+    "name": "retained subscription: commander \u00d7 ready failure recovers with draft",
+    "status": "passed"
+  },
+  {
+    "name": "retained subscription: commander \u00d7 event failure recovers with draft",
+    "status": "passed"
+  },
+  {
+    "name": "commander connection reader \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "commander connection reader \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: gates \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: gates \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: tasks \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: tasks \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: review source \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: review source \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: gates \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: gates \u00d7 unresolved read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: tasks \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: tasks \u00d7 unresolved read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: review source \u00d7 unresolved read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: review source \u00d7 unresolved read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: FO question reader \u00d7 failed read then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: FO question reader \u00d7 failed read then retry control",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate briefing \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: gate conversation \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: assigned review conversation \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: FO conversation \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander conversation \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: decision record \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: relay status \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: commander question \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: claim released by another client then reopen",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: refresh read overlaps a local send (null); the local send wins",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: refresh read overlaps a local send (old claim); the local send wins",
+    "status": "passed"
+  },
+  {
+    "name": "reactivation refreshes gate closure and recorded results without reviving recorded actions",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: gates \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: tasks \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained phone board: review source \u00d7 loaded value changes then reactivate",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: briefing refresh overlaps a local send (closed)",
+    "status": "passed"
+  },
+  {
+    "name": "retained surface table: briefing refresh overlaps a local send (recorded)",
+    "status": "passed"
+  },
+  {
+    "name": "an authoritative released claim clears cached local sent progress on reopen",
+    "status": "passed"
+  },
+  {
+    "name": "review reader exposes the existing poller's scheduled first check and clears it on stop",
+    "status": "passed"
+  },
+  {
+    "name": "gh search output becomes review requests, dropping incomplete rows",
+    "status": "passed"
+  },
+  {
+    "name": "only requests not seen before are new",
+    "status": "passed"
+  },
+  {
+    "name": "the wake message is marked as automated data and names each pull request",
+    "status": "passed"
+  },
+  {
+    "name": "a title and an author with prompt-like text, newlines and quotes never reach the wake message",
+    "status": "passed"
+  },
+  {
+    "name": "a well-formed request is exactly one routable line",
+    "status": "passed"
+  },
+  {
+    "name": "a malformed owner, repo, number or url is left out of the wake and the rest still go",
+    "status": "passed"
+  },
+  {
+    "name": "a review goes to the FO whose next step names it, else to the FO whose repo label lists it",
+    "status": "passed"
+  },
+  {
+    "name": "a review ref is repo#number, with the owner only when another request shares the repo name under a different owner",
+    "status": "passed"
+  },
+  {
+    "name": "a spacedock status answer gives the task's title and stage",
+    "status": "passed"
+  },
+  {
+    "name": "no matching task or unreadable output gives nothing",
+    "status": "passed"
+  },
+  {
+    "name": "only a commissioned workflow README counts as a workflow directory",
+    "status": "passed"
+  },
+  {
+    "name": "only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain",
+    "status": "passed"
+  }
+]
