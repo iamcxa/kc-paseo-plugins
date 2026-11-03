@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r9-list-and-detail-layout
+gates:
+    version: 1
+    records:
+        - id: gate:r9-list-and-detail-layout:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r9-list-and-detail-layout-backlog-1
+              briefing:
+                id: briefing:r9-list-and-detail-layout:backlog:attempt-1:revision-1
+                digest: sha256:68612bfe2b0d881755d124f7a48c50b31751ea11fd3131d1c85cee58f3c89cbf
+                room-ref: ./r9-list-and-detail-layout/review/backlog/briefing-1
 ---
 
 Round 9 of the POC flywheel under ADR 0008 builds the layout and navigation of the design the Captain accepted in round 8: a narrow list beside a wide detail, grouped, one status per row, filters with counts, and switching items without losing drafts, choices or progress.
