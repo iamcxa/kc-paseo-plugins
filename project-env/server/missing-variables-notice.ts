@@ -35,10 +35,14 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     }
   }
 
+  function remember(memory: Map<string, string[]>, agentId: string, keys: string[]) {
+    if (keys.length > 0) memory.set(agentId, keys);
+    else memory.delete(agentId);
+  }
+
   function observe(agentId: string, keys: string[]) {
-    current.set(agentId, keys);
-    const before = shown.get(agentId);
-    if (before) shown.set(agentId, before.filter((key) => keys.includes(key)));
+    remember(current, agentId, keys);
+    remember(shown, agentId, (shown.get(agentId) ?? []).filter((key) => keys.includes(key)));
   }
 
   function record(agentId: string, failures: Failure[], { resumed = false } = {}) {
@@ -63,7 +67,7 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     try {
       await appendRow({ variables: entry.variables, ...(entry.resumed ? { resumed: true as const } : {}) });
       const still = current.get(agentId) ?? [];
-      shown.set(agentId, failureKeys(entry.variables).filter((key) => still.includes(key)));
+      remember(shown, agentId, failureKeys(entry.variables).filter((key) => still.includes(key)));
     } catch (error) {
       reportFailure(agentId, error);
     }
