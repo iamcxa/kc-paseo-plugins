@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r8-list-and-wide-detail
+gates:
+    version: 1
+    records:
+        - id: gate:r8-list-and-wide-detail:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r8-list-and-wide-detail-backlog-1
+              briefing:
+                id: briefing:r8-list-and-wide-detail:backlog:attempt-1:revision-1
+                digest: sha256:1626eb4e74b2159a2e8529315bddb08f179b949d63fc72d6a7efa162ce28ac68
+                room-ref: ./r8-list-and-wide-detail/review/backlog/briefing-1
 ---
 
 Redo the round 8 design for the layout the Captain wants to try — a narrow list that stays visible beside a wide detail — and first evaluate how a better-rated plugin presents each kind of waiting item, before any mockup.
