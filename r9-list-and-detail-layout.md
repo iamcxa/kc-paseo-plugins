@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 9 — narrow list beside a wide detail, with state kept across reopen and the comms officer
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
