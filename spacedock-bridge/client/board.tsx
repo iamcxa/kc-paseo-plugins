@@ -180,27 +180,30 @@ export function Board({
   const [reviews, setReviews] = useState<ReviewRequestData[]>([]);
   const [reviewNextCheck, setReviewNextCheck] = useState<number | null>(null);
   const [reviewState, setReviewState] = useState<SourceState>("loading");
-  useEffect(() => {
-    let cancelled = false;
-    const refresh = () =>
-      callReadReviews({}).then(
+  const reviewRequest = useRef(0);
+  const refreshReviews = useCallback(() => {
+    const request = ++reviewRequest.current;
+    setReviewState("loading");
+    return callReadReviews({}).then(
         (result) => {
-          if (cancelled) return;
+          if (request !== reviewRequest.current) return;
           setReviewNextCheck(result.nextCheckAt);
           setReviews(result.error ? [] : result.requests);
           setReviewState(result.error ? "failed" : result.checkedAt === null ? "loading" : "loaded");
         },
         () => {
-          if (cancelled) return;
+          if (request !== reviewRequest.current) return;
           setReviewNextCheck(null);
           setReviews([]);
           setReviewState("failed");
         },
       );
-    void refresh();
-    const timer = setInterval(() => void refresh(), 60_000);
-    return () => { cancelled = true; clearInterval(timer); };
   }, [callReadReviews]);
+  useEffect(() => {
+    void refreshReviews();
+    const timer = setInterval(() => void refreshReviews(), 60_000);
+    return () => { ++reviewRequest.current; clearInterval(timer); };
+  }, [refreshReviews]);
 
   const grouped = useMemo(
     () => attachGates(withReplies(rows, replies), gates),
@@ -345,6 +348,18 @@ export function Board({
     reviews: reviewState,
     comms: commsState,
   };
+  const boardVisible = !layout.compact || open === null;
+  const wasBoardVisible = useRef(boardVisible);
+  useEffect(() => {
+    if (boardVisible && !wasBoardVisible.current) {
+      if (foState !== "loaded") setFoRead(value => value + 1);
+      if (sources.gates !== "loaded") void refreshGates(true);
+      if (taskState !== "loaded") void refreshTasks();
+      if (reviewState !== "loaded") void refreshReviews();
+      if (commsState !== "loaded") onRetryComms?.();
+    }
+    wasBoardVisible.current = boardVisible;
+  }, [boardVisible]);
   const failedGateWorkflows = gateCheck.key === workflowKey ? gateCheck.failed : [];
   const empty = boardEmptyState(sources, queue.length + (coAsk ? 1 : 0), failedGateWorkflows);
   const foEmpty = boardEmptyState({ fos: foState, gates: "loaded", reviews: "loaded", comms: "loaded" }, grouped.length);
@@ -374,7 +389,7 @@ export function Board({
         `Who should review ${item.review.owner}/${item.review.repo}#${item.review.number} (${item.review.url})?`,
       );
     if (item.fo) {
-      setVisited(old => ({ ...old, [item.key]: item }));
+      setVisited(old => old[item.key] ? old : { ...old, [item.key]: item });
       setOpen(item.key);
     }
   };
@@ -467,10 +482,11 @@ export function Board({
       </View> : null}
       {notice ? <Text style={styles.muted}>{notice}</Text> : null}
       {([
-        ["FOs", foState === "failed", () => setFoRead((value) => value + 1)],
-        ["gates", sources.gates === "failed", () => void refreshGates(true)],
-        ["tasks", taskState === "failed", () => void refreshTasks()],
-        ["comms officer", commsState === "failed" && Boolean(onRetryComms), onRetryComms],
+        ["FOs", foState !== "loaded", () => setFoRead((value) => value + 1)],
+        ["gates", Boolean(workflowKey) && sources.gates !== "loaded", () => void refreshGates(true)],
+        ["tasks", taskState !== "loaded", () => void refreshTasks()],
+        ["review source", reviewState !== "loaded", () => void refreshReviews()],
+        ["comms officer", commsState !== "loaded" && Boolean(onRetryComms), onRetryComms],
       ] as const).map(([name, failed, retry]) => failed ? (
         <Pressable key={name} colors={colors} accessibilityRole="button" accessibilityLabel={`Check ${name} again`} onPress={retry} style={styles.add}><Text style={styles.addText}>Check again · {name}</Text></Pressable>
       ) : null)}
@@ -549,7 +565,7 @@ export function Board({
       {open === null ? <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24, gap: 8 }}><Text style={styles.name}>Choose an item</Text><Text style={styles.muted}>Its detail and conversation open here.</Text></View> : null}
       {Object.values(visited).map(item => item.fo ? (
         <View key={item.key} style={{ flex: 1, minHeight: 0, display: open === item.key ? "flex" : "none" }}>
-          <DecisionCard theme={theme} layout={layout} navigation={navigation} fo={grouped.find(row => row.id === item.fo!.id) ?? item.fo} gate={item.gate ?? null}
+          <DecisionCard theme={theme} layout={layout} navigation={navigation} fo={item.fo} gate={item.gate ?? null}
             active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
             onBack={(recorded) => { setOpen(comms && !layout.compact ? "comms" : null); if (recorded) void refreshGates(true); }} />
         </View>

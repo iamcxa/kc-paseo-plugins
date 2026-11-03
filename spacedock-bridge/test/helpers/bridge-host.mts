@@ -15,7 +15,7 @@ const input = (p: any) => createElement("textarea", { "aria-label": p.accessibil
 let current: any;
 let Bridge: any;
 const calls = new Map<string, (...args: any[]) => any>();
-export async function mountBridge(t: TestContext, compact = false) {
+export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void) {
   const dom = new JSDOM("<!doctype html><div id='root'></div>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -30,6 +30,9 @@ export async function mountBridge(t: TestContext, compact = false) {
   const claims = new Map<string, any>();
   const timeline = new Map<string, any[]>([["co", []], ["a", []], ["b", []]]);
   const failures = new Set<string>();
+  const readFailures = new Set<string>();
+  const subscriptionFailures = new Set<string>();
+  const timelineListeners = new Map<string, Set<(event: any) => void>>();
   const sent: { id: string; text: string }[] = [];
   const attempts = new Map<string, { stage: string; briefingId: string; title: string }>();
   const briefing = (slug: string) => ({ briefingId: `brief-${slug}`, digest: `digest-${slug}`, slug, stage: "validation", question: `Approve ${slug}?`, artifacts: [{ summary: `Summary ${slug}`, markdown: "Evidence" }], ...attempts.get(slug) });
@@ -54,13 +57,17 @@ export async function mountBridge(t: TestContext, compact = false) {
   rpc[claimDecision.name] = rpc["decision.claim"];
   rpc[releaseDecision.name] = rpc["decision.release"];
   const listeners = new Map<string, Set<() => void>>();
+  const snapshots = new Set<(value: any) => void>();
+  const reads: { id: string; projection: string }[] = [];
+  const readOverrides = new Map<string, () => Promise<any>>();
   const paseo = { agents: {
-    list: async () => ({ subscription: { subscribe: (h: any) => h.snapshot({ entries: agents.map(agent => ({ agent })) }), release() {} } }),
+    list: async () => ({ subscription: { subscribe: (h: any) => { snapshots.add(h.snapshot); h.snapshot({ entries: agents.map(agent => ({ agent })) }); }, release() {} } }),
     ref: (id: string) => ({ status: "idle", subscribe: (fn: () => void) => { const set = listeners.get(id) ?? new Set(); set.add(fn); listeners.set(id, set); return () => set.delete(fn); }, send: async (text: string) => { sent.push({ id, text }); }, timeline: {
-      refetch: async () => { if (failures.has(id)) throw new Error(`Cannot read ${id}`); return { entries: timeline.get(id) ?? [], agent: { status: "idle" } }; },
-      subscribe: () => Object.assign(() => {}, { ready: Promise.resolve() }),
+      refetch: async ({ projection }: any) => { reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { entries: timeline.get(id) ?? [], agent: { status: "idle" } }; },
+      subscribe: (fn: (event: any) => void) => { const set = timelineListeners.get(id) ?? new Set(); set.add(fn); timelineListeners.set(id, set); return Object.assign(() => set.delete(fn), { ready: subscriptionFailures.has(id) ? Promise.reject(new Error(`Subscription failed ${id}`)) : Promise.resolve() }); },
     } }),
   } };
+  prepare?.(rpc);
   current = { paseo, rpc };
   if (!Bridge) {
     const loader = Module as any;
@@ -92,5 +99,5 @@ export async function mountBridge(t: TestContext, compact = false) {
   const poll = async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 15_000) timer.callback(); }); };
   t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
   await render();
-  return { deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
+  return { readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
 }

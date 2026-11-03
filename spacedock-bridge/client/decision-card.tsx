@@ -40,7 +40,9 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   onProgress?: (progress: ItemProgress) => void;
 };
 
-export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, active: visible = true, title, onProgress }: Props) {
+export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, onProgress }: Props) {
+  const [{ fo, gate, title }] = useState(() => ({ fo: { ...openedFo }, gate: openedGate ? { ...openedGate } : null, title: openedTitle }));
+  const workflowDir = gate?.workflowDir ?? fo.workflowDir;
   const colors = theme.colors;
   const callBriefing = useRpc(readGateBriefing);
   const [briefing, setBriefing] = useState<GateBriefingData | null>(null);
@@ -68,7 +70,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
     const request = ++readRequest.current;
     if (!gate) return null;
     const answer = await callBriefing({
-      workflowDir: fo.workflowDir,
+      workflowDir,
       slug: gate.slug,
       stage: gate.stage,
       briefingId: gate.briefingId ?? briefing?.briefingId,
@@ -88,23 +90,33 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
     setClosed(replaced || !answer.briefing && !answer.error);
     setProblem(answer.error ?? "");
     return answer;
-  }, [callBriefing, fo.workflowDir, gate, briefing?.briefingId]);
+  }, [callBriefing, workflowDir, gate, briefing?.briefingId]);
 
   useEffect(() => {
     if (visible && (!briefing || problem)) void load().catch(error => setProblem(String(error)));
     return () => { ++readRequest.current; };
   }, [visible, fo.id, fo.workflowDir, gate?.slug, gate?.stage, gate?.briefingId]);
 
-  useEffect(() => {
+  const [claimProblem, setClaimProblem] = useState("");
+  const [claimLoaded, setClaimLoaded] = useState(false);
+  const claimRequest = useRef(0);
+  const readClaim = useCallback(async () => {
     if (!briefing) return;
-    let cancelled = false;
-    setClaim(null);
-    callReadDecision({ briefingId: briefing.briefingId }).then(
-      ({ record }) => { if (!cancelled) setClaim(current => record ?? current); },
-      () => undefined,
-    );
-    return () => { cancelled = true; };
+    const request = ++claimRequest.current;
+    try {
+      const { record } = await callReadDecision({ briefingId: briefing.briefingId });
+      if (request !== claimRequest.current) return;
+      setClaim(current => record ?? current);
+      setClaimLoaded(true);
+      setClaimProblem("");
+    } catch (error) {
+      if (request === claimRequest.current) setClaimProblem(String(error));
+    }
   }, [briefing?.briefingId, callReadDecision]);
+  useEffect(() => {
+    if (visible && briefing && (!claimLoaded || claimProblem)) void readClaim();
+    return () => { ++claimRequest.current; };
+  }, [visible, briefing?.briefingId]);
 
   const paseo = usePaseo();
 
@@ -113,31 +125,42 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
     return () => clearInterval(timer);
   }, []);
 
+  const [relayProblem, setRelayProblem] = useState("");
+  const [relayLoaded, setRelayLoaded] = useState(false);
+  const relayRequest = useRef(0);
   const checkRelay = useCallback(async () => {
     if (!claim) return;
-    const page = await paseo.agents
-      .ref(claim.foId)
-      .timeline.refetch({ direction: "tail", limit: 80, projection: "canonical" });
-    setRelayed(
-      page.entries.some((entry) => {
+    const request = ++relayRequest.current;
+    try {
+      const page = await paseo.agents.ref(claim.foId).timeline.refetch({ direction: "tail", limit: 80, projection: "canonical" });
+      if (request !== relayRequest.current) return;
+      setRelayed(page.entries.some(entry => {
         const item = entry.item as { type: string; text?: string };
         return item.type === "user_message" && Boolean(item.text?.includes(claim.decisionId));
-      }),
-    );
+      }));
+      setRelayLoaded(true);
+      setRelayProblem("");
+    } catch (error) {
+      if (request === relayRequest.current) setRelayProblem(String(error));
+    }
   }, [claim, paseo]);
 
   useEffect(() => {
+    if (visible && claim && (!relayLoaded || relayProblem)) void checkRelay();
+    return () => { ++relayRequest.current; };
+  }, [visible, claim?.decisionId]);
+
+  useEffect(() => {
     if (!briefing || recorded || closed) return;
-    void checkRelay().catch(() => setProblem("Could not check the relay to this FO."));
     const timer = setInterval(() => {
       setNow(Date.now());
       void load().catch(error => setProblem(String(error)));
-      void checkRelay().catch(() => setProblem("Could not check the relay to this FO."));
+      void checkRelay();
     }, 15_000);
     return () => clearInterval(timer);
   }, [briefing, recorded, closed, load, checkRelay]);
 
-  const target = JSON.stringify([fo.id, fo.workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
+  const target = JSON.stringify([fo.id, workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
   const currentTarget = useRef(target);
   const visibleRef = useRef(visible);
   visibleRef.current = visible;
@@ -155,7 +178,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
     () => active.current && visibleRef.current && !finishedRef.current && currentTarget.current === target,
     async () => {
       if (!gate || !briefing) return null;
-      const answer = await callBriefing({ workflowDir: fo.workflowDir, slug: gate.slug, stage: gate.stage });
+      const answer = await callBriefing({ workflowDir, slug: gate.slug, stage: gate.stage });
       if (!answer.briefing) return answer.error ?? "This gate is no longer open.";
       if (answer.briefing.briefingId !== briefing.briefingId) {
         if (gate.briefingId) setClosed(true);
@@ -164,7 +187,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
       }
       return null;
     },
-  ), [callBriefing, fo.workflowDir, gate, briefing, target]);
+  ), [callBriefing, workflowDir, gate, briefing, target]);
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const onChip = useCallback(
@@ -301,11 +324,11 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
   const pending = Boolean(claim);
   const overdue = Boolean(delivery === "check");
   useEffect(() => {
-    progressHandler.current?.({ sent: pending, relayed, recorded: Boolean(recorded), closed, overdue, problem: Boolean(problem) });
-  }, [pending, relayed, recorded, closed, overdue, problem]);
+    progressHandler.current?.({ sent: pending, relayed, recorded: Boolean(recorded), closed, overdue, problem: Boolean(problem || claimProblem || relayProblem) });
+  }, [pending, relayed, recorded, closed, overdue, problem, claimProblem, relayProblem]);
 
-  const feedbackStatus = [state?.status, problem ? "Briefing error" : ""].filter(Boolean).join(" · ");
-  const feedbackDetail = [problem, state?.detail].filter(Boolean).join("\n\n");
+  const feedbackStatus = [state?.status, problem ? "Briefing error" : "", claimProblem ? "Decision record error" : "", relayProblem ? "Delivery status error" : ""].filter(Boolean).join(" · ");
+  const feedbackDetail = [problem, claimProblem, relayProblem, state?.detail].filter(Boolean).join("\n\n");
 
   const foLine = (
     <View style={styles.owner}>
@@ -338,18 +361,21 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
           </Pressable>
         ) : null}
       </View>
-      {problem || state ? (
+      {problem || claimProblem || relayProblem || state ? (
         <View style={styles.feedback}>
           <FeedbackPreview
             key={`${feedbackStatus}\0${feedbackDetail}`}
             status={feedbackStatus}
             detail={feedbackDetail}
-            color={problem ? colors.statusDanger : state?.color ?? colors.foregroundMuted}
+            color={problem || claimProblem || relayProblem ? colors.statusDanger : state?.color ?? colors.foregroundMuted}
             colors={colors}
             onMore={() => setFeedbackOpen(true)}
           />
         </View>
       ) : null}
+      {gate && !gateFinished && (!briefing || problem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry briefing" onPress={() => void load()}><Text style={styles.toggle}>Retry briefing</Text></Pressable> : null}
+      {briefing && (!claimLoaded || claimProblem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry decision record" onPress={() => void readClaim()}><Text style={styles.toggle}>Retry decision record</Text></Pressable> : null}
+      {claim && (!relayLoaded || relayProblem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry delivery status" onPress={() => void checkRelay()}><Text style={styles.toggle}>Retry delivery status</Text></Pressable> : null}
       <View style={{ flex: 1 }} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
       {briefingCollapsed ? (
         <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, minHeight: 44 }}>

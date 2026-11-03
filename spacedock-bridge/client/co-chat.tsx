@@ -33,6 +33,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   active?: boolean;
   sourceState?: SourceState;
   sourceError?: string;
+  onRetrySource?: () => void;
 };
 
 export function CoChat(props: Props) {
@@ -59,6 +60,7 @@ function Chat({
   active: visible = true,
   sourceState = "loaded",
   sourceError,
+  onRetrySource,
 }: Props) {
   const paseo = usePaseo();
   const [lines, setLines] = useState<Line[]>([]);
@@ -84,6 +86,8 @@ function Chat({
   const [conversation, setConversation] = useState<SourceState>("loading");
   const [readError, setReadError] = useState("");
   const readRequest = useRef(0);
+  const disconnected = useRef(false);
+  const [subscriptionAttempt, setSubscriptionAttempt] = useState(0);
   const scroller = useRef<ScrollView>(null);
   const scrollPosition = useRef(0);
   const followTail = useRef(true);
@@ -232,6 +236,7 @@ function Chat({
 
   const load = useCallback(async () => {
     const request = ++readRequest.current;
+    setConversation("loading");
     try {
       const page = await paseo.agents
         .ref(agentId)
@@ -252,28 +257,53 @@ function Chat({
     setConversation("loading");
     setReadError("");
     const handle = paseo.agents.ref(agentId);
+    let cancelled = false;
+    disconnected.current = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
+    const failed = (error: unknown) => {
+      if (cancelled) return;
+      disconnected.current = true;
+      ++readRequest.current;
+      clearTimeout(timer);
+      setConversation("failed");
+      setReadError(String(error));
+    };
     const soon = () => {
+      if (cancelled || disconnected.current) return;
       clearTimeout(timer);
       timer = setTimeout(() => void load(), 150);
     };
     const subscription = handle.timeline.subscribe((message) => {
+      if (cancelled || disconnected.current) return;
       const type = (message as { event?: { type?: string } }).event?.type;
+      if (type === "error") { failed("Conversation subscription failed"); return; }
       if (type === "turn_started") setWorking(true);
       if (type === "turn_completed" || type === "turn_failed" || type === "turn_canceled")
         setWorking(false);
       soon();
     });
-    subscription.ready.catch((e: unknown) => { ++readRequest.current; setConversation("failed"); setReadError(String(e)); });
+    subscription.ready.catch(failed);
     const stopHandle = handle.subscribe(soon);
     void load();
     return () => {
+      cancelled = true;
       ++readRequest.current;
       clearTimeout(timer);
       subscription();
       stopHandle();
     };
-  }, [paseo, agentId, load]);
+  }, [paseo, agentId, load, subscriptionAttempt]);
+
+  const retry = () => {
+    if (sourceState !== "loaded") onRetrySource?.();
+    if (disconnected.current) setSubscriptionAttempt(attempt => attempt + 1);
+    else void load();
+  };
+  const wasVisible = useRef(visible);
+  useEffect(() => {
+    if (visible && !wasVisible.current && (conversation !== "loaded" || sourceState !== "loaded")) retry();
+    wasVisible.current = visible;
+  }, [visible]);
 
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
@@ -377,6 +407,7 @@ function Chat({
         {sourceState === "failed" || conversation === "failed" ? <Text style={styles.danger}>Could not read {title}: {sourceError || readError || "source unavailable"}</Text>
           : sourceState === "loading" || conversation === "loading" ? <Text style={styles.muted}>Loading conversation with {title}…</Text>
           : lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
+        {sourceState !== "loaded" || conversation !== "loaded" ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Retry conversation with ${title}`} onPress={retry}><Text style={styles.toggle}>Retry conversation</Text></Pressable> : null}
         {earlier > 0 ? (
           <Pressable colors={colors} accessibilityRole="button" onPress={() => setShowEarlier((value) => !value)}>
             <Text style={styles.toggle}>

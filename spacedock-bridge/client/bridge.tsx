@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import { openCoordinator } from "../shared/coordinator";
 import { Board, type BoardProps } from "./board";
 import { CoChat } from "./co-chat";
+import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { useCoAsk } from "./use-co-ask";
 
 export function Bridge(props: BoardProps) {
@@ -24,12 +25,12 @@ export function Bridge(props: BoardProps) {
     const request = ++coordinatorRequest.current;
     setError("");
     return callOpenCoordinator({}).then(
-      ({ agentId }) => { if (request === coordinatorRequest.current) setCoId(agentId); },
+      ({ agentId }) => { if (request === coordinatorRequest.current) setCoId(current => current || agentId); },
       (e: unknown) => { if (request === coordinatorRequest.current) setError(String(e)); },
     );
   }, [callOpenCoordinator]);
   useEffect(() => { void connectCoordinator(); return () => { ++coordinatorRequest.current; }; }, [connectCoordinator]);
-  const retryComms = () => error ? void connectCoordinator() : retryAsk();
+  const retryComms = () => !coId || error ? void connectCoordinator() : retryAsk();
 
   const colors = theme.colors;
 
@@ -42,17 +43,28 @@ export function Bridge(props: BoardProps) {
       active={active}
       sourceState={commsState}
       sourceError={error}
+      onRetrySource={retryComms}
       seed={seed}
       onSeeded={() => setSeed(null)}
     />
   ) : (
-    <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted, padding: 16 }}>
-      {error || "Opening the comms officer…"}
-    </Text>
+    <CommanderConnection active={active} error={error} colors={colors} retry={connectCoordinator} />
   );
 
   return <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo}
     comms={chat} renderLayout={(list, detail, selected) => <BridgeLayout compact={layout.compact} colors={colors} list={list} detail={detail} selected={selected} />} />;
+}
+
+function CommanderConnection({ active, error, colors, retry }: { active: boolean; error: string; colors: BoardProps["theme"]["colors"]; retry(): unknown }) {
+  const wasActive = useRef(active);
+  useEffect(() => {
+    if (active && !wasActive.current) void retry();
+    wasActive.current = active;
+  }, [active]);
+  return <View style={{ padding: 16, gap: 8 }}>
+    <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted }}>{error || "Opening the comms officer…"}</Text>
+    <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry commander connection" onPress={() => void retry()}><Text style={{ color: colors.accent }}>Retry connection</Text></Pressable>
+  </View>;
 }
 
 export function BridgeLayout({ compact, colors, list, detail, selected }: {
