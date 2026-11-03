@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/cycle-6/capture_changed.py", line 101, in <module>
+    evaluate('document.querySelector(\'[aria-label="Open menu"]\').click()');browser('wait',200);textclick('Bridge');evaluate('document.querySelector(\'[aria-label="Close menu"]\')?.click()')
+                                                                                                 ^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/cycle-6/capture_changed.py", line 54, in textclick
+    def textclick(text): evaluate(prefix(text)+'.click()')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/cycle-6/capture_changed.py", line 34, in evaluate
+    def evaluate(code): return json.loads(browser('eval',code))
+                                          ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/cycle-6/capture_changed.py", line 33, in browser
+    def browser(*command): return run([args.browser,'--session',session,'--config',root/'browser.json',*command],command_env=dict(env,HOME=os.environ['HOME']))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/cycle-6/capture_changed.py", line 31, in run
+    if p.returncode: raise RuntimeError(p.stderr.strip() or p.stdout.strip())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ✗ Evaluation error: TypeError: Cannot read properties of undefined (reading 'click')
+    at <anonymous>:1:148

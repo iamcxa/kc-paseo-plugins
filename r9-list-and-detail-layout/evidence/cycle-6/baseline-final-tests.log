@@ -1,0 +1,436 @@
+✖ a sent item never appears under a waiting-on-you claim (1440, decision) (314.569208ms)
+✖ a relayed item never appears under a waiting-on-you claim (1440, decision) (94.028208ms)
+✖ a sent item never appears under a waiting-on-you claim (1440, fo) (77.200167ms)
+✖ a relayed item never appears under a waiting-on-you claim (1440, fo) (63.893375ms)
+✖ an FO with nothing waiting opens only its conversation (1440) (40.785125ms)
+✖ a sent item never appears under a waiting-on-you claim (360, decision) (99.561167ms)
+✖ a relayed item never appears under a waiting-on-you claim (360, decision) (114.533833ms)
+✖ a sent item never appears under a waiting-on-you claim (360, fo) (54.063292ms)
+✖ a relayed item never appears under a waiting-on-you claim (360, fo) (44.938209ms)
+✖ an FO with nothing waiting opens only its conversation (360) (23.897584ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1410.095667
+
+✖ failing tests:
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a sent item never appears under a waiting-on-you claim (1440, decision) (314.569208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n5h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\n+ New FO\nGates read 11:14:09 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a relayed item never appears under a waiting-on-you claim (1440, decision) (94.028208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n5h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\n+ New FO\nGates read 11:14:09 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a sent item never appears under a waiting-on-you claim (1440, fo) (77.200167ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n5h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 11:14:09 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a relayed item never appears under a waiting-on-you claim (1440, fo) (63.893375ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n5h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 11:14:09 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:1109
+✖ an FO with nothing waiting opens only its conversation (1440) (40.785125ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /QUESTION|waiting \d+[smhd]/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'QUESTION · RESEARCH\n' +
+    'Conversation with Research FO\n' +
+    'Research FO\n' +
+    'waiting 5h\n' +
+    '\n' +
+    'Conversation with Research FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Research FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:34:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◆ Your turn\nApprove a?\nA FO\nGATE\n5h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 11:14:09 PM · 2 open\n← Commander\nBoard\n← Queue\nQUESTION · RESEARCH\nConversation with Research FO\nResearch FO\nwaiting 5h\n\nConversation with Research FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to Research FO\n',
+    expected: /QUESTION|waiting \d+[smhd]/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a sent item never appears under a waiting-on-you claim (360, decision) (99.561167ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '← Commander\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Commander\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n5h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\n+ New FO\nGates read 11:14:09 PM · 2 open',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a relayed item never appears under a waiting-on-you claim (360, decision) (114.533833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '← Commander\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:09 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Commander\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n5h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\n+ New FO\nGates read 11:14:09 PM · 2 open',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a sent item never appears under a waiting-on-you claim (360, fo) (54.063292ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '← Commander\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:10 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Commander\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n5h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 11:14:10 PM · 2 open',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:230
+✖ a relayed item never appears under a waiting-on-you claim (360, fo) (44.938209ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Board · 2/. Input:
+  
+  '← Commander\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '5h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 11:14:10 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:20:16)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Commander\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n5h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n5h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 11:14:10 PM · 2 open',
+    expected: /Board · 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:1:1109
+✖ an FO with nothing waiting opens only its conversation (360) (23.897584ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /QUESTION|waiting \d+[smhd]/. Input:
+  
+  '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'Hide briefing ▴\n' +
+    'QUESTION · RESEARCH\n' +
+    'Conversation with Research FO\n' +
+    'Research FO\n' +
+    'waiting 5h\n' +
+    '\n' +
+    'Conversation with Research FO · includes other tasks\n' +
+    'Open full view\n' +
+    'No messages yet\n' +
+    '↑ sends to Research FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle6-baseline-79qm82s0/spacedock-bridge/test/board-truthful-presentation.test.mts:34:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Commander\nBoard\n← Queue\nHide briefing ▴\nQUESTION · RESEARCH\nConversation with Research FO\nResearch FO\nwaiting 5h\n\nConversation with Research FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to Research FO\n',
+    expected: /QUESTION|waiting \d+[smhd]/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

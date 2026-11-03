@@ -1,0 +1,60 @@
+{
+  "head": "fdd9081fb1e842f053138c72d3627a5653fbe858",
+  "branch": "spacedock-ensign/r9-list-and-detail-layout",
+  "candidateStatus": "",
+  "mainStatus": "",
+  "liveStatus": "",
+  "remote": "fdd9081fb1e842f053138c72d3627a5653fbe858\trefs/heads/spacedock-ensign/r9-list-and-detail-layout",
+  "files": {
+    "spacedock-bridge/OVERVIEW.md": {
+      "sha256": "6a937d585652db99e4cbc7670a40da6bf986e151f59a24024ed2d3882b80faca",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/board.tsx": {
+      "sha256": "0590b4cdfb73b694901e8faab083284c28a0caeb511d71120d942d741fb5e32b",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/decision-card.tsx": {
+      "sha256": "acbb01a53851c341873417a3c1b38d4204cc229fb5914d14210bb6775322bbce",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/board-review-owner.test.mts": {
+      "sha256": "832bdedd106210b22e63cc3d283dbe811326daeb2b71a0cccc413e30a33e15da",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/board-truthful-presentation.test.mts": {
+      "sha256": "db69a785f8a7e73eaab4935768fec642ec56864ae4606a00dc71df6ccf5eac8a",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/bridge-continuity.test.mts": {
+      "sha256": "3bc91d915aabbf7f7cdedd8b7c92dbde58fdfb4479118bdf373fef130e3f36c7",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/gate-continuity-repair.test.mts": {
+      "sha256": "29b9942ec1c085e17c93f36e03017f01d9a475ed265e2cef213cf2c74153aa21",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/retained-readers.test.mts": {
+      "sha256": "04e8754ce3cf3b6e3c4caab154acbf504bb21d7499529391acc6d2e8ec18a60f",
+      "matchesCommit": true
+    }
+  },
+  "temporaryRoots": [],
+  "tests": {
+    "passed": 245,
+    "failed": 0,
+    "newTests": 10,
+    "baselinePasses": 0,
+    "baselineFailures": 10,
+    "typecheckExit": 0
+  },
+  "captures": {
+    "total": 14,
+    "widths": [
+      1440,
+      360
+    ],
+    "sourceVerification": "capture-verification.json"
+  },
+  "scope": "real components in isolated Paseo host with synthetic RPC/timeline fixture; no live install/provider/physical phone action; decision-record matching unchanged"
+}
