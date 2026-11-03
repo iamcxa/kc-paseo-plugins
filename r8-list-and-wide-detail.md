@@ -16,6 +16,20 @@ gates:
                 id: briefing:r8-list-and-wide-detail:backlog:attempt-1:revision-1
                 digest: sha256:1626eb4e74b2159a2e8529315bddb08f179b949d63fc72d6a7efa162ce28ac68
                 room-ref: ./r8-list-and-wide-detail/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r8-list-and-wide-detail:backlog:1
+                briefing: briefing:r8-list-and-wide-detail:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-11-03T07:05:53.353108Z"
+                decision: approve
+                reason: 'Accepts direction: the Captain chose to try the list-beside-wide-detail layout and asked for the reference evaluation on 2026-11-03; step A has no visuals and no code.'
+                conn:
+                    quote: 可以試試看，你也可以看一下他在每個 gate/等待的介紹全面評估一下
+                    source: 'Captain chat 2026-11-03, answering 「第 8 輪設計稿要不要改成 Observatory 那種「左邊窄清單、右邊寬詳情」？」; flywheel grant ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38)'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Redo the round 8 design for the layout the Captain wants to try — a narrow list that stays visible beside a wide detail — and first evaluate how a better-rated plugin presents each kind of waiting item, before any mockup.
