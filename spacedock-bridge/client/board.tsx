@@ -1,25 +1,24 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Platform, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { TabClosedBadge } from "./tab-closed-badge";
 import {
   type BoardRow,
-  type BoardStatus,
   type ReplyFact,
-  STATUS_ORDER,
   attachGates,
   observeBoard,
   withReplies,
 } from "../shared/board";
 import { foName } from "../shared/card";
 import { createFo } from "../shared/fo";
-import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
+import { type TaskStatus, readGates, readTasks } from "../shared/tasks";
 import { DecisionCard } from "./decision-card";
 import { openCoordinator } from "../shared/coordinator";
-import { type ReviewRequestData, readReviews, reviewOwner, reviewRef } from "../shared/reviews";
-import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
+import { type ReviewRequestData, readReviews } from "../shared/reviews";
+import { type QueueItem, type QueueKind, buildQueue, openLink } from "../shared/queue";
+import { filterCounts, itemStatus, type ItemProgress } from "../shared/list-status";
 import { boardEmptyState, type SourceState, type SourceStates } from "../shared/board-empty";
 
 interface WorkspaceChoice {
@@ -55,7 +54,9 @@ export function Board({
   commsState = "loaded",
   onRetryComms,
   onAskCo,
-}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void }) {
+  comms,
+  renderLayout,
+}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; comms?: (active: boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
   const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
@@ -168,7 +169,7 @@ export function Board({
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const askCo = (text: string) => {
-    if (onAskCo) return onAskCo(text);
+    if (onAskCo) { setOpen("comms"); return onAskCo(text); }
     callOpenCoordinator({}).then(
       ({ agentId }) => navigation?.openAgent({ agentId }),
       (error) => setMessage(String(error)),
@@ -206,22 +207,25 @@ export function Board({
     [rows, replies, gates],
   );
 
-  const [open, setOpen] = useState<{ id: string; gate: AwaitingGate | null } | null>(null);
-  const [showIdle, setShowIdle] = useState(false);
+  const [open, setOpen] = useState<string | null>(comms ? "comms" : null);
+  const [visited, setVisited] = useState<Record<string, QueueItem>>({});
+  const [progress, setProgress] = useState<Record<string, ItemProgress>>({});
+  const [filter, setFilter] = useState<"all" | QueueKind>("all");
+  const reportProgress = useCallback((key: string, next: ItemProgress) => {
+    setProgress(old => JSON.stringify(old[key]) === JSON.stringify(next) ? old : { ...old, [key]: next });
+  }, []);
   const [view, setView] = useState<"decision" | "fo">("decision");
 
   const colors = theme.colors;
   const styles = useMemo(
     () => ({
       screen: {
-        flex: 1,
+        flexGrow: 1,
         padding: layout.compact ? 12 : 16,
         gap: 8,
         backgroundColor: colors.surface0,
       },
       bar: { flexDirection: "row" as const, gap: 8, flexWrap: "wrap" as const },
-      button: { padding: 10, borderRadius: 8, backgroundColor: colors.accent },
-      buttonText: { color: colors.accentForeground },
       row: {
         paddingVertical: 10,
         paddingHorizontal: 12,
@@ -241,11 +245,9 @@ export function Board({
       add: { paddingVertical: 6, paddingHorizontal: 4 },
       addText: { color: colors.foregroundMuted, fontSize: 13 },
       name: { color: colors.foreground, fontSize: 14, fontWeight: "600" as const },
-      owner: { flexDirection: "row" as const, alignItems: "center" as const, gap: 6 },
       text: { color: colors.foreground, fontSize: 13, lineHeight: 18 },
       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
       footer: { color: colors.foregroundMuted, fontSize: 11, marginTop: 12 },
-      reviewRow: { flexDirection: "row" as const, alignItems: "flex-start" as const, gap: 8 },
       kind: { color: colors.foregroundMuted, fontSize: 10, fontWeight: "600" as const, letterSpacing: 0.6 },
       toggle: {
         flexDirection: "row" as const,
@@ -266,24 +268,6 @@ export function Board({
         borderColor: colors.border,
       },
       externalText: { color: colors.foregroundMuted, fontSize: 11 },
-      next: {
-        padding: 12,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderLeftWidth: 3,
-        borderColor: colors.border,
-        backgroundColor: colors.surface2,
-        gap: 8,
-      },
-      nextTitle: { color: colors.foreground, fontSize: 15, fontWeight: "600" as const, lineHeight: 21 },
-      nextButtons: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
-      nextButton: {
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-        borderRadius: 6,
-        backgroundColor: colors.accent,
-      },
-      nextButtonText: { color: colors.accentForeground, fontSize: 12, fontWeight: "600" as const },
       sectionHead: { flexDirection: "row" as const, justifyContent: "space-between" as const },
       queueRow: { padding: 4, borderRadius: 10, overflow: "hidden" as const },
       itemAction: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
@@ -302,7 +286,6 @@ export function Board({
         paddingVertical: 7,
         paddingHorizontal: 6,
       },
-      dot: { width: 7, height: 7, borderRadius: 4 },
       lineTitle: { width: "100%" as const, color: colors.foreground, fontSize: 13, lineHeight: 18 },
       lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
       lineOwner: { minWidth: 0, flexShrink: 1 },
@@ -315,26 +298,6 @@ export function Board({
     }),
     [colors, layout.compact],
   );
-
-  const groupTitle: Record<BoardStatus, string> = {
-    "waiting on Kent": "Waiting on you",
-    error: "Error",
-    "new reply": "New replies",
-    busy: "Busy",
-    idle: "Idle",
-    offline: "Offline",
-  };
-
-  const statusColor = (status: BoardRow["status"]) =>
-    status === "waiting on Kent"
-      ? colors.statusWarning
-      : status === "error"
-        ? colors.statusDanger
-        : status === "new reply"
-          ? colors.accent
-          : status === "busy"
-            ? colors.statusSuccess
-            : colors.foregroundMuted;
 
   async function run(action: () => Promise<void>) {
     setBusy(true);
@@ -370,10 +333,12 @@ export function Board({
       navigation?.openAgent({ agentId });
     });
 
-  const queue = useMemo(
+  const liveQueue = useMemo(
     () => buildQueue(grouped, reviews, withReplies(rows, replies), replies),
     [grouped, reviews, rows, replies],
   );
+  const queue = [...liveQueue, ...Object.values(visited).filter(item => !liveQueue.some(live => live.key === item.key) && (progress[item.key]?.sent || progress[item.key]?.relayed))]
+    .filter(item => !progress[item.key]?.recorded && !progress[item.key]?.closed);
   const sources: SourceStates = {
     fos: foState,
     gates: !workflowKey ? "loaded" : gateCheck.key === workflowKey ? gateCheck.state : "loading",
@@ -382,7 +347,7 @@ export function Board({
   };
   const failedGateWorkflows = gateCheck.key === workflowKey ? gateCheck.failed : [];
   const empty = boardEmptyState(sources, queue.length + (coAsk ? 1 : 0), failedGateWorkflows);
-  const foEmpty = boardEmptyState(sources, grouped.length, failedGateWorkflows);
+  const foEmpty = boardEmptyState({ fos: foState, gates: "loaded", reviews: "loaded", comms: "loaded" }, grouped.length);
   const notice = view === "decision" ? empty.message : foEmpty.count === "0" ? null : foEmpty.message;
   const kindLabel: Record<QueueKind, string> = {
     permission: "PERMISSION",
@@ -390,13 +355,11 @@ export function Board({
     gate: "GATE",
     ask: "QUESTION",
   };
-  const kindColor: Record<QueueKind, string> = {
-    permission: colors.statusDanger,
-    review: colors.accent,
-    gate: colors.statusWarning,
-    ask: colors.statusWarning,
-  };
-  const { next, sections } = useMemo(() => splitQueue(queue), [queue]);
+  const recordedItems = Object.values(visited).filter(item => progress[item.key]?.recorded);
+  const countedItems = [...queue.map(item => ({ ...progress[item.key], kind: item.kind })), ...(coAsk ? [{ kind: "ask" as const }] : [])];
+  const counts = filterCounts(countedItems, sources);
+  const shownQueue = queue.filter(item => filter === "all" || item.kind === filter);
+  const sections = (["permission", "review", "gate", "ask"] as const).map(kind => ({ kind, items: shownQueue.filter(item => item.kind === kind) }));
   const sectionTitle: Record<QueueKind, string> = {
     permission: "Permissions",
     review: "Reviews",
@@ -410,7 +373,10 @@ export function Board({
       return askCo(
         `Who should review ${item.review.owner}/${item.review.repo}#${item.review.number} (${item.review.url})?`,
       );
-    if (item.fo) setOpen({ id: item.fo.id, gate: item.gate ?? null });
+    if (item.fo) {
+      setVisited(old => ({ ...old, [item.key]: item }));
+      setOpen(item.key);
+    }
   };
 
   const reference = (ref: string) => {
@@ -424,12 +390,16 @@ export function Board({
   };
 
   const itemRow = (item: QueueItem) => (
-    <View key={item.key} style={[styles.queueRow, styles.itemAction]}>
-      <Pressable colors={colors} accessible accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.itemContent]}>
+    <View key={item.key} style={[styles.queueRow, styles.itemAction, open === item.key ? { backgroundColor: colors.surface2, borderWidth: 1, borderColor: colors.accent } : null]}>
+      <Pressable colors={colors} accessible accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} accessibilityState={{ selected: open === item.key }} onPress={() => openItem(item)} style={[styles.line, styles.itemContent]}>
+        <Text style={{ alignSelf: "flex-start", fontSize: 11, lineHeight: 14, paddingHorizontal: 6, paddingVertical: 3, borderRadius: 5, borderWidth: 1, borderColor: colors.border, color: progress[item.key]?.recorded ? colors.statusSuccess : progress[item.key]?.sent ? colors.foregroundMuted : colors.statusWarning }}>{(() => {
+          const sourceState = progress[item.key]?.recorded ? "loaded" : item.kind === "gate" ? sources.gates === "failed" && failedGateWorkflows.length ? failedGateWorkflows.includes(item.fo?.workflowDir ?? "") ? "failed" : "loaded" : sources.gates : item.kind === "review" ? sources.reviews : sources.fos;
+          const status = itemStatus({ kind: item.kind, ...progress[item.key], sourceState });
+          return `${status.icon} ${status.text}`;
+        })()}</Text>
         <Text style={styles.lineTitle} numberOfLines={2}>{item.title}</Text>
         {item.link ? reference(item.link.ref) : null}
         <View style={styles.lineMeta}>
-          <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
           <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>{item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}</Text>
           <Text style={styles.kind}>{kindLabel[item.kind]}</Text>
           <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
@@ -441,10 +411,10 @@ export function Board({
   );
   const commsRow = coAsk ? (
     <View style={styles.queueRow}>
-    <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
+    <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Comms officer question" onPress={() => { coAsk.onPress(); setOpen("comms"); }} style={styles.line}>
+      <Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text}</Text>
       <Text style={styles.lineTitle} numberOfLines={2}>{coAsk.text}</Text>
       <View style={styles.lineMeta}>
-        <View style={[styles.dot, { backgroundColor: colors.statusWarning }]} />
         <Text style={styles.lineAge}>Comms officer</Text>
         <Text style={styles.kind}>QUESTION</Text>
         <Text style={styles.lineAge}>{ago(coAsk.since)}</Text>
@@ -453,24 +423,19 @@ export function Board({
     </View>
   ) : null;
 
-  const openRow = open ? grouped.find((row) => row.id === open.id) : undefined;
-  if (open && openRow)
-    return (
-      <DecisionCard
-        theme={theme}
-        layout={layout}
-        navigation={navigation}
-        fo={openRow}
-        gate={open.gate}
-        onBack={(recorded) => {
-          setOpen(null);
-          if (recorded) void refreshGates(true);
-        }}
-      />
-    );
-
-  return (
-    <ScrollView contentContainerStyle={styles.screen}>
+  const list = (
+    <View style={{ flex: 1, minHeight: 0 }}>
+    {layout.compact && comms ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Commander" onPress={() => setOpen("comms")} style={{ padding: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}><Text style={styles.muted}>← Commander</Text></Pressable> : null}
+    {!layout.compact ? <View style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: colors.border }}>
+      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Commander" accessibilityState={{ selected: open === "comms" }} onPress={() => comms ? setOpen("comms") : askCo("")}
+        style={{ padding: 12, borderWidth: 1, borderColor: open === "comms" ? colors.accent : colors.border, borderRadius: 8, backgroundColor: colors.surface1, gap: 5 }}>
+        <Text style={{ ...styles.name, fontSize: 18 }}>◉ Commander</Text><Text style={styles.muted}>Comms officer</Text>
+        {!coAsk && commsState !== "loaded" ? <Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text}</Text> : null}
+        {coAsk ? <><Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text} · {ago(coAsk.since)}</Text><Text style={styles.text}>{coAsk.text}</Text></> : null}
+      </Pressable>
+    </View> : null}
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.screen}>
+      <Text style={{ color: colors.foreground, fontSize: 18, fontWeight: "600" }}>Waiting on you · {counts.all}</Text>
       {message ? (
         <Text style={{ color: colors.statusDanger }}>{message}</Text>
       ) : null}
@@ -481,15 +446,25 @@ export function Board({
           <Pressable colors={colors}
             key={id}
             accessibilityRole="tab"
+            accessibilityLabel={id === "fo" ? "By FO" : "By decision"}
+            accessibilityState={{ selected: view === id }}
             onPress={() => setView(id)}
             style={[styles.toggleButton, view === id ? styles.toggleActive : null]}
           >
             <Text style={view === id ? styles.toggleTextActive : styles.toggleText}>
-              {id === "decision" ? `By decision · ${empty.count}` : `By FO · ${foEmpty.count}`}
+              {id === "decision" ? `By decision · ${counts.all}` : `By FO · ${foEmpty.count}`}
             </Text>
           </Pressable>
         ))}
       </View>
+      {view === "decision" ? <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
+        {(["all", "permission", "review", "gate", "ask"] as const).map(kind => (
+          <Pressable key={kind} colors={colors} accessibilityRole="button" accessibilityLabel={`Filter ${kind}`} accessibilityState={{ selected: filter === kind }} onPress={() => setFilter(kind)}
+            style={{ minHeight: layout.compact ? 44 : 30, justifyContent: "center", paddingHorizontal: 10, borderWidth: 1, borderColor: filter === kind ? colors.accent : colors.border, borderRadius: 16, backgroundColor: filter === kind ? colors.surface2 : undefined }}>
+            <Text style={styles.muted}>{kind === "all" ? "All" : sectionTitle[kind]} {counts[kind]}</Text>
+          </Pressable>
+        ))}
+      </View> : null}
       {notice ? <Text style={styles.muted}>{notice}</Text> : null}
       {([
         ["FOs", foState === "failed", () => setFoRead((value) => value + 1)],
@@ -501,177 +476,27 @@ export function Board({
       ) : null)}
       {sources.gates === "loading" && workflowKey ? <Text style={styles.muted}>Checking gates…</Text> : null}
       {reviewState === "failed" ? <Text style={styles.muted}>{reviewNextCheck ? `Next automatic review check: ${new Date(reviewNextCheck).toLocaleTimeString()}` : "Next automatic review check: unknown"}</Text> : null}
-      {view === "decision" ? (
+      {view === "decision" ? sections.map(section => section.items.length || (section.kind === "ask" && layout.compact && coAsk && (filter === "all" || filter === "ask")) ? (
+        <View key={section.kind} style={{ gap: 2 }}>
+          <View style={styles.sectionHead}><Text style={styles.group}>{sectionTitle[section.kind]}</Text><Text style={styles.group}>{section.items.length + (section.kind === "ask" && layout.compact && coAsk ? 1 : 0)}</Text></View>
+          {section.items.map(itemRow)}
+          {section.kind === "ask" && layout.compact && coAsk ? commsRow : null}
+        </View>
+      ) : null) : (
         <>
-          {next ? (
-            <View style={styles.queueRow}>
-            <View style={[styles.next, styles.itemAction, { borderLeftColor: kindColor[next.kind] }]}>
-            <Pressable colors={colors} accessible accessibilityRole="button"
-              accessibilityLabel={next.review && !next.fo ? `Ask comms officer about ${next.title}` : `Open ${next.title} with ${next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}`}
-              onPress={() => openItem(next)} style={[styles.itemContent, { gap: 8 }]}>
-              <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
-                NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
-              </Text>
-              <Text style={styles.nextTitle} numberOfLines={3}>
-                {next.title}
-              </Text>
-              {next.link ? reference(next.link.ref) : null}
-              <View style={styles.owner}>
-                <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
-                  {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
-                </Text>
-                <TabClosedBadge closed={next.fo?.tabClosed} colors={colors} />
-              </View>
-              <View style={styles.nextButtons}>
-                <View style={styles.nextButton}>
-                  <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
-                </View>
-              </View>
-            </Pressable>
-            {next.link ? (
-              <Pressable colors={colors} accessible accessibilityRole="link"
-                accessibilityLabel={`Open ${next.link.ref} on GitHub`} style={styles.external}
-                onPress={() => openLink(next, openExternalUrl)}>
-                <Text style={styles.externalText}>↗</Text>
+          {foState === "loaded" && rows.length === 0 ? <Text style={styles.muted}>No agents labelled role=fo.</Text> : null}
+          {queue.some(item => !item.fo) ? <View><Text style={styles.group}>Unassigned reviews</Text>{queue.filter(item => !item.fo).map(itemRow)}</View> : null}
+          {grouped.map(row => (
+            <View key={row.id} style={{ gap: 4 }}>
+              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Conversation with ${foName(row.title || row.id)}`} style={{ paddingVertical: 12, minHeight: 44 }}
+                onPress={() => openItem({ key: `f:${row.id}`, kind: "ask", title: row.next || `Conversation with ${foName(row.title || row.id)}`, detail: "", since: row.lastActivityAt, fo: row })}>
+                <Text style={styles.name}>{row.title || row.id}</Text><Text style={styles.muted}> · {waitingCount(row.id)} waiting · {tasks[row.id]?.title || row.task || row.repo}</Text>
               </Pressable>
-            ) : null}
-            </View>
-            </View>
-          ) : null}
-          {coAsk ? (
-            <>
-              <View style={styles.sectionHead}>
-                <Text style={styles.group}>Comms officer</Text>
-                <Text style={styles.group}>1</Text>
-              </View>
-              {commsRow}
-            </>
-          ) : null}
-          {sections.map((section) => (
-            <View key={section.kind} style={{ gap: 2 }}>
-              <View style={styles.sectionHead}>
-                <Text style={styles.group}>{sectionTitle[section.kind]}</Text>
-                <Text style={styles.group}>{section.items.length}</Text>
-              </View>
-              {section.items.map(itemRow)}
+              {queue.filter(item => item.fo?.id === row.id).map(itemRow)}
             </View>
           ))}
+          {layout.compact && coAsk ? <View><Text style={styles.group}>Comms officer · 1</Text>{commsRow}</View> : null}
         </>
-      ) : (
-        <>
-      {reviews.some((review) => !reviewOwner(review, grouped)) ? (
-        <View style={{ gap: 8 }}>
-          <Text style={styles.group}>Review requests · {reviews.filter((review) => !reviewOwner(review, grouped)).length}</Text>
-          {reviews.filter((review) => !reviewOwner(review, grouped)).map((review) => {
-            const owner = reviewOwner(review, grouped);
-            return (
-              <View key={review.url} style={styles.queueRow}>
-                <View style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
-                <Pressable colors={colors} accessible
-                  accessibilityRole="button"
-                  accessibilityLabel={`Ask comms officer about ${review.title}`}
-                  style={styles.itemContent}
-                  onPress={() =>
-                    owner
-                      ? setOpen({ id: owner.id, gate: null })
-                      : askCo(`Who should review ${review.owner}/${review.repo}#${review.number} (${review.url})?`)
-                  }
-                >
-                  <Text style={styles.name} numberOfLines={2}>
-                    {review.title}
-                  </Text>
-                  {reference(reviewRef(review, reviews))}
-                  <Text style={styles.muted}>
-                    by {review.author} ·{" "}
-                    {owner ? `with ${owner.title}` : "no FO yet — ask the comms officer"} ·{" "}
-                    {ago(new Date(review.firstSeenAt).toISOString())}
-                  </Text>
-                </Pressable>
-                <Pressable colors={colors} accessible
-                  accessibilityRole="link"
-                  accessibilityLabel={`Open ${reviewRef(review, reviews)} on GitHub`}
-                  hitSlop={6}
-                  style={styles.external}
-                  onPress={() => void openExternalUrl(review.url)}
-                >
-                  <Text style={styles.externalText}>↗</Text>
-                </Pressable>
-                </View>
-              </View>
-            );
-          })}
-        </View>
-      ) : null}
-      {foState === "loaded" && foEmpty.count === "0" && rows.length === 0 ? (
-        <Text style={styles.muted}>No agents labelled role=fo.</Text>
-      ) : null}
-      {STATUS_ORDER.map((status) => {
-        const group = grouped.filter((row) => {
-          const groupStatus = row.status === "idle" && waitingCount(row.id) ? "waiting on Kent" : row.status;
-          return groupStatus === status;
-        });
-        const pinned = status === "waiting on Kent" && coAsk ? 1 : 0;
-        if (group.length + pinned === 0) return null;
-        return (
-          <View key={status} style={{ gap: 8 }}>
-            <Pressable colors={colors}
-              accessibilityRole="button"
-              disabled={status !== "idle"}
-              onPress={() => setShowIdle((value) => !value)}
-            >
-              <Text style={styles.group}>
-                {groupTitle[status]} · {group.length + pinned}
-                {status === "idle" ? (showIdle ? "  ▾" : "  ▸") : ""}
-              </Text>
-            </Pressable>
-            {status === "waiting on Kent" && coAsk ? (
-              <View style={[styles.row, { borderLeftColor: colors.statusWarning }]}>{commsRow}</View>
-            ) : null}
-            {(status === "idle" && !showIdle ? [] : group).map((row) => {
-              const task = tasks[row.id];
-              const detail = [row.repo, task ? `${task.title} · ${task.stage}` : row.task]
-                .filter(Boolean)
-                .join(" · ");
-              const waitingItems = queue.filter((item) => item.fo?.id === row.id);
-              const waitingFor = waitingItems.length ? "" : row.permission || row.next || replies[row.id]?.preview || "";
-              return (
-                <View key={row.id} style={[styles.row, { borderLeftColor: statusColor(status) }]}>
-                  <Pressable colors={colors} accessibilityRole="button" onPress={() => navigation?.openAgent({ agentId: row.id })}>
-                  <View style={styles.owner}>
-                    <Text style={[styles.name, { flexShrink: 1 }]}>
-                      {row.title || row.id}
-                      {waitingCount(row.id) ? (
-                        <Text style={{ color: colors.statusWarning, fontWeight: "400" as const }}>
-                          {"  "}· {waitingCount(row.id)} waiting
-                        </Text>
-                      ) : null}
-                    </Text>
-                    <TabClosedBadge closed={row.tabClosed} colors={colors} />
-                  </View>
-                  </Pressable>
-                  {row.offline && status !== "offline" ? (
-                    <Text style={styles.muted}>FO offline · a message will reopen it</Text>
-                  ) : null}
-                  {waitingFor ? (
-                    <Text style={styles.text} numberOfLines={2}>
-                      {waitingFor}
-                    </Text>
-                  ) : null}
-                  {waitingItems.map(itemRow)}
-                  {detail || status !== "busy" ? (
-                    <Text style={styles.muted}>
-                      {[detail, status === "busy" ? "" : ago(row.lastActivityAt)]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </Text>
-                  ) : null}
-                </View>
-              );
-            })}
-          </View>
-        );
-      })}
-              </>
       )}
       <View style={styles.bar}>
         <Pressable colors={colors}
@@ -707,6 +532,33 @@ export function Board({
             ? "Reading gates…"
             : "No FO has a workflow-dir label yet"}
       </Text>
+      {recordedItems.length ? <View style={{ gap: 4, borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 8 }}>
+        <Text style={styles.group}>Done this session</Text>
+        {recordedItems.map(itemRow)}
+      </View> : null}
     </ScrollView>
+
+    </View>
   );
+  const detail = (
+    <View style={{ flex: 1, minHeight: 0 }}>
+      {comms ? <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}>
+        {open === "comms" ? <Text style={styles.name}>Commander</Text> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Commander" onPress={() => setOpen("comms")} style={{ minHeight: 44, justifyContent: "center" }}><Text style={styles.muted}>← Commander</Text></Pressable>}
+        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Board" onPress={() => setOpen(layout.compact ? null : "comms")} style={{ minHeight: 44, minWidth: 44, paddingHorizontal: 6, justifyContent: "center" }}><Text style={styles.muted}>Board</Text></Pressable>
+      </View> : null}
+      {open === null ? <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24, gap: 8 }}><Text style={styles.name}>Choose an item</Text><Text style={styles.muted}>Its detail and conversation open here.</Text></View> : null}
+      {Object.values(visited).map(item => item.fo ? (
+        <View key={item.key} style={{ flex: 1, minHeight: 0, display: open === item.key ? "flex" : "none" }}>
+          <DecisionCard theme={theme} layout={layout} navigation={navigation} fo={grouped.find(row => row.id === item.fo!.id) ?? item.fo} gate={item.gate ?? null}
+            active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
+            onBack={(recorded) => { setOpen(comms && !layout.compact ? "comms" : null); if (recorded) void refreshGates(true); }} />
+        </View>
+      ) : null)}
+      {comms ? <View style={{ flex: 1, minHeight: 0, display: open === "comms" ? "flex" : "none" }}>
+        {coAsk ? <Text style={{ ...styles.text, paddingHorizontal: 16 }}>{coAsk.text}</Text> : null}
+        {comms(open === "comms")}
+      </View> : null}
+    </View>
+  );
+  return renderLayout ? renderLayout(list, detail, open !== null) : <View style={{ flex: 1, minHeight: 0 }}><View style={{ flex: 1, display: open ? "none" : "flex" }}>{list}</View><View style={{ flex: 1, display: open ? "flex" : "none" }}>{detail}</View></View>;
 }

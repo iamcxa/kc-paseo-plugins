@@ -81,13 +81,13 @@ test("queue rows keep visible repository and number with icon-only sibling actio
     const tab = [...container.querySelectorAll<HTMLElement>("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
     await act(() => tab.click());
     for (const number of [2, 1]) {
-      const label = view === "decision" && number === 1 ? "Open Review proposal 1 with Review owner FO" : `Review proposal ${number} — Review owner FO`;
+      const label = `Review proposal ${number} — Review owner FO`;
       const { link } = pair(label, `Open bridge#${number} on GitHub`);
       await act(() => link.click());
       assert.equal(urls.at(-1), reviews[number - 1].url);
       assert.equal(container.querySelector("output"), null);
     }
-    const { row, link } = pair(view === "decision" ? "Unassigned proposal — no FO" : "Ask comms officer about Unassigned proposal", "Open other#3 on GitHub");
+    const { row, link } = pair("Unassigned proposal — no FO", "Open other#3 on GitHub");
     await act(() => link.click());
     assert.equal(urls.at(-1), reviews[2].url);
     assert.equal(asks.length, 0, "a GitHub link must not invoke the row's comms action");

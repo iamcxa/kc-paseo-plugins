@@ -23,7 +23,7 @@ test("polling a newer open briefing ignores the older briefing's resolution", as
   ];
   const requested: (string | undefined)[] = [];
   const callBriefing = async (input: { briefingId?: string }) => { requested.push(input.briefingId); return answers.shift()!; };
-  const callRead = async () => ({ record: { foId: "fo", decisionId: "decision", words: "accepted", decision: "approved", at: Date.now() } });
+  const callRead = async ({ briefingId }: { briefingId: string }) => ({ record: { foId: "fo", decisionId: "decision", words: "accepted", decision: "approved", at: Date.now() } });
   const intervals = new Map<number, () => void>();
   let timerId = 0;
   t.mock.method(globalThis, "setInterval", (callback: () => void, delay: number) => { const id = ++timerId; if (delay === 15_000) intervals.set(id, callback); return id; });
@@ -51,10 +51,10 @@ test("polling a newer open briefing ignores the older briefing's resolution", as
   };
   await act(async () => { root.render(createElement(DecisionCard, props)); });
   const poll = async () => { const callback = [...intervals.values()][0]; assert.ok(callback, "an unresolved briefing keeps polling"); await act(async () => callback()); };
-  assert.equal(container.querySelector("output")!.textContent, "准,要求修改,暫緩|Message FO directly");
+  assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");
   await poll();
   assert.match(container.textContent!, /second/);
-  assert.equal(container.querySelector("output")!.textContent, "准,要求修改,暫緩|Message FO directly");
+  assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");
   assert.doesNotMatch(container.textContent!, /Recorded: approved/);
   await poll();
   assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");

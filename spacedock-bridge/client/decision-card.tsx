@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Keyboard, PanResponder, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { TabClosedBadge } from "./tab-closed-badge";
+import type { ItemProgress } from "../shared/list-status";
 import type { BoardRow } from "../shared/board";
 import { openCoordinator } from "../shared/coordinator";
 import { type GateBriefingData, readGateBriefing } from "../shared/gate";
@@ -30,20 +31,16 @@ interface Sent {
   slug: string;
 }
 
-// Survives closing and reopening a card while the Bridge stays mounted.
-const sentByBriefing = new Map<string, Sent>();
-
-export function wasSent(slug: string): boolean {
-  return [...sentByBriefing.values()].some((sent) => sent.slug === slug);
-}
-
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   fo: BoardRow;
   gate: AwaitingGate | null;
   onBack(recorded?: boolean): void;
+  active?: boolean;
+  title?: string;
+  onProgress?: (progress: ItemProgress) => void;
 };
 
-export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Props) {
+export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, active: visible = true, title, onProgress }: Props) {
   const colors = theme.colors;
   const callBriefing = useRpc(readGateBriefing);
   const [briefing, setBriefing] = useState<GateBriefingData | null>(null);
@@ -51,7 +48,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const [closed, setClosed] = useState(false);
   const [recorded, setRecorded] = useState<{ decision: string; reason: string } | null>(null);
   const gateFinished = Boolean(gate && (closed || recorded));
-  const showDecisions = Boolean(gate) && !gateFinished;
+
   const [showEvidence, setShowEvidence] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const keyboardHeight = useKeyboardHeight(layout.platform, Keyboard);
@@ -60,12 +57,15 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   const [now, setNow] = useState(Date.now());
   const [claim, setClaim] = useState<DecisionRecordData | null>(null);
   const [relayed, setRelayed] = useState(false);
+  const sentByBriefing = useRef(new Map<string, Sent>()).current;
   const sent = briefing ? sentByBriefing.get(briefing.briefingId) : undefined;
   const callClaim = useRpc(claimDecision);
   const callReadDecision = useRpc(readDecision);
   const callRelease = useRpc(releaseDecision);
 
+  const readRequest = useRef(0);
   const load = useCallback(async () => {
+    const request = ++readRequest.current;
     if (!gate) return null;
     const answer = await callBriefing({
       workflowDir: fo.workflowDir,
@@ -73,10 +73,11 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
       stage: gate.stage,
       briefingId: briefing?.briefingId,
     });
-    setRecorded(
+    if (request !== readRequest.current) return answer;
+    setRecorded(previous =>
       answer.recorded && (!answer.briefing || answer.briefing.briefingId === briefing?.briefingId)
         ? answer.recorded
-        : null,
+        : previous,
     );
     if (answer.briefing) setBriefing(answer.briefing);
     setClosed(!answer.briefing && !answer.error);
@@ -85,15 +86,19 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   }, [callBriefing, fo.workflowDir, gate, briefing?.briefingId]);
 
   useEffect(() => {
-    void load();
-  }, [gate?.slug]);
+    void load().catch(error => setProblem(String(error)));
+    return () => { ++readRequest.current; };
+  }, [fo.id, fo.workflowDir, gate?.slug, gate?.stage]);
 
   useEffect(() => {
     if (!briefing) return;
+    let cancelled = false;
+    setClaim(null);
     callReadDecision({ briefingId: briefing.briefingId }).then(
-      ({ record }) => setClaim(record),
+      ({ record }) => { if (!cancelled) setClaim(current => record ?? current); },
       () => undefined,
     );
+    return () => { cancelled = true; };
   }, [briefing?.briefingId, callReadDecision]);
 
   const paseo = usePaseo();
@@ -118,17 +123,22 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
 
   useEffect(() => {
     if ((!sent && !claim) || recorded) return;
-    void checkRelay();
+    void checkRelay().catch(() => setProblem("Could not check the relay to this FO."));
     const timer = setInterval(() => {
       setNow(Date.now());
-      void load();
-      void checkRelay();
+      void load().catch(error => setProblem(String(error)));
+      void checkRelay().catch(() => setProblem("Could not check the relay to this FO."));
     }, 15_000);
     return () => clearInterval(timer);
   }, [sent, claim, recorded, load, checkRelay]);
 
   const target = JSON.stringify([fo.id, fo.workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
   const currentTarget = useRef(target);
+  const visibleRef = useRef(visible);
+  visibleRef.current = visible;
+  const finishedRef = useRef(false);
+  finishedRef.current = gateFinished || Boolean(claim);
+  const showDecisions = Boolean(gate) && !gateFinished && !claim;
   currentTarget.current = target;
   const active = useRef(true);
   useEffect(() => {
@@ -137,7 +147,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   }, []);
 
   const beforeSend = useCallback(() => checkComposerTarget(
-    () => active.current && currentTarget.current === target,
+    () => active.current && visibleRef.current && !finishedRef.current && currentTarget.current === target,
     async () => {
       if (!gate || !briefing) return null;
       const answer = await callBriefing({ workflowDir: fo.workflowDir, slug: gate.slug, stage: gate.stage });
@@ -280,6 +290,14 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
             : closed
               ? { color: colors.foregroundMuted, status: "This gate is no longer open.", detail: "" }
               : null;
+  const progressHandler = useRef(onProgress);
+  progressHandler.current = onProgress;
+  const pending = Boolean(claim);
+  const overdue = Boolean(delivery === "check");
+  useEffect(() => {
+    progressHandler.current?.({ sent: pending, relayed, recorded: Boolean(recorded), closed, overdue, problem: Boolean(problem) });
+  }, [pending, relayed, recorded, closed, overdue, problem]);
+
   const feedbackStatus = [state?.status, problem ? "Briefing error" : ""].filter(Boolean).join(" · ");
   const feedbackDetail = [problem, state?.detail].filter(Boolean).join("\n\n");
 
@@ -296,7 +314,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
   return (
     <View style={styles.screen}>
       <View style={styles.toolbar}>
-        <Pressable colors={colors} accessibilityRole="button" onPress={() => onBack(Boolean(recorded))}>
+        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to list" onPress={() => onBack(Boolean(recorded))}>
           <Text style={styles.back}>← Queue</Text>
         </Pressable>
         {layout.compact ? (
@@ -339,7 +357,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
         onContentSizeChange={(_width, height) => setContentHeight(height)}
       >
         <Text style={styles.label}>{cardLabel(gate, fo.repo)}</Text>
-        {gate ? null : foLine}
+        {gate ? null : <><Text style={styles.question} selectable>{title || fo.next || fo.title}</Text>{foLine}</>}
         {gate ? (
           <>
             <Text style={styles.question} selectable>
@@ -393,6 +411,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
           placeholder={`Message ${foName(fo.title || "the FO")} directly`}
           decisionTarget={target}
           discussion
+          active={visible}
           chips={showDecisions ? CHIPS : undefined}
           footer={showDecisions ? footer : undefined}
           beforeSend={showDecisions ? beforeSend : undefined}

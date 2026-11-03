@@ -1,7 +1,6 @@
 import { useRpc } from "@getpaseo/plugin/client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Text, View } from "react-native";
-import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { openCoordinator } from "../shared/coordinator";
 import { Board, type BoardProps } from "./board";
 import { CoChat } from "./co-chat";
@@ -12,14 +11,12 @@ export function Bridge(props: BoardProps) {
   const callOpenCoordinator = useRpc(openCoordinator);
   const [coId, setCoId] = useState("");
   const [error, setError] = useState("");
-  const [tab, setTab] = useState<"fos" | "co">("fos");
   const { ask, since, state: askState, retry: retryAsk } = useCoAsk(coId);
   const commsState = error ? "failed" : askState;
-  const coAsk = ask ? { text: ask, since, onPress: () => setTab("co") } : null;
+  const coAsk = ask ? { text: ask, since, onPress: () => {} } : null;
   const [seed, setSeed] = useState<{ text: string; nonce: number } | null>(null);
   const onAskCo = useCallback((text: string) => {
     setSeed({ text, nonce: Date.now() });
-    setTab("co");
   }, []);
 
   const coordinatorRequest = useRef(0);
@@ -35,35 +32,16 @@ export function Bridge(props: BoardProps) {
   const retryComms = () => error ? void connectCoordinator() : retryAsk();
 
   const colors = theme.colors;
-  const styles = useMemo(
-    () => ({
-      root: {
-        flex: 1,
-        flexDirection: layout.compact ? ("column" as const) : ("row" as const),
-        backgroundColor: colors.surface0,
-      },
-      pane: { flex: 1 },
-      boardPane: { width: 380 },
-      divider: { width: 1, backgroundColor: colors.border },
-      tabs: {
-        flexDirection: "row" as const,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.border,
-      },
-      tabButton: { flex: 1, alignItems: "center" as const, paddingVertical: 12 },
-      tabActive: { borderBottomWidth: 2, borderBottomColor: colors.accent },
-      tab: { color: colors.foregroundMuted },
-      active: { color: colors.foreground, fontWeight: "600" as const },
-    }),
-    [colors, layout.compact],
-  );
 
-  const chat = coId ? (
+  const chat = (active: boolean) => coId ? (
     <CoChat
       theme={theme}
       layout={layout}
       navigation={props.navigation}
       agentId={coId}
+      active={active}
+      sourceState={commsState}
+      sourceError={error}
       seed={seed}
       onSeeded={() => setSeed(null)}
     />
@@ -73,35 +51,21 @@ export function Bridge(props: BoardProps) {
     </Text>
   );
 
-  if (layout.compact) {
-    return (
-      <View style={styles.root}>
-        <View style={styles.tabs}>
-          {(["fos", "co"] as const).map((id) => (
-            <Pressable colors={colors}
-              key={id}
-              accessibilityRole="tab"
-              onPress={() => setTab(id)}
-              style={[styles.tabButton, tab === id ? styles.tabActive : null]}
-            >
-              <Text style={tab === id ? styles.active : styles.tab}>
-                {id === "fos" ? "FOs" : "Comms officer"}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-        <View style={styles.pane}>{tab === "fos" ? <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} /> : chat}</View>
-      </View>
-    );
-  }
+  return <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo}
+    comms={chat} renderLayout={(list, detail, selected) => <BridgeLayout compact={layout.compact} colors={colors} list={list} detail={detail} selected={selected} />} />;
+}
 
+export function BridgeLayout({ compact, colors, list, detail, selected }: {
+  compact: boolean;
+  colors: BoardProps["theme"]["colors"];
+  list: ReactNode;
+  detail: ReactNode;
+  selected: boolean;
+}) {
   return (
-    <View style={styles.root}>
-      <View style={styles.pane}>{chat}</View>
-      <View style={styles.divider} />
-      <View style={styles.boardPane}>
-        <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} />
-      </View>
+    <View style={{ flex: 1, minHeight: 0, flexDirection: compact ? "column" : "row", backgroundColor: colors.surface0 }}>
+      <View style={compact ? { flex: 1, minHeight: 0, display: selected ? "none" : "flex" } : { width: 330, minHeight: 0, borderRightWidth: 1, borderRightColor: colors.border }}>{list}</View>
+      <View style={{ flex: 1, minWidth: 0, minHeight: 0, display: compact && !selected ? "none" : "flex" }}>{detail}</View>
     </View>
   );
 }

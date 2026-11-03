@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
-test("By FO keeps an idle review owner and its waiting count visible while idle rows are collapsed", async (t) => {
+test("By FO keeps every FO and each assigned review reachable", async (t) => {
   const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -46,11 +46,8 @@ test("By FO keeps an idle review owner and its waiting count visible while idle 
   assert.match(container.textContent!, /Review owner FO\s*· 1 waiting/);
   const review = container.querySelector('[aria-label="Review the pending adapter — Review owner FO"]');
   assert.ok(review, "the assigned review must be reachable before expanding idle rows");
-  assert.doesNotMatch(container.textContent!, /Unoccupied FO/);
-  const idle = [...container.querySelectorAll("[role=button]")].find((e) => e.textContent!.startsWith("Idle · 1"))!;
-  assert.ok(idle, "the unrelated idle FO keeps its collapsed group");
-  await act(async () => (idle as HTMLElement).click());
   assert.match(container.textContent!, /Unoccupied FO/);
+  assert.ok(container.querySelector('[aria-label="Conversation with Unoccupied FO"]'), "an FO without waiting work still opens its conversation");
   assert.equal(container.querySelectorAll('[aria-label="Review the pending adapter — Review owner FO"]').length, 1);
   await act(async () => (review as HTMLElement).click());
   assert.equal(container.querySelector("output")!.textContent, "owner");
