@@ -1,0 +1,49 @@
+{
+  "head": "c916545b044c65580be629b1c8385b0aa5ce2645",
+  "branch": "spacedock-ensign/r9-list-and-detail-layout",
+  "candidateStatus": "",
+  "mainStatus": "",
+  "liveStatus": "",
+  "remote": "c916545b044c65580be629b1c8385b0aa5ce2645\trefs/heads/spacedock-ensign/r9-list-and-detail-layout",
+  "files": {
+    "spacedock-bridge/OVERVIEW.md": {
+      "sha256": "c26203c8d1b29aeb8cf9b8879f6d27cdb0d7bca94e4d9089d2b7565eed235929",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/board.tsx": {
+      "sha256": "1d30bb4b7547a063bf1f98d313c7a59e3ac023853267dce007ab2fd8521e5786",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/bridge.tsx": {
+      "sha256": "1b60fb8ef2f850078cafafb892c67e51e098f6c0c6af385be00b18a61a47a9f2",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/co-chat.tsx": {
+      "sha256": "c6a0e930bb7e2b0f88c1393788736b473e2613bf378421712cbe89194159cd1d",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/decision-card.tsx": {
+      "sha256": "424b7563f375d5b45cd3e4d62b012b857ae124e749ac44e92b08a0007ec43caa",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/helpers/bridge-host.mts": {
+      "sha256": "6ed5612a770f72f02d667a81df647a960cde0b734795acb192388a1fd3f5032c",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/retained-readers.test.mts": {
+      "sha256": "1c46d03fec6134afdd780ae91788a3c3100d182d4470996ef0ac6c8ede6c6ec9",
+      "matchesCommit": true
+    }
+  },
+  "temporaryBaselineRoots": [],
+  "temporaryProbePresent": false,
+  "tests": {
+    "passed": 214,
+    "failed": 0,
+    "newTests": 55,
+    "baselineFailures": 49,
+    "baselinePasses": 6,
+    "typecheckExit": 0
+  },
+  "scope": "mounted React DOM/RPC reader proof; no new browser/provider/native-device evidence; original visual captures remain bound to 3f4e56c"
+}

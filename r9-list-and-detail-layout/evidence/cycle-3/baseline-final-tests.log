@@ -1,0 +1,1012 @@
+✖ retained surface table: gate briefing × identity changed upstream (316.106333ms)
+✔ retained surface table: gate briefing × failed read then reactivate (67.67625ms)
+✖ retained surface table: gate briefing × failed read then retry control (35.461041ms)
+✖ retained surface table: gate conversation × identity changed upstream (71.840125ms)
+✖ retained surface table: gate conversation × failed read then reactivate (47.206ms)
+✖ retained surface table: gate conversation × failed read then retry control (43.367583ms)
+✖ retained surface table: assigned review conversation × identity changed upstream (65.0815ms)
+✖ retained surface table: assigned review conversation × failed read then reactivate (39.480667ms)
+✖ retained surface table: assigned review conversation × failed read then retry control (19.465917ms)
+✖ retained surface table: FO conversation × identity changed upstream (29.30325ms)
+✖ retained surface table: FO conversation × failed read then reactivate (24.573333ms)
+✖ retained surface table: FO conversation × failed read then retry control (14.45175ms)
+✔ retained surface table: commander conversation × identity changed upstream (23.9985ms)
+✖ retained surface table: commander conversation × failed read then reactivate (225.179709ms)
+✖ retained surface table: commander conversation × failed read then retry control (216.435083ms)
+✖ retained surface table: decision record × identity changed upstream (34.045875ms)
+✖ retained surface table: decision record × failed read then reactivate (17.316333ms)
+✖ retained surface table: decision record × failed read then retry control (14.720375ms)
+✖ retained surface table: relay status × identity changed upstream (31.813375ms)
+✖ retained surface table: relay status × failed read then reactivate (18.848459ms)
+✖ retained surface table: relay status × failed read then retry control (20.421833ms)
+✔ retained surface table: commander question × identity changed upstream (25.177959ms)
+✖ retained surface table: commander question × failed read then reactivate (240.213291ms)
+✖ retained surface table: commander question × failed read then retry control (222.742125ms)
+✖ a gate uses its own source workflow even when first opened under another officer workflow (55.880125ms)
+✖ retained surface table: gate briefing × unresolved read then reactivate (33.413ms)
+✖ retained surface table: gate conversation × unresolved read then reactivate (31.775292ms)
+✖ retained surface table: assigned review conversation × unresolved read then reactivate (32.056875ms)
+✖ retained surface table: FO conversation × unresolved read then reactivate (27.629125ms)
+✖ retained surface table: commander conversation × unresolved read then reactivate (222.326584ms)
+✖ retained surface table: decision record × unresolved read then reactivate (27.439083ms)
+✖ retained surface table: relay status × unresolved read then reactivate (19.382959ms)
+✖ retained surface table: commander question × unresolved read then reactivate (212.380208ms)
+✖ retained subscription: gate × ready failure recovers with draft (14.781375ms)
+✖ retained subscription: gate × event failure recovers with draft (13.262583ms)
+✖ retained subscription: fo × ready failure recovers with draft (14.064208ms)
+✖ retained subscription: fo × event failure recovers with draft (13.476958ms)
+✖ retained subscription: commander × ready failure recovers with draft (11.069833ms)
+✖ retained subscription: commander × event failure recovers with draft (12.82725ms)
+✖ commander connection reader × failed read then reactivate (10.380875ms)
+✖ commander connection reader × failed read then retry control (14.446625ms)
+✖ retained phone board: gates × failed read then reactivate (32.189209ms)
+✔ retained phone board: gates × failed read then retry control (32.765375ms)
+✖ retained phone board: tasks × failed read then reactivate (34.545208ms)
+✔ retained phone board: tasks × failed read then retry control (36.278167ms)
+✖ retained phone board: review source × failed read then reactivate (34.9535ms)
+✖ retained phone board: review source × failed read then retry control (29.847166ms)
+✖ retained phone board: gates × unresolved read then reactivate (30.158083ms)
+✖ retained phone board: gates × unresolved read then retry control (14.068709ms)
+✖ retained phone board: tasks × unresolved read then reactivate (13.532708ms)
+✖ retained phone board: tasks × unresolved read then retry control (12.850708ms)
+✖ retained phone board: review source × unresolved read then reactivate (11.409041ms)
+✖ retained phone board: review source × unresolved read then retry control (16.945125ms)
+✖ retained phone board: FO question reader × failed read then reactivate (13.9145ms)
+✔ retained phone board: FO question reader × failed read then retry control (13.949375ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 6
+ℹ fail 49
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3588.202167
+
+✖ failing tests:
+
+test at test/retained-readers.test.mts:1:2530
+✖ retained surface table: gate briefing × identity changed upstream (316.106333ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:66:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: gate briefing × failed read then retry control (35.461041ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:2530
+✖ retained surface table: gate conversation × identity changed upstream (71.840125ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:66:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: gate conversation × failed read then reactivate (47.206ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Cannot read|Unavailable|Could not check/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 8:54:50 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'Could not read A FO: Error: Cannot read a\n' +
+    '↑ sends to A FO\n' +
+    'Decide via comms officer\n' +
+    '准\n' +
+    '要求修改\n' +
+    '暫緩\n' +
+    '\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:95:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:54:50 PM · 2 open\n← Commander\nBoard\n← Queue\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nCould not read A FO: Error: Cannot read a\n↑ sends to A FO\nDecide via comms officer\n准\n要求修改\n暫緩\n\n',
+    expected: /Cannot read|Unavailable|Could not check/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: gate conversation × failed read then retry control (43.367583ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:2530
+✖ retained surface table: assigned review conversation × identity changed upstream (65.0815ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:66:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: assigned review conversation × failed read then reactivate (39.480667ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Cannot read|Unavailable|Could not check/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 3\n' +
+    'By decision · 3\n' +
+    'By FO · 3\n' +
+    'All 3\n' +
+    'Permissions 0\n' +
+    'Reviews 1\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Reviews\n' +
+    '1\n' +
+    '◆ Your turn\n' +
+    'Review the change\n' +
+    'a\n' +
+    '#42\n' +
+    'A FO\n' +
+    'REVIEW REQUEST\n' +
+    '498253h ago\n' +
+    '↗\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 8:54:50 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'QUESTION · A\n' +
+    'Review the change\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'Could not read A FO: Error: Cannot read a\n' +
+    '↑ sends to A FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:95:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 3\nBy decision · 3\nBy FO · 3\nAll 3\nPermissions 0\nReviews 1\nGates 2\nQuestions 0\nReviews\n1\n◆ Your turn\nReview the change\na\n#42\nA FO\nREVIEW REQUEST\n498253h ago\n↗\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:54:50 PM · 2 open\n← Commander\nBoard\n← Queue\nQUESTION · A\nReview the change\nA FO\nwaiting 3h\n\nConversation with A FO · includes other tasks\nOpen full view\nCould not read A FO: Error: Cannot read a\n↑ sends to A FO\n',
+    expected: /Cannot read|Unavailable|Could not check/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: assigned review conversation × failed read then retry control (19.465917ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:2530
+✖ retained surface table: FO conversation × identity changed upstream (29.30325ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:66:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: FO conversation × failed read then reactivate (24.573333ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Cannot read|Unavailable|Could not check/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'A FO\n' +
+    ' · 1 waiting · a\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    'B FO\n' +
+    ' · 1 waiting · b\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    'Research FO\n' +
+    ' · 0 waiting · research\n' +
+    '+ New FO\n' +
+    'Gates read 8:54:50 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'QUESTION · A\n' +
+    'Conversation with A FO\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'Could not read A FO: Error: Cannot read a\n' +
+    '↑ sends to A FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:95:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nA FO\n · 1 waiting · a\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\nB FO\n · 1 waiting · b\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\nResearch FO\n · 0 waiting · research\n+ New FO\nGates read 8:54:50 PM · 2 open\n← Commander\nBoard\n← Queue\nQUESTION · A\nConversation with A FO\nA FO\nwaiting 3h\n\nConversation with A FO · includes other tasks\nOpen full view\nCould not read A FO: Error: Cannot read a\n↑ sends to A FO\n',
+    expected: /Cannot read|Unavailable|Could not check/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: FO conversation × failed read then retry control (14.45175ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander conversation × failed read then reactivate (225.179709ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Cannot read|Unavailable|Could not check/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    '! Check\n' +
+    'Waiting on you · 2+\n' +
+    'By decision · 2+\n' +
+    'By FO · 3\n' +
+    'All 2+\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions ?\n' +
+    'Could not check the comms officer — this list may be incomplete\n' +
+    'Check again · comms officer\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 8:54:50 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'Could not read Comms officer: Error: Cannot read co\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:95:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\n! Check\nWaiting on you · 2+\nBy decision · 2+\nBy FO · 3\nAll 2+\nPermissions 0\nReviews 0\nGates 2\nQuestions ?\nCould not check the comms officer — this list may be incomplete\nCheck again · comms officer\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:54:50 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nCould not read Comms officer: Error: Cannot read co\n↑ sends to Comms officer\n',
+    expected: /Cannot read|Unavailable|Could not check/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander conversation × failed read then retry control (216.435083ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:2530
+✖ retained surface table: decision record × identity changed upstream (34.045875ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:66:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: decision record × failed read then reactivate (17.316333ms)
+  AssertionError [ERR_ASSERTION]: the reader actually failed before the detour
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:86:19)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:54:51 PM · 2 open\n← Commander\nBoard\n← Queue\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\nDecide via comms officer\n准\n要求修改\n暫緩\n\n',
+    expected: /Unavailable|Cannot read|Could not read/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: decision record × failed read then retry control (14.720375ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:2530
+✖ retained surface table: relay status × identity changed upstream (31.813375ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:66:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: relay status × failed read then reactivate (18.848459ms)
+  AssertionError [ERR_ASSERTION]: the reader actually failed before the detour
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:86:19)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n! Check\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:54:51 PM · 2 open\n← Commander\nBoard\n← Queue\nSent to the comms officer · Briefing error\nCould not check the relay to this FO.\n\napprove 「准」 · waiting for the relay, 0 min\nSent to the comms officer · Briefing error\nCould not check the relay to this FO.\n\napprove 「准」 · waiting for the relay, 0 min\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nNo messages yet\n↑ sends to A FO\n',
+    expected: /Unavailable|Cannot read|Could not read/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: relay status × failed read then retry control (20.421833ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander question × failed read then reactivate (240.213291ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Cannot read|Unavailable|Could not check/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    '! Check\n' +
+    'Waiting on you · 2+\n' +
+    'By decision · 2+\n' +
+    'By FO · 3\n' +
+    'All 2+\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions ?\n' +
+    'Could not check the comms officer — this list may be incomplete\n' +
+    'Check again · comms officer\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 8:54:51 PM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    'Could not read Comms officer: Error: Cannot read co\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:95:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\n! Check\nWaiting on you · 2+\nBy decision · 2+\nBy FO · 3\nAll 2+\nPermissions 0\nReviews 0\nGates 2\nQuestions ?\nCould not check the comms officer — this list may be incomplete\nCheck again · comms officer\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:54:51 PM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\nCould not read Comms officer: Error: Cannot read co\n↑ sends to Comms officer\n',
+    expected: /Cannot read|Unavailable|Could not check/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander question × failed read then retry control (222.742125ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:85:48)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:5533
+✖ a gate uses its own source workflow even when first opened under another officer workflow (55.880125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(inputs.every(input => input.workflowDir === "/source-workflow"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:116:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: gate briefing × unresolved read then reactivate (33.413ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: gate conversation × unresolved read then reactivate (31.775292ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: assigned review conversation × unresolved read then reactivate (32.056875ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: FO conversation × unresolved read then reactivate (27.629125ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: commander conversation × unresolved read then reactivate (222.326584ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: decision record × unresolved read then reactivate (27.439083ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: relay status × unresolved read then reactivate (19.382959ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: commander question × unresolved read then reactivate (212.380208ms)
+  AssertionError [ERR_ASSERTION]: unresolved readers also expose retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:137:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: gate × ready failure recovers with draft (14.781375ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(surface.retry))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:155:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: gate × event failure recovers with draft (13.262583ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(surface.retry))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:155:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: fo × ready failure recovers with draft (14.064208ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(surface.retry))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:155:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: fo × event failure recovers with draft (13.476958ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(surface.retry))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:155:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: commander × ready failure recovers with draft (11.069833ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(surface.retry))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:155:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: commander × event failure recovers with draft (12.82725ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(surface.retry))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:155:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:8432
+✖ commander connection reader × failed read then reactivate (10.380875ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Retry commander connection"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:173:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:8432
+✖ commander connection reader × failed read then retry control (14.446625ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Retry commander connection"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:173:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:9378
+✖ retained phone board: gates × failed read then reactivate (32.189209ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:200:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:9378
+✖ retained phone board: tasks × failed read then reactivate (34.545208ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:200:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:9378
+✖ retained phone board: review source × failed read then reactivate (34.9535ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:196:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:9378
+✖ retained phone board: review source × failed read then retry control (29.847166ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:196:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10155
+✖ retained phone board: gates × unresolved read then reactivate (30.158083ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10155
+✖ retained phone board: gates × unresolved read then retry control (14.068709ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10155
+✖ retained phone board: tasks × unresolved read then reactivate (13.532708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10155
+✖ retained phone board: tasks × unresolved read then retry control (12.850708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10155
+✖ retained phone board: review source × unresolved read then reactivate (11.409041ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10155
+✖ retained phone board: review source × unresolved read then retry control (16.945125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:11026
+✖ retained phone board: FO question reader × failed read then reactivate (13.9145ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.find("Check FOs again"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle3-baseline-9dsapfpy/spacedock-bridge/test/retained-readers.test.mts:240:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

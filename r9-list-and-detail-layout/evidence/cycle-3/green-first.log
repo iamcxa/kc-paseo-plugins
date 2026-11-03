@@ -1,0 +1,92 @@
+✔ retained surface table: gate briefing × identity changed upstream (254.503042ms)
+✔ retained surface table: gate briefing × failed read then reactivate (58.712083ms)
+✔ retained surface table: gate briefing × failed read then retry control (43.143125ms)
+✔ retained surface table: gate conversation × identity changed upstream (71.762458ms)
+✔ retained surface table: gate conversation × failed read then reactivate (23.39075ms)
+✔ retained surface table: gate conversation × failed read then retry control (18.794875ms)
+✔ retained surface table: FO conversation × identity changed upstream (28.469667ms)
+✔ retained surface table: FO conversation × failed read then reactivate (20.261ms)
+✔ retained surface table: FO conversation × failed read then retry control (19.346666ms)
+✔ retained surface table: commander conversation × identity changed upstream (25.825959ms)
+✔ retained surface table: commander conversation × failed read then reactivate (256.804708ms)
+✔ retained surface table: commander conversation × failed read then retry control (231.644834ms)
+✔ retained surface table: decision record × identity changed upstream (65.163042ms)
+✔ retained surface table: decision record × failed read then reactivate (47.166708ms)
+✔ retained surface table: decision record × failed read then retry control (38.22625ms)
+✔ retained surface table: relay status × identity changed upstream (46.940958ms)
+✔ retained surface table: relay status × failed read then reactivate (20.657708ms)
+✖ retained surface table: relay status × failed read then retry control (18.350666ms)
+✔ retained surface table: commander question × identity changed upstream (19.550583ms)
+✔ retained surface table: commander question × failed read then reactivate (225.281916ms)
+✔ retained surface table: commander question × failed read then retry control (214.741125ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (18.083958ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2146.687584
+
+✖ failing tests:
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: relay status × failed read then retry control (18.350666ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Cannot read|Unavailable|Could not check/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Waiting on you · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '3h ago\n' +
+    '+ New FO\n' +
+    'Gates read 8:48:23 PM · 2 open\n' +
+    '← Commander\n' +
+    'Board\n' +
+    '← Queue\n' +
+    'Relayed to A FO\n' +
+    'approve 「准」 · waiting for its record\n' +
+    'Relayed to A FO\n' +
+    'approve 「准」 · waiting for its record\n' +
+    'GATE · VALIDATION · A\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'waiting 3h\n' +
+    'Summary a\n' +
+    'Read full briefing ›\n' +
+    'preview · full view in Spacedock Review\n' +
+    '\n' +
+    'Conversation with A FO · includes other tasks\n' +
+    'Open full view\n' +
+    'Could not read A FO: Error: Cannot read a\n' +
+    'Retry conversation\n' +
+    '↑ sends to A FO\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:88:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nWaiting on you · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n3h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n3h ago\n+ New FO\nGates read 8:48:23 PM · 2 open\n← Commander\nBoard\n← Queue\nRelayed to A FO\napprove 「准」 · waiting for its record\nRelayed to A FO\napprove 「准」 · waiting for its record\nGATE · VALIDATION · A\nApprove a?\nA FO\nwaiting 3h\nSummary a\nRead full briefing ›\npreview · full view in Spacedock Review\n\nConversation with A FO · includes other tasks\nOpen full view\nCould not read A FO: Error: Cannot read a\nRetry conversation\n↑ sends to A FO\n',
+    expected: /Cannot read|Unavailable|Could not check/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

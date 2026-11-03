@@ -1,0 +1,99 @@
+✔ retained surface table: gate briefing × identity changed upstream (221.404958ms)
+✔ retained surface table: gate briefing × failed read then reactivate (64.524583ms)
+✔ retained surface table: gate briefing × failed read then retry control (45.965667ms)
+✔ retained surface table: gate conversation × identity changed upstream (69.429708ms)
+✔ retained surface table: gate conversation × failed read then reactivate (22.977834ms)
+✔ retained surface table: gate conversation × failed read then retry control (19.518833ms)
+✔ retained surface table: assigned review conversation × identity changed upstream (24.012708ms)
+✔ retained surface table: assigned review conversation × failed read then reactivate (24.543958ms)
+✔ retained surface table: assigned review conversation × failed read then retry control (16.631583ms)
+✔ retained surface table: FO conversation × identity changed upstream (23.029041ms)
+✔ retained surface table: FO conversation × failed read then reactivate (19.745375ms)
+✔ retained surface table: FO conversation × failed read then retry control (15.977792ms)
+✔ retained surface table: commander conversation × identity changed upstream (63.3375ms)
+✔ retained surface table: commander conversation × failed read then reactivate (254.743834ms)
+✔ retained surface table: commander conversation × failed read then retry control (229.316042ms)
+✔ retained surface table: decision record × identity changed upstream (80.1025ms)
+✔ retained surface table: decision record × failed read then reactivate (35.484ms)
+✔ retained surface table: decision record × failed read then retry control (15.599708ms)
+✔ retained surface table: relay status × identity changed upstream (22.4155ms)
+✔ retained surface table: relay status × failed read then reactivate (24.561417ms)
+✔ retained surface table: relay status × failed read then retry control (17.666541ms)
+✔ retained surface table: commander question × identity changed upstream (17.643416ms)
+✔ retained surface table: commander question × failed read then reactivate (233.824875ms)
+✔ retained surface table: commander question × failed read then retry control (231.354375ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (53.797166ms)
+✔ retained surface table: gate briefing × unresolved read then reactivate (41.000792ms)
+✔ retained surface table: gate conversation × unresolved read then reactivate (41.210166ms)
+✔ retained surface table: assigned review conversation × unresolved read then reactivate (45.26975ms)
+✔ retained surface table: FO conversation × unresolved read then reactivate (34.380792ms)
+✔ retained surface table: commander conversation × unresolved read then reactivate (225.63975ms)
+✔ retained surface table: decision record × unresolved read then reactivate (18.302916ms)
+✔ retained surface table: relay status × unresolved read then reactivate (18.066375ms)
+✔ retained surface table: commander question × unresolved read then reactivate (227.640666ms)
+✔ retained subscription: gate × ready failure recovers with draft (19.789042ms)
+✔ retained subscription: gate × event failure recovers with draft (17.483083ms)
+✔ retained subscription: fo × ready failure recovers with draft (14.34425ms)
+✔ retained subscription: fo × event failure recovers with draft (15.109167ms)
+✔ retained subscription: commander × ready failure recovers with draft (53.86725ms)
+✔ retained subscription: commander × event failure recovers with draft (53.273291ms)
+✔ commander connection reader × failed read then reactivate (56.848042ms)
+✔ commander connection reader × failed read then retry control (50.29175ms)
+✔ retained phone board: gates × failed read then reactivate (18.871625ms)
+✔ retained phone board: gates × failed read then retry control (13.344083ms)
+✔ retained phone board: tasks × failed read then reactivate (14.73775ms)
+✔ retained phone board: tasks × failed read then retry control (13.348792ms)
+✔ retained phone board: review source × failed read then reactivate (14.521417ms)
+✔ retained phone board: review source × failed read then retry control (15.216708ms)
+✔ retained phone board: gates × unresolved read then reactivate (13.951833ms)
+✔ retained phone board: gates × unresolved read then retry control (12.036917ms)
+✔ retained phone board: tasks × unresolved read then reactivate (12.502209ms)
+✔ retained phone board: tasks × unresolved read then retry control (12.059375ms)
+✖ retained phone board: review source × unresolved read then reactivate (14.142833ms)
+✖ retained phone board: review source × unresolved read then retry control (14.782584ms)
+✔ retained phone board: FO question reader × failed read then reactivate (16.441917ms)
+✔ retained phone board: FO question reader × failed read then retry control (13.2795ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 53
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3448.526417
+
+✖ failing tests:
+
+test at test/retained-readers.test.mts:1:10191
+✖ retained phone board: review source × unresolved read then reactivate (14.142833ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:10191
+✖ retained phone board: review source × unresolved read then retry control (14.782584ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find(`Check ${source} again`))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:219:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

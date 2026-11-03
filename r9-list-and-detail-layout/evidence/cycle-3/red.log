@@ -1,0 +1,315 @@
+✖ retained surface table: gate briefing × identity changed upstream (259.695208ms)
+✖ retained surface table: gate briefing × failed read then reactivate (44.555958ms)
+✖ retained surface table: gate briefing × failed read then retry control (34.436625ms)
+✖ retained surface table: gate conversation × identity changed upstream (69.389209ms)
+✖ retained surface table: gate conversation × failed read then reactivate (34.240416ms)
+✖ retained surface table: gate conversation × failed read then retry control (33.594791ms)
+✖ retained surface table: FO conversation × identity changed upstream (59.795708ms)
+✖ retained surface table: FO conversation × failed read then reactivate (52.888ms)
+✖ retained surface table: FO conversation × failed read then retry control (30.653583ms)
+✔ retained surface table: commander conversation × identity changed upstream (55.496416ms)
+✖ retained surface table: commander conversation × failed read then reactivate (223.543625ms)
+✖ retained surface table: commander conversation × failed read then retry control (220.963625ms)
+✖ retained surface table: decision record × identity changed upstream (37.096625ms)
+✖ retained surface table: decision record × failed read then reactivate (19.443917ms)
+✖ retained surface table: decision record × failed read then retry control (15.436666ms)
+✖ retained surface table: relay status × identity changed upstream (24.608042ms)
+✖ retained surface table: relay status × failed read then reactivate (17.647625ms)
+✖ retained surface table: relay status × failed read then retry control (16.624042ms)
+✔ retained surface table: commander question × identity changed upstream (23.916334ms)
+✖ retained surface table: commander question × failed read then reactivate (213.965042ms)
+✖ retained surface table: commander question × failed read then retry control (220.811042ms)
+✖ a gate uses its own source workflow even when first opened under another officer workflow (49.204084ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 2
+ℹ fail 20
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2374.996167
+
+✖ failing tests:
+
+test at test/retained-readers.test.mts:1:1976
+✖ retained surface table: gate briefing × identity changed upstream (259.695208ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:60:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: gate briefing × failed read then reactivate (44.555958ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: gate briefing × failed read then retry control (34.436625ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:1976
+✖ retained surface table: gate conversation × identity changed upstream (69.389209ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:60:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: gate conversation × failed read then reactivate (34.240416ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: gate conversation × failed read then retry control (33.594791ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:1976
+✖ retained surface table: FO conversation × identity changed upstream (59.795708ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:60:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: FO conversation × failed read then reactivate (52.888ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: FO conversation × failed read then retry control (30.653583ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: commander conversation × failed read then reactivate (223.543625ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: commander conversation × failed read then retry control (220.963625ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:1976
+✖ retained surface table: decision record × identity changed upstream (37.096625ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:60:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: decision record × failed read then reactivate (19.443917ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: decision record × failed read then retry control (15.436666ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:1976
+✖ retained surface table: relay status × identity changed upstream (24.608042ms)
+  AssertionError [ERR_ASSERTION]: the retained recipient/title and composer must not change
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:60:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: relay status × failed read then reactivate (17.647625ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: relay status × failed read then retry control (16.624042ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: commander question × failed read then reactivate (213.965042ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:3469
+✖ retained surface table: commander question × failed read then retry control (220.811042ms)
+  AssertionError [ERR_ASSERTION]: each failed reader offers a visible retry
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:79:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4842
+✖ a gate uses its own source workflow even when first opened under another officer workflow (49.204084ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(inputs.every(input => input.workflowDir === "/source-workflow"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/retained-readers.test.mts:109:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
