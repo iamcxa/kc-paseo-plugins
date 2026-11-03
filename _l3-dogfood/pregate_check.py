@@ -68,11 +68,11 @@ def main(argv):
 
     for quote, source in re.findall(r"quote: (.+)\n\s+source: '?(.+?)'?$", text, re.M):
         known = GRANTS.get(quote.strip())
-        for date in re.findall(r"\d{4}-\d{2}-\d{2}", source):
-            corrected = any(quote.strip() in item and known in item and item.startswith("- Correction")
-                            for sec in sections(text, "### FO notes") for item in bullets(sec))
-            if known and date != known and not corrected:
-                failures.append(f"gate conn source dates 「{quote.strip()}」 {date}; the Captain said it on {known}")
+        corrected = any(quote.strip() in item and known and known in item and item.startswith("- Correction")
+                        for sec in sections(text, "### FO notes") for item in bullets(sec))
+        if known and known not in source and not corrected:
+            dates = ", ".join(re.findall(r"\d{4}-\d{2}-\d{2}", source)) or "no date"
+            failures.append(f"gate conn source for 「{quote.strip()}」 carries {dates}; the Captain said it on {known}")
 
     for sec in sections(text, "### FO notes"):
         for item in bullets(sec):
