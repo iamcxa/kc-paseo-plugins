@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "name": "status",
+      "file": "shared/list-status.ts",
+      "old": "if (item.sourceState === \"failed\" || item.problem || item.overdue)",
+      "new": "if (false)",
+      "exit": 1,
+      "detected": true
+    },
+    {
+      "name": "continuity",
+      "file": "client/decision-card.tsx",
+      "old": "active.current && visibleRef.current && !finishedRef.current && currentTarget.current === target",
+      "new": "active.current && !finishedRef.current && currentTarget.current === target",
+      "exit": 1,
+      "detected": true
+    }
+  ],
+  "temporary_root_removed": true
+}

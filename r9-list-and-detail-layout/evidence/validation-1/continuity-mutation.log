@@ -1,0 +1,37 @@
+✔ reopen keeps the confirmed choice and reason (387.680083ms)
+✔ sent and relayed progress survives a comms detour (111.871875ms)
+✔ a recorded item never becomes actionable again (77.255541ms)
+✖ switching items keeps separate drafts and rejects stale actions (59.848709ms)
+✔ errors and progress stay with their own source and owner (240.292584ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (76.651333ms)
+✔ an FO with nothing waiting is reachable from By FO (28.903875ms)
+✔ a recorded item reopens to its result and reason this session and is never actionable (40.576292ms)
+✔ an ordinary message never consumes the gate decision controls (23.006833ms)
+✔ desktop board navigation keeps the commander as the default detail (26.990208ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1859.792959
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:1917
+✖ switching items keeps separate drafts and rejects stale actions (59.848709ms)
+  AssertionError [ERR_ASSERTION]: a card hidden during a target check cannot claim a decision
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-validation-mutations-ipfnl54f/continuity/test/bridge-continuity.test.mts:62:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

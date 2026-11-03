@@ -1,0 +1,2843 @@
+diff --git a/spacedock-bridge/OVERVIEW.md b/spacedock-bridge/OVERVIEW.md
+index ebae3a5..15f880e 100644
+--- a/spacedock-bridge/OVERVIEW.md
++++ b/spacedock-bridge/OVERVIEW.md
+@@ -1,22 +1,22 @@
+-Spacedock Bridge is a screen and a panel for running a fleet of Spacedock first officers (FOs) from Paseo. The Bridge screen shows decisions waiting on you, review requests and a chat with a comms officer agent. The Fleet panel lists every FO agent with its task and stage.
++Spacedock Bridge is a screen and a panel for running a fleet of Spacedock first officers (FOs) from Paseo. The Bridge opens on Commander, the existing comms officer conversation. Desktop keeps a 330 px board beside the wide detail; phone opens on the conversation and uses Board to reach the list. The Fleet panel lists every FO agent with its task and stage.
+ 
+ The plugin creates one comms officer agent. It only starts FOs and passes messages. It does not read repositories or answer permission prompts. A local fleet MCP server gives it a `fleet_status` tool that lists FOs, their tasks and the gates waiting on you.
+ 
+ The ↑ label names the message's recipient. Decision buttons to its left open a separate reason field with Confirm and Cancel; only Confirm sends the decision through the comms officer. Approve allows an empty reason; revise and hold require one. The message is never copied into the reason. Each action keeps the other draft, and Cancel keeps the reason. Discussion is labelled with its officer and includes other tasks.
+ 
+-Unsent message and reason drafts stay separately in memory per agent and gate while switching items or compact tabs. Edits and clears appear in every open composer for that target. A successful send or decision clears its own submitted draft only if it has not changed; a refusal keeps it. A changed briefing requires choosing the decision again. Asking the comms officer keeps any existing message draft. Drafts are lost on plugin or app reload.
++Unsent message and reason drafts stay separately in memory per agent and gate while switching items, returning to Commander or reopening the board. Edits and clears appear in every open composer for that target. A successful send or decision clears its own submitted draft only if it has not changed; a refusal keeps it. A changed briefing requires choosing the decision again. Asking the comms officer keeps any existing message draft. Drafts are lost on plugin or app reload.
+ 
+ While a reply is sending, its ↑ and Enter stay disabled even after reopening that target. A failed send keeps the draft and enables sending again.
+ 
+-Both list views and their counts show loading or an incomplete-list message until FOs, gates, reviews and the comms officer have been checked. The By FO view shows no-agents text only for a checked empty list. FO checks include reading their unread questions; a failed question read keeps the list incomplete. A failed workflow names its directory while other workflows' gates and tasks stay visible. Comms-officer questions appear on the compact FOs tab without opening the chat; detection reads the last displayed assistant message. Reopening a closed gate shows its recorded decision, or a neutral no-longer-open message if none was recorded. Closed or recorded gate cards hide the decision controls and waiting age while keeping ordinary FO discussion. An older briefing's resolution leaves a newer open briefing's decision controls available. Returning from a card that showed a record refreshes gates once.
++Both list views and their counts show loading or an incomplete-list message until FOs, gates, reviews and the comms officer have been checked. The By FO view shows no-agents text only for a checked empty list. FO checks include reading their unread questions; a failed question read keeps the list incomplete. A failed workflow names its directory while other workflows' gates and tasks stay visible. The desktop board pins Commander above its filters; a waiting question and its age appear on that card, with no duplicate question row. The compact board shows that question once in Questions. A Commander question counts once; the general conversation entry never adds a pending item. Detection reads the last displayed assistant message. Sent and relayed decisions remain pending with a single waiting marker; recorded or no-longer-open items leave the pending counts. Items recorded in this session remain reachable under Done this session at the end of the board, outside every count and kind filter, reopening to their result and reason without decision controls. One shared gate identity scopes ownership matching, message/reason drafts, choices, sending locks, completion and retained details to the source workflow, task, stage and briefing identifier. An officer matching both workflow and task is preferred before the existing ownership fallbacks; each composer also keeps its recipient namespace. A later stage or another attempt stays pending independently of an earlier result. Previously opened details remain mounted for this session, retaining their choice, reason and progress, while hidden details reject stale actions. Reopening a closed gate shows its recorded decision, or a neutral no-longer-open message if none was recorded. Closed or recorded gate cards hide the decision controls and waiting age while keeping ordinary FO discussion. An older briefing's resolution does not mark a newer briefing as recorded. A claimed decision keeps its progress visible and does not offer a second submission. Returning from a card that showed a record refreshes gates once.
+ 
+-Every review row shows its repository and pull request number in the main content, including the next review. Long repository names truncate while the number stays visible; a separate icon opens GitHub.
++Every review row shows its repository and pull request number in the main content, in both list views. Long repository names truncate while the number stays visible; a separate icon opens GitHub.
+ 
+-Queue titles occupy their own line and wrap to two lines, with the FO name, item kind, tab badge and age underneath. By FO uses the same individual item rows and destinations, and its waiting count equals those rows. Comms questions show the displayed reply's timestamp age, or unknown when no timestamp is available. Comms and FO questions stay separately attributed; matching wording is not proof of a shared request.
++Queue titles occupy their own line and wrap to two lines, with the FO name, item kind, tab badge and age underneath. The neutral Board headline counts all pending items, including ones waiting on someone else. By FO lists every known FO, including those with no waiting items; its count is officers, and each officer shows its own pending-item count and opens only its conversation, without a question label, waiting age or briefing controls. Kind filters apply only to By decision, retaining the previous filter when switching back. Comms questions show the displayed reply's timestamp age, or unknown when no timestamp is available. Comms and FO questions stay separately attributed; matching wording is not proof of a shared request. FO question details use the officer plus the question message or timestamp and title, so a later question keeps its own title and age. Discussion drafts retain their existing recipient scope across question details.
+ 
+-A failed FO, gate, task or comms source offers Check again through its existing reader. A pending read replaces the retry control, and a newer read supersedes an older response. Review reads return stored results, so a failed review source shows the poller's next scheduled automatic check (or unknown), with no immediate GitHub retry control.
++Retained details keep the officer, recipient and source captured when opened. Gate reads and validation use that attempt's source workflow, even if its officer moves to a different workflow. Every reactivation refreshes briefing, decision-record, delivery-status, gate state and conversation data under the captured identity, even after a successful read. Failed or unresolved readers also offer a retry control without clearing drafts. An authoritative null clears a released claim and its cached sent/relay progress. Reads that overlap a newer local submission cannot replace that submission, while recorded decisions remain terminal. Conversation subscription failures reconnect through the same retry. Commander question and connection retries keep the first connected recipient. Each reader ignores superseded results and keeps its own failure until its own successful read. Once an open briefing loads, polling follows subsequent closure or recording. Returning to the phone board refreshes all live sources; those readers follow the current fleet, independently of retained detail identities. A failed FO, gate, task or comms source offers Check again through its existing reader. Review source retry reads the poller's stored result; its next automatic GitHub check remains scheduled by the poller.
+ 
+-On compact screens, Hide briefing ▴ reduces the decision card's briefing to one question line; Show briefing ▾ restores it. The card's ← Queue control, delivery feedback and errors stay visible in both states. Feedback shows one status line and at most two content lines; More appears when text is clipped and opens the full text. On compact native clients the briefing temporarily collapses while the keyboard is open, then restores the user's previous choice when it closes; Show briefing dismisses the keyboard first. The chat leaves room for the keyboard. The message and decision reason share a shrinkable scroll area, so their controls remain reachable when both drafts are long. Android compact screens also get an approximate 20 dp bottom margin while the keyboard is closed; the host exposes no exact navigation-bar inset.
++On compact screens, Hide briefing ▴ reduces the decision card's briefing to one question line; Show briefing ▾ restores it. A fixed ← Commander returns from every Bridge drill-down, including the compact Board, in one step. ← Queue returns to the retained list position to choose another item. Commander keeps its draft and conversation scroll position across these detours. These presentation choices use only the current mounted session, with no added storage or history. The card's ← Queue control, delivery feedback and errors stay visible in both states. Feedback shows one status line and at most two content lines; More appears when text is clipped and opens the full text. On compact native clients the briefing temporarily collapses while the keyboard is open, then restores the user's previous choice when it closes; Show briefing dismisses the keyboard first. The chat leaves room for the keyboard. The message and decision reason share a shrinkable scroll area, so their controls remain reachable when both drafts are long. Android compact screens also get an approximate 20 dp bottom margin while the keyboard is closed; the host exposes no exact navigation-bar inset.
+ 
+ Setup: Paseo 0.12.0 or later, and the `spacedock` command on your PATH. FOs are agents labelled `role=fo`. Task and gate data come from running `spacedock` against each FO's workflow directory.
+ 
+diff --git a/spacedock-bridge/client/board.tsx b/spacedock-bridge/client/board.tsx
+index 1167786..3aebcbd 100644
+--- a/spacedock-bridge/client/board.tsx
++++ b/spacedock-bridge/client/board.tsx
+@@ -1,25 +1,25 @@
+ import type { PluginScreenProps } from "@getpaseo/plugin/client";
+ import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
+-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
++import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+ import { Platform, ScrollView, Text, View } from "react-native";
+ import { FeedbackPressable as Pressable } from "./feedback-pressable";
+ import { TabClosedBadge } from "./tab-closed-badge";
+ import {
+   type BoardRow,
+-  type BoardStatus,
++  type WorkflowGate,
+   type ReplyFact,
+-  STATUS_ORDER,
+   attachGates,
+   observeBoard,
+   withReplies,
+ } from "../shared/board";
+ import { foName } from "../shared/card";
+ import { createFo } from "../shared/fo";
+-import { type AwaitingGate, type TaskStatus, readGates, readTasks } from "../shared/tasks";
++import { type TaskStatus, readGates, readTasks } from "../shared/tasks";
+ import { DecisionCard } from "./decision-card";
+ import { openCoordinator } from "../shared/coordinator";
+-import { type ReviewRequestData, readReviews, reviewOwner, reviewRef } from "../shared/reviews";
+-import { type QueueItem, type QueueKind, buildQueue, openLink, splitQueue } from "../shared/queue";
++import { type ReviewRequestData, readReviews } from "../shared/reviews";
++import { type QueueItem, type QueueKind, buildQueue, openLink } from "../shared/queue";
++import { filterCounts, itemStatus, type ItemProgress } from "../shared/list-status";
+ import { boardEmptyState, type SourceState, type SourceStates } from "../shared/board-empty";
+ 
+ interface WorkspaceChoice {
+@@ -55,7 +55,9 @@ export function Board({
+   commsState = "loaded",
+   onRetryComms,
+   onAskCo,
+-}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void }) {
++  comms,
++  renderLayout,
++}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; comms?: (active: boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
+   const paseo = usePaseo();
+   const [rows, setRows] = useState<BoardRow[]>([]);
+   const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
+@@ -128,9 +130,7 @@ export function Board({
+   }, [refreshTasks, taskKey]);
+ 
+   const callReadGates = useRpc(readGates);
+-  const [gates, setGates] = useState<
+-    { workflowDir: string; slug: string; title: string; stage: string }[]
+-  >([]);
++  const [gates, setGates] = useState<WorkflowGate[]>([]);
+   const [gatesAt, setGatesAt] = useState<string>("");
+   const [gateCheck, setGateCheck] = useState<{ key: string; state: SourceState; failed: string[] }>({ key: "", state: "loading", failed: [] });
+   const gateRequest = useRef(0);
+@@ -168,7 +168,7 @@ export function Board({
+ 
+   const callOpenCoordinator = useRpc(openCoordinator);
+   const askCo = (text: string) => {
+-    if (onAskCo) return onAskCo(text);
++    if (onAskCo) { setOpen("comms"); return onAskCo(text); }
+     callOpenCoordinator({}).then(
+       ({ agentId }) => navigation?.openAgent({ agentId }),
+       (error) => setMessage(String(error)),
+@@ -179,49 +179,55 @@ export function Board({
+   const [reviews, setReviews] = useState<ReviewRequestData[]>([]);
+   const [reviewNextCheck, setReviewNextCheck] = useState<number | null>(null);
+   const [reviewState, setReviewState] = useState<SourceState>("loading");
+-  useEffect(() => {
+-    let cancelled = false;
+-    const refresh = () =>
+-      callReadReviews({}).then(
++  const reviewRequest = useRef(0);
++  const refreshReviews = useCallback(() => {
++    const request = ++reviewRequest.current;
++    setReviewState("loading");
++    return callReadReviews({}).then(
+         (result) => {
+-          if (cancelled) return;
++          if (request !== reviewRequest.current) return;
+           setReviewNextCheck(result.nextCheckAt);
+           setReviews(result.error ? [] : result.requests);
+           setReviewState(result.error ? "failed" : result.checkedAt === null ? "loading" : "loaded");
+         },
+         () => {
+-          if (cancelled) return;
++          if (request !== reviewRequest.current) return;
+           setReviewNextCheck(null);
+           setReviews([]);
+           setReviewState("failed");
+         },
+       );
+-    void refresh();
+-    const timer = setInterval(() => void refresh(), 60_000);
+-    return () => { cancelled = true; clearInterval(timer); };
+   }, [callReadReviews]);
++  useEffect(() => {
++    void refreshReviews();
++    const timer = setInterval(() => void refreshReviews(), 60_000);
++    return () => { ++reviewRequest.current; clearInterval(timer); };
++  }, [refreshReviews]);
+ 
+   const grouped = useMemo(
+     () => attachGates(withReplies(rows, replies), gates),
+     [rows, replies, gates],
+   );
+ 
+-  const [open, setOpen] = useState<{ id: string; gate: AwaitingGate | null } | null>(null);
+-  const [showIdle, setShowIdle] = useState(false);
++  const [open, setOpen] = useState<string | null>(comms ? "comms" : null);
++  const [visited, setVisited] = useState<Record<string, QueueItem>>({});
++  const [progress, setProgress] = useState<Record<string, ItemProgress>>({});
++  const [filter, setFilter] = useState<"all" | QueueKind>("all");
++  const reportProgress = useCallback((key: string, next: ItemProgress) => {
++    setProgress(old => JSON.stringify(old[key]) === JSON.stringify(next) ? old : { ...old, [key]: next });
++  }, []);
+   const [view, setView] = useState<"decision" | "fo">("decision");
+ 
+   const colors = theme.colors;
+   const styles = useMemo(
+     () => ({
+       screen: {
+-        flex: 1,
++        flexGrow: 1,
+         padding: layout.compact ? 12 : 16,
+         gap: 8,
+         backgroundColor: colors.surface0,
+       },
+       bar: { flexDirection: "row" as const, gap: 8, flexWrap: "wrap" as const },
+-      button: { padding: 10, borderRadius: 8, backgroundColor: colors.accent },
+-      buttonText: { color: colors.accentForeground },
+       row: {
+         paddingVertical: 10,
+         paddingHorizontal: 12,
+@@ -241,11 +247,9 @@ export function Board({
+       add: { paddingVertical: 6, paddingHorizontal: 4 },
+       addText: { color: colors.foregroundMuted, fontSize: 13 },
+       name: { color: colors.foreground, fontSize: 14, fontWeight: "600" as const },
+-      owner: { flexDirection: "row" as const, alignItems: "center" as const, gap: 6 },
+       text: { color: colors.foreground, fontSize: 13, lineHeight: 18 },
+       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
+       footer: { color: colors.foregroundMuted, fontSize: 11, marginTop: 12 },
+-      reviewRow: { flexDirection: "row" as const, alignItems: "flex-start" as const, gap: 8 },
+       kind: { color: colors.foregroundMuted, fontSize: 10, fontWeight: "600" as const, letterSpacing: 0.6 },
+       toggle: {
+         flexDirection: "row" as const,
+@@ -266,24 +270,6 @@ export function Board({
+         borderColor: colors.border,
+       },
+       externalText: { color: colors.foregroundMuted, fontSize: 11 },
+-      next: {
+-        padding: 12,
+-        borderRadius: 8,
+-        borderWidth: 1,
+-        borderLeftWidth: 3,
+-        borderColor: colors.border,
+-        backgroundColor: colors.surface2,
+-        gap: 8,
+-      },
+-      nextTitle: { color: colors.foreground, fontSize: 15, fontWeight: "600" as const, lineHeight: 21 },
+-      nextButtons: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+-      nextButton: {
+-        paddingVertical: 6,
+-        paddingHorizontal: 12,
+-        borderRadius: 6,
+-        backgroundColor: colors.accent,
+-      },
+-      nextButtonText: { color: colors.accentForeground, fontSize: 12, fontWeight: "600" as const },
+       sectionHead: { flexDirection: "row" as const, justifyContent: "space-between" as const },
+       queueRow: { padding: 4, borderRadius: 10, overflow: "hidden" as const },
+       itemAction: { flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+@@ -302,7 +288,6 @@ export function Board({
+         paddingVertical: 7,
+         paddingHorizontal: 6,
+       },
+-      dot: { width: 7, height: 7, borderRadius: 4 },
+       lineTitle: { width: "100%" as const, color: colors.foreground, fontSize: 13, lineHeight: 18 },
+       lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
+       lineOwner: { minWidth: 0, flexShrink: 1 },
+@@ -316,26 +301,6 @@ export function Board({
+     [colors, layout.compact],
+   );
+ 
+-  const groupTitle: Record<BoardStatus, string> = {
+-    "waiting on Kent": "Waiting on you",
+-    error: "Error",
+-    "new reply": "New replies",
+-    busy: "Busy",
+-    idle: "Idle",
+-    offline: "Offline",
+-  };
+-
+-  const statusColor = (status: BoardRow["status"]) =>
+-    status === "waiting on Kent"
+-      ? colors.statusWarning
+-      : status === "error"
+-        ? colors.statusDanger
+-        : status === "new reply"
+-          ? colors.accent
+-          : status === "busy"
+-            ? colors.statusSuccess
+-            : colors.foregroundMuted;
+-
+   async function run(action: () => Promise<void>) {
+     setBusy(true);
+     setMessage("");
+@@ -370,19 +335,33 @@ export function Board({
+       navigation?.openAgent({ agentId });
+     });
+ 
+-  const queue = useMemo(
++  const liveQueue = useMemo(
+     () => buildQueue(grouped, reviews, withReplies(rows, replies), replies),
+     [grouped, reviews, rows, replies],
+   );
++  const queue = [...liveQueue, ...Object.values(visited).filter(item => !liveQueue.some(live => live.key === item.key) && (progress[item.key]?.sent || progress[item.key]?.relayed))]
++    .filter(item => !progress[item.key]?.recorded && !progress[item.key]?.closed);
+   const sources: SourceStates = {
+     fos: foState,
+     gates: !workflowKey ? "loaded" : gateCheck.key === workflowKey ? gateCheck.state : "loading",
+     reviews: reviewState,
+     comms: commsState,
+   };
++  const boardVisible = !layout.compact || open === null;
++  const wasBoardVisible = useRef(boardVisible);
++  useEffect(() => {
++    if (boardVisible && !wasBoardVisible.current) {
++      setFoRead(value => value + 1);
++      void refreshGates(true);
++      void refreshTasks();
++      void refreshReviews();
++      onRetryComms?.();
++    }
++    wasBoardVisible.current = boardVisible;
++  }, [boardVisible]);
+   const failedGateWorkflows = gateCheck.key === workflowKey ? gateCheck.failed : [];
+   const empty = boardEmptyState(sources, queue.length + (coAsk ? 1 : 0), failedGateWorkflows);
+-  const foEmpty = boardEmptyState(sources, grouped.length, failedGateWorkflows);
++  const foEmpty = boardEmptyState({ fos: foState, gates: "loaded", reviews: "loaded", comms: "loaded" }, grouped.length);
+   const notice = view === "decision" ? empty.message : foEmpty.count === "0" ? null : foEmpty.message;
+   const kindLabel: Record<QueueKind, string> = {
+     permission: "PERMISSION",
+@@ -390,13 +369,11 @@ export function Board({
+     gate: "GATE",
+     ask: "QUESTION",
+   };
+-  const kindColor: Record<QueueKind, string> = {
+-    permission: colors.statusDanger,
+-    review: colors.accent,
+-    gate: colors.statusWarning,
+-    ask: colors.statusWarning,
+-  };
+-  const { next, sections } = useMemo(() => splitQueue(queue), [queue]);
++  const recordedItems = Object.values(visited).filter(item => progress[item.key]?.recorded);
++  const countedItems = [...queue.map(item => ({ ...progress[item.key], kind: item.kind })), ...(coAsk ? [{ kind: "ask" as const }] : [])];
++  const counts = filterCounts(countedItems, sources);
++  const shownQueue = queue.filter(item => filter === "all" || item.kind === filter);
++  const sections = (["permission", "review", "gate", "ask"] as const).map(kind => ({ kind, items: shownQueue.filter(item => item.kind === kind) }));
+   const sectionTitle: Record<QueueKind, string> = {
+     permission: "Permissions",
+     review: "Reviews",
+@@ -410,7 +387,10 @@ export function Board({
+       return askCo(
+         `Who should review ${item.review.owner}/${item.review.repo}#${item.review.number} (${item.review.url})?`,
+       );
+-    if (item.fo) setOpen({ id: item.fo.id, gate: item.gate ?? null });
++    if (item.fo) {
++      setVisited(old => old[item.key] ? old : { ...old, [item.key]: item });
++      setOpen(item.key);
++    }
+   };
+ 
+   const reference = (ref: string) => {
+@@ -424,12 +404,16 @@ export function Board({
+   };
+ 
+   const itemRow = (item: QueueItem) => (
+-    <View key={item.key} style={[styles.queueRow, styles.itemAction]}>
+-      <Pressable colors={colors} accessible accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} onPress={() => openItem(item)} style={[styles.line, styles.itemContent]}>
++    <View key={item.key} style={[styles.queueRow, styles.itemAction, open === item.key ? { backgroundColor: colors.surface2, borderWidth: 1, borderColor: colors.accent } : null]}>
++      <Pressable colors={colors} accessible accessibilityRole="button" accessibilityLabel={`${item.title} — ${item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}`} accessibilityState={{ selected: open === item.key }} onPress={() => openItem(item)} style={[styles.line, styles.itemContent]}>
++        <Text style={{ alignSelf: "flex-start", fontSize: 11, lineHeight: 14, paddingHorizontal: 6, paddingVertical: 3, borderRadius: 5, borderWidth: 1, borderColor: colors.border, color: progress[item.key]?.recorded ? colors.statusSuccess : progress[item.key]?.sent ? colors.foregroundMuted : colors.statusWarning }}>{(() => {
++          const sourceState = progress[item.key]?.recorded ? "loaded" : item.kind === "gate" ? sources.gates === "failed" && failedGateWorkflows.length ? failedGateWorkflows.includes(item.fo?.workflowDir ?? "") ? "failed" : "loaded" : sources.gates : item.kind === "review" ? sources.reviews : sources.fos;
++          const status = itemStatus({ kind: item.kind, ...progress[item.key], sourceState });
++          return `${status.icon} ${status.text}`;
++        })()}</Text>
+         <Text style={styles.lineTitle} numberOfLines={2}>{item.title}</Text>
+         {item.link ? reference(item.link.ref) : null}
+         <View style={styles.lineMeta}>
+-          <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
+           <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>{item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}</Text>
+           <Text style={styles.kind}>{kindLabel[item.kind]}</Text>
+           <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
+@@ -441,10 +425,10 @@ export function Board({
+   );
+   const commsRow = coAsk ? (
+     <View style={styles.queueRow}>
+-    <Pressable colors={colors} accessibilityRole="button" onPress={coAsk.onPress} style={styles.line}>
++    <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Comms officer question" onPress={() => { coAsk.onPress(); setOpen("comms"); }} style={styles.line}>
++      <Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text}</Text>
+       <Text style={styles.lineTitle} numberOfLines={2}>{coAsk.text}</Text>
+       <View style={styles.lineMeta}>
+-        <View style={[styles.dot, { backgroundColor: colors.statusWarning }]} />
+         <Text style={styles.lineAge}>Comms officer</Text>
+         <Text style={styles.kind}>QUESTION</Text>
+         <Text style={styles.lineAge}>{ago(coAsk.since)}</Text>
+@@ -453,24 +437,19 @@ export function Board({
+     </View>
+   ) : null;
+ 
+-  const openRow = open ? grouped.find((row) => row.id === open.id) : undefined;
+-  if (open && openRow)
+-    return (
+-      <DecisionCard
+-        theme={theme}
+-        layout={layout}
+-        navigation={navigation}
+-        fo={openRow}
+-        gate={open.gate}
+-        onBack={(recorded) => {
+-          setOpen(null);
+-          if (recorded) void refreshGates(true);
+-        }}
+-      />
+-    );
+-
+-  return (
+-    <ScrollView contentContainerStyle={styles.screen}>
++  const list = (
++    <View style={{ flex: 1, minHeight: 0 }}>
++    {layout.compact && comms ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Commander" onPress={() => setOpen("comms")} style={{ padding: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}><Text style={styles.muted}>← Commander</Text></Pressable> : null}
++    {!layout.compact ? <View style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: colors.border }}>
++      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Commander" accessibilityState={{ selected: open === "comms" }} onPress={() => comms ? setOpen("comms") : askCo("")}
++        style={{ padding: 12, borderWidth: 1, borderColor: open === "comms" ? colors.accent : colors.border, borderRadius: 8, backgroundColor: colors.surface1, gap: 5 }}>
++        <Text style={{ ...styles.name, fontSize: 18 }}>◉ Commander</Text><Text style={styles.muted}>Comms officer</Text>
++        {!coAsk && commsState !== "loaded" ? <Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text}</Text> : null}
++        {coAsk ? <><Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text} · {ago(coAsk.since)}</Text><Text style={styles.text}>{coAsk.text}</Text></> : null}
++      </Pressable>
++    </View> : null}
++    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.screen}>
++      <Text style={{ color: colors.foreground, fontSize: 18, fontWeight: "600" }}>Board · {counts.all}</Text>
+       {message ? (
+         <Text style={{ color: colors.statusDanger }}>{message}</Text>
+       ) : null}
+@@ -481,197 +460,58 @@ export function Board({
+           <Pressable colors={colors}
+             key={id}
+             accessibilityRole="tab"
++            accessibilityLabel={id === "fo" ? "By FO" : "By decision"}
++            accessibilityState={{ selected: view === id }}
+             onPress={() => setView(id)}
+             style={[styles.toggleButton, view === id ? styles.toggleActive : null]}
+           >
+             <Text style={view === id ? styles.toggleTextActive : styles.toggleText}>
+-              {id === "decision" ? `By decision · ${empty.count}` : `By FO · ${foEmpty.count}`}
++              {id === "decision" ? `By decision · ${counts.all}` : `By FO · ${foEmpty.count}`}
+             </Text>
+           </Pressable>
+         ))}
+       </View>
++      {view === "decision" ? <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
++        {(["all", "permission", "review", "gate", "ask"] as const).map(kind => (
++          <Pressable key={kind} colors={colors} accessibilityRole="button" accessibilityLabel={`Filter ${kind}`} accessibilityState={{ selected: filter === kind }} onPress={() => setFilter(kind)}
++            style={{ minHeight: layout.compact ? 44 : 30, justifyContent: "center", paddingHorizontal: 10, borderWidth: 1, borderColor: filter === kind ? colors.accent : colors.border, borderRadius: 16, backgroundColor: filter === kind ? colors.surface2 : undefined }}>
++            <Text style={styles.muted}>{kind === "all" ? "All" : sectionTitle[kind]} {counts[kind]}</Text>
++          </Pressable>
++        ))}
++      </View> : null}
+       {notice ? <Text style={styles.muted}>{notice}</Text> : null}
+       {([
+-        ["FOs", foState === "failed", () => setFoRead((value) => value + 1)],
+-        ["gates", sources.gates === "failed", () => void refreshGates(true)],
+-        ["tasks", taskState === "failed", () => void refreshTasks()],
+-        ["comms officer", commsState === "failed" && Boolean(onRetryComms), onRetryComms],
++        ["FOs", foState !== "loaded", () => setFoRead((value) => value + 1)],
++        ["gates", Boolean(workflowKey) && sources.gates !== "loaded", () => void refreshGates(true)],
++        ["tasks", taskState !== "loaded", () => void refreshTasks()],
++        ["review source", reviewState !== "loaded", () => void refreshReviews()],
++        ["comms officer", commsState !== "loaded" && Boolean(onRetryComms), onRetryComms],
+       ] as const).map(([name, failed, retry]) => failed ? (
+         <Pressable key={name} colors={colors} accessibilityRole="button" accessibilityLabel={`Check ${name} again`} onPress={retry} style={styles.add}><Text style={styles.addText}>Check again · {name}</Text></Pressable>
+       ) : null)}
+       {sources.gates === "loading" && workflowKey ? <Text style={styles.muted}>Checking gates…</Text> : null}
+       {reviewState === "failed" ? <Text style={styles.muted}>{reviewNextCheck ? `Next automatic review check: ${new Date(reviewNextCheck).toLocaleTimeString()}` : "Next automatic review check: unknown"}</Text> : null}
+-      {view === "decision" ? (
++      {view === "decision" ? sections.map(section => section.items.length || (section.kind === "ask" && layout.compact && coAsk && (filter === "all" || filter === "ask")) ? (
++        <View key={section.kind} style={{ gap: 2 }}>
++          <View style={styles.sectionHead}><Text style={styles.group}>{sectionTitle[section.kind]}</Text><Text style={styles.group}>{section.items.length + (section.kind === "ask" && layout.compact && coAsk ? 1 : 0)}</Text></View>
++          {section.items.map(itemRow)}
++          {section.kind === "ask" && layout.compact && coAsk ? commsRow : null}
++        </View>
++      ) : null) : (
+         <>
+-          {next ? (
+-            <View style={styles.queueRow}>
+-            <View style={[styles.next, styles.itemAction, { borderLeftColor: kindColor[next.kind] }]}>
+-            <Pressable colors={colors} accessible accessibilityRole="button"
+-              accessibilityLabel={next.review && !next.fo ? `Ask comms officer about ${next.title}` : `Open ${next.title} with ${next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}`}
+-              onPress={() => openItem(next)} style={[styles.itemContent, { gap: 8 }]}>
+-              <Text style={[styles.kind, { color: kindColor[next.kind] }]}>
+-                NEXT · {kindLabel[next.kind]} · {ago(next.since).replace(" ago", "")}
+-              </Text>
+-              <Text style={styles.nextTitle} numberOfLines={3}>
+-                {next.title}
+-              </Text>
+-              {next.link ? reference(next.link.ref) : null}
+-              <View style={styles.owner}>
+-                <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
+-                  {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
+-                </Text>
+-                <TabClosedBadge closed={next.fo?.tabClosed} colors={colors} />
+-              </View>
+-              <View style={styles.nextButtons}>
+-                <View style={styles.nextButton}>
+-                  <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
+-                </View>
+-              </View>
+-            </Pressable>
+-            {next.link ? (
+-              <Pressable colors={colors} accessible accessibilityRole="link"
+-                accessibilityLabel={`Open ${next.link.ref} on GitHub`} style={styles.external}
+-                onPress={() => openLink(next, openExternalUrl)}>
+-                <Text style={styles.externalText}>↗</Text>
++          {foState === "loaded" && rows.length === 0 ? <Text style={styles.muted}>No agents labelled role=fo.</Text> : null}
++          {queue.some(item => !item.fo) ? <View><Text style={styles.group}>Unassigned reviews</Text>{queue.filter(item => !item.fo).map(itemRow)}</View> : null}
++          {grouped.map(row => (
++            <View key={row.id} style={{ gap: 4 }}>
++              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Conversation with ${foName(row.title || row.id)}`} style={{ paddingVertical: 12, minHeight: 44 }}
++                onPress={() => openItem({ key: `f:${row.id}`, kind: "ask", title: row.next || `Conversation with ${foName(row.title || row.id)}`, detail: "", since: row.lastActivityAt, fo: row })}>
++                <Text style={styles.name}>{row.title || row.id}</Text><Text style={styles.muted}> · {waitingCount(row.id)} waiting · {tasks[row.id]?.title || row.task || row.repo}</Text>
+               </Pressable>
+-            ) : null}
+-            </View>
+-            </View>
+-          ) : null}
+-          {coAsk ? (
+-            <>
+-              <View style={styles.sectionHead}>
+-                <Text style={styles.group}>Comms officer</Text>
+-                <Text style={styles.group}>1</Text>
+-              </View>
+-              {commsRow}
+-            </>
+-          ) : null}
+-          {sections.map((section) => (
+-            <View key={section.kind} style={{ gap: 2 }}>
+-              <View style={styles.sectionHead}>
+-                <Text style={styles.group}>{sectionTitle[section.kind]}</Text>
+-                <Text style={styles.group}>{section.items.length}</Text>
+-              </View>
+-              {section.items.map(itemRow)}
++              {queue.filter(item => item.fo?.id === row.id).map(itemRow)}
+             </View>
+           ))}
++          {layout.compact && coAsk ? <View><Text style={styles.group}>Comms officer · 1</Text>{commsRow}</View> : null}
+         </>
+-      ) : (
+-        <>
+-      {reviews.some((review) => !reviewOwner(review, grouped)) ? (
+-        <View style={{ gap: 8 }}>
+-          <Text style={styles.group}>Review requests · {reviews.filter((review) => !reviewOwner(review, grouped)).length}</Text>
+-          {reviews.filter((review) => !reviewOwner(review, grouped)).map((review) => {
+-            const owner = reviewOwner(review, grouped);
+-            return (
+-              <View key={review.url} style={styles.queueRow}>
+-                <View style={[styles.row, styles.reviewRow, { borderLeftColor: colors.accent }]}>
+-                <Pressable colors={colors} accessible
+-                  accessibilityRole="button"
+-                  accessibilityLabel={`Ask comms officer about ${review.title}`}
+-                  style={styles.itemContent}
+-                  onPress={() =>
+-                    owner
+-                      ? setOpen({ id: owner.id, gate: null })
+-                      : askCo(`Who should review ${review.owner}/${review.repo}#${review.number} (${review.url})?`)
+-                  }
+-                >
+-                  <Text style={styles.name} numberOfLines={2}>
+-                    {review.title}
+-                  </Text>
+-                  {reference(reviewRef(review, reviews))}
+-                  <Text style={styles.muted}>
+-                    by {review.author} ·{" "}
+-                    {owner ? `with ${owner.title}` : "no FO yet — ask the comms officer"} ·{" "}
+-                    {ago(new Date(review.firstSeenAt).toISOString())}
+-                  </Text>
+-                </Pressable>
+-                <Pressable colors={colors} accessible
+-                  accessibilityRole="link"
+-                  accessibilityLabel={`Open ${reviewRef(review, reviews)} on GitHub`}
+-                  hitSlop={6}
+-                  style={styles.external}
+-                  onPress={() => void openExternalUrl(review.url)}
+-                >
+-                  <Text style={styles.externalText}>↗</Text>
+-                </Pressable>
+-                </View>
+-              </View>
+-            );
+-          })}
+-        </View>
+-      ) : null}
+-      {foState === "loaded" && foEmpty.count === "0" && rows.length === 0 ? (
+-        <Text style={styles.muted}>No agents labelled role=fo.</Text>
+-      ) : null}
+-      {STATUS_ORDER.map((status) => {
+-        const group = grouped.filter((row) => {
+-          const groupStatus = row.status === "idle" && waitingCount(row.id) ? "waiting on Kent" : row.status;
+-          return groupStatus === status;
+-        });
+-        const pinned = status === "waiting on Kent" && coAsk ? 1 : 0;
+-        if (group.length + pinned === 0) return null;
+-        return (
+-          <View key={status} style={{ gap: 8 }}>
+-            <Pressable colors={colors}
+-              accessibilityRole="button"
+-              disabled={status !== "idle"}
+-              onPress={() => setShowIdle((value) => !value)}
+-            >
+-              <Text style={styles.group}>
+-                {groupTitle[status]} · {group.length + pinned}
+-                {status === "idle" ? (showIdle ? "  ▾" : "  ▸") : ""}
+-              </Text>
+-            </Pressable>
+-            {status === "waiting on Kent" && coAsk ? (
+-              <View style={[styles.row, { borderLeftColor: colors.statusWarning }]}>{commsRow}</View>
+-            ) : null}
+-            {(status === "idle" && !showIdle ? [] : group).map((row) => {
+-              const task = tasks[row.id];
+-              const detail = [row.repo, task ? `${task.title} · ${task.stage}` : row.task]
+-                .filter(Boolean)
+-                .join(" · ");
+-              const waitingItems = queue.filter((item) => item.fo?.id === row.id);
+-              const waitingFor = waitingItems.length ? "" : row.permission || row.next || replies[row.id]?.preview || "";
+-              return (
+-                <View key={row.id} style={[styles.row, { borderLeftColor: statusColor(status) }]}>
+-                  <Pressable colors={colors} accessibilityRole="button" onPress={() => navigation?.openAgent({ agentId: row.id })}>
+-                  <View style={styles.owner}>
+-                    <Text style={[styles.name, { flexShrink: 1 }]}>
+-                      {row.title || row.id}
+-                      {waitingCount(row.id) ? (
+-                        <Text style={{ color: colors.statusWarning, fontWeight: "400" as const }}>
+-                          {"  "}· {waitingCount(row.id)} waiting
+-                        </Text>
+-                      ) : null}
+-                    </Text>
+-                    <TabClosedBadge closed={row.tabClosed} colors={colors} />
+-                  </View>
+-                  </Pressable>
+-                  {row.offline && status !== "offline" ? (
+-                    <Text style={styles.muted}>FO offline · a message will reopen it</Text>
+-                  ) : null}
+-                  {waitingFor ? (
+-                    <Text style={styles.text} numberOfLines={2}>
+-                      {waitingFor}
+-                    </Text>
+-                  ) : null}
+-                  {waitingItems.map(itemRow)}
+-                  {detail || status !== "busy" ? (
+-                    <Text style={styles.muted}>
+-                      {[detail, status === "busy" ? "" : ago(row.lastActivityAt)]
+-                        .filter(Boolean)
+-                        .join(" · ")}
+-                    </Text>
+-                  ) : null}
+-                </View>
+-              );
+-            })}
+-          </View>
+-        );
+-      })}
+-              </>
+       )}
+       <View style={styles.bar}>
+         <Pressable colors={colors}
+@@ -707,6 +547,35 @@ export function Board({
+             ? "Reading gates…"
+             : "No FO has a workflow-dir label yet"}
+       </Text>
++      {recordedItems.length ? <View style={{ gap: 4, borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 8 }}>
++        <Text style={styles.group}>Done this session</Text>
++        {recordedItems.map(itemRow)}
++      </View> : null}
+     </ScrollView>
++
++    </View>
++  );
++  const detail = (
++    <View style={{ flex: 1, minHeight: 0 }}>
++      {comms ? <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}>
++        {open === "comms" ? <Text style={styles.name}>Commander</Text> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Commander" onPress={() => setOpen("comms")} style={{ minHeight: 44, justifyContent: "center" }}><Text style={styles.muted}>← Commander</Text></Pressable>}
++        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Board" onPress={() => setOpen(layout.compact ? null : "comms")} style={{ minHeight: 44, minWidth: 44, paddingHorizontal: 6, justifyContent: "center" }}><Text style={styles.muted}>Board</Text></Pressable>
++      </View> : null}
++      {open === null ? <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24, gap: 8 }}><Text style={styles.name}>Choose an item</Text><Text style={styles.muted}>Its detail and conversation open here.</Text></View> : null}
++      {Object.values(visited).map(item => item.fo ? (
++        <View key={item.key} style={{ flex: 1, minHeight: 0, display: open === item.key ? "flex" : "none" }}>
++          <DecisionCard theme={theme} layout={layout} navigation={navigation} fo={item.fo} gate={item.gate ?? null}
++            conversationOnly={item.key === `f:${item.fo.id}`}
++            questionSince={item.kind === "ask" ? item.since : undefined}
++            active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
++            onBack={(recorded) => { setOpen(comms && !layout.compact ? "comms" : null); if (recorded) void refreshGates(true); }} />
++        </View>
++      ) : null)}
++      {comms ? <View style={{ flex: 1, minHeight: 0, display: open === "comms" ? "flex" : "none" }}>
++        {coAsk ? <Text style={{ ...styles.text, paddingHorizontal: 16 }}>{coAsk.text}</Text> : null}
++        {comms(open === "comms")}
++      </View> : null}
++    </View>
+   );
++  return renderLayout ? renderLayout(list, detail, open !== null) : <View style={{ flex: 1, minHeight: 0 }}><View style={{ flex: 1, display: open ? "none" : "flex" }}>{list}</View><View style={{ flex: 1, display: open ? "flex" : "none" }}>{detail}</View></View>;
+ }
+diff --git a/spacedock-bridge/client/bridge.tsx b/spacedock-bridge/client/bridge.tsx
+index 7fb698d..9fd7a63 100644
+--- a/spacedock-bridge/client/bridge.tsx
++++ b/spacedock-bridge/client/bridge.tsx
+@@ -1,10 +1,10 @@
+ import { useRpc } from "@getpaseo/plugin/client";
+-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
++import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+ import { Text, View } from "react-native";
+-import { FeedbackPressable as Pressable } from "./feedback-pressable";
+ import { openCoordinator } from "../shared/coordinator";
+ import { Board, type BoardProps } from "./board";
+ import { CoChat } from "./co-chat";
++import { FeedbackPressable as Pressable } from "./feedback-pressable";
+ import { useCoAsk } from "./use-co-ask";
+ 
+ export function Bridge(props: BoardProps) {
+@@ -12,14 +12,12 @@ export function Bridge(props: BoardProps) {
+   const callOpenCoordinator = useRpc(openCoordinator);
+   const [coId, setCoId] = useState("");
+   const [error, setError] = useState("");
+-  const [tab, setTab] = useState<"fos" | "co">("fos");
+   const { ask, since, state: askState, retry: retryAsk } = useCoAsk(coId);
+   const commsState = error ? "failed" : askState;
+-  const coAsk = ask ? { text: ask, since, onPress: () => setTab("co") } : null;
++  const coAsk = ask ? { text: ask, since, onPress: () => {} } : null;
+   const [seed, setSeed] = useState<{ text: string; nonce: number } | null>(null);
+   const onAskCo = useCallback((text: string) => {
+     setSeed({ text, nonce: Date.now() });
+-    setTab("co");
+   }, []);
+ 
+   const coordinatorRequest = useRef(0);
+@@ -27,81 +25,59 @@ export function Bridge(props: BoardProps) {
+     const request = ++coordinatorRequest.current;
+     setError("");
+     return callOpenCoordinator({}).then(
+-      ({ agentId }) => { if (request === coordinatorRequest.current) setCoId(agentId); },
++      ({ agentId }) => { if (request === coordinatorRequest.current) setCoId(current => current || agentId); },
+       (e: unknown) => { if (request === coordinatorRequest.current) setError(String(e)); },
+     );
+   }, [callOpenCoordinator]);
+   useEffect(() => { void connectCoordinator(); return () => { ++coordinatorRequest.current; }; }, [connectCoordinator]);
+-  const retryComms = () => error ? void connectCoordinator() : retryAsk();
++  const retryComms = () => !coId || error ? void connectCoordinator() : retryAsk();
+ 
+   const colors = theme.colors;
+-  const styles = useMemo(
+-    () => ({
+-      root: {
+-        flex: 1,
+-        flexDirection: layout.compact ? ("column" as const) : ("row" as const),
+-        backgroundColor: colors.surface0,
+-      },
+-      pane: { flex: 1 },
+-      boardPane: { width: 380 },
+-      divider: { width: 1, backgroundColor: colors.border },
+-      tabs: {
+-        flexDirection: "row" as const,
+-        borderBottomWidth: 1,
+-        borderBottomColor: colors.border,
+-      },
+-      tabButton: { flex: 1, alignItems: "center" as const, paddingVertical: 12 },
+-      tabActive: { borderBottomWidth: 2, borderBottomColor: colors.accent },
+-      tab: { color: colors.foregroundMuted },
+-      active: { color: colors.foreground, fontWeight: "600" as const },
+-    }),
+-    [colors, layout.compact],
+-  );
+ 
+-  const chat = coId ? (
++  const chat = (active: boolean) => coId ? (
+     <CoChat
+       theme={theme}
+       layout={layout}
+       navigation={props.navigation}
+       agentId={coId}
++      active={active}
++      sourceState={commsState}
++      sourceError={error}
++      onRetrySource={retryComms}
+       seed={seed}
+       onSeeded={() => setSeed(null)}
+     />
+   ) : (
+-    <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted, padding: 16 }}>
+-      {error || "Opening the comms officer…"}
+-    </Text>
++    <CommanderConnection active={active} error={error} colors={colors} retry={connectCoordinator} />
+   );
+ 
+-  if (layout.compact) {
+-    return (
+-      <View style={styles.root}>
+-        <View style={styles.tabs}>
+-          {(["fos", "co"] as const).map((id) => (
+-            <Pressable colors={colors}
+-              key={id}
+-              accessibilityRole="tab"
+-              onPress={() => setTab(id)}
+-              style={[styles.tabButton, tab === id ? styles.tabActive : null]}
+-            >
+-              <Text style={tab === id ? styles.active : styles.tab}>
+-                {id === "fos" ? "FOs" : "Comms officer"}
+-              </Text>
+-            </Pressable>
+-          ))}
+-        </View>
+-        <View style={styles.pane}>{tab === "fos" ? <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} /> : chat}</View>
+-      </View>
+-    );
+-  }
++  return <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo}
++    comms={chat} renderLayout={(list, detail, selected) => <BridgeLayout compact={layout.compact} colors={colors} list={list} detail={detail} selected={selected} />} />;
++}
++
++function CommanderConnection({ active, error, colors, retry }: { active: boolean; error: string; colors: BoardProps["theme"]["colors"]; retry(): unknown }) {
++  const wasActive = useRef(active);
++  useEffect(() => {
++    if (active && !wasActive.current) void retry();
++    wasActive.current = active;
++  }, [active]);
++  return <View style={{ padding: 16, gap: 8 }}>
++    <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted }}>{error || "Opening the comms officer…"}</Text>
++    <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry commander connection" onPress={() => void retry()}><Text style={{ color: colors.accent }}>Retry connection</Text></Pressable>
++  </View>;
++}
+ 
++export function BridgeLayout({ compact, colors, list, detail, selected }: {
++  compact: boolean;
++  colors: BoardProps["theme"]["colors"];
++  list: ReactNode;
++  detail: ReactNode;
++  selected: boolean;
++}) {
+   return (
+-    <View style={styles.root}>
+-      <View style={styles.pane}>{chat}</View>
+-      <View style={styles.divider} />
+-      <View style={styles.boardPane}>
+-        <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} />
+-      </View>
++    <View style={{ flex: 1, minHeight: 0, flexDirection: compact ? "column" : "row", backgroundColor: colors.surface0 }}>
++      <View style={compact ? { flex: 1, minHeight: 0, display: selected ? "none" : "flex" } : { width: 330, minHeight: 0, borderRightWidth: 1, borderRightColor: colors.border }}>{list}</View>
++      <View style={{ flex: 1, minWidth: 0, minHeight: 0, display: compact && !selected ? "none" : "flex" }}>{detail}</View>
+     </View>
+   );
+ }
+diff --git a/spacedock-bridge/client/co-chat.tsx b/spacedock-bridge/client/co-chat.tsx
+index ef63d17..6db7dbf 100644
+--- a/spacedock-bridge/client/co-chat.tsx
++++ b/spacedock-bridge/client/co-chat.tsx
+@@ -4,6 +4,7 @@ import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
+ import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+ import { Keyboard, Platform, ScrollView, Text, View, type TextStyle } from "react-native";
+ import { FeedbackPressable as Pressable } from "./feedback-pressable";
++import type { SourceState } from "../shared/board-empty";
+ import { type Line, toLines } from "../shared/chat-lines";
+ import { MarkdownView } from "./markdown-view";
+ import { discussionWindow } from "../shared/card";
+@@ -14,10 +15,11 @@ import { stopAgent } from "../shared/control";
+ import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
+ import { useDraft } from "./use-draft";
+ import { useComposerPadding } from "./use-composer-padding";
++import type { GateIdentityFields } from "../shared/gate-identity";
+ 
+ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
+   agentId: string;
+-  gate?: { slug: string; stage: string } | null;
++  gate?: GateIdentityFields | null;
+   title?: string;
+   placeholder?: string;
+   chips?: readonly string[];
+@@ -29,6 +31,10 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
+   seed?: { text: string; nonce: number } | null;
+   onSeeded?: () => void;
+   discussion?: boolean;
++  active?: boolean;
++  sourceState?: SourceState;
++  sourceError?: string;
++  onRetrySource?: () => void;
+ };
+ 
+ export function CoChat(props: Props) {
+@@ -52,6 +58,10 @@ function Chat({
+   seed,
+   onSeeded,
+   discussion,
++  active: visible = true,
++  sourceState = "loaded",
++  sourceError,
++  onRetrySource,
+ }: Props) {
+   const paseo = usePaseo();
+   const [lines, setLines] = useState<Line[]>([]);
+@@ -63,6 +73,8 @@ function Chat({
+   const decision = useSyncExternalStore(subscribeReason, reasonSnapshot, reasonSnapshot);
+   const chosen = decision.target === decisionTarget ? decision.word : null;
+   const active = useRef(true);
++  const visibleRef = useRef(visible);
++  visibleRef.current = visible;
+   const currentTarget = useRef(decisionTarget);
+   currentTarget.current = decisionTarget;
+   useEffect(() => {
+@@ -72,7 +84,17 @@ function Chat({
+   const [boxHovered, setBoxHovered] = useState(false);
+   const [boxFocused, setBoxFocused] = useState(false);
+   const [error, setError] = useState("");
++  const [conversation, setConversation] = useState<SourceState>("loading");
++  const [readError, setReadError] = useState("");
++  const readRequest = useRef(0);
++  const disconnected = useRef(false);
++  const [subscriptionAttempt, setSubscriptionAttempt] = useState(0);
+   const scroller = useRef<ScrollView>(null);
++  const scrollPosition = useRef(0);
++  const followTail = useRef(true);
++  useEffect(() => {
++    if (visible) scroller.current?.scrollTo({ y: scrollPosition.current, animated: false });
++  }, [visible]);
+   const colors = theme.colors;
+   const paddingBottom = useComposerPadding(layout, Keyboard);
+   const mono = Platform.OS === "ios" ? "Menlo" : "monospace";
+@@ -214,41 +236,75 @@ function Chat({
+   }, [colors, layout.compact, mono]);
+ 
+   const load = useCallback(async () => {
++    const request = ++readRequest.current;
++    setConversation("loading");
+     try {
+       const page = await paseo.agents
+         .ref(agentId)
+         .timeline.refetch({ direction: "tail", limit: 120, projection: "projected" });
++      if (request !== readRequest.current) return;
+       setLines(toLines(page.entries));
+-      setError("");
++      setConversation("loaded");
++      setReadError("");
+     } catch (e) {
+-      setError(String(e));
++      if (request !== readRequest.current) return;
++      setConversation("failed");
++      setReadError(String(e));
+     }
+   }, [paseo, agentId]);
+ 
+   useEffect(() => {
+     setLines([]);
++    setConversation("loading");
++    setReadError("");
+     const handle = paseo.agents.ref(agentId);
++    let cancelled = false;
++    disconnected.current = false;
+     let timer: ReturnType<typeof setTimeout> | undefined;
++    const failed = (error: unknown) => {
++      if (cancelled) return;
++      disconnected.current = true;
++      ++readRequest.current;
++      clearTimeout(timer);
++      setConversation("failed");
++      setReadError(String(error));
++    };
+     const soon = () => {
++      if (cancelled || disconnected.current) return;
+       clearTimeout(timer);
+       timer = setTimeout(() => void load(), 150);
+     };
+     const subscription = handle.timeline.subscribe((message) => {
++      if (cancelled || disconnected.current) return;
+       const type = (message as { event?: { type?: string } }).event?.type;
++      if (type === "error") { failed("Conversation subscription failed"); return; }
+       if (type === "turn_started") setWorking(true);
+       if (type === "turn_completed" || type === "turn_failed" || type === "turn_canceled")
+         setWorking(false);
+       soon();
+     });
+-    subscription.ready.catch((e: unknown) => setError(String(e)));
++    subscription.ready.catch(failed);
+     const stopHandle = handle.subscribe(soon);
+     void load();
+     return () => {
++      cancelled = true;
++      ++readRequest.current;
+       clearTimeout(timer);
+       subscription();
+       stopHandle();
+     };
+-  }, [paseo, agentId, load]);
++  }, [paseo, agentId, load, subscriptionAttempt]);
++
++  const retry = () => {
++    onRetrySource?.();
++    if (disconnected.current) setSubscriptionAttempt(attempt => attempt + 1);
++    else void load();
++  };
++  const wasVisible = useRef(visible);
++  useEffect(() => {
++    if (visible && !wasVisible.current) retry();
++    wasVisible.current = visible;
++  }, [visible]);
+ 
+   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
+ 
+@@ -273,7 +329,7 @@ function Chat({
+     sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
+     footer,
+     beforeSend: () => checkComposerTarget(
+-      () => active.current && currentTarget.current === decisionTarget,
++      () => active.current && visibleRef.current && currentTarget.current === decisionTarget,
+       beforeSend,
+     ),
+     onSent,
+@@ -336,11 +392,23 @@ function Chat({
+       )}
+       <ScrollView
+         ref={scroller}
++        accessibilityLabel={`Conversation messages with ${title}`}
+         style={styles.list}
+         contentContainerStyle={styles.listContent}
+-        onContentSizeChange={() => scroller.current?.scrollToEnd({ animated: false })}
++        scrollEventThrottle={100}
++        onScroll={({ nativeEvent }) => {
++          if (!visibleRef.current) return;
++          scrollPosition.current = nativeEvent.contentOffset.y;
++          followTail.current = nativeEvent.contentOffset.y + nativeEvent.layoutMeasurement.height >= nativeEvent.contentSize.height - 24;
++        }}
++        onContentSizeChange={() => {
++          if (visibleRef.current && followTail.current) scroller.current?.scrollToEnd({ animated: false });
++        }}
+       >
+-        {lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
++        {sourceState === "failed" || conversation === "failed" ? <Text style={styles.danger}>Could not read {title}: {sourceError || readError || "source unavailable"}</Text>
++          : sourceState === "loading" || conversation === "loading" ? <Text style={styles.muted}>Loading conversation with {title}…</Text>
++          : lines.length === 0 ? <Text style={styles.muted}>No messages yet</Text> : null}
++        {sourceState !== "loaded" || conversation !== "loaded" ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Retry conversation with ${title}`} onPress={retry}><Text style={styles.toggle}>Retry conversation</Text></Pressable> : null}
+         {earlier > 0 ? (
+           <Pressable colors={colors} accessibilityRole="button" onPress={() => setShowEarlier((value) => !value)}>
+             <Text style={styles.toggle}>
+diff --git a/spacedock-bridge/client/decision-card.tsx b/spacedock-bridge/client/decision-card.tsx
+index f3ad6e3..5928ad5 100644
+--- a/spacedock-bridge/client/decision-card.tsx
++++ b/spacedock-bridge/client/decision-card.tsx
+@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import { Keyboard, PanResponder, ScrollView, Text, View } from "react-native";
+ import { FeedbackPressable as Pressable } from "./feedback-pressable";
+ import { TabClosedBadge } from "./tab-closed-badge";
++import type { ItemProgress } from "../shared/list-status";
+ import type { BoardRow } from "../shared/board";
+ import { openCoordinator } from "../shared/coordinator";
+ import { type GateBriefingData, readGateBriefing } from "../shared/gate";
+@@ -17,6 +18,7 @@ import type { AwaitingGate } from "../shared/tasks";
+ import { CoChat } from "./co-chat";
+ import { MarkdownView } from "./markdown-view";
+ import { useKeyboardHeight } from "./use-composer-padding";
++import { gateKey } from "../shared/gate-identity";
+ 
+ const UNHANDLED_MS = 10 * 60_000;
+ const CHIPS = Object.keys(DECISION_CHIPS) as ChipWord[];
+@@ -30,20 +32,21 @@ interface Sent {
+   slug: string;
+ }
+ 
+-// Survives closing and reopening a card while the Bridge stays mounted.
+-const sentByBriefing = new Map<string, Sent>();
+-
+-export function wasSent(slug: string): boolean {
+-  return [...sentByBriefing.values()].some((sent) => sent.slug === slug);
+-}
+-
+ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
+   fo: BoardRow;
+   gate: AwaitingGate | null;
+   onBack(recorded?: boolean): void;
++  active?: boolean;
++  title?: string;
++  conversationOnly?: boolean;
++  questionSince?: string;
++  onProgress?: (progress: ItemProgress) => void;
+ };
+ 
+-export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Props) {
++export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: openedGate, onBack, active: visible = true, title: openedTitle, conversationOnly = false, questionSince: openedQuestionSince, onProgress }: Props) {
++  const [{ fo, gate, title, questionSince }] = useState(() => ({ fo: { ...openedFo }, gate: openedGate ? { ...openedGate } : null, title: openedTitle, questionSince: openedQuestionSince }));
++  const workflowDir = gate?.workflowDir ?? fo.workflowDir;
++  const identity = gate ? gateKey({ ...gate, workflowDir }) : null;
+   const colors = theme.colors;
+   const callBriefing = useRpc(readGateBriefing);
+   const [briefing, setBriefing] = useState<GateBriefingData | null>(null);
+@@ -51,7 +54,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+   const [closed, setClosed] = useState(false);
+   const [recorded, setRecorded] = useState<{ decision: string; reason: string } | null>(null);
+   const gateFinished = Boolean(gate && (closed || recorded));
+-  const showDecisions = Boolean(gate) && !gateFinished;
++
+   const [showEvidence, setShowEvidence] = useState(false);
+   const [collapsed, setCollapsed] = useState(false);
+   const keyboardHeight = useKeyboardHeight(layout.platform, Keyboard);
+@@ -60,41 +63,72 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+   const [now, setNow] = useState(Date.now());
+   const [claim, setClaim] = useState<DecisionRecordData | null>(null);
+   const [relayed, setRelayed] = useState(false);
+-  const sent = briefing ? sentByBriefing.get(briefing.briefingId) : undefined;
++  const sentByGate = useRef(new Map<string, Sent>()).current;
++  const sent = identity ? sentByGate.get(identity) : undefined;
+   const callClaim = useRpc(claimDecision);
+   const callReadDecision = useRpc(readDecision);
+   const callRelease = useRpc(releaseDecision);
++  const submissionRevision = useRef(0);
++  const submitting = useRef(false);
+ 
++  const readRequest = useRef(0);
+   const load = useCallback(async () => {
++    const request = ++readRequest.current;
++    const revision = submissionRevision.current;
++    const localPending = submitting.current;
+     if (!gate) return null;
+     const answer = await callBriefing({
+-      workflowDir: fo.workflowDir,
++      workflowDir,
+       slug: gate.slug,
+       stage: gate.stage,
+-      briefingId: briefing?.briefingId,
++      briefingId: gate.briefingId ?? briefing?.briefingId,
++    }).catch(error => {
++      if (request === readRequest.current && revision === submissionRevision.current && !localPending && !submitting.current) setProblem(String(error));
++      return null;
+     });
+-    setRecorded(
+-      answer.recorded && (!answer.briefing || answer.briefing.briefingId === briefing?.briefingId)
++    if (!answer) return null;
++    if (request !== readRequest.current) return answer;
++    const replaced = Boolean(gate.briefingId && answer.briefing && answer.briefing.briefingId !== gate.briefingId);
++    setRecorded(previous =>
++      answer.recorded && (replaced || !answer.briefing || answer.briefing.briefingId === (gate.briefingId ?? briefing?.briefingId))
+         ? answer.recorded
+-        : null,
++        : previous,
+     );
+-    if (answer.briefing) setBriefing(answer.briefing);
+-    setClosed(!answer.briefing && !answer.error);
++    if (revision !== submissionRevision.current || localPending || submitting.current) return answer;
++    if (answer.briefing && !replaced) setBriefing(answer.briefing);
++    setClosed(replaced || !answer.briefing && !answer.error);
+     setProblem(answer.error ?? "");
+     return answer;
+-  }, [callBriefing, fo.workflowDir, gate, briefing?.briefingId]);
++  }, [callBriefing, workflowDir, gate, briefing?.briefingId]);
+ 
+   useEffect(() => {
+-    void load();
+-  }, [gate?.slug]);
++    if (visible) void load().catch(error => setProblem(String(error)));
++    return () => { ++readRequest.current; };
++  }, [visible, fo.id, fo.workflowDir, gate?.slug, gate?.stage, gate?.briefingId]);
+ 
+-  useEffect(() => {
++  const [claimProblem, setClaimProblem] = useState("");
++  const [claimLoaded, setClaimLoaded] = useState(false);
++  const claimRequest = useRef(0);
++  const readClaim = useCallback(async () => {
+     if (!briefing) return;
+-    callReadDecision({ briefingId: briefing.briefingId }).then(
+-      ({ record }) => setClaim(record),
+-      () => undefined,
+-    );
++    const request = ++claimRequest.current;
++    const revision = submissionRevision.current;
++    const localPending = submitting.current;
++    try {
++      const { record } = await callReadDecision({ briefingId: briefing.briefingId });
++      if (request !== claimRequest.current || revision !== submissionRevision.current || localPending || submitting.current) return;
++      setClaim(record);
++      if (!record && identity) sentByGate.delete(identity);
++      setClaimLoaded(true);
++      setClaimProblem("");
++    } catch (error) {
++      if (request === claimRequest.current && revision === submissionRevision.current && !localPending && !submitting.current) setClaimProblem(String(error));
++    }
+   }, [briefing?.briefingId, callReadDecision]);
++  useEffect(() => {
++    if (visible && briefing) void readClaim();
++    return () => { ++claimRequest.current; };
++  }, [visible, briefing?.briefingId]);
+ 
+   const paseo = usePaseo();
+ 
+@@ -103,32 +137,54 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+     return () => clearInterval(timer);
+   }, []);
+ 
++  const [relayProblem, setRelayProblem] = useState("");
++  const [relayLoaded, setRelayLoaded] = useState(false);
++  const relayRequest = useRef(0);
++  useEffect(() => {
++    setRelayed(false);
++    setRelayLoaded(false);
++    setRelayProblem("");
++  }, [claim?.decisionId]);
+   const checkRelay = useCallback(async () => {
+     if (!claim) return;
+-    const page = await paseo.agents
+-      .ref(claim.foId)
+-      .timeline.refetch({ direction: "tail", limit: 80, projection: "canonical" });
+-    setRelayed(
+-      page.entries.some((entry) => {
++    const request = ++relayRequest.current;
++    try {
++      const page = await paseo.agents.ref(claim.foId).timeline.refetch({ direction: "tail", limit: 80, projection: "canonical" });
++      if (request !== relayRequest.current) return;
++      setRelayed(page.entries.some(entry => {
+         const item = entry.item as { type: string; text?: string };
+         return item.type === "user_message" && Boolean(item.text?.includes(claim.decisionId));
+-      }),
+-    );
++      }));
++      setRelayLoaded(true);
++      setRelayProblem("");
++    } catch (error) {
++      if (request === relayRequest.current) setRelayProblem(String(error));
++    }
+   }, [claim, paseo]);
+ 
+   useEffect(() => {
+-    if ((!sent && !claim) || recorded) return;
+-    void checkRelay();
++    if (visible && claim) void checkRelay();
++    return () => { ++relayRequest.current; };
++  }, [visible, claim?.decisionId]);
++
++  useEffect(() => {
++    if (!briefing || recorded || closed) return;
+     const timer = setInterval(() => {
+       setNow(Date.now());
+-      void load();
++      void load().catch(error => setProblem(String(error)));
++      void readClaim();
+       void checkRelay();
+     }, 15_000);
+     return () => clearInterval(timer);
+-  }, [sent, claim, recorded, load, checkRelay]);
++  }, [briefing, recorded, closed, load, readClaim, checkRelay]);
+ 
+-  const target = JSON.stringify([fo.id, fo.workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
++  const target = JSON.stringify([fo.id, identity, briefing?.briefingId, briefing?.digest]);
+   const currentTarget = useRef(target);
++  const visibleRef = useRef(visible);
++  visibleRef.current = visible;
++  const finishedRef = useRef(false);
++  finishedRef.current = gateFinished || Boolean(claim);
++  const showDecisions = Boolean(gate) && !gateFinished && !claim;
+   currentTarget.current = target;
+   const active = useRef(true);
+   useEffect(() => {
+@@ -137,49 +193,59 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+   }, []);
+ 
+   const beforeSend = useCallback(() => checkComposerTarget(
+-    () => active.current && currentTarget.current === target,
++    () => active.current && visibleRef.current && !finishedRef.current && currentTarget.current === target,
+     async () => {
+       if (!gate || !briefing) return null;
+-      const answer = await callBriefing({ workflowDir: fo.workflowDir, slug: gate.slug, stage: gate.stage });
++      const answer = await callBriefing({ workflowDir, slug: gate.slug, stage: gate.stage });
+       if (!answer.briefing) return answer.error ?? "This gate is no longer open.";
+       if (answer.briefing.briefingId !== briefing.briefingId) {
+-        setBriefing(answer.briefing);
+-        return `The briefing changed (${briefing.briefingId} → ${answer.briefing.briefingId}). Read the new one before deciding; your draft is kept.`;
++        if (gate.briefingId) setClosed(true);
++        else setBriefing(answer.briefing);
++        return `The briefing changed (${briefing.briefingId} → ${answer.briefing.briefingId}). Open the current gate from the board before deciding; your draft is kept.`;
+       }
+       return null;
+     },
+-  ), [callBriefing, fo.workflowDir, gate, briefing, target]);
++  ), [callBriefing, workflowDir, gate, briefing, target]);
+ 
+   const callOpenCoordinator = useRpc(openCoordinator);
+   const onChip = useCallback(
+-    (word: string, draft: string) =>
+-      decideGate(
+-        {
+-          beforeSend,
+-          claim: callClaim,
+-          setClaim,
+-          openCoordinator: () => callOpenCoordinator({}),
+-          sendToCoordinator: (agentId, text) => paseo.agents.ref(agentId).send(text),
+-          release: (decisionId) => callRelease({ decisionId }),
+-          markSent: ({ text }) => {
+-            if (!briefing || !gate) return;
+-            sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: gate.slug });
+-            setNow(Date.now());
++    async (word: string, draft: string) => {
++      submitting.current = true;
++      ++submissionRevision.current;
++      ++claimRequest.current;
++      try {
++        return await decideGate(
++          {
++            beforeSend,
++            claim: callClaim,
++            setClaim,
++            openCoordinator: () => callOpenCoordinator({}),
++            sendToCoordinator: (agentId, text) => paseo.agents.ref(agentId).send(text),
++            release: (decisionId) => callRelease({ decisionId }),
++            markSent: ({ text }) => {
++              if (!briefing || !gate || !identity) return;
++              sentByGate.set(identity, { at: Date.now(), text, slug: gate.slug });
++              setNow(Date.now());
++            },
+           },
+-        },
+-        { gate, briefing, fo: { id: fo.id, title: fo.title || fo.id } },
+-        word,
+-        draft,
+-      ),
+-    [gate, briefing, beforeSend, callClaim, callRelease, callOpenCoordinator, fo.title, fo.id, paseo],
++          { gate, briefing, fo: { id: fo.id, title: fo.title || fo.id } },
++          word,
++          draft,
++        );
++      } finally {
++        submitting.current = false;
++        ++submissionRevision.current;
++      }
++    },
++    [gate, identity, briefing, beforeSend, callClaim, callRelease, callOpenCoordinator, fo.title, fo.id, paseo],
+   );
+ 
+   const onSent = useCallback(
+     (text: string) => {
+-      if (briefing) sentByBriefing.set(briefing.briefingId, { at: Date.now(), text, slug: briefing.slug });
++      if (briefing && identity) sentByGate.set(identity, { at: Date.now(), text, slug: briefing.slug });
+       setNow(Date.now());
+     },
+-    [briefing],
++    [briefing, identity],
+   );
+ 
+   const [areaHeight, setAreaHeight] = useState(0);
+@@ -280,8 +346,16 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+             : closed
+               ? { color: colors.foregroundMuted, status: "This gate is no longer open.", detail: "" }
+               : null;
+-  const feedbackStatus = [state?.status, problem ? "Briefing error" : ""].filter(Boolean).join(" · ");
+-  const feedbackDetail = [problem, state?.detail].filter(Boolean).join("\n\n");
++  const progressHandler = useRef(onProgress);
++  progressHandler.current = onProgress;
++  const pending = Boolean(claim);
++  const overdue = Boolean(delivery === "check");
++  useEffect(() => {
++    progressHandler.current?.({ sent: pending, relayed, recorded: Boolean(recorded), closed, overdue, problem: Boolean(problem || claimProblem || relayProblem) });
++  }, [pending, relayed, recorded, closed, overdue, problem, claimProblem, relayProblem]);
++
++  const feedbackStatus = [state?.status, problem ? "Briefing error" : "", claimProblem ? "Decision record error" : "", relayProblem ? "Delivery status error" : ""].filter(Boolean).join(" · ");
++  const feedbackDetail = [problem, claimProblem, relayProblem, state?.detail].filter(Boolean).join("\n\n");
+ 
+   const foLine = (
+     <View style={styles.owner}>
+@@ -289,17 +363,17 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+         {foName(fo.title || fo.id)}
+       </Text>
+       <TabClosedBadge closed={fo.tabClosed} colors={colors} />
+-      {gateFinished ? null : <Text style={styles.fo}>{waiting(gate?.preparedAt || fo.lastActivityAt, now)}</Text>}
++      {gateFinished ? null : <Text style={styles.fo}>{waiting(gate?.preparedAt || questionSince || fo.lastActivityAt, now)}</Text>}
+     </View>
+   );
+ 
+   return (
+     <View style={styles.screen}>
+       <View style={styles.toolbar}>
+-        <Pressable colors={colors} accessibilityRole="button" onPress={() => onBack(Boolean(recorded))}>
++        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to list" onPress={() => onBack(Boolean(recorded))}>
+           <Text style={styles.back}>← Queue</Text>
+         </Pressable>
+-        {layout.compact ? (
++        {layout.compact && !conversationOnly ? (
+           <Pressable
+             colors={colors}
+             accessibilityRole="button"
+@@ -314,20 +388,23 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+           </Pressable>
+         ) : null}
+       </View>
+-      {problem || state ? (
++      {problem || claimProblem || relayProblem || state ? (
+         <View style={styles.feedback}>
+           <FeedbackPreview
+             key={`${feedbackStatus}\0${feedbackDetail}`}
+             status={feedbackStatus}
+             detail={feedbackDetail}
+-            color={problem ? colors.statusDanger : state?.color ?? colors.foregroundMuted}
++            color={problem || claimProblem || relayProblem ? colors.statusDanger : state?.color ?? colors.foregroundMuted}
+             colors={colors}
+             onMore={() => setFeedbackOpen(true)}
+           />
+         </View>
+       ) : null}
++      {gate && !gateFinished && (!briefing || problem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry briefing" onPress={() => void load()}><Text style={styles.toggle}>Retry briefing</Text></Pressable> : null}
++      {briefing && (!claimLoaded || claimProblem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry decision record" onPress={() => void readClaim()}><Text style={styles.toggle}>Retry decision record</Text></Pressable> : null}
++      {claim && (!relayLoaded || relayProblem) ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry delivery status" onPress={() => void checkRelay()}><Text style={styles.toggle}>Retry delivery status</Text></Pressable> : null}
+       <View style={{ flex: 1 }} onLayout={(event) => setAreaHeight(event.nativeEvent.layout.height)}>
+-      {briefingCollapsed ? (
++      {conversationOnly ? null : briefingCollapsed ? (
+         <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, minHeight: 44 }}>
+           <Text style={[styles.question, { flex: 1 }]} numberOfLines={1}>{briefing?.question || gate?.title || fo.title}</Text>
+         </View>
+@@ -339,7 +416,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+         onContentSizeChange={(_width, height) => setContentHeight(height)}
+       >
+         <Text style={styles.label}>{cardLabel(gate, fo.repo)}</Text>
+-        {gate ? null : foLine}
++        {gate ? null : <><Text style={styles.question} selectable>{title || fo.next || fo.title}</Text>{foLine}</>}
+         {gate ? (
+           <>
+             <Text style={styles.question} selectable>
+@@ -388,11 +465,12 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack }: Pr
+           layout={layout}
+           navigation={navigation}
+           agentId={fo.id}
+-          gate={gate}
++          gate={gate ? { ...gate, workflowDir } : null}
+           title={fo.title || "FO"}
+           placeholder={`Message ${foName(fo.title || "the FO")} directly`}
+           decisionTarget={target}
+-          discussion
++          discussion={!conversationOnly}
++          active={visible}
+           chips={showDecisions ? CHIPS : undefined}
+           footer={showDecisions ? footer : undefined}
+           beforeSend={showDecisions ? beforeSend : undefined}
+diff --git a/spacedock-bridge/server/gate.ts b/spacedock-bridge/server/gate.ts
+index 49cd4de..08af49b 100644
+--- a/spacedock-bridge/server/gate.ts
++++ b/spacedock-bridge/server/gate.ts
+@@ -1,3 +1,4 @@
++import { gateKey } from "../shared/gate-identity";
+ import { execFile } from "node:child_process";
+ import { readFile } from "node:fs/promises";
+ import { dirname, join, resolve } from "node:path";
+@@ -108,25 +109,25 @@ export async function readGateBriefingHandler({
+ 
+ const preparedCache = new Map<string, string>();
+ 
+-// When the gate's open briefing room was first committed, i.e. when the gate started waiting.
+-export async function gatePreparedAt(workflowDir: string, slug: string, stage: string): Promise<string | undefined> {
+-  if (!SLUG.test(slug)) return undefined;
++// Keep the open attempt identity even when its waiting time cannot be read.
++export async function gateIdentity(workflowDir: string, slug: string, stage: string): Promise<{ briefingId?: string; preparedAt?: string }> {
++  if (!SLUG.test(slug)) return {};
+   try {
+     const state = await stateDir(workflowDir);
+     const path = await entityPath(state, slug);
+     const attempt = findOpenAttempt(frontmatterOf(await readFile(path, "utf8")), stage);
+-    if (!attempt) return undefined;
+-    const key = `${workflowDir}\n${attempt.briefingId}`;
++    if (!attempt) return {};
++    const key = gateKey({ workflowDir, slug, stage, briefingId: attempt.briefingId });
+     const known = preparedCache.get(key);
+-    if (known) return known;
++    if (known) return { briefingId: attempt.briefingId, preparedAt: known };
+     const index = join(resolve(dirname(path), attempt.roomRef), "index.json");
+     const { stdout } = await run("git", ["-C", state, "log", "--diff-filter=A", "-1", "--format=%cI", "--", index], {
+       timeout: 15_000,
+-    });
++    }).catch(() => ({ stdout: "" }));
+     const at = stdout.trim() ? new Date(stdout.trim()).toISOString() : undefined;
+     if (at) preparedCache.set(key, at);
+-    return at;
++    return { briefingId: attempt.briefingId, preparedAt: at };
+   } catch {
+-    return undefined;
++    return {};
+   }
+ }
+diff --git a/spacedock-bridge/server/tasks.ts b/spacedock-bridge/server/tasks.ts
+index c06b060..8e1e6bb 100644
+--- a/spacedock-bridge/server/tasks.ts
++++ b/spacedock-bridge/server/tasks.ts
+@@ -12,7 +12,8 @@ import {
+   readGates,
+   readTasks,
+ } from "../shared/tasks";
+-import { gatePreparedAt } from "./gate";
++import { gateIdentity } from "./gate";
++import { gateKey } from "../shared/gate-identity";
+ 
+ const run = promisify(execFile);
+ const FRESH_MS = 30_000;
+@@ -142,7 +143,7 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
+           async (gate: AwaitingGate) => ({
+             workflowDir,
+             ...gate,
+-            preparedAt: await gatePreparedAt(workflowDir, gate.slug, gate.stage),
++            ...await gateIdentity(workflowDir, gate.slug, gate.stage),
+           }),
+         ),
+       ),
+@@ -150,7 +151,7 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
+   );
+   const seen = new Set<string>();
+   const gates = lists.flat().filter((gate) => {
+-    const key = `${gate.slug}\n${gate.title}`;
++    const key = gateKey(gate);
+     if (seen.has(key)) return false;
+     seen.add(key);
+     return true;
+diff --git a/spacedock-bridge/shared/board.ts b/spacedock-bridge/shared/board.ts
+index 031f70c..6180d42 100644
+--- a/spacedock-bridge/shared/board.ts
++++ b/spacedock-bridge/shared/board.ts
+@@ -1,3 +1,4 @@
++import { gateKey } from "./gate-identity";
+ import type { PaseoApi } from "@getpaseo/client";
+ import { type PermissionLike, permissionPreview, lastReply, nextStepIsCaptains, replyPreview } from "./preview";
+ import type { AwaitingGate } from "./tasks";
+@@ -99,6 +100,8 @@ export const STATUS_ORDER: readonly BoardStatus[] = [
+ export interface ReplyFact {
+   preview: string;
+   onCaptain: boolean;
++  messageId?: string;
++  since?: string;
+ }
+ 
+ function byGroupThenTitle(a: BoardRow, b: BoardRow): number {
+@@ -147,7 +150,12 @@ export async function observeBoard(
+       const promise = Promise.resolve().then(async () => {
+         const { entries } = await paseo.agents.ref(row.id).timeline.refetch({ direction: "tail", limit: 30, projection: "projected" });
+         const reply = lastReply(entries.map((entry) => entry.item));
+-        return { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply) };
++        const message = [...entries].reverse().find(entry => entry.item.type === "assistant_message" && entry.item.text);
++        return {
++          preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply),
++          ...(message?.seqStart != null ? { messageId: String(message.seqStart) } : {}),
++          ...(message?.timestamp ? { since: message.timestamp } : {}),
++        };
+       });
+       fetched.set(row.id, { at: row.lastActivityAt, promise });
+       void promise.catch(() => { if (fetched.get(row.id)?.promise === promise) fetched.delete(row.id); });
+@@ -192,7 +200,9 @@ export function attachGates(
+ ): BoardRow[] {
+   const byId = new Map(rows.map((row) => [row.id, { ...row, gates: [] as AwaitingGate[] }]));
+   for (const gate of gates) {
++    const identity = gateKey(gate);
+     const owner =
++      rows.find(row => row.task && gateKey({ ...gate, workflowDir: row.workflowDir, slug: row.task }) === identity) ??
+       rows.find((row) => row.task === gate.slug) ??
+       rows.find((row) => row.workflowDir === gate.workflowDir);
+     if (!owner) continue;
+@@ -201,6 +211,8 @@ export function attachGates(
+       title: gate.title,
+       stage: gate.stage,
+       preparedAt: gate.preparedAt,
++      workflowDir: gate.workflowDir,
++      ...(gate.briefingId ? { briefingId: gate.briefingId } : {}),
+     });
+   }
+   return [...byId.values()]
+diff --git a/spacedock-bridge/shared/drafts.ts b/spacedock-bridge/shared/drafts.ts
+index 2693077..4d5bbe4 100644
+--- a/spacedock-bridge/shared/drafts.ts
++++ b/spacedock-bridge/shared/drafts.ts
+@@ -1,9 +1,11 @@
++import { gateKey, type GateIdentityFields } from "./gate-identity";
++
+ const drafts = new Map<string, string>();
+ const sending = new Set<string>();
+ const subscribers = new Map<string, Set<() => void>>();
+ 
+-export function draftKey(agentId: string, gate?: { slug: string; stage: string } | null): string {
+-  return JSON.stringify(gate ? [agentId, gate.slug, gate.stage] : [agentId]);
++export function draftKey(agentId: string, gate?: GateIdentityFields | null): string {
++  return JSON.stringify(gate ? [agentId, gateKey(gate)] : [agentId]);
+ }
+ 
+ export function readDraft(key: string): string {
+diff --git a/spacedock-bridge/shared/gate-identity.ts b/spacedock-bridge/shared/gate-identity.ts
+new file mode 100644
+index 0000000..e247858
+--- /dev/null
++++ b/spacedock-bridge/shared/gate-identity.ts
+@@ -0,0 +1,11 @@
++export interface GateIdentityFields {
++  workflowDir?: string;
++  slug: string;
++  stage: string;
++  briefingId?: string;
++  preparedAt?: string;
++}
++
++export function gateKey(gate: GateIdentityFields): string {
++  return JSON.stringify(["g", gate.workflowDir ?? "", gate.slug, gate.stage, gate.briefingId ?? gate.preparedAt ?? null]);
++}
+diff --git a/spacedock-bridge/shared/list-status.ts b/spacedock-bridge/shared/list-status.ts
+new file mode 100644
+index 0000000..726b032
+--- /dev/null
++++ b/spacedock-bridge/shared/list-status.ts
+@@ -0,0 +1,40 @@
++import type { SourceState, SourceStates } from "./board-empty";
++import type { QueueKind } from "./queue";
++
++export interface ItemProgress {
++  sent?: boolean;
++  relayed?: boolean;
++  recorded?: boolean;
++  closed?: boolean;
++  overdue?: boolean;
++  problem?: boolean;
++}
++interface StatusInput extends ItemProgress {
++  kind: QueueKind;
++  sourceState?: SourceState;
++  source?: string;
++  assigned?: boolean;
++  tabClosed?: boolean;
++}
++
++export function itemStatus(item: StatusInput): { state: "check" | "done" | "waiting" | "your-turn"; icon: string; text: string } {
++  if (item.sourceState === "failed" || item.problem || item.overdue) return { state: "check", icon: "!", text: "Check" };
++  if (item.sourceState === "loading") return { state: "waiting", icon: "◷", text: "Loading" };
++  if (item.recorded || item.closed) return { state: "done", icon: "✓", text: "Done" };
++  if (item.relayed) return { state: "waiting", icon: "◷", text: "Waiting for record" };
++  if (item.sent) return { state: "waiting", icon: "◷", text: "Waiting for relay" };
++  return { state: "your-turn", icon: "◆", text: "Your turn" };
++}
++
++export function filterCounts(items: readonly (ItemProgress & { kind: QueueKind })[], sources: SourceStates): Record<"all" | QueueKind, string> {
++  const pending = items.filter(item => !item.recorded && !item.closed);
++  const complete = (kind: "all" | QueueKind) => {
++    const dependencies: Record<"all" | QueueKind, (keyof SourceStates)[]> = {
++      all: ["fos", "gates", "reviews", "comms"], permission: ["fos"], review: ["fos", "reviews"], gate: ["fos", "gates"], ask: ["fos", "comms"],
++    };
++    const states = dependencies[kind].map(source => sources[source]);
++    const count = pending.filter(item => kind === "all" || item.kind === kind).length;
++    return states.includes("failed") ? count ? `${count}+` : "?" : states.includes("loading") ? count ? `${count}+` : "…" : String(count);
++  };
++  return { all: complete("all"), permission: complete("permission"), review: complete("review"), gate: complete("gate"), ask: complete("ask") };
++}
+diff --git a/spacedock-bridge/shared/queue.ts b/spacedock-bridge/shared/queue.ts
+index 3eb05e9..752a21e 100644
+--- a/spacedock-bridge/shared/queue.ts
++++ b/spacedock-bridge/shared/queue.ts
+@@ -2,6 +2,7 @@ import type { BoardRow, ReplyFact } from "./board";
+ import { replyPreview } from "./preview";
+ import { type ReviewRequestData, reviewOwner, reviewRef } from "./reviews";
+ import type { AwaitingGate } from "./tasks";
++import { gateKey } from "./gate-identity";
+ 
+ export type QueueKind = "permission" | "review" | "gate" | "ask";
+ 
+@@ -41,7 +42,7 @@ export function buildQueue(
+       items.push({ key: `p:${row.id}`, kind: "permission", title: row.permission, detail: "", since, fo: row });
+     for (const gate of row.gates)
+       items.push({
+-        key: `g:${row.workflowDir}:${gate.slug}`,
++        key: gateKey({ ...gate, workflowDir: gate.workflowDir ?? row.workflowDir }),
+         kind: "gate",
+         title: gate.title || gate.slug,
+         detail: `gate · ${gate.stage}`,
+@@ -58,12 +59,18 @@ export function buildQueue(
+       ),
+     );
+     const reply = replies[row.id];
+-    if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate)))
+-      items.push({ key: `a:${row.id}`, kind: "ask", title: row.next || reply?.preview || "Has a question for you", detail: "", since, fo: row });
++    const addQuestion = (title: string, ownReply?: ReplyFact) => items.push({
++      key: JSON.stringify(["q", row.id, ownReply?.messageId ?? null, ownReply?.since ?? row.attentionAt ?? null, title]),
++      kind: "ask", title, detail: "", since: ownReply?.since || since, fo: row,
++    });
++    if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate))) {
++      const title = row.next || reply?.preview || "Has a question for you";
++      addQuestion(title, reply && replyPreview(title) === reply.preview ? reply : undefined);
++    }
+     if (reply?.onCaptain && reply.preview) {
+       const represented = items.some((item) => item.fo?.id === row.id && item.kind === "ask" && replyPreview(item.title) === reply.preview);
+       if (!represented)
+-        items.push({ key: `unread:${row.id}`, kind: "ask", title: reply.preview, detail: "", since, fo: row });
++        addQuestion(reply.preview, reply);
+     }
+   }
+   for (const review of reviews)
+diff --git a/spacedock-bridge/shared/tasks.ts b/spacedock-bridge/shared/tasks.ts
+index b8396a6..9514841 100644
+--- a/spacedock-bridge/shared/tasks.ts
++++ b/spacedock-bridge/shared/tasks.ts
+@@ -1,5 +1,6 @@
+ import { defineRpc } from "@getpaseo/plugin";
+ import { z } from "zod";
++import type { GateIdentityFields } from "./gate-identity";
+ 
+ export const WORKFLOW_DIR_LABEL = "workflow-dir";
+ 
+@@ -18,11 +19,8 @@ export function parseTaskStatus(output: string): TaskStatus | null {
+   }
+ }
+ 
+-export interface AwaitingGate {
+-  slug: string;
++export interface AwaitingGate extends GateIdentityFields {
+   title: string;
+-  stage: string;
+-  preparedAt?: string;
+ }
+ 
+ export function parseAwaitingGates(output: string): AwaitingGate[] {
+@@ -70,6 +68,7 @@ export const readGates = defineRpc({
+         title: z.string(),
+         stage: z.string(),
+         preparedAt: z.string().optional(),
++        briefingId: z.string().optional(),
+       }),
+     ),
+   }),
+diff --git a/spacedock-bridge/test/board-question-preview.test.mts b/spacedock-bridge/test/board-question-preview.test.mts
+index 0e094a0..cc7bc02 100644
+--- a/spacedock-bridge/test/board-question-preview.test.mts
++++ b/spacedock-bridge/test/board-question-preview.test.mts
+@@ -38,8 +38,8 @@ test("both board views share unread-question rows and counts across waiting-item
+   const readReviews = async () => ({ requests: scenario.review ? [{ url: "https://github.com/example/bridge/pull/12", owner: "example", repo: "bridge", number: 12, title: "Review the adapter", author: "fixture", firstSeenAt: Date.now() }] : [], checkedAt: Date.now(), error: null, nextCheckAt: null });
+   const readGates = async () => ({ gates: scenario.gate ? [{ workflowDir: "/workflow", slug: "gate-task", title: "Approve the adapter", stage: "validation" }] : [], failedWorkflowDirs: [] });
+   const readTasks = async () => ({ tasks: {}, failedWorkflowDirs: [] });
+-  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean };
+-  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress }, children);
++  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean; style?: any };
++  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled, style }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress, style: Array.isArray(style) ? Object.assign({}, ...style.filter(Boolean)) : style }, children);
+   const loader = Module as unknown as { _load(id: string, ...args: unknown[]): unknown };
+   const originalLoad = loader._load;
+   const restore = t.mock.method(loader, "_load", function (this: unknown, id: string, ...args: unknown[]) {
+@@ -75,7 +75,7 @@ test("both board views share unread-question rows and counts across waiting-item
+       const question = container.querySelector('[aria-label="Choose the release window (you) — Question FO"]') ?? (next?.textContent!.includes(preview) ? next : undefined);
+       assert.ok(question, `${view}: the unread question keeps its own destination`);
+       await act(async () => (question as HTMLElement).click());
+-      assert.equal(container.querySelector("output")!.textContent, "question-fo|question");
++      assert.equal(([...container.querySelectorAll("output")].find(e => { for (let p = e.parentElement; p; p = p.parentElement) if (p.style.display === "none") return false; return true; })!).textContent, "question-fo|question");
+       await act(async () => container.querySelector("button")!.click());
+     }
+   });
+diff --git a/spacedock-bridge/test/board-retry.test.mts b/spacedock-bridge/test/board-retry.test.mts
+index cc403e2..e6ed4b3 100644
+--- a/spacedock-bridge/test/board-retry.test.mts
++++ b/spacedock-bridge/test/board-retry.test.mts
+@@ -29,8 +29,8 @@ test("failed board sources reuse guarded reads; FO rows count and open each wait
+     if (subscriptions === 1) throw Error("offline");
+     return { subscription: { subscribe: (handlers: { snapshot(value: unknown): void }) => handlers.snapshot({ entries: [{ agent }] }), release: () => { released++; } } };
+   } } };
+-  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean };
+-  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress }, children);
++  type ElementProps = { children?: ReactNode; onPress?: () => void; accessibilityRole?: string; accessibilityLabel?: string; disabled?: boolean; style?: any };
++  const element = ({ children, onPress, accessibilityRole, accessibilityLabel, disabled, style }: ElementProps) => createElement("div", { role: accessibilityRole, "aria-label": accessibilityLabel, onClick: disabled ? undefined : onPress, style: Array.isArray(style) ? Object.assign({}, ...style.filter(Boolean)) : style }, children);
+   const loader = Module as unknown as { _load(id: string, ...args: unknown[]): unknown };
+   const originalLoad = loader._load;
+   const restore = t.mock.method(loader, "_load", function (this: unknown, id: string, ...args: unknown[]) {
+@@ -77,13 +77,13 @@ test("failed board sources reuse guarded reads; FO rows count and open each wait
+   assert.equal([...container.querySelectorAll("[role=button]")].filter((e) => e.textContent!.includes("Choose the release window")).length, 2, "identical text from comms and FO remains separately attributed");
+   for (const slug of ["first", "second", "third", "fourth"]) {
+     await click(`Approve ${slug} complete proposal — Bridge FO`);
+-    assert.equal(container.querySelector("output")!.textContent, slug);
++    assert.equal(([...container.querySelectorAll("output")].find(e => { for (let p = e.parentElement; p; p = p.parentElement) if (p.style.display === "none") return false; return true; })!).textContent, slug);
+     await click("Queue");
+   }
+   await click("Choose the release window — Bridge FO");
+-  assert.equal(container.querySelector("output")!.textContent, "question");
++  assert.equal(([...container.querySelectorAll("output")].find(e => { for (let p = e.parentElement; p; p = p.parentElement) if (p.style.display === "none") return false; return true; })!).textContent, "question");
+   await click("Queue");
+   assert.ok(container.textContent!.includes("unknown"));
+   await act(() => root.unmount());
+-  assert.equal(released, 1);
++  assert.equal(released, subscriptions - 1, "every successful initial or reactivation subscription is released");
+ });
+diff --git a/spacedock-bridge/test/board-review-owner.test.mts b/spacedock-bridge/test/board-review-owner.test.mts
+index 985242f..4635aba 100644
+--- a/spacedock-bridge/test/board-review-owner.test.mts
++++ b/spacedock-bridge/test/board-review-owner.test.mts
+@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
+ 
+ Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
+ 
+-test("By FO keeps an idle review owner and its waiting count visible while idle rows are collapsed", async (t) => {
++test("By FO keeps every FO and each assigned review reachable", async (t) => {
+   const dom = new JSDOM("<!doctype html><body><div id='root'></div></body>");
+   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
+   const container = dom.window.document.getElementById("root")!;
+@@ -42,15 +42,12 @@ test("By FO keeps an idle review owner and its waiting count visible while idle
+   await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation: {} })));
+   const byFo = [...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith("By FO"))!;
+   await act(async () => (byFo as HTMLElement).click());
+-  assert.match(container.textContent!, /Waiting on you · 1/);
++  assert.match(container.textContent!, /Board · 1/);
+   assert.match(container.textContent!, /Review owner FO\s*· 1 waiting/);
+   const review = container.querySelector('[aria-label="Review the pending adapter — Review owner FO"]');
+   assert.ok(review, "the assigned review must be reachable before expanding idle rows");
+-  assert.doesNotMatch(container.textContent!, /Unoccupied FO/);
+-  const idle = [...container.querySelectorAll("[role=button]")].find((e) => e.textContent!.startsWith("Idle · 1"))!;
+-  assert.ok(idle, "the unrelated idle FO keeps its collapsed group");
+-  await act(async () => (idle as HTMLElement).click());
+   assert.match(container.textContent!, /Unoccupied FO/);
++  assert.ok(container.querySelector('[aria-label="Conversation with Unoccupied FO"]'), "an FO without waiting work still opens its conversation");
+   assert.equal(container.querySelectorAll('[aria-label="Review the pending adapter — Review owner FO"]').length, 1);
+   await act(async () => (review as HTMLElement).click());
+   assert.equal(container.querySelector("output")!.textContent, "owner");
+diff --git a/spacedock-bridge/test/board-row-bounds.test.mts b/spacedock-bridge/test/board-row-bounds.test.mts
+index e6c00e7..204493f 100644
+--- a/spacedock-bridge/test/board-row-bounds.test.mts
++++ b/spacedock-bridge/test/board-row-bounds.test.mts
+@@ -81,13 +81,13 @@ test("queue rows keep visible repository and number with icon-only sibling actio
+     const tab = [...container.querySelectorAll<HTMLElement>("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
+     await act(() => tab.click());
+     for (const number of [2, 1]) {
+-      const label = view === "decision" && number === 1 ? "Open Review proposal 1 with Review owner FO" : `Review proposal ${number} — Review owner FO`;
++      const label = `Review proposal ${number} — Review owner FO`;
+       const { link } = pair(label, `Open bridge#${number} on GitHub`);
+       await act(() => link.click());
+       assert.equal(urls.at(-1), reviews[number - 1].url);
+       assert.equal(container.querySelector("output"), null);
+     }
+-    const { row, link } = pair(view === "decision" ? "Unassigned proposal — no FO" : "Ask comms officer about Unassigned proposal", "Open other#3 on GitHub");
++    const { row, link } = pair("Unassigned proposal — no FO", "Open other#3 on GitHub");
+     await act(() => link.click());
+     assert.equal(urls.at(-1), reviews[2].url);
+     assert.equal(asks.length, 0, "a GitHub link must not invoke the row's comms action");
+diff --git a/spacedock-bridge/test/board-truthful-presentation.test.mts b/spacedock-bridge/test/board-truthful-presentation.test.mts
+new file mode 100644
+index 0000000..0332f59
+--- /dev/null
++++ b/spacedock-bridge/test/board-truthful-presentation.test.mts
+@@ -0,0 +1,48 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { mountBridge } from "./helpers/bridge-host.mjs";
++
++for (const compact of [false, true]) {
++  for (const view of ["decision", "fo"]) {
++    for (const progress of ["sent", "relayed"]) {
++      test(`a ${progress} item never appears under a waiting-on-you claim (${compact ? 360 : 1440}, ${view})`, async t => {
++        const h = await mountBridge(t, compact);
++        if (compact) await h.click("Board");
++        await h.click("Approve a? — A FO");
++        await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++        if (progress === "relayed") {
++          h.timeline.set("a", [{ seqStart: 1, item: { type: "user_message", text: h.claims.get("brief-a").decisionId } }]);
++          await h.poll();
++        }
++        await h.click("Back to Commander");
++        if (compact) await h.click("Board");
++        if (view === "fo") await h.click("By FO");
++        assert.match(h.text(), /Board · 2/);
++        assert.doesNotMatch(h.text(), /waiting on you/i);
++        assert.match(h.text(), progress === "sent" ? /◷ Waiting for relay/ : /◷ Waiting for record/);
++        if (view === "decision") { assert.match(h.text(), /All 2/); assert.match(h.text(), /Gates 2/); }
++        else assert.match(h.text(), /1 waiting/);
++        assert.equal(h.sent.length, 1);
++      });
++    }
++  }
++  test(`an FO with nothing waiting opens only its conversation (${compact ? 360 : 1440})`, async t => {
++    const h = await mountBridge(t, compact);
++    if (compact) await h.click("Board");
++    await h.click("By FO"); await h.click("Conversation with Research FO");
++    assert.ok(h.find("Message Research FO"));
++    assert.doesNotMatch(h.text(), /QUESTION|waiting \d+[smhd]/);
++    assert.ok(!h.find("Show briefing") && !h.find("Hide briefing"));
++    assert.ok(!h.find("Drag to resize the briefing; tap the grip to fit it to its content"));
++    assert.ok(!h.find("Choose 准"));
++    await h.type("Message Research FO", "Research discussion draft");
++    const composer = h.find("Message Research FO");
++    await h.click("Back to Commander");
++    if (compact) await h.click("Board");
++    await h.click("Conversation with Research FO");
++    assert.ok(h.find("Message Research FO") === composer);
++    assert.equal((composer as HTMLTextAreaElement).value, "Research discussion draft");
++    await h.click("Send to Research FO");
++    assert.deepEqual(h.sent, [{ id: "idle", text: "Research discussion draft" }]);
++  });
++}
+diff --git a/spacedock-bridge/test/bridge-continuity.test.mts b/spacedock-bridge/test/bridge-continuity.test.mts
+new file mode 100644
+index 0000000..0c2faf4
+--- /dev/null
++++ b/spacedock-bridge/test/bridge-continuity.test.mts
+@@ -0,0 +1,147 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { act } from "react";
++import { mountBridge } from "./helpers/bridge-host.mjs";
++
++const openA = (h: Awaited<ReturnType<typeof mountBridge>>) => h.click("Approve a? — A FO");
++const detour = async (h: Awaited<ReturnType<typeof mountBridge>>) => { await h.click("Commander"); await openA(h); };
++
++test("reopen keeps the confirmed choice and reason", async t => {
++  const h = await mountBridge(t);
++  await openA(h);
++  await h.click("Choose 要求修改");
++  await h.type("Reason for 要求修改", "Keep the retry visible");
++  await h.click("Confirm 要求修改 via comms officer");
++  assert.equal(h.sent.length, 1);
++  await detour(h);
++  assert.match(h.text(), /revise.*要求修改，Keep the retry visible/);
++  assert.equal(h.find("Choose 准"), undefined);
++});
++
++test("sent and relayed progress survives a comms detour", async t => {
++  const h = await mountBridge(t);
++  await openA(h);
++  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++  await detour(h);
++  assert.match(h.text(), /Sent to the comms officer/);
++  const claim = h.claims.get("brief-a");
++  h.timeline.set("a", [{ item: { type: "user_message", text: claim.decisionId } }]);
++  await h.poll(); await detour(h);
++  assert.match(h.text(), /Relayed to A FO/);
++  assert.equal(h.sent.length, 1);
++});
++
++test("a recorded item never becomes actionable again", async t => {
++  const h = await mountBridge(t);
++  await openA(h); await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++  const claim = h.claims.get("brief-a");
++  h.records.set("a", { decision: "approve", reason: `${claim.decisionId} ${claim.words}` });
++  await h.poll();
++  assert.match(h.text(), /Recorded: approve/);
++  assert.equal(h.find("Choose 准"), undefined);
++  assert.match(h.text(), /Board · 1/, "finished item leaves pending counts");
++  await h.click("Commander");
++  assert.match(h.text(), /Done this session/);
++  assert.equal(h.sent.length, 1);
++});
++
++test("switching items keeps separate drafts and rejects stale actions", async t => {
++  const h = await mountBridge(t);
++  await openA(h); await h.type("Message A FO", "Draft for A");
++  await h.click("Choose 暫緩"); await h.type("Reason for 暫緩", "A reason");
++  await h.click("Approve b? — B FO"); await h.type("Message B FO", "Draft for B");
++  await openA(h);
++  assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Draft for A");
++  assert.equal((h.find("Reason for 暫緩") as HTMLTextAreaElement).value, "A reason");
++  const finish = h.deferBriefing();
++  const confirm = h.find("Confirm 暫緩 via comms officer")!;
++  await act(async () => confirm.click());
++  await h.click("Commander");
++  await finish();
++  assert.equal(h.find("Confirm 暫緩 via comms officer"), undefined);
++  assert.equal(h.claims.size, 0, "a card hidden during a target check cannot claim a decision");
++  assert.equal(h.sent.length, 0);
++
++});
++
++test("errors and progress stay with their own source and owner", async t => {
++  const h = await mountBridge(t);
++  h.failures.add("co");
++  await h.refresh("co");
++  await h.click("Commander");
++  assert.match(h.text(), /Cannot read co|Could not read/);
++  assert.equal(h.find("Message Comms officer")?.parentElement?.textContent?.includes("No messages yet"), false);
++  await openA(h);
++  assert.doesNotMatch(h.text(), /Cannot read co/);
++  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++  await h.click("Approve b? — B FO");
++  assert.doesNotMatch(h.text(), /Sent to the comms officer/);
++  assert.ok(h.find("Choose 准"));
++});
++
++
++test("every drill-down returns to the commander in one step keeping drafts and progress", async t => {
++  const h = await mountBridge(t, true);
++  assert.ok(h.find("Message Comms officer"), "phone opens on the commander");
++  await h.type("Message Comms officer", "Commander draft");
++  const commander = h.find("Message Comms officer");
++  await h.click("Board");
++  assert.ok(h.find("Back to Commander"), "the phone board has a fixed return");
++  await openA(h);
++  await h.type("Message A FO", "A message");
++  await h.click("Choose 暫緩"); await h.type("Reason for 暫緩", "Need proof");
++  await h.click("Back to Commander");
++  assert.equal(h.find("Message Comms officer"), commander, "commander stays mounted with its conversation position");
++  assert.equal((commander as HTMLTextAreaElement).value, "Commander draft");
++  await h.click("Board"); await openA(h);
++  assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "A message");
++  assert.equal((h.find("Reason for 暫緩") as HTMLTextAreaElement).value, "Need proof");
++  await h.click("Confirm 暫緩 via comms officer"); await h.click("Back to Commander");
++  await h.click("Board"); await openA(h);
++  assert.match(h.text(), /Sent to the comms officer/);
++  assert.equal(h.sent.length, 1);
++});
++
++test("an FO with nothing waiting is reachable from By FO", async t => {
++  const h = await mountBridge(t);
++  await h.click("Filter gate"); await h.click("By FO");
++  await h.click("Conversation with Research FO");
++  assert.ok(h.find("Message Research FO"));
++  await h.click("Back to Commander");
++  assert.ok(h.find("Message Comms officer"));
++});
++
++test("a recorded item reopens to its result and reason this session and is never actionable", async t => {
++  const h = await mountBridge(t);
++  await openA(h); await h.click("Choose 要求修改");
++  await h.type("Reason for 要求修改", "Preserve the observed failure");
++  await h.click("Confirm 要求修改 via comms officer");
++  const claim = h.claims.get("brief-a");
++  h.records.set("a", { decision: "revise", reason: `${claim.decisionId} ${claim.words}` });
++  await h.poll(); await h.click("Back to Commander");
++  await h.click("Filter permission");
++  assert.match(h.text(), /Done this session/);
++  await openA(h);
++  assert.match(h.text(), /Recorded: revise/);
++  assert.match(h.text(), /Preserve the observed failure/);
++  assert.equal(h.find("Choose 准"), undefined);
++  assert.equal(h.sent.length, 1);
++  assert.match(h.text(), /Board · 1/);
++  assert.match(h.text(), /Permissions 0/);
++});
++
++
++test("an ordinary message never consumes the gate decision controls", async t => {
++  const h = await mountBridge(t); await openA(h);
++  await h.type("Message A FO", "Clarify this proof first");
++  await h.click("Send to A FO");
++  assert.ok(h.find("Choose 准"));
++  assert.equal(h.claims.size, 0);
++  assert.equal(h.sent[0].id, "a");
++});
++
++test("desktop board navigation keeps the commander as the default detail", async t => {
++  const h = await mountBridge(t); await openA(h);
++  await h.click("Board");
++  assert.ok(h.find("Message Comms officer"));
++});
+diff --git a/spacedock-bridge/test/decision-card.test.mts b/spacedock-bridge/test/decision-card.test.mts
+index 0c6658c..9ac86fd 100644
+--- a/spacedock-bridge/test/decision-card.test.mts
++++ b/spacedock-bridge/test/decision-card.test.mts
+@@ -23,7 +23,7 @@ test("polling a newer open briefing ignores the older briefing's resolution", as
+   ];
+   const requested: (string | undefined)[] = [];
+   const callBriefing = async (input: { briefingId?: string }) => { requested.push(input.briefingId); return answers.shift()!; };
+-  const callRead = async () => ({ record: { foId: "fo", decisionId: "decision", words: "accepted", decision: "approved", at: Date.now() } });
++  const callRead = async ({ briefingId }: { briefingId: string }) => ({ record: { foId: "fo", decisionId: "decision", words: "accepted", decision: "approved", at: Date.now() } });
+   const intervals = new Map<number, () => void>();
+   let timerId = 0;
+   t.mock.method(globalThis, "setInterval", (callback: () => void, delay: number) => { const id = ++timerId; if (delay === 15_000) intervals.set(id, callback); return id; });
+@@ -51,10 +51,10 @@ test("polling a newer open briefing ignores the older briefing's resolution", as
+   };
+   await act(async () => { root.render(createElement(DecisionCard, props)); });
+   const poll = async () => { const callback = [...intervals.values()][0]; assert.ok(callback, "an unresolved briefing keeps polling"); await act(async () => callback()); };
+-  assert.equal(container.querySelector("output")!.textContent, "准,要求修改,暫緩|Message FO directly");
++  assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");
+   await poll();
+   assert.match(container.textContent!, /second/);
+-  assert.equal(container.querySelector("output")!.textContent, "准,要求修改,暫緩|Message FO directly");
++  assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");
+   assert.doesNotMatch(container.textContent!, /Recorded: approved/);
+   await poll();
+   assert.equal(container.querySelector("output")!.textContent, "no decisions|Message FO directly");
+diff --git a/spacedock-bridge/test/gate-continuity-repair.test.mts b/spacedock-bridge/test/gate-continuity-repair.test.mts
+new file mode 100644
+index 0000000..622aa25
+--- /dev/null
++++ b/spacedock-bridge/test/gate-continuity-repair.test.mts
+@@ -0,0 +1,81 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { mountBridge } from "./helpers/bridge-host.mjs";
++
++for (const nextStage of ["implementation", "validation"]) {
++  test(`a recorded gate does not suppress a new ${nextStage} attempt of the same task`, async t => {
++    const h = await mountBridge(t);
++    await h.click("Approve a? — A FO");
++    await h.click("Choose 要求修改"); await h.type("Reason for 要求修改", "Keep the old result");
++    await h.click("Confirm 要求修改 via comms officer");
++    const old = h.claims.get("brief-a");
++    h.records.set("brief-a", { decision: "revise", reason: `${old.decisionId} ${old.words}` });
++    await h.poll(); await h.click("Back to Commander");
++    assert.match(h.text(), /Board · 1/);
++    h.attempts.set("a", { stage: nextStage, briefingId: `next-${nextStage}`, title: "Approve the next attempt?" });
++    await h.pollGates();
++    assert.match(h.text(), /Board · 2/, "the later attempt has its own pending count");
++    await h.click("Approve the next attempt? — A FO");
++    assert.ok(h.find("Choose 准"), "a newer attempt is actionable even if the prior gate was recorded");
++    assert.doesNotMatch(h.text(), /Recorded: revise/, "the old result stays with the old detail");
++    await h.click("Back to Commander"); await h.click("Approve a? — A FO");
++    assert.match(h.text(), /Recorded: revise/);
++    assert.match(h.text(), /Keep the old result/);
++    assert.equal(h.find("Choose 准"), undefined, "the recorded attempt never becomes actionable");
++    assert.equal(h.sent.length, 1);
++  });
++}
++
++for (const failure of ["throw", "answer"]) {
++  test(`a failed first briefing read retries on reopen and keeps its draft (${failure})`, async t => {
++    const h = await mountBridge(t);
++    const read = h.rpc["gate.briefing"];
++    let calls = 0;
++    h.rpc["gate.briefing"] = async (input: unknown) => {
++      if (++calls === 1) {
++        if (failure === "throw") throw new Error("First briefing read failed");
++        return { briefing: null, recorded: null, error: "First briefing read failed" };
++      }
++      return read(input);
++    };
++    await h.click("Approve a? — A FO");
++    assert.match(h.text(), /First briefing read failed/);
++    await h.type("Message A FO", "Keep the question draft");
++    await h.click("Back to Commander"); await h.click("Approve a? — A FO");
++    assert.equal(calls, 2, "reactivating the unresolved card retries its reader");
++    assert.doesNotMatch(h.text(), /First briefing read failed/);
++    assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Keep the question draft");
++    const beforePoll = calls;
++    await h.poll();
++    assert.ok(calls > beforePoll, "a loaded open briefing is polled without needing a prior send");
++    assert.equal(h.sent.length, 0);
++  });
++}
++
++test("a retained active attempt never adopts its replacement's briefing", async t => {
++  const h = await mountBridge(t);
++  await h.click("Approve a? — A FO");
++  h.attempts.set("a", { stage: "validation", briefingId: "replacement", title: "Approve the replacement?" });
++  await h.pollGates(); await h.poll();
++  assert.equal(h.find("Choose 准"), undefined, "the superseded detail cannot decide for its replacement");
++  assert.match(h.text(), /This gate is no longer open/);
++  await h.click("Approve the replacement? — A FO");
++  assert.ok(h.find("Choose 准"));
++  assert.equal(h.sent.length, 0);
++});
++
++test("a late failure from the first read cannot overwrite a successful reopen", async t => {
++  const h = await mountBridge(t);
++  const read = h.rpc["gate.briefing"];
++  let reject!: (error: Error) => void;
++  let calls = 0;
++  h.rpc["gate.briefing"] = (input: unknown) => ++calls === 1 ? new Promise((_resolve, fail) => { reject = fail; }) : read(input);
++  await h.click("Approve a? — A FO");
++  await h.type("Message A FO", "Keep this through the retry");
++  await h.click("Back to Commander"); await h.click("Approve a? — A FO");
++  assert.equal(calls, 2);
++  const { act } = await import("react");
++  await act(async () => reject(new Error("Stale first read failed")));
++  assert.doesNotMatch(h.text(), /Stale first read failed/);
++  assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Keep this through the retry");
++});
+diff --git a/spacedock-bridge/test/gate-identity-class.test.mts b/spacedock-bridge/test/gate-identity-class.test.mts
+new file mode 100644
+index 0000000..efbb7d4
+--- /dev/null
++++ b/spacedock-bridge/test/gate-identity-class.test.mts
+@@ -0,0 +1,78 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { act } from "react";
++import { mountBridge } from "./helpers/bridge-host.mjs";
++import { draftKey, readDraftSending } from "../shared/drafts";
++import { readDecisionDraft } from "../shared/decision-composer";
++
++type Gate = { workflowDir: string; slug: string; title: string; stage: string; briefingId: string };
++const briefing = (gate: Gate) => ({ briefingId: gate.briefingId, slug: gate.slug, stage: gate.stage, digest: `digest-${gate.briefingId}`, question: gate.title, artifacts: [{ summary: gate.title, markdown: "Evidence" }] });
++function reader(gates: Gate[]) {
++  return async (input: { workflowDir: string; briefingId?: string }) => {
++    const gate = gates.find(g => g.workflowDir === input.workflowDir && g.briefingId === input.briefingId) ?? [...gates].reverse().find(g => g.workflowDir === input.workflowDir);
++    return { briefing: gate ? briefing(gate) : null, recorded: null, error: null };
++  };
++}
++
++test("identical slugs in two workflows keep separate recipients", async t => {
++  const h = await mountBridge(t);
++  for (const agent of h.agents.slice(0, 2)) agent.labels = { ...agent.labels, task: "shared-task" } as any;
++  const gates = ["a", "b"].map(id => ({ workflowDir: `/workflow-${id}`, slug: "shared-task", stage: "validation", briefingId: `shared-${id}`, title: `Approve ${id.toUpperCase()} workflow?` }));
++  h.rpc["gates.read"] = async () => ({ gates, failedWorkflowDirs: [] });
++  h.rpc["gate.briefing"] = reader(gates);
++  await h.publishAgents(); await h.pollGates();
++  for (const id of ["a", "b"]) {
++    await h.click(`Approve ${id.toUpperCase()} workflow? — ${id.toUpperCase()} FO`);
++    await h.click("Choose 要求修改"); await h.type("Reason for 要求修改", `Reason for ${id}`);
++    await h.click("Confirm 要求修改 via comms officer");
++    assert.equal(h.claims.get(`shared-${id}`).foId, id);
++    assert.ok(h.sent.at(-1)!.text.includes(`to ${id.toUpperCase()} FO (agent ${id})`));
++    await h.click("Back to Commander");
++  }
++});
++
++for (const changed of ["workflow", "briefing"] as const) {
++  test(`two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (${changed})`, async t => {
++    const h = await mountBridge(t);
++    h.agents[0].labels = { ...h.agents[0].labels, task: "shared-task" } as any;
++    const first: Gate = { workflowDir: "/workflow-a", slug: "shared-task", stage: "validation", briefingId: "first-attempt", title: "First retained gate?" };
++    const second: Gate = { ...first, workflowDir: changed === "workflow" ? "/other-workflow" : first.workflowDir, briefingId: "second-attempt", title: "Second retained gate?" };
++    const gates = [first];
++    h.rpc["gates.read"] = async () => ({ gates: [...gates], failedWorkflowDirs: [] });
++    h.rpc["gate.briefing"] = reader(gates);
++    await h.publishAgents(); await h.pollGates(); await h.click("First retained gate? — A FO");
++    await h.type("Message A FO", "First message");
++    await h.click("Choose 暫緩"); await h.type("Reason for 暫緩", "First reason");
++    const oldComposer = h.find("Message A FO");
++    let finish!: () => void;
++    let sends = 0;
++    h.sendOverrides.set("a", () => ++sends === 1 ? new Promise<void>(resolve => { finish = resolve; }) : Promise.resolve());
++    await h.click("Send to A FO"); assert.ok(finish);
++    assert.equal(readDraftSending(draftKey("a", first)), true);
++    gates.push(second); await h.pollGates(); await h.click("Second retained gate? — A FO");
++    const newComposer = h.find("Message A FO");
++    assert.ok(oldComposer !== newComposer, "each gate retains its own mounted composer");
++    assert.equal((newComposer as HTMLTextAreaElement).value, "", "the first gate's message cannot appear in the second");
++    assert.equal(readDraftSending(draftKey("a", second)), false, "the first gate's sending lock cannot block the second");
++    assert.equal(readDecisionDraft(draftKey("a", second)).word, null);
++    await h.type("Message A FO", "Second message");
++    await h.click("Choose 要求修改"); await h.type("Reason for 要求修改", "Second reason");
++    assert.equal(readDecisionDraft(draftKey("a", first)).word, "暫緩");
++    assert.equal(readDecisionDraft(draftKey("a", first)).reason, "First reason");
++    await h.click("Confirm 要求修改 via comms officer");
++    assert.equal(h.claims.get("second-attempt").words, "要求修改，Second reason");
++    assert.equal(h.claims.has("first-attempt"), false);
++    await h.click("First retained gate? — A FO");
++    assert.ok(h.find("Message A FO") === oldComposer);
++    assert.equal((oldComposer as HTMLTextAreaElement).value, "First message");
++    assert.equal((h.find("Reason for 暫緩") as HTMLTextAreaElement).value, "First reason");
++    await act(async () => finish());
++    assert.equal((oldComposer as HTMLTextAreaElement).value, "");
++    assert.equal(readDraftSending(draftKey("a", first)), false);
++    await h.click("Second retained gate? — A FO");
++    assert.ok(h.find("Message A FO") === newComposer);
++    assert.equal((newComposer as HTMLTextAreaElement).value, "Second message");
++    assert.match(h.text(), /Sent to the comms officer/);
++    assert.equal(h.sent.length, 2);
++  });
++}
+diff --git a/spacedock-bridge/test/gate-identity.test.mts b/spacedock-bridge/test/gate-identity.test.mts
+new file mode 100644
+index 0000000..286e4f1
+--- /dev/null
++++ b/spacedock-bridge/test/gate-identity.test.mts
+@@ -0,0 +1,44 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { stringify } from "yaml";
++import { readGatesHandler } from "../server/tasks";
++import { attachGates, toRows } from "../shared/board";
++import { buildQueue } from "../shared/queue";
++import { readGates } from "../shared/tasks";
++
++test("each active briefing identity survives the server, RPC schema, attachment and queue", async t => {
++  const root = await mkdtemp(join(tmpdir(), "bridge-attempt-"));
++  const previousPath = process.env.PATH;
++  t.after(async () => { process.env.PATH = previousPath; await rm(root, { recursive: true, force: true }); });
++  await mkdir(join(root, "bin"));
++  await mkdir(join(root, ".spacedock-state"));
++  await writeFile(join(root, "README.md"), "---\ncommissioned-by: spacedock@0.27.3\n---\n");
++  const source = join(root, "answer.json");
++  await writeFile(join(root, "bin/spacedock"), `#!${process.execPath}\nconsole.log(require('node:fs').readFileSync(${JSON.stringify(source)},'utf8'));\n`, { mode: 0o755 });
++  process.env.PATH = `${join(root, "bin")}:${previousPath}`;
++  const second = join(root, "second");
++  await mkdir(second); await mkdir(join(second, ".spacedock-state"));
++  await writeFile(join(second, "README.md"), "---\ncommissioned-by: spacedock@0.27.3\n---\n");
++  const keys = new Set<string>();
++  for (const [stage, briefingId] of [["ideation", "one"], ["validation", "two"], ["validation", "three"]]) {
++    await writeFile(source, JSON.stringify({ entities: [{ slug: "task", title: "Same task", status: stage, "gate-readiness": "awaiting-captain" }] }));
++    for (const workflow of [root, second]) await writeFile(join(workflow, ".spacedock-state/task.md"), "---\n" + stringify({ gates: { records: [{ stage, attempts: [{ briefing: { id: briefingId, digest: "digest", "room-ref": "room" } }] }] } }) + "---\n");
++    const result = await readGatesHandler({ workflowDirs: [root, second], fresh: true });
++    const checked = readGates.output.parse(result);
++    assert.equal(checked.gates.length, 2, "identical task titles in distinct workflows must stay separate");
++    assert.equal((checked.gates[0] as { briefingId?: string }).briefingId, briefingId, "a missing waiting-time commit must not discard the attempt identity");
++    const rows = toRows([root, second].map((workflow, index) => ({ id: `fo-${index}`, title: "FO", cwd: workflow, status: "idle", updatedAt: "2026-11-03T00:00:00Z", labels: { role: "fo", task: "task", "workflow-dir": workflow } })));
++    const queue = buildQueue(attachGates(rows, checked.gates), []);
++    assert.equal(queue.length, 2);
++    assert.ok(queue.every(item => item.gate?.workflowDir === item.fo?.workflowDir), "same slugs in different workflows retain their exact recipient through the pipeline");
++    for (const item of queue) {
++      assert.equal((item.gate as { briefingId?: string }).briefingId, briefingId);
++      assert.ok(item.gate?.workflowDir === root || item.gate?.workflowDir === second);
++      keys.add(item.key);
++    }
++  }
++  assert.equal(keys.size, 6, "successive stages and same-stage attempts have independent queue identities");
++});
+diff --git a/spacedock-bridge/test/helpers/bridge-host.mts b/spacedock-bridge/test/helpers/bridge-host.mts
+new file mode 100644
+index 0000000..3866be4
+--- /dev/null
++++ b/spacedock-bridge/test/helpers/bridge-host.mts
+@@ -0,0 +1,104 @@
++import Module, { createRequire } from "node:module";
++import { JSDOM } from "jsdom";
++import { act, createElement, forwardRef, useImperativeHandle, type ReactNode } from "react";
++import { createRoot } from "react-dom/client";
++import type { TestContext } from "node:test";
++import assert from "node:assert/strict";
++
++Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
++const flatten = (s: any): any => Array.isArray(s) ? Object.assign({}, ...s.map(flatten)) : s ?? {};
++const element = forwardRef<any, any>((p, ref) => {
++  useImperativeHandle(ref, () => ({ scrollToEnd() {}, scrollTo() {} }));
++  return createElement("div", { role: p.accessibilityRole, "aria-label": p.accessibilityLabel, "aria-selected": p.accessibilityState?.selected, "data-lines": p.numberOfLines, style: flatten(p.style), onClick: p.disabled ? undefined : p.onPress }, p.children);
++});
++const input = (p: any) => createElement("textarea", { "aria-label": p.accessibilityLabel, value: p.value, onInput: (e: any) => p.onChangeText(e.target.value) });
++let current: any;
++let Bridge: any;
++const calls = new Map<string, (...args: any[]) => any>();
++export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void) {
++  const dom = new JSDOM("<!doctype html><div id='root'></div>");
++  Object.assign(globalThis, { window: dom.window, document: dom.window.document });
++  const container = dom.window.document.getElementById("root")!;
++  const root = createRoot(container);
++  const timers = new Map<number, { callback: () => void; ms: number }>();
++  let serial = 0;
++  t.mock.method(globalThis, "setInterval", (callback: () => void, ms: number) => { timers.set(++serial, { callback, ms }); return serial; });
++  t.mock.method(globalThis, "clearInterval", (id: number) => timers.delete(id));
++  const agents = ["a", "b"].map(id => ({ id, title: `${id.toUpperCase()} FO`, cwd: "/repo", status: "idle", updatedAt: "2026-11-03T10:00:00Z", labels: { role: "fo", repo: id, "workflow-dir": `/workflow-${id}` } }));
++  agents.push({ ...agents[0], id: "idle", title: "Research FO", labels: { role: "fo", repo: "research", "workflow-dir": "" } });
++  const records = new Map<string, any>();
++  const claims = new Map<string, any>();
++  const timeline = new Map<string, any[]>([["co", []], ["a", []], ["b", []]]);
++  const failures = new Set<string>();
++  const readFailures = new Set<string>();
++  const subscriptionFailures = new Set<string>();
++  const timelineListeners = new Map<string, Set<(event: any) => void>>();
++  const sent: { id: string; text: string }[] = [];
++  const sendOverrides = new Map<string, (text: string) => Promise<void>>();
++  const attempts = new Map<string, { stage: string; briefingId: string; title: string }>();
++  const briefing = (slug: string) => ({ briefingId: `brief-${slug}`, digest: `digest-${slug}`, slug, stage: "validation", question: `Approve ${slug}?`, artifacts: [{ summary: `Summary ${slug}`, markdown: "Evidence" }], ...attempts.get(slug) });
++  let deferred: ((value: any) => void) | null = null;
++  let hold = false;
++  const rpc: any = {
++    "coordinator.open": async () => ({ agentId: "co" }),
++    "tasks.read": async () => ({ tasks: {}, failedWorkflowDirs: [] }),
++    "gates.read": async () => ({ gates: agents.filter(a => a.id !== "idle").map(a => ({ ...briefing(a.id), title: attempts.get(a.id)?.title ?? `Approve ${a.id}?`, workflowDir: a.labels["workflow-dir"] })), failedWorkflowDirs: [] }),
++    "reviews.read": async () => ({ requests: [], checkedAt: 1, nextCheckAt: null, error: null }),
++    "gate.briefing": async ({ slug, stage, briefingId }: any) => { if (hold) { hold = false; return new Promise(resolve => { deferred = resolve; }); } return { briefing: briefing(slug).stage === stage ? briefing(slug) : null, recorded: records.get(briefingId) ?? records.get(slug) ?? null, error: null }; },
++    "decision.read": async ({ briefingId }: any) => ({ record: claims.get(briefingId) ?? null }),
++    "decision.claim": async (record: any) => { const full = { ...record, at: Date.now() }; claims.set(record.briefingId, full); return { claimed: true, record: full }; },
++    "decision.release": async () => ({}),
++  };
++  // RPC names are taken from the declarations so the fixture follows the host contract.
++  const require = createRequire(import.meta.url);
++  const { openCoordinator } = require("../../shared/coordinator");
++  const { readDecision, claimDecision, releaseDecision } = require("../../shared/decisions");
++  rpc[openCoordinator.name] = rpc["coordinator.open"];
++  rpc[readDecision.name] = rpc["decision.read"];
++  rpc[claimDecision.name] = rpc["decision.claim"];
++  rpc[releaseDecision.name] = rpc["decision.release"];
++  const listeners = new Map<string, Set<() => void>>();
++  const snapshots = new Set<(value: any) => void>();
++  const reads: { id: string; projection: string }[] = [];
++  const readOverrides = new Map<string, () => Promise<any>>();
++  const paseo = { agents: {
++    list: async () => ({ subscription: { subscribe: (h: any) => { snapshots.add(h.snapshot); h.snapshot({ entries: agents.map(agent => ({ agent })) }); }, release() {} } }),
++    ref: (id: string) => ({ status: "idle", subscribe: (fn: () => void) => { const set = listeners.get(id) ?? new Set(); set.add(fn); listeners.set(id, set); return () => set.delete(fn); }, send: async (text: string) => { sent.push({ id, text }); await sendOverrides.get(id)?.(text); }, timeline: {
++      refetch: async ({ projection }: any) => { reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { entries: timeline.get(id) ?? [], agent: { status: "idle" } }; },
++      subscribe: (fn: (event: any) => void) => { const set = timelineListeners.get(id) ?? new Set(); set.add(fn); timelineListeners.set(id, set); return Object.assign(() => set.delete(fn), { ready: subscriptionFailures.has(id) ? Promise.reject(new Error(`Subscription failed ${id}`)) : Promise.resolve() }); },
++    } }),
++  } };
++  prepare?.(rpc);
++  current = { paseo, rpc };
++  if (!Bridge) {
++    const loader = Module as any;
++    const original = loader._load;
++    const restore = t.mock.method(loader, "_load", function(this: unknown, id: string, ...args: unknown[]) {
++      if (id === "@getpaseo/plugin/client") return { usePaseo: () => current.paseo, useRpc: (r: any) => { if (!calls.has(r.name)) calls.set(r.name, (...values) => current.rpc[r.name](...values)); return calls.get(r.name); }, openExternalUrl: () => {} };
++      if (id === "@getpaseo/plugin/client/react-native") return { TextInput: input, Icon: () => null, Modal: Object.assign(() => null, { Content: element }) };
++      if (id === "react-native") return { Text: element, View: element, ScrollView: element, Pressable: element, Platform: { OS: "web" }, Keyboard: {}, PanResponder: { create: () => ({ panHandlers: {} }) } };
++      if (id === "./feedback-pressable") return { FeedbackPressable: element };
++      if (id === "./markdown-view") return { MarkdownView: ({ source }: { source: string }) => createElement("span", null, source) };
++      return original.call(this, id, ...args);
++    });
++    Bridge = require("../../client/bridge").Bridge;
++    restore.mock.restore();
++  }
++  const visible = (e: Element) => { for (let node: Element | null = e; node; node = node.parentElement) if ((node as HTMLElement).style?.display === "none") return false; return true; };
++  const find = (label: string) => [...container.querySelectorAll<HTMLElement>("[aria-label]")].find(e => e.getAttribute("aria-label") === label && visible(e));
++  const click = async (label: string) => { const node = find(label); assert.ok(node, `visible control: ${label}`); await act(async () => node.click()); };
++  const render = async () => { await act(async () => root.render(createElement(Bridge, { theme: { colors: {} }, layout: { compact, platform: "web" }, navigation: { openAgent() {} } }))); };
++  const text = () => [...container.querySelectorAll<HTMLElement>("div,span")].filter(e => visible(e) && !e.children.length).map(e => e.textContent).join("\n");
++  const type = async (label: string, value: string) => {
++    const node = find(label) as HTMLTextAreaElement; assert.ok(node, label);
++    await act(async () => {
++      Object.getOwnPropertyDescriptor(dom.window.HTMLTextAreaElement.prototype, "value")!.set!.call(node, value);
++      node.dispatchEvent(new dom.window.Event("input", { bubbles: true }));
++      node.dispatchEvent(new dom.window.Event("change", { bubbles: true }));
++    });
++  };
++  const poll = async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 15_000) timer.callback(); }); };
++  t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
++  await render();
++  return { sendOverrides, readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
++}
+diff --git a/spacedock-bridge/test/list-status.test.mts b/spacedock-bridge/test/list-status.test.mts
+new file mode 100644
+index 0000000..e06b410
+--- /dev/null
++++ b/spacedock-bridge/test/list-status.test.mts
+@@ -0,0 +1,25 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { itemStatus, filterCounts } from "../shared/list-status";
++
++ test("status priority covers every waiting kind in LIST-AND-DETAIL", () => {
++  const cases = [
++    [{ kind: "permission" }, "your-turn"], [{ kind: "gate" }, "your-turn"],
++    [{ kind: "gate", sent: true }, "waiting"], [{ kind: "gate", relayed: true }, "waiting"],
++    [{ kind: "gate", recorded: true }, "done"], [{ kind: "gate", closed: true }, "done"],
++    [{ kind: "ask" }, "your-turn"], [{ kind: "ask", source: "comms" }, "your-turn"],
++    [{ kind: "review", assigned: true }, "your-turn"], [{ kind: "review", assigned: false }, "your-turn"],
++    [{ kind: "ask", sourceState: "loading" }, "waiting"], [{ kind: "ask", sourceState: "failed" }, "check"],
++    [{ kind: "gate", tabClosed: true }, "your-turn"],
++    [{ kind: "gate", recorded: true, sent: true, sourceState: "failed" }, "check"],
++    [{ kind: "gate", recorded: true, sent: true }, "done"], [{ kind: "gate", overdue: true, relayed: true }, "check"],
++  ] as const;
++  for (const [input, expected] of cases) assert.equal(itemStatus(input).state, expected, JSON.stringify(input));
++ });
++ test("counts retain pending progress, exclude finished items and distinguish incomplete from zero", () => {
++  const items = [{ kind: "gate", sent: true }, { kind: "gate", relayed: true }, { kind: "gate", recorded: true }, { kind: "ask" }, { kind: "review", closed: true }] as const;
++  const sources = { fos: "loaded", gates: "loaded", reviews: "loaded", comms: "loaded" } as const;
++  assert.deepEqual(filterCounts(items, sources), { all: "3", permission: "0", review: "0", gate: "2", ask: "1" });
++  assert.deepEqual(filterCounts([], { ...sources, comms: "failed" }), { all: "?", permission: "0", review: "0", gate: "0", ask: "?" });
++  assert.equal(filterCounts(items, { ...sources, gates: "loading" }).gate, "2+");
++ });
+diff --git a/spacedock-bridge/test/question-continuity.test.mts b/spacedock-bridge/test/question-continuity.test.mts
+new file mode 100644
+index 0000000..1b28a89
+--- /dev/null
++++ b/spacedock-bridge/test/question-continuity.test.mts
+@@ -0,0 +1,106 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { mountBridge } from "./helpers/bridge-host.mjs";
++
++type Host = Awaited<ReturnType<typeof mountBridge>>;
++function detail(h: Host): string {
++  let node: Element | null = h.find("Message A FO")!;
++  while (node && !node.querySelector('[aria-label="Back to list"]')) node = node.parentElement;
++  assert.ok(node);
++  return node.textContent!;
++}
++
++for (const source of ["label", "reply"] as const) {
++  for (const compact of [false, true]) {
++    test(`one officer asks two questions in turn, keeping recipient and draft (${source}, ${compact ? 360 : 1440})`, async t => {
++      const h = await mountBridge(t, compact);
++      const agent = h.agents[0];
++      const firstAt = new Date(Date.now() - 900_000).toISOString();
++      const secondAt = new Date(Date.now() - 180_000).toISOString();
++      const questions = ["Which release window? (you)", "Which rollback plan? (you)"];
++      if (source === "label") agent.labels = { ...agent.labels, "next-owner": "captain", next: questions[0] } as any;
++      else Object.assign(agent, { requiresAttention: true, attentionReason: "finished" });
++      Object.assign(agent, { updatedAt: source === "label" ? firstAt : new Date(Date.now() - 30_000).toISOString(), attentionTimestamp: source === "label" ? firstAt : null });
++      h.timeline.set("a", [{ seqStart: 1, timestamp: firstAt, item: { type: "assistant_message", text: `Next: ${questions[0]}` } }]);
++      await h.publishAgents();
++      if (compact) await h.click("Board");
++      await h.click(`${questions[0]} — A FO`);
++      await h.type("Message A FO", "Keep this officer discussion draft");
++      const original = h.find("Message A FO") as HTMLTextAreaElement;
++      await h.click("Back to Commander");
++      agent.updatedAt = source === "label" ? secondAt : new Date().toISOString();
++      if (source === "label") { Object.assign(agent, { attentionTimestamp: secondAt }); Object.assign(agent.labels, { next: questions[1] }); }
++      h.timeline.set("a", [{ seqStart: 2, timestamp: secondAt, item: { type: "assistant_message", text: `Next: ${questions[1]}` } }]);
++      await h.publishAgents();
++      if (compact) await h.click("Board");
++      await h.click(`${questions[1]} — A FO`);
++      assert.ok(h.find("Message A FO") !== original, "a new question has a distinct retained detail");
++      assert.ok(original.isConnected, "the first question's surface stays mounted");
++      assert.match(detail(h), /Which rollback plan/);
++      assert.doesNotMatch(detail(h), /Which release window/);
++      assert.match(detail(h), /waiting 3m/, "the detail uses the new question's own time");
++      assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Keep this officer discussion draft");
++      await h.click("Back to Commander"); if (compact) await h.click("Board");
++      const second = h.container.querySelectorAll('[aria-label="Message A FO"]');
++      await h.click(`${questions[1]} — A FO`);
++      assert.equal(h.container.querySelectorAll('[aria-label="Message A FO"]').length, second.length, "reopening the same question reuses its detail");
++      await h.click("Send to A FO");
++      assert.deepEqual(h.sent, [{ id: "a", text: "Keep this officer discussion draft" }]);
++    });
++  }
++}
++
++for (const changed of ["message", "timestamp"] as const) {
++  test(`an identical repeated question gets its own identity and time from its ${changed}`, async t => {
++    const h = await mountBridge(t);
++    const agent = h.agents[0];
++    Object.assign(agent, { requiresAttention: true, attentionReason: "finished" });
++    const firstAt = new Date(Date.now() - 900_000).toISOString();
++    const secondAt = new Date(Date.now() - 180_000).toISOString();
++    const question = "Choose the window (you)";
++    h.timeline.set("a", [{ ...(changed === "message" ? { seqStart: 10 } : {}), timestamp: firstAt, item: { type: "assistant_message", text: `Next: ${question}` } }]);
++    await h.publishAgents(); await h.click(`${question} — A FO`);
++    const original = h.find("Message A FO");
++    await h.type("Message A FO", "Repeated question draft"); await h.click("Back to Commander");
++    agent.updatedAt = new Date().toISOString();
++    h.timeline.set("a", [{ ...(changed === "message" ? { seqStart: 11 } : {}), timestamp: changed === "message" ? firstAt : secondAt, item: { type: "assistant_message", text: `Next: ${question}` } }]);
++    await h.publishAgents(); await h.click(`${question} — A FO`);
++    assert.ok(h.find("Message A FO") !== original);
++    assert.match(detail(h), changed === "message" ? /waiting 15m/ : /waiting 3m/);
++    assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Repeated question draft");
++  });
++}
++
++
++test("a repeated label question uses its new attention timestamp", async t => {
++  const h = await mountBridge(t); const agent = h.agents[0];
++  const firstAt = new Date(Date.now() - 900_000).toISOString();
++  const secondAt = new Date(Date.now() - 180_000).toISOString();
++  agent.labels = { ...agent.labels, "next-owner": "captain", next: "Repeat the choice? (you)" } as any;
++  Object.assign(agent, { updatedAt: firstAt, attentionTimestamp: firstAt });
++  await h.publishAgents(); await h.click("Repeat the choice? (you) — A FO");
++  const original = h.find("Message A FO"); await h.click("Back to Commander");
++  Object.assign(agent, { updatedAt: secondAt, attentionTimestamp: secondAt });
++  await h.publishAgents(); await h.click("Repeat the choice? (you) — A FO");
++  assert.ok(h.find("Message A FO") !== original); assert.match(detail(h), /waiting 3m/);
++});
++
++for (const source of ["label", "reply"] as const) {
++  test(`an unrelated officer activity update keeps the same question detail (${source})`, async t => {
++    const h = await mountBridge(t); const agent = h.agents[0];
++    const timestamp = new Date(Date.now() - 180_000).toISOString();
++    const question = "Keep the question open? (you)";
++    if (source === "label") agent.labels = { ...agent.labels, "next-owner": "captain", next: question } as any;
++    else Object.assign(agent, { requiresAttention: true, attentionReason: "finished" });
++    Object.assign(agent, { updatedAt: timestamp });
++    h.timeline.set("a", [{ seqStart: 10, timestamp, item: { type: "assistant_message", text: `Next: ${question}` } }]);
++    await h.publishAgents(); await h.click(`${question} — A FO`);
++    const original = h.find("Message A FO");
++    await h.type("Message A FO", "Same-question draft"); await h.click("Back to Commander");
++    agent.updatedAt = new Date().toISOString();
++    await h.publishAgents(); await h.click(`${question} — A FO`);
++    assert.ok(h.find("Message A FO") === original, "officer activity is not question identity");
++    assert.match(detail(h), /waiting 3m/);
++    assert.equal((original as HTMLTextAreaElement).value, "Same-question draft");
++  });
++}
+diff --git a/spacedock-bridge/test/retained-readers.test.mts b/spacedock-bridge/test/retained-readers.test.mts
+new file mode 100644
+index 0000000..a5368f8
+--- /dev/null
++++ b/spacedock-bridge/test/retained-readers.test.mts
+@@ -0,0 +1,364 @@
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import { act } from "react";
++import { mountBridge } from "./helpers/bridge-host.mjs";
++
++type Host = Awaited<ReturnType<typeof mountBridge>>;
++const surfaces = [
++  { name: "gate briefing", mode: "gate", reader: "briefing", retry: "Retry briefing" },
++  { name: "gate conversation", mode: "gate", reader: "conversation", retry: "Retry conversation with A FO" },
++  { name: "assigned review conversation", mode: "review", reader: "conversation", retry: "Retry conversation with A FO" },
++  { name: "FO conversation", mode: "fo", reader: "conversation", retry: "Retry conversation with A FO" },
++  { name: "commander conversation", mode: "commander", reader: "conversation", retry: "Retry conversation with Comms officer" },
++  { name: "decision record", mode: "gate", reader: "claim", retry: "Retry decision record" },
++  { name: "relay status", mode: "gate", reader: "relay", retry: "Retry delivery status" },
++  { name: "commander question", mode: "commander", reader: "question", retry: "Retry conversation with Comms officer" },
++] as const;
++type Surface = typeof surfaces[number];
++const claim = { decisionId: "kept-decision", briefingId: "brief-a", slug: "a", foId: "a", decision: "approve", words: "准", at: Date.now() };
++const label = (s: Surface) => `Message ${s.mode === "commander" ? "Comms officer" : "A FO"}`;
++async function open(h: Host, s: Surface, shifted = false) {
++  if (s.mode === "review") {
++    h.rpc["reviews.read"] = async () => ({ requests: [{ owner: "org", repo: "a", number: 42, url: "https://github.com/org/a/pull/42", title: "Review the change", author: "author", firstSeenAt: 1 }], checkedAt: 1, nextCheckAt: null, error: null });
++    await h.pollGates(); await h.click(`Review the change — ${shifted ? "Shifted FO" : "A FO"}`); return;
++  }
++  if (s.mode === "commander") { await h.click("Commander"); return; }
++  if (s.mode === "fo") { await h.click("By FO"); await h.click(`Conversation with ${shifted ? "Shifted FO" : "A FO"}`); return; }
++  await h.click(`Approve a? — ${shifted ? "Shifted FO" : "A FO"}`);
++}
++async function away(h: Host, s: Surface) {
++  if (s.mode === "commander") await h.click("Approve b? — B FO");
++  else await h.click("Back to Commander");
++}
++function fault(h: Host, s: Surface) {
++  let broken = true;
++  if (s.reader === "briefing" || s.reader === "claim") {
++    const name = s.reader === "briefing" ? "gate.briefing" : "decisions.read";
++    const read = h.rpc[name];
++    h.rpc[name] = (input: unknown) => broken ? Promise.reject(new Error(`Unavailable ${s.name}`)) : read(input);
++  } else if (s.reader === "relay") h.readFailures.add("a:canonical");
++  else h.failures.add(s.mode === "commander" ? "co" : "a");
++  return () => { broken = false; h.failures.clear(); h.readFailures.clear(); };
++}
++
++for (const surface of surfaces) {
++  test(`retained surface table: ${surface.name} × identity changed upstream`, async t => {
++    const h = await mountBridge(t);
++    h.agents[0].labels = { ...h.agents[0].labels, task: "a" } as any;
++    const readBriefing = h.rpc["gate.briefing"];
++    const inputs: any[] = [];
++    h.rpc["gate.briefing"] = (input: any) => {
++      inputs.push(input);
++      return input.workflowDir === "/workflow-a" ? readBriefing(input) : Promise.resolve({ briefing: null, recorded: null, error: null });
++    };
++    if (surface.reader === "relay") h.claims.set("brief-a", claim);
++    await open(h, surface);
++    await h.type(label(surface), `Draft for ${surface.name}`);
++    const composer = h.find(label(surface));
++    await away(h, surface);
++    const gates = await h.rpc["gates.read"]({});
++    h.rpc["gates.read"] = async () => gates;
++    h.agents[0].labels["workflow-dir"] = "/moved-workflow";
++    h.agents[0].title = "Shifted FO";
++    h.rpc["coordinator.open"] = async () => ({ agentId: "replacement-co" });
++    await h.publishAgents(); await h.pollGates();
++    await open(h, surface, true); await h.poll();
++    assert.ok(h.find(label(surface)) === composer, "the retained recipient/title and composer must not change");
++    assert.equal((composer as HTMLTextAreaElement).value, `Draft for ${surface.name}`);
++    if (surface.mode === "gate") {
++      assert.ok(inputs.length > 1);
++      assert.ok(inputs.every(input => input.workflowDir === "/workflow-a" && input.slug === "a" && input.stage === "validation"));
++      assert.doesNotMatch(h.text(), /This gate is no longer open/);
++    }
++    await h.click(`Send to ${surface.mode === "commander" ? "Comms officer" : "A FO"}`);
++    assert.equal(h.sent.at(-1)?.id, surface.mode === "commander" ? "co" : "a");
++  });
++  for (const recovery of ["reactivate", "retry control"]) {
++    test(`retained surface table: ${surface.name} × failed read then ${recovery}`, async t => {
++      const h = await mountBridge(t);
++      if (surface.reader === "relay") h.claims.set("brief-a", claim);
++      const restore = fault(h, surface);
++      if (surface.mode === "commander") await h.refresh("co");
++      await open(h, surface);
++      await h.type(label(surface), `Keep ${surface.name}`);
++      const composer = h.find(label(surface));
++      if (recovery === "retry control") assert.ok(h.find(surface.retry), "each failed reader offers a visible retry");
++      else assert.match(h.text(), /Unavailable|Cannot read|Could not read/, "the reader actually failed before the detour");
++      restore();
++      h.timeline.set(surface.mode === "commander" ? "co" : "a", [{ seqStart: 1, item: { type: "assistant_message", text: "Recovered conversation" } }]);
++      if (surface.reader === "relay") h.timeline.set("a", [{ seqStart: 1, item: { type: "user_message", text: claim.decisionId } }]);
++      if (recovery === "reactivate") { await away(h, surface); await open(h, surface); }
++      else await h.click(surface.retry);
++      assert.ok(h.find(label(surface)) === composer, "the mounted composer is retained");
++      assert.equal((composer as HTMLTextAreaElement).value, `Keep ${surface.name}`);
++      assert.ok(!h.find(surface.retry), "successful read clears its own failure");
++      assert.doesNotMatch(h.text(), /Cannot read|Unavailable|Could not check/);
++      if (surface.reader === "relay") assert.match(h.text(), /Relayed to A FO/);
++      else if (surface.reader === "conversation" || surface.reader === "question") assert.match(h.text(), /Recovered conversation/);
++      else assert.ok(h.find("Choose 准"));
++      assert.equal(h.sent.length, 0, "retry only reads");
++    });
++  }
++}
++
++test("a gate uses its own source workflow even when first opened under another officer workflow", async t => {
++  const h = await mountBridge(t);
++  h.agents[0].labels = { ...h.agents[0].labels, task: "a" } as any;
++  const original = await h.rpc["gates.read"]({});
++  original.gates[0].workflowDir = "/source-workflow";
++  h.rpc["gates.read"] = async () => original;
++  const read = h.rpc["gate.briefing"];
++  const inputs: any[] = [];
++  h.rpc["gate.briefing"] = (input: any) => { inputs.push(input); return read(input); };
++  await h.publishAgents(); await h.pollGates(); await h.click("Approve a? — A FO");
++  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++  assert.ok(inputs.length >= 2);
++  assert.ok(inputs.every(input => input.workflowDir === "/source-workflow"));
++});
++
++
++for (const surface of surfaces) {
++  test(`retained surface table: ${surface.name} × unresolved read then reactivate`, async t => {
++    const h = await mountBridge(t);
++    if (surface.reader === "relay") h.claims.set("brief-a", claim);
++    let reject!: (error: Error) => void;
++    const blocked = () => new Promise((_resolve, fail) => { reject = fail; });
++    let restore: () => void;
++    if (surface.reader === "briefing" || surface.reader === "claim") {
++      const name = surface.reader === "briefing" ? "gate.briefing" : "decisions.read";
++      const read = h.rpc[name]; h.rpc[name] = blocked; restore = () => { h.rpc[name] = read; };
++    } else {
++      const key = `${surface.mode === "commander" ? "co" : "a"}:${surface.reader === "relay" ? "canonical" : "projected"}`;
++      h.readOverrides.set(key, blocked); restore = () => { h.readOverrides.delete(key); };
++      if (surface.mode === "commander") await h.refresh("co");
++    }
++    await open(h, surface); await h.type(label(surface), "Pending draft");
++    assert.ok(reject, "the unresolved reader has actually started");
++    assert.ok(h.find(surface.retry), "unresolved readers also expose retry");
++    await away(h, surface); restore(); await open(h, surface);
++    await act(async () => reject(new Error("Late rejected read")));
++    assert.ok(!h.find(surface.retry));
++    assert.doesNotMatch(h.text(), /Late rejected read/);
++    assert.equal((h.find(label(surface)) as HTMLTextAreaElement).value, "Pending draft");
++  });
++}
++
++for (const mode of ["gate", "fo", "commander"] as const) {
++  for (const failure of ["ready", "event"] as const) {
++    test(`retained subscription: ${mode} × ${failure} failure recovers with draft`, async t => {
++      const surface = surfaces.find(s => s.mode === mode && s.reader === "conversation")!;
++      const h = await mountBridge(t);
++      const id = mode === "commander" ? "co" : "a";
++      if (failure === "ready" && mode !== "commander") h.subscriptionFailures.add(id);
++      await open(h, surface); await h.type(label(surface), "Subscription draft");
++      if (failure === "event" || mode === "commander") await h.emitTimeline(id, "error");
++      assert.ok(h.find(surface.retry));
++      h.subscriptionFailures.delete(id);
++      h.timeline.set(id, [{ seqStart: 1, item: { type: "assistant_message", text: "Subscription recovered" } }]);
++      await away(h, surface); await open(h, surface);
++      assert.ok(!h.find(surface.retry));
++      assert.match(h.text(), /Subscription recovered/);
++      assert.equal((h.find(label(surface)) as HTMLTextAreaElement).value, "Subscription draft");
++    });
++  }
++}
++
++for (const recovery of ["reactivate", "retry control"]) {
++  test(`commander connection reader × failed read then ${recovery}`, async t => {
++    let broken = true;
++    const h = await mountBridge(t, false, rpc => {
++      rpc["coordinator.open"] = async () => { if (broken) throw new Error("Connection failed"); return { agentId: "co" }; };
++    });
++    assert.match(h.text(), /Connection failed/);
++    assert.ok(h.find("Retry commander connection"));
++    broken = false;
++    if (recovery === "reactivate") { await h.click("Approve a? — A FO"); await h.click("Back to Commander"); }
++    else await h.click("Retry commander connection");
++    await h.type("Message Comms officer", "Connected draft");
++    h.rpc["coordinator.open"] = async () => ({ agentId: "replacement-co" });
++    await h.click("Approve a? — A FO"); await h.click("Back to Commander");
++    assert.equal((h.find("Message Comms officer") as HTMLTextAreaElement).value, "Connected draft");
++    await h.click("Send to Comms officer"); assert.equal(h.sent.at(-1)?.id, "co");
++  });
++}
++
++
++for (const source of ["gates", "tasks", "review source"] as const) {
++  for (const recovery of ["reactivate", "retry control"]) {
++    test(`retained phone board: ${source} × failed read then ${recovery}`, async t => {
++      const h = await mountBridge(t, true);
++      h.agents[0].labels = { ...h.agents[0].labels, task: "a" } as any;
++      await h.publishAgents();
++      const name = source === "review source" ? "reviews.read" : `${source}.read`;
++      const read = h.rpc[name];
++      h.rpc[name] = async () => { throw new Error("Board source failed"); };
++      await h.pollGates(); await h.click("Board");
++      assert.ok(h.find(`Check ${source} again`));
++      h.rpc[name] = read;
++      if (recovery === "reactivate") { await h.click("Back to Commander"); await h.click("Board"); }
++      else await h.click(`Check ${source} again`);
++      assert.ok(!h.find(`Check ${source} again`));
++      assert.match(h.text(), /Board · 2/);
++    });
++  }
++}
++
++
++for (const source of ["gates", "tasks", "review source"] as const) {
++  for (const recovery of ["reactivate", "retry control"]) {
++    test(`retained phone board: ${source} × unresolved read then ${recovery}`, async t => {
++      const h = await mountBridge(t, true);
++      h.agents[0].labels = { ...h.agents[0].labels, task: "a" } as any;
++      await h.publishAgents();
++      const name = source === "review source" ? "reviews.read" : `${source}.read`;
++      const read = h.rpc[name];
++      const rejects: ((error: Error) => void)[] = [];
++      h.rpc[name] = () => new Promise((_resolve, reject) => rejects.push(reject));
++      await h.pollGates(); await h.click("Board");
++      assert.ok(rejects.length);
++      assert.ok(h.find(`Check ${source} again`));
++      h.rpc[name] = read;
++      if (recovery === "reactivate") { await h.click("Back to Commander"); await h.click("Board"); }
++      else await h.click(`Check ${source} again`);
++      await act(async () => { for (const reject of rejects) reject(new Error("Late board read failed")); });
++      assert.ok(!h.find(`Check ${source} again`));
++      assert.match(h.text(), /Board · 2/);
++    });
++  }
++}
++
++for (const recovery of ["reactivate", "retry control"]) {
++  test(`retained phone board: FO question reader × failed read then ${recovery}`, async t => {
++    const h = await mountBridge(t, true);
++    Object.assign(h.agents[0], { requiresAttention: true, attentionReason: "finished" });
++    h.readFailures.add("a:projected");
++    await h.publishAgents(); await h.click("Board");
++    assert.ok(h.find("Check FOs again"));
++    h.readFailures.clear();
++    if (recovery === "reactivate") { await h.click("Back to Commander"); await h.click("Board"); }
++    else await h.click("Check FOs again");
++    assert.ok(!h.find("Check FOs again"));
++    assert.match(h.text(), /Board · 2/);
++  });
++}
++
++
++for (const surface of surfaces) {
++  test(`retained surface table: ${surface.name} × loaded value changes then reactivate`, async t => {
++    const h = await mountBridge(t);
++    if (surface.reader === "relay" || surface.reader === "claim") h.claims.set("brief-a", claim);
++    await open(h, surface); await h.type(label(surface), "Freshness draft");
++    const composer = h.find(label(surface));
++    await away(h, surface);
++    if (surface.reader === "briefing") {
++      const read = h.rpc["gate.briefing"];
++      h.rpc["gate.briefing"] = async (input: unknown) => { const reply = await read(input); return { ...reply, briefing: { ...reply.briefing, artifacts: [{ summary: "Fresh briefing", markdown: "Fresh evidence" }] } }; };
++    } else if (surface.reader === "claim") h.claims.delete("brief-a");
++    else h.timeline.set(surface.mode === "commander" ? "co" : "a", [{ seqStart: 1, item: { type: surface.reader === "relay" ? "user_message" : "assistant_message", text: surface.reader === "relay" ? claim.decisionId : "Next: Fresh conversation (you)" } }]);
++    await open(h, surface);
++    assert.ok(h.find(label(surface)) === composer, "refresh preserves the mounted surface");
++    assert.equal((composer as HTMLTextAreaElement).value, "Freshness draft");
++    if (surface.reader === "briefing") assert.match(h.text(), /Fresh briefing/);
++    else if (surface.reader === "claim") { assert.ok(h.find("Choose 准"), "released claim no longer blocks a decision"); assert.doesNotMatch(h.text(), /Sent to the comms officer/); }
++    else if (surface.reader === "relay") assert.match(h.text(), /Relayed to A FO/);
++    else assert.match(h.text(), /Fresh conversation/);
++    if (surface.reader === "question") assert.match(h.text(), /Board · 3/);
++  });
++}
++
++test("retained surface table: claim released by another client then reopen", async t => {
++  const h = await mountBridge(t);
++  h.claims.set("brief-a", claim);
++  await h.click("Approve a? — A FO");
++  assert.match(h.text(), /Sent to the comms officer/);
++  await h.type("Message A FO", "Keep released-claim draft");
++  await h.click("Back to Commander"); h.claims.delete("brief-a");
++  await h.click("Approve a? — A FO");
++  assert.ok(h.find("Choose 准"));
++  assert.doesNotMatch(h.text(), /Sent to the comms officer|Relayed to A FO/);
++  assert.equal((h.find("Message A FO") as HTMLTextAreaElement).value, "Keep released-claim draft");
++  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++  assert.equal(h.sent.length, 1);
++});
++
++for (const oldRecord of [null, { ...claim, decisionId: "older-external-claim" }]) {
++  test(`retained surface table: refresh read overlaps a local send (${oldRecord ? "old claim" : "null"}); the local send wins`, async t => {
++    const h = await mountBridge(t);
++    await h.click("Approve a? — A FO"); await h.click("Back to Commander");
++    let finishRead!: (reply: { record: typeof oldRecord }) => void;
++    h.rpc["decisions.read"] = () => new Promise(resolve => { finishRead = resolve; });
++    await h.click("Approve a? — A FO");
++    assert.ok(finishRead, "a loaded claim is refreshed on reopen");
++    let finishOpen!: (reply: { agentId: string }) => void;
++    h.rpc["coordinator.open"] = () => new Promise(resolve => { finishOpen = resolve; });
++    await h.click("Choose 暫緩"); await h.type("Reason for 暫緩", "New local reason");
++    await h.click("Confirm 暫緩 via comms officer");
++    assert.ok(finishOpen, "the local submission is in progress");
++    const local = h.claims.get("brief-a");
++    await act(async () => finishRead({ record: oldRecord }));
++    assert.match(h.text(), /New local reason/);
++    assert.ok(!h.find("Choose 准"));
++    assert.doesNotMatch(h.text(), /older-external-claim/);
++    await h.click("Back to Commander"); await h.click("Approve a? — A FO");
++    assert.ok(!h.find("Choose 准"), "reactivation during a send does not clear its claim");
++    const finishDuringSend = finishRead;
++    await act(async () => finishOpen({ agentId: "co" }));
++    await act(async () => finishDuringSend({ record: oldRecord }));
++    assert.ok(!h.find("Choose 准"), "a read started during the send stays stale after completion");
++    assert.match(h.text(), /New local reason/);
++    assert.equal(h.sent.length, 1);
++    assert.equal(h.claims.get("brief-a").decisionId, local.decisionId);
++    assert.match(h.sent[0].text, /New local reason/);
++  });
++}
++
++test("reactivation refreshes gate closure and recorded results without reviving recorded actions", async t => {
++  const h = await mountBridge(t); await h.click("Approve a? — A FO");
++  await h.click("Back to Commander");
++  h.records.set("brief-a", { decision: "revise", reason: "Recorded by another client" });
++  await h.click("Approve a? — A FO");
++  assert.match(h.text(), /Recorded: revise/); assert.ok(!h.find("Choose 准"));
++  await h.click("Back to Commander"); h.records.delete("brief-a"); h.claims.delete("brief-a");
++  await h.click("Approve a? — A FO");
++  assert.match(h.text(), /Recorded: revise/); assert.ok(!h.find("Choose 准"));
++});
++
++for (const source of ["gates", "tasks", "review source"]) {
++  test(`retained phone board: ${source} × loaded value changes then reactivate`, async t => {
++    const h = await mountBridge(t, true);
++    h.agents[0].labels = { ...h.agents[0].labels, task: "a" } as any; await h.publishAgents();
++    await h.click("Board"); await h.click("Back to Commander");
++    const name = source === "review source" ? "reviews.read" : `${source}.read`;
++    const read = h.rpc[name]; let calls = 0;
++    h.rpc[name] = (input: unknown) => { ++calls; return read(input); };
++    await h.click("Board"); assert.ok(calls > 0, "a successful live source is refreshed on return too");
++  });
++}
++
++
++for (const result of ["closed", "recorded"] as const) {
++  test(`retained surface table: briefing refresh overlaps a local send (${result})`, async t => {
++    const h = await mountBridge(t); await h.click("Approve a? — A FO"); await h.click("Back to Commander");
++    const read = h.rpc["gate.briefing"]; let calls = 0;
++    let finishRead!: (value: any) => void;
++    h.rpc["gate.briefing"] = (input: unknown) => ++calls === 1 ? new Promise(resolve => { finishRead = resolve; }) : read(input);
++    await h.click("Approve a? — A FO"); assert.ok(finishRead);
++    let finishOpen!: (value: { agentId: string }) => void;
++    h.rpc["coordinator.open"] = () => new Promise(resolve => { finishOpen = resolve; });
++    await h.click("Choose 准"); await h.click("Confirm 准 via comms officer"); assert.ok(finishOpen);
++    await act(async () => finishRead({ briefing: null, error: null, recorded: result === "recorded" ? { decision: "approve", reason: "Authoritative recorded result" } : null }));
++    assert.ok(!h.find("Choose 准"));
++    assert.match(h.text(), result === "recorded" ? /Authoritative recorded result/ : /Board · 2/);
++    await act(async () => finishOpen({ agentId: "co" }));
++    assert.equal(h.sent.length, 1);
++    if (result === "recorded") { await h.click("Back to Commander"); await h.click("Approve a? — A FO"); assert.ok(!h.find("Choose 准")); }
++  });
++}
++
++test("an authoritative released claim clears cached local sent progress on reopen", async t => {
++  const h = await mountBridge(t); await h.click("Approve a? — A FO");
++  await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
++  await h.click("Back to Commander"); h.claims.delete("brief-a");
++  await h.click("Approve a? — A FO");
++  assert.ok(h.find("Choose 准")); assert.doesNotMatch(h.text(), /Sent to the comms officer|Sent · not recorded yet/);
++});

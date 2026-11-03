@@ -1,0 +1,33 @@
+✖ status priority covers every waiting kind in LIST-AND-DETAIL (1.670667ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (1.817875ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.620833
+
+✖ failing tests:
+
+test at test/list-status.test.mts:1:127
+✖ status priority covers every waiting kind in LIST-AND-DETAIL (1.670667ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"ask","sourceState":"failed"}
+  + actual - expected
+  
+  + 'your-turn'
+  - 'check'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.r9-validation-mutations-ipfnl54f/status/test/list-status.test.mts:17:49)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'your-turn',
+    expected: 'check',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

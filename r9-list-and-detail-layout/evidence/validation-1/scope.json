@@ -1,0 +1,80 @@
+{
+  "candidate": "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+  "base": "316c9eff7bd6ce2f5e15db7382dea1aba1197a26",
+  "compared": [
+    {
+      "file": "spacedock-bridge/shared/decide.ts",
+      "unchanged": true,
+      "base_sha256": "1e8324af45f39af9d703c2149863153f74883289f59f3fa1175ab2c263545740",
+      "candidate_sha256": "1e8324af45f39af9d703c2149863153f74883289f59f3fa1175ab2c263545740"
+    },
+    {
+      "file": "spacedock-bridge/shared/relay.ts",
+      "unchanged": true,
+      "base_sha256": "d11a941b78b7313f2928a10f93ab690584a37ac469829857b53902f847e1fcbc",
+      "candidate_sha256": "d11a941b78b7313f2928a10f93ab690584a37ac469829857b53902f847e1fcbc"
+    },
+    {
+      "file": "spacedock-bridge/server/decisions.ts",
+      "unchanged": true,
+      "base_sha256": "06d63f7cd97c83f6364bed8f790856e667ae9c86d1767cbd345def08c8ff4693",
+      "candidate_sha256": "06d63f7cd97c83f6364bed8f790856e667ae9c86d1767cbd345def08c8ff4693"
+    },
+    {
+      "file": "spacedock-bridge/client/use-draft.ts",
+      "unchanged": true,
+      "base_sha256": "2a29e9f67d38c592328e60cca80254a9ab1221efae3f21cce20557ee30d5ece6",
+      "candidate_sha256": "2a29e9f67d38c592328e60cca80254a9ab1221efae3f21cce20557ee30d5ece6"
+    },
+    {
+      "file": "spacedock-bridge/shared/control.ts",
+      "unchanged": true,
+      "base_sha256": "5122d6580d14f92a0b9490a40735b4a32ea1fbc1a855db963400723eb5ca2354",
+      "candidate_sha256": "5122d6580d14f92a0b9490a40735b4a32ea1fbc1a855db963400723eb5ca2354"
+    },
+    {
+      "file": "spacedock-bridge/server/control.ts",
+      "unchanged": true,
+      "base_sha256": "4f01e0fae43954dfd9ede0acf4910439a83afa0727b659b84acaba75f416fe6b",
+      "candidate_sha256": "4f01e0fae43954dfd9ede0acf4910439a83afa0727b659b84acaba75f416fe6b"
+    },
+    {
+      "file": "spacedock-bridge/server/coordinator.ts",
+      "unchanged": true,
+      "base_sha256": "665a87c7093e1a9cceb4a6d442035e47adaa12f689172caefc4b76f437807e0e",
+      "candidate_sha256": "665a87c7093e1a9cceb4a6d442035e47adaa12f689172caefc4b76f437807e0e"
+    },
+    {
+      "file": "spacedock-bridge/shared/coordinator.ts",
+      "unchanged": true,
+      "base_sha256": "7165691701059215f8c05208f1555679ebe288122c027b8a96acebe49aae175d",
+      "candidate_sha256": "7165691701059215f8c05208f1555679ebe288122c027b8a96acebe49aae175d"
+    },
+    {
+      "file": "spacedock-bridge/paseo-plugin.json",
+      "unchanged": true,
+      "base_sha256": "6639ca57b44d2f6873fe37165bbf6ed154791cc413b1eb01e52c8388f0614693",
+      "candidate_sha256": "6639ca57b44d2f6873fe37165bbf6ed154791cc413b1eb01e52c8388f0614693"
+    },
+    {
+      "file": "spacedock-bridge/shared/composer.ts",
+      "unchanged": true,
+      "base_sha256": "f766ea6ab90a9366bf47c61f89b2393462c7b422ddcad1c865cef5632d58a8ef",
+      "candidate_sha256": "f766ea6ab90a9366bf47c61f89b2393462c7b422ddcad1c865cef5632d58a8ef"
+    },
+    {
+      "file": "spacedock-bridge/shared/decision-composer.ts",
+      "unchanged": true,
+      "base_sha256": "9721081f9e342e9e96861973bdffdaf8b1ac9d6b3ad0c370bf40b16bb2a2d594",
+      "candidate_sha256": "9721081f9e342e9e96861973bdffdaf8b1ac9d6b3ad0c370bf40b16bb2a2d594"
+    }
+  ],
+  "added_persistence_matches": [
+    "+import { mkdtemp, mkdir, writeFile, rm } from \"node:fs/promises\";",
+    "+  await writeFile(join(root, \"README.md\"), \"---\\ncommissioned-by: spacedock@0.27.3\\n---\\n\");",
+    "+  await writeFile(join(root, \"bin/spacedock\"), `#!${process.execPath}\\nconsole.log(require('node:fs').readFileSync(${JSON.stringify(source)},'utf8'));\\n`, { mode: 0o755 });",
+    "+  await writeFile(join(second, \"README.md\"), \"---\\ncommissioned-by: spacedock@0.27.3\\n---\\n\");",
+    "+    await writeFile(source, JSON.stringify({ entities: [{ slug: \"task\", title: \"Same task\", status: stage, \"gate-readiness\": \"awaiting-captain\" }] }));",
+    "+    for (const workflow of [root, second]) await writeFile(join(workflow, \".spacedock-state/task.md\"), \"---\\n\" + stringify({ gates: { records: [{ stage, attempts: [{ briefing: { id: briefingId, digest: \"digest\", \"room-ref\": \"room\" } }] }] } }) + \"---\\n\");"
+  ]
+}

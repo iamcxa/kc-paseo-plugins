@@ -1,0 +1,9 @@
+STEP 1 PASS: exact candidate and clean assigned branch
+STEP 2 PASS: npm ci, typecheck, 254 tests / 0 failed
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/validation-1/acceptance.py", line 23, in <module>
+    run('capture-'+str(width),['python3',source/'combined_capture.py','--worktree',wt,'--output',out/str(width),'--paseo','/Users/kent/.local/bin/paseo','--browser','/Users/kent/.npm-global/bin/agent-browser','--web-dist','/Applications/Paseo.app/Contents/Resources/app-dist','--probe','--width',width])
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/validation-1/acceptance.py", line 13, in run
+    assert r.returncode==0,(name,r.returncode,str(out/(name+'.log')))
+           ^^^^^^^^^^^^^^^
+AssertionError: ('capture-1440', 1, '/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-list-and-detail-layout/evidence/validation-1/acceptance-run/capture-1440.log')
