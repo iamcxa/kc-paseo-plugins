@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r9-list-and-detail-layout:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r9-list-and-detail-layout-validation-1
+              briefing:
+                id: briefing:r9-list-and-detail-layout:validation:attempt-1:revision-1
+                digest: sha256:4ee5445f2b53a33a3fb6dbb56d679787130d03b92ac3c1aac39cedfa1c9955de
+                room-ref: ./r9-list-and-detail-layout/review/validation/briefing-1
 started: 2026-11-03T10:37:18Z
 worktree: .worktrees/spacedock-ensign-r9-list-and-detail-layout
 pr: 68
