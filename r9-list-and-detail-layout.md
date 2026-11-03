@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 9 — narrow list beside a wide detail, with state kept across reopen and the comms officer
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); design accepted 2026-11-03: 「照這個方向做可以」'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Round 9 of the POC flywheel under ADR 0008 builds the layout and navigation of the design the Captain accepted in round 8: a narrow list beside a wide detail, grouped, one status per row, filters with counts, and switching items without losing drafts, choices or progress.
