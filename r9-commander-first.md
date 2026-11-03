@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r9-commander-first:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r9-commander-first-validation-1
+              briefing:
+                id: briefing:r9-commander-first:validation:attempt-1:revision-1
+                digest: sha256:687aa4801dd1837379cd0df0c7ed96f43aac22183a4b6a857ee861fa14eee9ad
+                room-ref: ./r9-commander-first/review/validation/briefing-1
 started: 2026-11-03T10:51:48Z
 worktree: .worktrees/spacedock-ensign-r9-commander-first
 ---
