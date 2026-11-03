@@ -210,6 +210,8 @@ Unified gate naming with one shared gateKey(workflow, slug, stage, briefing/atte
 
 - Pre-gate team pass 1 on a30049f: design director NOT SATISFIED, block — the board headline "Waiting on you · 7" counts items waiting on someone else (sent, relayed); make it neutral, e.g. "Board · 7", keeping per-row status and counts; layout, Done section and host differences accepted. Picky B NOT SATISFIED (annoys, the same headline). Picky A NOT SATISFIED (annoys, the same headline; and an FO with nothing waiting is labelled "QUESTION" and "waiting 9m" in its detail). FO authorizes one repair (cycle 6). Under ADR 0008 a second unsatisfied team pass on this round stops and asks the Captain.
 
+- Roborev:1445 on fdd9081: High — decision claims match by briefing id only (the same finding as 1441, now rated High, no new evidence of the trigger); it stays under the Captain's known-risk ruling in `### FO declines`. Medium — a retained question detail is keyed by officer only, so a later question from the same officer opens with the first question's frozen title. FO authorizes cycle 7 for the Medium.
+
 ### FO declines
 
 - roborev:1441 on a30049f2a2ef57c2b01a6da5592a246951fb4bc3 — decision records and claims match by briefing id only, so two workflows with the same task slug at the same stage would share a claim. Declined as a known risk by the Captain's ruling 2026-11-03, asked 「決定紀錄只用簡報編號辨認（兩個工作流程有同名任務、同階段時會混淆），這輪要怎麼處理？」, answered 「先記成已知風險 (Recommended)」. Pre-existing at 316c9ef (server/decisions.ts). Would become Material: when two watched workflows hold open gates with the same task slug and stage at the same time, or a card shows a decision as sent that the Captain did not make.
