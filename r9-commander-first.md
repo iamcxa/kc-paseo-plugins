@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-03T10:51:48Z
+worktree: .worktrees/spacedock-ensign-r9-commander-first
 ---
 
 Before round 9's code continues, redesign the accepted list-beside-wide-detail layout so the comms officer is the commander the Captain talks to first, with FO conversations and progress as drill-downs.
