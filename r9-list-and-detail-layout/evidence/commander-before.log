@@ -1,0 +1,122 @@
+✖ reopen keeps the confirmed choice and reason (229.571209ms)
+✖ sent and relayed progress survives a comms detour (34.993875ms)
+✖ a recorded item never becomes actionable again (33.803875ms)
+✖ switching items keeps separate drafts and rejects stale actions (29.679875ms)
+✖ errors and progress stay with their own source and owner (222.362542ms)
+✖ every drill-down returns to the commander in one step keeping drafts and progress (18.939416ms)
+✖ an FO with nothing waiting is reachable from By FO (18.645583ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1309.320917
+
+✖ failing tests:
+
+test at test/bridge-continuity.test.mts:1:404
+✖ reopen keeps the confirmed choice and reason (229.571209ms)
+  AssertionError [ERR_ASSERTION]: visible control: Commander
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at detour (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:7:80)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:16:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:858
+✖ sent and relayed progress survives a comms detour (34.993875ms)
+  AssertionError [ERR_ASSERTION]: visible control: Choose 准
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:24:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:1330
+✖ a recorded item never becomes actionable again (33.803875ms)
+  AssertionError [ERR_ASSERTION]: visible control: Choose 准
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:36:27)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:1945
+✖ switching items keeps separate drafts and rejects stale actions (29.679875ms)
+  AssertionError [ERR_ASSERTION]: visible control: Choose 暫緩
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:51:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:2787
+✖ errors and progress stay with their own source and owner (222.362542ms)
+  AssertionError [ERR_ASSERTION]: visible control: Commander
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:71:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:3402
+✖ every drill-down returns to the commander in one step keeping drafts and progress (18.939416ms)
+  AssertionError [ERR_ASSERTION]: phone opens on the commander
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:85:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:1:4526
+✖ an FO with nothing waiting is reachable from By FO (18.645583ms)
+  AssertionError [ERR_ASSERTION]: visible control: By FO
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/helpers/bridge-host.mts:80:77)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/spacedock-bridge/test/bridge-continuity.test.mts:107:41)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
