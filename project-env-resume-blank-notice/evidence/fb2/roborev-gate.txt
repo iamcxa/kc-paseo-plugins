@@ -1,0 +1,11 @@
+findings on ae46e7fc2; evidence=roborev:1446
+## Review Findings
+
+- **Severity**: Low
+- **Location**: project-env/server/missing-variables-notice.ts:38–41
+- **Problem**: `current` and `shown` have no cleanup path. Every opening adds an agent to `current`, even with no failures, while `drop` and `prune` only clear `pending`. Memory therefore grows with every agent handled during the plugin’s lifetime.
+- **Fix**: Remove unnecessary empty entries and clean up archived agents, while preserving failure history across temporary close/resume cycles.
+
+## Summary
+
+The change adds resumed-agent failure notices and tracks recovery to allow renewed failures to be reported.
