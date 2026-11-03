@@ -31,15 +31,16 @@ export async function mountBridge(t: TestContext, compact = false) {
   const timeline = new Map<string, any[]>([["co", []], ["a", []], ["b", []]]);
   const failures = new Set<string>();
   const sent: { id: string; text: string }[] = [];
-  const briefing = (slug: string) => ({ briefingId: `brief-${slug}`, digest: `digest-${slug}`, slug, stage: "validation", question: `Approve ${slug}?`, artifacts: [{ summary: `Summary ${slug}`, markdown: "Evidence" }] });
+  const attempts = new Map<string, { stage: string; briefingId: string; title: string }>();
+  const briefing = (slug: string) => ({ briefingId: `brief-${slug}`, digest: `digest-${slug}`, slug, stage: "validation", question: `Approve ${slug}?`, artifacts: [{ summary: `Summary ${slug}`, markdown: "Evidence" }], ...attempts.get(slug) });
   let deferred: ((value: any) => void) | null = null;
   let hold = false;
   const rpc: any = {
     "coordinator.open": async () => ({ agentId: "co" }),
     "tasks.read": async () => ({ tasks: {}, failedWorkflowDirs: [] }),
-    "gates.read": async () => ({ gates: agents.filter(a => a.id !== "idle").map(a => ({ ...briefing(a.id), title: `Approve ${a.id}?`, workflowDir: a.labels["workflow-dir"] })), failedWorkflowDirs: [] }),
+    "gates.read": async () => ({ gates: agents.filter(a => a.id !== "idle").map(a => ({ ...briefing(a.id), title: attempts.get(a.id)?.title ?? `Approve ${a.id}?`, workflowDir: a.labels["workflow-dir"] })), failedWorkflowDirs: [] }),
     "reviews.read": async () => ({ requests: [], checkedAt: 1, nextCheckAt: null, error: null }),
-    "gate.briefing": async ({ slug }: any) => { if (hold) { hold = false; return new Promise(resolve => { deferred = resolve; }); } return { briefing: briefing(slug), recorded: records.get(slug) ?? null, error: null }; },
+    "gate.briefing": async ({ slug, stage, briefingId }: any) => { if (hold) { hold = false; return new Promise(resolve => { deferred = resolve; }); } return { briefing: briefing(slug).stage === stage ? briefing(slug) : null, recorded: records.get(briefingId) ?? records.get(slug) ?? null, error: null }; },
     "decision.read": async ({ briefingId }: any) => ({ record: claims.get(briefingId) ?? null }),
     "decision.claim": async (record: any) => { const full = { ...record, at: Date.now() }; claims.set(record.briefingId, full); return { claimed: true, record: full }; },
     "decision.release": async () => ({}),
@@ -91,5 +92,5 @@ export async function mountBridge(t: TestContext, compact = false) {
   const poll = async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 15_000) timer.callback(); }); };
   t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
   await render();
-  return { deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
+  return { deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
 }

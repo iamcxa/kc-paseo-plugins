@@ -108,25 +108,25 @@ export async function readGateBriefingHandler({
 
 const preparedCache = new Map<string, string>();
 
-// When the gate's open briefing room was first committed, i.e. when the gate started waiting.
-export async function gatePreparedAt(workflowDir: string, slug: string, stage: string): Promise<string | undefined> {
-  if (!SLUG.test(slug)) return undefined;
+// Keep the open attempt identity even when its waiting time cannot be read.
+export async function gateIdentity(workflowDir: string, slug: string, stage: string): Promise<{ briefingId?: string; preparedAt?: string }> {
+  if (!SLUG.test(slug)) return {};
   try {
     const state = await stateDir(workflowDir);
     const path = await entityPath(state, slug);
     const attempt = findOpenAttempt(frontmatterOf(await readFile(path, "utf8")), stage);
-    if (!attempt) return undefined;
+    if (!attempt) return {};
     const key = `${workflowDir}\n${attempt.briefingId}`;
     const known = preparedCache.get(key);
-    if (known) return known;
+    if (known) return { briefingId: attempt.briefingId, preparedAt: known };
     const index = join(resolve(dirname(path), attempt.roomRef), "index.json");
     const { stdout } = await run("git", ["-C", state, "log", "--diff-filter=A", "-1", "--format=%cI", "--", index], {
       timeout: 15_000,
-    });
+    }).catch(() => ({ stdout: "" }));
     const at = stdout.trim() ? new Date(stdout.trim()).toISOString() : undefined;
     if (at) preparedCache.set(key, at);
-    return at;
+    return { briefingId: attempt.briefingId, preparedAt: at };
   } catch {
-    return undefined;
+    return {};
   }
 }

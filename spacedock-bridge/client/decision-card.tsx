@@ -71,24 +71,29 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
       workflowDir: fo.workflowDir,
       slug: gate.slug,
       stage: gate.stage,
-      briefingId: briefing?.briefingId,
+      briefingId: gate.briefingId ?? briefing?.briefingId,
+    }).catch(error => {
+      if (request === readRequest.current) setProblem(String(error));
+      return null;
     });
+    if (!answer) return null;
     if (request !== readRequest.current) return answer;
+    const replaced = Boolean(gate.briefingId && answer.briefing && answer.briefing.briefingId !== gate.briefingId);
     setRecorded(previous =>
-      answer.recorded && (!answer.briefing || answer.briefing.briefingId === briefing?.briefingId)
+      answer.recorded && (replaced || !answer.briefing || answer.briefing.briefingId === (gate.briefingId ?? briefing?.briefingId))
         ? answer.recorded
         : previous,
     );
-    if (answer.briefing) setBriefing(answer.briefing);
-    setClosed(!answer.briefing && !answer.error);
+    if (answer.briefing && !replaced) setBriefing(answer.briefing);
+    setClosed(replaced || !answer.briefing && !answer.error);
     setProblem(answer.error ?? "");
     return answer;
   }, [callBriefing, fo.workflowDir, gate, briefing?.briefingId]);
 
   useEffect(() => {
-    void load().catch(error => setProblem(String(error)));
+    if (visible && (!briefing || problem)) void load().catch(error => setProblem(String(error)));
     return () => { ++readRequest.current; };
-  }, [fo.id, fo.workflowDir, gate?.slug, gate?.stage]);
+  }, [visible, fo.id, fo.workflowDir, gate?.slug, gate?.stage, gate?.briefingId]);
 
   useEffect(() => {
     if (!briefing) return;
@@ -122,7 +127,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
   }, [claim, paseo]);
 
   useEffect(() => {
-    if ((!sent && !claim) || recorded) return;
+    if (!briefing || recorded || closed) return;
     void checkRelay().catch(() => setProblem("Could not check the relay to this FO."));
     const timer = setInterval(() => {
       setNow(Date.now());
@@ -130,7 +135,7 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
       void checkRelay().catch(() => setProblem("Could not check the relay to this FO."));
     }, 15_000);
     return () => clearInterval(timer);
-  }, [sent, claim, recorded, load, checkRelay]);
+  }, [briefing, recorded, closed, load, checkRelay]);
 
   const target = JSON.stringify([fo.id, fo.workflowDir, gate?.slug, gate?.stage, briefing?.briefingId, briefing?.digest]);
   const currentTarget = useRef(target);
@@ -153,8 +158,9 @@ export function DecisionCard({ theme, layout, navigation, fo, gate, onBack, acti
       const answer = await callBriefing({ workflowDir: fo.workflowDir, slug: gate.slug, stage: gate.stage });
       if (!answer.briefing) return answer.error ?? "This gate is no longer open.";
       if (answer.briefing.briefingId !== briefing.briefingId) {
-        setBriefing(answer.briefing);
-        return `The briefing changed (${briefing.briefingId} → ${answer.briefing.briefingId}). Read the new one before deciding; your draft is kept.`;
+        if (gate.briefingId) setClosed(true);
+        else setBriefing(answer.briefing);
+        return `The briefing changed (${briefing.briefingId} → ${answer.briefing.briefingId}). Open the current gate from the board before deciding; your draft is kept.`;
       }
       return null;
     },

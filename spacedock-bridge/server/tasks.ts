@@ -12,7 +12,7 @@ import {
   readGates,
   readTasks,
 } from "../shared/tasks";
-import { gatePreparedAt } from "./gate";
+import { gateIdentity } from "./gate";
 
 const run = promisify(execFile);
 const FRESH_MS = 30_000;
@@ -142,7 +142,7 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
           async (gate: AwaitingGate) => ({
             workflowDir,
             ...gate,
-            preparedAt: await gatePreparedAt(workflowDir, gate.slug, gate.stage),
+            ...await gateIdentity(workflowDir, gate.slug, gate.stage),
           }),
         ),
       ),
@@ -150,7 +150,7 @@ async function readGatesInner(workflowDirs: readonly string[], fresh = false) {
   );
   const seen = new Set<string>();
   const gates = lists.flat().filter((gate) => {
-    const key = `${gate.slug}\n${gate.title}`;
+    const key = JSON.stringify([gate.workflowDir, gate.slug, gate.stage, gate.briefingId]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

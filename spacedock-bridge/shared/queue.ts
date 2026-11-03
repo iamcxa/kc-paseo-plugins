@@ -41,7 +41,7 @@ export function buildQueue(
       items.push({ key: `p:${row.id}`, kind: "permission", title: row.permission, detail: "", since, fo: row });
     for (const gate of row.gates)
       items.push({
-        key: `g:${row.workflowDir}:${gate.slug}`,
+        key: JSON.stringify(["g", gate.workflowDir ?? row.workflowDir, gate.slug, gate.stage, gate.briefingId ?? gate.preparedAt ?? null]),
         kind: "gate",
         title: gate.title || gate.slug,
         detail: `gate · ${gate.stage}`,

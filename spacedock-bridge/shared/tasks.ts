@@ -23,6 +23,8 @@ export interface AwaitingGate {
   title: string;
   stage: string;
   preparedAt?: string;
+  briefingId?: string;
+  workflowDir?: string;
 }
 
 export function parseAwaitingGates(output: string): AwaitingGate[] {
@@ -70,6 +72,7 @@ export const readGates = defineRpc({
         title: z.string(),
         stage: z.string(),
         preparedAt: z.string().optional(),
+        briefingId: z.string().optional(),
       }),
     ),
   }),

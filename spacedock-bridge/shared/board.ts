@@ -201,6 +201,8 @@ export function attachGates(
       title: gate.title,
       stage: gate.stage,
       preparedAt: gate.preparedAt,
+      workflowDir: gate.workflowDir,
+      ...(gate.briefingId ? { briefingId: gate.briefingId } : {}),
     });
   }
   return [...byId.values()]
