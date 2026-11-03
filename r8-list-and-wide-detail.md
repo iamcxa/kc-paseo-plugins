@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 8 — design round, list beside a wide detail, with every waiting state presented clearly
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
