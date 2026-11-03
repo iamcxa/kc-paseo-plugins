@@ -16,6 +16,20 @@ gates:
                 id: briefing:r9-list-and-detail-layout:backlog:attempt-1:revision-1
                 digest: sha256:68612bfe2b0d881755d124f7a48c50b31751ea11fd3131d1c85cee58f3c89cbf
                 room-ref: ./r9-list-and-detail-layout/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r9-list-and-detail-layout:backlog:1
+                briefing: briefing:r9-list-and-detail-layout:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-11-03T10:36:57.281706Z"
+                decision: approve
+                reason: 'Accepts direction: builds the design the Captain accepted on 2026-11-03; scope split by chief-engineer; no semantic, storage or permission change; stacked unmerged on #57.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); design accepted 2026-11-03: 「照這個方向做可以」'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 9 of the POC flywheel under ADR 0008 builds the layout and navigation of the design the Captain accepted in round 8: a narrow list beside a wide detail, grouped, one status per row, filters with counts, and switching items without losing drafts, choices or progress.
