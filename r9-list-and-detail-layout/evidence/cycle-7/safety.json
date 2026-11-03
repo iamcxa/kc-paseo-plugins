@@ -1,0 +1,44 @@
+{
+  "head": "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+  "branch": "spacedock-ensign/r9-list-and-detail-layout",
+  "candidateStatus": "",
+  "mainStatus": "",
+  "liveStatus": "",
+  "remote": "224b03f2da6eefc89d7a055ac95be2d858eaa5c5\trefs/heads/spacedock-ensign/r9-list-and-detail-layout",
+  "files": {
+    "spacedock-bridge/OVERVIEW.md": {
+      "sha256": "982b359951cc3f8f2619266bfd158fef62d6b0b1e7d152de5acf9213d0572698",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/board.tsx": {
+      "sha256": "8c4009217d9f28ae3689806ecc80c4217936e3cc6bf3e394051b0d7a632e827a",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/client/decision-card.tsx": {
+      "sha256": "2d7a8e8ed0ed8f5d90aefbdd742683673a885251b531e79d8df8a42034c04954",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/board.ts": {
+      "sha256": "37f94dd61406ccf7223cdb4d46d746776f027f4833d9357ac53e62f2dfa83082",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/shared/queue.ts": {
+      "sha256": "75a6f7aeb9faad033478395c23fcff415fda2e02d0ac5167f86e42103ff68c4a",
+      "matchesCommit": true
+    },
+    "spacedock-bridge/test/question-continuity.test.mts": {
+      "sha256": "a8a91643e196ca18022358ebfcce2a0fff6b19559a15fc722a305c0890bee775",
+      "matchesCommit": true
+    }
+  },
+  "temporaryRoots": [],
+  "tests": {
+    "passed": 254,
+    "failed": 0,
+    "newTests": 9,
+    "baselinePasses": 2,
+    "baselineFailures": 7,
+    "typecheckExit": 0
+  },
+  "scope": "question identity/age mounted React DOM and timeline fixture proof; no new browser/provider/device evidence; claim matching and draft store unchanged"
+}

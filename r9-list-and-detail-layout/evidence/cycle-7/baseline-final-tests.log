@@ -1,0 +1,126 @@
+✖ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (276.988959ms)
+✖ one officer asks two questions in turn, keeping recipient and draft (label, 360) (103.900542ms)
+✖ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (79.645375ms)
+✖ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (43.913958ms)
+✖ an identical repeated question gets its own identity and time from its message (33.147791ms)
+✖ an identical repeated question gets its own identity and time from its timestamp (34.398958ms)
+✖ a repeated label question uses its new attention timestamp (31.344292ms)
+✔ an unrelated officer activity update keeps the same question detail (label) (59.639875ms)
+✔ an unrelated officer activity update keeps the same question detail (reply) (67.583875ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 2
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1177.159542
+
+✖ failing tests:
+
+test at test/question-continuity.test.mts:1:507
+✖ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (276.988959ms)
+  AssertionError [ERR_ASSERTION]: a new question has a distinct retained detail
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:37:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/question-continuity.test.mts:1:507
+✖ one officer asks two questions in turn, keeping recipient and draft (label, 360) (103.900542ms)
+  AssertionError [ERR_ASSERTION]: a new question has a distinct retained detail
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:37:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/question-continuity.test.mts:1:507
+✖ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (79.645375ms)
+  AssertionError [ERR_ASSERTION]: a new question has a distinct retained detail
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:37:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/question-continuity.test.mts:1:507
+✖ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (43.913958ms)
+  AssertionError [ERR_ASSERTION]: a new question has a distinct retained detail
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:37:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/question-continuity.test.mts:1:2867
+✖ an identical repeated question gets its own identity and time from its message (33.147791ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message A FO") !== original)
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:68:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/question-continuity.test.mts:1:2867
+✖ an identical repeated question gets its own identity and time from its timestamp (34.398958ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message A FO") !== original)
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:68:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/question-continuity.test.mts:1:4034
+✖ a repeated label question uses its new attention timestamp (31.344292ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message A FO") !== original)
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r9-list-and-detail-layout/.cycle7-baseline-fdc8rm0c/spacedock-bridge/test/question-continuity.test.mts:85:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,17 @@
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (272.947375ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 360) (156.232042ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (45.237125ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (59.828917ms)
+✔ an identical repeated question gets its own identity and time from its message (31.526917ms)
+✔ an identical repeated question gets its own identity and time from its timestamp (64.102167ms)
+✔ a repeated label question uses its new attention timestamp (63.993625ms)
+✔ an unrelated officer activity update keeps the same question detail (label) (62.8675ms)
+✔ an unrelated officer activity update keeps the same question detail (reply) (59.520959ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1268.8735
