@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { act } from "react";
 import { filterCounts, waitsForCaptain } from "../shared/list-status";
 import { mountBridge } from "./helpers/bridge-host.mjs";
 
@@ -95,4 +96,74 @@ test("loading gates show a question mark and an incomplete note before any Bridg
   assert.match(host.text(), /Checking sources — this list may be incomplete/);
   assert.match(host.text(), /Gates · \?/);
   assert.equal(host.screens.length, 0);
+});
+
+for (const phase of ["loading", "failed"]) test(`a changed workflow excludes previous gates while ${phase}`, async t => {
+  let changed = false;
+  const pending: { reject(error: Error): void }[] = [];
+  const gate = { workflowDir: "/workflow-a", slug: "shared", title: "Old workflow gate", stage: "validation", briefingId: "old-brief" };
+  const host = await mountBridge(t, false, rpc => {
+    rpc["gates.read"] = () => changed
+      ? new Promise((_resolve, reject) => pending.push({ reject }))
+      : Promise.resolve({ gates: [gate], failedWorkflowDirs: [] });
+  }, true);
+  await host.click("1 gates and questions waiting for you");
+  assert.match(host.text(), /A FO · Gate/);
+  changed = true;
+  const next = { ...host.agents[1], labels: { ...host.agents[1].labels, "workflow-dir": "/workflow-new", task: "shared" } };
+  host.agents.splice(0, host.agents.length, next);
+  await host.publishAgents();
+  if (phase === "failed") await act(async () => { for (const read of pending) read.reject(new Error("new workflow unavailable")); });
+  assert.ok(host.find("Waiting items: sources incomplete"));
+  assert.equal(Boolean(host.find("Open Old workflow gate")), false, "previous workflow must not be assigned to the new fleet");
+});
+
+test("a successful new workflow read shows only its own gate, owner and Bridge destination", async t => {
+  let changed = false;
+  let ready = false;
+  const pending: { resolve(value: unknown): void }[] = [];
+  const oldGate = { workflowDir: "/workflow-a", slug: "shared", title: "Old workflow gate", stage: "validation", briefingId: "old-brief" };
+  const newGate = { workflowDir: "/workflow-new", slug: "b", title: "New workflow gate", stage: "validation", briefingId: "brief-b" };
+  const host = await mountBridge(t, true, rpc => {
+    rpc["gates.read"] = () => !changed ? Promise.resolve({ gates: [oldGate], failedWorkflowDirs: [] })
+      : ready ? Promise.resolve({ gates: [newGate], failedWorkflowDirs: [] })
+      : new Promise(resolve => pending.push({ resolve }));
+  }, true);
+  await host.click("1 gates and questions waiting for you");
+  changed = true;
+  const next = { ...host.agents[1], labels: { ...host.agents[1].labels, "workflow-dir": "/workflow-new", task: "shared" } };
+  host.agents.splice(0, host.agents.length, next);
+  await host.publishAgents();
+  ready = true;
+  await act(async () => { for (const read of pending) read.resolve({ gates: [newGate], failedWorkflowDirs: [] }); });
+  assert.ok(host.find("1 gates and questions waiting for you"));
+  assert.equal(Boolean(host.find("Open Old workflow gate")), false);
+  assert.match(host.text(), /B FO · Gate/);
+  assert.doesNotMatch(host.text(), /A FO/);
+  await host.click("Open New workflow gate");
+  assert.equal(host.screens.at(-1).params.item, '["g","/workflow-new","b","validation","brief-b"]');
+  assert.ok(host.find("Message B FO"));
+  assert.ok(host.find("Choose 要求修改"));
+  assert.equal(Boolean(host.find("Message A FO")), false);
+});
+
+test("same-workflow refresh keeps its own cached gate during loading and failure", async t => {
+  let refreshing = false;
+  const pending: { reject(error: Error): void }[] = [];
+  const gate = { workflowDir: "/workflow-a", slug: "a", title: "Current workflow gate", stage: "validation", briefingId: "brief-a" };
+  const host = await mountBridge(t, false, rpc => {
+    rpc["gates.read"] = () => refreshing
+      ? new Promise((_resolve, reject) => pending.push({ reject }))
+      : Promise.resolve({ gates: [gate], failedWorkflowDirs: [] });
+  }, true);
+  await host.click("1 gates and questions waiting for you");
+  refreshing = true;
+  await host.pollGates();
+  assert.ok(host.find("Waiting items: sources incomplete"));
+  assert.ok(host.find("Open Current workflow gate"));
+  assert.match(host.text(), /A FO · Gate/);
+  await act(async () => { for (const read of pending) read.reject(new Error("current workflow unavailable")); });
+  assert.ok(host.find("Waiting items: sources incomplete"));
+  assert.ok(host.find("Open Current workflow gate"));
+  assert.match(host.text(), /A FO · Gate/);
 });

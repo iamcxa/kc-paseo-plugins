@@ -60,7 +60,9 @@ export function useWaiting() {
   const generation = useRef(0);
   const refresh = useCallback(async () => {
     const request = ++generation.current;
-    setResult(old => ({ ...old, key: workflowKey, state: "loading" }));
+    setResult(old => old.key === workflowKey
+      ? { ...old, state: "loading" }
+      : { key: workflowKey, gates: [], claimed: new Set(), state: "loading", failed: [] });
     try {
       const data = workflowKey ? await callGates({ workflowDirs: workflowKey.split("\n") }) : { gates: [], failedWorkflowDirs: [] };
       const claimed = new Set<string>();
@@ -69,7 +71,7 @@ export function useWaiting() {
       }));
       if (request === generation.current) setResult({ key: workflowKey, gates: data.gates, claimed, state: data.failedWorkflowDirs.length ? "failed" : "loaded", failed: data.failedWorkflowDirs });
     } catch {
-      if (request === generation.current) setResult(old => ({ ...old, key: workflowKey, state: "failed" }));
+      if (request === generation.current) setResult(old => ({ ...old, state: "failed" }));
     }
   }, [workflowKey, callGates, callDecision]);
   useEffect(() => {
