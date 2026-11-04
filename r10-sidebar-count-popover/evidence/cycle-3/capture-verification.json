@@ -1,0 +1,62 @@
+{
+  "accepted": [
+    {
+      "folder": "dark-1440-verified",
+      "width": 1440,
+      "appearance": "dark",
+      "source_files_match": true,
+      "zero_controls": 0,
+      "negative_control_count": 1,
+      "settled_fit": true,
+      "overflow_cue": false,
+      "captures": 9
+    },
+    {
+      "folder": "light-1440",
+      "width": 1440,
+      "appearance": "light",
+      "source_files_match": true,
+      "zero_controls": 0,
+      "negative_control_count": 1,
+      "settled_fit": true,
+      "overflow_cue": false,
+      "captures": 9
+    },
+    {
+      "folder": "dark-360-settled",
+      "width": 360,
+      "appearance": "dark",
+      "source_files_match": true,
+      "zero_controls": 0,
+      "negative_control_count": 1,
+      "settled_fit": true,
+      "overflow_cue": true,
+      "captures": 10
+    },
+    {
+      "folder": "light-360-final",
+      "width": 360,
+      "appearance": "light",
+      "source_files_match": true,
+      "zero_controls": 0,
+      "negative_control_count": 1,
+      "settled_fit": true,
+      "overflow_cue": true,
+      "captures": 10
+    }
+  ],
+  "cleanup": [
+    "dark-360-settled/cleanup.json",
+    "dark-360/cleanup.json",
+    "dark-1440-verified/cleanup.json",
+    "light-360-final/cleanup.json",
+    "light-360-settled/cleanup.json",
+    "light-360/cleanup.json",
+    "dark-1440/cleanup.json",
+    "light-1440/cleanup.json"
+  ],
+  "all_capture_homes_removed": true,
+  "all_capture_daemons_stopped": true,
+  "candidate": "2a31ef49e8f152623c1e04e046bcbf34777da85f",
+  "repair_base": "f55910a5794578335abd58b13d3db0565f5fa13c"
+}
