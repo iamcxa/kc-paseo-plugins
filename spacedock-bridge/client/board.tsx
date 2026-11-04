@@ -3,6 +3,7 @@ import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Platform, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
+import { invalidateWaiting } from "./use-waiting";
 import { TabClosedBadge } from "./tab-closed-badge";
 import {
   type BoardRow,
@@ -39,7 +40,7 @@ function ago(iso?: string | null): string {
   return `${Math.round(seconds / 3600)}h ago`;
 }
 
-export type BoardProps = Pick<PluginScreenProps, "theme" | "layout" | "navigation">;
+export type BoardProps = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & { params?: PluginScreenProps["params"] };
 
 export interface CoAsk {
   text: string;
@@ -51,6 +52,7 @@ export function Board({
   theme,
   layout,
   navigation,
+  params,
   coAsk,
   commsState = "loaded",
   onRetryComms,
@@ -215,7 +217,8 @@ export function Board({
   const [filter, setFilter] = useState<"all" | QueueKind>("all");
   const reportProgress = useCallback((key: string, next: ItemProgress) => {
     setProgress(old => JSON.stringify(old[key]) === JSON.stringify(next) ? old : { ...old, [key]: next });
-  }, []);
+    invalidateWaiting(paseo);
+  }, [paseo]);
   const [view, setView] = useState<"decision" | "fo">("decision");
 
   const colors = theme.colors;
@@ -339,6 +342,22 @@ export function Board({
     () => buildQueue(grouped, reviews, withReplies(rows, replies), replies),
     [grouped, reviews, rows, replies],
   );
+  const appliedTarget = useRef("");
+  useEffect(() => {
+    const target = params?.item;
+    const request = params?.request ?? target ?? "";
+    if (!target || appliedTarget.current === request) return;
+    if (target === "queue" || target === "comms") {
+      setOpen(target === "queue" ? null : "comms");
+      appliedTarget.current = request;
+      return;
+    }
+    const item = liveQueue.find(item => item.key === target);
+    if (!item) return;
+    setVisited(old => ({ ...old, [item.key]: item }));
+    setOpen(item.key);
+    appliedTarget.current = request;
+  }, [params?.item, params?.request, liveQueue]);
   const queue = [...liveQueue, ...Object.values(visited).filter(item => !liveQueue.some(live => live.key === item.key) && (progress[item.key]?.sent || progress[item.key]?.relayed))]
     .filter(item => !progress[item.key]?.recorded && !progress[item.key]?.closed);
   const sources: SourceStates = {

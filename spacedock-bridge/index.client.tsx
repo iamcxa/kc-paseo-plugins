@@ -1,24 +1,12 @@
 import type {
   PluginClientContext,
-  PluginSidebarItemProps,
   PluginWorkspacePanelProps,
 } from "@getpaseo/plugin/client";
-import { SidebarRow } from "@getpaseo/plugin/client/ui";
+import { BoardItem } from "./client/sidebar-waiting";
 import { Board, type BoardProps } from "./client/board";
 import { Bridge } from "./client/bridge";
 
 const PANEL_ID = "fo-board";
-
-function BoardItem({ currentScreen, openScreen }: PluginSidebarItemProps) {
-  return (
-    <SidebarRow
-      icon="Users"
-      label="Bridge"
-      active={currentScreen?.screenId === "board"}
-      onPress={() => openScreen({ screenId: "board" })}
-    />
-  );
-}
 
 export default function contribute(client: PluginClientContext) {
   const BoardScreen = (props: BoardProps) => (
