@@ -1,0 +1,96 @@
+{
+  "runs": [
+    {
+      "run": "light-1440-final",
+      "pid": 47852,
+      "stopped": true,
+      "home_removed": true,
+      "cleanup": {
+        "pid": 47852,
+        "home_removed": true,
+        "ports": [
+          56166,
+          56167
+        ],
+        "browser_closed": true
+      }
+    },
+    {
+      "run": "dark-1440-approved",
+      "pid": 22104,
+      "stopped": true,
+      "home_removed": true,
+      "cleanup": {
+        "pid": 22104,
+        "home_removed": true,
+        "ports": [
+          55590,
+          55591
+        ],
+        "browser_closed": true
+      }
+    },
+    {
+      "run": "dark-360-final",
+      "pid": 51840,
+      "stopped": true,
+      "home_removed": true,
+      "cleanup": {
+        "pid": 51840,
+        "home_removed": true,
+        "ports": [
+          56302,
+          56303
+        ],
+        "browser_closed": true
+      }
+    },
+    {
+      "run": "light-360-final",
+      "pid": 53880,
+      "stopped": true,
+      "home_removed": true,
+      "cleanup": {
+        "pid": 53880,
+        "home_removed": true,
+        "ports": [
+          56897,
+          56898
+        ],
+        "browser_closed": true
+      }
+    },
+    {
+      "run": "dark-1440-final",
+      "pid": 46964,
+      "stopped": true,
+      "home_removed": true,
+      "cleanup": {
+        "pid": 46964,
+        "home_removed": true,
+        "ports": [
+          56051,
+          56052
+        ],
+        "browser_closed": true
+      }
+    }
+  ],
+  "worktrees": {
+    "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover": {
+      "head": "2a31ef49e8f152623c1e04e046bcbf34777da85f",
+      "branch": "spacedock-ensign/r10-sidebar-count-popover",
+      "status": ""
+    },
+    "/Users/kent/Project/kc-paseo-plugins": {
+      "head": "90982ca4175b5322acc94fc9a8e7145788714377",
+      "branch": "main",
+      "status": ""
+    },
+    "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live": {
+      "head": "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+      "branch": "",
+      "status": ""
+    }
+  }
+}

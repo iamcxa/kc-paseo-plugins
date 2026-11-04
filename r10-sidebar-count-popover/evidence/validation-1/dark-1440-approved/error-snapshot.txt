@@ -1,0 +1,128 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "New workspace" [ref=e9]
+              - image
+              - StaticText "New workspace"
+            - button "History" [ref=e10]
+              - image
+              - StaticText "History"
+            - button "Search" [ref=e11]
+              - image
+              - StaticText "Search"
+            - button "Schedules" [ref=e12]
+              - image
+              - StaticText "Schedules"
+            - generic
+              - button "Bridge" [ref=e13]
+                - image
+                - StaticText "Bridge"
+              - generic [ref=e14] clickable [cursor:pointer, onclick, tabindex]
+                - button "4 gates and questions waiting for you" [ref=e17]
+                  - StaticText "4"
+          - generic
+            - generic
+              - StaticText "No projects yet"
+              - StaticText "Add a project to get started"
+            - generic
+              - button "Add project" [ref=e15]
+                - image
+                - StaticText "Add project"
+              - button "Import session" [ref=e16]
+                - image
+                - StaticText "Import session"
+          - generic
+            - button "Add project" [ref=e4]
+              - image
+            - button "Usage" [ref=e5]
+              - image
+            - button "Hosts" [ref=e6]
+              - image
+            - button "Help and support" [expanded=false, ref=e8]
+              - image
+            - button "Settings" [ref=e7]
+              - image
+          - generic [ref=e3] clickable [onclick, tabindex]
+        - generic
+          - generic
+            - generic
+              - StaticText "Bridge"
+              - generic "Close plugin" [ref=e18] clickable [cursor:pointer, onclick, tabindex]
+                - image
+            - generic
+              - generic
+                - button "Commander" [ref=e19]
+                  - StaticText "◉ Commander"
+                  - StaticText "Comms officer"
+                  - generic
+                    - StaticText "◆ Your turn · 5m ago"
+                  - StaticText "Should I ask for the next proof? (you)"
+                - generic
+                  - generic
+                    - StaticText "Board · 4"
+                  - generic
+                    - tab "By decision" [ref=e22]
+                      - StaticText "By decision · 4"
+                    - tab "By FO" [ref=e23]
+                      - StaticText "By FO · 3"
+                  - generic
+                    - button "Filter all" [ref=e24]
+                      - generic
+                        - StaticText "All 4"
+                    - button "Filter permission" [ref=e25]
+                      - generic
+                        - StaticText "Permissions 0"
+                    - button "Filter review" [ref=e26]
+                      - generic
+                        - StaticText "Reviews 0"
+                    - button "Filter gate" [ref=e27]
+                      - generic
+                        - StaticText "Gates 2"
+                    - button "Filter ask" [ref=e28]
+                      - generic
+                        - StaticText "Questions 2"
+                  - generic
+                    - generic
+                      - StaticText "GATES"
+                      - StaticText "2"
+                    - button "Accept the retry proof? — Demo FO" [ref=e30]
+                      - StaticText "◆ Your turn"
+                      - StaticText "Accept the retry proof?"
+                      - generic
+                        - StaticText "Demo FO"
+                        - StaticText "GATE"
+                        - StaticText "60m ago"
+                    - button "Accept the export result? — Export FO" [ref=e31]
+                      - StaticText "◆ Your turn"
+                      - StaticText "Accept the export result?"
+                      - generic
+                        - StaticText "Export FO"
+                        - StaticText "GATE"
+                        - StaticText "12m ago"
+                  - generic
+                    - generic
+                      - StaticText "QUESTIONS"
+                      - StaticText "1"
+                    - button "Which retry limit should we use? — Demo FO" [ref=e32]
+                      - StaticText "◆ Your turn"
+                      - StaticText "Which retry limit should we use?"
+                      - generic
+                        - StaticText "Demo FO"
+                        - StaticText "QUESTION"
+                        - StaticText "35m ago"
+                  - button "+ New FO" [ref=e29]
+                    - StaticText "+ New FO"
+                  - StaticText "Gates read 下午5:01:17 · 2 open"
+              - generic
+                - generic
+                  - button "Back to Commander" [ref=e20]
+                    - StaticText "← Commander"
+                  - button "Board" [ref=e21]
+                    - StaticText "Board"
+                - generic
+                  - StaticText "Choose an item"
+                  - StaticText "Its detail and conversation open here."
+- generic [ref=e2] clickable [onclick]

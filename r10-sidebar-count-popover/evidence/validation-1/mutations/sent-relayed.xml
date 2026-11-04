@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds" time="0.002515" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts" failure="Expected values to be strictly deep-equal:&#10;+ actual - expected&#10;&#10;  [&#10;    true,&#10;    true,&#10;+   true,&#10;+   true,&#10;    false,&#10;    false,&#10;    false,&#10;    false,&#10;-   false,&#10;-   false&#10;  ]&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly deep-equal:&#10;+ actual - expected&#10;&#10;  [&#10;    true,&#10;    true,&#10;+   true,&#10;+   true,&#10;    false,&#10;    false,&#10;    false,&#10;    false,&#10;-   false,&#10;-   false&#10;  ]">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    true,
+    true,
++   true,
++   true,
+    false,
+    false,
+    false,
+    false,
+-   false,
+-   false
+  ]
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      true,
+      true,
+  +   true,
+  +   true,
+      false,
+      false,
+      false,
+      false,
+  -   false,
+  -   false
+    ]
+  
+      at TestContext.&lt;anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts:13:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [
+      true,  true,
+      true,  true,
+      false, false,
+      false, false
+    ],
+    expected: [
+      true,  true,
+      false, false,
+      false, false,
+      false, false
+    ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims" time="0.196570" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ 'Bridge\n1'&#10;- 'Bridge'&#10;         ^&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ 'Bridge\n1'&#10;- 'Bridge'&#10;         ^">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ 'Bridge\n1'
+- 'Bridge'
+         ^
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Bridge\n1'
+  - 'Bridge'
+           ^
+  
+      at TestContext.&lt;anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts:37:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Bridge\n1',
+    expected: 'Bridge',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board" time="0.124817" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="label opens Bridge directly and Commander questions are read without creating a coordinator" time="0.231580" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="loading gates show a question mark and an incomplete note before any Bridge screen mounts" time="0.011265" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="a changed workflow excludes previous gates while loading" time="0.009824" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="a changed workflow excludes previous gates while failed" time="0.011493" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="a successful new workflow read shows only its own gate, owner and Bridge destination" time="0.040147" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="same-workflow refresh keeps its own cached gate during loading and failure" time="0.009241" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="sidebar badge and popover actions use attention theme colors instead of accent" time="0.017874" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="scroll cue follows measured overflow on compact popovers" time="0.017830" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="scroll cue follows measured overflow on wide popovers" time="0.009738" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<testcase name="empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls" time="0.008229" classname="test" file="/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/.r10-mutation-1a6z_wfw/plugin/test/sidebar-waiting.test.mts"/>
+	<!-- tests 13 -->
+	<!-- suites 0 -->
+	<!-- pass 11 -->
+	<!-- fail 2 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 1253.504708 -->
+</testsuites>

@@ -1,0 +1,7 @@
+# Minimal acceptance (fresh shell)
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover/evidence/validation-1/acceptance.sh`.
+
+The five steps and every exact command are in acceptance.sh. Each prints its expected PASS line; any mismatch exits nonzero. Expected full-suite total: 267 passed, 0 failed; both mutation subprocesses must exit 1 with assertion failures. Four captures run sequentially, each with fresh private daemon HOME/--home, safe ports and browser profile blocking localhost. Screenshots include count, loading/failed ?, zero with no control, popover/sheet, owner/age, oldest-first and gate/question/board destinations. Final verification checks SHA-bound source hashes, contrast, stopped daemon PIDs, removed homes and a clean candidate worktree.
+
+Requires this exact checkout and the three local installed tools/host distribution declared at the top of acceptance.sh; these are explicit machine dependencies, not a portable CI claim. The commands make synthetic RPC/source fixtures, never connect to the live fleet, never send a decision, and write new evidence only. It does not establish live data correctness, physical iOS/Android behavior, design approval, merge or delivery. Allow roughly five minutes on this Mac; a sandbox blocking loopback cannot perform the host steps. FO must run the complete script exactly as written before the gate.
