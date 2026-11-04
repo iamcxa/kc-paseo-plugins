@@ -95,3 +95,7 @@ Portability audit: client-portability-audit.log contains only TypeScript generic
 Proof limits: deterministic SDK/RPC fixtures exercise the candidate in the real isolated web host, not the live fleet or physical iOS/Android devices; decision-claim matching remains under the Captain's existing known-risk ruling. Independent validation and FO's external review remain outstanding.
 Cleanup: cleanup-verified.json confirms all capture daemon PIDs stopped and homes removed, including failed harness attempts. Fresh browser profiles blocked localhost; no live daemon mutation, agent command-line listing or live install update; root and flywheel-live worktrees stayed clean.
 ADR 0008 read at base 224b03f2da6eefc89d7a055ac95be2d858eaa5c5: Accepted, sha256:d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f; the task stays within the recorded POC/Draft stack grant. No new ruling recorded.
+
+### FO findings before the gate
+
+- Roborev (FO-run, package gap 5) on d4dad93 (roborev:1470): Medium — when the workflow set changes, use-waiting.ts gives the previous gates and claims the new key, so while the new read is pending or failed old gates count as current and attachGates can attach one to another officer with the same task slug. FO dispatches a read-only investigation first, then a separate fix authorization.
