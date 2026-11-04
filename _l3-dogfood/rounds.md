@@ -180,3 +180,4 @@ Per-round section format:
 
 ## Round 10 — 2026-11-04 — r10-sidebar-count-popover (stack layer 8 on #68)
 - Captain 2026-11-04: 「先做側欄數字跟彈出，右側先不動」 (after the round 9 walk; the round 9 UAT option questions were set aside by his own messages). Theme: a count on the Bridge sidebar row and a popover of gates and questions, modelled on Agent Observatory's badge and popover; the right-side panel deferred.
+- Round 10: roborev 1470 (investigated, then fixed) → clean on f55910a and 2a31ef4. Team pass 1: director NOT SATISFIED (badge contrast; zero-state capture was a fixture flaw); pass 2: director and picky B SATISFIED, picky A NOT SATISFIED (annoys: phone failure-state sheet clips the question's owner and age). Second unsatisfied team pass → ADR 0008 stop; FO asks the Captain.
