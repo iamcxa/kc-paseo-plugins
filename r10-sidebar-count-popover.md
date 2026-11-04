@@ -16,6 +16,20 @@ gates:
                 id: briefing:r10-sidebar-count-popover:backlog:attempt-1:revision-1
                 digest: sha256:2bbad764fc9f25f02d5693d14583b5f76535a4c04f74bc377869ca3d1f361980
                 room-ref: ./r10-sidebar-count-popover/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r10-sidebar-count-popover:backlog:1
+                briefing: briefing:r10-sidebar-count-popover:backlog:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-11-04T01:39:53.831867Z"
+                decision: approve
+                reason: 'Accepts direction: the Captain chose this scope on 2026-11-04; no right panel, storage or permission change; stacked unmerged on #68.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); round 10 scope 2026-11-04: 「先做側欄數字跟彈出，右側先不動」'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Round 10 of the POC flywheel under ADR 0008: show on the Bridge sidebar row how many gates and questions wait on the Captain, and open a popover with those counts and the items when he presses it.
