@@ -26,14 +26,19 @@ export function itemStatus(item: StatusInput): { state: "check" | "done" | "wait
   return { state: "your-turn", icon: "◆", text: "Your turn" };
 }
 
-export function filterCounts(items: readonly (ItemProgress & { kind: QueueKind })[], sources: SourceStates): Record<"all" | QueueKind, string> {
-  const pending = items.filter(item => !item.recorded && !item.closed);
+export function waitsForCaptain(item: ItemProgress & { kind: QueueKind }): boolean {
+  return (item.kind === "gate" || item.kind === "ask") && itemStatus(item).state === "your-turn";
+}
+
+export function filterCounts(items: readonly (ItemProgress & { kind: QueueKind })[], sources: SourceStates, audience: "pending" | "captain" = "pending"): Record<"all" | QueueKind, string> {
+  const pending = items.filter(item => audience === "captain" ? waitsForCaptain(item) : !item.recorded && !item.closed);
   const complete = (kind: "all" | QueueKind) => {
     const dependencies: Record<"all" | QueueKind, (keyof SourceStates)[]> = {
       all: ["fos", "gates", "reviews", "comms"], permission: ["fos"], review: ["fos", "reviews"], gate: ["fos", "gates"], ask: ["fos", "comms"],
     };
-    const states = dependencies[kind].map(source => sources[source]);
+    const states = (audience === "captain" && kind === "all" ? ["fos", "gates", "comms"] as const : dependencies[kind]).map(source => sources[source]);
     const count = pending.filter(item => kind === "all" || item.kind === kind).length;
+    if (audience === "captain" && states.some(state => state !== "loaded")) return "?";
     return states.includes("failed") ? count ? `${count}+` : "?" : states.includes("loading") ? count ? `${count}+` : "…" : String(count);
   };
   return { all: complete("all"), permission: complete("permission"), review: complete("review"), gate: complete("gate"), ask: complete("ask") };
