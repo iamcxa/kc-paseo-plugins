@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r10-sidebar-count-popover:validation:attempt-1:revision-1",
+  "question": "Flywheel round 10 validation: accept PR #69 at 2a31ef49e8f1 (a count on the Bridge sidebar row — gates plus questions waiting on the Captain, \"?\" while unchecked, none at zero — and a popover with gate and question counts and items oldest first) as the eighth stacked layer, unmerged, for the Captain's trial?",
+  "artifacts": [
+    {
+      "id": "artifact:r10-sidebar-count-popover:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/921878f00566f4cb8df43f1df6a1819bc12ce625/r10-sidebar-count-popover.md",
+      "rev": "sha256:6445bb80ba9faea4c9375a65d9b616d15b0254d1fd5e0c171a9c7f2732dc8f1e",
+      "mediaType": "text/markdown",
+      "summary": "Validation-1 PASSED AC-1 and AC-2 at 2a31ef4 (267 tests, two mutants rejected, dark/light at 1440/360); FO acceptance rerun passed. Roborev: 1470 investigated then fixed; clean on the head. Team pass 2: director and picky B satisfied; picky A's phone failure-state clipping is a Captain-ruled known issue. Observer: 0 FO record violations. pregate_check passes. Approval stacks #69 unmerged and reinstalls it."
+    }
+  ]
+}

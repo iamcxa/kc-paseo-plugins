@@ -30,6 +30,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:r10-sidebar-count-popover:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:r10-sidebar-count-popover-validation-1
+              briefing:
+                id: briefing:r10-sidebar-count-popover:validation:attempt-1:revision-1
+                digest: sha256:ef5decb93c94e65a7614e967b9cd69cbb3ccfcf845436a9b2daff1b795a132e1
+                room-ref: ./r10-sidebar-count-popover/review/validation/briefing-1
 started: 2026-11-04T01:40:15Z
 worktree: .worktrees/spacedock-ensign-r10-sidebar-count-popover
 pr: 69
