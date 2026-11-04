@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 10 — a count on the Bridge sidebar row with a popover of gates and questions
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
