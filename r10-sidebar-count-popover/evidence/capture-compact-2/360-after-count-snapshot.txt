@@ -1,0 +1,141 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Back" [ref=e28]
+              - image
+            - StaticText "Bridge"
+          - generic
+            - generic
+              - button "Back to Commander" [ref=e29]
+                - StaticText "← Commander"
+              - button "Board" [ref=e30]
+                - StaticText "Board"
+            - generic
+              - generic
+                - button "Back to list" [ref=e31]
+                  - StaticText "← Queue"
+                - button "Hide briefing" [ref=e32]
+                  - StaticText "Hide briefing ▴"
+              - generic
+                - generic
+                  - StaticText "GATE · VALIDATION"
+                  - StaticText "Review this synthetic evidence"
+                  - generic
+                    - StaticText "Demo FO"
+                    - StaticText "waiting 60m"
+                  - StaticText "Synthetic proof for navigation only"
+                  - generic
+                    - button "Read full briefing ›" [ref=e35]
+                      - StaticText "Read full briefing ›"
+                    - StaticText "preview · full view in Spacedock Review"
+                - slider "Drag to resize the briefing; tap the grip to fit it to its content" [ref=e33]: 50
+                  - generic [ref=e34] clickable [cursor:pointer, onclick, tabindex]
+                - generic
+                  - generic
+                    - generic
+                      - StaticText "Conversation with Demo FO · includes other tasks"
+                    - link "Open full view" [ref=e36]
+                      - StaticText "Open full view"
+                  - StaticText "No messages yet"
+                  - generic
+                    - generic
+                      - StaticText "↑ sends to Demo FO"
+                    - textbox "Message Demo FO" [ref=e37]
+                    - generic
+                      - generic
+                        - StaticText "Decide via comms officer"
+                        - generic
+                          - button "Choose 准" [ref=e39]
+                            - StaticText "准"
+                          - button "Choose 要求修改" [ref=e40]
+                            - StaticText "要求修改"
+                          - button "Choose 暫緩" [ref=e41]
+                            - StaticText "暫緩"
+                      - button "Send to Demo FO" [disabled, ref=e38]
+                        - image
+        - generic
+          - generic [ref=e4] clickable [cursor:pointer, onclick, tabindex]
+          - generic
+            - generic
+              - generic
+                - button "New workspace" [ref=e20]
+                  - image
+                  - StaticText "New workspace"
+                - button "Close sidebar" [ref=e7]
+                  - image
+              - button "History" [ref=e12]
+                - image
+                - StaticText "History"
+              - button "Search" [ref=e13]
+                - image
+                - StaticText "Search"
+              - button "Schedules" [ref=e14]
+                - image
+                - StaticText "Schedules"
+              - generic
+                - button "Bridge" [ref=e16]
+                  - image
+                  - StaticText "Bridge"
+                - generic [ref=e17] clickable [cursor:pointer, onclick, tabindex]
+                  - button "4 gates and questions waiting for you" [ref=e21]
+                    - StaticText "4"
+            - generic
+              - generic
+                - StaticText "No projects yet"
+                - StaticText "Add a project to get started"
+              - generic
+                - button "Add project" [ref=e22]
+                  - image
+                  - StaticText "Add project"
+                - button "Import session" [ref=e23]
+                  - image
+                  - StaticText "Import session"
+            - generic
+              - button "Add project" [ref=e8]
+                - image
+              - button "Usage" [ref=e9]
+                - image
+              - button "Hosts" [ref=e10]
+                - image
+              - button "Help and support" [expanded=false, ref=e15]
+                - image
+              - button "Settings" [ref=e11]
+                - image
+      - generic
+        - generic
+          - button "Bottom sheet backdrop" [ref=e3]
+        - generic
+          - slider "Bottom Sheet" [ref=e5]: 50
+            - generic
+              - StaticText "Bridge"
+              - generic
+                - heading "Waiting for you" [level=1, ref=e18]
+                - generic
+                  - generic
+                    - StaticText "Gates · 2"
+                  - generic
+                    - StaticText "Questions · 2"
+                - generic
+                  - button "Open Accept the retry proof?" [ref=e24]
+                    - StaticText "Accept the retry proof?"
+                    - generic
+                      - StaticText "Demo FO · Gate · 1h ago"
+                  - button "Open Which retry limit should we use?" [ref=e25]
+                    - StaticText "Which retry limit should we use?"
+                    - generic
+                      - StaticText "Demo FO · Question · 35m ago"
+                  - button "Open Accept the export result?" [ref=e26]
+                    - StaticText "Accept the export result?"
+                    - generic
+                      - StaticText "Export FO · Gate · 12m ago"
+                  - button "Open Should I ask for the next proof? (you)" [ref=e27]
+                    - StaticText "Should I ask for the next proof? (you)"
+                    - generic
+                      - StaticText "Commander · Question · 5m ago"
+                - button "Open Bridge" [ref=e19]
+                  - StaticText "Open Bridge →"
+          - slider "Bottom sheet handle" [ref=e6]: 50
+- generic [ref=e2] clickable [onclick]

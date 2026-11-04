@@ -1,0 +1,33 @@
+{
+  "candidate": "d4dad9393436b897a329ee63ae0f8a721d3ab1f1",
+  "captures": [
+    {
+      "path": "capture-wide-final",
+      "runtime_files_match": true,
+      "daemon_stopped": true,
+      "cleanup": {
+        "pid": 95773,
+        "home_removed": true,
+        "ports": [
+          64359,
+          64360
+        ],
+        "browser_closed": true
+      }
+    },
+    {
+      "path": "capture-compact-verified",
+      "runtime_files_match": true,
+      "daemon_stopped": true,
+      "cleanup": {
+        "pid": 89279,
+        "home_removed": true,
+        "ports": [
+          64214,
+          64215
+        ],
+        "browser_closed": true
+      }
+    }
+  ]
+}

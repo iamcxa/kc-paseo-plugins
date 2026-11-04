@@ -1,0 +1,13 @@
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/use-waiting.ts:59:  const [result, setResult] = useState<{ key: string; gates: Parameters<typeof attachGates>[1]; claimed: Set<string>; state: SourceState; failed: string[] }>({ key: "", gates: [], claimed: new Set(), state: "loading", failed: [] });
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/use-waiting.ts:66:      const claimed = new Set<string>();
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/board.tsx:136:  const [gatesAt, setGatesAt] = useState<string>("");
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/board.tsx:182:  const [reviewNextCheck, setReviewNextCheck] = useState<number | null>(null);
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/board.tsx:214:  const [open, setOpen] = useState<string | null>(comms ? "comms" : null);
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/board.tsx:307:  async function run(action: () => Promise<void>) {
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/decision-card.tsx:253:  const [dragged, setDragged] = useState<number | null>(null);
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/use-composer-padding.ts:6:  addListener(...args: Parameters<typeof Keyboard.addListener>): { remove(): void };
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/sidebar-waiting.tsx:14:function summary(waiting: ReturnType<typeof useWaiting>) {
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/use-co-ask.ts:22:    let timer: ReturnType<typeof setTimeout> | undefined;
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/co-chat.tsx:27:  beforeSend?: () => Promise<string | null>;
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/co-chat.tsx:29:  onChip?: (word: string, draft: string) => Promise<string | null>;
+/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/client/co-chat.tsx:263:    let timer: ReturnType<typeof setTimeout> | undefined;

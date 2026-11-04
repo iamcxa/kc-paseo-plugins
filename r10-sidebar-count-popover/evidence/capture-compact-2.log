@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover/evidence/capture.py", line 138, in <module>
+    elif evaluate('Boolean('+el('Close sidebar')+')'):click('Close sidebar')
+                                                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover/evidence/capture.py", line 44, in click
+    assert position['hit'],(label,position)
+           ~~~~~~~~^^^^^^^
+AssertionError: ('Close sidebar', {'hit': False, 'x': 52.31103515625, 'y': 26})

@@ -1,0 +1,48 @@
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (0.985458ms)
+✖ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (153.204125ms)
+✖ popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board (86.350042ms)
+✔ label opens Bridge directly and Commander questions are read without creating a coordinator (244.489583ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 927.534375
+
+✖ failing tests:
+
+test at test/sidebar-waiting.test.mts:1:1000
+✖ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (153.204125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(host.find("1 gates and questions waiting for you"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/test/sidebar-waiting.test.mts:44:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:1:2106
+✖ popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board (86.350042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(host.find("Choose 同意"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/test/sidebar-waiting.test.mts:68:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
