@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds",
+    "status": "passed"
+  },
+  {
+    "name": "sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims",
+    "status": "passed"
+  },
+  {
+    "name": "popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board",
+    "status": "passed"
+  },
+  {
+    "name": "label opens Bridge directly and Commander questions are read without creating a coordinator",
+    "status": "passed"
+  },
+  {
+    "name": "loading gates show a question mark and an incomplete note before any Bridge screen mounts",
+    "status": "passed"
+  },
+  {
+    "name": "a changed workflow excludes previous gates while loading",
+    "status": "failed"
+  },
+  {
+    "name": "a changed workflow excludes previous gates while failed",
+    "status": "failed"
+  },
+  {
+    "name": "a successful new workflow read shows only its own gate, owner and Bridge destination",
+    "status": "passed"
+  },
+  {
+    "name": "same-workflow refresh keeps its own cached gate during loading and failure",
+    "status": "passed"
+  }
+]

@@ -1,0 +1,7 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 typecheck
+> tsc --noEmit
+
+test/sidebar-waiting.test.mts(113,135): error TS2353: Object literal may only specify known properties, and 'task' does not exist in type '{ role: string; repo: string; "workflow-dir": string; }'.
+test/sidebar-waiting.test.mts(133,135): error TS2353: Object literal may only specify known properties, and 'task' does not exist in type '{ role: string; repo: string; "workflow-dir": string; }'.

@@ -1,0 +1,17 @@
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (1.111583ms)
+✔ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (180.161541ms)
+✔ popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board (133.148792ms)
+✔ label opens Bridge directly and Commander questions are read without creating a coordinator (230.414625ms)
+✔ loading gates show a question mark and an incomplete note before any Bridge screen mounts (7.487459ms)
+✔ a changed workflow excludes previous gates while loading (11.676541ms)
+✔ a changed workflow excludes previous gates while failed (8.841542ms)
+✔ a successful new workflow read shows only its own gate, owner and Bridge destination (35.71ms)
+✔ same-workflow refresh keeps its own cached gate during loading and failure (8.54425ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1011.1025

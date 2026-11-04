@@ -1,0 +1,53 @@
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (0.972417ms)
+✔ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (134.043625ms)
+✔ popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board (121.01525ms)
+✔ label opens Bridge directly and Commander questions are read without creating a coordinator (232.449459ms)
+✔ loading gates show a question mark and an incomplete note before any Bridge screen mounts (7.80525ms)
+✖ a changed workflow excludes previous gates while loading (12.839833ms)
+✖ a changed workflow excludes previous gates while failed (9.378667ms)
+✔ a successful new workflow read shows only its own gate, owner and Bridge destination (34.569542ms)
+✔ same-workflow refresh keeps its own cached gate during loading and failure (8.74ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 7
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 995.09275
+
+✖ failing tests:
+
+test at test/sidebar-waiting.test.mts:1:4904
+✖ a changed workflow excludes previous gates while loading (12.839833ms)
+  AssertionError [ERR_ASSERTION]: previous workflow must not be assigned to the new fleet
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/test/sidebar-waiting.test.mts:117:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:1:4904
+✖ a changed workflow excludes previous gates while failed (9.378667ms)
+  AssertionError [ERR_ASSERTION]: previous workflow must not be assigned to the new fleet
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/test/sidebar-waiting.test.mts:117:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
