@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 10 — a count on the Bridge sidebar row with a popover of gates and questions
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -29,7 +29,7 @@ gates:
                     source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); round 10 scope 2026-11-04: 「先做側欄數字跟彈出，右側先不動」'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Round 10 of the POC flywheel under ADR 0008: show on the Bridge sidebar row how many gates and questions wait on the Captain, and open a popover with those counts and the items when he presses it.
