@@ -38,6 +38,20 @@ gates:
                 id: briefing:r10-sidebar-count-popover:validation:attempt-1:revision-1
                 digest: sha256:ef5decb93c94e65a7614e967b9cd69cbb3ccfcf845436a9b2daff1b795a132e1
                 room-ref: ./r10-sidebar-count-popover/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:r10-sidebar-count-popover:validation:1
+                briefing: briefing:r10-sidebar-count-popover:validation:attempt-1:revision-1
+                by: agent:first-officer
+                at: "2026-11-04T09:17:19.795572Z"
+                decision: approve
+                reason: 'Accepts the outcome: validation-1 PASSED AC-1 and AC-2 at 2a31ef49e8f1; FO acceptance rerun passed; roborev clean; team pass 2 satisfied apart from the Captain-ruled known issue; observer 0 FO record violations; pregate_check passes. PR #69 stays stacked and unmerged.'
+                conn:
+                    quote: 同意照這個「POC 堆疊版」做
+                    source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); known-issue ruling 2026-11-04: 「先記成已知問題 (Recommended)」'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-04T01:40:15Z
 worktree: .worktrees/spacedock-ensign-r10-sidebar-count-popover
 pr: 69
