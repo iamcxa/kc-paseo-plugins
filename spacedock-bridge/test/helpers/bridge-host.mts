@@ -9,6 +9,7 @@ Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 const flatten = (s: any): any => Array.isArray(s) ? Object.assign({}, ...s.map(flatten)) : s ?? {};
 const element = forwardRef<any, any>((p, ref) => {
   useImperativeHandle(ref, () => ({ scrollToEnd() {}, scrollTo() {} }));
+  if (p.accessibilityLabel && (p.onLayout || p.onContentSizeChange)) current.measurements.set(p.accessibilityLabel, p);
   return createElement("div", { role: p.accessibilityRole, "aria-label": p.accessibilityLabel, "aria-selected": p.accessibilityState?.selected, "data-lines": p.numberOfLines, style: flatten(p.style), onClick: p.disabled ? undefined : p.onPress }, p.children);
 });
 const input = (p: any) => createElement("textarea", { "aria-label": p.accessibilityLabel, value: p.value, onInput: (e: any) => p.onChangeText(e.target.value) });
@@ -16,7 +17,7 @@ let current: any;
 let Bridge: any;
 let BoardItem: any;
 const calls = new Map<string, (...args: any[]) => any>();
-export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false) {
+export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}) {
   const dom = new JSDOM("<!doctype html><div id='root'></div>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   const container = dom.window.document.getElementById("root")!;
@@ -72,7 +73,8 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
     } }),
   } };
   prepare?.(rpc);
-  current = { paseo, rpc };
+  const measurements = new Map<string, any>();
+  current = { paseo, rpc, measurements };
   if (!Bridge) {
     const loader = Module as any;
     const original = loader._load;
@@ -95,7 +97,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const screens: any[] = [];
   let route: any = null;
   let Popover: any = null;
-  const props = { theme: { colors: {} }, layout: { compact, platform: "web" }, navigation: { openAgent() {} } };
+  const props = { theme: { colors }, layout: { compact, platform: "web" }, navigation: { openAgent() {} } };
   const openScreen = (input: any) => { screens.push(input); route = input; Popover = null; draw(); };
   const draw = () => root.render(sidebar ? createElement("div", null,
     createElement(BoardItem, { ...props, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
@@ -115,5 +117,9 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const poll = async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 15_000) timer.callback(); }); };
   t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
   await render();
-  return { screens, sendOverrides, readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
+  const measure = async (label: string, height: number, contentHeight: number) => {
+    const props = measurements.get(label); assert.ok(props, `measurable: ${label}`);
+    await act(async () => { props.onLayout?.({ nativeEvent: { layout: { height } } }); props.onContentSizeChange?.(300, contentHeight); });
+  };
+  return { measure, screens, sendOverrides, readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
 }

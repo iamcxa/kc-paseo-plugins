@@ -167,3 +167,51 @@ test("same-workflow refresh keeps its own cached gate during loading and failure
   assert.ok(host.find("Open Current workflow gate"));
   assert.match(host.text(), /A FO · Gate/);
 });
+
+test("sidebar badge and popover actions use attention theme colors instead of accent", async t => {
+  const host = await mountBridge(t, false, undefined, true, {
+    statusWarning: "#edaa33", surface0: "#101112", accent: "#116633", accentForeground: "#ffffff",
+  });
+  const badge = host.find("2 gates and questions waiting for you")!.firstElementChild as HTMLElement;
+  assert.equal(badge.style.backgroundColor, "rgb(237, 170, 51)");
+  assert.equal(badge.style.color, "rgb(16, 17, 18)");
+  await host.click("2 gates and questions waiting for you");
+  const actionColor = (label: string) => (host.find(label)!.firstElementChild as HTMLElement).style.color;
+  assert.equal(actionColor("Open Bridge"), "rgb(237, 170, 51)");
+  host.rpc["gates.read"] = async () => { throw new Error("unavailable"); };
+  await host.pollGates();
+  assert.equal(actionColor("Check waiting sources again"), "rgb(237, 170, 51)");
+});
+
+for (const compact of [true, false]) test(`scroll cue follows measured overflow on ${compact ? "compact" : "wide"} popovers`, async t => {
+  const host = await mountBridge(t, compact, undefined, true, { foregroundMuted: "#aabbcc" });
+  await host.click("2 gates and questions waiting for you");
+  await host.measure("Waiting items", 200, 400);
+  assert.equal(host.text().includes("Scroll to see all 2 items"), compact);
+  if (compact) {
+    const hint = [...host.container.querySelectorAll<HTMLElement>("div")].find(node => !node.children.length && node.textContent === "Scroll to see all 2 items")!;
+    assert.equal(hint.style.color, "rgb(170, 187, 204)");
+    assert.equal(host.find("Waiting items")!.contains(hint), false);
+  }
+  await host.measure("Waiting items", 200, 150);
+  assert.equal(host.text().includes("Scroll to see all 2 items"), false);
+  await host.measure("Waiting items", 100, 150);
+  assert.equal(host.text().includes("Scroll to see all 2 items"), compact);
+  await host.measure("Waiting items", 200, 200.5);
+  assert.equal(host.text().includes("Scroll to see all 2 items"), false);
+  assert.ok(host.find("Open Bridge"));
+});
+
+test("empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls", async t => {
+  const host = await mountBridge(t, false, rpc => { rpc["gates.read"] = async () => ({ gates: [], failedWorkflowDirs: [] }); }, true);
+  const countControls = () => host.container.querySelectorAll('[aria-label$="gates and questions waiting for you"], [aria-label="Waiting items: sources incomplete"]');
+  assert.equal(countControls().length, 0);
+  Object.assign(host.agents[0].labels, { "next-owner": "captain", next: "" });
+  await host.publishAgents();
+  await host.click("1 gates and questions waiting for you");
+  assert.ok(host.find("Open Has a question for you"));
+  Reflect.deleteProperty(host.agents[0].labels, "next-owner");
+  await host.publishAgents();
+  assert.equal(countControls().length, 0);
+  assert.match(host.text(), /Questions · 0/);
+});
