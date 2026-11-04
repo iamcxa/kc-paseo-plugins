@@ -30,6 +30,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-04T01:40:15Z
+worktree: .worktrees/spacedock-ensign-r10-sidebar-count-popover
 ---
 
 Round 10 of the POC flywheel under ADR 0008: show on the Bridge sidebar row how many gates and questions wait on the Captain, and open a popover with those counts and the items when he presses it.
