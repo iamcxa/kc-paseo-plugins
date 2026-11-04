@@ -1,0 +1,16 @@
+[
+  {
+    "name": "sent-relayed",
+    "exit": 1,
+    "expected": "assertion failures",
+    "mutated_file": "shared/list-status.ts",
+    "replacement": "(item.kind === \"gate\" || item.kind === \"ask\") && !item.recorded && !item.closed"
+  },
+  {
+    "name": "unchecked-zero",
+    "exit": 1,
+    "expected": "assertion failures",
+    "mutated_file": "shared/list-status.ts",
+    "replacement": "if (audience === \"captain\" && states.some(state => state !== \"loaded\")) return \"0\";"
+  }
+]

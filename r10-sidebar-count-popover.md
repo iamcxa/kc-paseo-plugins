@@ -175,6 +175,11 @@ SKIPPED: design-surfaces.log reports the same FO-alignment Surfaces:/Visible cha
 Limits/cleanup: installed web-host presentation, source readiness and native-style callback wiring use deterministic SDK/RPC fixtures; no live fleet data or physical iOS/Android proof claimed, and final design satisfaction belongs to the design director. Capture runs were sequential with isolated HOME/--home, safe ports, fresh browser profiles and localhost blocked. capture-verification.json checks all recorded capture daemon PIDs stopped and homes removed, including interrupted attempts; root/flywheel-live stayed clean and no live install was updated. PR remains Draft; no ready/merge or task-frontmatter/stage change. Independent validation and the new FO review remain outstanding.
 - Roborev clean on 2a31ef4 (roborev:1473). Pre-gate team pass 2 on 2a31ef4: design director SATISFIED (amber badge noticeable; contrast about 6.4:1 dark, 6.1:1 light; true zero hides the count; annoys, not blocking: in the phone failure state the list is squeezed below one full row); picky B SATISFIED; picky A NOT SATISFIED (annoys: the same phone failure-state clipping hides the question's owner and age). Second unsatisfied team pass on this round: under ADR 0008 FO stops and asks the Captain before any repair.
 
+### FO findings at the gate
+
+- Validation-1 PASSED AC-1 and AC-2 at 2a31ef4. FO reran evidence/validation-1/acceptance.sh in a fresh shell: all steps PASS on the first run (267 tests, both mutants rejected, four host runs).
+- Observer (pre-gate, 32b2a7d..7b71260): 0 FO record violations, 1 package mismatch (design_surfaces, gap 2).
+
 ### FO declines
 
 - Pre-gate team pass 2 (picky A, annoys; design director noted it as not blocking) on 2a31ef49e8f152623c1e04e046bcbf34777da85f — on the phone, when a source failed, the incomplete-source note plus the scroll cue squeeze the sheet's list below one full row, clipping the question's owner and age until scrolled. Declined as a known issue by the Captain's ruling 2026-11-04, asked 「手機上讀取失敗時，彈出摘要的清單被擠到不到一整列，要怎麼處理？」, answered 「先記成已知問題 (Recommended)」. Would become Material: if the Captain reports missing or misreading a waiting question on his phone because the row was clipped, or the sheet shows no complete row with sources healthy.
