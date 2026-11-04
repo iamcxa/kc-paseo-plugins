@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r10-sidebar-count-popover:backlog:attempt-1:revision-1",
+  "question": "Flywheel round 10 backlog: admit a count on the Bridge sidebar row (gates plus questions waiting on the Captain, from the existing count function, \"?\" while unchecked) and a popover with gate and question counts and the items oldest first, as the eighth stacked layer on PR #68, with the right-side panel left untouched?",
+  "artifacts": [
+    {
+      "id": "artifact:r10-sidebar-count-popover:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/32b2a7d5fbd021757be29c63519cbe24997f2427/r10-sidebar-count-popover.md",
+      "rev": "sha256:19a06342655609897641d4829b1358313d4be99bd31449213a6ba0f8875df357",
+      "mediaType": "text/markdown",
+      "summary": "Captain on 2026-11-04 (Observatory badge and popover as pictures): 「先做側欄數字跟彈出，右側先不動」. Sidebar row count in the right slot, popover via openPopover (anchored / bottom sheet), items open Bridge on that item. No right panel, no new storage or permission change. Stacked on #68; nothing merges. Last round of the ADR 0008 window (2026-11-06)."
+    }
+  ]
+}

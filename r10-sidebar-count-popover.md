@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: r10-sidebar-count-popover
+gates:
+    version: 1
+    records:
+        - id: gate:r10-sidebar-count-popover:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:r10-sidebar-count-popover-backlog-1
+              briefing:
+                id: briefing:r10-sidebar-count-popover:backlog:attempt-1:revision-1
+                digest: sha256:2bbad764fc9f25f02d5693d14583b5f76535a4c04f74bc377869ca3d1f361980
+                room-ref: ./r10-sidebar-count-popover/review/backlog/briefing-1
 ---
 
 Round 10 of the POC flywheel under ADR 0008: show on the Bridge sidebar row how many gates and questions wait on the Captain, and open a popover with those counts and the items when he presses it.
