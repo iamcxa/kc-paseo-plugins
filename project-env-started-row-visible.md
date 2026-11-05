@@ -60,8 +60,7 @@ Map footprints: not needed: no map answer is recorded by this task.
 ### Amendment 1 — 2026-11-05, chat
 Captain: 「驗證最新的就好」 (FO chat, 2026-11-05)
 Asked: "這份的驗收條件寫的是「在 Paseo 0.14.0 上那行不會被收起來」，但你現在用的是 0.15.1。我建議 0.14.0 和 0.15.1 兩個版本都驗。…回「兩版都驗」或「只驗 0.15.1」"
-Supersedes: "Paseo 0.14.0" in AC-1 and its Verified by
-Design: AC-1 and its Verified by run on one version only, the newest Paseo release at validation (v0.15.2 on 2026-11-05, `gh release list -R getpaseo/paseo`); 0.14.0 is no longer verified
+Supersedes: AC-1
 
 ## PRFAQ
 
