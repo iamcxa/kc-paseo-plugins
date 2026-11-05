@@ -29,6 +29,7 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+started: 2026-11-05T08:40:29Z
 ---
 
 Batch: r1b-polish-1, approved by the Captain on 2026-11-05 (「開這批」) with four members: project-env-picker-slow-hint, project-env-rate-limit-cause, project-env-started-row-visible, project-env-journey-map-r1b-catch-up. Since the map update merged as #59 (637d054), PR #61 shipped story `pick-repository` (task project-env-pick-repository, UAT OK 2026-11-05) and PR #58 shipped the docs site story `read-the-docs` (task project-env-docs-site, UAT OK 2026-10-28); both still read `gap` on `docs/journey/project-env/give-agents-their-project-setup.yaml`. The terminal limit the Captain asked to document (「加」, 2026-11-05) is not on the map.
