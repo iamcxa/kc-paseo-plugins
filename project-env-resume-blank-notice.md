@@ -517,3 +517,13 @@ Unchanged from cycle 3, plus: the FO's 2026-11-04 observation is second-hand (di
 ### Summary
 
 The candidate adds one documentation sentence to the Reference page's "Limits worth knowing" and changes nothing else; the Paseo 0.14.0 hook list confirms the plugin has no way to reach a terminal, the rebuilt page shows the sentence, and checks are 325 of 325 with a clean typecheck. One Polish note: "; only agents do" goes a clause beyond the Captain's words. Recommend PASSED.
+
+### FO acceptance rerun (2026-11-05)
+
+FO ran `evidence/val4/acceptance.sh` in a fresh `env -i` shell against df6180c: the one-line diff, the sentence under "Limits worth knowing", the five registered hooks, 325 pass 0 fail, typecheck clean, the built-page line; exit 0 (`evidence/fo-acceptance-rerun-df6180c.txt`).
+
+### FO declines, after feedback cycle 3 (proposed; the Captain rules)
+
+- Validation F1 (Polish), candidate revision df6180ce252d2ae007614dab15aadd7daed12b28: a refresh updates the per-agent memory without adding a row. Proposed decline: no row or UI differs (validation cycles 1 and 3).
+- Validation F4 (Polish, pre-existing), candidate revision df6180ce252d2ae007614dab15aadd7daed12b28: the "Started without" row can be folded by Paseo 0.14.0's default Chat display. Proposed decline: outside this task's Scope; its own task later.
+- Validation F6 (Polish), candidate revision df6180ce252d2ae007614dab15aadd7daed12b28: the OVERVIEW sentence adds "; only agents do" beyond the Captain's words. Proposed decline: it is true by the SDK 0.14.0 hook list and the FO's 2026-11-04 observation, and FO had told him the sentence would say only agents get them (chat, 2026-11-05). Material if he wants his words only; candidate fix: cut the clause.
