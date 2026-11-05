@@ -160,3 +160,44 @@ The map needs four small edits to match main: two stories to `exists`, the termi
 ### Summary
 
 Applied the approved four edits unchanged to the journey file on a fetched origin/main; lint passes with 9 stories in r1b and both evidence symbols grep on main. Draft PR #71 is open. Limit carried from ideation: `PAGES_REPO_NWO` proves the site build script, not the live site.
+
+## Stage Report: validation
+
+Candidate: PR #71 head f09ebae0fcb8c4d249492042d4ebc4b2f7be1391 (Draft, base `origin/main` c1458f7, fetched 2026-11-05). Verdict: PASSED (recommended; FO and the Captain hold the gate).
+
+- DONE: Validate PR #71 at its head against AC-1 and its three reruns: (a) lint exits 0 and `slice-size` reads 9 stories
+  Fetched `pull/71/head` = f09ebae, equal to the worktree HEAD (clean). `node kc-journey-map/1.9.0/lib/journey-lint.mjs docs/journey/project-env/give-agents-their-project-setup.yaml "$PWD"`: exit 0, `all lints pass`, `slice-size (accepted): release r1b holds 9 stories`. Falsifier run on a /tmp copy with `evidence: NoSuchSymbolX`: exit 1, `evidence-not-found` for pick-repository, so (a) fails if a symbol stops grepping.
+- DONE: (b) the diff against its base is only the approved journey-file lines
+  `git diff --stat origin/main`: 1 file, 9 insertions, 7 deletions (`gh pr view 71` files agrees). The +/- lines are identical to `design/journey-edits.diff` (compared line by line, identical).
+- DONE: (c) the two `git grep` commands find `addProjectLine` and `PAGES_REPO_NWO` on origin/main
+  `git grep -l -w -F addProjectLine origin/main`: `project-env/client/settings-screen.tsx`, `project-env/shared/project-list.ts`, `project-env/test/project-list.test.ts`. `git grep -l -w -F PAGES_REPO_NWO origin/main`: `docs/project-env/capture/build-site.sh`.
+- DONE: Check each new `exists` story's card and evidence against the code at origin/main, and the q8 answer and status-card lines against their sources; report any claim you cannot confirm
+  pick-repository: `addProjectState` returns failed, none, all-configured, choose and `addProjectLine` gives the three lines, matching the card (read at c1458f7; #61 f5d93bd is an ancestor of tag project-env-v0.3.0; UAT 「ok」 2026-11-05 in `_archive/project-env-pick-repository.md`). read-the-docs: `PAGES_REPO_NWO` is set in `build-site.sh`; #58 (d973876) is on main; UAT 「ok …」 2026-10-28 in `_archive/project-env-docs-site.md`; `gh api .../pages` status `built`, source main `/`; curl of `/docs/project-env/`, `install.html`, `prepare-1password.html`, `reference.html` all 200. q8: `project-env/OVERVIEW.md` on origin/main line "A terminal you open in Paseo does not get the project variables; only agents do." under "Limits worth knowing", and the live reference page serves the same sentence. Status card: "Docs site live" and "r1b's two built stories have Kent's UAT only" confirmed above; "9 more are open" equals the lint's own count.
+- DONE: Run `python3 .../kc-dev-flow-2/0.34.0/scripts/design_surfaces.py check <task>` and record its output
+  0.34.0 and 0.35.0 both, exit 0: `project-env-journey-map-r1b-catch-up.md: design surfaces presentable` / `scope check not run: stage is validation, not ideation`.
+- DONE: Do not push, mark ready or merge; close only browser sessions you opened yourself, by name
+  Nothing pushed to the PR, no ready, no merge; no browser opened. Only the state-checkout report is committed. The `pr71-validate` local ref I fetched is a read-only ref.
+
+Other checks: `comment_ratio.py origin/main HEAD` 0 code and 0 comment lines, exit 0; `adr_lint.py docs/adr --since origin/main` 9 files, exit 0; `doc_impact.py` lists 0 documents, exit 0; `dispatch_records.py` exit 1 (see F3).
+
+### Not confirmed
+- The "no terminal hook" reason in q8 is read from `_archive/project-env-resume-blank-notice.md` (that task's validator ran `npm install @getpaseo/plugin@0.14.0` and listed the hooks); I did not re-run it. The Paseo version now in use was not re-checked.
+- "plugin runs on Kent's Paseo daemon from his main checkout; no teammate install" is carried over unchanged from the old card; no source checks it today.
+- `read-the-docs` evidence proves the site build script exists; the live site is shown by the Pages and curl checks above, not by the lint.
+
+### Findings
+- F1 Polish: `pick-repository/q1` answer still begins "Gap: ... release 1b shows ..." although the story is `exists`. Ideation named it as a deliberate non-edit (the file keeps such historical answers on `paste-token/q1`, `token-works/q1`, `pick-vault/q1`); no harm.
+- F2 Polish: r1b `slice_because` still says four stories "need plugin code" including pick-repository, now built. Release-level sentence, outside the Scope; named as a follow-up in ideation.
+- F3 Polish: `dispatch_records.py` exits 1, "no dispatch records under dispatch/", and no task in the state checkout has a `dispatch/` folder, so this is a workflow-wide gap, not specific to this change. For FO to disposition; nothing in the candidate traces to a missing criterion.
+
+### Minimal acceptance script (about 3 minutes; run in bash from any checkout of iamcxa/kc-paseo-plugins)
+1. `git fetch origin main pull/71/head:pr71 && git checkout pr71 && git rev-parse HEAD` — expect `f09ebae0fcb8c4d249492042d4ebc4b2f7be1391`.
+2. `node ~/.claude/plugins/cache/kc-claude-plugins/kc-journey-map/1.9.0/lib/journey-lint.mjs docs/journey/project-env/give-agents-their-project-setup.yaml "$PWD" | tail -4; echo exit=${PIPESTATUS[0]}` — expect the `slice-size (accepted)` line saying `holds 9 stories`, then `all lints pass`, `exit=0`.
+3. `git diff --stat origin/main | tail -2` — expect one `give-agents-their-project-setup.yaml` line and `1 file changed, 9 insertions(+), 7 deletions(-)`.
+4. `git grep -l -w -F addProjectLine origin/main; git grep -l -w -F PAGES_REPO_NWO origin/main` — expect `settings-screen.tsx`, `project-list.ts`, `project-list.test.ts`, then `docs/project-env/capture/build-site.sh`.
+5. `curl -s https://iamcxa.github.io/kc-paseo-plugins/docs/project-env/reference.html | grep -c 'does not get the project variables; only agents do'` — expect `1`.
+Does not cover: the map's look on the canvas, the `unverified` r2 story, or whether the 1Password setup works on a teammate's Mac.
+
+### Summary
+
+The candidate matches AC-1: lint exit 0 with 9 stories, the diff is exactly the approved nine added and seven removed lines, and both evidence symbols grep on origin/main. Every new claim on the card was checked against code, PR state, the live docs site or the archived UAT records; three items could not be re-confirmed today and are listed above. Three Polish findings, none Material; nothing returns to implementation.
