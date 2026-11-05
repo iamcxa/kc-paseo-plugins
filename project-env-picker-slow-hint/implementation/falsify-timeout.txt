@@ -1,0 +1,40 @@
+▶ the field picker's failure line
+  ✖ says the list took too long when the daemon timed the call out, and does not send the person to the connection (1.185ms)
+  ✔ keeps today's words for a connection failure (0.635459ms)
+✖ the field picker's failure line (2.388625ms)
+ℹ tests 2
+ℹ suites 1
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 88.61675
+
+✖ failing tests:
+
+test at test/vault-list-failure.test.ts:8:3
+✖ says the list took too long when the daemon timed the call out, and does not send the person to the connection (1.185ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Plugin RPC timed out: paseo-project-env.invoke'
+  - 'Listing this vault took too long.'
+  
+      at TestContext.<anonymous> (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-picker-slow-hint/project-env/test/vault-list-failure.test.ts:10:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at node:internal/test_runner/test:1792:71
+      at node:internal/per_context/primordials:466:82
+      at new Promise (<anonymous>)
+      at new SafePromise (node:internal/per_context/primordials:435:3)
+      at node:internal/per_context/primordials:466:9
+      at Array.map (<anonymous>) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Plugin RPC timed out: paseo-project-env.invoke',
+    expected: 'Listing this vault took too long.',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

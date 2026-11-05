@@ -92,3 +92,9 @@ Batch order, confirmed against the four task files' own "Batch overlap" sections
 | not proposed now: setup-guide in-app steps; find-settings hint | setup-guide; find-settings | - | ruling owed, next turns |
 
 `create-service-account` q2 and the teammate-Mac acceptance run stay open. The progress tool read no tasks here: `journey-progress.mjs` refuses a state checkout as `--workflow-dir`, and with `docs/dev2` it listed 0 tasks for every story, so the task counts above come from `journey-*` frontmatter in the state checkout (`grep -l "journey-release: r1b"` finds browse-vault-survives, docs-site, pick-repository, picker-slow-hint and rate-limit-cause). Only r1 and r1.5 tasks carry `journey-required-tasks` today; no r1b task does.
+
+## Captain ruling (2026-11-05)
+
+Captain: 「移出」 (FO chat, 2026-11-05)
+Asked: "r1b 有個故事叫「從清單挑欄位」，這批兩份只修好了它的一半…另一半還沒有任務在做：參照用名稱組成…清單沒有上限…我建議把這一半移出 r1b，之後再做。…回「移出」或「留，開任務」"
+Result: the second half of `pick-field` (references built from item titles and field labels in `listRefs`, and an unbounded browse) leaves r1b; batch r1b-polish-1 proceeds unchanged. The map edit that records this is proposed for the follow-up map PR after the batch; FO writes no map.
