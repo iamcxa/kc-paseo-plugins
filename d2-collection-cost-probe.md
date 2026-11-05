@@ -40,9 +40,9 @@ consumer: the Captain's next decision — collection frequency and cost cap.
 
 ## Scope
 
-- Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with a throwaway copy of the Bridge plugin from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, made under /tmp with only the fleet server's port (a free port outside those ranges) and its token directory (inside the isolated daemon home) changed, so `fleet_status` is available as in production without touching the live Bridge; the product checkout stays unchanged.
+- Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with no Bridge plugin; the Commander gets the roster from Paseo's own agent list (`list_agents`, labels `role=fo`) instead of `fleet_status`, so no Bridge code runs and nothing of the live Bridge is touched; the missing tasks/gates summary is reported as an approximation.
 - Seed a synthetic fleet matching the live roster shape, read by the FO on 2026-11-05 (`paseo ls -g -a --label role=fo`, `paseo logs <id> --filter text --tail 10 | wc -c`): 18 agents labelled `role=fo` — 6 closed, 10 idle with 6–17 KB of recent text each (median about 9 KB), 2 idle and nearly empty. All content fictional; seed with the cheapest available model or without a model where the SDK allows.
-- Probe round: one Commander on `claude/claude-opus-5-5` (the live comms officer's provider) runs one collection with a throwaway digest prompt approximating d1-commander-digest's design with the existing tools only: `fleet_status` for the roster, `get_agent_activity` per FO for report text, then a digest in its own words with three context lines (about / before / now) and a source per line in whatever provisional reference the existing tools allow.
+- Probe round: one Commander on `claude/claude-opus-5-5` (the live comms officer's provider) runs one collection with a throwaway digest prompt approximating d1-commander-digest's design with the existing tools only: Paseo's agent list for the roster, `get_agent_activity` per FO for report text, then a digest in its own words with three context lines (about / before / now) and a source per line in whatever provisional reference the existing tools allow.
 - Baseline round: the current `COORDINATOR_PROMPT`, same roster, one "what is the fleet's status?" turn.
 - Per round, attributed by turn id, never by account delta: input, cached-input and output tokens; provider request count; wall time; per-FO bytes read and pages. Check whether `usage_updated` is cumulative before summing.
 - Write `d2-collection-cost-probe/evidence/RESULT.md` (numbers, method, approximations) and keep the probe prompt there.
@@ -72,6 +72,17 @@ Design: "Start one isolated Paseo daemon (its own `--home`, a port outside 6767,
 Superseded text:
 
 - Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with the Bridge plugin installed from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, so `fleet_status` is available as in production.
+
+### Amendment 2 — 2026-11-05, chat
+Captain: 「不裝 Bridge 量 (Recommended)」
+Asked: 第二次量測也停了，還是沒有數字。改了埠的複本又碰到一個問題：Bridge 的 PR 審查輪詢會讀寫你現有的 reviews.json，也會去查 GitHub。我自己檢查過，還有 decisions.json、通訊官工作目錄、直接呼叫你現有 Paseo 的指令，全都寫死在你的家目錄。Bridge 本來就是要接你現有的環境，所以一個一個補會補不完。同一個做法已經失敗兩次，我不會再試第三次。接下來怎麼量？ (options: 「不裝 Bridge 量 (Recommended)」 — "獨立副本裡只放指揮官，用 Paseo 內建的代理清單看名冊，再逐個讀 FO 回報。完全不跑 Bridge 的程式，所以不會碰到你現有的檔案。花費大多在讀 FO 回報；少的是 Bridge 的任務／關卡摘要，那部分很小，報告會註明。"; 「先不量，等寫程式時再量」; 「讓複本整個用獨立家目錄」)
+Supersedes: none
+Design: "Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with no Bridge plugin; the Commander gets the roster from Paseo's own agent list (`list_agents`, labels `role=fo`) instead of `fleet_status`, so no Bridge code runs and nothing of the live Bridge is touched; the missing tasks/gates summary is reported as an approximation." (## Scope); probe round reads "with the existing tools only: Paseo's agent list for the roster," (## Scope)
+
+Superseded text:
+
+- Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with a throwaway copy of the Bridge plugin from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, made under /tmp with only the fleet server's port (a free port outside those ranges) and its token directory (inside the isolated daemon home) changed, so `fleet_status` is available as in production without touching the live Bridge; the product checkout stays unchanged.
+(probe round) with the existing tools only: `fleet_status` for the roster,
 
 ## FO alignment
 
