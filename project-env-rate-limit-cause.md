@@ -7,6 +7,17 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-rate-limit-cause:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-rate-limit-cause-backlog-1
+              briefing:
+                id: briefing:project-env-rate-limit-cause:backlog:attempt-1:revision-1
+                digest: sha256:9cc7bc06629d94af1bc25367bf9acbbecafb8a0db28bdfaf6a8f4bb64f0f5f88
+                room-ref: ./project-env-rate-limit-cause/review/backlog/briefing-1
 ---
 
 Batch: r1b-polish-1, approved by the Captain on 2026-11-05 (「開這批」) with four members: project-env-picker-slow-hint, project-env-rate-limit-cause, project-env-started-row-visible, project-env-journey-map-r1b-catch-up. On 2026-10-27 the vault-list task found that `classifyOpFailure` in `project-env/server/cause.ts` returns `unexpected` for 1Password's "Too Many Requests: You've reached the maximum number of this type of requests…" reply, so after a limit is hit every item read lands in skipped as "1Password could not read this item" (archived project-env-vault-list-loads-faster, "Findings from the runs"). Service-account limits are per hour and per day (research/2026-10-27-1password-agents-and-docs-site.md).
