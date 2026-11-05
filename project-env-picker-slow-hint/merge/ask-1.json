@@ -1,0 +1,22 @@
+{
+  "class": "other",
+  "head": "b684b68de779ba2174a5efc6437f2a7d6805e26d",
+  "model": "not run",
+  "necessity": "the PR adds vaultListFailure and FIX_CONNECTION_HINT, three lines in the settings screen and one test file; without it a person with a working connection is told to fix it when a large vault times out",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: deferred: '- F1 Deferred risk: the fix'",
+    "point: deferred: 'Built screen finding 1: declined: the'",
+    "point: deferred: 'PR #72 at b684b68 meets AC-1'",
+    "point: deferred: 'Approve validation of the timed-out vault'",
+    "point: deferred: 'Declined: Deferred risk, F1 the fix'",
+    "point: deferred: 'Declined: Polish, F2 dispatch_records.py exits 1'",
+    "point: not-run: 'Package 0.35.0, exit 0: \"design surfaces'",
+    "point: not-run: 'Second reviewer: roborev not run: FO'",
+    "point: surface: 'ui'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#72",
+  "sufficiency": "validation-1 PASSED at b684b68 with no Material or Needs decision finding; AC-1 observed on an isolated Paseo 0.15.2 at 1280 and 400 px; 327/327 tests and tsc clean; FO's acceptance rerun matched (fo-",
+  "time": "2026-11-05T17:43:43Z",
+  "verdict": "ask"
+}
