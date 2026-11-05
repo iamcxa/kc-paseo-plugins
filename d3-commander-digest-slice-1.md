@@ -5,6 +5,17 @@ profile: poc
 merge: pr
 id: d3-commander-digest-slice-1
 status: backlog
+gates:
+    version: 1
+    records:
+        - id: gate:d3-commander-digest-slice-1:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:d3-commander-digest-slice-1-backlog-1
+              briefing:
+                id: briefing:d3-commander-digest-slice-1:backlog:attempt-1:revision-1
+                digest: sha256:fe198b208c3ff75cbb0f3daa71da6e2812716ec4ea21166061a851b2fdc3d560
+                room-ref: ./d3-commander-digest-slice-1/review/backlog/briefing-1
 ---
 
 Build the accepted d1-commander-digest design's first slice: a new comms officer that writes the digest in its own words with an exact source per point and per context line, the Replay card behind each point, and a "collect now" action; scheduling comes in slice 2.

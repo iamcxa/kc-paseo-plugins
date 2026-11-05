@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:d3-commander-digest-slice-1:backlog:attempt-1:revision-1",
+  "question": "開始寫第一片嗎？（指揮官摘要＋每點的 Replay＋換新通訊官＋手動「現在收集」；排程留第二片）",
+  "artifacts": [
+    {
+      "id": "artifact:d3-commander-digest-slice-1:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/e6dd86d850a970b7631762aa6f9bb8fffb0ffc95/d3-commander-digest-slice-1.md",
+      "rev": "sha256:5582e57727b9cc29c32118b9194ed9f398f64ce2375ad023a313382d5e023369",
+      "mediaType": "text/markdown",
+      "summary": "Slice 1 of the accepted digest design, stacked on PR #69: sourced digest points validated by Bridge, the Replay card per the cycle 5 mockups, a new comms officer switched in only after the Captain confirms, and a collect-now action measured by turn id. Scheduling (hourly, open-Bridge incremental) is slice 2. Stop if sources cannot be read back exactly or a collection cannot be measured without touching the live Bridge."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:d3-commander-digest-slice-1:backlog:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/e6dd86d850a970b7631762aa6f9bb8fffb0ffc95/d1-commander-digest/design/DIGEST.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:bd74ffafdb05c4a57bd06ea8bf046530cec615066f1c38b09d84f5ae5108ced8"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:d3-commander-digest-slice-1:backlog:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/e6dd86d850a970b7631762aa6f9bb8fffb0ffc95/d2-collection-cost-probe/evidence/RESULT.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:29fb36dd05fa15fb1a2deab1ceeedd6cb0b37142ad26bc3e164ed5e6f87ec332"
+    }
+  ]
+}
