@@ -217,6 +217,9 @@ Limits/cleanup: installed web-host presentation, source readiness and native-sty
 
 - Amendment 1 build (cycle 4) on 33952f9: popover items newest first; roborev clean (roborev:1482).
 
+- Validation-2 PASSED AC-1 and AC-3 at 33952f9; FO acceptance rerun passed every step (oldest-first mutant rejected). Engineering-reviewer on amendment 1: proceed.
+- Observer on the amendment window (7b71260..ad146db): 1 FO record violation — validation-1's gate summary lacked `External rounds: N` and the Sufficiency/Necessity clauses, and delivery_gate.py question was not run before that prepare (README, Delivery authority); 2 package mismatches (design_surfaces gap 2; role_triggers gap 8). For attempt 2, FO ran delivery_gate.py question on the briefing text (exit 0). Round 9 also had FO record violations, so under ADR 0008 FO takes this gate to the Captain rather than recording it.
+
 ### FO declines
 
 - Pre-gate team pass 2 (picky A, annoys; design director noted it as not blocking) on 2a31ef49e8f152623c1e04e046bcbf34777da85f — on the phone, when a source failed, the incomplete-source note plus the scroll cue squeeze the sheet's list below one full row, clipping the question's owner and age until scrolled. Declined as a known issue by the Captain's ruling 2026-11-04, asked 「手機上讀取失敗時，彈出摘要的清單被擠到不到一整列，要怎麼處理？」, answered 「先記成已知問題 (Recommended)」. Would become Material: if the Captain reports missing or misreading a waiting question on his phone because the row was clipped, or the sheet shows no complete row with sources healthy.
