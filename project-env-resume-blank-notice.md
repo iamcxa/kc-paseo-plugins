@@ -65,6 +65,17 @@ gates:
                 id: briefing:project-env-resume-blank-notice:validation:attempt-2:revision-1
                 digest: sha256:6f3d0d8f8a202805b655f1a31dd2892bcbc2ac8e7db72db0153f7c5aa6b7cb54
                 room-ref: ./project-env-resume-blank-notice/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-resume-blank-notice:validation:2
+                briefing: briefing:project-env-resume-blank-notice:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-11-05T08:06:23.300786Z"
+                decision: approve
+                reason: '「准。再教我一次選 repo 怎樣驗收」 — Captain in FO chat, 2026-11-05, on the validation gate attempt 2 (sha256:6f3d0d8f), FO having recommended approval; approves validation and the three proposed declines (F1, F4, F6 Polish) at candidate df6180ce252d2ae007614dab15aadd7daed12b28. Asked: Approve validation of the resume notice (PR #66 at df6180c) and the three proposed declines? Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-10-30T14:42:08Z
 ---
 
