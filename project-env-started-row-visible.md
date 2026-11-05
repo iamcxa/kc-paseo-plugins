@@ -73,6 +73,7 @@ Direction alignment with the Captain: done — he answered 「開這批」 on 20
 Result: the batch question and this Scope.
 Release review: not needed: it follows a host release and adds no journey story.
 Map footprints: not needed: no map answer is recorded by this task.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-06: Captain amendment 1 (「驗證最新的就好」) supersedes AC-1 with AC-2; it withdraws only the Paseo 0.14.0 verification, which the Captain chose to drop when asked whether to verify 0.14.0 and 0.15.1 or one version, and AC-2 keeps every other clause of AC-1.
 
 ## Captain amendments
 
