@@ -551,4 +551,7 @@ After the Captain approved validation (「准」, 2026-11-05), FO merged PR iamc
 
 ## UAT
 
-Pending: the Captain's UAT on the live plugin (Paseo 0.14.0).
+UAT (Captain, 2026-11-05): OK — 「ok」
+Asked: FO asked for the UAT of pick-repository, the resume notice and the notes-test fix together (「如果都沒問題，回一個「OK」就兩件一起收」, after earlier asking the same for the test fix); his 「ok」 answers all three.
+
+Cost: Captain messages 9; worker tokens not measured (reported: ideation 333315, implementation 163136, 176752, 201933 and 210569, validation 166865, 190422, 224901 and 246144)
