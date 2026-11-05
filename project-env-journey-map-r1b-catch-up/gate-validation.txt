@@ -1,0 +1,10 @@
+Approve validation of the journey map catch-up (PR iamcxa/kc-paseo-plugins#71 at f09ebae0fcb8c4d249492042d4ebc4b2f7be1391) and the proposed declines (F1, F2, F3 dispatch records)? FO recommends approving. Approval lets FO merge it under ADR 0007 class 2, unless the Captain says he merges or holds; it changes no plugin code, so no reload.
+Merge ask: PR #71 at f09ebae0fcb8c4d249492042d4ebc4b2f7be1391 marks pick-repository and read-the-docs exists, records the terminal limit as answered question q8 on new-agent-env, and updates the status card, 9 insertions and 7 deletions in one file.
+Sufficiency: validation-1 PASSED at f09ebae with no Material finding; kc-journey-map 1.9.0 lint exit 0 with slice-size 9; diff identical to the approved journey-edits.diff; both evidence symbols grep on origin/main; FO's acceptance rerun matched (fo-acceptance-rerun-f09ebae.txt).
+Necessity: the PR changes only the journey file; without it the map shows two shipped stories as gaps and omits the terminal limit.
+Reviews: external review rounds: 1 — Codex summary:6664388415 clean on f09ebae0f.
+External rounds: 1
+Second reviewer: roborev not run: FO did not run the local roborev gate for this batch.
+Declined: Polish, F1 pick-repository q1 still opens with Gap (a deliberate non-edit named at ideation, matching other exists stories).
+Declined: Polish, F2 r1b slice_because still says pick-repository needs plugin code (outside this Scope, it goes to the follow-up docs and map PR after this batch).
+Declined: Polish, F3 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch, an FO record defect with no effect on the candidate).

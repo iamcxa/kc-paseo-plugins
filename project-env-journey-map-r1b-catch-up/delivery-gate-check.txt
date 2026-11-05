@@ -1,0 +1,9 @@
+PR head f09ebae0fcb8c4d249492042d4ebc4b2f7be1391 equals dispatched candidate f09ebae0fcb8c4d249492042d4ebc4b2f7be1391; no second reviewer outcome is missing
+point: deferred: 'Declined: Polish, F1 pick-repository q1 still'
+point: deferred: 'Declined: Polish, F2 r1b slice_because still'
+point: deferred: 'Declined: Polish, F3 dispatch_records.py exits 1'
+point: not-run: '0.34.0 and 0.35.0 both, exit 0:'
+point: not-run: 'Second reviewer: roborev not run: FO'
+class: other (verdict ask)
+record: project-env-journey-map-r1b-catch-up/merge/ask-1.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.
