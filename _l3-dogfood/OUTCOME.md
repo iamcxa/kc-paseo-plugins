@@ -1,6 +1,6 @@
 # Bridge POC flywheel — outcome report
 
-The flywheel under ADR 0008 ran its full window (10 rounds, 2026-10-23 to 2026-11-05): it took the Spacedock Bridge from a decision card beside a chat to a commander-first board with a sidebar count, all as eight stacked, unmerged PRs (#40 → #69, GitHub stack #43); the product improved every round, the FO's own record-keeping failed observer checks in rounds 5–7 and 9 and was clean only in rounds 3 and 10. No pilot task is created; merging, extending or moving to pilot/prod is the Captain's decision.
+The flywheel under ADR 0008 ran its full window (10 rounds, 2026-10-23 to 2026-11-05): it took the Spacedock Bridge from a decision card beside a chat to a commander-first board with a sidebar count, all as eight stacked, unmerged PRs (#40 → #69, GitHub stack #43); the product improved every round, the FO's own record-keeping failed observer checks in every round it was checked except round 3, including a late class in round 10. No pilot task is created; merging, extending or moving to pilot/prod is the Captain's decision.
 
 Source of every fact below: `_l3-dogfood/rounds.md` (the round log), the round task files and their `evidence/` folders in this state checkout.
 
@@ -17,7 +17,7 @@ Source of every fact below: `_l3-dogfood/rounds.md` (the round log), the round t
 | 7 | r7-one-clear-way-to-decide (#57) | 「決定畫面變清楚 (Recommended)」 | message and decision separated (reason field, explicit Confirm), conversation scope named, larger phone controls, the Captain's colour-difference fix |
 | 8 | design only: r8-simplest-way-to-decide, r8-list-and-wide-detail (no PR) | 「我想先做設計稿先不要動手改…」; 「可以，注意要先找出適用情境中最簡單易用的 UX再做設計」 | interaction-model counts, an Agent Observatory reference evaluation, mockups of a narrow list beside a wide detail; his go 「照這個方向做可以」 |
 | 9 | r9-commander-first design + r9-list-and-detail-layout (#68) | 「…讓 comm officier 可以成為指揮官…」; 「就這樣」 | Bridge opens on the comms officer as the Commander; board beside a wide detail with grouping, one status per row, filters; one-step return; session Done section |
-| 10 | r10-sidebar-count-popover (#69) | 「先做側欄數字跟彈出，右側先不動」; amended 「應該越新的越上面」 | amber count on the Bridge sidebar row ("?" while unchecked, none at zero) and a popover of gates and questions (newest first: the amendment is being built and re-validated) |
+| 10 | r10-sidebar-count-popover (#69) | 「先做側欄數字跟彈出，右側先不動」; amended 「應該越新的越上面」 | amber count on the Bridge sidebar row ("?" while unchecked, none at zero) and a popover of gates and questions newest first (amended after his trial; his gate: 「核准 (Recommended)」) |
 
 ## What the flywheel showed
 
@@ -39,9 +39,9 @@ Source of every fact below: `_l3-dogfood/rounds.md` (the round log), the round t
 | 7 | 2 | scope added after the backlog gate without a ruling; diagnosis and fix in one dispatch |
 | 8 | not run | FO omission — the design tasks had no observer pass |
 | 9 | 5 | missing seed fields; amendment not recorded as such; an FO "implementation choice" that changed the accepted design; fixes without a separate investigation; decline placement |
-| 10 | 0 | — |
+| 10 | 1 | clean on the first pass; the amendment pass found that no validation gate in the flywheel had run `delivery_gate.py question` or carried `External rounds` and Sufficiency/Necessity lines |
 
-Each stop went to the Captain (rounds 5, 6, 7, 9; round 10's second unsatisfied team pass); he ruled to repair the records and continue each time. Every class, once seen, became a check in `_l3-dogfood/pregate_check.py` (12 checks, each falsified against the record that had the defect); new classes kept appearing until round 10. The record rules hold only where a script checks them.
+Each stop went to the Captain (rounds 5, 6, 7, 9; round 10's second unsatisfied team pass; round 10's last gate, which he approved himself); he ruled to repair the records and continue each time. Every class, once seen, became a check in `_l3-dogfood/pregate_check.py` (12 checks, each falsified against the record that had the defect); new classes kept appearing through round 10. The record rules hold only where a script checks them; the delivery_gate.py question step is the newest such class and has no pregate check yet.
 
 ## Package gaps for the dev2 FO
 
