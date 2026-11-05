@@ -1,12 +1,12 @@
 ---
 id:
 title: The troubleshooting-notes test passes again on main
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-overview-notes-test
-pr: iamcxa/kc-paseo-plugins#62
+pr: pr-merge:62
 gates:
     version: 1
     records:
@@ -66,8 +66,11 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-28, on the validation gate (sha256:d4fd06e3), FO having recommended approval, at candidate ad347406fba976ba59417461ed4d0786145d0c52. Asked: Approve validation of the notes-test fix (PR #62 at ad34740)? Approval lets FO merge it under ADR 0007 class 2, unless the Captain says he merges or holds; no plugin reload is needed.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-28T12:10:48Z
+verdict: PASSED
+completed: 2026-11-05T08:15:37Z
+archived: 2026-11-05T08:15:37Z
 ---
 
 Since PR #58 (docs site, merge d973876, 2026-10-28) main fails 8 tests: "the troubleshooting notes" in `project-env/test/agent-notice.test.ts` checks that `project-env/OVERVIEW.md` includes each `causeSentence(cause)` word for word, and #58 turned those sentences from bold sentences ending in a period into `###` headings without one. FO checked on 2026-10-28: `npm test` at 7b63c31 (before #58) passes 306 of 306; at d973876 it fails these 8. The live plugin is not affected: the test reads the shipped notes, not running code. FO's docs-site dispatches did not ask for `npm test`, so neither implementation nor validation ran it. Asked whether to open a small fix task before validating pick-repository, recommending it, the Captain answered 「開」 on 2026-10-28.
