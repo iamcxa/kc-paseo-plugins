@@ -289,3 +289,9 @@ Falsifiers: restoring either one-entry reading or per-entry client display break
 ### Summary
 
 The exact authorized combined repair is implemented and pushed in dd01927 and the final head above, completing the seed's last repair cycle. All affected views are captured through fictional SDK/RPC timelines; real server-function tests prove interval/source behavior separately, with no claim about provider quality, native Paseo chat, external readers or live/physical-device acceptance. FO owns RoboRev, independent validation and final review; the PR stays Draft.
+
+## Investigation: roborev 1540
+
+FO ran roborev on ccb29f5ac1e4dce03681cc6e86bfc331466446c0 (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1540, two Medium findings. The seed's two repair cycles are spent; no further fix is authorized before the Captain sees the task.
+9. server/report-sources.ts and server/digest.ts: both readers use cursor seqStart - 1, so a source at sequence 0 sends cursor -1, which the installed Paseo 0.12.0 protocol rejects; such a report cannot validate or open in Replay.
+10. client/digest.tsx: when the Replay request itself throws (for example while revalidating the Commander timeline), only the earlier/later side is marked unavailable and the three context lines stay, without the leading warning — the item 5 surface repaired in cycle 1.
