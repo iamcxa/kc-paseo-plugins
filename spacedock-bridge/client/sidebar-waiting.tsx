@@ -14,7 +14,7 @@ export function waitingDestination(item = "queue"): PluginOpenScreenInput {
 
 function summary(waiting: ReturnType<typeof useWaiting>) {
   const items = waiting.items.filter(item => waitsForCaptain({ ...waiting.progress[item.key], kind: item.kind }))
-    .sort((a, b) => a.since.localeCompare(b.since) || a.key.localeCompare(b.key));
+    .sort((a, b) => b.since.localeCompare(a.since) || a.key.localeCompare(b.key));
   const counts = filterCounts(waiting.items.map(item => ({ ...waiting.progress[item.key], kind: item.kind })), waiting.sources, "captain");
   return { items, counts };
 }

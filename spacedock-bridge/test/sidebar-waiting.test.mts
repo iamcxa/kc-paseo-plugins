@@ -46,7 +46,7 @@ test("sidebar updates without Bridge mounted, hides zero, marks failures, retrie
   assert.equal(host.screens.length, 0);
 });
 
-test("popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board", async t => {
+test("popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board", async t => {
   const host = await mountBridge(t, true, rpc => {
     rpc["gates.read"] = async () => ({ gates: ["a", "b"].map(id => ({ workflowDir: `/workflow-${id}`, slug: id, title: `Approve ${id}?`, stage: "validation", briefingId: `brief-${id}`, preparedAt: "2026-11-03T10:00:00Z" })), failedWorkflowDirs: [] });
   }, true);
@@ -57,7 +57,7 @@ test("popover sorts gates and questions together by age; item routes to that Bri
   assert.match(host.text(), /Gates · 2/);
   assert.match(host.text(), /Questions · 1/);
   const text = host.text();
-  assert.ok(text.indexOf("Choose the retry limit") < text.indexOf("Approve a?"));
+  assert.ok(text.indexOf("Approve a?") < text.indexOf("Choose the retry limit"), "newer gate must precede the older question");
   assert.match(text, /A FO · Question ·/);
   await host.click("Open Choose the retry limit");
   assert.equal(host.screens.at(-1).screenId, "board");
