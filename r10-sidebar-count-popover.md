@@ -1,6 +1,6 @@
 ---
 title: Flywheel round 10 — a count on the Bridge sidebar row with a popover of gates and questions
-status: validation
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -51,10 +51,10 @@ gates:
                     source: 'Captain chat 2026-10-23, recorded as ADR 0008 (kc-paseo-plugins docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md, merged PR #38); known-issue ruling 2026-11-04: 「先記成已知問題 (Recommended)」'
               application:
                 target-stage: done
-                state: pending
+                state: superseded
 started: 2026-11-04T01:40:15Z
 worktree: .worktrees/spacedock-ensign-r10-sidebar-count-popover
-pr: 69
+pr:
 ---
 
 Round 10 of the POC flywheel under ADR 0008: show on the Bridge sidebar row how many gates and questions wait on the Captain, and open a popover with those counts and the items when he presses it.
