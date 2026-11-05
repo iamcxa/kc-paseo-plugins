@@ -1,0 +1,28 @@
+## picker-slow-hint
+b684b68de779ba2174a5efc6437f2a7d6805e26d
+ℹ pass 327
+ℹ fail 0
+tsc-exit=0
+## picker acceptance.sh timeout
+loading_for_s 31.5
+nConnections
+n1Password
+nListing this vault took too long.
+nType the reference below instead. A large vault can be too slow to list.
+[agent-browser] launched browser
+loading_for_s 31.7
+n1Password
+nListing this vault took too long.
+nType the reference below instead. A large vault can be too slow to list.
+pictures: /tmp/pe-psh-acc/root/shots/timeout-1280.png /tmp/pe-psh-acc/root/shots/timeout-400.png 
+exit=0
+## picker acceptance.sh conn
+n1Password could not be reached
+nClose this list, fix the 1Password connection on this page, then open it again.
+[agent-browser] launched browser
+loading_for_s 1.5
+n1Password
+n1Password could not be reached
+nClose this list, fix the 1Password connection on this page, then open it again.
+pictures: /tmp/pe-psh-acc/root/shots/conn-1280.png /tmp/pe-psh-acc/root/shots/conn-400.png 
+exit=0
