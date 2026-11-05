@@ -77,6 +77,7 @@ Release review: not needed: spacedock-bridge has no journey map yet.
   DIGEST.md 列五項最短操作數、一般決定與關卡 Confirm 分流；EVIDENCE.md 指向 decideGate／gateDecisionMessage／deliveryState。數字是設計推演，未作真人或裝置測試；AC-1、AC-2 仍待設計總監及 Captain 審查，未代錄回答。
 - DONE: Do not start step B; finish with a short stage report and stop for the design director's review
   本次沒有 HTML、PNG 或 review.html；僅提交 Step A 文字、證據及虛構契約探針，停止於設計總監審查前，不修改 stage／gate。
+- Captain ruling 2026-11-05 on step A's open question, asked 「CO 定時收集進度時，要怎麼取得資料？」, answered 「只讀既有回報 (Recommended)」 (option text: read only the FOs' existing reports, mark missing ones unknown, never prod an FO). Frequency, cost cap and how a new Commander prompt is applied remain open until measured.
 
 ### Summary
 
