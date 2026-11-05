@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-started-row-visible:ideation:attempt-1:revision-1",
+  "question": "設計關（r1b 修小地方 3/4）：「Started without」那行改成在第一輪回覆結束時才加（拿掉 agent 建立時加、和十分鐘過期），就不會被 Paseo 預設的「收起對話」折疊；0.15.1 上主線 12 次有 5 次被收起，改後 9/9 看得到。驗收依你的修改只驗最新版（今天是 0.15.2，尚未實跑，靜態比對折疊程式與 0.15.1 相同）。文件兩句要跟著改。測試 325/325。我建議准，在限流那份之後實作。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-started-row-visible:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/708c17c36ce228abf2145e9dc77aa936ff0b835e/project-env-started-row-visible.md",
+      "rev": "sha256:1a92a0fde4d5688723adf6bb4fc8c48a51081e1b315169b418a2efc8a64da233",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: add the Started-without row at agent.turn_ended only; 9/9 visible on 0.15.1; AC-2 (Captain amendment 1) verifies the newest Paseo release only. FO recommendation: approve, build after rate-limit-cause."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-started-row-visible:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/708c17c36ce228abf2145e9dc77aa936ff0b835e/project-env-started-row-visible/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:b11689d0e7280afd09cdaaeda8a8eb6c816f61eda8b87232438a058925e0f6bb"
+    }
+  ]
+}
