@@ -1,0 +1,58 @@
+design_review:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  preview: design/built-picker-1280.png
+  criteria_check:
+    - "Rate-limit sentence in picker, Test bubble and Started line, with the picker hint, and a missing-field cause alongside: seen in built-picker-1280/400, built-test-bubble-1280/400, built-test-bubble-linear-1280 (Field not found in the vault.) and built-started-1280/400. Met."
+    - "Picker error keeps the search box and typing a name offers 'Add NEW_KEY and pick the field later': seen in built-picker-typed-name-1280. Met."
+    - "Test: rate-limited rows (STRIPE_SECRET_KEY, POSTHOG_API_KEY) show the red (!) mark and the bubble reads the sentence; summary reads '3 failed · 1 set' (2 rate-limited plus 1 field-missing, 1 set): built-test-1280, built-test-bubble-1280. Met."
+    - "Started line shows two rate-limited causes and one missing-field cause side by side: built-started-1280/400. Met."
+  findings:
+    - severity: MINOR
+      dimension: hierarchy
+      where: built-picker-1280.png and built-picker-400.png (error state)
+      seen: The red line 'wait and try again' and the grey hint 'Close this list, wait a while, then open it again.' both say to wait, one directly under the other.
+      fix: Keep the red cause line and shorten the hint to the one thing the person does ('Close this list and open it again in a while'), or accept as is because the wording is fixed by the criterion.
+    - severity: MINOR
+      dimension: states
+      where: built-picker-1280.png, built-picker-typed-name-1280.png (the 'Type a reference...' line under the error)
+      seen: "'Type a reference...' is plain grey text with no box or fill, unlike the filled search box above, so it reads as a caption and not as an input a person can use while the list is down."
+      fix: Draw it as an input like the search box, or drop it from the error state if it is not a working control.
+    - severity: MINOR
+      dimension: spacing
+      where: built-picker-1280.png versus built-picker-typed-name-1280.png
+      seen: Typing a name inserts the 'Add NEW_KEY...' row and the red error block moves down about 44 px (y 246 to 290), so the message jumps while the person types.
+      fix: Reserve the Add row's space in the error state, or accept the shift as small.
+    - severity: MINOR
+      dimension: flow
+      where: built-test-1280.png, built-test-bubble-1280.png
+      seen: A rate-limited row is drawn exactly like a broken-mapping row (red outline, same red (!) mark), so at a glance it says 'this mapping is wrong' while the action is only to wait; the cause is readable only in the hover bubble.
+      fix: This follows the criterion (red (!) mark), so no change is required; if wanted, tell the Captain the at-a-glance read does not separate 'wait' from 'fix', and decide whether a different mark is worth it.
+    - severity: MINOR
+      dimension: flow
+      where: built-started-1280.png, built-started-400.png
+      seen: The Started line says 'wait and try again' for the two rate-limited variables, but the agent has already started without them and the line does not say what to retry (start a new conversation).
+      fix: Name the retry ('start a new conversation') if the wording may change; otherwise accept, since the sentence is fixed by the criterion.
+    - severity: MINOR
+      dimension: spacing
+      where: built-test-bubble-1280.png, built-test-bubble-400.png
+      seen: The 2-line bubble ('...so wait and / try again.', last line a lone 'try again.') sits over the next row and hides POSTHOG_API_KEY (400: the name 'POSTHOG_API_KEY' is cut to 'POSTH...') and, at 1280, its field box.
+      fix: Widen the bubble so the sentence fits on one line at 1280, or place it above the mark when the row below would be covered.
+    - severity: MINOR
+      dimension: states
+      where: Started line (all sizes)
+      seen: Only a 3-variable line is shown; a line with many failed variables (several identical rate-limit sentences) is not.
+      fix: Add a criterion or a picture for a line of 8 or more variables to confirm it wraps and does not push the reply far down.
+    - severity: MINOR
+      dimension: theme-size
+      where: all pictures
+      seen: Dark theme only; no light theme at 1280 or 400, and no 400 px picture of the typed-name state.
+      fix: Add light-theme pictures of the picker error and the Test bubble and a 400 px typed-name picture, or record that the plugin inherits Paseo's theme tokens and treat it as untested.
+  limitations:
+    - "A static picture cannot show whether a tap opens the Test bubble on a phone; at 400 px the cause is reachable only through the bubble and the (!) mark is about 24 px, below the usual 44 px touch target."
+    - "built-picker-1280 and built-list-picker-1280 (and the two 400 px versions) look identical; the picture set does not show a second entry point as a distinct state."
+    - "In built-picker-1280 the 'Field not found in the vault.' bubble is still visible beside the open picker; it looks like a leftover hover from the harness and was not judged as a defect."
+    - "The page behind the picker differs between built-picker-1280 (failed marks and '3 failed' shown) and built-picker-typed-name-1280 (no marks, no failure count), so the two pictures come from different states of the test run."
+    - "What happens after the typed name is added (the new row with no field), the real 1Password rate-limit timing, and a real Test run are not shown."
+    - "The ADRs read (0002, 0004) settle that a failed variable is shown with its cause and never a value; they do not settle any finding above."

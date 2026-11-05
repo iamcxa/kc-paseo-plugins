@@ -223,3 +223,52 @@ The reply gets its own cause `rate-limited`, one phrase on all three screens ("1
 
 ### Summary
 The `rate-limited` cause is implemented as designed, with the hint chosen in `vaultListFailure`, and covered by 9 new test cases whose falsifiers each fail as named. Pictures on Paseo 0.15.2 confirm AC-1 clauses 2 to 5; docs pictures need no change. Draft PR #73 stacks on #72.
+
+## Stage Report: validation
+
+- DONE: Validate PR #73 at its exact head (Candidate 6fcce94, stacked on #72 at b684b68, diff b684b68..6fcce94 only) against AC-1 and its six Verified-by clauses on an isolated Paseo at the newest release, with pictures at 1280 and 400 px.
+  Candidate 6fcce94de4514d490cd1922a4ab935f1cc05c731 equals `origin/spacedock-ensign/project-env-rate-limit-cause` after `git fetch`. Isolated Paseo 0.15.2 (npm `latest`, `npm view`, 2026-11-06), own homes `/tmp/pe-rl-val/run-{part,list}`, ports 47671/47672, fake `op`/`security`; both daemons stopped. Seen: picker "1Password rate limit reached so wait and try again" plus "Close this list, wait a while, then open it again." with no partial list, limit partway through the items and on the item list itself (clauses 1-3); typing NEW_KEY still offers "Add NEW_KEY and pick the field later" (4); Test "3 failed · 1 set" with the stripe bubble "1Password rate limit reached so wait and try again." and the linear bubble "Field not found in the vault." (5); the new agent's Started line "STRIPE_SECRET_KEY — 1Password rate limit reached so wait and try again / POSTHOG_API_KEY — same / LINEAR_API_KEY — field not found in the vault", plugin row `rate-limited, rate-limited, missing-field` (5); `scrollWidth` equals the viewport at 1280 and 400 in every shot (`validation/val-text.txt`, `list-text.txt`). Pictures `design/built-*.png`.
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` at the candidate; confirm the classification test fails when the new branch is removed.
+  335 tests, 335 pass, 0 fail; tsc exit 0. In a throwaway copy `/tmp/pe-rl-val-mut` (candidate untouched, `git status` clean): without the `RATE_LIMITED` line 6 fail (two classification rows "a rate-limit reply ..." , "every id is produced by a case here", the failure-reason "rate-limited" case, "stops on a rate limit that hits the item list itself", "stops the whole list on a rate limit ..."); without `|| cause === "rate-limited"` in `listRefs` 1 fails ("stops the whole list ..."); renaming the OVERVIEW.md heading fails "explain rate-limited with the words the screen shows"; without the hint branch "tells a rate limit to wait, not to fix the connection" fails. Each falsifier asserts the named behaviour; the mutation that removes it makes it fail.
+- DONE: Docs: follow the built Install and Prepare 1Password pages' words through the screens this change touches, and report any sentence or picture that no longer matches.
+  Built the site from `git archive 6fcce94` with `docs/project-env/capture/build-site.sh` (exit 0). Install has no screen this change touches; Prepare 4b (picker, `05-field-picker.png`) and 4c ("a row that cannot be read shows a red "!" that gives the reason", `07-test-result.png`) still match, since neither shows a cause; its link "When a variable is blank" now leads to the built Reference page, which holds the new `id="1password-rate-limit-reached-so-wait-and-try-again"` section and the "Too Many Requests" text. No sentence or picture is stale. See F1.
+- DONE: Run `design_surfaces.py check <task>` and record it.
+  Run with 0.34.0 and 0.35.0 before the review lines were written: exit 1 "built screen review not run: a ui task with a design review needs a 'Built screen review:' line" (the line this report adds); rerun result under Checks below.
+- DONE: Never touch the Captain's live install `paseo-project-env`; never read or print a secret value; do not push, mark ready or merge; stop only my own daemons and close only my own browser sessions.
+  Only `/tmp/pe-rl-val` homes and ports; no real `op`, no Keychain read; closed `pe-rl-val-started` and the harness's own `pe-rl-shoot-*`/`pe-rl-typed-*` sessions (not `probe152`, not mine); `gh` not called (head verified by `git fetch`). Product code pushed or merged: none.
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: red line and hint are the approved wording; the same layout every list error uses
+Built screen finding 2: declined: unchanged by this task: "Type a reference…" is the existing pressable under every list error
+Built screen finding 3: declined: unchanged by this task: the Add row's insertion is the existing behaviour of every list error
+Built screen finding 4: declined: one FailureMark for every cause by ADR 0002; the task's Scope excludes other looks
+Built screen finding 5: declined: the one-sentence-on-every-screen rule is pinned by a test; the notes say "start a new agent"
+Built screen finding 6: declined: existing MarkBubble with fixed width, shown only while hovered or pressed
+Built screen finding 7: declined: MissingVariablesRow layout is untouched by this task
+Built screen finding 8: declined: no new colour or token, so no new light-theme contrast
+Built screen decline check: design/validation-declines-1.yaml
+
+### Checks
+- `comment_ratio.py b684b68 6fcce94 --workflow-dir docs/dev2`: code 26, comment 0, 0.0%, maximum 5% met, exit 0. `adr_lint.py docs/adr --since b684b68`: 9 ADR files, exit 0 (no ADR added or changed). `doc_impact.py b684b68 6fcce94` lists ADR 0005 only; the implementation report's `unaffected` reason holds (it cites `cause.ts`, `secrets.ts`, `field-picker.ts` by symbol for layout and prefix matching, none of which changed). No `## Number guards` section; no `db` surface.
+- `design_surfaces.py check <task>` rerun with both 0.34.0 and 0.35.0 after the review lines: exit 0, "design surfaces presentable", 8 findings, 8 upheld declines, 0 decisions. The check accepts one `preview:` path, so `design/validation-1.yaml` carries `preview: design/built-picker-1280.png` where the director listed ten pictures (its findings still cite them by name); that one line is my edit.
+- `dispatch_records.py <task folder>`: exit 1, "no dispatch records under dispatch/". See F3.
+- Surfaces: pilot depth; goal sufficiency met (AC-1 clauses 1-6 observed, other causes unchanged); minimal necessity: 9 files, +32/-1, every line maps to a clause (cause id and phrase, one pattern, one stop condition, one hint branch, notes heading, 9 tests).
+
+### Findings
+- F1 Polish: the new troubleshooting text says "open the field list", a term no screen or docs page uses (the screen is titled "Add a variable"; Prepare calls it "the Add a variable list"). No user-visible loss: the sentence still reads. Would be Material only if a reader could not find the control, which the same paragraph's "press Test" does not suggest.
+- F2 Polish: `implementation/harness/shoot-started2.sh` and `shoot-typed.sh` are not executable, and `shoot-started2.sh` clicked the project header, not the workspace, on Paseo 0.15.2, so its Started pictures were wrong in my run; I took the Started pictures by hand (open workspace "limited", open the "Edited 1 file, ran 3 commands ..." group). `env.sh` still says 0.14.0. Harness is task evidence, not shipped code.
+- F3 Needs FO: `dispatch_records.py` exit 1, no `dispatch/` folder for this task. Neither does #72's task folder; the workflow may not write them here. FO decides whether this is a missing record.
+- Deferred risk: the real 1Password stderr line for a limit is unobserved (documented wording plus strings in `op` 2.41.1 only); a miss shows today's "returned an error the plugin does not recognise". It would become Material if a real limit reply were captured that the pattern misses.
+- Deferred risk: the limits' hour/day wording in `OVERVIEW.md` rests on a summarised 1Password page read 2026-10-27 (archived vault-list task), not re-read here.
+- Known limits already recorded by implementation, unchanged: the connection line's token check still maps a limited `op vault list` to unexpected; a settings page opened before a plugin update rejects a `rate-limited` Test result until reloaded.
+
+### Minimal acceptance script
+Needs `node` and `npm`; the checkout is the candidate worktree. Not covered: a real 1Password limit, a light theme, a phone.
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-rate-limit-cause/project-env && git rev-parse HEAD` prints `6fcce94de4514d490cd1922a4ab935f1cc05c731`.
+2. `npm test` ends with `ℹ pass 335` and `ℹ fail 0`.
+3. `npx tsc --noEmit` prints nothing but npm's warning and exits 0 (`echo $?` prints 0).
+4. `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON -e 'import("./server/cause.ts").then(m=>console.log(m.classifyOpFailure({code:1,stderr:"[ERROR] Too Many Requests: You have reached the maximum number of this type of requests"}), m.classifyOpFailure({code:1,stderr:"[ERROR] something new"})))'` prints `rate-limited unexpected`.
+5. Open `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-rate-limit-cause/design/built-picker-1280.png`, `built-test-bubble-1280.png` and `built-started-1280.png`: each shows "1Password rate limit reached so wait and try again" (the picker also "Close this list, wait a while, then open it again."). Pictures are from the isolated run described above; rerunning them needs the harness in `implementation/harness/` and an npm install of `@getpaseo/cli@0.15.2`, more than five minutes.
+
+### Summary
+Recommend PASSED at 6fcce94: AC-1 and all six clauses observed on Paseo 0.15.2 at 1280 and 400 px, tests and typecheck green, four falsifiers each fail as named, built docs carry the new heading and no page went stale, design director's eight MINORs all declined and upheld. Open for FO: F3 (dispatch records), and the two Polish items; no Material finding.

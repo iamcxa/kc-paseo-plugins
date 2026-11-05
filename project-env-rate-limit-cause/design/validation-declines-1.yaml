@@ -1,0 +1,37 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: built-picker-1280 and built-picker-400 show the red cause line and the grey hint stacked; the hint gives the one action (close, reopen later), and field-picker.tsx renders list.message in statusDanger and list.hint in foregroundMuted for every list error, so no one is misled by the repeated "wait".
+      change: none
+    - finding: 2
+      ruling: upheld
+      evidence: field-picker.tsx declares TypeReference as a Pressable (accessibilityRole button, onPress opens the box) drawn in foregroundMuted, and built-picker-1280 and built-picker-typed-name-1280 show it as plain grey text exactly as it appears under any list error; it is a working control that a person who does not notice it loses nothing by.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: built-picker-typed-name-1280 shows the Add NEW_KEY row inserted above the error block (about 44 px shift), and field-picker.tsx renders the search box with the condition `list.status !== "error" || adding` for every list error; the message stays fully readable and nothing is hidden or mis-targeted.
+      change: none
+    - finding: 4
+      ruling: upheld
+      evidence: built-test-bubble-1280 shows the rate-limited rows and the field-not-found row with the same red (!) mark from failure-mark.tsx (one FailureMark, colours from statusDanger), and the cause is in the bubble; the mark is the one the criterion names, and a row's mapping is not altered by hovering.
+      change: none
+    - finding: 5
+      ruling: upheld
+      evidence: built-started-1280 and built-started-400 show the line headed "Started without 3 project variables", which tells the person this agent has no values, so "wait and try again" reads as try again later with a new agent and does not mislead; the sentence is the same on picker, bubble and Started line.
+      change: none
+    - finding: 6
+      ruling: upheld
+      evidence: built-test-bubble-400 shows the two-line bubble covering the POSTHOG_API_KEY name while open and built-test-bubble-1280 covers its field box, but failure-mark.tsx declares MarkBubble with the fixed BUBBLE_WIDTH = 280 for every cause, the bubble shows only while the mark is hovered or pressed, and the row returns in full when it closes, so a person is not blocked or misled.
+      change: none
+    - finding: 7
+      ruling: upheld
+      evidence: built-started-400 shows each variable on its own line wrapping inside the timeline with nothing clipped, so a longer list only grows downward in the same layout; no picture shows a line of 8 or more, but a taller list at worst costs scrolling and misleads no one.
+      change: none
+    - finding: 8
+      ruling: upheld
+      evidence: field-picker.tsx uses the theme tokens statusDanger and foregroundMuted for list.message and list.hint on every list error, so the rate-limit text adds no new colour or token, and a typed-name picture at 400 px would only add the Add row already seen at 1280 above the same error block.
+      change: none
