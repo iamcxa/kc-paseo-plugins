@@ -40,7 +40,7 @@ consumer: the Captain's next decision — collection frequency and cost cap.
 
 ## Scope
 
-- Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with the Bridge plugin installed from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, so `fleet_status` is available as in production.
+- Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with a throwaway copy of the Bridge plugin from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, made under /tmp with only the fleet server's port (a free port outside those ranges) and its token directory (inside the isolated daemon home) changed, so `fleet_status` is available as in production without touching the live Bridge; the product checkout stays unchanged.
 - Seed a synthetic fleet matching the live roster shape, read by the FO on 2026-11-05 (`paseo ls -g -a --label role=fo`, `paseo logs <id> --filter text --tail 10 | wc -c`): 18 agents labelled `role=fo` — 6 closed, 10 idle with 6–17 KB of recent text each (median about 9 KB), 2 idle and nearly empty. All content fictional; seed with the cheapest available model or without a model where the SDK allows.
 - Probe round: one Commander on `claude/claude-opus-5-5` (the live comms officer's provider) runs one collection with a throwaway digest prompt approximating d1-commander-digest's design with the existing tools only: `fleet_status` for the roster, `get_agent_activity` per FO for report text, then a digest in its own words with three context lines (about / before / now) and a source per line in whatever provisional reference the existing tools allow.
 - Baseline round: the current `COORDINATOR_PROMPT`, same roster, one "what is the fleet's status?" turn.
@@ -60,6 +60,18 @@ Verified by: the baseline round on the same roster in the same table.
 
 **AC-3**: Nothing outside the isolated daemon changed.
 Verified by: live roster count and live comms officer status read before and after are equal; the isolated home is deleted and its PID gone.
+
+## Captain amendments
+
+### Amendment 1 — 2026-11-05, chat
+Captain: 「複製一份改了埠的 Bridge 來跑」
+Asked: 這次量測沒跑成，代理照規則在動手前停下。原因是 Bridge 的內部服務寫死佔用 6787 埠，那是你正在用的 Bridge 的埠；它還會讀你現有通訊官的連線金鑰檔。所以在獨立副本裡裝 Bridge，一定會跟你現有的 Bridge 撞在一起。下一步要怎麼量？ (options: 「不裝 Bridge 再跑一次 (Recommended)」; 「複製一份改了埠的 Bridge 來跑」 — "在 /tmp 放一份改過埠和金鑰路徑的 Bridge，產品程式不動。量到的路徑最接近正式版，但跑的不是正式那份程式，要多一點準備。"; 「先不量，等寫程式時再量」)
+Supersedes: none
+Design: "Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with a throwaway copy of the Bridge plugin from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, made under /tmp with only the fleet server's port (a free port outside those ranges) and its token directory (inside the isolated daemon home) changed, so `fleet_status` is available as in production without touching the live Bridge; the product checkout stays unchanged." (## Scope)
+
+Superseded text:
+
+- Start one isolated Paseo daemon (its own `--home`, a port outside 6767, 6787 and 6860–6935) with the Bridge plugin installed from `.worktrees/flywheel-live/spacedock-bridge` at 33952f9b3d02fceab104ba09272d65e432a3d095, so `fleet_status` is available as in production.
 
 ## FO alignment
 
