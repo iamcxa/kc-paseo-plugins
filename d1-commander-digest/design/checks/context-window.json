@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Every context line owns an exact source, not merely the digest point source",
+    "status": "passed"
+  },
+  {
+    "name": "Context refs from another FO, epoch or changed bytes are rejected",
+    "status": "passed"
+  },
+  {
+    "name": "SDK forwards same-FO canonical before and after cursors independently",
+    "status": "passed"
+  },
+  {
+    "name": "Window preserves exact before/source/after order and user roles",
+    "status": "passed"
+  },
+  {
+    "name": "Other-host or other-FO windows and gaps cannot be stitched",
+    "status": "passed"
+  },
+  {
+    "name": "Missing source cannot be replaced by available neighboring entries",
+    "status": "passed"
+  },
+  {
+    "name": "More-before uses the outer cursor and retains sequence identity",
+    "status": "passed"
+  }
+]

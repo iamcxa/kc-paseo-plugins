@@ -146,3 +146,21 @@ roborev not run: no product code change (and package gap 5). No product PR opene
 
 會推翻本修訂的反例：確認後入口仍等你決定、重開清空選擇／原因或出現第二次 Confirm、相同回覆文字導致不同摘要點混同、或長原文捲到底後三個出口離開視窗；capture.mjs 對兩種尺寸均設明確失敗檢查。後續轉交／已記錄只有虛構進度示意，沒有自動事件、發送或真實關卡寫入。
 SKIPPED: design_surfaces.py exit 1，沿用派工套件缺口 2（缺 Surfaces／Visible change）；number_guards、comment_ratio、doc_impact exit 0，未改產品、無影響文件，migration 路徑未宣告的檢查自行略過。roborev not run: no product code change (and package gap 5). 原文機制、產品、代理、design/ 與其他任務均未修改；頻率、成本上限與新指示套用仍待 Captain 決定。
+
+
+## Stage Report: implementation (cycle 5)
+
+- DONE: Revise the Replay so a point carries its cause and consequence: (a) a short "how we got here" by the Commander in its own words — what this is about, what happened before, what is being asked of him now — each line with its own exact source; (b) the FO original shown inside its own conversation: a few exact entries before and after the source entry from that FO's timeline (no inference, nothing from other FOs), with "more before / more after"; (c) the three choices unchanged. Update DIGEST.md (the model, the sources for the context lines and the window, operation counts for "understand a point well enough to decide", and what this adds to the Commander's collection cost — measured only if measured) and EVIDENCE.md
+  DIGEST.md 與 EVIDENCE.md 已同步：Commander 三行脈絡各有精確來源，原文放回所屬 FO 的前後對話，可更早／更後與定位各行原文；三個主要出口、具名關卡與 Confirm 不變。理解／核對／擴展的點按及捲動分開計，新增收集輸入、輸出和按需讀取成本未量測；七項假傳輸契約檢查通過。
+- DONE: Redraw the affected states at 1440 and 360 (Replay short, Replay long / several sources, source missing, phone sheet) with fictional data; keep the review.html images loading from file:// and rebuild review-phone.html with the images embedded (data: URIs) so it opens on a phone; a short "## Stage Report: implementation (cycle 5)" section
+  21 態、42 張 1440×1000／360×780 PNG 逐張重擷取；28 項離線互動檢查通過，包含跨點來源與 FO 路由、逐行定位、同 FO 前後順序、長文真底部及原有防重送。review.html 仍通過 file:// 圖片載入；review-phone.html 內嵌全部 21 張手機 PNG，複製到無相鄰資產的資料夾後以全新 360×780 Chromium 驗證三態，四個自建瀏覽器及暫存資料夾已清理。
+
+### Summary
+
+Replay 現在先交代範圍、先前經過與目前所需／明說的後續影響，再顯示主引用所在的同 FO 對話；各行可核對自己的原文，前後文能明確擴展。修正全域長文旗標造成的跨點來源混入，更新模型、證據、圖稿與手機內嵌圖片頁，交回審查。
+
+### Findings
+
+會推翻本修訂的反例：從長卡切換後仍出現別點來源／FO、脈絡連結定位到錯誤訊息、前後文混入別 FO 或丟失角色／順序、來源遺失卻顯示替代內容；兩種尺寸的互動檢查與七項契約探針都設有拒絕條件。只證明離線原型與假傳輸契約，不證明模型忠實度、真實伺服器游標／保留期、宿主、實體手機、送達或記錄。
+新增 token、金額與真實等待時間未量測；只讀既有回報且不催問，頻率、成本上限與現有 Commander 新指示套用仍待決定。首項私人對話不重貼，以上 DONE 保留工作指令本體。
+SKIPPED: design_surfaces.py exit 1，沿用派工套件缺口 2（缺 Surfaces／Visible change）；number_guards、comment_ratio、doc_impact exit 0，未改產品，無產品文件需同步，migration 路徑未宣告的檢查自行略過。roborev not run: no product code change (and package gap 5). 未改代理、排程、產品分支、PR 或其他任務。

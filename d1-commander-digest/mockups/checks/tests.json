@@ -1,10 +1,18 @@
 [
   {
-    "name": "1440: all 18 states fit their viewport; action exits visible; unknown visible on digest",
+    "name": "1440: all 21 states fit their viewport; action exits visible; unknown visible on digest",
     "status": "passed"
   },
   {
     "name": "1440: three distinct exact fictional sources; close restores each Replay focus",
+    "status": "passed"
+  },
+  {
+    "name": "1440: switching from a long Replay to every point keeps only that point's sources and FO",
+    "status": "passed"
+  },
+  {
+    "name": "1440: each Commander context line opens its own exact source; before/after expansion preserves same-FO order and roles",
     "status": "passed"
   },
   {
@@ -40,15 +48,23 @@
     "status": "passed"
   },
   {
-    "name": "1440: three long exact sources scroll to their true bottom while all exits remain reachable; FO target is explicit",
+    "name": "1440: three point-owned long sources scroll to their true bottom while all exits remain reachable",
     "status": "passed"
   },
   {
-    "name": "360: all 18 states fit their viewport; action exits visible; unknown visible on digest",
+    "name": "360: all 21 states fit their viewport; action exits visible; unknown visible on digest",
     "status": "passed"
   },
   {
     "name": "360: three distinct exact fictional sources; close restores each Replay focus",
+    "status": "passed"
+  },
+  {
+    "name": "360: switching from a long Replay to every point keeps only that point's sources and FO",
+    "status": "passed"
+  },
+  {
+    "name": "360: each Commander context line opens its own exact source; before/after expansion preserves same-FO order and roles",
     "status": "passed"
   },
   {
@@ -84,11 +100,15 @@
     "status": "passed"
   },
   {
-    "name": "360: three long exact sources scroll to their true bottom while all exits remain reachable; FO target is explicit",
+    "name": "360: three point-owned long sources scroll to their true bottom while all exits remain reachable",
     "status": "passed"
   },
   {
     "name": "Fresh file:// review: two columns, positive natural image sizes for digest and replay, size toggles and both arrow keys",
+    "status": "passed"
+  },
+  {
+    "name": "Standalone phone review opens from an otherwise empty folder with embedded data PNGs for three revised states",
     "status": "passed"
   }
 ]

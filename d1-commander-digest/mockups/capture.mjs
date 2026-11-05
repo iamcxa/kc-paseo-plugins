@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 const root = dirname(fileURLToPath(import.meta.url));
 const chrome = process.argv[2];
 const before = process.argv.includes('--before');
+const routingBefore = process.argv.includes('--routing-before');
 if (!chrome) throw new Error('Usage: node capture.mjs <absolute Chromium executable>');
 const source = await readFile(join(root, 'index.html'), 'utf8');
 const reviewSource = await readFile(join(root, 'review.html'), 'utf8');
@@ -20,10 +21,20 @@ for (const html of [source, reviewSource]) {
 }
 await mkdir(join(root, 'screenshots'), { recursive: true });
 await mkdir(join(root, 'checks'), { recursive: true });
-const tests = [], captures = [], sessions = [], reviewImages = [];
+const tests = [], captures = [], sessions = [], reviewImages = [], phoneImages = [];
 const beforeFindings = [];
 const pass = name => tests.push({ name, status: 'passed' });
 const sha = text => createHash('sha256').update(text).digest('hex');
+async function buildPhoneReview() {
+  const data = [];
+  for (const state of states) {
+    const png = await readFile(join(root, `screenshots/360-${state.id}.png`));
+    data.push({ ...state, image: 'data:image/png;base64,' + png.toString('base64') });
+  }
+  const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none';style-src 'unsafe-inline';script-src 'unsafe-inline';img-src data:;base-uri 'none';form-action 'none'"><title>Commander 脈絡 · 手機審查</title><style>:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,'PingFang TC',sans-serif;background:#121713;color:#e3ebe5}*{box-sizing:border-box}body{margin:0;padding:18px 12px 30px}small{color:#9abda5;font-size:11px}h1{font-size:18px;line-height:1.6;margin:10px 0 16px;font-weight:550}.controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:6px}button,select{min-height:44px;background:#223328;color:#d7e9dd;border:1px solid #405747;border-radius:8px;font:inherit;min-width:0}button{cursor:pointer}select{padding:0 8px;font-size:12px}p{font-size:12px;color:#aebeb3;line-height:1.7;margin:12px 0 16px}img{display:block;width:100%;max-width:360px;height:auto;border:1px solid #3a4b40;border-radius:12px;margin:0 auto}button:focus-visible,select:focus-visible{outline:2px solid #a9dcbb;outline-offset:2px}.note{font-size:11px;margin-top:16px}</style></head><body><small>離線圖稿 · 圖片已內嵌</small><h1>這樣能看懂前因後果，再給意見或決定嗎？</h1><div class="controls"><button id="prev" aria-label="上一個狀態">←</button><select id="state" aria-label="審查狀態"></select><button id="next" aria-label="下一個狀態">→</button></div><p id="note"></p><img id="preview" alt="手機圖稿"><p class="note">全部資料虛構。此檔不發送訊息或記錄決定；真實手機與宿主行為尚未驗收。</p><script id="phone-data" type="application/json">${JSON.stringify(data)}</script><script>const states=JSON.parse(document.querySelector('#phone-data').textContent);let index=0;const select=document.querySelector('#state');select.innerHTML=states.map((state,i)=>'<option value="'+i+'">'+state.title+'</option>').join('');function show(value){index=(value+states.length)%states.length;select.value=String(index);document.querySelector('#note').textContent=states[index].note;document.querySelector('#preview').src=states[index].image;document.querySelector('#preview').alt=states[index].title}select.onchange=()=>show(Number(select.value));document.querySelector('#prev').onclick=()=>show(index-1);document.querySelector('#next').onclick=()=>show(index+1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(index-1);if(e.key==='ArrowRight')show(index+1)});window.phoneReview={show,get current(){return states[index].id}};show(0);</script></body></html>`;
+  await writeFile(join(root, 'review-phone.html'), html);
+  return html;
+}
 
 async function freshBrowser(run) {
   const profile = await mkdtemp(join(root, '.capture-profile-'));
@@ -125,6 +136,14 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     const state = id => go(url + '?state=' + id, '!!window.mock');
     const snapshot = () => evaluate('mock.snapshot()');
     const named = width < 760 ? '.mobile-gate .named-gate' : '.board .named-gate';
+    if (routingBefore) {
+      await state('replay-long'); await click('[data-action=close]');
+      await click('[data-replay="0"]');
+      beforeFindings.push({ viewport: `${width}x${height}`, selectedPoint: (await snapshot()).point,
+        expectedFo: '預約 FO', shownFos: await evaluate('[...document.querySelectorAll(".source-meta b")].map(x=>x.textContent)'),
+        sourceCount: await evaluate('document.querySelectorAll(".source-block").length') });
+      return;
+    }
     if (before) {
       await state('digest');
       await click('[data-replay="2"]'); await click('[data-action=discuss]');
@@ -143,7 +162,7 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     }
     for (const scenario of states) {
       await state(scenario.id);
-      const geometry = await evaluate(`(()=>{const rect=x=>{const r=x.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom}};return {width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth,documentHeight:document.documentElement.scrollHeight,modal:document.querySelector('.replay-card')?rect(document.querySelector('.replay-card')):null,controls:[...document.querySelectorAll('.replay-card button,.gate-controls button,.send')].filter(x=>x.getClientRects().length).map(x=>({text:x.textContent.trim(),disabled:x.disabled,...rect(x)})),unknownVisible:(()=>{const x=document.querySelector('.unknown');if(!x)return null;const r=x.getBoundingClientRect();const c=x.closest('.conversation').getBoundingClientRect();return r.top>=c.top&&r.bottom<=c.bottom})(),confirmDisabled:document.querySelector('#confirm')?.disabled}})()`);
+      const geometry = await evaluate(`(()=>{const rect=x=>{const r=x.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom}};return {width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth,documentHeight:document.documentElement.scrollHeight,modal:document.querySelector('.replay-card')?rect(document.querySelector('.replay-card')):null,controls:[...document.querySelectorAll('.replay-actions button,.modal-top button,.gate-controls button,.send')].filter(x=>x.getClientRects().length).map(x=>({text:x.textContent.trim(),disabled:x.disabled,...rect(x)})),unknownVisible:(()=>{const x=document.querySelector('.unknown');if(!x)return null;const r=x.getBoundingClientRect();const c=x.closest('.conversation').getBoundingClientRect();return r.top>=c.top&&r.bottom<=c.bottom})(),confirmDisabled:document.querySelector('#confirm')?.disabled}})()`);
       assert.equal(geometry.width, width); assert.equal(geometry.height, height);
       assert(geometry.documentWidth <= width, scenario.id + ' horizontal overflow');
       assert(geometry.documentHeight <= height, scenario.id + ' outer vertical overflow');
@@ -155,6 +174,7 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
       }
       if (scenario.id === 'digest') assert(geometry.unknownVisible, 'Unknown report line is visible');
       if (scenario.id === 'context-sent') assert(await evaluate('(()=>{const box=document.querySelector(".conversation").getBoundingClientRect();return [...document.querySelectorAll(".sent-context,[data-sent-message]")].every(x=>{const r=x.getBoundingClientRect();return r.top>=box.top&&r.bottom<=box.bottom})})()'), 'Both sent context and Captain words are visible');
+      if (scenario.id === 'replay-expanded') assert(await evaluate('(()=>{const box=document.querySelector(".replay-scroll").getBoundingClientRect(),r=document.querySelector(".quote").getBoundingClientRect();return r.top>=box.top&&r.bottom<=box.bottom})()'), 'Expanded-window screenshot shows the actual cited text');
       if (scenario.id === 'gate-reason-empty') assert.equal(geometry.confirmDisabled, true);
       if (scenario.id === 'gate-reason-ready' || scenario.id === 'gate-confirm') assert.equal(geometry.confirmDisabled, false);
       if (geometry.modal && width === 360) assert(Math.abs(geometry.modal.bottom - height) < 1, 'Phone is a bottom sheet');
@@ -170,10 +190,39 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
       await click(`[data-replay="${i}"]`);
       assert.equal(await evaluate('document.querySelector(".quote").textContent'), await evaluate(`'「'+points[${i}].original+'」'`));
       assert.equal((await snapshot()).point, i);
+      assert.equal(await evaluate('document.querySelectorAll(".context-line").length'), 3);
+      assert(await evaluate(`[...document.querySelectorAll('.context-line button')].every(x=>x.textContent.includes(points[${i}].fo))`));
+      assert(await evaluate(`[...document.querySelectorAll('.timeline-entry')].every(x=>x.dataset.foId===timelines[${i}][0].foId)`));
       await click('[data-action=close]');
       assert.equal(await evaluate('document.activeElement.dataset.replay'), String(i));
     }
     pass(`${width}: three distinct exact fictional sources; close restores each Replay focus`);
+    await state('replay-long'); await click('[data-action=close]');
+    for (const point of [0, 1, 2]) {
+      await click(`[data-replay="${point}"]`);
+      assert(await evaluate(`[...document.querySelectorAll('.source-block')].every(x=>x.dataset.pointId===points[${point}].id&&x.dataset.foId===timelines[${point}][0].foId)`));
+      await click('[data-action=open-fo]');
+      assert.equal((await snapshot()).foTarget.fo, await evaluate(`points[${point}].fo`));
+      await click('.back');
+    }
+    pass(`${width}: switching from a long Replay to every point keeps only that point's sources and FO`);
+    await state('replay');
+    for (let line = 0; line < 3; line++) {
+      await click(`[data-context-source="${line}"]`);
+      const exact = await evaluate(`pointContexts[2][${line}]`);
+      assert.equal((await snapshot()).focusEntry, exact.seq);
+      assert.equal(await evaluate('Number(document.activeElement.dataset.seq)'), exact.seq);
+      assert.equal(await evaluate('document.querySelector(".focused-entry .timeline-text,.focused-entry .quote").textContent'), await evaluate(`timelines[2].find(x=>x.seq===${exact.seq}).text`));
+    }
+    await state('replay');
+    assert.deepEqual(await evaluate('[...document.querySelectorAll(".timeline-entry")].map(x=>Number(x.dataset.seq))'), [6,7,8,9,10]);
+    await click('[data-window-before="trial-fo-8"]');
+    await click('[data-window-after="trial-fo-8"]');
+    assert.deepEqual(await evaluate('[...document.querySelectorAll(".timeline-entry")].map(x=>Number(x.dataset.seq))'), [4,5,6,7,8,9,10,11,12]);
+    assert(await evaluate('[...document.querySelectorAll(".timeline-entry")].every(x=>x.dataset.foId==="trial-fo")'));
+    assert.equal(await evaluate('document.querySelector("[data-seq=\\"7\\"] .entry-meta span").textContent'), '對話訊息');
+    await click('[data-action=close]');
+    pass(`${width}: each Commander context line opens its own exact source; before/after expansion preserves same-FO order and roles`);
     await fill('#message', '保留我的方向草稿。');
     for (const action of ['discuss', 'new-decision']) {
       await click('[data-replay="2"]');
@@ -272,23 +321,25 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
       assert(await evaluate(`(()=>{const r=document.querySelector('[data-action=${action}]').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()`));
     }
     await click('[data-action=open-fo]');
-    assert.equal((await snapshot()).view, 'commander', 'Several FOs require a named choice');
-    await click('[data-fo-source="1"]');
-    assert.equal((await snapshot()).foTarget.fo, '預約 FO');
+    assert.equal((await snapshot()).foTarget.fo, '試用 FO');
     assert.equal((await snapshot()).view, 'fo'); await click('.back');
     for (const action of ['discuss', 'new-decision']) {
       await state('replay-long-end'); await click(`[data-action=${action}]`);
       assert.equal((await snapshot()).context, 2); assert.equal((await snapshot()).sent.length, 0);
       assert.equal(await evaluate('document.activeElement.id'), 'message');
     }
-    pass(`${width}: three long exact sources scroll to their true bottom while all exits remain reachable; FO target is explicit`);
+    pass(`${width}: three point-owned long sources scroll to their true bottom while all exits remain reachable`);
     console.log(`Captured and exercised ${width}x${height}: ${states.length} states.`);
   });
 }
-if (before) {
+if (routingBefore) {
+  await writeFile(join(root, 'checks/cycle-5-routing-before.json'), JSON.stringify({ mockSha256: sha(source), findings: beforeFindings, sessions }, null, 2) + '\n');
+  console.log('Recorded point/source routing before revision; both browsers closed.');
+} else if (before) {
   await writeFile(join(root, 'checks/cycle-4-before.json'), JSON.stringify({ findings: beforeFindings, sessions }, null, 2) + '\n');
   console.log('Recorded the two cycle 3 state failures in both viewport sizes; browsers closed.');
 } else {
+const phoneHtml = await buildPhoneReview();
 await freshBrowser(async ({ cdp, evaluate, go, click, resize, screenshot, waitFor }) => {
   await resize(1440, 1000);
   await go(pathToFileURL(join(root, 'review.html')).href, '!!window.review');
@@ -317,14 +368,35 @@ await freshBrowser(async ({ cdp, evaluate, go, click, resize, screenshot, waitFo
   await screenshot('review-entry.png');
   pass('Fresh file:// review: two columns, positive natural image sizes for digest and replay, size toggles and both arrow keys');
 });
+const phoneProof = await mkdtemp(join(root, '.phone-proof-'));
+try {
+  await writeFile(join(phoneProof, 'review-phone.html'), phoneHtml);
+  await freshBrowser(async ({ evaluate, go, resize, screenshot, waitFor }) => {
+    await resize(360,780);
+    await go(pathToFileURL(join(phoneProof, 'review-phone.html')).href, '!!window.phoneReview');
+    for (const id of ['replay','source-missing','replay-long-end']) {
+      await evaluate(`phoneReview.show(${states.findIndex(state => state.id === id)})`);
+      await waitFor('document.querySelector("#preview").complete&&document.querySelector("#preview").naturalWidth===360');
+      const observed = await evaluate('({width:innerWidth,documentWidth:document.documentElement.scrollWidth,naturalWidth:document.querySelector("#preview").naturalWidth,naturalHeight:document.querySelector("#preview").naturalHeight,embedded:document.querySelector("#preview").src.startsWith("data:image/png;base64,")})');
+      assert.equal(observed.documentWidth,360); assert.equal(observed.naturalHeight,780); assert(observed.embedded);
+      phoneImages.push({state:id,...observed});
+    }
+    await evaluate('phoneReview.show(1)');
+    await screenshot('review-phone-entry.png');
+    pass('Standalone phone review opens from an otherwise empty folder with embedded data PNGs for three revised states');
+  });
+} finally {
+  await rm(phoneProof,{recursive:true,force:true});
+  await assert.rejects(access(phoneProof));
+}
 const version = execFileSync(chrome, ['--version'], { encoding: 'utf8' }).trim();
 await writeFile(join(root, 'checks/capture-evidence.json'), JSON.stringify({
-  mockSha256: sha(source), reviewSha256: sha(reviewSource), browser: version,
+  mockSha256: sha(source), reviewSha256: sha(reviewSource), phoneReviewSha256: sha(phoneHtml), browser: version,
   executable: chrome, sequential: true, noLocalhostService: true, noPaseoDaemon: true,
-  captures, sessions, reviewImages, limits: ['Offline prototype only', 'No native host, physical phone, live source or delivery proof'],
+  captures, sessions, reviewImages, phoneImages, limits: ['Offline prototype only', 'No native host, physical phone, live source or delivery proof'],
 }, null, 2) + '\n');
 await writeFile(join(root, 'checks/tests.json'), JSON.stringify(tests, null, 2) + '\n');
-console.log(`PASS: ${captures.length} state PNGs; ${tests.length} offline checks; review images loaded via file://; all three fresh browsers stopped.`);
+console.log(`PASS: ${captures.length} state PNGs; ${tests.length} offline checks; file:// and embedded phone review loaded; all ${sessions.length} fresh browsers stopped.`);
 }
 } catch (error) {
   tests.push({ name: 'Capture and offline verification', status: 'failed', message: error.stack });

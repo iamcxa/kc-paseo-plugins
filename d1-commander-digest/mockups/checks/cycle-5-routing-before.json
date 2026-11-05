@@ -1,0 +1,46 @@
+{
+  "mockSha256": "6dda9794775bb3acb02388141d8cc05f98f7da90ebfcc18970310b370c77cb8f",
+  "findings": [
+    {
+      "viewport": "1440x1000",
+      "selectedPoint": 0,
+      "expectedFo": "預約 FO",
+      "shownFos": [
+        "試用 FO · FO 原文",
+        "預約 FO · FO 原文",
+        "試用 FO · FO 原文"
+      ],
+      "sourceCount": 3
+    },
+    {
+      "viewport": "360x780",
+      "selectedPoint": 0,
+      "expectedFo": "預約 FO",
+      "shownFos": [
+        "試用 FO · FO 原文",
+        "預約 FO · FO 原文",
+        "試用 FO · FO 原文"
+      ],
+      "sourceCount": 3
+    }
+  ],
+  "sessions": [
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    }
+  ],
+  "baselineStateCommit": "c17aaf1b61a0844b21313622362207f5f914df82"
+}

@@ -8,7 +8,18 @@
     ],
     "exit": 0,
     "evidence": "checks/cycle-4-before.log",
-    "scope": "cycle 3 bytes, before revision"
+    "scope": "historical cycle 3 bytes"
+  },
+  {
+    "command": [
+      "node",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest/mockups/capture.mjs",
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "--routing-before"
+    ],
+    "exit": 0,
+    "evidence": "checks/cycle-5-routing-before.log",
+    "scope": "historical cycle 4 point routing"
   },
   {
     "command": [
@@ -18,7 +29,7 @@
     ],
     "exit": 0,
     "evidence": "capture.log",
-    "scope": "final cycle 4 offline mockup"
+    "scope": "final cycle 5 offline mockup"
   },
   {
     "command": [

@@ -1,6 +1,6 @@
 # Step A 證據與限制
 
-2026-11-05；設計限定：文字、操作數與讀取介面核對。全部例子與探針資料為虛構；不存放真實 Captain／FO 對話。任務是 POC（有界可行性驗證）；沒有產品修改、排程設定、模型呼叫或代理生命週期操作。設計總監第一輪認可主要模型及精確來源機制，但要求修正決定目標與主頁資訊量；本文件為 cycle 2（第二次文字修訂），尚待複審及 Captain 判斷。
+2026-11-05；設計限定：文字、操作數與讀取介面核對。全部例子與探針資料為虛構；不存放真實 Captain／FO 對話。任務是 POC（有界可行性驗證）；沒有產品修改、排程設定、模型呼叫或代理生命週期操作。Step A 已經設計總監第二次審查通過；Step B 依 Captain 對脈絡的審查修訂為 cycle 5（第五次派工修訂）。只讀收集策略已確認；本次新增前因後果與同一 FO 的前後對話，尚待審查。
 
 ## 檢查邊界與來源
 
@@ -22,9 +22,25 @@
 
 1. 沿用 `fleet_status`，擴充 `fleetSnapshot` 的回傳資料：每輪給 `roundId`（本輪識別）、收集截止時間、每個 FO 的讀取成功／失敗／離線狀態，以及已取回的原文來源。只接受 `item.type === "assistant_message"` 的完整可引用文字；不把 user/tool/reasoning 當作 FO 回報，不根據名字、時間接近或相似詞句決定來源。狀態標籤與 gate 資料可作收集提示；若要成為摘要進度句，仍須有 FO 原文支持，否則只顯示來源／收集狀態。
 2. 一份來源為 `{hostId, agentId, epoch, seqStart, seqEnd, textHash, timestamp, turnId?, messageId?}`。`hostId` 使用外掛 `PluginHostProps.host.id`，指同一 API 連線所屬主機，不把別台主機同 ID 的代理接上。序號來自 SDK `AgentTimelineEntryPayloadSchema`，epoch 來自 `FetchAgentTimelinePayload`；`textHash` 是對該完整 `item.text` 的 UTF-8 SHA-256，不在這裡發明可選欄位為必填識別。
-3. Commander 回傳單一結構化摘要 `{roundId, points:[{sentence, sources:[sourceRef,...]}]}`；`sourceRef` 是上述來源鍵，必須由當輪 `fleet_status` 資料選取。這是未來 wire format（訊息交換格式），不是已有工具。禁止把原文複製到主摘要；只有 Replay 讀取來源原文。Bridge 在完整回覆後驗證 schema、輪次、來源集合、每點至少一個來源及原文雜湊；通過才呈現摘要句，資料格式或來源錯誤顯示「摘要無法驗證」，不以原始 JSON 或猜測摘要替代。自然語言是否忠實仍需閱讀原文判斷；雜湊只證明來源對上，不能證明改寫無誤。
+3. Commander 回傳單一結構化摘要 `{roundId, collectedAt, points:[{pointId, sentence, sources:[sourceRef,...], contextLines:[{kind,sentence,refs:[sourceRef,...]}]}]}`；`sourceRef` 是上述來源鍵，必須由當輪 `fleet_status` 資料選取。這是未來 wire format（訊息交換格式），不是已有工具。禁止把原文複製到主摘要；只有 Replay 讀取來源原文。Bridge 在完整回覆後驗證 schema、輪次、來源集合、每點至少一個來源、各脈絡行自己的來源及原文雜湊；通過才呈現摘要句，資料格式或來源錯誤顯示「摘要無法驗證」，不以原始 JSON 或猜測摘要替代。自然語言是否忠實仍需閱讀原文判斷；雜湊只證明來源對上，不能證明改寫無誤。
 4. Replay 呼叫 `PaseoAgentTimelineHandle.refetch`，由 `paseo.agents.ref(agentId).timeline` 取得，指定 canonical（未合併的時間線）及 `direction:"after", cursor:{epoch,seq:seqStart-1}`；先限制一頁，若 `hasNewer` 且未涵蓋來源末端，沿 `endCursor` 分頁至目標或遇停止條件。不要假造 SDK 沒有的 `getMessage(id)`。核對回傳 `agentId`、`epoch`、精確序號範圍、`sourceSeqRanges`、assistant 類型、雜湊；messageId 有值時再核對。遇 `reset`、`staleCursor`、`gap`、遺失序號、API 錯誤或不同主機就拒絕引用，明示「來源不可用」。
 5. 摘要點用 Commander 自己的 `{hostId,agentId,epoch,seqStart,seqEnd,pointIndex}` 定位；點序號 `pointIndex` 僅屬該則摘要，不能拿同名主題重新配對。討論草稿帶這份點識別及句子；送出前仍由 Captain 編輯。原始來源留在 FO 時間線；不加新長期儲存。時間線被替換或清除後，舊摘要可能無法 Replay，此限制明示，不能暗中接到最新回報。
+
+### 脈絡行與前後視窗：第五次修訂
+
+`contextLines` 固定表達 about／before／now（範圍、先前經過、目前所需及明說的影響）。每行有自己的 `refs`，必須是已讀到且屬於這點的精確 FO 回報；不得把整點的單一引用借給三行，也不得以鄰接順序證明因果。來源若沒有明說理由或後續影響，該部分呈現未知。自然語言忠實度仍需人工核對，雜湊不證明推論正確。點的識別沿用 Commander 時間線位置加 pointId，不能用全域「長文」旗標決定來源。
+
+視窗以 `anchorRef`（引用那一則）為中心，起始取前後各兩個 canonical entries，包含 user／assistant 等原始角色、時間與順序。標記主引用；不同來源各有自己的視窗，不混接別的 FO。user_message 只標為對話訊息，不能因此認定是 Captain 的決定；工具等原始項目保留其類型，不把工具結果改寫成 FO 回報或省略後假裝連續。
+
+- 主引用仍以 `timeline.refetch({projection:"canonical",direction:"after",cursor:{epoch,seq:seqStart-1}})` 找回，驗證 host／agent／epoch／序號及雜湊。
+- 前段用同一 `paseo.agents.ref(anchorRef.agentId).timeline.refetch({projection:"canonical",direction:"before",cursor:{epoch:anchorRef.epoch,seq:anchorRef.seqStart},limit:2})`；後段為 `direction:"after",cursor:{epoch,seq:anchorRef.seqEnd},limit:2`。回傳仍須交叉檢查 before 的序號小於主引用、after 大於主引用，並以 canonical 序號去重；不能依時間或字句搜尋補位置。
+- 每個視窗分別持有 startCursor／endCursor 與 hasOlder／hasNewer；更早／更後從外緣續讀，不重新拿主引用當游標。主機、agentId、epoch 都須與 anchorRef 相同；遇 gap／staleCursor／reset、錯誤或序號不連續，顯示對應側未能讀取，不跨缺口拼接。沒有更多資料與讀取失敗要分開顯示。
+- 點某行脈絡的來源時，使用該行 ref 定位。若它不在目前顯示範圍，載入同一 FO 的精確位置並突出該則；不把它換成最相似的目前訊息。每個非同步結果綁定 pointId、anchorRef 和請求識別；切換摘要點後的舊回傳不能填入新卡。
+- 視窗是原始對話的位置，不是整個任務的完整歷史。比摘要收集時間新的內容需另標「摘要之後的新訊息」，不因此改寫當輪三行脈絡。主引用遺失就不能聲稱已找回它的前後文；其他可核對的來源不因此變成替代主引用。
+
+圖稿把每點的 FO、來源及脈絡行明確寫在獨立資料中；長文變體只屬等待試用的那一點，三份來源都來自它自己的試用 FO 時間線。預約與匯入兩點各用自己的來源、脈絡與 FO。修訂前路由錯誤及原稿雜湊在 `../mockups/checks/cycle-5-routing-before.json`；不得把那份舊證據當作修訂通過。
+
+這次核對的公開 SDK 確實提供 direction、cursor、limit、projection 與分頁／epoch 欄位；`context-window-probe.mjs` 用假的讀取傳輸走公開 API，檢查選項、來源關係與拒絕條件。沒有呼叫 daemon，故不能聲稱已驗證真實伺服器的游標邊界、保留期、補頁或即時競態。
 
 SDK 證據位置（相對 `node_modules/`）：
 
@@ -63,13 +79,21 @@ SDK 證據位置（相對 `node_modules/`）：
 
 若 totalCostUsd 缺失，先報 token 與「美元未量測」；需估價時另以該輪模型的當時官方價格，核對輸入是否含快取、快取讀／寫區分與計價單位後計算，註明是估價。重複量測使用相同名冊／來源量，報分布與忙碌／失敗情況；不要將一次空回報當作正常輪次上限。等待頻率、成本上限與現有對話採用方式由 Captain 決定，這份設計沒有啟用值。
 
+### 脈絡增加的成本
+
+新增收集成本分三部分：讀取能支持三行脈絡的既有 entries（含必要的較早回報）、Commander 的額外輸入／三行輸出／來源引用、逐行來源驗證。缺足夠背景時標未知，不能為填滿三行無上限讀取。跨點或多來源共用的同一 host／agent／epoch／序號內容去重，但不假定模型快取必定命中。
+
+Replay 起始的前後視窗、更早／更後及精確來源定位可按需讀取；這些動作不新增 FO 回合，也不自動再叫 Commander。需在量測中分開標註 collection、replay-open、expand-before／after、context-source-open，逐項記錄頁數、原始與去重後位元組、失敗／缺口與耗時。收集的模型用量仍按同一 turnId 歸因，區分原摘要與新增脈絡的輸入、輸出和快取；不能用帳戶總量差或卡片顯示字數代替。
+
+原型的前後各兩則是提議的讀取範圍，最多五則含主引用、兩側不足則少於五則，這不是量測金額。擴展讀取是使用者明確動作，既有 FO 沒有收到新提示。本次未取得任何真實模型或價格樣本；新增 token、金額和實際等待時間均未量測，不給估計數字。
+
 ## AC-2 — 幾分鐘判斷方向
 
-入口是同目錄單頁 `DIGEST.md`：結論、虛構主摘要／原文例子、五個目的及一般方向／關卡分支的操作表、收集建議、成本與代價；不用第二套模式或導覽。版本、函式、來源欄位與 API 呼叫集中在本證據文件，主頁只保留每句可找回精確原文、找不到便明說的承諾。操作數為推演，不是真人計時或裝置驗收。從 Commander 主入口之外進入，另計一次選 Commander；捲動或另外打開關卡入口時另計，不藏在最短路徑數字裡。
+入口是同目錄 `DIGEST.md`：只保留閱讀模型、操作數、來源承諾、成本與代價；版本、函式、欄位及 API 細節留在本文件。主對話維持摘要；Replay 依序顯示原句、Commander 三行脈絡、引用所在的同一 FO 前後對話及三個出口。一般方向不必先開 Replay。
 
-第二次修訂的計數以 Commander、摘要、輸入框及具名關卡入口已可見為起點；一次點按、整段文字輸入及送出各計一次，閱讀說明與系統載入不計。讀摘要 0；Replay 1；Replay 後開 FO 2；帶著摘要點繼續討論或給一般方向 4；直接輸入一般方向再送出只需 2。從摘要點進關卡的 5 次明確是：Replay、回覆新決定、按具名關卡、選決定、Confirm；按關卡後必先閱讀它的 briefing（完整關卡說明）才選決定。須填原因時在 Confirm 前多一次整段輸入，合計 6。直接按具名關卡也能開始同一決定流程，Replay 從來不是前置條件。
+「理解一點」以點 Replay 一次起算，閱讀不算點按、實際捲動另計；核對一行脈絡的來源另加一次，按每個更早／更後再各加一次。從 Replay 回覆到具名關卡、閱讀完整 briefing、選擇及 Confirm 的原路徑仍為五次，須原因為六次；核對與擴展逐次加上。不把操作次數當作已理解、資料足夠或可批准的證明；未知／缺失時明說。
 
-保留／退出條件：關 Replay 回到該點、焦點回 Replay 按鈕；討論與回覆新決定先回到一般 Commander 輸入框，不將輸入框綁到關卡；既有草稿保留，點識別只作附加可移除的討論上下文；返回 FO 後回到原摘要位置。跨 FO 先挑明確連結；使用者不須選「模式」。手機鍵盤／返回／原生 sheet 的實際行為留給 Step B 之後驗證，本次沒有畫圖或聲稱原生互動通過。
+保留／退出條件：關 Replay 回同一點、焦點回按鈕；兩個回覆出口保留草稿並聚焦 Commander；明確送出後保存點識別與原句，引用與 Captain 自己的文字分開。前後文獨立捲動，三個主要出口固定可見；脈絡行的來源連結定位到該行精確引用，不改關卡目標。手機軟鍵盤、原生底部卡片及宿主導覽沒有實機證據。
 
 ### 關卡決定不變
 
@@ -81,10 +105,10 @@ SDK 證據位置（相對 `node_modules/`）：
 
 ### 待審，不替 Captain 作答
 
-首個問題只選收集策略：是否接受只讀既有回報、缺資料標未知？它決定是否會額外喚醒 FO，直接影響成本與干擾。之後再依觀察到的完整輪次量測確認頻率與上限；採用現有 Commander 新 prompt 的方式仍是實作前阻擋項。沒有代錄他的回答。Step A 先交設計總監；Step B HTML／PNG／review.html 全部未開始。
+只讀既有回報、缺資料標未知、不催問 FO 已由派工確認，不再詢問。頻率、成本上限與現有 Commander 新指示的套用方法仍待 Captain 決定。這次是脈絡設計與離線圖稿修訂，不啟用排程、不動現有代理。
 
 ## 檢查紀錄
 
 `checks/commands.json` 保存本輪實際執行的命令、退出碼及證據檔。已知套件缺口沿派工處置：design_surfaces 缺口 2、number_guards 的 R4 缺口 3 若失敗，記 SKIPPED，不補寫虛構欄位或挪用號碼。roborev 未跑：無程式變更，且派工指定套件缺口 5；不算乾淨 review。comment_ratio／doc_impact 只比較未變產品的同一固定提交，不能冒充設計總監審查。
 
-第二次修訂只改主頁、證據文字及本次階段報告；先前八項來源契約探針的程式與資料都沒改，設計總監也已重跑認可，故不把舊輸出冒充新的互動測試，也不重做來源調查。`checks/cycle-2-operations.json` 保存各路徑的計次動作與合計供核對；它是設計操作推演，不是已實作的介面測試。Step B 仍未開始。
+原八項來源契約探針及第二次修訂的操作推演保留為歷史證據；第五次另以 `context-window-probe.mjs` 檢查脈絡行與同 FO 前後視窗，結果放 `checks/context-window.json`。圖稿互動、路由、手機長文、審查頁及內嵌圖片頁的最新證據在 `../mockups/checks/`；都是離線提案證據。
