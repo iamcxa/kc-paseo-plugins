@@ -163,3 +163,22 @@ None. Open for the gate, not a decision: the sentence's wording is mine and the 
 
 ### Summary
 The picker's list failure gets one pure function that recognises the daemon's timeout sentence and shows "Listing this vault took too long." with a working next step (the existing "Type a reference…" row); every other failure keeps today's words. No decision for the Captain; the sentence wording and the dependence on Paseo's wording are open for the gate. Ideation wrote no repository file, branch or commit.
+
+## Stage Report: implementation
+
+- DONE: Branch from a freshly fetched `origin/main`; implement the approved design (`vaultListFailure`, `FIX_CONNECTION_HINT`, small `settings-screen.tsx` change) and its tests; every other failure keeps today's words.
+  Commit b684b68 on spacedock-ensign/project-env-picker-slow-hint, based on origin/main c1458f7 (fetched 2026-11-05); the ideation `candidate.diff` applied cleanly, 3 files, +36 -6; PR https://github.com/iamcxa/kc-paseo-plugins/pull/72 (Draft).
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env`, save both outputs; show that removing the timeout branch fails a test.
+  327/327 pass, tsc exit 0 (`implementation/npm-test.txt`, `tsc.txt`). `message.startsWith("Plugin RPC timed out")` replaced by `false`: the timeout test fails, 1 of 2 (`falsify-timeout.txt`). Changing today's hint text fails the connection test, 1 of 2 (`falsify-hint.txt`).
+- DONE: Take the AC-1 pictures on an isolated Paseo at the newest release, timeout and connection-failure cases, 1280 and 400 px; never touch the live install or read a secret.
+  Paseo 0.15.2 (newest on npm, installed under /tmp), own home, port 7391, fake `op`; timeout shows "Listing this vault took too long." after 31.2 s (1280) and 31.6 s (400); `FAILLIST=1` shows "1Password could not be reached" over the old hint at both widths; typed reference added as a variable; name search, outside-vault and malformed references behave per design. Pictures `implementation/impl-*.png`, log `run.log`. Daemons and my browser sessions (pe-psh-impl, pe-docs-fake) stopped; temp homes removed.
+- DONE: Docs: retake the docs pictures and compare; update docs for every altered screen word or picture, or `docs: no change` with the capture diff.
+  docs: no change. `capture.sh` on 0.15.2 for this branch and for main c1458f7: 01, 03-07 identical; 02 differs only by a menu hover highlight (`cmp02.png`). Against the committed pictures 01-06 differ on both, so that drift is Paseo 0.15.2 and not this change; the committed pictures show no failure screen and no page names the old text. `doc_impact.py` lists ADR 0005: unaffected: it cites only `sameName` in `field-picker.ts`, which is untouched.
+- DONE: Commit with a conventional title, push, open a Draft PR with the evidence; do not mark ready or merge.
+  Draft PR #72, not marked ready. `comment_ratio.py c1458f7 HEAD`: 32 code lines, 0 comment lines, 0.0%, max 5% met (exit 0). `design_surfaces.py check`: presentable (exit 0). No ADR added; no `## Number guards`, no migration.
+- DONE: Close only browser sessions you opened yourself, by name.
+  Closed `pe-psh-impl` and `pe-docs-fake` only; `preview-sign-in-implementation` untouched.
+
+### Summary
+
+A timed-out vault list now shows "Listing this vault took too long." with a working next step, and connection failures keep today's words; AC-1 is shown by two unit tests that fail when their branch is changed and by pictures from a real Paseo 0.15.2 at both widths. The fix depends on Paseo's timeout sentence (limit stated in the PR); `vaultListFailure` returns `{ message, hint }` so `project-env-rate-limit-cause` can add its branch there. Limits: fake `op`, dark theme only; the Captain's Paseo version may be 0.14.0, where the sentence was not seen.
