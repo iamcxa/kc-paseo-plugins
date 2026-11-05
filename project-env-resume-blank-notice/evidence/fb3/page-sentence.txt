@@ -1,0 +1,8 @@
+Limits worth knowing
+  An agent can read and print its own environment, so any variable you map can be seen by that agent.
+  Any program running as you on the Mac can read the token in the login Keychain, and so every secret the service account can reach. Keep the vault narrow.
+  Another Mac, a phone or a headless Paseo daemon is not supported.
+  A terminal you open in Paseo does not get the project variables; only agents do.
+  A vault renamed in 1Password after you saved it by name stays broken until you choose its new name under Change.
+     When a variable is blank
+

@@ -463,3 +463,12 @@ FO ran `evidence/val3/acceptance.sh` in a fresh `env -i` shell against fec5b13: 
 The earlier proposed decline of F2/F5 (roborev:1371/1382) is withdrawn: the Captain ruled 「修」 and validation cycle 3 closed it at fec5b137b8d3955999aab0db084da49f4e2c3ea2. Still proposed:
 - Validation F1 (Polish), candidate revision fec5b137b8d3955999aab0db084da49f4e2c3ea2: a refresh updates the per-agent memory without adding a row. Proposed decline: no row or UI differs; it is the design's rule for a clean opening (validation cycles 1 and 3). Material if a refresh is seen to add or drop a row; candidate fix: none needed.
 - Validation F4 (Polish, pre-existing), candidate revision fec5b137b8d3955999aab0db084da49f4e2c3ea2: the "Started without" row can be folded by Paseo 0.14.0's default Chat display. Proposed decline: outside this task's Scope and unchanged by it; the Captain now runs 0.14.0. Material if he misses that line; candidate fix: its own task.
+
+## Feedback cycle 3 (amendment 1)
+
+Head: df6180ce2 on PR #66's branch (pushed), one docs commit on top of fec5b13; only `project-env/OVERVIEW.md` changed (one line added).
+
+- DONE: added under "Limits worth knowing": "A terminal you open in Paseo does not get the project variables; only agents do." (Captain amendment 1, 「加」, 2026-11-05.)
+- DONE: rebuilt the site with `docs/project-env/capture/build-site.sh` (ruby:3.3, github-pages gem set, `git archive` of the branch plus the edit); the built Reference page (`docs/project-env/reference.html`) lists the sentence in "Limits worth knowing" (`evidence/fb3/page-sentence.txt`, `build-site.txt`).
+- DONE: `npm test` 325 of 325, `npm run typecheck` clean (no code changed).
+- DONE: roborev gate (`--base 06aa5bee`) `clean on df6180ce2; evidence=roborev:1483` (`evidence/fb3/roborev-gate.txt`).
