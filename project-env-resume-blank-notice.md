@@ -544,3 +544,11 @@ FO ran `evidence/val4/acceptance.sh` in a fresh `env -i` shell against df6180c: 
 - Validation F1 (Polish), candidate revision df6180ce252d2ae007614dab15aadd7daed12b28: a refresh updates the per-agent memory without adding a row. Proposed decline: no row or UI differs (validation cycles 1 and 3).
 - Validation F4 (Polish, pre-existing), candidate revision df6180ce252d2ae007614dab15aadd7daed12b28: the "Started without" row can be folded by Paseo 0.14.0's default Chat display. Proposed decline: outside this task's Scope; its own task later.
 - Validation F6 (Polish), candidate revision df6180ce252d2ae007614dab15aadd7daed12b28: the OVERVIEW sentence adds "; only agents do" beyond the Captain's words. Proposed decline: it is true by the SDK 0.14.0 hook list and the FO's 2026-11-04 observation, and FO had told him the sentence would say only agents get them (chat, 2026-11-05). Material if he wants his words only; candidate fix: cut the clause.
+
+### FO merge and reload (ADR 0007 class 2, 2026-11-05)
+
+After the Captain approved validation (「准」, 2026-11-05), FO merged PR iamcxa/kc-paseo-plugins#66 by squash with `--match-head-commit df6180ce252d2ae007614dab15aadd7daed12b28` (delivery_gate check exit 0, GitGuardian pass, mergeable CLEAN, Codex clean on the head); merge commit 6709c7283b0906cbdf8d6155048e198625520e8e. Reload route: (1) backup `~/.paseo-backup-project-env-20261021/projects-20261105T160658.json`, byte-identical; (2) `git fetch origin`, origin/main contains 6709c72; (3) clean main checkout at 90982ca, 0 ahead, `merge --ff-only`, HEAD equals origin/main; (4) `npm ci`; (5) `paseo plugin reload paseo-project-env`. After reload the settings file is byte-identical to the backup.
+
+## UAT
+
+Pending: the Captain's UAT on the live plugin (Paseo 0.14.0).
