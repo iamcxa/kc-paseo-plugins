@@ -58,3 +58,8 @@ Verified by: the baseline round on the same roster in the same table.
 
 **AC-3**: Nothing outside the isolated daemon changed.
 Verified by: live roster count and live comms officer status read before and after are equal; the isolated home is deleted and its PID gone.
+
+## FO alignment
+
+Alignment: not needed: the Captain asked for this one measurement on 2026-11-05 (「跑一次」), scoped in the seed.
+Release review: not needed: spacedock-bridge has no journey map yet.
