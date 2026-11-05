@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-picker-slow-hint
-pr:
+pr: 72
 gates:
     version: 1
     records:
