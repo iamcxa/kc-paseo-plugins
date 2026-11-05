@@ -1,0 +1,19 @@
+== 1. the change since the previous candidate is one added line in one file
+ project-env/OVERVIEW.md | 1 +
+ 1 file changed, 1 insertion(+)
+== 2. the sentence, under Limits worth knowing
+6:- A terminal you open in Paseo does not get the project variables; only agents do.
+== 3. the plugin registers hooks for agents only (expect agent.create, agent.session_open, agent.created, agent.turn_ended, agent.closed)
+agent.create
+agent.session_open
+agent.created
+agent.turn_ended
+agent.closed
+== 4. whole suite and typecheck (expect 325 pass, typecheck clean)
+ℹ tests 325
+ℹ pass 325
+ℹ fail 0
+typecheck clean
+== 5. built Reference page: see evidence/val4/page-sentence.txt (built with docs/project-env/capture/build-site.sh, needs Docker)
+A terminal you open in Paseo does not get the project variables; only agents do.
+exit=0

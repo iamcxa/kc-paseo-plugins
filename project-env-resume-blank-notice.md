@@ -555,3 +555,7 @@ UAT (Captain, 2026-11-05): OK — 「ok」
 Asked: FO asked for the UAT of pick-repository, the resume notice and the notes-test fix together (「如果都沒問題，回一個「OK」就兩件一起收」, after earlier asking the same for the test fix); his 「ok」 answers all three.
 
 Cost: Captain messages 9; worker tokens not measured (reported: ideation 333315, implementation 163136, 176752, 201933 and 210569, validation 166865, 190422, 224901 and 246144)
+
+### FO note on the observer report (2026-11-05)
+
+`evidence/fo-acceptance-rerun-df6180c.txt` was committed empty because FO's copy step filtered the wrong file; it now holds the rerun output from FO's own run on 2026-11-05 (19 lines, exit 0). 「加」 came while the validation gate attempt 1 was open, so it was a revise of that gate, not an amendment; FO recorded it in the wrong form and added FO wording to its `Design:` line. Both findings are on Captain-recorded gates, so ADR 0007's demotion rule does not apply.
