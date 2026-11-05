@@ -1,12 +1,12 @@
 ---
 id:
 title: A new teammate can add a repository even when Paseo has no project or the project list fails
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-pick-repository
-pr: iamcxa/kc-paseo-plugins#61
+pr: pr-merge:61
 journey: paseo-project-env
 journey-release: r1b
 journey-story: pick-repository
@@ -69,8 +69,11 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-10-29, on the validation gate (sha256:70c89fc3), FO having recommended approval; approves validation and the three proposed declines (F1 to F3 Polish) at candidate 7d74145fc65b1b21251bf3cf07b41bbd400b98e2. Asked: Approve validation of pick-repository (PR #61 at 7d74145) and the three proposed declines? Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-28T01:10:58Z
+verdict: PASSED
+completed: 2026-11-05T08:18:21Z
+archived: 2026-11-05T08:18:21Z
 ---
 
 Journey release r1b story `pick-repository` ("Pick the repository from Paseo's project list") is a gap. FO read `Configured` in `project-env/client/settings-screen.tsx` at origin/main 7b63c31 on 2026-10-28: the "Add a project" select is drawn only when `candidates.length > 0`, so when Paseo has no project, every project is already configured, or `paseo.projects.list()` fails, the section shows nothing and says nothing. The r1b release review (`project-env-docs-site/release-review-r1b.md`) and the docs-site AC-2 run both met it; the Prepare page works around it with words. Asked whether to open this task first among r1b's code tasks, recommending it, the Captain answered 「r1b開。跟 dev2 fo 講這個需求」 on 2026-10-28.
