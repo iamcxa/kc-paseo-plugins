@@ -78,6 +78,7 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 - DONE: Do not start step B; finish with a short stage report and stop for the design director's review
   本次沒有 HTML、PNG 或 review.html；僅提交 Step A 文字、證據及虛構契約探針，停止於設計總監審查前，不修改 stage／gate。
 - Captain ruling 2026-11-05 on step A's open question, asked 「CO 定時收集進度時，要怎麼取得資料？」, answered 「只讀既有回報 (Recommended)」 (option text: read only the FOs' existing reports, mark missing ones unknown, never prod an FO). Frequency, cost cap and how a new Commander prompt is applied remain open until measured.
+- Captain ruling 2026-11-05 on the step B stop, asked 「摘要設計稿只剩「可點擊示範」一個路徑錯誤，要怎麼做？」, answered 「你先看截圖定方向 (Recommended)」 (option text: he reviews the screenshots and says go or change; the routing error becomes an acceptance item for the code task).
 
 ### Summary
 
