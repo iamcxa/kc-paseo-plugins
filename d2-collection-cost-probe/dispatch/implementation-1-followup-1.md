@@ -13,7 +13,7 @@ Read the live roster count and comms officer status before and after; stop the i
 Package root: /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0
 Send your completion message to `main`. You run as a Codex agent started through Paseo, so you have no SendMessage tool: finish with a final reply whose first line starts "Done:"; the FO receives Paseo's finish notification.
 
-The Captain chose 「複製一份改了埠的 Bridge 來跑」 after your stop report; recorded as Amendment 1, which supersedes Scope bullet 1. Your stop was correct. The FO also added the missing Surfaces: none and Visible change: none lines; design_surfaces.py check now passes.
+The Captain chose 「複製一份改了埠的 Bridge 來跑」 after your stop report; recorded as Amendment 1, which supersedes Scope bullet 1. Your stop was correct. The FO also added the missing Surfaces: none and Visible change: none lines; /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/design_surfaces.py check now passes.
 The copy must never read or write ~/.local/share/paseo-fo-coordinator or bind 6787; if anything else in the copy reaches the live Bridge's files or ports, stop and report it.
 All other scope notes, hard limits, budget and stop conditions of implementation-1 stand unchanged.
 roborev not run: a measurement task with no code change and no candidate branch.
