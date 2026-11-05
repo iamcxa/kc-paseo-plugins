@@ -88,6 +88,13 @@ Verified by: captures of the popover at 1440 (anchored) and 360 (bottom sheet) s
 Alignment: not needed: the Captain chose this scope on 2026-11-04 with reference pictures, recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
 
+## Captain amendments
+
+### Amendment 1 — 2026-11-05, chat
+Captain: 「此外我對於順序想改下，應該越新的越上面」 (chat, 2026-11-05, with a screenshot of the built popover: `_l3-dogfood/walks/round-10/captain/popover-order.png`)
+Supersedes: AC-2
+Design: "Pressing the count opens a popover (openPopover: anchored on wide layouts, a bottom sheet on compact): the number of gates and the number of questions, then those items oldest first with owner and age, each opening Bridge on that item (openScreen); an "Open Bridge" action; the incomplete-source note when a source is not checked." (## Scope)
+
 ## Stage Report: implementation
 
 - DONE: Before any edit, reset your empty dispatch branch onto the previous stack layer (git reset --hard 224b03f2da6eefc89d7a055ac95be2d858eaa5c5, branch spacedock-ensign/r9-list-and-detail-layout) and confirm HEAD; read-only, find how the sidebar row (index.client.tsx, BoardItem) can get the counts without the Bridge screen mounted, using the existing source reads and the round 9 status-priority and count function; report the approach and any SDK limit before editing
