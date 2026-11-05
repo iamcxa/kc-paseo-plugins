@@ -1,0 +1,11 @@
+Approve validation of the rate-limit cause (PR iamcxa/kc-paseo-plugins#73 at 6fcce94de4514d490cd1922a4ab935f1cc05c731, stacked on #72) and the proposed declines (F1, F2, the unobserved stderr risk, F3 dispatch records)? FO recommends approving. Approval lets FO merge it after #72 and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds.
+Merge ask: PR #73 at 6fcce94de4514d490cd1922a4ab935f1cc05c731 adds the rate-limited cause, shows "1Password rate limit reached so wait and try again" on the picker, Test and the Started-without line, stops the picker with a wait hint, and adds the OVERVIEW.md troubleshooting heading.
+Sufficiency: validation-1 PASSED at 6fcce94 with no Material finding; AC-1 and its six clauses observed on an isolated Paseo 0.15.2 at 1280 and 400 px; 335/335 tests and tsc clean; four falsifiers fail as named; FO's acceptance rerun matched (fo-acceptance-rerun-6fcce94.txt).
+Necessity: the PR changes classifyOpFailure, the cause list, vaultListFailure, listRefs' stop set, OVERVIEW.md and tests; without it every item after a 1Password limit is shown as an unreadable item or an unrecognised error.
+Reviews: external review rounds: 1 — Codex summary:6664390522 clean on 6fcce94de.
+External rounds: 1
+Second reviewer: roborev not run: FO did not run the local roborev gate for this batch.
+Declined: Polish, F1 the troubleshooting text says "open the field list" where the screen is titled Add a variable (the sentence still reads, the wording fix goes to the follow-up docs and map PR after this batch).
+Declined: Polish, F2 two harness scripts are not executable and one clicked the wrong row on 0.15.2 (evidence tooling only, the validator took those pictures by hand).
+Declined: Deferred risk, the real 1Password rate-limit stderr line is unobserved (a different line shows today's unrecognised-error words, no worse than before).
+Declined: Polish, F3 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch, an FO record defect with no effect on the candidate).
