@@ -89,3 +89,7 @@ comment_ratio.py exit 0：產品同一提交比較，新增程式／註解皆 0�
 roborev not run: no code change (and package gap 5). No PR opened: design-only scope, no push grant for product code. No ADR added: recommendations remain pending, no accepted implementation decision.
 Needs decision: 只讀收集策略、後續頻率／成本上限，以及既有 Commander 套用新指示的方法；ensureCoordinator 不會更新既有 prompt，不能只改常數便聲稱生效。公開 SDK 無排程／prompt 更新方法；內部 scheduleCreate 不作支援介面。
 本機 paseo status --json 在 uv_uptime 回傳 EPERM，未取得 daemon 狀態；未讀真實對話，也未依此推論 daemon 離線或成本。沒有真實 Replay、裝置行為、真人閱讀時間或模型忠實度的通過聲明。
+
+### FO findings before the gate
+
+- Design director pass 1 on step A (codex/gpt-6-astra:xhigh, 2026-11-05): NOT SATISFIED. Block: a digest point's source is bound to the FO original but not to a gate, so "one gate, no choice needed" can decide the wrong target — general replies stay in the Commander; a gate decision needs pressing a named gate, reading its briefing, choosing and Confirm (5 operations, 6 with a reason). Annoys: list the shortest path for general direction (type → send, 2) so the replay is not a required step; move version hashes, function names, source fields and API calls from DIGEST.md to EVIDENCE.md. Passed: the SDK methods and fields for exact sources exist (eight fictional probes rerun), no guessed matching; the Captain's decisions (collection strategy, frequency, cost cap, applying a new prompt) are left to him, nothing claimed as built. FO authorizes one revision (no investigation needed: design text, not a code defect).
