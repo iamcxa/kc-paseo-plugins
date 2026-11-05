@@ -61,3 +61,10 @@ for(const recovery of ["retry","reload"]) test(`active Commander ${recovery} can
 test("known non-Captain Next lines stay ordinary and do not create questions",async t=>{
  const h=await mountBridge(t,false,undefined,false,{},true);h.timeline.set("co",[entry(1,"user_message","Discuss this"),entry(2,"assistant_message","Next: Run the check (me)")]);await h.refresh("co");assert.match(h.text(),/Run the check/);assert.ok(!h.find("Commander")!.textContent!.includes("Run the check"));
 });
+
+test("losing host identity never commits raw digest text while the read effect resets",async t=>{
+ const h=await mountBridge(t,true,rpc=>{rpc["digest.read"]=async()=>({roundId:"r",collectedAt:source.timestamp,points:[{valid:true,point}]});},false,{},true);
+ h.timeline.set("co",[collect,entry(2,"assistant_message",JSON.stringify({roundId:"r",collectedAt:source.timestamp,points:[point]}))]);await h.refresh("co");assert.ok(h.find("Replay split"));
+ const added:string[]=[];const observer=new window.MutationObserver(records=>{for(const record of records)for(const node of record.addedNodes)added.push(node.textContent??"");});observer.observe(h.container,{childList:true,subtree:true});
+ await h.setIdentity(false);observer.disconnect();assert.ok(!added.some(text=>text.includes('"roundId"')));assert.match(h.text(),/Commander host identity unavailable/);
+});
