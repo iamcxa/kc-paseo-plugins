@@ -54,13 +54,16 @@ export async function fleetSnapshot(api: PaseoApi, hostId = "") {
       const page = await api.agents.ref(row.id).timeline.refetch({ projection: "canonical", direction: "tail", limit: 40 });
       if (!goodPage(page, row.id)) throw new Error("Timeline unavailable");
       let bytes = 0;
-      const sources = page.entries.flatMap(entry => {
+      let omitted = false;
+      const sources = [...page.entries].sort((a,b) => b.seqStart - a.seqStart).flatMap(entry => {
         const source = reportSource(hostId, row.id, page.epoch, entry);
         if (!source || entry.item.type !== "assistant_message") return [];
-        bytes += Buffer.byteLength(entry.item.text, "utf8");
-        return bytes <= 64000 ? [{ source, text: entry.item.text }] : [];
-      });
-      return { agentId: row.id, state: sources.length ? "reports" : "unknown", truncated: page.hasOlder || bytes > 64000, sources };
+        const size = Buffer.byteLength(entry.item.text, "utf8");
+        if (bytes + size > 64000) { omitted = true; return []; }
+        bytes += size;
+        return [{ source, text: entry.item.text }];
+      }).reverse();
+      return { agentId: row.id, state: sources.length ? "reports" : "unknown", truncated: page.hasOlder || omitted, sources };
     } catch { return { agentId: row.id, state: "unavailable", truncated: false, sources: [] }; }
   }));
   return { roundId: randomUUID(), collectedAt: new Date().toISOString(), hostId, reports, fleet: attachGates(rows, gates).map((row) => ({

@@ -1,5 +1,7 @@
 import { defineRpc } from "@getpaseo/plugin";
 import { z } from "zod";
+import { parseEnvelope } from "./preview";
+import { AUTOMATED_MARKER } from "./reviews";
 
 export const sourceSchema = z.object({
   hostId: z.string().min(1), agentId: z.string().min(1), epoch: z.string().min(1),
@@ -22,7 +24,6 @@ export const digestSchema = z.object({
 }).strict().refine(d => new Set(d.points.map(p => p.pointId)).size === d.points.length);
 export type Digest = z.infer<typeof digestSchema>;
 export const sourceKey = (s: ReportSource): string => JSON.stringify([s.hostId, s.agentId, s.epoch, s.seqStart, s.seqEnd, s.textHash, s.timestamp]);
-export const isDigestText = (text: string): boolean => /^\s*(?:[\[{]|```(?:json)?\s*\{)/.test(text) || /"(?:roundId|contextLines)"\s*:/.test(text);
 export const digestPosition = z.object({ hostId: z.string().min(1), agentId: z.string().min(1), epoch: z.string().min(1), seqStart: z.number().int().nonnegative(), seqEnd: z.number().int().nonnegative() });
 export type DigestPosition = z.infer<typeof digestPosition>;
 export const verifiedDigestSchema = z.object({
@@ -66,8 +67,12 @@ export function digestSequences(entries: readonly { seqStart: number; item: { ty
   let collection: boolean | null = null;
   const result = new Set<string>();
   for (const entry of entries) {
-    if (entry.item.type === "user_message") collection = isCollectionRequest(entry.item.text ?? "");
-    if (entry.item.type === "assistant_message" && (collection !== false || isDigestText(entry.item.text ?? ""))) result.add(String(entry.seqStart));
+    const text = entry.item.text ?? "";
+    if (entry.item.type === "user_message" && !parseEnvelope(text)) {
+      if (isCollectionRequest(text)) collection = true;
+      else if (!text.startsWith(AUTOMATED_MARKER)) collection = false;
+    }
+    if (entry.item.type === "assistant_message" && collection !== false) result.add(String(entry.seqStart));
   }
   return result;
 }

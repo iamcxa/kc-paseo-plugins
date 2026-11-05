@@ -124,3 +124,28 @@ test("an archive failure retains the exact replacement IDs and a confirmed retry
   await switchCoordinatorHandler(api, { oldAgentId: "old", confirm: true }, store);
   assert.equal(creates, 1); assert.equal(archives, 2);
 });
+
+for (const [name, texts, want] of [
+  ["oversized oldest", ["x".repeat(64001),"new"], [3]],
+  ["oversized middle", ["old","x".repeat(64001),"new"], [1,5]],
+  ["oversized newest", ["old","x".repeat(64001)], [1]],
+  ["newest priority", ["x".repeat(64000),"n"], [3]],
+  ["UTF-8 bytes", ["漢".repeat(21334),"new"], [3]],
+] as const) test(`fleet budget admits recent reports after ${name}`, async () => {
+  const { fleetSnapshot } = await import("../server/fleet-mcp");
+  const entries = texts.flatMap((text,i) => [entry(i*2+1,"assistant_message",text),entry(i*2+2,"user_message","not a report")]);
+  const api = { agents: { list: async () => ({ entries: [{ agent: { id:"fo",title:"Fixture FO",status:"idle",updatedAt:timestamp,labels:{role:"fo"} } }] }),ref: () => ({timeline:{refetch:async()=>({agentId:"fo",epoch:"epoch-1",projection:"canonical",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder:false,hasNewer:false})}}) } } as unknown as PaseoApi;
+  const report = (await fleetSnapshot(api,"host")).reports[0];
+  assert.deepEqual(report.sources.map(s=>s.source.seqStart),want); assert.equal(report.truncated,true);
+  assert.ok(report.sources.reduce((n,s)=>n+Buffer.byteLength(s.text,"utf8"),0)<=64000);
+});
+
+test("fleet budget accepts exactly 64000 UTF-8 bytes, excludes non-reports and reports older-page truncation", async () => {
+  const {fleetSnapshot}=await import("../server/fleet-mcp");
+  const entries=[entry(1,"assistant_message","漢".repeat(21333)),entry(2,"user_message","x".repeat(64001)),entry(3,"assistant_message","n"),entry(4,"tool_call","ignored")];
+  let hasOlder=false;
+  const api={agents:{list:async()=>({entries:[{agent:{id:"fo",title:"Fixture FO",status:"idle",updatedAt:timestamp,labels:{role:"fo"}}}]}),ref:()=>({timeline:{refetch:async()=>({agentId:"fo",epoch:"epoch-1",projection:"canonical",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder,hasNewer:false})}})}} as unknown as PaseoApi;
+  let report=(await fleetSnapshot(api,"host")).reports[0];
+  assert.deepEqual(report.sources.map(s=>s.source.seqStart),[1,3]); assert.equal(report.truncated,false); assert.equal(report.sources.reduce((n,s)=>n+Buffer.byteLength(s.text,"utf8"),0),64000);
+  hasOlder=true; report=(await fleetSnapshot(api,"host")).reports[0]; assert.equal(report.truncated,true);
+});

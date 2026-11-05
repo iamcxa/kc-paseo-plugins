@@ -82,7 +82,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
     const restore = t.mock.method(loader, "_load", function(this: unknown, id: string, ...args: unknown[]) {
       if (id === "@getpaseo/plugin/client") return { usePaseo: () => current.paseo, useRpc: (r: any) => { if (!calls.has(r.name)) calls.set(r.name, (...values) => current.rpc[r.name](...values)); return calls.get(r.name); }, openExternalUrl: () => {} };
       if (id === "@getpaseo/plugin/client/ui") return { SidebarRow: (p: any) => createElement("div", null, createElement("button", { "aria-label": p.label, onClick: p.onPress }, p.label), p.trailing) };
-      if (id === "@getpaseo/plugin/client/react-native") return { TextInput: input, Icon: () => null, Modal: Object.assign(({ open, children }: any) => current.digest && open ? createElement("div", { role: "dialog" }, children) : null, { Content: element }) };
+      if (id === "@getpaseo/plugin/client/react-native") return { ScrollView: element, TextInput: input, Icon: () => null, Modal: Object.assign(({ open, children }: any) => current.digest && open ? createElement("div", { role: "dialog" }, children) : null, { Content: element }) };
       if (id === "react-native") return { Text: element, View: element, ScrollView: element, Pressable: element, Platform: { OS: "web" }, Keyboard: {}, PanResponder: { create: () => ({ panHandlers: {} }) } };
       if (id === "./feedback-pressable") return { FeedbackPressable: element };
       if (id === "./markdown-view") return { MarkdownView: ({ source }: { source: string }) => createElement("span", null, source) };

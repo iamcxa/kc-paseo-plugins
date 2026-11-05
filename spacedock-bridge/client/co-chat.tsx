@@ -23,6 +23,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
   readOnly?: boolean;
   digestHostId?: string;
+  onOpenFO?: (source: import("../shared/digest").ReportSource) => boolean;
   headerExtra?: import("react").ReactNode;
   gate?: GateIdentityFields | null;
   title?: string;
@@ -52,6 +53,7 @@ function Chat({
   navigation,
   agentId,
   digestHostId,
+  onOpenFO,
   readOnly,
   headerExtra,
   gate,
@@ -446,7 +448,7 @@ function Chat({
             </View>
           ) : (
             <View key={line.key} style={styles.assistant}>
-              {digestHostId && positions.digests.has(line.key) ? <DigestMessage theme={theme} layout={layout} navigation={navigation}
+              {digestHostId && positions.digests.has(line.key) ? <DigestMessage theme={theme} layout={layout} navigation={navigation} onOpenFO={onOpenFO}
                 position={{ hostId: digestHostId, agentId, epoch: positions.epoch, seqStart: Number(line.key), seqEnd: positions.ends[line.key] ?? Number(line.key) }} revision={line.text}
                 onContext={context => { setPointContext(context); input.current?.focus(); }} /> : <MarkdownView
                 theme={theme}
