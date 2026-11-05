@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.2.0...project-env-v0.3.0) (2026-11-05)
+
+
+### Features
+
+* **project-env:** an agent that resumes without a project variable shows a Resumed without N project variables line ([#66](https://github.com/iamcxa/kc-paseo-plugins/issues/66)) ([6709c72](https://github.com/iamcxa/kc-paseo-plugins/commit/6709c7283b0906cbdf8d6155048e198625520e8e))
+* **project-env:** the Add a project row always says what to do next when Paseo has no project, every project is set up, or the list fails ([#61](https://github.com/iamcxa/kc-paseo-plugins/issues/61)) ([f5d93bd](https://github.com/iamcxa/kc-paseo-plugins/commit/f5d93bd521a738b6807cec6076c0509eefeddde7))
+
 ## [0.2.0](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.1.0...project-env-v0.2.0) (2026-10-27)
 
 
