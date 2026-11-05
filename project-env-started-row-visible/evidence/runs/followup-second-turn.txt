@@ -1,0 +1,5 @@
+Candidate on Paseo 0.14.0 (run c, agent "stop 1", first turn stopped after 3 s, row appended at its turn end at seq 68). A second message "second message" was then sent and its turn ran to the end (agent.turn_ended count 1 -> 2). Page of the default Chat display at 1280 (picture shots/cand-followup-1280.png), text lines containing the markers, in page order:
+  29:stop 1
+  39:Started without 1 project variable
+  44:second message
+The row stays visible, above the second message.

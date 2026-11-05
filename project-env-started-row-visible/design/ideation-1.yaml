@@ -1,0 +1,32 @@
+design_review:
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/shots/index.html
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: cand-warm-1-1280.png, cand-fail-1-1280.png, cand151-warm-1-1280.png, cand151-fail-1-1280.png (and the 400 px pairs)
+      seen: Every picture shows exactly one variable (STRIPE_KEY, a short reason); the proposal also covers several variables and a stopped first turn, and no picture shows either, nor a long reason wrapping at 400 px.
+      fix: Add acceptance criteria and pictures for three variables at 400 px, a reason that wraps, and a stopped first turn, each with the row still above "Worked for".
+    - severity: MINOR
+      dimension: states
+      where: first turn running (no picture)
+      seen: The proposal says no row is shown while the first turn runs, but all eight pictures are of a finished turn, so the running state and the moment the row appears (the footer shifting down) are not shown.
+      fix: Add a picture of the running turn at 1280 and 400 and a criterion that the row appears once, without reordering the reply above it.
+    - severity: MINOR
+      dimension: theme-size
+      where: all eight proposed pictures
+      seen: Only the dark theme is shown, so the amber warning icon and the monospace name are not shown on light, and no size between 400 and 1280 is shown.
+      fix: Add one light-theme picture at 1280 and 400, or state in the criteria that the row reuses the host colors and is checked in light.
+    - severity: MINOR
+      dimension: hierarchy
+      where: cand-fail-1-1280.png, cand151-fail-1-1280.png
+      seen: In a failed turn the plain "[System Error] Requested mock provider failure" line has no icon, while the amber-icon warning row below it is the only marked element and reads as the headline, directly above "Worked for 0s".
+      fix: Accept as is only if the criteria state the row is a note about the start and not the cause of the failure (its words do not change); otherwise leave the placement and note that a person may read the two as linked.
+  limitations:
+    - Only Paseo's default Chat display and the dark theme are pictured; other display settings are not shown and not under review.
+    - Pictures come from a mock provider and one fake-op variable; real long replies, many tool calls and a resumed agent are not shown.
+    - Paseo 0.14.0 and 0.15.1 pictures look the same to me; I found no difference between them.
+    - The row's words and look are unchanged by the proposal, so I did not review them as a design; ADRs 0001, 0002 and 0004 say nothing about placement or look, so no question was ruled by a record.

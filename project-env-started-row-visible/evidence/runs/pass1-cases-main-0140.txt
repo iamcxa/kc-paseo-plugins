@@ -1,0 +1,11 @@
+main warm warm-1 agent=b3001940 row: seq=1 user=2 last-assistant=154 before-user-message | 1280=visible 400=visible
+main warm warm-2 agent=1d503474 row: seq=1 user=2 last-assistant=154 before-user-message | 1280=visible 400=visible
+main warm warm-3 agent=7d4e4481 row: seq=1 user=2 last-assistant=177 before-user-message | 1280=visible 400=visible
+main cold cold-1 agent=da60d624 row: seq=3 user=1 last-assistant=109 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+main cold cold-2 agent=fd05b6fe row: seq=1 user=2 last-assistant=153 before-user-message | 1280=visible 400=visible
+main cold cold-3 agent=17d54535 row: seq=3 user=1 last-assistant=125 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+main cold cold-4 agent=41686440 row: seq=3 user=1 last-assistant=69 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+main cold cold-5 agent=ee72a715 row: seq=1 user=2 last-assistant=155 before-user-message | 1280=visible 400=visible
+main cold cold-6 agent=2cb86f6d row: seq=3 user=1 last-assistant=151 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+main stop stop-1 agent=5924e178 row: seq=1 user=2 last-assistant=125 before-user-message | 1280=visible 400=visible
+main fail fail-1 agent=13cead3e row: seq=1 user=2 last-assistant=3 before-user-message | 1280=visible 400=NOT-LOADED

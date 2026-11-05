@@ -1,0 +1,257 @@
+diff -ru -x node_modules main/cand/project-env/server/contribute.ts project-env/server/contribute.ts
+--- main/cand/project-env/server/contribute.ts	2026-11-05 16:53:26
++++ cand/project-env/server/contribute.ts	2026-11-05 16:53:27
+@@ -55,7 +55,6 @@
+         data,
+       }),
+     );
+-  server.on("agent.created", addLine);
+   server.on("agent.turn_ended", addLine);
+   server.on("agent.closed", ({ agent }) => notices.drop(agent.id));
+ 
+diff -ru -x node_modules main/cand/project-env/server/missing-variables-notice.ts project-env/server/missing-variables-notice.ts
+--- main/cand/project-env/server/missing-variables-notice.ts	2026-11-05 16:53:26
++++ cand/project-env/server/missing-variables-notice.ts	2026-11-05 16:53:57
+@@ -1,8 +1,6 @@
+ import type { Cause } from "../shared/cause.ts";
+ import type { MissingVariablesData } from "../shared/config.ts";
+ 
+-export const PENDING_TTL_MS = 10 * 60 * 1000;
+-
+ export interface Failure {
+   name: string;
+   cause?: Cause;
+@@ -11,12 +9,10 @@
+ export type AppendRow = (row: MissingVariablesData) => Promise<unknown>;
+ 
+ interface Options {
+-  now?: () => number;
+   log?: (line: string) => void;
+ }
+ 
+ interface Pending {
+-  at: number;
+   resumed: boolean;
+   variables: MissingVariablesData["variables"];
+ }
+@@ -24,17 +20,11 @@
+ const failureKeys = (variables: MissingVariablesData["variables"]) =>
+   variables.map((v) => `${v.name}\0${v.cause}`).sort();
+ 
+-export function createNotices({ now = Date.now, log = console.error }: Options = {}) {
++export function createNotices({ log = console.error }: Options = {}) {
+   const pending = new Map<string, Pending>();
+   const shown = new Map<string, string[]>();
+   const current = new Map<string, string[]>();
+ 
+-  function prune(at: number) {
+-    for (const [agentId, entry] of pending) {
+-      if (!entry.resumed && at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
+-    }
+-  }
+-
+   function remember(memory: Map<string, string[]>, agentId: string, keys: string[]) {
+     if (keys.length > 0) memory.set(agentId, keys);
+     else memory.delete(agentId);
+@@ -47,13 +37,11 @@
+ 
+   function record(agentId: string, failures: Failure[], { resumed = false } = {}) {
+     try {
+-      const at = now();
+-      prune(at);
+       const variables = failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }));
+       const keys = failureKeys(variables);
+       if (resumed) pending.delete(agentId);
+       const repeats = resumed && (shown.get(agentId) ?? []).join("\n") === keys.join("\n");
+-      if (variables.length > 0 && !repeats) pending.set(agentId, { at, resumed, variables });
++      if (variables.length > 0 && !repeats) pending.set(agentId, { resumed, variables });
+       observe(agentId, keys);
+     } catch (error) {
+       reportFailure(agentId, error);
+diff -ru -x node_modules main/project-env/test/missing-variables.test.ts project-env/test/missing-variables.test.ts
+--- main/project-env/test/missing-variables.test.ts	2026-11-05 16:53:26
++++ project-env/test/missing-variables.test.ts	2026-11-05 16:55:39
+@@ -8,7 +8,7 @@
+ import * as rpc from "../shared/config.ts";
+ import type { Project } from "../shared/config.ts";
+ import { contribute } from "../server/contribute.ts";
+-import { createNotices, PENDING_TTL_MS } from "../server/missing-variables-notice.ts";
++import { createNotices } from "../server/missing-variables-notice.ts";
+ import { makeWorld, type Scenario } from "./world.ts";
+ 
+ const cleanups: (() => void)[] = [];
+@@ -96,7 +96,7 @@
+     const current = JSON.parse(readFileSync(join(world.dir, "scenario.json"), "utf8"));
+     writeFileSync(join(world.dir, "scenario.json"), JSON.stringify({ ...next, git: current.git }));
+   };
+-  return { open, fire, appended, world, setScenario };
++  return { open, fire, appended, world, setScenario, listensTo: [...on.keys()] };
+ }
+ 
+ const accounts = {
+@@ -118,7 +118,7 @@
+     silenceConsole();
+     const h = harness(failing, scenario);
+     await h.open();
+-    await h.fire("agent.created");
++    await h.fire("agent.turn_ended");
+     assert.equal(h.appended.length, 1);
+     assert.deepEqual(h.appended[0], {
+       agentId: "a1",
+@@ -146,7 +146,7 @@
+     const logged = silenceConsole();
+     const h = harness(failing, scenario, true);
+     await h.open();
+-    await assert.doesNotReject(async () => h.fire("agent.created"));
++    await assert.doesNotReject(async () => h.fire("agent.turn_ended"));
+     const notices = logged.filter((l) => l.includes("could not add the missing-variables line"));
+     assert.deepEqual(notices, [
+       "[project-env] could not add the missing-variables line for agent a1: Request failed: Unknown agent",
+@@ -157,16 +157,27 @@
+     silenceConsole();
+     const h = harness(failing, scenario);
+     await h.open();
+-    await h.fire("agent.created");
+-    await h.fire("agent.created");
++    await h.fire("agent.turn_ended");
++    await h.fire("agent.turn_ended");
+     assert.equal(h.appended.length, 1);
+   });
+ 
++  it("does not listen for agent.created: the line goes in when the first turn ends", async () => {
++    silenceConsole();
++    const h = harness(failing, scenario);
++    assert.ok(!h.listensTo.includes("agent.created"), h.listensTo.join());
++    await h.open();
++    assert.equal(h.appended.length, 0);
++    await h.fire("agent.turn_ended");
++    assert.equal(h.appended.length, 1);
++    assert.equal((h.appended[0].item as { id: string }).id, rpc.missingVariablesRowId);
++  });
++
+   it("a history opening resolves nothing and adds no line", async () => {
+     silenceConsole();
+     const h = harness(failing, scenario);
+     assert.equal(await h.open({ purpose: "history" }), undefined);
+-    await h.fire("agent.created");
++    await h.fire("agent.turn_ended");
+     assert.equal(h.appended.length, 0);
+     assert.equal(h.world.calls().filter((c) => c.tool === "op").length, 0);
+   });
+@@ -177,7 +188,6 @@
+       const h = harness(failing, scenario);
+       const opened = (await h.open({ reason })) as { env: Record<string, string> };
+       assert.equal(opened.env.GOOD, VALUE);
+-      await h.fire("agent.created");
+       await h.fire("agent.turn_ended");
+       assert.equal(h.appended.length, 0);
+     });
+@@ -226,7 +236,7 @@
+       silenceConsole();
+       const h = harness(failing, scenario);
+       await h.open();
+-      await h.fire("agent.created");
++      await h.fire("agent.turn_ended");
+       await h.fire("agent.closed");
+       await h.open({ reason: "resume" });
+       await h.fire("agent.turn_ended");
+@@ -332,18 +342,6 @@
+       assert.equal(h.appended.length, 2);
+     });
+ 
+-    it("waits beyond ten minutes for the turn to end", async () => {
+-      silenceConsole();
+-      let t = 0;
+-      const notices = createNotices({ now: () => t });
+-      notices.record("a1", [{ name: "GOOD", cause: "empty" }], { resumed: true });
+-      t = 3 * 60 * 60 * 1000;
+-      notices.record("a2", [{ name: "GOOD", cause: "empty" }], { resumed: true });
+-      const rows: unknown[] = [];
+-      await notices.flush("a1", async (row) => void rows.push(row));
+-      assert.equal(rows.length, 1);
+-    });
+-
+     it("adds nothing when the agent is released before a turn ends", async () => {
+       silenceConsole();
+       const h = harness(failing, scenario);
+@@ -366,7 +364,7 @@
+     silenceConsole();
+     const h = harness([["GOOD", "op://V/i/good"]], scenario);
+     await h.open();
+-    await h.fire("agent.created");
++    await h.fire("agent.turn_ended");
+     assert.equal(h.appended.length, 0);
+   });
+ 
+@@ -375,7 +373,7 @@
+     const h = harness(failing, scenario);
+     await h.open();
+     await h.fire("agent.closed");
+-    await h.fire("agent.created");
++    await h.fire("agent.turn_ended");
+     assert.equal(h.appended.length, 0);
+   });
+ 
+@@ -383,9 +381,9 @@
+     silenceConsole();
+     const h = harness(failing, scenario);
+     await h.open({ agentId: "a1" });
+-    await h.fire("agent.created", "a2");
++    await h.fire("agent.turn_ended", "a2");
+     assert.equal(h.appended.length, 0);
+-    await h.fire("agent.created", "a1");
++    await h.fire("agent.turn_ended", "a1");
+     assert.equal(h.appended.length, 1);
+   });
+ });
+@@ -393,38 +391,25 @@
+ describe("the pending notices", () => {
+   const failure = { name: "X", cause: "empty" as const };
+ 
+-  it("prunes an entry older than ten minutes on the next record", async () => {
+-    let clock = 1_000;
+-    const n = createNotices({ now: () => clock, log: () => {} });
+-    n.record("old", [failure]);
+-    clock += PENDING_TTL_MS + 1;
+-    n.record("new", [failure]);
+-    const rows: string[] = [];
+-    for (const id of ["old", "new"]) await n.flush(id, async () => void rows.push(id));
+-    assert.deepEqual(rows, ["new"]);
+-  });
++  for (const resumed of [false, true]) {
++    it(`a ${resumed ? "resumed" : "new"} agent's entry waits for its turn end however many other agents record meanwhile`, async () => {
++      const n = createNotices({ log: () => {} });
++      n.record("a", [failure], { resumed });
++      for (let i = 0; i < 50; i++) n.record(`other-${i}`, [failure]);
++      const rows: string[] = [];
++      await n.flush("a", async () => void rows.push("a"));
++      assert.deepEqual(rows, ["a"]);
++    });
++  }
+ 
+-  it("an entry younger than ten minutes survives", async () => {
+-    let clock = 0;
+-    const n = createNotices({ now: () => clock, log: () => {} });
+-    n.record("a", [failure]);
+-    clock += PENDING_TTL_MS - 1;
+-    n.record("b", [failure]);
+-    const rows: string[] = [];
+-    await n.flush("a", async () => void rows.push("a"));
+-    assert.deepEqual(rows, ["a"]);
+-  });
+-
+   it("record and flush never throw, whatever fails inside", async () => {
+     const n = createNotices({
+-      now: () => {
+-        throw new Error("clock");
+-      },
+       log: () => {
+         throw new Error("log");
+       },
+     });
+-    assert.doesNotThrow(() => n.record("a", [failure]));
++    n.record("a", [failure]);
++    await assert.doesNotReject(n.flush("a", async () => Promise.reject(new Error("append"))));
+     const ok = createNotices({
+       log: () => {
+         throw new Error("log");

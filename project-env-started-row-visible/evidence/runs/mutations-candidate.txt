@@ -1,0 +1,5 @@
+Each mutation applied to a throwaway copy of the candidate (npm test in project-env, 325 tests unmutated, all passing); every one fails at least one test.
+agent.created listener restored (the one line the candidate removes, put back) => pass 324, fail 1   (does not listen for agent.created: the line goes in when the first turn ends)
+agent.turn_ended listener removed => pass 305, fail 20
+start row no longer recorded at create (only resume) => pass 319, fail 6
+entry dropped once 20 other agents have recorded (a stand-in for any expiry) => pass 323, fail 2   (an entry waits for its turn end however many other agents record meanwhile, new and resumed)
