@@ -1,0 +1,64 @@
+{
+  "beforeReadOnlyVerification": {
+    "at": "2026-11-05T13:24:29.839837+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "afterReadOnlyVerification": {
+    "at": "2026-11-05T13:24:30.913865+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "earlierPreflightObservation": {
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ],
+    "source": "authorized CLI read before any task artifact was written; no raw live roster saved"
+  },
+  "observedFieldsEqual": true,
+  "worktrees": {
+    "main": {
+      "head": "6709c7283b0906cbdf8d6155048e198625520e8e",
+      "branch": "main",
+      "porcelain": ""
+    },
+    "pinnedBridge": {
+      "head": "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "branch": "",
+      "porcelain": ""
+    },
+    "dispatch": {
+      "head": "6709c7283b0906cbdf8d6155048e198625520e8e",
+      "branch": "spacedock-ensign/d2-collection-cost-probe",
+      "porcelain": ""
+    }
+  },
+  "daemonStarted": false,
+  "daemonPid": null,
+  "isolatedHome": null,
+  "agentsCreated": 0,
+  "measurementRoundsStarted": 0,
+  "modelRetriesUsed": 0,
+  "liveActivityRead": false,
+  "livePromptsSent": false,
+  "permissionResponsesSent": false,
+  "credentialsAccessed": false,
+  "cleanupExercised": false
+}

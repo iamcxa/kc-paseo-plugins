@@ -65,3 +65,30 @@ Verified by: live roster count and live comms officer status read before and aft
 
 Alignment: not needed: the Captain asked for this one measurement on 2026-11-05 (「跑一次」), scoped in the seed.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+## Stage Report: implementation
+
+- FAILED: Start one isolated Paseo daemon with its own --home on a port outside 6767, 6787 and 6860-6935; install the Bridge plugin from /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge (read-only, at 33952f9b3d02fceab104ba09272d65e432a3d095) so the Commander has fleet_status as in production; capture the daemon PID
+  Preflight source inspection found fleet-mcp.ts:12,107,130 fixed to forbidden 6787 and the real-HOME token path at :13,25–32; no daemon/plugin was started. See d2-collection-cost-probe/evidence/RESULT.md and source-identity.json.
+- SKIPPED: Seed a fictional fleet shaped like the live one: 18 agents labelled role=fo — 6 closed, 10 idle each holding 6-17 KB of recent assistant text (median about 9 KB), 2 idle and nearly empty; cheapest available model; record the bytes each FO actually holds
+  Not seeded after the isolation stop condition; no actual per-FO byte measurements or synthetic agents exist.
+- SKIPPED: Probe round: a fresh Commander (provider claude/claude-opus-5-5, the live comms officer's provider and system prompt) receives one user message with a throwaway digest instruction approximating d1-commander-digest/design/DIGEST.md with existing tools only (fleet_status for the roster, get_agent_activity per FO for text, then a digest in its own words with about/before/now context lines and a provisional source per line); keep that instruction in d2-collection-cost-probe/evidence/probe-prompt.md
+  Planned fictional-only instruction saved in d2-collection-cost-probe/evidence/probe-prompt.md, marked NOT EXECUTED; no Commander or provider call was made.
+- SKIPPED: Baseline round: a second fresh Commander, same roster, one user message "What is the fleet's status?"
+  Not run after the isolation stop condition; no Commander or provider call was made.
+- SKIPPED: For each round, attributed by turn id (never by account totals): input, cached-input and output tokens, provider request count, wall time, and per-FO bytes and pages read; first establish whether usage_updated is cumulative or per-turn
+  No usage events, turn IDs, token totals, request counts, elapsed-round time or pages exist; cumulative/per-turn semantics are unestablished. No account totals were queried.
+- DONE: Write d2-collection-cost-probe/evidence/RESULT.md: one table (probe, baseline, increment), per-FO scaling, the method, and every approximation versus the d1 design (AC-1, AC-2)
+  RESULT.md records a probe/baseline/increment table as not measured, unavailable scaling, the precise stopping method and all planned approximations; AC-1 and AC-2 remain unmet, not zero.
+- DONE: Read the live roster count (paseo ls -g -a --label role=fo --json | jq length) and the live comms officer status (label role=comms-officer) before and after; stop the isolated daemon by its captured PID and delete its home (AC-3)
+  safety.json: live count 18 before and after, same idle comms officer/provider, three code trees clean; daemon/home never allocated, so PID cleanup was not exercised. No live text, prompts, permissions or credentials read or changed.
+- FAILED: design_surfaces.py check on the dispatched task
+  Exit 1: FO alignment has no Surfaces: or Visible change: line. Recorded in evidence/checks.json; approved task specification was not amended.
+- DONE: Applicable no-code workflow checks
+  checks.json: comment_ratio exit 0 (0 code/comment lines); doc_impact exit 0 (0 affected documents); number_guards exit 0 (migration guard skipped: no migrations-path); source hashes and clean code worktrees rechecked.
+- SKIPPED: roborev
+  roborev not run: a measurement task with no code change and no candidate branch, as the FO dispatch explicitly records.
+
+### Summary
+
+Stopped before daemon or model execution because the pinned Bridge requires prohibited port 6787, and real HOME would also access the coordinator token path. No code, branch, PR, persistent runtime seam or model round was created; report evidence is the only deliverable, and there is no measured collection cost. The FO must resolve the isolation conflict and missing task metadata before a new dispatch; this report grants no product repair or additional-round authority.
