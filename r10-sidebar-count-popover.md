@@ -214,6 +214,8 @@ Limits/cleanup: installed web-host presentation, source readiness and native-sty
 - Validation-1 PASSED AC-1 and AC-2 at 2a31ef4. FO reran evidence/validation-1/acceptance.sh in a fresh shell: all steps PASS on the first run (267 tests, both mutants rejected, four host runs).
 - Observer (pre-gate, 32b2a7d..7b71260): 0 FO record violations, 1 package mismatch (design_surfaces, gap 2).
 
+- Amendment 1 build (cycle 4) on 33952f9: popover items newest first; roborev clean (roborev:1482).
+
 ### FO declines
 
 - Pre-gate team pass 2 (picky A, annoys; design director noted it as not blocking) on 2a31ef49e8f152623c1e04e046bcbf34777da85f — on the phone, when a source failed, the incomplete-source note plus the scroll cue squeeze the sheet's list below one full row, clipping the question's owner and age until scrolled. Declined as a known issue by the Captain's ruling 2026-11-04, asked 「手機上讀取失敗時，彈出摘要的清單被擠到不到一整列，要怎麼處理？」, answered 「先記成已知問題 (Recommended)」. Would become Material: if the Captain reports missing or misreading a waiting question on his phone because the row was clipped, or the sheet shows no complete row with sources healthy.
