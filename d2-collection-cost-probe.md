@@ -65,6 +65,8 @@ Verified by: live roster count and live comms officer status read before and aft
 
 Alignment: not needed: the Captain asked for this one measurement on 2026-11-05 (「跑一次」), scoped in the seed.
 Release review: not needed: spacedock-bridge has no journey map yet.
+Surfaces: none
+Visible change: none
 
 ## Stage Report: implementation
 
