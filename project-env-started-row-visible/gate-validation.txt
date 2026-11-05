@@ -1,0 +1,10 @@
+Approve validation of the Started-without line placement (PR iamcxa/kc-paseo-plugins#75 at 9439ec8b2aec5fcd2604e4bb0846d5a197ec1949, stacked on #73 and #72), including the removal of the ten-minute expiry, and the proposed declines (F1, F2 dispatch records, F3 Deferred risk)? FO recommends approving. Approval lets FO merge it after #73 and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds.
+Merge ask: PR #75 at 9439ec8b2aec5fcd2604e4bb0846d5a197ec1949 adds the Started-without row only when the first turn ends, so Paseo's default Collapse turns display no longer folds it, removes the ten-minute expiry, and updates one sentence each in docs/project-env/index.md and project-env/OVERVIEW.md.
+Sufficiency: validation-1 PASSED at 9439ec8 with no Material finding; AC-2 (Captain amendment 1, newest Paseo only) observed on an isolated Paseo 0.15.2: candidate 15 of 15 rows after the last reply and visible at 1280 and 400, base 3 of 15 folded; 335/335 tests and tsc clean; FO's acceptance rerun matched (fo-acceptance-rerun-9439ec8.txt).
+Necessity: the PR removes the agent.created listener and the expiry and changes tests and two doc sentences; without it the line is folded away in about a third of starts on the Captain's Paseo.
+Reviews: external review rounds: 1 — Codex summary:6664388798 clean on 9439ec8b2.
+External rounds: 1
+Second reviewer: roborev not run: FO did not run the local roborev gate for this batch.
+Declined: Polish, F1 index.md says the line is under the first reply where it is under the last reply of the first turn (the same for one-reply turns, the wording fix goes to the follow-up docs and map PR after this batch).
+Declined: Polish, F2 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch, an FO record defect with no effect on the candidate).
+Declined: Deferred risk, F3 a first turn over ten minutes, a real provider's turn end, the desktop app and the light theme were not run (would become Material if a real provider emitted no turn end for a normal first turn).
