@@ -18,6 +18,17 @@ gates:
                 id: briefing:project-env-rate-limit-cause:backlog:attempt-1:revision-1
                 digest: sha256:9cc7bc06629d94af1bc25367bf9acbbecafb8a0db28bdfaf6a8f4bb64f0f5f88
                 room-ref: ./project-env-rate-limit-cause/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-rate-limit-cause:backlog:1
+                briefing: briefing:project-env-rate-limit-cause:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T08:38:52.116562Z"
+                decision: approve
+                reason: '「開這批」 — Captain in FO chat, 2026-11-05. Asked: 「回「開這批」，我就開這 4 個任務，同時派設計」 after FO proposed batch r1b-polish-1 (picker-slow-hint, rate-limit-cause, started-row-visible, journey-map-r1b-catch-up) and recommended opening it.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Batch: r1b-polish-1, approved by the Captain on 2026-11-05 (「開這批」) with four members: project-env-picker-slow-hint, project-env-rate-limit-cause, project-env-started-row-visible, project-env-journey-map-r1b-catch-up. On 2026-10-27 the vault-list task found that `classifyOpFailure` in `project-env/server/cause.ts` returns `unexpected` for 1Password's "Too Many Requests: You've reached the maximum number of this type of requests…" reply, so after a limit is hit every item read lands in skipped as "1Password could not read this item" (archived project-env-vault-list-loads-faster, "Findings from the runs"). Service-account limits are per hour and per day (research/2026-10-27-1password-agents-and-docs-site.md).
