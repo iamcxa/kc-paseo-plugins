@@ -102,6 +102,7 @@ Needs decision: 只讀收集策略、後續頻率／成本上限，以及既有 
   DIGEST.md 重列直接一般方向 2 次、帶摘要點的一般方向／討論 4 次、具名關卡決定 5 次／須原因 6 次；即使僅一個關卡仍須明確點選並閱讀說明。EVIDENCE.md 區分來源鍵與 gate 目標；checks/cycle-2-operations.json 核對八條設計路徑的逐項計數，非介面實測。
 - DONE: Move version hashes, function names, source fields and API calls from DIGEST.md to EVIDENCE.md; keep on the page "every sentence can show its exact original; if it cannot be found it says so"; a short "## Stage Report: implementation (cycle 2)" section; do not start step B
   主頁已移除版本 SHA、函式名、來源欄位及 API 呼叫，保留每句能顯示精確原文、找不到便明說；技術依據集中 EVIDENCE.md。沒有 HTML／PNG／review.html；本報告後停止，交回設計總監第二次審查。
+- Design director pass 1 on step B mockups (2026-11-05): NOT SATISFIED. Blocks: after a gate's Confirm the board still says it waits on the Captain, and reopening clears the choice and sent state and allows Confirm again — keep the decision and progress and update the entry; a reply with context keeps only the typed text and drops the chosen digest point — keep the point's identity and sentence with the sent message, separate from the Captain's words. Annoys: the host sidebar is 240 px instead of the 320 px baseline; cut the repeated "direction stays in the Commander" tutorial, the second "fictional" label and "no other message substituted"; assumption 9 needs a long-original / several-sources phone state with the three exits reachable. Passed: the digest scans quickly; unknown and source-not-found are honest; review.html loads images from file://. FO authorizes one revision.
 
 ### Summary
 
