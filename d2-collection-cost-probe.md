@@ -35,6 +35,17 @@ gates:
                 id: briefing:d2-collection-cost-probe:validation:attempt-1:revision-1
                 digest: sha256:d8343c4b6b83a5f7aa057093a5fdd48db8098d69b1c724f992783f51cffd4001
                 room-ref: ./d2-collection-cost-probe/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d2-collection-cost-probe:validation:1
+                briefing: briefing:d2-collection-cost-probe:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T15:31:20.684721Z"
+                decision: approve
+                reason: Captain chat 2026-11-05. To the gate question he replied 「可能是組合的？最低頻率就是一小時一次，但是如果我一直開著 bridge 時，該怎麼自動整理？」; asked 「摘要收集用這個組合寫進之後的程式任務嗎？背景每小時一次（沒有新回報就跳過，每天最多 24 輪完整收集，最壞約 810 萬輸入 token）；開著 Bridge 時，FO 有新訊息就等 5 分鐘沒動靜、最多每 15 分鐘，只更新受影響的點；小更新的成本寫程式時量，再定它的上限。選了也視為接受這份量測（一次完整收集約 34 萬輸入 token、約 1.8 分鐘）。」, answered 「照這個組合 (Recommended)」 — accepts the measurement and sets the collection rule for the d1 code task.
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-05T13:19:14Z
 worktree: .worktrees/spacedock-ensign-d2-collection-cost-probe
 ---
