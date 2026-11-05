@@ -27,6 +27,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-05T15:38:47Z
+worktree: .worktrees/spacedock-ensign-d3-commander-digest-slice-1
 ---
 
 Build the accepted d1-commander-digest design's first slice: a new comms officer that writes the digest in its own words with an exact source per point and per context line, the Replay card behind each point, and a "collect now" action; scheduling comes in slice 2.
