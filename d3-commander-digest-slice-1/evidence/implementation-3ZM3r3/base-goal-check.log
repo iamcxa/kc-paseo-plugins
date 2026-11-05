@@ -1,0 +1,17 @@
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: collect-now source contract is absent: fleetSnapshot has no assistant reports or exact source objects
+    at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.d3-goal-base-4ris4e_1/spacedock-bridge/goal-probe.mts:4:8) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.18.0

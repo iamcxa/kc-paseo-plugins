@@ -1,0 +1,77 @@
+Error: Uncaught [TypeError: activeElement$1.attachEvent is not a function]
+    at reportException (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+    at invokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLTextAreaElementImpl._dispatch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+    at exports.fireFocusEventWithTargetAdjustment (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/helpers/focusing.js:103:10)
+    at HTMLTextAreaElementImpl.focus (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/nodes/HTMLOrSVGElement-impl.js:72:14)
+    at HTMLTextAreaElement.focus (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/generated/HTMLElement.js:128:34)
+    at onContext (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/co-chat.tsx:451:82)
+    at onContext (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:32:123)
+    at onPress (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:88:239) TypeError: activeElement$1.attachEvent is not a function
+    at handleEventsForInputEventPolyfill (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3580:27)
+    at /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:16887:15
+    at batchedUpdates$1 (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3259:40)
+    at dispatchEventForPluginEventSystem (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:16572:7)
+    at dispatchEvent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:20658:11)
+    at dispatchDiscreteEvent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:20626:11)
+    at HTMLDivElement.callTheUserObjectsOperation (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+    at invokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLTextAreaElementImpl._dispatch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+✔ 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send (556.9305ms)
+Error: Uncaught [TypeError: activeElement$1.detachEvent is not a function]
+    at reportException (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+    at invokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLTextAreaElementImpl._dispatch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+    at exports.fireFocusEventWithTargetAdjustment (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/helpers/focusing.js:103:10)
+    at HTMLTextAreaElementImpl.focus (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/nodes/HTMLOrSVGElement-impl.js:72:14)
+    at HTMLTextAreaElement.focus (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/generated/HTMLElement.js:128:34)
+    at onContext (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/co-chat.tsx:451:82)
+    at onContext (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:32:123)
+    at onPress (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:89:240) TypeError: activeElement$1.detachEvent is not a function
+    at stopWatchingForValueChange (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3553:26)
+    at handleEventsForInputEventPolyfill (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3577:12)
+    at /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:16887:15
+    at batchedUpdates$1 (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3259:40)
+    at dispatchEventForPluginEventSystem (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:16572:7)
+    at dispatchEvent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:20658:11)
+    at dispatchDiscreteEvent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:20626:11)
+    at HTMLDivElement.callTheUserObjectsOperation (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+    at invokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+✔ 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send (327.875125ms)
+✔ each context link reads its exact source, earlier/later use window edges and FO exit uses the chosen host (302.568917ms)
+✔ invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history (254.972041ms)
+Error: Uncaught [TypeError: activeElement$1.detachEvent is not a function]
+    at reportException (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+    at invokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLTextAreaElementImpl._dispatch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+    at exports.fireFocusEventWithTargetAdjustment (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/helpers/focusing.js:103:10)
+    at HTMLTextAreaElementImpl.focus (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/nodes/HTMLOrSVGElement-impl.js:72:14)
+    at HTMLTextAreaElement.focus (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/generated/HTMLElement.js:128:34)
+    at onContext (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/co-chat.tsx:451:82)
+    at onContext (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:32:123)
+    at onPress (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:88:239) TypeError: activeElement$1.detachEvent is not a function
+    at stopWatchingForValueChange (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3553:26)
+    at handleEventsForInputEventPolyfill (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3577:12)
+    at /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:16887:15
+    at batchedUpdates$1 (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:3259:40)
+    at dispatchEventForPluginEventSystem (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:16572:7)
+    at dispatchEvent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:20658:11)
+    at dispatchDiscreteEvent (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:20626:11)
+    at HTMLDivElement.callTheUserObjectsOperation (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+    at invokeEventListeners (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+✔ a stale source response cannot populate a different point's Replay (249.619292ms)
+✔ switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only (57.73175ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2791.436625

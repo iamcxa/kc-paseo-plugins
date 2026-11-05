@@ -1,0 +1,38 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Open menu" [expanded=false, ref=e3]
+              - generic
+          - generic
+            - generic
+              - image
+              - generic
+                - generic [ref=e4] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Add a project"
+                    - StaticText "Open a folder on your machine"
+                - generic [ref=e5] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Import session"
+                    - StaticText "Open a Claude Code, Codex or other session you started in a terminal"
+                - generic [ref=e6] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Setup providers"
+                    - StaticText "Configure Claude Code, Codex, and more"
+            - generic
+              - button "Star" [ref=e7]
+                - image
+                - StaticText "Star"
+              - button "Sponsor" [ref=e8]
+                - image
+                - StaticText "Sponsor"
+              - button "Community" [ref=e9]
+                - image
+                - StaticText "Community"
+- generic [ref=e2] clickable [onclick]

@@ -1,0 +1,58 @@
+{
+  "candidate": "b8fb54c38cce2bbc7a9356961535d73902d69321",
+  "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "npmTest": {
+    "exit": 0,
+    "passed": 296,
+    "failed": 0,
+    "log": "tests-verified.log"
+  },
+  "typecheck": {
+    "exit": 0,
+    "log": "typecheck-verified.log"
+  },
+  "designSurfaces": {
+    "exit": 0,
+    "log": "design-surfaces.log"
+  },
+  "commentRatio": {
+    "exit": 0,
+    "codeLines": 457,
+    "commentLines": 0,
+    "log": "comment-ratio.log"
+  },
+  "numberGuards": {
+    "exit": 0,
+    "log": "number-guards.log"
+  },
+  "adrLint": {
+    "exit": 0,
+    "log": "adr-lint.log"
+  },
+  "docImpact": {
+    "exit": 0,
+    "documents": [],
+    "log": "doc-impact.log"
+  },
+  "captures": {
+    "accepted": [
+      "phone-verified",
+      "desktop-verified"
+    ],
+    "count": 30,
+    "binding": "capture-binding.json"
+  },
+  "costMeasurement": {
+    "status": "skipped",
+    "reason": "FO directs only AC-4 to stop; configurable fleet listener and Bridge data directory are outside scope"
+  },
+  "roborev": {
+    "status": "skipped",
+    "owner": "First Officer",
+    "reason": "dispatch package gap 5"
+  },
+  "adr": {
+    "status": "skipped",
+    "reason": "FO applies POC no-number rule"
+  }
+}

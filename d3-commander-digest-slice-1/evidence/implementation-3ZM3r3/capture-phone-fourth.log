@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/implementation-3ZM3r3/capture.py", line 133, in <module>
+    click('Send to Comms officer')
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/implementation-3ZM3r3/capture.py", line 45, in click
+    assert position['hit'],(label,position)
+           ~~~~~~~~^^^^^^^
+AssertionError: ('Send to Comms officer', {'hit': False, 'x': 325, 'y': 745})

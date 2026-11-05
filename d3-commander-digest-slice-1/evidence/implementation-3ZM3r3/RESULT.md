@@ -1,0 +1,33 @@
+# Sourced Commander digest: implementation result
+
+Candidate: `b8fb54c38cce2bbc7a9356961535d73902d69321`, branch `spacedock-ensign/d3-commander-digest-slice-1`. Base: `33952f9b3d02fceab104ba09272d65e432a3d095`, the verified head of parent PR #69. Draft PR: https://github.com/iamcxa/kc-paseo-plugins/pull/74 . This is a bounded POC implementation, not a merge, release, live-officer switch or model-quality acceptance.
+
+## Delivered and exercised
+
+The fleet snapshot contains only canonical assistant report sources with host, agent, epoch, exact sequence, full UTF-8 SHA-256 and timestamp. Each FO is bounded to 40 entries / 64,000 assistant-text bytes; missing, failed and truncated reads remain explicit. The Commander prompt produces a structured digest, never asks an FO for a report, preserves explicit work/ruling relay rules and retains the permission prohibitions. No collection schedule was added.
+
+`report-sources.ts` validates schema, round, collection cutoff, membership, per-line refs and exact assistant read-back. Invalid JSON or plain prose in a collection turn cannot fall through to normal text; the automated raw report snapshot is replaced with a neutral collection status. Ordinary discussion following an ordinary user request remains readable. A bounded page with no known preceding user request fails closed. Tests mutate the round, source agent/hash/role/epoch/ranges, omit refs and simulate gaps/resets/stale cursors; every such change is refused. The unchanged base's real `fleetSnapshot` fails the source-contract goal probe because it has no report/source fields (`base-goal-check.*`).
+
+Replay verifies the anchor again, reads two canonical entries on each side, retains original item kinds and pages from the outer edges. It distinguishes unavailable anchors/sides from no more entries. A context link chooses its own exact FO/source; an old async response cannot fill a new card. Open FO forwards that host/agent to host navigation. The other exits retain the current Commander draft, add removable point context and focus the composer, with zero sends until the explicit Send action. Submitted quote context and the Captain's own text remain separate. Neither exit selects a gate.
+
+The officer switch rejects missing confirmation, creates the new prompt on a replacement, persists only the old/replacement IDs and archives the old officer afterwards. A failed archive retains those IDs; a confirmed retry reuses the replacement. The old timeline remains readable, with no composer in the Bridge history view. Lifecycle effects were exercised only with fixture APIs.
+
+## Evidence and falsifiers
+
+- `tests-verified.log`: `npm test`, 296 passed / 0 failed, including server integration and rendered UI behavior. Removing confirm/ref/hash checks, using the anchor rather than window edges, clearing a retained draft, exposing malformed collection prose, accepting a stale reply or auto-sending an exit breaks the corresponding test.
+- `typecheck-verified.log`: `npm run typecheck`, exit 0; the public installed `@getpaseo/client`, `@getpaseo/plugin` and `@getpaseo/protocol` 0.12.0 contracts compile.
+- `phone-verified/` and `desktop-verified/`: 15 captures at 360×780 and 15 at 1440×1000. Each includes digest, collection, initial Replay, three individual context-source links, expanded window at its true bottom, all exits, sent context, source unavailable, switch offer/confirm and the old conversation after switching. The SDK owns compact sheet geometry; content scrolls beneath its fixed exits.
+- `capture-binding.json`: every captured source file hash equals the committed candidate, 30 PNG hashes, no horizontal overflow, settled composer focus for both reply exits, isolated PIDs absent, allocated ports closed and isolated homes removed.
+- Capture harness: `capture.py` and `proof-host.tsx`. The production client/SDK UI runs in an isolated installed Paseo host with fictional SDK/RPC fixtures. Its disposable server entrypoint is a no-op, so no Bridge listener, token, reviews, decisions or coordinator files can be touched. This is client rendering/navigation-intent proof; the server source logic is exercised separately by tests.
+- Earlier capture folders are rejected or superseded. Early phone harness taps raced host/sidebar/sheet animation; the final harness waits for hit-tested settled states and verifies focus after transitions. A speculative focus delay was removed. No user browser profile was reused or deleted.
+- `comment-ratio.log`: 457 code lines, 0 comment lines, 0.0%, below 5% default. `design-surfaces.log`: presentable. `number-guards.log`: no migrations path, PASS/no findings. `adr-lint.log`: 7 existing records checked, no legacy. `doc-impact.log`: empty impact list; `OVERVIEW.md` and `coordinator/EXTENSION.md` were updated for the changed behavior.
+
+## Findings and limits
+
+AC-4 is skipped under FO's explicit steering: an integrated model round cannot use the fixed `127.0.0.1:6787` listener and real-home Bridge paths without risking the live instance. The smallest prerequisite is a configurable fleet port and shared Bridge data directory, with today's values as defaults, used consistently by fleet token, coordinator cwd, review and decision state. This candidate does not add that configuration or run a provider round. New input/cached/output tokens, provider requests and wall time by turn ID are unavailable; no zero-cost claim is made.
+
+Comparison baseline, read from d2's RESULT.md: cold probe 336,753 total input tokens, 0 cached input, 7,397 output, 5 provider requests, 107.472 s; cold baseline 203,540 / 0 / 1,482 / 4 / 64.852 s. No new sample exists, so no current delta, frequency cap or billed price comparison can be inferred. The previous probe did not execute Bridge's structured collection path.
+
+Source membership stays in memory for at most 24 rounds; an expired round or server restart makes old digests unverifiable. Hashes establish identity, not paraphrase fidelity or causality. The SDK exposes canonical cursors but no open-agent-at-message navigation; Replay locates in Bridge, while Open FO opens the correct conversation only. Real-provider schema compliance, real server retention/cursor races, hosted/live-fleet behavior, physical devices and soft keyboards remain unproved.
+
+No new ADR was authored: FO applied the workflow's POC rule, “reserves no number”; the Captain's rulings remain in the task and accepted design. RoboRev was not run in this worker sandbox; FO owns its exact-head run against the pinned base. Independent validation and design-director comparison remain with FO. The branch is pushed and the PR must remain Draft.

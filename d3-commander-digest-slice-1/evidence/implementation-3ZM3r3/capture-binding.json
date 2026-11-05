@@ -1,0 +1,80 @@
+{
+  "candidate": "b8fb54c38cce2bbc7a9356961535d73902d69321",
+  "checks": [
+    {
+      "folder": "phone-verified",
+      "sourceHashCount": 91,
+      "mismatches": [],
+      "captures": 15,
+      "images": {
+        "360-context-sent.png": "16c623bfa4c876a1ed8a62ebb5cebb06d0e96aa8d5909b771d7557404d681f72",
+        "360-replay-three-lines.png": "be20a7e9a2818da0cf51f0597161e322847aa9138addaff2de7499307b87e8ea",
+        "360-source-unavailable.png": "310b3239b7599b64306fd788d21f1c4f6d022852260e05d85dd9ea7df899261d",
+        "360-source-before-0.png": "a9c994bcd8d8330516c984f2dff16fa4078ebd2459f778c202f33230e1aaee88",
+        "360-source-now-0.png": "4346ae0d6f91611ee1b1e77945fccea12a5e7fd2e5abf12f0a5acf6ecb0c8c67",
+        "360-exit-discuss.png": "684cbdf1d808f6d31b3d1d50ee1ea35a89abdc365c9112129bd5b79bb2269678",
+        "360-exit-open-fo.png": "16c623bfa4c876a1ed8a62ebb5cebb06d0e96aa8d5909b771d7557404d681f72",
+        "360-switch-confirm.png": "6e8e069b964d9d9212ee7c20a89b7383ef1de02f3071dc92f7f7e570ea09e7ae",
+        "360-source-about-0.png": "256c7c29d61013d97498e3d198065b86a9437a755403796bac50e66eca2c6712",
+        "360-exit-new-decision.png": "3b41f20c8d4ced5a04db8932a2bb396d50a6573683dcb1990edca0fa7748bba2",
+        "360-digest.png": "5a724ab2208c019abef7acf7e4b69e04bfe76b5b1702e96ce6328644d3c63a8b",
+        "360-replay-expanded-bottom.png": "8b55d2d26e1ca6d466e13a13881c442ea90accd6a83e158d36b64d3ccb6616af",
+        "360-collect-now.png": "76a19431af6ef34872481a6b8e8cbff5250f4d3452a5b2b2a054a324201c79f6",
+        "360-switch-offer.png": "88553a192ad1e56edbec3f686a1a106ad1e3c3bef1eac14d0998d4abe739b4a5",
+        "360-old-conversation-after-switch.png": "807b017c23fab6845d448fe46654dc19c38f55fc8a32dd0b8357110eb6650d4f"
+      },
+      "pid": 11239,
+      "pidAbsent": true,
+      "ports": [
+        52656,
+        52657
+      ],
+      "portsClosed": [
+        true,
+        true
+      ],
+      "homeRemoved": true,
+      "browserCloseReported": true,
+      "settledFocus": true,
+      "horizontalOverflow": false
+    },
+    {
+      "folder": "desktop-verified",
+      "sourceHashCount": 91,
+      "mismatches": [],
+      "captures": 15,
+      "images": {
+        "1440-switch-offer.png": "ae6d3fb138857d6dda0a64a282e6ff9cb0d89986b66bc48eb583ad99663b5a18",
+        "1440-replay-expanded-bottom.png": "e5eb2f65a8891210d5d449e41d7b90bcca7f1b2fa00288eccf1a4bfab8850282",
+        "1440-old-conversation-after-switch.png": "0f7ddea0dccbe3b463d4263ea2e92d6bba7b2d90c1dce8d9c1c60b55c1d0ee5d",
+        "1440-collect-now.png": "48e4ba1ecc65eaa01ea36e7da6dbbaf3c9c59b95cab476224d86110b6d9a6dde",
+        "1440-digest.png": "f8f909bfcb58e897034b25a011cec9bcf003f76b5e87db3ff645f057720cbd92",
+        "1440-source-now-0.png": "a2f22d6c6b49570ae6574279a27d9dc3928efe6acc7a1556f7a45f73f4ca565c",
+        "1440-replay-three-lines.png": "783a1f04f20466c2dae1dd3c2321b2cd532eeebb2052598887fa04d3740598b2",
+        "1440-source-unavailable.png": "ca7a6f76a65d0c3cb863fcb1527c661e5fb84410cf48bc0784948a31618f447a",
+        "1440-source-about-0.png": "812cc464e2eadd0cb61adaff13c1af92969cf3508c970b9d6e4c8e2cd5b82df1",
+        "1440-exit-discuss.png": "241a47d5609fdf31bc1eb73025217865fe0117ea102b526918500577c2b6044a",
+        "1440-switch-confirm.png": "2f454937354f6eb8df9027fe1da2738bba1f237b2e9f8de7abc0278ea546fac5",
+        "1440-exit-open-fo.png": "9a2e8b9f3779a028f87e3f166b5584699494852c605c5d65f740d8f897483455",
+        "1440-context-sent.png": "1e30e590caf26a35da24033a02d659a625f431d875efb09c6e34ab5cb2dbf1eb",
+        "1440-source-before-0.png": "dca28556e7326daa4793f394cfdcd167e5a1565fbf1f16d764ed69510c2e925e",
+        "1440-exit-new-decision.png": "c9c690472b733743148fe05eb2717f656ba890f36cdfe81be0d11246ce146a4a"
+      },
+      "pid": 43485,
+      "pidAbsent": true,
+      "ports": [
+        55272,
+        55273
+      ],
+      "portsClosed": [
+        true,
+        true
+      ],
+      "homeRemoved": true,
+      "browserCloseReported": true,
+      "settledFocus": true,
+      "horizontalOverflow": false
+    }
+  ],
+  "scope": "Production client components and installed SDK UI; fictional RPC/SDK data; no-op capture server entrypoint; no model round, real FO, live comms officer, physical device, or production server cursor proof"
+}
