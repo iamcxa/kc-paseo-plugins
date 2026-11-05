@@ -1,0 +1,18 @@
+  ✖ a rate-limit reply is rate-limited
+  ✖ a rate-limit reply without the prefix is rate-limited
+  ✖ every id is produced by a case here
+  ✖ rate-limited
+  ✖ stops on a rate limit that hits the item list itself
+  ✖ stops the whole list on a rate limit instead of naming every item
+ℹ fail 6
+ℹ pass 329
+ℹ tests 335
+
+--- stop-set condition removed
+  ✖ stops the whole list on a rate limit instead of naming every item
+ℹ fail 1
+ℹ pass 334
+ℹ tests 335
+
+--- hint branch in vaultListFailure removed: 1 fail (tells a rate limit to wait, not to fix the connection)
+--- OVERVIEW.md heading renamed: 1 fail (the troubleshooting notes explain rate-limited with the words the screen shows)

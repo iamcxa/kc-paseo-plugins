@@ -193,3 +193,33 @@ Recommended order: picker-slow-hint, then this task; the other two in any order.
 
 ### Summary
 The reply gets its own cause `rate-limited`, one phrase on all three screens ("1Password rate limit reached so wait and try again"), a stop (not a skip) in the picker with its own hint, and a troubleshooting section. No decision is needed from the Captain; open for the gate are the discarded partial list and the "so" in the phrase. No repository file, branch or commit was made.
+
+## Stage Report: implementation
+
+- DONE: Base your branch on the picker-slow-hint candidate, not on main; open the Draft PR against main saying it stacks on #72.
+  Fast-forwarded to b684b68 (origin/spacedock-ensign/project-env-picker-slow-hint), commit 6fcce94 on spacedock-ensign/project-env-rate-limit-cause; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/73 states it stacks on #72 and merges after it.
+- DONE: Implement the approved design (cause after the missing-item pattern, phrase on three screens, picker stop and hint via `vaultListFailure`, `OVERVIEW.md` heading); no existing test or guard edited.
+  9 files, +32/-1; the hint is chosen in `vaultListFailure` (shared/field-picker.ts), so `settings-screen.tsx` is untouched. Only added test rows and cases; no existing assertion changed.
+- DONE: Run `npm test` and `npx tsc --noEmit` and save both; show that removing the classifier line and the stop condition each fail tests.
+  335 tests, 335 pass, tsc clean (`implementation/evidence/npm-test.txt`, `tsc.txt`). Without the `RATE_LIMITED` line 6 fail (classification rows "a rate-limit reply is rate-limited" and the no-prefix row, "every id is produced by a case here", the failure-reason case, "stops on a rate limit that hits the item list itself", "stops the whole list on a rate limit…"); without the stop condition 1 fails ("stops the whole list on a rate limit instead of naming every item"); without the hint branch 1 fails ("tells a rate limit to wait, not to fix the connection"); renaming the OVERVIEW.md heading fails the troubleshooting-notes test. All in `implementation/evidence/mutations.txt`.
+- DONE: Take the AC-1 pictures on an isolated Paseo at the newest release, picker, Test and Started line, 1280 and 400 px.
+  Paseo 0.15.2 (npm latest), own home and ports 47651/47652 under /tmp/pe-rl2, fake `op`/`security`; both daemons stopped; Captain's live install untouched, no secret read. Pictures in `implementation/`: `cand-{picker,test,test-bubble,test-bubble-linear,started}-{1280,400}.png` (limit partway through the items), `list-*` (limit on the item list itself), `*-picker-typed-name-1280.png`; `scrollWidth` equals the viewport in all (`evidence/*-text.txt`). Clauses 3, 4, 5 now verified: error and no partial list in both cases; "Add NEW_KEY and pick the field later" offered; mixed Test shows "1Password rate limit reached so wait and try again." and "Field not found in the vault." bubbles, and the Started row holds both causes side by side (`cand-row-data.txt`, `cand-log-lines.txt`).
+- DONE: Docs: retake the docs pictures with `docs/project-env/capture/` and compare; update the docs or say `docs: no change` with the capture diff.
+  docs: no change. 05-field-picker and 07-test-result (the two screens that can show a cause) are pixel-identical to the committed ones; 01-04 and 06 differ only in regions outside the changed screens (Paseo UI and work-path text, 790 to 6594 pixels) and are not taken from this change. No docs page lists causes (grep of docs/project-env/*.md and OVERVIEW.md); `OVERVIEW.md` gains the heading in this PR.
+- DONE: Commit with a conventional title scoped to the plugin, push, open the Draft PR; do not mark it ready or merge.
+  Commit 6fcce94 "fix(project-env): a 1Password rate limit is shown as a rate limit"; PR #73 is Draft.
+- DONE: Close only browser sessions you opened yourself, by name; stop only daemons you started.
+  Closed sessions by their own `--session` names (pe-rl-*, pe-rl2-dbg), never `close --all`; stopped the two daemons and the docs-capture daemon (`teardown.sh`).
+
+### Checks
+- `comment_ratio.py b684b68 HEAD`: code lines 26, comment lines 0, 0.0%; maximum 5% met, exit 0.
+- `doc_impact.py b684b68 HEAD` lists docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md: unaffected: it cites `cause.ts`, `secrets.ts` and `field-picker.ts` only by symbol for vault layout and prefix matching, and no cited symbol changed. OVERVIEW.md: updated (new heading).
+- `design_surfaces.py check`: exit 0. No ADR added, no `db` surface, number guards not applicable.
+
+### Findings
+- On Paseo 0.15.2 the "Started without N project variables" line is inside the turn's collapsed tool group (0.14.0 showed it by default); pictures open the group first. That is project-env-started-row-visible's scope; it stacks on this branch.
+- The first harness version used 0.14.0 and a single list-mode; `implementation/harness/` holds the 0.15.2 version (`MODE=partial|list`, a fourth variable with a missing field, `shoot-typed.sh`, `shoot-started2.sh`). The real 1Password rate-limit stderr line is still unobserved (known limit in the PR).
+- One slip: a first `git reset --hard` was refused by the permission classifier; I used `git merge --ff-only b684b68` instead on the clean branch.
+
+### Summary
+The `rate-limited` cause is implemented as designed, with the hint chosen in `vaultListFailure`, and covered by 9 new test cases whose falsifiers each fail as named. Pictures on Paseo 0.15.2 confirm AC-1 clauses 2 to 5; docs pictures need no change. Draft PR #73 stacks on #72.
