@@ -1,6 +1,6 @@
 ---
 title: Design — the Commander's periodic digest in its own words, with a replay of the FO originals behind each point
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
