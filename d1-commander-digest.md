@@ -107,3 +107,21 @@ Needs decision: 只讀收集策略、後續頻率／成本上限，以及既有 
 
 修正摘要點不能指定關卡的目標歧義，關卡決定一律先按具名關卡、讀說明，再選決定及 Confirm；一般方向可直接輸入後送出，不必 Replay。主頁只保留使用者閱讀與操作資訊，技術依據留在 EVIDENCE.md；沒有產品變更，Step B 未開始，待設計總監複審。
 - Design director pass 2 on step A (2026-11-05): SATISFIED — gate decisions bound to a named gate (5 from the replay; 6 with a reason); general direction type → send (2) with the replay optional; one question for the Captain: read only existing reports, mark missing data unknown, do not prod FOs; frequency, cost cap and applying a new Commander prompt still to decide; nothing claimed as built.
+
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Step B: one mockup direction of /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest/design/DIGEST.md as self-contained static HTML with fictional data and one PNG per state at 1440x1000 and 360x780, the Bridge's current commander-first look as the base (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/_l3-dogfood/walks/round-9/screenshots/ and /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r9-commander-first/mockups/): the Commander conversation with one digest (changed / blocked / waiting points, an "unknown" line for an FO with no report, collection time); a point's Replay card (the Commander's sentence, the quoted fictional FO original with FO name and time, "Open FO", "Keep discussing", "Reply with a new decision"); a source that cannot be found; the general-direction path (type → send) without opening a Replay; a gate decision reached by pressing a named gate (briefing, choose, Confirm); the phone sheet; list your assumptions in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest/mockups/ASSUMPTIONS.md first
+  mockups/ASSUMPTIONS.md 先記假設；index.html 與 13 態、26 張 1440×1000／360×780 PNG 完成，artifacts.json 保存逐檔尺寸與雜湊。摘要／未知／原文遺失、三個 Replay 出口、直接方向與具名關卡流程皆具虛構示意；來源與畫面範圍見 REVIEW.md。
+- DONE: Hard exclusions: no filters, modes, per-FO counts or inferred attribution; no change to gate Confirm, required reasons or recording; nothing shown as automatic sending; /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest/mockups/review.html two-column (states left, desktop/phone right, toggle, arrow keys, one direction question on top) with images that load from a file:// page in a fresh headless Chromium (natural width above 0 for two states), and REVIEW.md; a short "## Stage Report: implementation (cycle 3)" section
+  review.html 是左狀態／右桌面與手機的單方向審查頁；全新 headless Chromium 的 file:// 實測摘要及 Replay 圖片 naturalWidth／naturalHeight 正確，尺寸切換與左右鍵通過。17 項離線檢查涵蓋草稿與焦點、來源失效、明確按鈕才送出、具名關卡選擇／Confirm 及修改與暫緩必填原因；移除目標點選、允許空白原因或讓回覆出口發送，都會使檢查失敗。
+
+### Summary
+
+完成 Step B 單一方向：延續 Commander 主入口的深色樣式，摘要先讀、原文按需展開，手機使用底部卡片；一般方向直接輸入，關卡仍由具名入口、完整說明、選擇及 Confirm 決定。全部資料虛構，26 張截圖與 17 項離線檢查完成；三個自建 Chromium 已停止、自建空白 profile 已移除，交回設計總監審查。
+
+### Findings
+
+只讀收集策略依本次派工已確認；頻率、成本上限與現有 Commander 套用新指示仍待 Captain 決定，沒有另行啟用。離線互動不證明宿主／實體手機／軟鍵盤、模型改寫、真實來源、發送或關卡記錄；完整界線見 mockups/REVIEW.md。
+SKIPPED: design_surfaces.py exit 1，缺 Surfaces／Visible change，沿用派工指定套件缺口 2；不改 FO 欄位。number_guards exit 0，未出現 R4 缺口 3；未宣告 migration 路徑的 guard 自行略過。comment_ratio exit 0，未變產品同提交比較為 0 程式／註解；doc_impact exit 0，文件清單為空，無產品文件需同步。
+roborev not run: no product code change (and package gap 5). No product PR opened or branch changed; no ADR added. 既有設計頁與其他任務未修改。
