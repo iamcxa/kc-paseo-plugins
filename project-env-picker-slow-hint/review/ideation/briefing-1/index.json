@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-picker-slow-hint:ideation:attempt-1:revision-1",
+  "question": "設計關（r1b 修小地方 1/4）：清單逾時時，改顯示「Listing this vault took too long.」並提示「Type the reference below instead. A large vault can be too slow to list.」；其他錯誤照舊；只改畫面端，靠辨認 Paseo 的逾時句子，Paseo 改字就退回現在的說法。測試 327/327。我建議准。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-picker-slow-hint:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/a49cc486a63747ec70c406fa5568793d93a41b08/project-env-picker-slow-hint.md",
+      "rev": "sha256:9ae80d54353f1aca76b40ef91a03517c92700d0641f0320e2f328365a07c29e0",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: picker timeout shows its own sentence via a client-side vaultListFailure; 327/327 tests; risk: depends on Paseo timeout sentence. FO recommendation: approve."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-picker-slow-hint:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/a49cc486a63747ec70c406fa5568793d93a41b08/project-env-picker-slow-hint/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:0509029052a7f624edfafb2e4fea07a55be3757dfe204ca21504207900d41486"
+    }
+  ]
+}

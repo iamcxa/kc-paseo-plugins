@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-picker-slow-hint:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-picker-slow-hint-ideation-1
+              briefing:
+                id: briefing:project-env-picker-slow-hint:ideation:attempt-1:revision-1
+                digest: sha256:cd66afef3f61ccf5ccbffbba8ea2b64c25f46940592dd65e6d2a69400ca49f22
+                room-ref: ./project-env-picker-slow-hint/review/ideation/briefing-1
 started: 2026-11-05T08:40:10Z
 ---
 
