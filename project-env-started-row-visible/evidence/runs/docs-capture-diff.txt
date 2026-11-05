@@ -1,0 +1,7 @@
+Retake: docs/project-env/capture/capture.sh on isolated home, Paseo CLI 0.15.2 first on PATH (/tmp/pe-bin/paseo -> npm install of @getpaseo/cli@0.15.2), port 19763, at implementation commit 9439ec8.
+Compared with docs/project-env/img/*.png (PIL difference):
+01-enable-plugins differs (bbox 16,309,704,504): Plugin source box is shorter in 0.15.2; the path line differs (/tmp/pe-docs-work vs /tmp/pe-docs).
+02-actions-menu differs below the same box (same cause).
+03-add-project, 04-connect-1password, 06-variables: small text differences (987, 1162, 449 pixels over threshold), Paseo version / work path.
+05-field-picker: 0 pixels over threshold. 07-test-result: identical.
+None of the seven pictures shows a Started-without or Resumed-without line; the change touches no client file and no screen word in them. Pictures not replaced.

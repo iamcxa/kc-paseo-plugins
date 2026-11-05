@@ -205,3 +205,28 @@ The row is lost because the plugin adds it at agent creation, in a race with Pas
 
 - Version: the Captain ruled 「驗證最新的就好」; AC-2 verifies the newest release at validation. The Scope line, the "Visible change" line and the task title still say 0.14.0 (FO's text, not edited here).
 - Housekeeping: while clearing leaked headless browsers I closed sessions named `dbg2`, `dbg3`, `dbg5` and `dbg400` that were probably another worker's, not mine; no data lost, but the owner may need to reopen them.
+
+## Stage Report: implementation
+
+- DONE: Base your branch on the rate-limit-cause candidate (6fcce94, PR #73 stacked on #72); Draft PR against main saying it stacks on #73 and #72 and merges after them.
+  Branch spacedock-ensign/project-env-started-row-visible from 6fcce94; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/75, body states the stacking.
+- DONE: Implement the approved design (turn_ended only, remove agent.created listener and PENDING_TTL_MS/prune, test changes, two stale sentences).
+  Commit 9439ec8 (5 files, 0 comment lines added); docs/project-env/index.md and project-env/OVERVIEW.md sentences updated.
+- DONE: Run npm test and npx tsc --noEmit in project-env and save both; show the agent.created listener back fails the new test.
+  `evidence/runs/npm-test-impl.txt` 335 of 335 (asserts the changed start-row, new-vs-resumed wait and no-agent.created behaviour; fails if a listener or expiry returns); `tsc-impl.txt` clean; `falsifier-impl.txt`: listener restored gives 1 failure, "does not listen for agent.created: the line goes in when the first turn ends".
+- DONE: AC-2 only: isolated Paseo at the newest release, repeated starts with position and visibility, pictures at 1280 and 400; confirm the row is outside the collapsed tool group.
+  Paseo 0.15.2 (Latest on 2026-11-05), fake op and security, mock provider: candidate 12 of 12 (2 warm, 8 cold, stop, fail) `after-last-assistant-message`, `1280=visible 400=visible` (`runs/impl-cases-cand-0152.txt`); 6fcce94 plugin 5 of 14 rows between first message and last reply, ABSENT at both widths (`impl-cases-main-0152.txt`). Pictures `shots/cand152-*` and `main152-*` (width checked); cand152-cold-1-400 shows the row under the last reply above "Worked for", on the page, not in the folded group.
+- DONE: Docs: retake the docs pictures with docs/project-env/capture/ and compare; update install.md, prepare-1password.md or OVERVIEW.md for every screen word or picture altered, or `docs: no change` with the capture diff.
+  Retaken on 0.15.2 with an isolated home (0.15.2 CLI first on PATH, global paseo never run); `runs/docs-capture-diff.txt`: none of the seven pictures shows the line, differences are 0.15.2 layout and work path; docs: no change to pictures. Sentences changed: index.md "a line at the top of the new conversation" and OVERVIEW.md "in a new conversation". install.md and prepare-1password.md have no such sentence.
+- DONE: Affected documents and design surfaces checks.
+  `doc_impact.py 6fcce94 HEAD`: 0 documents list (none owed); `design_surfaces.py check`: design surfaces presentable.
+- DONE: Commit with a conventional title, push, open the Draft PR; do not mark ready or merge.
+  Title "fix(project-env): the Started without line stays visible after the first turn"; PR #75 is Draft; 1 gh call to create.
+- DONE: Never touch the Captain's live install or settings; close only my own browser sessions and daemons.
+  Two isolated daemons (ports 19761, 19762) and the docs-capture daemon (19763) stopped with the repo teardown scripts; /tmp/pe-srv and the 0.15.2 install removed; my agent-browser sessions closed.
+- SKIPPED: Extra pictures from the ideation clause: three variables with a long reason at 400, the first turn while it runs, a second message after the row, one light-theme picture at 1280 and 400.
+  Not taken; the stopped-turn and failed-turn pictures at 1280 and 400 were taken (`shots/cand152-stop-1-*`, `cand152-fail-1-*`).
+
+### Summary
+
+The row now goes in at turn end only, and the ten-minute expiry is gone. On Paseo 0.15.2 12 of 12 candidate starts show it visibly under the last reply at both widths, while the same cases on the base folded it in 5 of 14. Two harness notes: on 0.15.2 a fresh browser lands on the welcome screen and the first direct workspace URL falls back to home, so `evidence/harness/cases152.sh` registers the host once and opens each workspace URL twice (a first run with `cases.sh` printed NOT-LOADED for every case, kept as `impl-cases-cand-0152-first-attempt-position-only.txt`, positions only, not counted for visibility). Open for the Captain: the without-it item in the PR body (ten-minute expiry removal, accepted in the approved design).
