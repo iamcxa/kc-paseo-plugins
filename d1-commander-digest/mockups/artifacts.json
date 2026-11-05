@@ -6,13 +6,13 @@
       "path": "screenshots/1440-digest.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "7cd16e8ea7c86bd1d66112d4e1d778f7ce85703f986182c01f57779c95412d9d"
+      "sha256": "1ee7d6f0a88b750b5133904a77efc91e80aeee19b61410998c592fb9dc58327d"
     },
     "phone": {
       "path": "screenshots/360-digest.png",
       "width": 360,
       "height": 780,
-      "sha256": "312266ecdae9f4eb4f43b316e503496de29fb8f2396eda442e300aed51f5b385"
+      "sha256": "0cffec94af3e2c9030e0f8f305e6a1feaa0650fa75860b1a59072febe0ef3d80"
     }
   },
   {
@@ -22,13 +22,45 @@
       "path": "screenshots/1440-replay.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "de9f042ec56eb92efef0da2ad7ed97b0e1838bd60d20297bde280ff866be5617"
+      "sha256": "6447482fed1cd2ff194c054b8079248a3ea0133263ed2217cec9d959b9ab5f98"
     },
     "phone": {
       "path": "screenshots/360-replay.png",
       "width": 360,
       "height": 780,
-      "sha256": "086a2af8d49ca1782b315468dac4029dc08a5ce7012da05463b606c97c18f668"
+      "sha256": "34b519cc2ad6a275186274f7f0abe10a7a9c91de59224794d45aea9b7810a3ce"
+    }
+  },
+  {
+    "state": "replay-long",
+    "title": "長原文與多份來源",
+    "desktop": {
+      "path": "screenshots/1440-replay-long.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "09ff0c5030aa9fe0555273a37a98f34ddd7bd9c3d316f3a8005f6e7fcdbcb89d"
+    },
+    "phone": {
+      "path": "screenshots/360-replay-long.png",
+      "width": 360,
+      "height": 780,
+      "sha256": "c7b8a73ecfacf3599ec57836482eb21d10001a4d96bcf5fb7fe65305a75af9cf"
+    }
+  },
+  {
+    "state": "replay-long-end",
+    "title": "長原文：捲到最後",
+    "desktop": {
+      "path": "screenshots/1440-replay-long-end.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "41c2734319a98c9f379fb2676fa75e7ed49100ccccf1f8bfd337fac6159e804f"
+    },
+    "phone": {
+      "path": "screenshots/360-replay-long-end.png",
+      "width": 360,
+      "height": 780,
+      "sha256": "5bff92d20675255584442853c837d3368d877655d403934057f501875728538e"
     }
   },
   {
@@ -38,13 +70,13 @@
       "path": "screenshots/1440-source-missing.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "b2e850695c72276643af7ea596f7c660e801efa3bddcb475fd578579bdd9fbb1"
+      "sha256": "fe5f0d6abb060d138b2a172682a47c8c086d7aa2ee849be2a6972c1dd7f30e2c"
     },
     "phone": {
       "path": "screenshots/360-source-missing.png",
       "width": 360,
       "height": 780,
-      "sha256": "91e25f3eff4a45cbbf90f4af1266d679433052e45c0961c1d989934770905e56"
+      "sha256": "e0a44528e80a2704bc52494d11d435a1d8a80cfe9ed2e6c6bc8c5618815d09ad"
     }
   },
   {
@@ -54,13 +86,13 @@
       "path": "screenshots/1440-fo-chat.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "11ee2c4bc70e169b9217b8e86612d242d3b0a61a81a89d1e62f792d05981ebc8"
+      "sha256": "ff4896f837c2670eb22a987fb54ff734b3a3bf2045a65178d1956374dcfa00d5"
     },
     "phone": {
       "path": "screenshots/360-fo-chat.png",
       "width": 360,
       "height": 780,
-      "sha256": "bbb4a99bf8c3e3392dbebbcf4a4cc16cf402c7e2c4782138ebccbf6381ffd31b"
+      "sha256": "da6c9b603467913e28bed051c1cb674def1a5bf900699b6f69ed7f1863ad814e"
     }
   },
   {
@@ -70,13 +102,29 @@
       "path": "screenshots/1440-discuss.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "7051f7ac3d09396b37add7149e46d9034bdbf62aed3c57e1aae715f601f87a3c"
+      "sha256": "3a87562a1df012937fb6dae73c4d9876cfc55945c5b27694de328608b22a3dc0"
     },
     "phone": {
       "path": "screenshots/360-discuss.png",
       "width": 360,
       "height": 780,
-      "sha256": "37ee7c4ee21b5d66cd4c124652c61023964353cce1dd44844b24e59e3d46c4ef"
+      "sha256": "d21d65835decaf54bb15f482fe0d54db70595734603138ad6c5545a4bb10a5e5"
+    }
+  },
+  {
+    "state": "context-sent",
+    "title": "回覆後，引用仍保留",
+    "desktop": {
+      "path": "screenshots/1440-context-sent.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "b9d65751a54602e3e14d38441802023f16c4a65045cb7c7d0db8b6464327deb7"
+    },
+    "phone": {
+      "path": "screenshots/360-context-sent.png",
+      "width": 360,
+      "height": 780,
+      "sha256": "9ea6bfc588814beb05576a16657c72091539a8591acfd47054513149427b0587"
     }
   },
   {
@@ -86,13 +134,13 @@
       "path": "screenshots/1440-direction-draft.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "d08cd400a0a26eac3dd591ba21f0ab966524ab51f1a22f5e36a65ba4905060ae"
+      "sha256": "18129f6471ed236bcb6c57614edad6af4a35d8ae9f3c08e52b32df02c480fb0e"
     },
     "phone": {
       "path": "screenshots/360-direction-draft.png",
       "width": 360,
       "height": 780,
-      "sha256": "6589671fe11cdd889d586e5c47f73175e0a933c9d628429254bb211da7504bcd"
+      "sha256": "626a9fa6fc4ca61ca6971565f26970aa3a677dc794c55c80658b5d582137214c"
     }
   },
   {
@@ -102,13 +150,13 @@
       "path": "screenshots/1440-direction-sent.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "f6481e8295fcc5bba12a263b9c1510a18f55b2fb070fdc881b4b3ef4b463347f"
+      "sha256": "5f25e8c6471c434291cd66acca0e2c2e37d0760c01d57f8856b584d91bbb8ef5"
     },
     "phone": {
       "path": "screenshots/360-direction-sent.png",
       "width": 360,
       "height": 780,
-      "sha256": "6d2adb6762d5daac10da2cc93ff59caec9f603e841c1026b0dc2527fb4f0d0f5"
+      "sha256": "688d2fbaa1ae5f6364c94ce6a7e88ea4a054858b345065f7dbfa9b25a843ee1c"
     }
   },
   {
@@ -118,13 +166,13 @@
       "path": "screenshots/1440-decision-context.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "66b616c56add63a60776483aee6d94cb01733513cf1cc58da46908e92a2db521"
+      "sha256": "63afb4b090a1e7e339434e55bd8e8c2df9b4d6e6b594815f91523f99698e1e04"
     },
     "phone": {
       "path": "screenshots/360-decision-context.png",
       "width": 360,
       "height": 780,
-      "sha256": "b02d86269c65b1627a2e6af45293fce453c328808ec581bf47b0d8fe5d7b2080"
+      "sha256": "44d299a239049e04da648f989f1fa01df6b49c1de88ff08fa2b7db1035e7794f"
     }
   },
   {
@@ -134,13 +182,13 @@
       "path": "screenshots/1440-gate-briefing.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "bc594dca5138c8f725cb0c6f2bd707245f17915c707cbb7619649dca29bdd796"
+      "sha256": "2fe6837a4e6a08c6ce8c937b79d84d2c297ed1e2a59ebb1095097ca86610a986"
     },
     "phone": {
       "path": "screenshots/360-gate-briefing.png",
       "width": 360,
       "height": 780,
-      "sha256": "d157a92616a720149b37751d42058cfb34c8add5b1b800b68e0d575366161128"
+      "sha256": "220222f5daf72f06b471e18fefeb607dfa53cc3b562aadbd4db77c78c1d46af7"
     }
   },
   {
@@ -150,13 +198,13 @@
       "path": "screenshots/1440-gate-confirm.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "6a44c9a480dfbcc3d56b62f6a19b9dc505da8ff5cbaec390369f47f2f2f67fb9"
+      "sha256": "f160e64572cfda8082de78bc73426bec52fb7bf44bf660819c200f40ef3c5a2e"
     },
     "phone": {
       "path": "screenshots/360-gate-confirm.png",
       "width": 360,
       "height": 780,
-      "sha256": "51a535cd1e0dd12ade00b12a30d1bc6fb90d9101f3b6b9ae8d5ce8d0c6a9f971"
+      "sha256": "db4ede90dfd9593b5b4b19bca3b1e815a53501d4a3d5a4f54dc6c8384444e911"
     }
   },
   {
@@ -166,13 +214,13 @@
       "path": "screenshots/1440-gate-reason-empty.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "2da8019af0832cec85396942ccbdac5c630e24774364689919110c566907eb6b"
+      "sha256": "2fc5327c5eacc785180b501653f9f64a272426bb43b3afdf433b3ffcc08f836d"
     },
     "phone": {
       "path": "screenshots/360-gate-reason-empty.png",
       "width": 360,
       "height": 780,
-      "sha256": "d5277f9ed2dbd4ae1cb10f24b2526e0f0e850ebdd01b6fa26317391327a3bcab"
+      "sha256": "8f6865afdae6ce670f6d8151a249dac6766f011b7651218374b88fbb2813445d"
     }
   },
   {
@@ -182,13 +230,13 @@
       "path": "screenshots/1440-gate-reason-ready.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "44080fdc3ce2b651a23cd56b2281c6abec0002c5a9ce78184c2ec51e4fa5576f"
+      "sha256": "b1f813a9ddca61631c4cb8e622488cb7b7fcb8d3a9a658e4c6a49035be7f5e50"
     },
     "phone": {
       "path": "screenshots/360-gate-reason-ready.png",
       "width": 360,
       "height": 780,
-      "sha256": "dc2fa51b8395b7118de4664d4af34001d1c7c6b8a8e4b2e55659bb3392cc430b"
+      "sha256": "1bdcb73fe42005401448ed517052060006851df0d177783183680294fa266f7b"
     }
   },
   {
@@ -198,13 +246,45 @@
       "path": "screenshots/1440-gate-sent.png",
       "width": 1440,
       "height": 1000,
-      "sha256": "1bd0cabbbbba77b3a74c9083d49bc2b79485f7c276e9d6256eef3025b720537c"
+      "sha256": "88b0663135c451a7bc3bc4ac2aacc228b555e29faa6ba3d6f1544e3e2c794c1a"
     },
     "phone": {
       "path": "screenshots/360-gate-sent.png",
       "width": 360,
       "height": 780,
-      "sha256": "3e9b56afd87410dc5ce1ee33b481f95a4f30bb197554d2e98a69e92d60a2e088"
+      "sha256": "07b946a679f367bd6c36d4fe1d05fa2666e482c0e33e8d8cb8a0c586f985f33f"
+    }
+  },
+  {
+    "state": "gate-relayed",
+    "title": "已轉交，尚未記錄",
+    "desktop": {
+      "path": "screenshots/1440-gate-relayed.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "ce124d0ccf78af1e02f4bb6163414114434922b9486b13406cb925725dcdef4d"
+    },
+    "phone": {
+      "path": "screenshots/360-gate-relayed.png",
+      "width": 360,
+      "height": 780,
+      "sha256": "6f6a79e04bc6b892b6a704cd9e8fd9e33693e48e3944ee1c10930f195440c468"
+    }
+  },
+  {
+    "state": "gate-recorded",
+    "title": "已記錄，重開不重送",
+    "desktop": {
+      "path": "screenshots/1440-gate-recorded.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "ae34b2409923644262450de650f0caebfb33fa88a3334a1173647be957ce7cb0"
+    },
+    "phone": {
+      "path": "screenshots/360-gate-recorded.png",
+      "width": 360,
+      "height": 780,
+      "sha256": "f3c6fa75472b9396ad294cd058a86ece28b9b945472c9afc97d5cac994d19283"
     }
   }
 ]

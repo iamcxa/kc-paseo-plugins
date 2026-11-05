@@ -126,3 +126,20 @@ Needs decision: 只讀收集策略、後續頻率／成本上限，以及既有 
 只讀收集策略依本次派工已確認；頻率、成本上限與現有 Commander 套用新指示仍待 Captain 決定，沒有另行啟用。離線互動不證明宿主／實體手機／軟鍵盤、模型改寫、真實來源、發送或關卡記錄；完整界線見 mockups/REVIEW.md。
 SKIPPED: design_surfaces.py exit 1，缺 Surfaces／Visible change，沿用派工指定套件缺口 2；不改 FO 欄位。number_guards exit 0，未出現 R4 缺口 3；未宣告 migration 路徑的 guard 自行略過。comment_ratio exit 0，未變產品同提交比較為 0 程式／註解；doc_impact exit 0，文件清單為空，無產品文件需同步。
 roborev not run: no product code change (and package gap 5). No product PR opened or branch changed; no ADR added. 既有設計頁與其他任務未修改。
+
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: Prototype state: after a gate's Confirm the board entry shows the sent/relayed/recorded progress (not "waiting on you"), and reopening keeps the choice and progress without allowing a second Confirm; a reply with context keeps the chosen digest point's identity and sentence attached to the sent message, shown separately from the Captain's own words; host sidebar back to the 320 px baseline
+  修訂前實際重現與原稿雜湊見 mockups/checks/cycle-4-before.json。入口現在同步送出／轉交／已記錄，重開保留選擇與原因，無第二個 Confirm；送出訊息保留摘要點識別及原句，引用區與 Captain 文字分開。兩種尺寸皆實測，桌面側欄幾何為 320 px。
+- DONE: Cut the repeated "direction stays in the Commander" tutorial, the second "fictional" label and "no other message substituted"; add a phone state with a long original and several sources where Open FO, Keep discussing and Reply with a new decision stay reachable; recapture changed states one at a time; review.html images still load from file:// (recheck two states); a short "## Stage Report: implementation (cycle 4)" section
+  刪除重複導覽教學、第二處虛構標籤及替代訊息說明；新增三份長來源的起點／真底部與回覆後引用、轉交／已記錄狀態。18 態共 36 張 PNG 已依最終 HTML 逐張重擷取；23 項離線檢查通過，file:// 摘要、Replay、長原文三態圖片尺寸正確，三個自建 Chromium 已退出且空白 profile 已清除。
+
+### Summary
+
+修正圖稿狀態：關卡確認後不再等待 Captain，重開不重送；引用在送出後仍與原摘要點綁定，與 Captain 原話分開顯示。已恢復 320 px 側欄並刪減重複文字，補上長原文多來源手機狀態；36 張截圖與 23 項離線檢查完成，待設計總監第二次審查。
+
+### Findings
+
+會推翻本修訂的反例：確認後入口仍等你決定、重開清空選擇／原因或出現第二次 Confirm、相同回覆文字導致不同摘要點混同、或長原文捲到底後三個出口離開視窗；capture.mjs 對兩種尺寸均設明確失敗檢查。後續轉交／已記錄只有虛構進度示意，沒有自動事件、發送或真實關卡寫入。
+SKIPPED: design_surfaces.py exit 1，沿用派工套件缺口 2（缺 Surfaces／Visible change）；number_guards、comment_ratio、doc_impact exit 0，未改產品、無影響文件，migration 路徑未宣告的檢查自行略過。roborev not run: no product code change (and package gap 5). 原文機制、產品、代理、design/ 與其他任務均未修改；頻率、成本上限與新指示套用仍待 Captain 決定。

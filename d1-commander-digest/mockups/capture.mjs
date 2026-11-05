@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const chrome = process.argv[2];
+const before = process.argv.includes('--before');
 if (!chrome) throw new Error('Usage: node capture.mjs <absolute Chromium executable>');
 const source = await readFile(join(root, 'index.html'), 'utf8');
 const reviewSource = await readFile(join(root, 'review.html'), 'utf8');
@@ -20,6 +21,7 @@ for (const html of [source, reviewSource]) {
 await mkdir(join(root, 'screenshots'), { recursive: true });
 await mkdir(join(root, 'checks'), { recursive: true });
 const tests = [], captures = [], sessions = [], reviewImages = [];
+const beforeFindings = [];
 const pass = name => tests.push({ name, status: 'passed' });
 const sha = text => createHash('sha256').update(text).digest('hex');
 
@@ -123,17 +125,36 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     const state = id => go(url + '?state=' + id, '!!window.mock');
     const snapshot = () => evaluate('mock.snapshot()');
     const named = width < 760 ? '.mobile-gate .named-gate' : '.board .named-gate';
+    if (before) {
+      await state('digest');
+      await click('[data-replay="2"]'); await click('[data-action=discuss]');
+      await fill('#message', '請先補齊取消預約的試用步驟。'); await click('[data-action=send]');
+      const reply = await snapshot();
+      await click(named); await click('[data-choice="准"]'); await click('#confirm');
+      await click('.back');
+      const boardText = await evaluate(`document.querySelector(${JSON.stringify(named)}).textContent`);
+      await click(named);
+      const reopened = await snapshot();
+      beforeFindings.push({ viewport: `${width}x${height}`, sentReply: reply.sent,
+        boardAfterConfirm: boardText, reopenedChoice: reopened.chosen,
+        reopenedSent: reopened.gateSent, canChooseAgain: await evaluate('!!document.querySelector("[data-choice]")'),
+        hostSidebarWidth: await evaluate('document.querySelector(".appnav").getBoundingClientRect().width') });
+      return;
+    }
     for (const scenario of states) {
       await state(scenario.id);
       const geometry = await evaluate(`(()=>{const rect=x=>{const r=x.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom}};return {width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth,documentHeight:document.documentElement.scrollHeight,modal:document.querySelector('.replay-card')?rect(document.querySelector('.replay-card')):null,controls:[...document.querySelectorAll('.replay-card button,.gate-controls button,.send')].filter(x=>x.getClientRects().length).map(x=>({text:x.textContent.trim(),disabled:x.disabled,...rect(x)})),unknownVisible:(()=>{const x=document.querySelector('.unknown');if(!x)return null;const r=x.getBoundingClientRect();const c=x.closest('.conversation').getBoundingClientRect();return r.top>=c.top&&r.bottom<=c.bottom})(),confirmDisabled:document.querySelector('#confirm')?.disabled}})()`);
       assert.equal(geometry.width, width); assert.equal(geometry.height, height);
       assert(geometry.documentWidth <= width, scenario.id + ' horizontal overflow');
       assert(geometry.documentHeight <= height, scenario.id + ' outer vertical overflow');
+      assert.equal(await evaluate('document.querySelector(".appnav").getBoundingClientRect().width'), width === 1440 ? 320 : 0);
+      assert.equal(await evaluate('document.querySelector(".subhead").textContent.includes("虛構示意")'), false);
       for (const control of geometry.controls) {
         assert(control.height >= 34 && control.width >= 32, 'Control has a usable visual target');
         assert(control.y >= 0 && control.bottom <= height + 1, scenario.id + ': action inside viewport');
       }
       if (scenario.id === 'digest') assert(geometry.unknownVisible, 'Unknown report line is visible');
+      if (scenario.id === 'context-sent') assert(await evaluate('(()=>{const box=document.querySelector(".conversation").getBoundingClientRect();return [...document.querySelectorAll(".sent-context,[data-sent-message]")].every(x=>{const r=x.getBoundingClientRect();return r.top>=box.top&&r.bottom<=box.bottom})})()'), 'Both sent context and Captain words are visible');
       if (scenario.id === 'gate-reason-empty') assert.equal(geometry.confirmDisabled, true);
       if (scenario.id === 'gate-reason-ready' || scenario.id === 'gate-confirm') assert.equal(geometry.confirmDisabled, false);
       if (geometry.modal && width === 360) assert(Math.abs(geometry.modal.bottom - height) < 1, 'Phone is a bottom sheet');
@@ -165,6 +186,23 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     await click('[data-action=remove-context]');
     assert.equal((await snapshot()).draft, '保留我的方向草稿。');
     pass(`${width}: both reply exits keep draft, focus Commander, send nothing, select no gate`);
+    for (const point of [0, 2]) {
+      await state('digest');
+      await click(`[data-replay="${point}"]`); await click('[data-action=discuss]');
+      await fill('#message', '請先補齊取消預約的試用步驟。'); await click('[data-action=send]');
+      const message = (await snapshot()).sent[0];
+      assert.equal(message.words, '請先補齊取消預約的試用步驟。');
+      assert.equal(message.context.pointId, await evaluate(`points[${point}].id`));
+      assert.equal(message.context.digestId, 'fictional-digest-1420');
+      assert.equal(message.context.sentence, await evaluate(`points[${point}].sentence`));
+      assert.equal(await evaluate('document.querySelector("[data-sent-message]").textContent'), message.words);
+      assert.equal(await evaluate('document.querySelector(".sent-context span").textContent'), message.context.sentence);
+      assert.equal(await evaluate('document.querySelector(".sent-context").dataset.pointId'), message.context.pointId);
+      assert.equal((await snapshot()).context, null, 'Clearing composer cannot remove sent context');
+      await click(named); await click('.back');
+      assert.deepEqual((await snapshot()).sent[0], message, 'Context survives leaving and returning');
+    }
+    pass(`${width}: sent replies retain distinct digest point identity and sentence, separate from identical Captain words`);
     await state('source-missing');
     assert.equal(await evaluate('document.querySelectorAll(".quote").length'), 0);
     await click('[data-action=open-fo]');
@@ -195,6 +233,21 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
     await click('#confirm'); assert.equal((await snapshot()).gateSent, true);
     assert(await evaluate('document.querySelector(".sent-status").textContent.includes("尚未記錄")'));
     pass(`${width}: five explicit clicks from Replay path; named gate, full briefing, choose and Confirm remain distinct`);
+    for (const phase of ['sent', 'relayed', 'recorded']) {
+      await evaluate(`mock.setGateProgress(${JSON.stringify(phase)})`);
+      await click('.back');
+      const label = await evaluate(`document.querySelector(${JSON.stringify(named)}).textContent`);
+      assert(!label.includes('等你決定'), 'Confirmed gate cannot wait on the Captain');
+      assert(label.includes({ sent: '已送出', relayed: '已轉交', recorded: '已記錄' }[phase]));
+      await click(named);
+      const reopened = await snapshot();
+      assert.equal(reopened.gateProgress, phase); assert.equal(reopened.chosen, '准');
+      assert.equal(reopened.confirmCount, 1); assert.equal(reopened.gateSent, true);
+      assert.equal(await evaluate('document.querySelectorAll("#confirm,[data-choice]").length'), 0);
+      await evaluate('action("confirm")');
+      assert.equal((await snapshot()).confirmCount, 1, 'Direct duplicate Confirm is also refused');
+    }
+    pass(`${width}: sent, relayed and recorded gate entries keep the decision on reopen and refuse duplicate Confirm`);
     for (const word of ['要求修改', '暫緩']) {
       await state('gate-briefing'); await click(`[data-choice="${word}"]`);
       assert.equal(await evaluate('document.querySelector("#confirm").disabled'), true);
@@ -203,11 +256,39 @@ for (const [width, height] of [[1440, 1000], [360, 780]]) {
       assert.equal(await evaluate('document.querySelector("#confirm").disabled'), false);
       assert.equal((await snapshot()).gateSent, false);
       await click('#confirm'); assert.equal((await snapshot()).gateSent, true);
+      await click('.back'); await click(named);
+      assert.equal((await snapshot()).chosen, word);
+      assert.equal((await snapshot()).reason, '請先補齊取消預約的試用步驟。');
+      assert.equal(await evaluate('document.querySelectorAll("#confirm").length'), 0);
     }
     pass(`${width}: revise and hold require nonblank reasons and explicit confirmation`);
+    await state('replay-long');
+    assert.equal(await evaluate('document.querySelectorAll(".source-block").length'), 3);
+    const scroll = await evaluate('(()=>{const x=document.querySelector(".replay-scroll");return {height:x.clientHeight,total:x.scrollHeight}})()');
+    assert(scroll.total > scroll.height, 'Long originals require an actual scroll area');
+    await evaluate('(()=>{const x=document.querySelector(".replay-scroll");x.scrollTop=x.scrollHeight})()');
+    assert(await evaluate('(()=>{const x=document.querySelector(".replay-scroll");return Math.abs(x.scrollHeight-x.clientHeight-x.scrollTop)<1})()'));
+    for (const action of ['open-fo', 'discuss', 'new-decision']) {
+      assert(await evaluate(`(()=>{const r=document.querySelector('[data-action=${action}]').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()`));
+    }
+    await click('[data-action=open-fo]');
+    assert.equal((await snapshot()).view, 'commander', 'Several FOs require a named choice');
+    await click('[data-fo-source="1"]');
+    assert.equal((await snapshot()).foTarget.fo, '預約 FO');
+    assert.equal((await snapshot()).view, 'fo'); await click('.back');
+    for (const action of ['discuss', 'new-decision']) {
+      await state('replay-long-end'); await click(`[data-action=${action}]`);
+      assert.equal((await snapshot()).context, 2); assert.equal((await snapshot()).sent.length, 0);
+      assert.equal(await evaluate('document.activeElement.id'), 'message');
+    }
+    pass(`${width}: three long exact sources scroll to their true bottom while all exits remain reachable; FO target is explicit`);
     console.log(`Captured and exercised ${width}x${height}: ${states.length} states.`);
   });
 }
+if (before) {
+  await writeFile(join(root, 'checks/cycle-4-before.json'), JSON.stringify({ findings: beforeFindings, sessions }, null, 2) + '\n');
+  console.log('Recorded the two cycle 3 state failures in both viewport sizes; browsers closed.');
+} else {
 await freshBrowser(async ({ cdp, evaluate, go, click, resize, screenshot, waitFor }) => {
   await resize(1440, 1000);
   await go(pathToFileURL(join(root, 'review.html')).href, '!!window.review');
@@ -218,6 +299,10 @@ await freshBrowser(async ({ cdp, evaluate, go, click, resize, screenshot, waitFo
     assert.equal(images[1].naturalWidth, 360); assert.equal(images[1].naturalHeight, 780);
     reviewImages.push({ state: id, images });
   };
+  await imagesFor('digest');
+  await click(`[data-index="${states.findIndex(state => state.id === 'replay-long-end')}"]`);
+  await imagesFor('replay-long-end');
+  await click('[data-index="0"]');
   await imagesFor('digest');
   assert.equal(await evaluate('getComputedStyle(document.querySelector(".layout")).gridTemplateColumns.split(" ").length'), 2);
   await click('[data-size=phone]'); assert.equal(await evaluate('review.size'), 'phone');
@@ -240,6 +325,7 @@ await writeFile(join(root, 'checks/capture-evidence.json'), JSON.stringify({
 }, null, 2) + '\n');
 await writeFile(join(root, 'checks/tests.json'), JSON.stringify(tests, null, 2) + '\n');
 console.log(`PASS: ${captures.length} state PNGs; ${tests.length} offline checks; review images loaded via file://; all three fresh browsers stopped.`);
+}
 } catch (error) {
   tests.push({ name: 'Capture and offline verification', status: 'failed', message: error.stack });
   await writeFile(join(root, 'checks/tests.json'), JSON.stringify(tests, null, 2) + '\n');

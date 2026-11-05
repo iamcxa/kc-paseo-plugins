@@ -1,6 +1,6 @@
 {
-  "mockSha256": "5c5e55c9f2f1e79a2d281be937485ed32a2a99b3077e48176e8434351668cd4e",
-  "reviewSha256": "23b4d7717dcc8314e386f06fa3692f3511e46915ce9b6f5cecb49896da553f74",
+  "mockSha256": "6dda9794775bb3acb02388141d8cc05f98f7da90ebfcc18970310b370c77cb8f",
+  "reviewSha256": "da1404649a4ef2a863111f9153e516935e6cafc9fb890101e44e23b607ca512b",
   "browser": "Google Chrome 156.0.8078.47",
   "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "sequential": true,
@@ -21,7 +21,7 @@
           {
             "text": "↑",
             "disabled": true,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -42,16 +42,16 @@
         "documentHeight": 1000,
         "modal": {
           "x": 440,
-          "y": 237.46875,
+          "y": 257.359375,
           "width": 560,
-          "height": 525.0625,
-          "bottom": 762.53125
+          "height": 485.28125,
+          "bottom": 742.640625
         },
         "controls": [
           {
             "text": "↑",
             "disabled": true,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -61,37 +61,169 @@
             "text": "×",
             "disabled": false,
             "x": 929,
-            "y": 260.46875,
+            "y": 280.359375,
             "width": 44,
             "height": 44,
-            "bottom": 304.46875
+            "bottom": 324.359375
           },
           {
             "text": "開啟 FO ↗",
             "disabled": false,
             "x": 467,
-            "y": 532.75,
+            "y": 567.640625,
             "width": 506,
             "height": 46,
-            "bottom": 578.75
+            "bottom": 613.640625
           },
           {
             "text": "繼續討論 ↩",
             "disabled": false,
             "x": 467,
-            "y": 586.75,
+            "y": 621.640625,
             "width": 506,
             "height": 46,
-            "bottom": 632.75
+            "bottom": 667.640625
           },
           {
             "text": "回覆新決定 ↩",
             "disabled": false,
             "x": 467,
-            "y": 640.75,
+            "y": 675.640625,
             "width": 506,
             "height": 46,
-            "bottom": 686.75
+            "bottom": 721.640625
+          }
+        ],
+        "unknownVisible": true
+      }
+    },
+    {
+      "state": "replay-long",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-replay-long.png",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "modal": {
+          "x": 440,
+          "y": 50,
+          "width": 560,
+          "height": 900,
+          "bottom": 950
+        },
+        "controls": [
+          {
+            "text": "↑",
+            "disabled": true,
+            "x": 1369,
+            "y": 930,
+            "width": 38,
+            "height": 38,
+            "bottom": 968
+          },
+          {
+            "text": "×",
+            "disabled": false,
+            "x": 929,
+            "y": 73,
+            "width": 44,
+            "height": 44,
+            "bottom": 117
+          },
+          {
+            "text": "開啟 FO ↗",
+            "disabled": false,
+            "x": 467,
+            "y": 775,
+            "width": 506,
+            "height": 46,
+            "bottom": 821
+          },
+          {
+            "text": "繼續討論 ↩",
+            "disabled": false,
+            "x": 467,
+            "y": 829,
+            "width": 506,
+            "height": 46,
+            "bottom": 875
+          },
+          {
+            "text": "回覆新決定 ↩",
+            "disabled": false,
+            "x": 467,
+            "y": 883,
+            "width": 506,
+            "height": 46,
+            "bottom": 929
+          }
+        ],
+        "unknownVisible": true
+      }
+    },
+    {
+      "state": "replay-long-end",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-replay-long-end.png",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "modal": {
+          "x": 440,
+          "y": 50,
+          "width": 560,
+          "height": 900,
+          "bottom": 950
+        },
+        "controls": [
+          {
+            "text": "↑",
+            "disabled": true,
+            "x": 1369,
+            "y": 930,
+            "width": 38,
+            "height": 38,
+            "bottom": 968
+          },
+          {
+            "text": "×",
+            "disabled": false,
+            "x": 929,
+            "y": 73,
+            "width": 44,
+            "height": 44,
+            "bottom": 117
+          },
+          {
+            "text": "開啟 FO ↗",
+            "disabled": false,
+            "x": 467,
+            "y": 775,
+            "width": 506,
+            "height": 46,
+            "bottom": 821
+          },
+          {
+            "text": "繼續討論 ↩",
+            "disabled": false,
+            "x": 467,
+            "y": 829,
+            "width": 506,
+            "height": 46,
+            "bottom": 875
+          },
+          {
+            "text": "回覆新決定 ↩",
+            "disabled": false,
+            "x": 467,
+            "y": 883,
+            "width": 506,
+            "height": 46,
+            "bottom": 929
           }
         ],
         "unknownVisible": true
@@ -108,16 +240,16 @@
         "documentHeight": 1000,
         "modal": {
           "x": 440,
-          "y": 234.671875,
+          "y": 254.5625,
           "width": 560,
-          "height": 530.65625,
-          "bottom": 765.328125
+          "height": 490.875,
+          "bottom": 745.4375
         },
         "controls": [
           {
             "text": "↑",
             "disabled": true,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -127,37 +259,37 @@
             "text": "×",
             "disabled": false,
             "x": 929,
-            "y": 257.671875,
+            "y": 277.5625,
             "width": 44,
             "height": 44,
-            "bottom": 301.671875
+            "bottom": 321.5625
           },
           {
             "text": "開啟 FO ↗",
             "disabled": false,
             "x": 467,
-            "y": 535.546875,
+            "y": 570.4375,
             "width": 506,
             "height": 46,
-            "bottom": 581.546875
+            "bottom": 616.4375
           },
           {
             "text": "繼續討論 ↩",
             "disabled": false,
             "x": 467,
-            "y": 589.546875,
+            "y": 624.4375,
             "width": 506,
             "height": 46,
-            "bottom": 635.546875
+            "bottom": 670.4375
           },
           {
             "text": "回覆新決定 ↩",
             "disabled": false,
             "x": 467,
-            "y": 643.546875,
+            "y": 678.4375,
             "width": 506,
             "height": 46,
-            "bottom": 689.546875
+            "bottom": 724.4375
           }
         ],
         "unknownVisible": true
@@ -177,7 +309,7 @@
           {
             "text": "↑",
             "disabled": true,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -201,7 +333,31 @@
           {
             "text": "↑",
             "disabled": false,
-            "x": 1366,
+            "x": 1369,
+            "y": 930,
+            "width": 38,
+            "height": 38,
+            "bottom": 968
+          }
+        ],
+        "unknownVisible": true
+      }
+    },
+    {
+      "state": "context-sent",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-context-sent.png",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "modal": null,
+        "controls": [
+          {
+            "text": "↑",
+            "disabled": true,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -225,7 +381,7 @@
           {
             "text": "↑",
             "disabled": false,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -249,7 +405,7 @@
           {
             "text": "↑",
             "disabled": true,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -273,7 +429,7 @@
           {
             "text": "↑",
             "disabled": true,
-            "x": 1366,
+            "x": 1369,
             "y": 930,
             "width": 38,
             "height": 38,
@@ -297,7 +453,7 @@
           {
             "text": "准",
             "disabled": false,
-            "x": 592,
+            "x": 648,
             "y": 936,
             "width": 47,
             "height": 44,
@@ -306,7 +462,7 @@
           {
             "text": "要求修改",
             "disabled": false,
-            "x": 647,
+            "x": 703,
             "y": 936,
             "width": 86,
             "height": 44,
@@ -315,7 +471,7 @@
           {
             "text": "暫緩",
             "disabled": false,
-            "x": 741,
+            "x": 797,
             "y": 936,
             "width": 60,
             "height": 44,
@@ -339,7 +495,7 @@
           {
             "text": "准",
             "disabled": false,
-            "x": 592,
+            "x": 648,
             "y": 773,
             "width": 47,
             "height": 44,
@@ -348,7 +504,7 @@
           {
             "text": "要求修改",
             "disabled": false,
-            "x": 647,
+            "x": 703,
             "y": 773,
             "width": 86,
             "height": 44,
@@ -357,7 +513,7 @@
           {
             "text": "暫緩",
             "disabled": false,
-            "x": 741,
+            "x": 797,
             "y": 773,
             "width": 60,
             "height": 44,
@@ -366,7 +522,7 @@
           {
             "text": "Confirm 准",
             "disabled": false,
-            "x": 592,
+            "x": 648,
             "y": 936,
             "width": 99.375,
             "height": 44,
@@ -375,7 +531,7 @@
           {
             "text": "取消",
             "disabled": false,
-            "x": 700.375,
+            "x": 756.375,
             "y": 936,
             "width": 52,
             "height": 44,
@@ -400,7 +556,7 @@
           {
             "text": "准",
             "disabled": false,
-            "x": 592,
+            "x": 648,
             "y": 773,
             "width": 47,
             "height": 44,
@@ -409,7 +565,7 @@
           {
             "text": "要求修改",
             "disabled": false,
-            "x": 647,
+            "x": 703,
             "y": 773,
             "width": 86,
             "height": 44,
@@ -418,7 +574,7 @@
           {
             "text": "暫緩",
             "disabled": false,
-            "x": 741,
+            "x": 797,
             "y": 773,
             "width": 60,
             "height": 44,
@@ -427,7 +583,7 @@
           {
             "text": "Confirm 要求修改",
             "disabled": true,
-            "x": 592,
+            "x": 648,
             "y": 936,
             "width": 141.375,
             "height": 44,
@@ -436,7 +592,7 @@
           {
             "text": "取消",
             "disabled": false,
-            "x": 742.375,
+            "x": 798.375,
             "y": 936,
             "width": 52,
             "height": 44,
@@ -461,7 +617,7 @@
           {
             "text": "准",
             "disabled": false,
-            "x": 592,
+            "x": 648,
             "y": 773,
             "width": 47,
             "height": 44,
@@ -470,7 +626,7 @@
           {
             "text": "要求修改",
             "disabled": false,
-            "x": 647,
+            "x": 703,
             "y": 773,
             "width": 86,
             "height": 44,
@@ -479,7 +635,7 @@
           {
             "text": "暫緩",
             "disabled": false,
-            "x": 741,
+            "x": 797,
             "y": 773,
             "width": 60,
             "height": 44,
@@ -488,7 +644,7 @@
           {
             "text": "Confirm 要求修改",
             "disabled": false,
-            "x": 592,
+            "x": 648,
             "y": 936,
             "width": 141.375,
             "height": 44,
@@ -497,7 +653,7 @@
           {
             "text": "取消",
             "disabled": false,
-            "x": 742.375,
+            "x": 798.375,
             "y": 936,
             "width": 52,
             "height": 44,
@@ -512,6 +668,34 @@
       "state": "gate-sent",
       "viewport": "1440x1000",
       "file": "screenshots/1440-gate-sent.png",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "modal": null,
+        "controls": [],
+        "unknownVisible": null
+      }
+    },
+    {
+      "state": "gate-relayed",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-gate-relayed.png",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "modal": null,
+        "controls": [],
+        "unknownVisible": null
+      }
+    },
+    {
+      "state": "gate-recorded",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-gate-recorded.png",
       "geometry": {
         "width": 1440,
         "height": 1000,
@@ -557,9 +741,9 @@
         "documentHeight": 780,
         "modal": {
           "x": 0,
-          "y": 301.65625,
+          "y": 338.03125,
           "width": 360,
-          "height": 478.34375,
+          "height": 441.96875,
           "bottom": 780
         },
         "controls": [
@@ -576,37 +760,169 @@
             "text": "×",
             "disabled": false,
             "x": 297,
-            "y": 321.65625,
+            "y": 358.03125,
             "width": 44,
             "height": 44,
-            "bottom": 365.65625
+            "bottom": 402.03125
           },
           {
             "text": "開啟 FO ↗",
             "disabled": false,
             "x": 19,
-            "y": 558.625,
+            "y": 608,
             "width": 322,
             "height": 46,
-            "bottom": 604.625
+            "bottom": 654
           },
           {
             "text": "繼續討論 ↩",
             "disabled": false,
             "x": 19,
-            "y": 611.625,
+            "y": 661,
             "width": 322,
             "height": 46,
-            "bottom": 657.625
+            "bottom": 707
           },
           {
             "text": "回覆新決定 ↩",
             "disabled": false,
             "x": 19,
-            "y": 664.625,
+            "y": 714,
             "width": 322,
             "height": 46,
-            "bottom": 710.625
+            "bottom": 760
+          }
+        ],
+        "unknownVisible": true
+      }
+    },
+    {
+      "state": "replay-long",
+      "viewport": "360x780",
+      "file": "screenshots/360-replay-long.png",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "modal": {
+          "x": 0,
+          "y": 78,
+          "width": 360,
+          "height": 702,
+          "bottom": 780
+        },
+        "controls": [
+          {
+            "text": "↑",
+            "disabled": true,
+            "x": 302,
+            "y": 723,
+            "width": 34,
+            "height": 34,
+            "bottom": 757
+          },
+          {
+            "text": "×",
+            "disabled": false,
+            "x": 297,
+            "y": 98,
+            "width": 44,
+            "height": 44,
+            "bottom": 142
+          },
+          {
+            "text": "開啟 FO ↗",
+            "disabled": false,
+            "x": 19,
+            "y": 608,
+            "width": 322,
+            "height": 46,
+            "bottom": 654
+          },
+          {
+            "text": "繼續討論 ↩",
+            "disabled": false,
+            "x": 19,
+            "y": 661,
+            "width": 322,
+            "height": 46,
+            "bottom": 707
+          },
+          {
+            "text": "回覆新決定 ↩",
+            "disabled": false,
+            "x": 19,
+            "y": 714,
+            "width": 322,
+            "height": 46,
+            "bottom": 760
+          }
+        ],
+        "unknownVisible": true
+      }
+    },
+    {
+      "state": "replay-long-end",
+      "viewport": "360x780",
+      "file": "screenshots/360-replay-long-end.png",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "modal": {
+          "x": 0,
+          "y": 78,
+          "width": 360,
+          "height": 702,
+          "bottom": 780
+        },
+        "controls": [
+          {
+            "text": "↑",
+            "disabled": true,
+            "x": 302,
+            "y": 723,
+            "width": 34,
+            "height": 34,
+            "bottom": 757
+          },
+          {
+            "text": "×",
+            "disabled": false,
+            "x": 297,
+            "y": 98,
+            "width": 44,
+            "height": 44,
+            "bottom": 142
+          },
+          {
+            "text": "開啟 FO ↗",
+            "disabled": false,
+            "x": 19,
+            "y": 608,
+            "width": 322,
+            "height": 46,
+            "bottom": 654
+          },
+          {
+            "text": "繼續討論 ↩",
+            "disabled": false,
+            "x": 19,
+            "y": 661,
+            "width": 322,
+            "height": 46,
+            "bottom": 707
+          },
+          {
+            "text": "回覆新決定 ↩",
+            "disabled": false,
+            "x": 19,
+            "y": 714,
+            "width": 322,
+            "height": 46,
+            "bottom": 760
           }
         ],
         "unknownVisible": true
@@ -623,9 +939,9 @@
         "documentHeight": 780,
         "modal": {
           "x": 0,
-          "y": 269.25,
+          "y": 305.625,
           "width": 360,
-          "height": 510.75,
+          "height": 474.375,
           "bottom": 780
         },
         "controls": [
@@ -642,37 +958,37 @@
             "text": "×",
             "disabled": false,
             "x": 297,
-            "y": 289.25,
+            "y": 325.625,
             "width": 44,
             "height": 44,
-            "bottom": 333.25
+            "bottom": 369.625
           },
           {
             "text": "開啟 FO ↗",
             "disabled": false,
             "x": 19,
-            "y": 558.625,
+            "y": 608,
             "width": 322,
             "height": 46,
-            "bottom": 604.625
+            "bottom": 654
           },
           {
             "text": "繼續討論 ↩",
             "disabled": false,
             "x": 19,
-            "y": 611.625,
+            "y": 661,
             "width": 322,
             "height": 46,
-            "bottom": 657.625
+            "bottom": 707
           },
           {
             "text": "回覆新決定 ↩",
             "disabled": false,
             "x": 19,
-            "y": 664.625,
+            "y": 714,
             "width": 322,
             "height": 46,
-            "bottom": 710.625
+            "bottom": 760
           }
         ],
         "unknownVisible": true
@@ -716,6 +1032,30 @@
           {
             "text": "↑",
             "disabled": false,
+            "x": 302,
+            "y": 723,
+            "width": 34,
+            "height": 34,
+            "bottom": 757
+          }
+        ],
+        "unknownVisible": true
+      }
+    },
+    {
+      "state": "context-sent",
+      "viewport": "360x780",
+      "file": "screenshots/360-context-sent.png",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "modal": null,
+        "controls": [
+          {
+            "text": "↑",
+            "disabled": true,
             "x": 302,
             "y": 723,
             "width": 34,
@@ -1036,6 +1376,34 @@
         "controls": [],
         "unknownVisible": null
       }
+    },
+    {
+      "state": "gate-relayed",
+      "viewport": "360x780",
+      "file": "screenshots/360-gate-relayed.png",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "modal": null,
+        "controls": [],
+        "unknownVisible": null
+      }
+    },
+    {
+      "state": "gate-recorded",
+      "viewport": "360x780",
+      "file": "screenshots/360-gate-recorded.png",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "modal": null,
+        "controls": [],
+        "unknownVisible": null
+      }
     }
   ],
   "sessions": [
@@ -1065,6 +1433,36 @@
     }
   ],
   "reviewImages": [
+    {
+      "state": "digest",
+      "images": [
+        {
+          "src": "screenshots/1440-digest.png",
+          "naturalWidth": 1440,
+          "naturalHeight": 1000
+        },
+        {
+          "src": "screenshots/360-digest.png",
+          "naturalWidth": 360,
+          "naturalHeight": 780
+        }
+      ]
+    },
+    {
+      "state": "replay-long-end",
+      "images": [
+        {
+          "src": "screenshots/1440-replay-long-end.png",
+          "naturalWidth": 1440,
+          "naturalHeight": 1000
+        },
+        {
+          "src": "screenshots/360-replay-long-end.png",
+          "naturalWidth": 360,
+          "naturalHeight": 780
+        }
+      ]
+    },
     {
       "state": "digest",
       "images": [
