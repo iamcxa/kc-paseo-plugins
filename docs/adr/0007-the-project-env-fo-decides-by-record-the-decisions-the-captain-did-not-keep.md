@@ -35,6 +35,8 @@ unamended.
 5. 「准補」 — Captain, 2026-10-25, answering whether to add to the reload route a fetch of origin and a check that the checkout contains the pull request's merge commit
 6. 「准修，可以我合併」 — Captain, 2026-10-25, answering whether to name the two further README sentences in the exception, add Words 5, and state that he merges this record's pull request himself
 7. 「准加」 — Captain, 2026-10-25, answering whether the reload route's third step should require `HEAD` to equal the fetched `origin/main` and stop for him when local commits prevent it
+8. 「可以第二類」 — Captain, 2026-11-05, in the kc-claude-plugins dev2 FO's session, answering 「ADR 0007 明天（11/06）到期，你要只續期「合併與重新載入」這一類嗎？」; relayed to this repository's FO
+9. 「確認，到 12/6」 — Captain, 2026-11-05, in this repository's FO session, confirming Words 8 and answering the FO's proposal to renew class 2 until 2026-12-06 with every other term unchanged
 
 **Options considered:**
 - grant by record the decisions below and keep the rest with the Captain, as the Captain's split states (chosen)
@@ -106,6 +108,13 @@ Captain's approval in Words 4:
 - demotion: a reversal returns the class that decided it to L0, and a UAT `revert` or a
   Captain `Override:` on an FO-decided gate counts as one, as does any observer violation on
   an FO-recorded gate; a demoted class is asked again until he restores it in writing.
+
+**Captain amendment 1, 2026-11-05 (Words 8 and 9).** Class 2 is renewed until 2026-12-06.
+Classes 1 and 3 are not renewed and stay with the Captain; they were already demoted on
+2026-10-25. The class 2 conditions, the reload route, the demotion and revocation rules
+and the Provisional clause are unchanged. On 2026-12-06 class 2 returns to the Captain
+unless he rules again. This amendment takes effect only when the Captain himself merges the
+pull request that adds it.
 
 **Revocation.** The Captain can revoke the grant at any time with one sentence. The FO then
 adds one line to this record naming the revocation, and every later gate returns to the
