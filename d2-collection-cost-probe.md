@@ -16,6 +16,17 @@ gates:
                 id: briefing:d2-collection-cost-probe:backlog:attempt-1:revision-1
                 digest: sha256:b63bc967cd5b7a5ac922c295a07ef076c659ac170f1256763def368223d4b498
                 room-ref: ./d2-collection-cost-probe/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d2-collection-cost-probe:backlog:1
+                briefing: briefing:d2-collection-cost-probe:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T13:17:14.638668Z"
+                decision: approve
+                reason: Captain chat 2026-11-05, asked "May I run that one cost-measuring test? It only measures and doesn't build the feature.", answered 「跑一次」.
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Measure, once, what one Commander digest collection costs in model tokens and wall time, so the Captain can set the collection frequency and a cost cap before any code.
