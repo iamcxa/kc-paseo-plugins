@@ -1,0 +1,20 @@
+design_review:
+  preview: design/built-timeout-1280.png, design/built-timeout-400.png, design/built-conn-1280.png, design/built-conn-400.png, design/built-timeout-typed-400.png, design/built-timeout-used-1280.png, design/built-list-1280.png
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: built-timeout-1280.png and built-timeout-400.png (the state before anything is typed)
+      seen: The new hint says "Type the reference below instead", but the thing below is only grey "Type a reference..." text with no outline and no Use button, while the search box above is a filled, outlined field; the outlined input with a Use button appears only after typing (built-timeout-typed-400.png). A person following the new hint may not see the target as a field.
+      fix: Draw the reference row as an outlined field at rest, with the Use button visible (disabled while empty), so it looks like the field it becomes once typed.
+  limitations:
+    - AC-1 holds as drawn. built-timeout-* shows "Listing this vault took too long." with "Type the reference below instead. A large vault can be too slow to list.", and nothing about the 1Password connection. built-conn-* keeps "1Password could not be reached" and "Close this list, fix the 1Password connection on this page, then open it again." at both 1280 and 400.
+    - The reference-row finding above is partly outside AC-1: the same borderless row exists in the connection-failure state, which is as it is today. It matters more now only because the new hint points at it.
+    - Not re-reported, per the instruction on settled items: the search box that looks live but has nothing to search, the missing reference-shape example in the placeholder, and the 400 px typed state (now shown in built-timeout-typed-400.png).
+    - Not shown in the built set, so unchecked: a typed reference that is malformed or outside the saved vault (ADR 0001 refuses another vault), Use pressed with an empty row, the typed state at 1280, and the light theme. Every picture is dark theme.
+    - Pictures come from an isolated Paseo 0.15.2 with a fake op, so the real time to the timeout and a real large vault were not seen. A resize of an open dialog was not seen either.
+    - No ADR in force settles a question about how this screen looks. No finding is ruled by a record.

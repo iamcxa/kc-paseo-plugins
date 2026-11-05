@@ -1,0 +1,12 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: built-timeout-1280.png and built-timeout-400.png show the hint "Type the reference below instead" sitting directly above the one row, whose text "Type a reference..." repeats the hint's own words, and built-timeout-typed-400.png shows that row becoming an outlined field with a Use button once it is used, so nobody is blocked or misled; built-conn-1280.png shows the same borderless row in the connection-failure state, so the row is unchanged by this task. One part of the stated reason is not shown by the picture cited for it (the working-list state): built-list-1280.png is scrolled and does not show the reference row, so that claim rests on the connection-failure picture and on main, not on that picture.
+      change: none
+      adr: none (no record in force settles how this screen looks)

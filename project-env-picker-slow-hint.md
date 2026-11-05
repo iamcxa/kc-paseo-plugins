@@ -182,3 +182,47 @@ The picker's list failure gets one pure function that recognises the daemon's ti
 ### Summary
 
 A timed-out vault list now shows "Listing this vault took too long." with a working next step, and connection failures keep today's words; AC-1 is shown by two unit tests that fail when their branch is changed and by pictures from a real Paseo 0.15.2 at both widths. The fix depends on Paseo's timeout sentence (limit stated in the PR); `vaultListFailure` returns `{ message, hint }` so `project-env-rate-limit-cause` can add its branch there. Limits: fake `op`, dark theme only; the Captain's Paseo version may be 0.14.0, where the sentence was not seen.
+
+## Stage Report: validation
+
+- DONE: Validate PR #72 at its exact head (name the SHA as the Candidate) against AC-1: isolated Paseo at the newest release, fake `op` slow enough to hit the timeout, timeout and connection-failure cases, pictures at 1280 and 400 px.
+  Candidate b684b68de779ba2174a5efc6437f2a7d6805e26d (PR #72 head, Draft, checked with `gh pr view`; worktree clean). Paseo 0.15.2 (newest on npm and GitHub releases 2026-11-05, my own install, own home, port 7395, 100 items at 1.5 s per `op` call): the list gave up after 31.5 s (1280) and 30.6 s (400) and shows red "Listing this vault took too long." over "Type the reference below instead. A large vault can be too slow to list."; no word of the connection (`design/built-timeout-1280.png`, `-400.png`). `FAILLIST=1`: "1Password could not be reached" over "Close this list, fix the 1Password connection on this page, then open it again." at both widths (`design/built-conn-*.png`). Typed reference added as a row (`built-timeout-used-1280.png`); the name-search, outside-vault and malformed-reference states match the design (`validation/run.log`). Run again by `validation/acceptance.sh`.
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` at the candidate; confirm a unit test fails when the timeout branch is removed.
+  npm test 327 of 327 pass, exit 0; `tsc --noEmit` exit 0 (`validation/npm-test.txt`, `tsc.txt`). In a copy of the candidate under /tmp, `message.startsWith("Plugin RPC timed out")` replaced by `false`: `vault-list-failure.test.ts` 1 pass, 1 fail, the timeout test (asserts the two sentences and no "connection"). Not rerun, read from the implementation (`implementation/falsify-hint.txt`): changing today's hint text fails the connection test, which asserts the exact message and `FIX_CONNECTION_HINT`.
+- DONE: Docs: follow the built Install and Prepare 1Password pages' words through the screens this change touches, and report any sentence or picture that no longer matches.
+  Built the candidate's site (`build-site.sh`, exit 0, github-pages gem set in Docker) and read `install.html` and `prepare-1password.html`: no sentence names a slow list, a timeout or the connection hint (grep of `_site` for "took too long", "timed out", "fix the 1Password connection" finds nothing), so no sentence this change makes false. Prepare 4b "Choose + Add, then pick a field from the vault" and the picture 05 caption (fields grouped by item, search box, Type a reference) still describe the working list, shown at the candidate in `design/built-list-1280.png`. The pages give no word for a list that times out: a gap, not a mismatch, and outside this task's Scope. Pictures 01-06 differ from Paseo 0.15.2 as the implementation already reported (Paseo drift, same on main).
+- DONE: Run `python3 <package>/scripts/design_surfaces.py check <task>` and record it.
+  Package 0.35.0, exit 0: "design surfaces presentable"; "built screen review design/validation-1.yaml: 1 findings, 1 upheld declines, 0 decisions in 0 groups"; "scope check not run: stage is validation, not ideation". Before the `Built screen review:` line existed it exited 1 ("built screen review not run"), as expected.
+- DONE: Never touch the Captain's live install `paseo-project-env` or its settings; never read or print a secret value. Do not push, mark ready or merge. Close only browser sessions you opened yourself, by name; stop only daemons you started.
+  Own homes `/tmp/pe-psh-val/root` and `/tmp/pe-psh-acc/root`, fake `op`/`security`, no secret read; browser sessions `pe-psh-val-b` and `pe-psh-acc` closed, daemons I started stopped (no `pe-psh-*` process left); `pe-docs-fake` and `office-audit-ideation` are not mine and untouched; no code push, PR state unchanged.
+
+### Verdict
+
+Recommend PASSED for AC-1 at b684b68. Goal sufficiency: the picker no longer sends a person with a working connection to fix it, and the reference row is a working next step. Minimal necessity: 36 added lines (`vaultListFailure`, `FIX_CONNECTION_HINT` used by both the new function and the unusable-token line, three lines in `settings-screen.tsx`, two tests); each maps to AC-1 or to its connection-failure falsifier; `comment_ratio.py c1458f7 b684b68`: 32 code lines, 0 comment lines, 0.0%, maximum 5% met (exit 0); `adr_lint.py docs/adr --since c1458f7` exit 0 (9 files, no ADR added, none owed).
+
+- F1 Deferred risk: the fix depends on Paseo's own sentence "Plugin RPC timed out". Seen on 0.15.1 (ideation) and 0.15.2 (here); not seen on 0.14.0 or any Paseo before 0.15; Install says Paseo 0.12 or later. Where the sentence differs, the picker shows today's words, no worse than before. It would become material if a supported Paseo reworded it and the Captain's install were that version.
+- F2 FO: `dispatch_records.py <task folder>` exits 1, "no dispatch records under dispatch/"; no task folder in this state checkout has a `dispatch/` folder, so this is not specific to this task. Not a candidate defect; for FO.
+
+### Built screen
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: the "Type a reference…" row is the picker's existing reference row, unchanged by this task and shown the same in the connection-failure state (built-conn-*.png) and on main; AC-1 asks for the sentence and a next step, and redrawing the row as an outlined field with a Use button changes a control used by every picker state, which is its own task. (My first wording also named the working-list picture, which does not show that row; the ruling corrects it.)
+Built screen decline check: design/validation-declines-1.yaml
+
+`design/validation-1.yaml` carries only its `preview:` line cut to one path so the check resolves it; the report as returned is `design/validation-1.as-returned.yaml`. Director's report: AC-1 holds as drawn; one MINOR, upheld as a decline. Unchecked by any picture: light theme, a real large vault and real time to the timeout, a resize of an open dialog.
+
+### Minimal acceptance script
+
+Run in a terminal on the Captain's Mac with Node, npm, git and `agent-browser` installed. It uses its own Paseo 0.15.2 under /tmp and port 7396, and touches no live install. `S` is the state checkout, `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-picker-slow-hint`.
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-picker-slow-hint/project-env && npm test 2>&1 | grep -E "^ℹ (pass|fail)"` expect `ℹ pass 327` and `ℹ fail 0`.
+2. `bash -c 'WT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-picker-slow-hint; rm -rf /tmp/pe-psh-acc/mut && mkdir -p /tmp/pe-psh-acc/mut && git -C $WT archive HEAD project-env | tar -x -C /tmp/pe-psh-acc/mut && cd /tmp/pe-psh-acc/mut/project-env && ln -s $WT/project-env/node_modules node_modules && sed -i "" "s/message.startsWith(\"Plugin RPC timed out\")/false/" shared/field-picker.ts && node --test test/vault-list-failure.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"'` expect `ℹ pass 1` and `ℹ fail 1` (the timeout test fails when its branch is gone).
+3. `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-picker-slow-hint/validation/acceptance.sh timeout` (about 2.5 minutes; the first run installs Paseo) expect two `loading_for_s` lines of 30 to 33, the lines "Listing this vault took too long." and "Type the reference below instead. A large vault can be too slow to list.", no line with "fix the 1Password connection", and two picture paths (a leading `n` on a printed line is an artifact of the script's text cleanup).
+4. Open the two printed pictures: the red line "Listing this vault took too long." with the grey line under it and a "Type a reference…" row below, at 1280 and 400 px.
+5. `/Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-picker-slow-hint/validation/acceptance.sh conn` (about 30 seconds) expect "1Password could not be reached" and "Close this list, fix the 1Password connection on this page, then open it again.", and two picture paths showing the same at 1280 and 400 px.
+
+Not covered: a real 1Password vault and its real time to the timeout; any Paseo other than 0.15.2; the light theme; the Captain's own install (the Captain's UAT in the Stop condition).
+
+### Summary
+
+PR #72 at b684b68 meets AC-1 on a real Paseo 0.15.2 with a fake `op`: a timed-out list says it took too long and offers the reference row, a connection failure keeps today's words, and the unit test fails when the timeout branch is removed. One dependence on Paseo's own sentence is recorded as a deferred risk; the built-screen MINOR was declined and upheld. The Captain's UAT remains.
