@@ -27,6 +27,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:d2-collection-cost-probe:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:d2-collection-cost-probe-validation-1
+              briefing:
+                id: briefing:d2-collection-cost-probe:validation:attempt-1:revision-1
+                digest: sha256:d8343c4b6b83a5f7aa057093a5fdd48db8098d69b1c724f992783f51cffd4001
+                room-ref: ./d2-collection-cost-probe/review/validation/briefing-1
 started: 2026-11-05T13:19:14Z
 worktree: .worktrees/spacedock-ensign-d2-collection-cost-probe
 ---

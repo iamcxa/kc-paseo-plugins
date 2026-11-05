@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:d2-collection-cost-probe:validation:attempt-1:revision-1",
+  "question": "量到了：一次摘要收集約 34 萬輸入 token、7 千輸出 token、約 1.8 分鐘（冷啟動、無快取、18 個虛構 FO 全讀）。摘要收集要多久跑一次、上限多少？",
+  "artifacts": [
+    {
+      "id": "artifact:d2-collection-cost-probe:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/7ff534755bdf4d7d2ef6ace57dc798c74226bff1/d2-collection-cost-probe.md",
+      "rev": "sha256:3a8ba6bf88f7d34f7ff2fb8a5718264c131d31cdcbd37ccf13dfb341976f8791",
+      "mediaType": "text/markdown",
+      "summary": "Probe 336,753 input / 7,397 output tokens, 5 requests, 107.5 s; baseline (today's prompt, status question) 203,540 / 1,482, 4 requests, 64.9 s; increment +133,213 / +5,915, +42.6 s. Cache disabled, fresh sessions, no Bridge (no fleet_status), fictional 18-FO fleet; single observation; dollars not measured (claude provider cost is imputed). FO reran verify-evidence.py: passed 5. The Captain's answer sets the collection frequency and cap for the d1 code task."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:d2-collection-cost-probe:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/7ff534755bdf4d7d2ef6ace57dc798c74226bff1/d2-collection-cost-probe/evidence/RESULT.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:29fb36dd05fa15fb1a2deab1ceeedd6cb0b37142ad26bc3e164ed5e6f87ec332"
+    }
+  ]
+}
