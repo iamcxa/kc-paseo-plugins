@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-journey-map-r1b-catch-up:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-journey-map-r1b-catch-up-validation-1
+              briefing:
+                id: briefing:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1
+                digest: sha256:4e0593b0463d9c9a60cf165e6516e1ceabbfc2b14ffb30a166ef4fce24be15e3
+                room-ref: ./project-env-journey-map-r1b-catch-up/review/validation/briefing-1
 started: 2026-11-05T08:40:29Z
 ---
 

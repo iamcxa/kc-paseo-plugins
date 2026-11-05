@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1",
+  "question": "Approve validation of the journey map catch-up (PR iamcxa/kc-paseo-plugins#71 at f09ebae0fcb8c4d249492042d4ebc4b2f7be1391) and the proposed declines (F1, F2, F3 dispatch records)? FO recommends approving. Approval lets FO merge it under ADR 0007 class 2, unless the Captain says he merges or holds; it changes no plugin code, so no reload.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/93887670c95955804490e2dda52b1a46b37a916e/project-env-journey-map-r1b-catch-up.md",
+      "rev": "sha256:2caa59441fc7c22e23879ea37154aa78cf8271bad4baf1c5194e45a3700bfe07",
+      "mediaType": "text/markdown",
+      "summary": "Merge ask: PR #71 at f09ebae0fcb8c4d249492042d4ebc4b2f7be1391 marks pick-repository and read-the-docs exists, records the terminal limit as answered question q8 on new-agent-env, and updates the status card, 9 insertions and 7 deletions in one file.\nSufficiency: validation-1 PASSED at f09ebae with no Material finding; kc-journey-map 1.9.0 lint exit 0 with slice-size 9; diff identical to the approved journey-edits.diff; both evidence symbols grep on origin/main; FO's acceptance rerun matched (fo-acceptance-rerun-f09ebae.txt).\nNecessity: the PR changes only the journey file; without it the map shows two shipped stories as gaps and omits the terminal limit.\nReviews: external review rounds: 1 — Codex summary:6664388415 clean on f09ebae0f.\nExternal rounds: 1\nSecond reviewer: roborev not run: FO did not run the local roborev gate for this batch.\nDeclined: Polish, F1 pick-repository q1 still opens with Gap (a deliberate non-edit named at ideation, matching other exists stories).\nDeclined: Polish, F2 r1b slice_because still says pick-repository needs plugin code (outside this Scope, it goes to the follow-up docs and map PR after this batch).\nDeclined: Polish, F3 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch, an FO record defect with no effect on the candidate)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/93887670c95955804490e2dda52b1a46b37a916e/project-env-journey-map-r1b-catch-up/gate-validation.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:c09ac761130b23bfe800d251e0f0934a2dbfbee57c4f48c090f71325d5cd8dcc"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/93887670c95955804490e2dda52b1a46b37a916e/project-env-journey-map-r1b-catch-up/delivery-gate-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:a442c9bd04e73083b1a658b847e02b0a1cb2ba707277533ca7193a30fbbc4a8f"
+    }
+  ]
+}
