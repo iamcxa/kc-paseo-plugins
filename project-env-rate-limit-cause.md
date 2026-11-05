@@ -1,7 +1,7 @@
 ---
 id:
 title: A 1Password rate limit is shown as a rate limit, not as an unreadable item
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
