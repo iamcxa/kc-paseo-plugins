@@ -26,4 +26,6 @@ Facts you cannot see elsewhere:
 
 Hard limits: the live Paseo daemon (~/.paseo) may only be read, and only for the roster count and the comms officer status — no logs text, no prompts, no permission responses; isolated daemon with its own --home on a port outside 6767, 6787 and 6860-6935, stopped by captured PID, home deleted; HOME may stay the real one only so the Claude provider authenticates — never copy, print or read credential files, and if the provider cannot authenticate, stop and report (stop condition); never kill by pattern; never print agent command lines; fictional content only in every file (the state branch is public); never switch branch on, or leave dirty, /Users/kent/Project/kc-paseo-plugins or /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live; never overwrite an existing /tmp file. Budget: one probe round and one baseline round, at most one retry of a round that failed for an environment reason. Stop condition: the probe cannot approximate the collection without product code, or the provider cannot authenticate without copying credentials — stop and report which.
 
+roborev not run: a measurement task with no code change and no candidate branch.
+
 Write your stage report in the task file and commit with `spacedock state commit d2-collection-cost-probe --workflow-dir /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc`.
