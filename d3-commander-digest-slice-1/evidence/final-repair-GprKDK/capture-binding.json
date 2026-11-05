@@ -1,0 +1,63 @@
+{
+  "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+  "harnessSha256": "577271b7a3b542e36c365ae9dcc0e7bf58e061326a11e900b4c7bfb5ae50606d",
+  "fixtureSha256": "11703b1c1a7d3fdff63666663cff0c989d8aaf5bc8c1038f7ee31179f5e8be81",
+  "runs": [
+    {
+      "run": "phone-final",
+      "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "filesMatched": 94,
+      "mismatches": [],
+      "captures": {
+        "360-rejected-questions.png": "a0cf09861340093138b6c58c971b4895a8f55cc849d646d5af075beaae09ff4c",
+        "360-split-digest.png": "230f5f2d72beb1b43ef81dfabcd0646cc8e02b2f8e93b51fa1db03392f1b6063",
+        "360-rejected-waiting-list.png": "d2b36ec96e8f609f65335c67400ac44e1c610b62366927d60f4dd4a14a5df0f9",
+        "360-previous-officer-guard.png": "43af1e8e64fbcbb6edf72743837e7da870c75c466538d626dbf2a78f4b87c8ec",
+        "360-split-replay.png": "d6375f7a83b9c807f075ea809d1eded8cb9fc3b2ecdec1f08473d956810181d1",
+        "360-rejected-sidebar-before-bridge.png": "53941ee61e9588d290e49d4c5d7d311346220f662933cf66c05c40ab58f76db5",
+        "360-rejected-commander.png": "d7e49518ba16fc3338d092b8925c5b76e56595fa9d55752e0252d65d459a902e",
+        "360-rejected-by-fo.png": "fdbf0875da5525b443af5c47f4a86f2133db70f3b56b1d720ea473f06299ed93",
+        "360-missing-identity.png": "03d7c1c84266a9e89333fff025545733d3591063ec5926dfae7cf03be38ce858"
+      },
+      "states": [
+        "rejected-sidebar-before-bridge",
+        "rejected-waiting-list",
+        "rejected-commander",
+        "rejected-questions",
+        "rejected-by-fo",
+        "split-digest",
+        "split-replay",
+        "previous-officer-guard",
+        "missing-identity"
+      ]
+    },
+    {
+      "run": "desktop-final",
+      "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "filesMatched": 94,
+      "mismatches": [],
+      "captures": {
+        "1440-rejected-commander.png": "1546b2990c1d149234ae2d9f3f39df272ef4ec338696dd712f49fd40091f5da8",
+        "1440-rejected-sidebar-before-bridge.png": "25c3d4ab388d0a3a8bba5927a3838e7be3da367e4cadfce14f5978b68bc204c3",
+        "1440-rejected-by-fo.png": "dca2ee731aab3ac6a3001006e3bfdb82d334167402651719f93f0511ba1fc3f3",
+        "1440-previous-officer-guard.png": "f3eeec679162a1b9849b6f40a963554c408cbfb76202e41c8ec3b3b64d807bc6",
+        "1440-rejected-waiting-list.png": "417435f97edbd9d7af55fbc257d9a546dbc4b9352445a196f015e22c67c5424f",
+        "1440-split-replay.png": "d08eec846aad8120d742114da8cfdd5514a9b0d6eb4f424b3c1dbccfb8d7336c",
+        "1440-split-digest.png": "1cc266ee0eb477d95df291c38aa65e82c0ae43e30c20e78fe364deb88edb4bc7",
+        "1440-missing-identity.png": "c6ae7d3170851f46acceda53f16f053229c707b501bfd1bb300ad75663e3f1e7",
+        "1440-rejected-questions.png": "c520561fb5e351295b703ca8ed3caaaed31348b2fc1f4d533a7a37a4c647ee16"
+      },
+      "states": [
+        "rejected-sidebar-before-bridge",
+        "rejected-waiting-list",
+        "rejected-commander",
+        "rejected-questions",
+        "rejected-by-fo",
+        "split-digest",
+        "split-replay",
+        "previous-officer-guard",
+        "missing-identity"
+      ]
+    }
+  ]
+}

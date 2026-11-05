@@ -1,0 +1,8 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 typecheck
+> tsc --noEmit
+
+shared/commander-replies.ts(24,62): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+shared/commander-replies.ts(25,31): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+shared/commander-replies.ts(26,17): error TS18046: 'text' is of type 'unknown'.

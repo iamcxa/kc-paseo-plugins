@@ -1,0 +1,805 @@
+✔ only checked, empty sources can claim nothing is waiting and a zero count (0.849125ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.156208ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (0.080375ms)
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✔ unlabelled alone (402.923208ms)
+  ✔ unlabelled with gate (163.671ms)
+  ✔ unlabelled with review (109.214041ms)
+  ✔ label represents the same reply (82.921083ms)
+  ✔ different labelled question (159.456167ms)
+  ✔ unlabelled with gate and review (108.702875ms)
+  ✔ same reply label with gate (72.530792ms)
+  ✔ different label with gate (87.755083ms)
+  ✔ same reply label with review (93.611666ms)
+  ✔ different label with review (113.065459ms)
+  ✔ same reply label with gate and review (168.656875ms)
+  ✔ different label with gate and review (98.656333ms)
+✔ both board views share unread-question rows and counts across waiting-item combinations (1861.957416ms)
+✔ failed board sources reuse guarded reads; FO rows count and open each waiting destination (713.029209ms)
+✔ By FO keeps every FO and each assigned review reachable (403.998416ms)
+✔ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (608.470084ms)
+✔ a sent item never appears under a waiting-on-you claim (1440, decision) (736.8285ms)
+✔ a relayed item never appears under a waiting-on-you claim (1440, decision) (188.806333ms)
+✔ a sent item never appears under a waiting-on-you claim (1440, fo) (203.736167ms)
+✔ a relayed item never appears under a waiting-on-you claim (1440, fo) (95.509ms)
+✔ an FO with nothing waiting opens only its conversation (1440) (70.446041ms)
+✔ a sent item never appears under a waiting-on-you claim (360, decision) (167.968167ms)
+✔ a relayed item never appears under a waiting-on-you claim (360, decision) (313.236625ms)
+✔ a sent item never appears under a waiting-on-you claim (360, fo) (88.332458ms)
+✔ a relayed item never appears under a waiting-on-you claim (360, fo) (62.267208ms)
+✔ an FO with nothing waiting opens only its conversation (360) (68.044416ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.105ms)
+✔ an FO with no tab labels is not Tab closed (0.099875ms)
+✔ one true tab keeps an FO open across clients (0.074459ms)
+✔ a running FO is not Tab closed even when every tab is false (0.073792ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.105459ms)
+✔ an unknown tab value does not count as explicitly false (0.073333ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.065875ms)
+✔ Paseo's own permission attention is waiting on Kent (0.267333ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.50875ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.13275ms)
+✔ a new reply whose next step is the Captain's moves to waiting (17.56775ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (0.374708ms)
+✔ a next-owner label decides the group without reading the reply (0.164208ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.051959ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (0.197208ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.108209ms)
+✔ an offline FO with no gate waiting is left off the board (0.344125ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (0.050833ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (0.133708ms)
+✔ reopen keeps the confirmed choice and reason (626.246417ms)
+✔ sent and relayed progress survives a comms detour (269.647167ms)
+✔ a recorded item never becomes actionable again (204.572625ms)
+✔ switching items keeps separate drafts and rejects stale actions (81.072792ms)
+✔ errors and progress stay with their own source and owner (363.422375ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (388.288875ms)
+✔ an FO with nothing waiting is reachable from By FO (52.878458ms)
+✔ a recorded item reopens to its result and reason this session and is never actionable (140.206208ms)
+✔ an ordinary message never consumes the gate decision controls (34.086416ms)
+✔ desktop board navigation keeps the commander as the default detail (35.381ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.499417ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.18025ms)
+✔ waiting time reads in seconds, minutes and hours (0.113417ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.77075ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.139625ms)
+✔ displayed replies join adjacent chunks but a visible tool separates them (0.883875ms)
+✔ hidden agent_message tools do not split a displayed reply; trailing visible tools do (0.1735ms)
+✖ a reconnect detects the last displayed Captain question after earlier FO work (188.685208ms)
+✖ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (13.494917ms)
+✖ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (45.036834ms)
+✖ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (21.27225ms)
+✖ switching coordinators clears the previous question and timestamp while the new connection is pending (23.930084ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+gates.read #17 start dirs=0
+gates.read #17 done 0ms
+gates.read #18 start dirs=0
+gates.read #18 done 0ms
+gates.read #19 start dirs=0
+gates.read #19 done 0ms
+gates.read #20 start dirs=0
+gates.read #20 done 0ms
+✔ server reads all 2 fragments: a client-only join cannot validate digest or Replay (12.641042ms)
+✔ server reads all 3 fragments: a client-only join cannot validate digest or Replay (0.951334ms)
+✔ digest interval refuses missing (0.395834ms)
+✔ digest interval refuses reordered (0.244667ms)
+✔ digest interval refuses interposed (0.367875ms)
+✔ digest interval refuses epoch (0.210791ms)
+✔ digest interval refuses agent (0.202334ms)
+✔ digest interval refuses collapsed (0.175958ms)
+✔ digest interval refuses range (0.213958ms)
+✔ digest interval refuses gap (0.314375ms)
+✔ digest interval refuses stale (0.573542ms)
+✔ digest interval refuses reset (0.158625ms)
+✔ digest interval refuses projection (0.153208ms)
+✔ digest interval refuses first-truncated (0.177125ms)
+✔ digest interval refuses last-truncated (0.159458ms)
+✔ digest interval refuses oversized (0.124334ms)
+✔ digest interval refuses reversed (64.001708ms)
+✔ digest interval refuses wrong-round (0.477166ms)
+✔ digest interval refuses wrong-hash (0.476ms)
+✔ digest interval refuses one-fragment-only (0.153416ms)
+✔ client groups 2 fragments: a server-only join cannot render one digest and Replay (724.241334ms)
+✔ client groups 3 fragments: a server-only join cannot render one digest and Replay (255.673458ms)
+✔ no rejected collection question in desktop card and header after none (278.515958ms)
+✔ no rejected collection question in desktop card and header after agent-message (258.447875ms)
+✔ no rejected collection question in desktop card and header after agent-notification (272.065166ms)
+✔ no rejected collection question in desktop card and header after automated (272.819875ms)
+✔ no rejected collection question in desktop card and header after unknown (242.773833ms)
+✔ no rejected collection question in compact board views after none (263.411ms)
+✔ no rejected collection question in compact board views after agent-message (360.88125ms)
+✔ no rejected collection question in compact board views after agent-notification (309.457333ms)
+✔ no rejected collection question in compact board views after automated (259.177333ms)
+✔ no rejected collection question in compact board views after unknown (252.612958ms)
+✔ sidebar-only initial excludes collection badge, count, label and popover target but retains real gates (215.525083ms)
+✔ sidebar-only retry excludes collection badge, count, label and popover target but retains real gates (421.730333ms)
+✔ sidebar-only reload excludes collection badge, count, label and popover target but retains real gates (418.985875ms)
+✔ previous officer cannot fall through to ordinary collection rendering (40.085917ms)
+✔ host cannot fall through to ordinary collection rendering (227.590125ms)
+✔ known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON (248.789042ms)
+✔ native composer follows a keyboard already visible at mount (136.5525ms)
+✔ native composer follows a keyboard frame changes without a show event (21.044208ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (15.897584ms)
+✔ message and reason share a shrinkable scroll area inside keyboard padding (273.881917ms)
+✔ Enter sends the typed text to the FO and clears the box (2.386875ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.157875ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.10225ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.095875ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (0.137ms)
+✔ a chip refusal keeps the draft (0.08825ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.107334ms)
+✔ 准 goes through with an empty box, via the comms officer (0.299833ms)
+✔ a decision chip sends the typed text as the reason (0.127083ms)
+✔ a second decision on the same briefing is refused and sends nothing (0.109584ms)
+✔ a failed send releases the claim and rethrows (0.326625ms)
+✔ a changed briefing refuses before claiming (0.0845ms)
+✔ an unloaded briefing refuses (0.074708ms)
+✔ polling a newer open briefing ignores the older briefing's resolution (289.040542ms)
+✔ message never decides (1.759292ms)
+✔ decision uses only its reason (0.705541ms)
+✔ both actions keep the other draft (0.507417ms)
+✔ a changed briefing or officer cannot receive a stale action (0.373625ms)
+✔ pending, failure and duplicate presses keep existing behavior (0.404458ms)
+✔ 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send (628.854916ms)
+✔ 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send (309.072291ms)
+✔ each context link reads its exact source, earlier/later use window edges and FO exit opens the chosen conversation (411.231166ms)
+✔ invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history (363.050208ms)
+✔ a stale source response cannot populate a different point's Replay (284.740667ms)
+✖ switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only (78.80525ms)
+✔ malformed collection prose and its raw snapshot never bypass digest validation; ordinary discussion still renders (244.692917ms)
+✔ collection provenance survives agent-message before malformed output (239.749292ms)
+✔ collection provenance survives agent-notification before malformed output (229.911625ms)
+✔ collection provenance survives bridge-automated before malformed output (228.862167ms)
+✔ ordinary discussion keeps [Design notes](https://example.invalid/design) (223.5935ms)
+✔ ordinary discussion keeps [1,2,3] (229.792125ms)
+✔ ordinary discussion keeps {"count":3} (249.765708ms)
+✔ ordinary discussion keeps ```json
+{"count":3}
+``` (226.772084ms)
+✔ ordinary discussion keeps The field "roundId": identifies a round (232.222792ms)
+✔ ordinary discussion keeps The field "contextLines": describes context (249.839584ms)
+✔ unknown page fails closed; a real Captain request including a human envelope ends collection (294.632791ms)
+✔ Open FO arrives in the source conversation and retains both unsent drafts across Commander return (268.977041ms)
+✔ unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines (232.495ms)
+✔ selected point remains outside the history scroll area (233.896375ms)
+✔ Open FO refuses an unavailable source host without substituting a conversation (243.424417ms)
+✔ Open FO refuses an unavailable source agent without substituting a conversation (236.223583ms)
+✔ an agent envelope containing a collect marker cannot begin a collection (230.272666ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✔ valid digest reads the exact assistant source once and never searches words (7.159875ms)
+✔ reject round without exposing unverified text (0.302458ms)
+✔ reject foreign without exposing unverified text (0.202541ms)
+✔ reject hash without exposing unverified text (0.163625ms)
+✔ reject missing without exposing unverified text (0.232333ms)
+✔ reject line-foreign without exposing unverified text (0.156167ms)
+✔ reject kinds without exposing unverified text (0.151125ms)
+✔ reject duplicate-point without exposing unverified text (0.205625ms)
+✔ read-back rejects epoch changes (0.269209ms)
+✔ read-back rejects agentId changes (0.219042ms)
+✔ read-back rejects reset changes (0.157416ms)
+✔ read-back rejects gap changes (0.143ms)
+✔ read-back rejects staleCursor changes (0.118125ms)
+✔ read-back rejects text changes (0.166917ms)
+✔ read-back rejects range changes (0.124875ms)
+✔ read-back rejects missing changes (0.113833ms)
+✔ read-back rejects role changes (0.119375ms)
+✔ Replay reads two canonical neighbors each side, preserves roles and pages from edges (0.368292ms)
+✔ side failure is unavailable, never end-of-history or a cross-gap join (6.2305ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (0.511375ms)
+✔ collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO (13.713833ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.892ms)
+✔ fleet budget admits recent reports after oversized oldest (1.396625ms)
+✔ fleet budget admits recent reports after oversized middle (0.641791ms)
+✔ fleet budget admits recent reports after oversized newest (2.046541ms)
+✔ fleet budget admits recent reports after newest priority (0.385125ms)
+✔ fleet budget admits recent reports after UTF-8 bytes (0.398875ms)
+✔ fleet budget accepts exactly 64000 UTF-8 bytes, excludes non-reports and reports older-page truncation (0.611125ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (1.267208ms)
+✔ mounted composers follow store updates, target changes and unsubscription (130.307708ms)
+✔ mounted composer reflects delayed send: clear (19.47225ms)
+✔ mounted composer reflects delayed send: edit (56.988417ms)
+✔ mounted composer reflects delayed send: refuse (21.458458ms)
+✔ mounted composer reflects delayed decision: clear (23.674792ms)
+✔ mounted composer reflects delayed decision: edit (16.685584ms)
+✔ mounted composer reflects delayed decision: refuse (24.338208ms)
+✔ reopening a pending send blocks button and Enter until success (15.113833ms)
+✔ reopening a pending send blocks button and Enter until failure (22.905208ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (0.6335ms)
+✔ a comms officer seed fills an empty draft and preserves non-empty text (0.089042ms)
+✔ stored draft clears after successful send (0.580125ms)
+✔ stored draft survives refused send (0.088ms)
+✔ stored draft clears after successful decision (0.112042ms)
+✔ stored draft survives refused decision (0.068583ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (1.87925ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.231958ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.182875ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (0.127875ms)
+✔ the FO source stays loading until every question read settles (19.082958ms)
+✔ a failed FO question read marks the source incomplete and keeps successful questions (1.736334ms)
+✔ a recorded gate does not suppress a new implementation attempt of the same task (964.070333ms)
+✔ a recorded gate does not suppress a new validation attempt of the same task (369.579833ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (throw) (126.307166ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (answer) (111.389083ms)
+✔ a retained active attempt never adopts its replacement's briefing (90.226417ms)
+✔ a late failure from the first read cannot overwrite a successful reopen (38.180708ms)
+✔ identical slugs in two workflows keep separate recipients (834.577459ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (413.573542ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (166.976666ms)
+gates.read #1 start dirs=2
+gates.read #1 done 505ms
+gates.read #2 start dirs=2
+gates.read #2 done 226ms
+gates.read #3 start dirs=2
+gates.read #3 done 172ms
+✔ each active briefing identity survives the server, RPC schema, attachment and queue (1024.086542ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-sNrqM0: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-sNrqM0 --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-sNrqM0 --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 298ms
+gates.read #2 start dirs=1
+gates.read #2 done 62ms
+gates.read #3 start dirs=1
+gates.read #3 done 3ms
+gates.read #4 start dirs=1
+gates.read #4 done 57ms
+gates.read #5 start dirs=1
+gates.read #5 done 0ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (448.817333ms)
+gates.read #6 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:131:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:44:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+}
+gates.read #6 done 286ms
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:116:45)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:48:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+}
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:116:45)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/fleet-mcp.ts:41:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:57:3) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+}
+gates.read #7 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:131:12)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/fleet-mcp.ts:47:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-kJ4cNz/removed/README.md'
+}
+gates.read #7 done 13ms
+✔ a removed workflow does not hide another workflow's gates or tasks (363.343042ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (0.830584ms)
+✔ a resolution is found by the briefing it answered (0.096959ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (34.492875ms)
+✔ a git-root state URI gives the commit and path (0.319833ms)
+✔ status priority covers every waiting kind in LIST-AND-DETAIL (0.543667ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (9.221042ms)
+✔ bold and inline code are split out of a line (1.103ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.460334ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.169917ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.155208ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.080542ms)
+✔ the last reply joins assistant text after the last user message (0.826583ms)
+✔ a status block's next step is the preview (0.256917ms)
+✔ without a next step the first line is the preview, clipped (0.129375ms)
+✔ a permission shows what it asks for (0.069792ms)
+✔ the next step is the Captain's when it names 你 or you (0.147042ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (0.357292ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.161416ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (523.604834ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 360) (217.512542ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (59.182584ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (98.727333ms)
+✔ an identical repeated question gets its own identity and time from its message (32.962667ms)
+✔ an identical repeated question gets its own identity and time from its timestamp (34.281333ms)
+✔ a repeated label question uses its new attention timestamp (36.967ms)
+✔ an unrelated officer activity update keeps the same question detail (label) (24.549834ms)
+✔ an unrelated officer activity update keeps the same question detail (reply) (31.666708ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (17.175333ms)
+✔ a review with no FO has none (0.122042ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.2545ms)
+✔ an empty queue has no next card and one item has no rows (0.102916ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.148917ms)
+✔ a gate or question has no link to open (0.07725ms)
+✔ a captain question survives alongside the same FO's gate (0.212334ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.1905ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (0.380375ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (0.557042ms)
+✔ text already typed joins the chip word as the Captain's words (0.087917ms)
+✔ a decision id is d- and six base-36 characters (0.120875ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.113292ms)
+✔ revise and hold need a typed reason; approve does not (0.075458ms)
+✔ retained surface table: gate briefing × identity changed upstream (340.775584ms)
+✔ retained surface table: gate briefing × failed read then reactivate (105.754542ms)
+✔ retained surface table: gate briefing × failed read then retry control (83.041875ms)
+✔ retained surface table: gate conversation × identity changed upstream (58.90725ms)
+✔ retained surface table: gate conversation × failed read then reactivate (44.0565ms)
+✔ retained surface table: gate conversation × failed read then retry control (20.288959ms)
+✔ retained surface table: assigned review conversation × identity changed upstream (35.884584ms)
+✔ retained surface table: assigned review conversation × failed read then reactivate (30.512ms)
+✔ retained surface table: assigned review conversation × failed read then retry control (21.625167ms)
+✔ retained surface table: FO conversation × identity changed upstream (34.716ms)
+✔ retained surface table: FO conversation × failed read then reactivate (23.71775ms)
+✔ retained surface table: FO conversation × failed read then retry control (19.34875ms)
+✔ retained surface table: commander conversation × identity changed upstream (28.043125ms)
+✖ retained surface table: commander conversation × failed read then reactivate (234.037166ms)
+✖ retained surface table: commander conversation × failed read then retry control (232.658334ms)
+✔ retained surface table: decision record × identity changed upstream (140.898041ms)
+✔ retained surface table: decision record × failed read then reactivate (100.016958ms)
+✔ retained surface table: decision record × failed read then retry control (53.547959ms)
+✔ retained surface table: relay status × identity changed upstream (41.244209ms)
+✔ retained surface table: relay status × failed read then reactivate (31.737209ms)
+✔ retained surface table: relay status × failed read then retry control (29.90375ms)
+✔ retained surface table: commander question × identity changed upstream (27.370084ms)
+✖ retained surface table: commander question × failed read then reactivate (222.020167ms)
+✖ retained surface table: commander question × failed read then retry control (216.472ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (30.427583ms)
+✔ retained surface table: gate briefing × unresolved read then reactivate (24.224459ms)
+✔ retained surface table: gate conversation × unresolved read then reactivate (24.178209ms)
+✔ retained surface table: assigned review conversation × unresolved read then reactivate (27.083042ms)
+✔ retained surface table: FO conversation × unresolved read then reactivate (172.805625ms)
+✖ retained surface table: commander conversation × unresolved read then reactivate (226.509333ms)
+✔ retained surface table: decision record × unresolved read then reactivate (67.417292ms)
+✔ retained surface table: relay status × unresolved read then reactivate (63.628875ms)
+✖ retained surface table: commander question × unresolved read then reactivate (222.641458ms)
+✔ retained subscription: gate × ready failure recovers with draft (97.250792ms)
+✔ retained subscription: gate × event failure recovers with draft (24.323875ms)
+✔ retained subscription: fo × ready failure recovers with draft (23.2955ms)
+✔ retained subscription: fo × event failure recovers with draft (25.174708ms)
+✖ retained subscription: commander × ready failure recovers with draft (27.143875ms)
+✖ retained subscription: commander × event failure recovers with draft (25.497458ms)
+✔ commander connection reader × failed read then reactivate (36.425625ms)
+✔ commander connection reader × failed read then retry control (83.807417ms)
+✔ retained phone board: gates × failed read then reactivate (74.115458ms)
+✔ retained phone board: gates × failed read then retry control (51.00075ms)
+✔ retained phone board: tasks × failed read then reactivate (74.643875ms)
+✔ retained phone board: tasks × failed read then retry control (19.403709ms)
+✔ retained phone board: review source × failed read then reactivate (26.927209ms)
+✔ retained phone board: review source × failed read then retry control (16.661167ms)
+✔ retained phone board: gates × unresolved read then reactivate (21.818541ms)
+✔ retained phone board: gates × unresolved read then retry control (16.463792ms)
+✔ retained phone board: tasks × unresolved read then reactivate (25.950917ms)
+✔ retained phone board: tasks × unresolved read then retry control (18.314208ms)
+✔ retained phone board: review source × unresolved read then reactivate (21.183792ms)
+✔ retained phone board: review source × unresolved read then retry control (15.835667ms)
+✔ retained phone board: FO question reader × failed read then reactivate (19.211084ms)
+✔ retained phone board: FO question reader × failed read then retry control (19.47225ms)
+✔ retained surface table: gate briefing × loaded value changes then reactivate (24.135084ms)
+✔ retained surface table: gate conversation × loaded value changes then reactivate (29.855625ms)
+✔ retained surface table: assigned review conversation × loaded value changes then reactivate (26.59875ms)
+✔ retained surface table: FO conversation × loaded value changes then reactivate (23.210709ms)
+✖ retained surface table: commander conversation × loaded value changes then reactivate (22.145542ms)
+✔ retained surface table: decision record × loaded value changes then reactivate (24.354208ms)
+✔ retained surface table: relay status × loaded value changes then reactivate (24.8665ms)
+✖ retained surface table: commander question × loaded value changes then reactivate (17.758ms)
+✔ retained surface table: claim released by another client then reopen (31.573584ms)
+✔ retained surface table: refresh read overlaps a local send (null); the local send wins (35.425666ms)
+✔ retained surface table: refresh read overlaps a local send (old claim); the local send wins (33.391292ms)
+✔ reactivation refreshes gate closure and recorded results without reviving recorded actions (38.550459ms)
+✔ retained phone board: gates × loaded value changes then reactivate (24.92925ms)
+✔ retained phone board: tasks × loaded value changes then reactivate (20.983417ms)
+✔ retained phone board: review source × loaded value changes then reactivate (19.448083ms)
+✔ retained surface table: briefing refresh overlaps a local send (closed) (35.048625ms)
+✔ retained surface table: briefing refresh overlaps a local send (recorded) (39.566417ms)
+✔ an authoritative released claim clears cached local sent progress on reopen (28.385708ms)
+✔ review reader exposes the existing poller's scheduled first check and clears it on stop (410.252292ms)
+✔ gh search output becomes review requests, dropping incomplete rows (0.890167ms)
+✔ only requests not seen before are new (0.109208ms)
+✔ the wake message is marked as automated data and names each pull request (0.246667ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (0.081125ms)
+✔ a well-formed request is exactly one routable line (0.08875ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (0.13325ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.112209ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.08075ms)
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (1.321708ms)
+✔ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (209.96675ms)
+✔ popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board (160.351625ms)
+✖ label opens Bridge directly and Commander questions are read without creating a coordinator (212.265042ms)
+✔ loading gates show a question mark and an incomplete note before any Bridge screen mounts (11.305708ms)
+✔ a changed workflow excludes previous gates while loading (10.984875ms)
+✔ a changed workflow excludes previous gates while failed (10.585917ms)
+✔ a successful new workflow read shows only its own gate, owner and Bridge destination (43.923042ms)
+✔ same-workflow refresh keeps its own cached gate during loading and failure (10.000958ms)
+✔ sidebar badge and popover actions use attention theme colors instead of accent (17.871625ms)
+✔ scroll cue follows measured overflow on compact popovers (11.928209ms)
+✔ scroll cue follows measured overflow on wide popovers (10.564791ms)
+✔ empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls (11.264708ms)
+✔ a spacedock status answer gives the task's title and stage (0.830208ms)
+✔ no matching task or unreadable output gives nothing (0.905084ms)
+✔ only a commissioned workflow README counts as a workflow directory (1.618708ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (15.70575ms)
+ℹ tests 356
+ℹ suites 0
+ℹ pass 339
+ℹ fail 17
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9043.568125
+
+✖ failing tests:
+
+test at test/co-ask.test.mts:1:512
+✖ a reconnect detects the last displayed Captain question after earlier FO work (188.685208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failed: none'
+  - 'loaded: none'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/co-ask.test.mts:54:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed: none',
+    expected: 'loaded: none',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/co-ask.test.mts:1:2243
+✖ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (13.494917ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^loaded\|Choose release \(you\)\|2026-10-27T00:00:00Z$/. Input:
+  
+  'failed|null|null'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/co-ask.test.mts:96:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed|null|null',
+    expected: /^loaded\|Choose release \(you\)\|2026-10-27T00:00:00Z$/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/co-ask.test.mts:1:4451
+✖ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (45.036834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failed: none'
+  - 'loaded: none'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/co-ask.test.mts:153:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed: none',
+    expected: 'loaded: none',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/co-ask.test.mts:1:8702
+✖ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (21.27225ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failed: none'
+  - 'loaded: none'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/co-ask.test.mts:217:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed: none',
+    expected: 'loaded: none',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/co-ask.test.mts:1:11654
+✖ switching coordinators clears the previous question and timestamp while the new connection is pending (23.930084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'old|failed|null|null'
+  - 'old|loaded|Choose the old release window (you)|2026-10-27T00:00:00Z'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/co-ask.test.mts:263:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'old|failed|null|null',
+    expected: 'old|loaded|Choose the old release window (you)|2026-10-27T00:00:00Z',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:4940
+✖ switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only (78.80525ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Readable old conversation/. Input:
+  
+  'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    '立即收集\n' +
+    '讀取舊通訊官對話\n' +
+    'Previous comms officer · idle\n' +
+    '收集於 2026-11-05T10:00:00Z\n' +
+    'Digest for a\n' +
+    'Replay · 查看來龍去脈\n' +
+    'Digest for b\n' +
+    'Replay · 查看來龍去脈\n' +
+    'No messages yet\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:70:37)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Commander\nBoard\nComms officer · idle\nOpen full view\n立即收集\n讀取舊通訊官對話\nPrevious comms officer · idle\n收集於 2026-11-05T10:00:00Z\nDigest for a\nReplay · 查看來龍去脈\nDigest for b\nReplay · 查看來龍去脈\nNo messages yet\n↑ sends to Comms officer\n',
+    expected: /Readable old conversation/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander conversation × failed read then reactivate (234.037166ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander conversation × failed read then retry control (232.658334ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander question × failed read then reactivate (222.020167ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:4023
+✖ retained surface table: commander question × failed read then retry control (216.472ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: commander conversation × unresolved read then reactivate (226.509333ms)
+  AssertionError [ERR_ASSERTION]: the unresolved reader has actually started
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/retained-readers.test.mts:136:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:6270
+✖ retained surface table: commander question × unresolved read then reactivate (222.641458ms)
+  AssertionError [ERR_ASSERTION]: the unresolved reader has actually started
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/retained-readers.test.mts:136:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: commander × ready failure recovers with draft (27.143875ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:7574
+✖ retained subscription: commander × event failure recovers with draft (25.497458ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:11584
+✖ retained surface table: commander conversation × loaded value changes then reactivate (22.145542ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/retained-readers.test.mts:1:11584
+✖ retained surface table: commander question × loaded value changes then reactivate (17.758ms)
+  TypeError: current.rpc[r.name] is not a function
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/helpers/bridge-host.mts:83:182)
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/client/digest.tsx:20:5)
+      at react-stack-bottom-frame (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:23949:20)
+      at runWithFiberInDEV (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:1519:30)
+      at commitHookEffectListMount (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:11905:29)
+      at commitHookPassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:12028:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13841:13)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+      at commitPassiveMountOnFiber (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13957:11)
+      at recursivelyTraversePassiveMountEffects (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/node_modules/react-dom/cjs/react-dom-client.development.js:13815:11)
+
+test at test/sidebar-waiting.test.mts:1:3774
+✖ label opens Bridge directly and Commander questions are read without creating a coordinator (212.265042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(host.find("3 gates and questions waiting for you"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/sidebar-waiting.test.mts:81:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

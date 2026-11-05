@@ -1,0 +1,61 @@
+[
+  {
+    "name": "npm test",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "exit": 0,
+    "log": "npm-test-final.log",
+    "tests": 380,
+    "pass": 380,
+    "fail": 0
+  },
+  {
+    "name": "typecheck",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "exit": 0,
+    "log": "typecheck-final.log"
+  },
+  {
+    "name": "final regressions on reviewed commit",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "exit": 1,
+    "log": "reviewed-final.log",
+    "tests": 62,
+    "pass": 21,
+    "fail": 41
+  },
+  {
+    "name": "comment-ratio",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "comment-ratio-final.log"
+  },
+  {
+    "name": "doc-impact",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "doc-impact-final.log"
+  },
+  {
+    "name": "number-guards",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "number-guards-final.log"
+  },
+  {
+    "name": "adr-lint",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "adr-lint-final.log"
+  },
+  {
+    "name": "design-surfaces",
+    "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "design-surfaces-final.log"
+  }
+]

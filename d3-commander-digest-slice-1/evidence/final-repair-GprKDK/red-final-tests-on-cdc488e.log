@@ -1,0 +1,801 @@
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+gates.read #17 start dirs=0
+gates.read #17 done 0ms
+gates.read #18 start dirs=0
+gates.read #18 done 0ms
+gates.read #19 start dirs=0
+gates.read #19 done 0ms
+gates.read #20 start dirs=0
+gates.read #20 done 0ms
+gates.read #21 start dirs=0
+gates.read #21 done 0ms
+gates.read #22 start dirs=0
+gates.read #22 done 0ms
+✔ server reads all 1 fragments: a client-only join cannot validate digest or Replay (6.605667ms)
+✖ server reads all 2 fragments: a client-only join cannot validate digest or Replay (1.64925ms)
+✖ server reads all 3 fragments: a client-only join cannot validate digest or Replay (0.371ms)
+✖ server reads all 120 fragments: a client-only join cannot validate digest or Replay (0.311041ms)
+✔ digest interval refuses missing (0.710208ms)
+✔ digest interval refuses reordered (0.2425ms)
+✔ digest interval refuses interposed (0.171708ms)
+✔ digest interval refuses epoch (0.170417ms)
+✔ digest interval refuses agent (0.189625ms)
+✔ digest interval refuses collapsed (0.260542ms)
+✔ digest interval refuses range (0.399583ms)
+✔ digest interval refuses gap (0.343791ms)
+✔ digest interval refuses stale (0.269125ms)
+✔ digest interval refuses reset (0.759875ms)
+✔ digest interval refuses projection (0.235375ms)
+✔ digest interval refuses first-truncated (0.272042ms)
+✔ digest interval refuses last-truncated (0.13075ms)
+✔ digest interval refuses oversized (0.130834ms)
+✔ digest interval refuses reversed (0.10525ms)
+✔ digest interval refuses wrong-round (0.202542ms)
+✔ digest interval refuses wrong-hash (0.101834ms)
+✔ digest interval refuses one-fragment-only (0.07875ms)
+✖ client groups 2 fragments: a server-only join cannot render one digest and Replay (424.167833ms)
+✖ client groups 3 fragments: a server-only join cannot render one digest and Replay (228.512875ms)
+✖ no rejected collection prose question in desktop card and header after none (235.582583ms)
+✖ no rejected collection prose question in desktop card and header after agent-message (228.383791ms)
+✖ no rejected collection prose question in desktop card and header after agent-notification (231.781291ms)
+✖ no rejected collection prose question in desktop card and header after automated (231.357625ms)
+✖ no rejected collection prose question in desktop card and header after unknown (227.563ms)
+✖ no rejected collection prose question in compact board views after none (225.41775ms)
+✖ no rejected collection prose question in compact board views after agent-message (227.624917ms)
+✖ no rejected collection prose question in compact board views after agent-notification (237.719583ms)
+✖ no rejected collection prose question in compact board views after automated (242.705417ms)
+✖ no rejected collection prose question in compact board views after unknown (231.013833ms)
+✖ no rejected collection structured question in desktop card and header after none (225.531042ms)
+✖ no rejected collection structured question in desktop card and header after agent-message (224.396167ms)
+✖ no rejected collection structured question in desktop card and header after agent-notification (225.615167ms)
+✖ no rejected collection structured question in desktop card and header after automated (225.94775ms)
+✖ no rejected collection structured question in desktop card and header after unknown (225.519125ms)
+✖ no rejected collection structured question in compact board views after none (231.944041ms)
+✖ no rejected collection structured question in compact board views after agent-message (227.856416ms)
+✖ no rejected collection structured question in compact board views after agent-notification (223.313541ms)
+✖ no rejected collection structured question in compact board views after automated (225.650333ms)
+✖ no rejected collection structured question in compact board views after unknown (224.306042ms)
+✖ sidebar-only initial excludes collection badge, count, label and popover target but retains real gates (209.591916ms)
+✖ sidebar-only retry excludes collection badge, count, label and popover target but retains real gates (424.806125ms)
+✖ sidebar-only reload excludes collection badge, count, label and popover target but retains real gates (416.97875ms)
+✖ previous officer cannot fall through to ordinary collection rendering (33.025708ms)
+✖ host cannot fall through to ordinary collection rendering (237.185709ms)
+✔ known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON (248.56875ms)
+✖ Commander render and question reads refuse canonical agent corruption (228.877959ms)
+✖ Commander render and question reads refuse canonical epoch corruption (226.042208ms)
+✖ Commander render and question reads refuse canonical gap corruption (225.886ms)
+✖ Commander render and question reads refuse canonical reset corruption (223.697625ms)
+✖ Commander render and question reads refuse canonical stale corruption (224.235666ms)
+✖ Commander render and question reads refuse canonical collapsed corruption (224.823917ms)
+✖ Commander render and question reads refuse canonical sequence corruption (226.775625ms)
+✖ Commander render and question reads refuse canonical projection corruption (227.492833ms)
+✖ active Commander retry cannot publish a new rejected collection over an ordinary question (442.058458ms)
+✖ active Commander reload cannot publish a new rejected collection over an ordinary question (433.124083ms)
+✔ known non-Captain Next lines stay ordinary and do not create questions (224.641791ms)
+ℹ tests 61
+ℹ suites 0
+ℹ pass 21
+ℹ fail 40
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10498.379209
+
+✖ failing tests:
+
+test at test/commander-digest.test.mts:1:2359
+✖ server reads all 2 fragments: a client-only join cannot validate digest or Replay (1.64925ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-digest.test.mts:18:92)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-digest.test.mts:1:2359
+✖ server reads all 3 fragments: a client-only join cannot validate digest or Replay (0.371ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-digest.test.mts:18:92)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-digest.test.mts:1:2359
+✖ server reads all 120 fragments: a client-only join cannot validate digest or Replay (0.311041ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-digest.test.mts:18:92)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:858
+✖ client groups 2 fragments: a server-only join cannot render one digest and Replay (424.167833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:858
+✖ client groups 3 fragments: a server-only join cannot render one digest and Replay (228.512875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in desktop card and header after none (235.582583ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in desktop card and header after agent-message (228.383791ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in desktop card and header after agent-notification (231.781291ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in desktop card and header after automated (231.357625ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in desktop card and header after unknown (227.563ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in compact board views after none (225.41775ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in compact board views after agent-message (227.624917ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in compact board views after agent-notification (237.719583ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in compact board views after automated (242.705417ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection prose question in compact board views after unknown (231.013833ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in desktop card and header after none (225.531042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in desktop card and header after agent-message (224.396167ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in desktop card and header after agent-notification (225.615167ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in desktop card and header after automated (225.94775ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in desktop card and header after unknown (225.519125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in compact board views after none (231.944041ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in compact board views after agent-message (227.856416ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in compact board views after agent-notification (223.313541ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in compact board views after automated (225.650333ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:2038
+✖ no rejected collection structured question in compact board views after unknown (224.306042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:3204
+✖ sidebar-only initial excludes collection badge, count, label and popover target but retains real gates (209.591916ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("2 gates and questions waiting for you"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:27:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:3204
+✖ sidebar-only retry excludes collection badge, count, label and popover target but retains real gates (424.806125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("2 gates and questions waiting for you"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:27:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:3204
+✖ sidebar-only reload excludes collection badge, count, label and popover target but retains real gates (416.97875ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("2 gates and questions waiting for you"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:27:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:4220
+✖ previous officer cannot fall through to ordinary collection rendering (33.025708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("UNVERIFIED BODY"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:34:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:4220
+✖ host cannot fall through to ordinary collection rendering (237.185709ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("UNVERIFIED BODY"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:34:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical agent corruption (228.877959ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical epoch corruption (226.042208ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical gap corruption (225.886ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical reset corruption (223.697625ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical stale corruption (224.235666ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical collapsed corruption (224.823917ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical sequence corruption (226.775625ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:5549
+✖ Commander render and question reads refuse canonical projection corruption (227.492833ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:51:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:6608
+✖ active Commander retry cannot publish a new rejected collection over an ordinary question (442.058458ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:59:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:6608
+✖ active Commander reload cannot publish a new rejected collection over an ordinary question (433.124083ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("False collection question"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/base-regressions-vcd0pjaz/spacedock-bridge/test/commander-ui.test.mts:59:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

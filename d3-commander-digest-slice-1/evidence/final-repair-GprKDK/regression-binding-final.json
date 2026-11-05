@@ -1,0 +1,44 @@
+{
+  "head": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+  "reviewedBase": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+  "results": [
+    {
+      "case": "reviewed",
+      "source": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+      "testsFrom": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "exit": 1,
+      "testPattern": null,
+      "log": "reviewed-final.log"
+    },
+    {
+      "case": "client-only",
+      "source": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "testsFrom": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "exit": 1,
+      "testPattern": "server reads all",
+      "log": "client-only-final.log"
+    },
+    {
+      "case": "server-only",
+      "source": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "testsFrom": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "exit": 1,
+      "testPattern": "client groups",
+      "log": "server-only-final.log"
+    },
+    {
+      "case": "first-fragment-only",
+      "source": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "testsFrom": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+      "exit": 1,
+      "testPattern": "one-fragment-only",
+      "log": "first-fragment-only-final.log"
+    }
+  ],
+  "testHashes": {
+    "test/commander-digest.test.mts": "60028888a6b6514d7b1cc60113b6b6628adc36dc4ed3c1e1ce75e01d499d0114",
+    "test/commander-ui.test.mts": "27607469a857a9b9e3eb70e8f8dcf0b4de58421eb34dedfebd0292a1180cb8a9",
+    "test/helpers/bridge-host.mts": "fc59d8dfa1d85290bf8435fa12a5db9c6e5755e0ff7a4febfeb3fa83920d110b"
+  },
+  "temporaryCopiesRemoved": true
+}

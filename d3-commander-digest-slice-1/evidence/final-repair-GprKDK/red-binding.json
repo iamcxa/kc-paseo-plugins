@@ -1,0 +1,12 @@
+{
+  "base": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+  "testFiles": [
+    "test/commander-digest.test.mts",
+    "test/commander-ui.test.mts",
+    "test/helpers/bridge-host.mts"
+  ],
+  "exit": 1,
+  "method": "git archive reviewed base; overlay final test files only; no server start",
+  "temporaryCopyRemoved": true,
+  "testsFrom": "dd019272b0f093d16babdf2523badc1ec2e08666"
+}

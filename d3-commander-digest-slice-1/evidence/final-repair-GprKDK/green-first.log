@@ -1,0 +1,86 @@
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 1ms
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+gates.read #17 start dirs=0
+gates.read #17 done 0ms
+gates.read #18 start dirs=0
+gates.read #18 done 0ms
+gates.read #19 start dirs=0
+gates.read #19 done 0ms
+gates.read #20 start dirs=0
+gates.read #20 done 0ms
+✔ server reads all 2 fragments: a client-only join cannot validate digest or Replay (7.007417ms)
+✔ server reads all 3 fragments: a client-only join cannot validate digest or Replay (0.860167ms)
+✔ digest interval refuses missing (0.457541ms)
+✔ digest interval refuses reordered (0.249417ms)
+✔ digest interval refuses interposed (0.385625ms)
+✔ digest interval refuses epoch (0.174834ms)
+✔ digest interval refuses agent (0.156792ms)
+✔ digest interval refuses collapsed (0.145875ms)
+✔ digest interval refuses range (0.19175ms)
+✔ digest interval refuses gap (0.301958ms)
+✔ digest interval refuses stale (0.174875ms)
+✔ digest interval refuses reset (0.132416ms)
+✔ digest interval refuses projection (0.124833ms)
+✔ digest interval refuses first-truncated (0.668792ms)
+✔ digest interval refuses last-truncated (1.6425ms)
+✔ digest interval refuses oversized (0.116916ms)
+✔ digest interval refuses reversed (0.086875ms)
+✔ digest interval refuses wrong-round (0.218584ms)
+✔ digest interval refuses wrong-hash (0.294334ms)
+✔ digest interval refuses one-fragment-only (0.110583ms)
+✔ client groups 2 fragments: a server-only join cannot render one digest and Replay (569.7335ms)
+✔ client groups 3 fragments: a server-only join cannot render one digest and Replay (252.69725ms)
+✔ no rejected collection question in desktop card and header after none (248.530792ms)
+✔ no rejected collection question in desktop card and header after agent-message (250.8865ms)
+✔ no rejected collection question in desktop card and header after agent-notification (231.352208ms)
+✔ no rejected collection question in desktop card and header after automated (231.111208ms)
+✔ no rejected collection question in desktop card and header after unknown (244.543875ms)
+✔ no rejected collection question in compact board views after none (265.82075ms)
+✔ no rejected collection question in compact board views after agent-message (275.663209ms)
+✔ no rejected collection question in compact board views after agent-notification (264.9945ms)
+✔ no rejected collection question in compact board views after automated (266.414458ms)
+✔ no rejected collection question in compact board views after unknown (266.991458ms)
+✔ sidebar-only initial excludes collection badge, count, label and popover target but retains real gates (220.161792ms)
+✔ sidebar-only retry excludes collection badge, count, label and popover target but retains real gates (415.2715ms)
+✔ sidebar-only reload excludes collection badge, count, label and popover target but retains real gates (418.371625ms)
+✔ previous officer cannot fall through to ordinary collection rendering (31.126083ms)
+✔ host cannot fall through to ordinary collection rendering (228.7075ms)
+✔ known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON (257.928041ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6051.66825

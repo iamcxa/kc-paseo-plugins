@@ -1,0 +1,79 @@
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+✔ server reads all 1 fragments: a client-only join cannot validate digest or Replay (7.535167ms)
+✖ server reads all 2 fragments: a client-only join cannot validate digest or Replay (2.116708ms)
+✖ server reads all 3 fragments: a client-only join cannot validate digest or Replay (0.613834ms)
+✖ server reads all 120 fragments: a client-only join cannot validate digest or Replay (2.161042ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 1
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 382.886375
+
+✖ failing tests:
+
+test at test/commander-digest.test.mts:1:2359
+✖ server reads all 2 fragments: a client-only join cannot validate digest or Replay (2.116708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/partial-fix-probes-1zsfcv0w/client-only/spacedock-bridge/test/commander-digest.test.mts:18:92)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-digest.test.mts:1:2359
+✖ server reads all 3 fragments: a client-only join cannot validate digest or Replay (0.613834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/partial-fix-probes-1zsfcv0w/client-only/spacedock-bridge/test/commander-digest.test.mts:18:92)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-digest.test.mts:1:2359
+✖ server reads all 120 fragments: a client-only join cannot validate digest or Replay (2.161042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/partial-fix-probes-1zsfcv0w/client-only/spacedock-bridge/test/commander-digest.test.mts:18:92)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

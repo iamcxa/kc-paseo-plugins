@@ -1,0 +1,86 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Close menu" [expanded=true, ref=e19]
+              - generic
+          - generic
+            - generic
+              - image
+              - generic
+                - generic [ref=e20] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Add a project"
+                    - StaticText "Open a folder on your machine"
+                - generic [ref=e21] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Import session"
+                    - StaticText "Open a Claude Code, Codex or other session you started in a terminal"
+                - generic [ref=e22] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Setup providers"
+                    - StaticText "Configure Claude Code, Codex, and more"
+            - generic
+              - button "Star" [ref=e23]
+                - image
+                - StaticText "Star"
+              - button "Sponsor" [ref=e24]
+                - image
+                - StaticText "Sponsor"
+              - button "Community" [ref=e25]
+                - image
+                - StaticText "Community"
+        - generic
+          - generic [ref=e3] clickable [cursor:pointer, onclick, tabindex]
+          - generic
+            - generic
+              - generic
+                - button "New workspace" [ref=e15]
+                  - image
+                  - StaticText "New workspace"
+                - button "Close sidebar" [ref=e4]
+                  - image
+              - button "History" [ref=e9]
+                - image
+                - StaticText "History"
+              - button "Search" [ref=e10]
+                - image
+                - StaticText "Search"
+              - button "Schedules" [ref=e11]
+                - image
+                - StaticText "Schedules"
+              - generic
+                - button "Bridge" [ref=e13]
+                  - image
+                  - StaticText "Bridge"
+                - generic [ref=e14] clickable [cursor:pointer, onclick, tabindex]
+                  - button "Waiting items: sources incomplete" [ref=e16]
+                    - StaticText "?"
+            - generic
+              - generic
+                - StaticText "No projects yet"
+                - StaticText "Add a project to get started"
+              - generic
+                - button "Add project" [ref=e17]
+                  - image
+                  - StaticText "Add project"
+                - button "Import session" [ref=e18]
+                  - image
+                  - StaticText "Import session"
+            - generic
+              - button "Add project" [ref=e5]
+                - image
+              - button "Usage" [ref=e6]
+                - image
+              - button "Hosts" [ref=e7]
+                - image
+              - button "Help and support" [expanded=false, ref=e12]
+                - image
+              - button "Settings" [ref=e8]
+                - image
+- generic [ref=e2] clickable [onclick]

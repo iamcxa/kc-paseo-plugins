@@ -1,0 +1,46 @@
+✖ client groups 2 fragments: a server-only join cannot render one digest and Replay (445.680542ms)
+✖ client groups 3 fragments: a server-only join cannot render one digest and Replay (237.16825ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1365.528125
+
+✖ failing tests:
+
+test at test/commander-ui.test.mts:1:858
+✖ client groups 2 fragments: a server-only join cannot render one digest and Replay (445.680542ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/partial-fix-probes-1zsfcv0w/server-only/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:858
+✖ client groups 3 fragments: a server-only join cannot render one digest and Replay (237.16825ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/partial-fix-probes-1zsfcv0w/server-only/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

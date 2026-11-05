@@ -1,0 +1,30 @@
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✖ digest interval refuses one-fragment-only (11.215708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 277.02375
+
+✖ failing tests:
+
+test at test/commander-digest.test.mts:1:3020
+✖ digest interval refuses one-fragment-only (11.215708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!result||result.points.every(p=>!p.valid))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/final-repair-GprKDK/partial-fix-probes-1zsfcv0w/first-fragment-only/spacedock-bridge/test/commander-digest.test.mts:38:64)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

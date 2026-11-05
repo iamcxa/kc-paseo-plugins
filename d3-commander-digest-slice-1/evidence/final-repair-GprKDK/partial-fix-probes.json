@@ -1,0 +1,24 @@
+{
+  "head": "dd019272b0f093d16babdf2523badc1ec2e08666",
+  "results": [
+    {
+      "mutation": "client-only",
+      "exit": 1,
+      "namedTest": "server reads all",
+      "log": "client-only.log"
+    },
+    {
+      "mutation": "server-only",
+      "exit": 1,
+      "namedTest": "client groups",
+      "log": "server-only.log"
+    },
+    {
+      "mutation": "first-fragment-only",
+      "exit": 1,
+      "namedTest": "one-fragment-only",
+      "log": "first-fragment-only.log"
+    }
+  ],
+  "temporaryCopiesRemoved": true
+}

@@ -263,3 +263,29 @@ Keep one shared function for bounded canonical reply grouping and request proven
 For item 8, parameterize malformed collection prose and rejected structured replies across both agent-envelope kinds, other automated data and truncated context. Require no raw text/false question in active Commander header, desktop card, both compact board views, sidebar badge/count/accessibility label or popover preview/target, including sidebar-only, retry and subscription-reload cases. Keep other real FO/gate counts intact; do not hide the whole list. Include previous-officer/missing-identity render paths as conditional guard tests, and genuine Captain questions, Markdown/JSON discussion and non-Captain Next lines as controls. Today the mounted header/board and sidebar-only cases fail those requirements. An implementation confined to one visible consumer must still fail the other-reader test. Existing hook fixtures that begin with an orphan assistant reply must gain real preceding Captain requests when they claim ordinary-question provenance; otherwise the new fail-closed control would rightly reject them.
 
 The regressions above are proposals only. Candidate remains clean at the pinned SHA; no repair or candidate push is authorized by this investigation. Stop here for FO's fix authorization and final-cycle scope decision; AC-4 remains skipped and PR #74 is untouched.
+
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Fix authorization for items 7-8 of "## Investigation result: roborev 1536": implement the "Smallest combined repair" exactly as proposed — one shared bounded canonical reply grouping plus request provenance consumed by both Commander renderers and useCoAsk; the server reads and validates the full declared interval for digest and Replay; only known ordinary Captain-discussion replies reach Next/preview extraction; unknown provenance fails closed including with Bridge unmounted (AC-1)
+  `ccb29f5ac1e4dce03681cc6e86bfc331466446c0`: shared canonical grouping/provenance now feeds active and previous Commander plus useCoAsk; digest and Replay validate the entire declared interval. Unknown requests and missing identity fail closed; a DOM-mutation test also proves identity loss cannot briefly expose raw JSON. No persistent collection state, scheduling or gate changes.
+- DONE: The proposed regressions for item 7 (two- and three-entry split digests render one digest with a working Replay; the listed refusals stay unavailable; client-only, server-only and one-fragment joins each fail a named test) and item 8 (every listed consumer: header, desktop card, both compact board views, sidebar badge, count, label and popover, sidebar-only, retry and reload; conditional guards for the previous officer and missing identity; the listed controls), each failing at cdc488ef7dd7640b1e58fde9c909c41f7d27e83e and passing after (AC-1)
+  `reviewed-final.log`: final tests on cdc488e yield 41 expected failures / 21 passing controls; `npm-test-final.log` passes all 380 tests. `regression-binding-final.json` binds final bytes and three failing partial-fix mutations: client-only, server-only and first-fragment-only. Tests cover all listed consumers, sidebar-only/retry/reload, identity/history guards, interval refusals and ordinary-discussion controls.
+- DONE: Recapture only the states whose pixels change, at 1440 and 360; npm test and typecheck pass; commit, push to the PR #74 branch (no force push), and write "## Stage Report: implementation (cycle 3)" naming the new head (AC-1, AC-2)
+  Final head `ccb29f5ac1e4dce03681cc6e86bfc331466446c0` pushed normally to Draft PR #74. Eighteen affected-state captures (nine per viewport) bind all 94 candidate files in `capture-binding.json`; all isolated PIDs/ports/homes are cleaned. `npm test` 380/380 and typecheck exit 0; unchanged layout states were not recaptured.
+- SKIPPED: AC-4 measurement.
+  FO ruling stands: needs configurable fleet listener/shared data directory with current defaults; no live Bridge or provider round was touched, and no cost claim is made.
+- SKIPPED: ADR record.
+  The recorded POC profile “reserves no number” under FO's ruling; no docs/adr change or number was created.
+- SKIPPED: RoboRev in worker sandbox.
+  Daemon inaccessible (package gap 5); FO runs the final pushed head against 33952f9b3d02fceab104ba09272d65e432a3d095.
+
+### Verification and limits
+
+Evidence root: `d3-commander-digest-slice-1/evidence/final-repair-GprKDK/`; see RESULT.md, checks-final.json, regression-binding-final.json, capture-binding.json and cleanup-verified.json. Package checks all exit 0: comment ratio 0.0% (525 code / 0 comment lines), number guards PASS on the explicit stack base, seven existing ADR records linted, design surfaces presentable, doc impact empty; affected OVERVIEW claims updated. Candidate, main and flywheel-live remain clean; PR #74 is OPEN/Draft at the named head, with no CI jobs reported.
+
+Falsifiers: restoring either one-entry reading or per-entry client display breaks split digest/Replay tests; ignoring trailing chunks breaks the one-fragment refusal; publishing collection/unknown text to Next breaks header/board/sidebar tests; missing-identity Markdown fallback breaks the DOM-mutation transition test. Real FO/gate counts and ordinary Captain question controls remain checked. Canonical metadata and real preceding Captain requests were added only to ordinary-question fixtures that had claimed that provenance without evidence.
+
+### Summary
+
+The exact authorized combined repair is implemented and pushed in dd01927 and the final head above, completing the seed's last repair cycle. All affected views are captured through fictional SDK/RPC timelines; real server-function tests prove interval/source behavior separately, with no claim about provider quality, native Paseo chat, external readers or live/physical-device acceptance. FO owns RoboRev, independent validation and final review; the PR stays Draft.
