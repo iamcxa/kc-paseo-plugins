@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-started-row-visible:ideation:attempt-1:revision-1
                 digest: sha256:e37a1851c41cd014a4dfffc4f0b0d5967a9132b43ae1b5891aff8295da7763df
                 room-ref: ./project-env-started-row-visible/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-started-row-visible:ideation:1
+                briefing: briefing:project-env-started-row-visible:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T15:11:07.48331Z"
+                decision: approve
+                reason: 「准」 — Captain in FO chat, 2026-11-05, on the batch r1b-polish-1 ideation gates presented together (picker-slow-hint cd66afef, rate-limit-cause b950f3c3, started-row-visible e37a1851, journey-map-r1b-catch-up d0cd0aa6), FO having recommended approving all four and building in the order picker-slow-hint, rate-limit-cause, started-row-visible, with the map task independent.
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-11-05T08:40:23Z
 ---
 
