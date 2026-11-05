@@ -27,6 +27,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:d1-commander-digest:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:d1-commander-digest-validation-1
+              briefing:
+                id: briefing:d1-commander-digest:validation:attempt-1:revision-1
+                digest: sha256:1849f55f1d36b56ef91101c27469d7451055983354a3a0e570b9d28bacb868b7
+                room-ref: ./d1-commander-digest/review/validation/briefing-1
 started: 2026-11-05T09:13:43Z
 worktree: .worktrees/spacedock-ensign-d1-commander-digest
 ---
