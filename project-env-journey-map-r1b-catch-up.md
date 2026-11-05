@@ -1,7 +1,7 @@
 ---
 id:
 title: The project-env journey map shows what shipped since the last map update
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
