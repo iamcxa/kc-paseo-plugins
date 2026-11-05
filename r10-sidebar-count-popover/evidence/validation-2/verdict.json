@@ -1,0 +1,18 @@
+{
+  "verdict": "PASSED",
+  "criteria": [
+    "AC-1",
+    "AC-3"
+  ],
+  "candidate": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "canonical_run": "acceptance-WBFM1F",
+  "acceptance_log": "acceptance-stable-run.log",
+  "host_runs": 4,
+  "captures": 50,
+  "excluded_runs": {
+    "acceptance-u71Zd6": "sandbox socket denial; no host started",
+    "acceptance-mm9OY6": "267 tests passed, evidence parser expected TAP instead of spec; no host started",
+    "acceptance-Jm49k0": "superseded phone pointer timing timeout; both hosts cleaned"
+  },
+  "gate_or_delivery_approval": false
+}

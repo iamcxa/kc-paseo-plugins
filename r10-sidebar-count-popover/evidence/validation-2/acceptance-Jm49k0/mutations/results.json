@@ -1,0 +1,9 @@
+[
+  {
+    "name": "oldest-first",
+    "exit": 1,
+    "mutated_file": "client/sidebar-waiting.tsx",
+    "replacement": "a.since.localeCompare(b.since)",
+    "assertion": "newer gate must precede the older question"
+  }
+]

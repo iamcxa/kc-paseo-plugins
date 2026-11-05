@@ -1,0 +1,47 @@
+diff --git a/spacedock-bridge/OVERVIEW.md b/spacedock-bridge/OVERVIEW.md
+index 525e279..d3772b8 100644
+--- a/spacedock-bridge/OVERVIEW.md
++++ b/spacedock-bridge/OVERVIEW.md
+@@ -1,6 +1,6 @@
+ Spacedock Bridge is a screen and a panel for running a fleet of Spacedock first officers (FOs) from Paseo. The Bridge opens on Commander, the existing comms officer conversation. Desktop keeps a 330 px board beside the wide detail; phone opens on the conversation and uses Board to reach the list. The Fleet panel lists every FO agent with its task and stage.
+ 
+-The Bridge sidebar shows gates and questions still waiting on you, even before you open Bridge. Its separate count button opens a desktop popover or a compact bottom sheet, with gate and question counts and the oldest items first, each labelled by owner and age. An item opens its Bridge detail; Open Bridge opens the board. Pressing the Bridge label opens Bridge as before. Sent or relayed gates do not count here. A loading or failed source shows ? and an incomplete-list note rather than zero; Check again retries the existing readers. These reads use the existing FO and Commander subscriptions and the gate/decision readers at the existing one-minute interval; the sidebar does not create a comms officer.
++The Bridge sidebar shows gates and questions still waiting on you, even before you open Bridge. Its separate count button opens a desktop popover or a compact bottom sheet, with gate and question counts and the newest items first, each labelled by owner and age. An item opens its Bridge detail; Open Bridge opens the board. Pressing the Bridge label opens Bridge as before. Sent or relayed gates do not count here. A loading or failed source shows ? and an incomplete-list note rather than zero; Check again retries the existing readers. These reads use the existing FO and Commander subscriptions and the gate/decision readers at the existing one-minute interval; the sidebar does not create a comms officer.
+ 
+ The plugin creates one comms officer agent. It only starts FOs and passes messages. It does not read repositories or answer permission prompts. A local fleet MCP server gives it a `fleet_status` tool that lists FOs, their tasks and the gates waiting on you.
+ 
+diff --git a/spacedock-bridge/client/sidebar-waiting.tsx b/spacedock-bridge/client/sidebar-waiting.tsx
+index a97571e..f84e3d5 100644
+--- a/spacedock-bridge/client/sidebar-waiting.tsx
++++ b/spacedock-bridge/client/sidebar-waiting.tsx
+@@ -14,7 +14,7 @@ export function waitingDestination(item = "queue"): PluginOpenScreenInput {
+ 
+ function summary(waiting: ReturnType<typeof useWaiting>) {
+   const items = waiting.items.filter(item => waitsForCaptain({ ...waiting.progress[item.key], kind: item.kind }))
+-    .sort((a, b) => a.since.localeCompare(b.since) || a.key.localeCompare(b.key));
++    .sort((a, b) => b.since.localeCompare(a.since) || a.key.localeCompare(b.key));
+   const counts = filterCounts(waiting.items.map(item => ({ ...waiting.progress[item.key], kind: item.kind })), waiting.sources, "captain");
+   return { items, counts };
+ }
+diff --git a/spacedock-bridge/test/sidebar-waiting.test.mts b/spacedock-bridge/test/sidebar-waiting.test.mts
+index 17de727..bac8730 100644
+--- a/spacedock-bridge/test/sidebar-waiting.test.mts
++++ b/spacedock-bridge/test/sidebar-waiting.test.mts
+@@ -46,7 +46,7 @@ test("sidebar updates without Bridge mounted, hides zero, marks failures, retrie
+   assert.equal(host.screens.length, 0);
+ });
+ 
+-test("popover sorts gates and questions together by age; item routes to that Bridge detail and Open Bridge to board", async t => {
++test("popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board", async t => {
+   const host = await mountBridge(t, true, rpc => {
+     rpc["gates.read"] = async () => ({ gates: ["a", "b"].map(id => ({ workflowDir: `/workflow-${id}`, slug: id, title: `Approve ${id}?`, stage: "validation", briefingId: `brief-${id}`, preparedAt: "2026-11-03T10:00:00Z" })), failedWorkflowDirs: [] });
+   }, true);
+@@ -57,7 +57,7 @@ test("popover sorts gates and questions together by age; item routes to that Bri
+   assert.match(host.text(), /Gates · 2/);
+   assert.match(host.text(), /Questions · 1/);
+   const text = host.text();
+-  assert.ok(text.indexOf("Choose the retry limit") < text.indexOf("Approve a?"));
++  assert.ok(text.indexOf("Approve a?") < text.indexOf("Choose the retry limit"), "newer gate must precede the older question");
+   assert.match(text, /A FO · Question ·/);
+   await host.click("Open Choose the retry limit");
+   assert.equal(host.screens.at(-1).screenId, "board");

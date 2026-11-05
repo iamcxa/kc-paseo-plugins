@@ -1,0 +1,82 @@
+[
+  {
+    "name": "adr-lint",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+      "--require",
+      "8"
+    ],
+    "exit": 0,
+    "output": "7 ADR file(s) checked, 0 legacy\n"
+  },
+  {
+    "name": "comment-ratio",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/comment_ratio.py",
+      "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ],
+    "exit": 0,
+    "output": "code lines 179, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+  },
+  {
+    "name": "doc-impact",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/doc_impact.py",
+      "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "--json"
+    ],
+    "exit": 0,
+    "output": "[]\n"
+  },
+  {
+    "name": "dispatch-records",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover"
+    ],
+    "exit": 0,
+    "output": "8 dispatch record(s) complete\n"
+  },
+  {
+    "name": "design-surfaces",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover.md"
+    ],
+    "exit": 1,
+    "output": "r10-sidebar-count-popover.md: '## FO alignment' needs a non-empty 'Surfaces:' line\nr10-sidebar-count-popover.md: '## FO alignment' needs a 'Visible change:' line\nscope check not run: stage is validation, not ideation\n"
+  },
+  {
+    "name": "number-guards",
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/number_guards.py",
+      "check",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover.md",
+      "--base",
+      "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+      "--head",
+      "33952f9b3d02fceab104ba09272d65e432a3d095"
+    ],
+    "exit": 0,
+    "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 224b03f2da6e head 33952f9b3d02 merge-base 224b03f2da6e\n"
+  }
+]

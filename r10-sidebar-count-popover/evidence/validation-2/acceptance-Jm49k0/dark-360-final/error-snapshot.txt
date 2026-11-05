@@ -1,0 +1,122 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Close menu" [expanded=true, ref=e28]
+              - generic
+          - generic
+            - generic
+              - image
+              - generic
+                - generic [ref=e29] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Add a project"
+                    - StaticText "Open a folder on your machine"
+                - generic [ref=e30] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Import session"
+                    - StaticText "Open a Claude Code, Codex or other session you started in a terminal"
+                - generic [ref=e31] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Setup providers"
+                    - StaticText "Configure Claude Code, Codex, and more"
+            - generic
+              - button "Star" [ref=e32]
+                - image
+                - StaticText "Star"
+              - button "Sponsor" [ref=e33]
+                - image
+                - StaticText "Sponsor"
+              - button "Community" [ref=e34]
+                - image
+                - StaticText "Community"
+        - generic
+          - generic [ref=e4] clickable [cursor:pointer, onclick, tabindex]
+          - generic
+            - generic
+              - generic
+                - button "New workspace" [ref=e20]
+                  - image
+                  - StaticText "New workspace"
+                - button "Close sidebar" [ref=e7]
+                  - image
+              - button "History" [ref=e12]
+                - image
+                - StaticText "History"
+              - button "Search" [ref=e13]
+                - image
+                - StaticText "Search"
+              - button "Schedules" [ref=e14]
+                - image
+                - StaticText "Schedules"
+              - generic
+                - button "Bridge" [ref=e16]
+                  - image
+                  - StaticText "Bridge"
+                - generic [ref=e17] clickable [cursor:pointer, onclick, tabindex]
+                  - button "4 gates and questions waiting for you" [ref=e21]
+                    - StaticText "4"
+            - generic
+              - generic
+                - StaticText "No projects yet"
+                - StaticText "Add a project to get started"
+              - generic
+                - button "Add project" [ref=e22]
+                  - image
+                  - StaticText "Add project"
+                - button "Import session" [ref=e23]
+                  - image
+                  - StaticText "Import session"
+            - generic
+              - button "Add project" [ref=e8]
+                - image
+              - button "Usage" [ref=e9]
+                - image
+              - button "Hosts" [ref=e10]
+                - image
+              - button "Help and support" [expanded=false, ref=e15]
+                - image
+              - button "Settings" [ref=e11]
+                - image
+      - generic
+        - generic
+          - button "Bottom sheet backdrop" [ref=e3]
+        - generic
+          - slider "Bottom Sheet" [ref=e5]: 50
+            - generic
+              - StaticText "Bridge"
+              - generic
+                - heading "Waiting for you" [level=1, ref=e18]
+                - generic
+                  - generic
+                    - StaticText "Gates · 2"
+                  - generic
+                    - StaticText "Questions · 2"
+                - generic
+                  - button "Open Should I ask for the next proof? (you)" [ref=e24]
+                    - StaticText "Should I ask for the next proof? (you)"
+                    - generic
+                      - StaticText "Commander · Question · 5m ago"
+                  - button "Open Accept the export result?" [ref=e25]
+                    - StaticText "Accept the export result?"
+                    - generic
+                      - StaticText "Export FO · Gate · 12m ago"
+                  - button "Open Which retry limit should we use?" [ref=e26]
+                    - StaticText "Which retry limit should we use?"
+                    - generic
+                      - StaticText "Demo FO · Question · 35m ago"
+                  - button "Open Accept the retry proof?" [ref=e27]
+                    - StaticText "Accept the retry proof?"
+                    - generic
+                      - StaticText "Demo FO · Gate · 1h ago"
+                - generic
+                  - StaticText "Scroll to see all 4 items"
+                - button "Open Bridge" [ref=e19]
+                  - StaticText "Open Bridge →"
+          - slider "Bottom sheet handle" [ref=e6]: 50
+- generic [ref=e2] clickable [onclick]

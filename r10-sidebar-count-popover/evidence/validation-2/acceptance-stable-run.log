@@ -1,0 +1,14 @@
+Evidence: /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/r10-sidebar-count-popover/evidence/validation-2/acceptance-WBFM1F
+Step 1: exact unchanged candidate, then dependency install
+PASS: candidate 33952f9b and npm ci
+Step 2: typecheck and full suite
+PASS: typecheck; 267 tests, 267 pass, 0 fail
+Step 3: reject oldest-first ordering mutation
+PASS: oldest-first order mutant rejected by the ordering assertion; candidate untouched
+Step 4: capture dark/light at 1440/360 sequentially
+PASS: dark 1440; count 4, loading/failed ?, zero hidden, gates 2/questions 2, newest-first owners/ages, item/board navigation
+PASS: dark 360; count 4, loading/failed ?, zero hidden, gates 2/questions 2, newest-first owners/ages, item/board navigation
+PASS: light 1440; count 4, loading/failed ?, zero hidden, gates 2/questions 2, newest-first owners/ages, item/board navigation
+PASS: light 360; count 4, loading/failed ?, zero hidden, gates 2/questions 2, newest-first owners/ages, item/board navigation
+Step 5: verify candidate bytes and cleanup
+PASS: AC-1 and AC-3; 4 sequential host runs; candidate hashes match; order mutant fail; daemons stopped and homes removed

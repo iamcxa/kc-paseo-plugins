@@ -1,0 +1,24 @@
+{
+  "head": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "base": "224b03f2da6eefc89d7a055ac95be2d858eaa5c5",
+  "approved_prior": "2a31ef49e8f152623c1e04e046bcbf34777da85f",
+  "compared_changed_files": [
+    "spacedock-bridge/OVERVIEW.md",
+    "spacedock-bridge/client/sidebar-waiting.tsx",
+    "spacedock-bridge/test/sidebar-waiting.test.mts"
+  ],
+  "unchanged_attention_routing_count_files": [
+    "spacedock-bridge/client/use-waiting.ts",
+    "spacedock-bridge/client/board.tsx",
+    "spacedock-bridge/index.client.tsx",
+    "spacedock-bridge/shared/list-status.ts"
+  ],
+  "only_product_code_delta": "summary() comparator reversed; key tie-break preserved",
+  "no_server_right_panel_decision_claim_dependency_or_manifest_delta": true,
+  "adr_0008": {
+    "path": "docs/adr/0008-the-bridge-fo-runs-a-poc-flywheel-as-stacked-unmerged-prs.md",
+    "status_at_base_and_head": "Accepted",
+    "sha256": "d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f"
+  },
+  "review": "Full eight-file stack delta inspected; all requirements trace to AC-1/AC-3, amendment 1 or recorded authorized repairs; no new POC boundary crossing."
+}
