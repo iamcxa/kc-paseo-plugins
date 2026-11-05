@@ -27,6 +27,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-05T13:19:14Z
+worktree: .worktrees/spacedock-ensign-d2-collection-cost-probe
 ---
 
 Measure, once, what one Commander digest collection costs in model tokens and wall time, so the Captain can set the collection frequency and a cost cap before any code.
