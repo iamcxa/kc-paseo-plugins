@@ -16,6 +16,17 @@ gates:
                 id: briefing:d1-commander-digest:backlog:attempt-1:revision-1
                 digest: sha256:f6f114ede6f122e5f40cfdab5f4d5d5e2883470b188335200f6e1778b4636363
                 room-ref: ./d1-commander-digest/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d1-commander-digest:backlog:1
+                briefing: briefing:d1-commander-digest:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T09:13:21.64486Z"
+                decision: approve
+                reason: Captain chat 2026-11-05, asked 「照第二種開設計任務嗎？」, answered 「好」.
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Design, before any code, the model the Captain chose: the comms officer (the Commander) collects every FO's progress on a schedule and tells him in its own words without pasting originals; each point opens a replay card with the Commander's sentence and the quoted FO originals, from which he can open the FO, keep discussing with the Commander, or reply with a new decision.
