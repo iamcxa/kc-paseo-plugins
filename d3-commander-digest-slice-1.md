@@ -16,6 +16,17 @@ gates:
                 id: briefing:d3-commander-digest-slice-1:backlog:attempt-1:revision-1
                 digest: sha256:fe198b208c3ff75cbb0f3daa71da6e2812716ec4ea21166061a851b2fdc3d560
                 room-ref: ./d3-commander-digest-slice-1/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d3-commander-digest-slice-1:backlog:1
+                briefing: briefing:d3-commander-digest-slice-1:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T15:37:32.614513Z"
+                decision: approve
+                reason: 'Captain chat 2026-11-05, asked 「開始寫第一片嗎？」 (slice 1: sourced digest, Replay card, new comms officer after confirm, collect now; scheduling in slice 2), answered 「可以」.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Build the accepted d1-commander-digest design's first slice: a new comms officer that writes the digest in its own words with an exact source per point and per context line, the Replay card behind each point, and a "collect now" action; scheduling comes in slice 2.
