@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d2-collection-cost-probe
-status: backlog
+status: implementation
 gates:
     version: 1
     records:
@@ -26,7 +26,7 @@ gates:
                 reason: Captain chat 2026-11-05, asked "May I run that one cost-measuring test? It only measures and doesn't build the feature.", answered 「跑一次」.
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Measure, once, what one Commander digest collection costs in model tokens and wall time, so the Captain can set the collection frequency and a cost cap before any code.
