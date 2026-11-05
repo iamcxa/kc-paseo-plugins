@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-rate-limit-cause:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-rate-limit-cause-ideation-1
+              briefing:
+                id: briefing:project-env-rate-limit-cause:ideation:attempt-1:revision-1
+                digest: sha256:b950f3c3030ebc3ad30bb373e702e3de529a05233e5042200446bb8e7469dc11
+                room-ref: ./project-env-rate-limit-cause/review/ideation/briefing-1
 started: 2026-11-05T08:40:17Z
 ---
 

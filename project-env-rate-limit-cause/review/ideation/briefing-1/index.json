@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-rate-limit-cause:ideation:attempt-1:revision-1",
+  "question": "設計關（r1b 修小地方 2/4）：新增原因「1Password rate limit reached so wait and try again」，清單、Test、Started 那行都用這句；清單遇限流就停並提示「Close this list, wait a while, then open it again.」；OVERVIEW 加一個標題。真實限流文字沒看過，若不同就退回現在的說法；限流前已讀到的部分清單不顯示。測試 332/332。我建議准，並在清單逾時那份之後實作。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-rate-limit-cause:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/1cc4bf3276ca162b26f1ab82bc1322a8612c3d36/project-env-rate-limit-cause.md",
+      "rev": "sha256:e21d355415cfc383c40e2db628412a1421150a5499c01ae54ebb28e271aa5a37",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: new rate-limited cause on picker, Test and Started line plus an OVERVIEW heading; 332/332 tests; limit: real op rate-limit text unobserved. FO recommendation: approve, build after picker-slow-hint."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-rate-limit-cause:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/1cc4bf3276ca162b26f1ab82bc1322a8612c3d36/project-env-rate-limit-cause/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:6ec82eac387bc453bbf7c22bd5413d8f2f22418b4de650bbbf2a7208ff69a521"
+    }
+  ]
+}
