@@ -230,3 +230,47 @@ The row is lost because the plugin adds it at agent creation, in a race with Pas
 ### Summary
 
 The row now goes in at turn end only, and the ten-minute expiry is gone. On Paseo 0.15.2 12 of 12 candidate starts show it visibly under the last reply at both widths, while the same cases on the base folded it in 5 of 14. Two harness notes: on 0.15.2 a fresh browser lands on the welcome screen and the first direct workspace URL falls back to home, so `evidence/harness/cases152.sh` registers the host once and opens each workspace URL twice (a first run with `cases.sh` printed NOT-LOADED for every case, kept as `impl-cases-cand-0152-first-attempt-position-only.txt`, positions only, not counted for visibility). Open for the Captain: the without-it item in the PR body (ten-minute expiry removal, accepted in the approved design).
+
+## Stage Report: validation
+
+- DONE: Validate PR #75 at its exact head against AC-2 (Captain amendment 1) on an isolated Paseo at the newest release; each row's position and visibility over repeated starts for candidate and base; pictures at 1280 and 400 px.
+  Candidate 9439ec8 (PR #75 head, diff 6fcce94..9439ec8 only), base 6fcce94; Paseo 0.15.2 (`npm view @getpaseo/cli dist-tags` 2026-11-06: latest 0.15.2), own homes and ports 19841/19842, fake op and security, mock provider, `cases152.sh` with WARM=3 COLD=8 STOP=2 FAIL=2. Candidate 15 of 15 `after-last-assistant-message`, `1280=visible 400=visible`; base 3 of 15 folded (warm-1, cold-5, cold-6: `between-user-message-and-last-assistant-message`, `1280=ABSENT 400=ABSENT`), the other 12 before the first message and visible. `evidence/validation/runs/val-cases-{cand,base}-0152.txt`, pictures `evidence/validation/shots/` (width checked by the harness).
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` at the candidate; confirm the placement test fails when the `agent.created` listener is put back.
+  `npm test`: 335 of 335; `tsc --noEmit` exit 0. On a throwaway copy with `server.on("agent.created", addLine)` restored: 334 pass, 1 fail, "does not listen for agent.created: the line goes in when the first turn ends" (it asserts the listener map has no agent.created; it fails only if that listener returns).
+- DONE: Check the PR body's `without-it unanswered` item (removal of the ten-minute expiry) and say what you observe about its cost.
+  Measured with a node script on the candidate module (`--expose-gc`, 100000 entries of 3 variables): about 540 bytes per remembered entry, so 1000 never-finished agents hold about 0.5 MB until the daemon restarts. Paseo 0.15.2 emits the close hook (`agent.close.after`) when an agent is closed and `agent.turn.after` on a completed, failed or canceled turn (`plugin/dist/server/lifecycle.js`, `server/plugins/lifecycle/index.js`), and the plugin drops the entry on close; only an agent never prompted and never closed holds one. Observed benefit: with the expiry gone a first turn of any length still gets its row (unit pair, not run at ten minutes). The Captain's call stays open; I see no cost that bites.
+- DONE: Docs: follow the built pages' words through the screens this change touches, and report any sentence or picture that no longer matches.
+  Read from source Markdown (the Jekyll build needs Docker and was not run). `docs/project-env/index.md` line 18 and `project-env/OVERVIEW.md` line 39 match the observed behaviour (row under the turn's last reply, added at turn end, stopped and failed turns included). `OVERVIEW.md` line 9 ("A line in the conversation") and `agent-notice.ts` ("shows the user a line in this conversation") still hold. None of the seven docs pictures shows the line. See F1 for one imprecise phrase.
+- DONE: Run `python3 .../kc-dev-flow-2/0.34.0/scripts/design_surfaces.py check <task>` and record it.
+  Exit 1 first ("built screen review not run"); after the design director's passes 2a and 2b, exit 0: "design surfaces presentable; 3 findings, 3 upheld declines, 0 decisions" (the report's `preview:` line shortened to `design/built-1.png` so the checker resolves it, as in ideation).
+- DONE: Never touch the Captain's live install, global `paseo` or settings; never read or print a secret value; no push, ready or merge; close only my own browser sessions, stop only my daemons.
+  Two isolated daemons stopped with the harness teardown, `agent-browser session list` shows none, /tmp installs removed; `gh pr view 75` was the only gh call (read-only).
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: the row's words, icon and layout are not changed by this task and it sits in the same place in the finished and failed turn (built-1, built-3, built-7); ADR 0002 rules it shown on start.
+Built screen finding 2: declined: this task changes only where the row is added, not its content; several variables or a long reason render through unchanged client code.
+Built screen finding 3: declined: the failed turn at 1280 (built-7) and the stopped turn at 400 (built-8) are now pictured; the light theme is not exercised (a browser light-scheme emulation did not switch the app theme).
+Built screen decline check: design/validation-declines-1.yaml
+
+### Verdict
+
+Recommend PASSED for AC-2 at 9439ec8 on Paseo 0.15.2, with the limits below.
+
+- F1 Polish: `docs/project-env/index.md` says the line is "under the new agent's first reply"; the row is under the last reply of the first turn (built-1, built-6), which differs when the first turn has several replies. No current user-visible loss.
+- F2 Needs decision (FO): `python3 <package>/scripts/dispatch_records.py <task folder>` exits 1, "no dispatch records under dispatch/"; no task folder in the state checkout has a `dispatch/` directory, so this is workflow-wide, not this task. Not a candidate defect.
+- F3 Deferred risk: first turn longer than ten minutes, a real provider's turn end, the desktop app and the light theme are not run; would become Material if a real provider emitted no turn end for a normal first turn (the row would never appear).
+
+Also observed on the candidate (extra, `evidence/validation/shots/extra-*`): while the first turn runs the page has no row (`extra-running-1280.png`, count 0); the same open page gets the row live when the turn ends (count 1); after a second message the row stays once above it at 1280 and 400 (`extra-second-1280.png`, `extra-second-400-light-emulation-not-applied.png`, the light emulation did not apply, the picture is dark).
+
+Comment ratio `comment_ratio.py 6fcce94 9439ec8`: 0 comment lines of 36, under the 5% maximum, exit 0. `adr_lint.py docs/adr --since 6fcce94`: 9 files, exit 0. `doc_impact.py 6fcce94 9439ec8`: 0 documents list, exit 0. Number guards: no `## Number guards` section, not run. Minimal necessity: the removed listener and expiry each map to the goal (the row cannot be placed by a race or dropped at ten minutes); no change retained without a reason.
+
+### Minimal acceptance script
+
+Needs agent-browser, node/npm, and the PR #75 worktree. Not covered: a real provider, the desktop app, the light theme, a first turn over ten minutes, the Captain's own 0.15.1 install.
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-started-row-visible/project-env && npm test 2>&1 | grep -E '^ℹ (pass|fail)' && npx tsc --noEmit` expect `ℹ pass 335`, `ℹ fail 0`, no tsc output.
+2. `mkdir -p /tmp/pe-uat/install && cd /tmp/pe-uat/install && npm init -y >/dev/null && npm install @getpaseo/cli@0.15.2 2>&1 | tail -1` expect the install to finish.
+3. `cd /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/harness && SRC=/tmp/pe-uat/install RUN=uat PORT=19871 CHECKOUT=/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-started-row-visible bash setup.sh | tail -1` expect `ready: http://127.0.0.1:19871`.
+4. `cd /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/harness && RUN=uat PORT=19871 TAG=cand OUT=/tmp/pe-uat/out WARM=1 COLD=1 STOP=0 FAIL=1 bash cases152.sh | grep -v launched` expect three lines, each `after-last-assistant-message | 1280=visible 400=visible`.
+5. Open `/tmp/pe-uat/out/cand-warm-1-1280.png` expect "Started without 1 project variable" under the last reply, above "Worked for".
+6. Cleanup: `cd /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/harness && RUN=uat PORT=19871 bash teardown.sh; rm -rf /tmp/pe-uat`

@@ -1,0 +1,17 @@
+[agent-browser] launched browser
+[agent-browser] launched browser
+base warm warm-1 agent=772bf224 row: seq=3 user=1 last-assistant=169 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+base warm warm-2 agent=4bba0ca9 row: seq=1 user=2 last-assistant=175 before-user-message | 1280=visible 400=visible
+base warm warm-3 agent=4f0392f9 row: seq=1 user=2 last-assistant=171 before-user-message | 1280=visible 400=visible
+base cold cold-1 agent=183464bb row: seq=1 user=2 last-assistant=152 before-user-message | 1280=visible 400=visible
+base cold cold-2 agent=071839a9 row: seq=1 user=2 last-assistant=147 before-user-message | 1280=visible 400=visible
+base cold cold-3 agent=c5a74677 row: seq=1 user=2 last-assistant=151 before-user-message | 1280=visible 400=visible
+base cold cold-4 agent=79b3ae17 row: seq=1 user=2 last-assistant=152 before-user-message | 1280=visible 400=visible
+base cold cold-5 agent=f9734f34 row: seq=3 user=1 last-assistant=153 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+base cold cold-6 agent=9f8556f8 row: seq=2 user=1 last-assistant=158 between-user-message-and-last-assistant-message | 1280=ABSENT 400=ABSENT
+base cold cold-7 agent=db1f5273 row: seq=1 user=2 last-assistant=151 before-user-message | 1280=visible 400=visible
+base cold cold-8 agent=4d76ab2d row: seq=1 user=2 last-assistant=153 before-user-message | 1280=visible 400=visible
+base stop stop-1 agent=b19e3c7b row: seq=1 user=2 last-assistant=54 before-user-message | 1280=visible 400=visible
+base stop stop-2 agent=b8ca3d07 row: seq=1 user=2 last-assistant=53 before-user-message | 1280=visible 400=visible
+base fail fail-1 agent=e2084721 row: seq=1 user=2 last-assistant=3 before-user-message | 1280=visible 400=visible
+base fail fail-2 agent=1722f637 row: seq=1 user=2 last-assistant=3 before-user-message | 1280=visible 400=visible

@@ -1,0 +1,26 @@
+design_review:
+  preview: design/built-1.png
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: design/built-3.png (failed first turn, 400)
+      seen: The amber-triangle row "Started without 1 project variable" sits directly under the "[System Error] Requested mock provider failure" line, so it can read as the cause or a second error of the failed turn, and nothing on the screen says it is a note about how the agent started.
+      fix: Keep the words, icon and layout as AC-2 requires and add a failed-turn case to the acceptance check that the row's position and look are identical to the finished turn (built-1), so the error line stays the only statement of why the turn failed; ADR 0002 already rules that the row is shown on start, not on failure.
+    - severity: MINOR
+      dimension: states
+      where: design/built-1.png through design/built-6.png (all show exactly one variable, STRIPE_KEY)
+      seen: Every picture shows a single short variable name with a one-line reason; no picture shows several variables, a long name or a long reason wrapping at 400.
+      fix: Add one picture of the row with two or more variables and a long reason at 400, or state in the criteria that the row's content is out of scope for this task and only its visibility is under test.
+    - severity: MINOR
+      dimension: theme-size
+      where: light theme; failed turn at 1280; stopped turn at 400; second message at 400
+      seen: Only dark theme is shown, and the failed turn appears only at 400 while the stopped turn and the second-message case appear only at 1280.
+      fix: Accept as outside the criterion's stated dark, default-chat scope, or add the missing size and theme pictures if the criterion is meant to cover them.
+  limitations:
+    - The row's position (below the last message, above the "Worked for" footer, built-1, built-3, built-4, built-6) is consistent in every picture shown, but each picture is one run; "in every run of the case that folded it before" cannot be settled by a screenshot and needs the repeated-run evidence.
+    - A screenshot shows the row after the first turn ends (built-1, built-2, built-4) and absent while it runs (built-5), and still in place and not repeated after a second message (built-6); it cannot show the moment of change or any flicker between running and finished.
+    - Words, icon and layout being "unchanged" cannot be compared here, because no picture of the row from before this change was given.
+    - Only the default Chat display of the newest release was shown; any other display mode, a real vault, and a real (non-mock) provider failure were not shown.
