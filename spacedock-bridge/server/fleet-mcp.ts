@@ -1,10 +1,11 @@
-import { randomBytes } from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { type IncomingMessage, type Server, type ServerResponse, createServer } from "node:http";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import type { PaseoApi } from "@getpaseo/client";
 import { type BoardAgent, FO_FILTER, attachGates, toRows } from "../shared/board";
+import { goodPage, reportSource } from "./report-sources";
 import { readGatesHandler, readTasksHandler } from "./tasks";
 
 export const FLEET_SERVER_NAME = "fleet";
@@ -34,7 +35,7 @@ async function token(): Promise<string> {
   }
 }
 
-export async function fleetSnapshot(api: PaseoApi) {
+export async function fleetSnapshot(api: PaseoApi, hostId = "") {
   const { entries } = await api.agents.list({ filter: FO_FILTER });
   const rows = toRows(entries.map((entry) => entry.agent as BoardAgent));
   const { tasks, failedWorkflowDirs: taskFailures } = await readTasksHandler({
@@ -47,7 +48,22 @@ export async function fleetSnapshot(api: PaseoApi) {
     workflowDirs: rows.map((row) => row.workflowDir).filter(Boolean),
   });
   if (gateFailures.length) throw new Error(`Could not check gates for ${gateFailures.join(", ")}`);
-  return attachGates(rows, gates).map((row) => ({
+  const reports = await Promise.all(rows.map(async row => {
+    try {
+      if (!hostId) throw new Error("Collect now in Bridge to establish the source host");
+      const page = await api.agents.ref(row.id).timeline.refetch({ projection: "canonical", direction: "tail", limit: 40 });
+      if (!goodPage(page, row.id)) throw new Error("Timeline unavailable");
+      let bytes = 0;
+      const sources = page.entries.flatMap(entry => {
+        const source = reportSource(hostId, row.id, page.epoch, entry);
+        if (!source || entry.item.type !== "assistant_message") return [];
+        bytes += Buffer.byteLength(entry.item.text, "utf8");
+        return bytes <= 64000 ? [{ source, text: entry.item.text }] : [];
+      });
+      return { agentId: row.id, state: sources.length ? "reports" : "unknown", truncated: page.hasOlder || bytes > 64000, sources };
+    } catch { return { agentId: row.id, state: "unavailable", truncated: false, sources: [] }; }
+  }));
+  return { roundId: randomUUID(), collectedAt: new Date().toISOString(), hostId, reports, fleet: attachGates(rows, gates).map((row) => ({
     agentId: row.id,
     title: row.title,
     repo: row.repo,
@@ -58,8 +74,11 @@ export async function fleetSnapshot(api: PaseoApi) {
     task: tasks[row.id] ? { slug: row.task, ...tasks[row.id] } : row.task || null,
     gatesAwaitingCaptain: row.gates,
     lastActivityAt: row.lastActivityAt,
-  }));
+  })) };
 }
+
+const collected = new WeakMap<PaseoApi, Awaited<ReturnType<typeof fleetSnapshot>>>();
+export function rememberCollection(api: PaseoApi, snapshot: Awaited<ReturnType<typeof fleetSnapshot>>) { collected.set(api, snapshot); }
 
 const TOOL = {
   name: FLEET_TOOL,
@@ -67,10 +86,10 @@ const TOOL = {
     "Read the current state of every FO (agents labelled role=fo) without messaging them: " +
     "Paseo status, unread replies, pending permissions, next step and owner labels, the spacedock " +
     "task and stage, and spacedock gates awaiting the Captain.",
-  inputSchema: { type: "object", properties: {}, additionalProperties: false },
+  inputSchema: { type: "object", properties: { roundId: { type: "string", description: "Read the pinned collect-now round; omit for a fresh state read" } }, additionalProperties: false },
 };
 
-async function answer(message: { id?: unknown; method?: string }): Promise<unknown> {
+async function answer(message: { id?: unknown; method?: string; params?: { arguments?: { roundId?: string } } }): Promise<unknown> {
   switch (message.method) {
     case "initialize":
       return {
@@ -82,7 +101,10 @@ async function answer(message: { id?: unknown; method?: string }): Promise<unkno
       return { tools: [TOOL] };
     case "tools/call": {
       if (!paseo) throw new Error("The fleet reader has no Paseo session yet.");
-      const snapshot = await fleetSnapshot(paseo);
+      const pinned = collected.get(paseo);
+      const roundId = message.params?.arguments?.roundId;
+      if (roundId && pinned?.roundId !== roundId) throw new Error("Collection round unavailable");
+      const snapshot = roundId ? pinned : await fleetSnapshot(paseo, pinned?.hostId);
       return { content: [{ type: "text", text: JSON.stringify(snapshot, null, 1) }] };
     }
     case "ping":
@@ -108,7 +130,7 @@ export async function startFleetServer(): Promise<{ url: string; server: Server 
   const server = createServer(async (request, response) => {
     if (request.url !== path) return send(response, 404);
     if (request.method !== "POST") return send(response, 405);
-    let message: { id?: unknown; method?: string };
+    let message: Parameters<typeof answer>[0];
     try {
       message = JSON.parse(await body(request));
     } catch {

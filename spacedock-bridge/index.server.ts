@@ -1,5 +1,5 @@
 import type { PluginServerContext } from "@getpaseo/plugin/server";
-import { ensureCoordinator } from "./server/coordinator";
+import { ensureCoordinator, switchCoordinatorHandler } from "./server/coordinator";
 import { FLEET_SERVER_NAME, rememberPaseo, rememberedPaseo, startFleetServer } from "./server/fleet-mcp";
 import { readReviewsHandler, startReviewPoller } from "./server/reviews";
 import { readReviews } from "./shared/reviews";
@@ -15,7 +15,11 @@ import {
   COORDINATOR_PROMPT,
   RESPONDER_TOOL,
   openCoordinator,
+  switchCoordinator,
 } from "./shared/coordinator";
+
+import { collectDigest, readDigest, readReplay } from "./shared/digest";
+import { collectDigestHandler, readDigestHandler, readReplayHandler } from "./server/digest";
 
 export default function contribute(server: PluginServerContext) {
   const fleet = startFleetServer().catch((error) => {
@@ -34,6 +38,10 @@ export default function contribute(server: PluginServerContext) {
     rememberPaseo(paseo);
     return ensureCoordinator(paseo);
   });
+  server.handle(switchCoordinator, (input, { paseo }) => switchCoordinatorHandler(paseo, input));
+  server.handle(collectDigest, (input, { paseo }) => collectDigestHandler(input, paseo));
+  server.handle(readDigest, (input, { paseo }) => readDigestHandler(input, paseo));
+  server.handle(readReplay, (input, { paseo }) => readReplayHandler(input, paseo));
   server.handle(readTasks, (input, { paseo }) => {
     rememberPaseo(paseo);
     return readTasksHandler(input);
