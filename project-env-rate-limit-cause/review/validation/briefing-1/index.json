@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-rate-limit-cause:validation:attempt-1:revision-1",
+  "question": "Approve validation of the rate-limit cause (PR iamcxa/kc-paseo-plugins#73 at 6fcce94de4514d490cd1922a4ab935f1cc05c731, stacked on #72) and the proposed declines (F1, F2, the unobserved stderr risk, F3 dispatch records)? FO recommends approving. Approval lets FO merge it after #72 and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-rate-limit-cause:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/d0d8ab618e6c3d8731d0eb8f4c6378398d91c874/project-env-rate-limit-cause.md",
+      "rev": "sha256:b327e7035ec892d7510cc7bc2311dd678316591247bb9284f45a890d4a33651c",
+      "mediaType": "text/markdown",
+      "summary": "Merge ask: PR #73 at 6fcce94de4514d490cd1922a4ab935f1cc05c731 adds the rate-limited cause, shows \"1Password rate limit reached so wait and try again\" on the picker, Test and the Started-without line, stops the picker with a wait hint, and adds the OVERVIEW.md troubleshooting heading.\nSufficiency: validation-1 PASSED at 6fcce94 with no Material finding; AC-1 and its six clauses observed on an isolated Paseo 0.15.2 at 1280 and 400 px; 335/335 tests and tsc clean; four falsifiers fail as named; FO's acceptance rerun matched (fo-acceptance-rerun-6fcce94.txt).\nNecessity: the PR changes classifyOpFailure, the cause list, vaultListFailure, listRefs' stop set, OVERVIEW.md and tests; without it every item after a 1Password limit is shown as an unreadable item or an unrecognised error.\nReviews: external review rounds: 1 — Codex summary:6664390522 clean on 6fcce94de.\nExternal rounds: 1\nSecond reviewer: roborev not run: FO did not run the local roborev gate for this batch.\nDeclined: Polish, F1 the troubleshooting text says \"open the field list\" where the screen is titled Add a variable (the sentence still reads, the wording fix goes to the follow-up docs and map PR after this batch).\nDeclined: Polish, F2 two harness scripts are not executable and one clicked the wrong row on 0.15.2 (evidence tooling only, the validator took those pictures by hand).\nDeclined: Deferred risk, the real 1Password rate-limit stderr line is unobserved (a different line shows today's unrecognised-error words, no worse than before).\nDeclined: Polish, F3 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch, an FO record defect with no effect on the candidate)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-rate-limit-cause:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/d0d8ab618e6c3d8731d0eb8f4c6378398d91c874/project-env-rate-limit-cause/gate-validation.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:64de3e02011e21276b261e1c9bfe15db64b71bd8d5dac127264758038e1c2134"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-rate-limit-cause:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/d0d8ab618e6c3d8731d0eb8f4c6378398d91c874/project-env-rate-limit-cause/delivery-gate-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:d5fbc9cca63d148e63516e0f2f3ee1f272513a88d8c820ccea2e60cb8ce0a700"
+    }
+  ]
+}

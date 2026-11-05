@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-rate-limit-cause:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-rate-limit-cause-validation-1
+              briefing:
+                id: briefing:project-env-rate-limit-cause:validation:attempt-1:revision-1
+                digest: sha256:a2fca5f9cec2773b6b0a855835cf1ab765599d142bf73f084e9654ce88535033
+                room-ref: ./project-env-rate-limit-cause/review/validation/briefing-1
 started: 2026-11-05T08:40:17Z
 journey: paseo-project-env
 journey-release: r1b
