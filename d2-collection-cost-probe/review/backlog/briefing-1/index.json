@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:d2-collection-cost-probe:backlog:attempt-1:revision-1",
+  "question": "May I run that one cost-measuring test? It only measures and doesn't build the feature.",
+  "artifacts": [
+    {
+      "id": "artifact:d2-collection-cost-probe:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/14483fa136e742f0d9de259ac2e43a7d3b8f4590/d2-collection-cost-probe.md",
+      "rev": "sha256:ca67ecd61d9d79966466db2bcb98e290e07a065e98dc8947fc38a5a5536db3b4",
+      "mediaType": "text/markdown",
+      "summary": "One isolated Paseo daemon with a fictional 18-FO fleet shaped like the live one; one probe digest collection on claude-opus-5-5 with a throwaway prompt, plus one baseline round on today's prompt; tokens, wall time and per-FO bytes by turn id. No product code, no live daemon change."
+    }
+  ]
+}

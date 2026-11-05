@@ -5,6 +5,17 @@ profile: poc
 merge: pr
 id: d2-collection-cost-probe
 status: backlog
+gates:
+    version: 1
+    records:
+        - id: gate:d2-collection-cost-probe:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:d2-collection-cost-probe-backlog-1
+              briefing:
+                id: briefing:d2-collection-cost-probe:backlog:attempt-1:revision-1
+                digest: sha256:b63bc967cd5b7a5ac922c295a07ef076c659ac170f1256763def368223d4b498
+                room-ref: ./d2-collection-cost-probe/review/backlog/briefing-1
 ---
 
 Measure, once, what one Commander digest collection costs in model tokens and wall time, so the Captain can set the collection frequency and a cost cap before any code.
