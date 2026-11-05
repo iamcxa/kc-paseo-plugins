@@ -106,3 +106,22 @@ Visible change: none
 ### Summary
 
 Stopped before daemon or model execution because the pinned Bridge requires prohibited port 6787, and real HOME would also access the coordinator token path. No code, branch, PR, persistent runtime seam or model round was created; report evidence is the only deliverable, and there is no measured collection cost. The FO must resolve the isolation conflict and missing task metadata before a new dispatch; this report grants no product repair or additional-round authority.
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Captain amendment 1 (task file, ## Captain amendments): copy /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge at 33952f9b3d02fceab104ba09272d65e432a3d095 into a new mktemp directory under /tmp; in the copy only, change the fleet server PORT to a free port outside 6767, 6787 and 6860-6935 and its token directory to a path inside the isolated daemon home; save the exact diff as d2-collection-cost-probe/evidence/copy-diff.patch; the product checkout stays unchanged
+  Exported the pinned tracked plugin into a fresh /tmp directory; changed only fleet-mcp.ts PORT and token-directory constants. Exact two-line copy-diff.patch retained; cycle-2/safety.json records free-port checks, hashes and cleanup; product files unchanged.
+- FAILED: Start the isolated daemon (own --home, port outside those ranges) with that copy installed; confirm fleet_status answers on the copy's port and record the daemon PID
+  Preflight found another forbidden live-file path: index.server.ts:26 auto-starts reviews.ts poller; reviews.ts:11–12,25–36,58–82 reads/writes real-HOME reviews.json after its first 30-second timer and queries real GitHub PRs. Stopped per follow-up before plugin/daemon startup; no fleet_status result or daemon PID exists.
+- SKIPPED: Then the original checklist items 2-6 of implementation-1 unchanged: seed the fictional 18-FO fleet; probe round; baseline round; usage by turn id; RESULT.md with probe, baseline and increment (AC-1, AC-2)
+  Original items 2–6 were not executed after that explicit stop: no fictional fleet, probe, baseline, usage events or measured increment. RESULT.md reports all values as not measured/unavailable, not zero; planned probe-prompt.md remains unexecuted.
+- DONE: Read the live roster count and comms officer status before and after; stop the isolated daemon by captured PID, delete its home and the /tmp copy (AC-3)
+  cycle-2/safety.json: live FO count 18 before/after; same idle comms-officer status/provider; exact /tmp copy and planned daemon home deleted and absence checked. No daemon PID was allocated; all three code worktrees clean on original revisions/branches.
+- DONE: Recheck the corrected design-surface metadata
+  cycle-2/checks.json: design_surfaces.py exit 0 after FO added Surfaces: none and Visible change: none; this resolves only the metadata defect, not collection feasibility.
+- SKIPPED: roborev
+  roborev not run: a measurement task with no code change and no candidate branch, as the follow-up explicitly records.
+
+### Summary
+
+Prepared and removed the Captain-authorized two-line disposable copy; its exact diff is retained. The unchanged review poller independently reaches the live Bridge review store and can generate unbudgeted activity, so the follow-up stop condition applies before daemon/provider startup; AC-1 and AC-2 still have no measurement. The FO must resolve that additional automatic path before a new dispatch; no broader copy edit, product change, PR, live text access, credential access or model round was performed.

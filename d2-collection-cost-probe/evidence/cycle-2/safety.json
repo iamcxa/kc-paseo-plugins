@@ -1,0 +1,72 @@
+{
+  "sourceCommit": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "temporaryRoot": "/tmp/d2-collection-cost-probe-to0thhdt",
+  "pluginCopy": "/tmp/d2-collection-cost-probe-to0thhdt/spacedock-bridge",
+  "isolatedDaemonHome": "/tmp/d2-collection-cost-probe-to0thhdt/daemon-home",
+  "plannedDaemonPort": 61929,
+  "plannedFleetPort": 61930,
+  "portsWereFreeAtPreflightOnly": true,
+  "daemonPid": null,
+  "daemonStarted": false,
+  "pluginStarted": false,
+  "agentsCreated": 0,
+  "providerInvoked": false,
+  "modifiedFiles": [
+    "server/fleet-mcp.ts"
+  ],
+  "changedSourceLines": 2,
+  "copiedFleetSourceSha256": "c820feedecacfd972df48e5bd79038fe41e262066b2a33b733ffd3879250121e",
+  "stopReason": "Unchanged auto-started review poller would access live reviews.json after 30 seconds and query real GitHub PRs; follow-up explicitly orders stop for other live Bridge files.",
+  "additionalPaths": {
+    "server/reviews.ts": {
+      "sha256": "f0df78bfb288955de330b33e674ba7785424f454e90e7be9ef98fdd5fae3720a",
+      "lines": "11-12,25-36,39-55,58-82,91-113"
+    },
+    "index.server.ts": {
+      "lines": "26"
+    }
+  },
+  "temporaryRootDeleted": true,
+  "before": {
+    "at": "2026-11-05T14:22:10.515294+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "after": {
+    "at": "2026-11-05T14:22:11.590256+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "observedLiveFieldsEqual": true,
+  "credentialsReadOrCopied": false,
+  "liveConversationTextRead": false,
+  "worktrees": {
+    "main": {
+      "head": "6709c7283b0906cbdf8d6155048e198625520e8e",
+      "branch": "main",
+      "porcelain": ""
+    },
+    "pinnedBridge": {
+      "head": "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "branch": "",
+      "porcelain": ""
+    },
+    "unusedDispatch": {
+      "head": "6709c7283b0906cbdf8d6155048e198625520e8e",
+      "branch": "spacedock-ensign/d2-collection-cost-probe",
+      "porcelain": ""
+    }
+  }
+}

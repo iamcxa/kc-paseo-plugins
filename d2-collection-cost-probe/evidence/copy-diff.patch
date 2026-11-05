@@ -1,0 +1,13 @@
+--- a/spacedock-bridge/server/fleet-mcp.ts
++++ b/spacedock-bridge/server/fleet-mcp.ts
+@@ -9,8 +9,8 @@
+ 
+ export const FLEET_SERVER_NAME = "fleet";
+ export const FLEET_TOOL = "fleet_status";
+-const PORT = 6787;
+-const HOME = join(homedir(), ".local", "share", "paseo-fo-coordinator");
++const PORT = 61930;
++const HOME = "/tmp/d2-collection-cost-probe-to0thhdt/daemon-home/fleet";
+ 
+ let paseo: PaseoApi | null = null;
+ 
