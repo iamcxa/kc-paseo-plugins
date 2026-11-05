@@ -1,7 +1,7 @@
 ---
 id:
 title: A slow vault list says it is slow, not that the connection is broken
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
