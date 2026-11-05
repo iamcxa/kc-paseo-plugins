@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d3-commander-digest-slice-1
-status: backlog
+status: implementation
 gates:
     version: 1
     records:
@@ -26,7 +26,7 @@ gates:
                 reason: 'Captain chat 2026-11-05, asked 「開始寫第一片嗎？」 (slice 1: sourced digest, Replay card, new comms officer after confirm, collect now; scheduling in slice 2), answered 「可以」.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Build the accepted d1-commander-digest design's first slice: a new comms officer that writes the digest in its own words with an exact source per point and per context line, the Replay card behind each point, and a "collect now" action; scheduling comes in slice 2.
