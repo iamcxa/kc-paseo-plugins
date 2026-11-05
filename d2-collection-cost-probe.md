@@ -91,6 +91,10 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: none
 Visible change: none
 
+### FO notes
+
+- 2026-11-05: followup-2's first turn ended with "Selected model is at capacity" after read-only reads of the Paseo app bundle and before any daemon start (agent activity); FO resumed the same worker once on the same model. No retry loop.
+
 ## Stage Report: implementation
 
 - FAILED: Start one isolated Paseo daemon with its own --home on a port outside 6767, 6787 and 6860-6935; install the Bridge plugin from /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge (read-only, at 33952f9b3d02fceab104ba09272d65e432a3d095) so the Commander has fleet_status as in production; capture the daemon PID
