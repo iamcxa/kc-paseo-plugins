@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-resume-blank-notice:validation:attempt-2:revision-1",
+  "question": "Approve validation of the resume notice (PR #66 at df6180c) and the three proposed declines (F1, F4, F6 Polish)? FO recommends approving. Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-resume-blank-notice:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/3fc267048e466209baa4eb507726a3363d349bb1/project-env-resume-blank-notice.md",
+      "rev": "sha256:40fe44d77311ceff790e5d9fa9c25aa210c027861345dd482d19ce41a0c899ad",
+      "mediaType": "text/markdown",
+      "summary": "FO recommendation: approve. Validation cycle 4 PASSED at df6180c: amendment 1's terminal sentence, checked against the SDK 0.14.0 hook list; cycle 3's memory repair (Codex P2, roborev 1371/1382) stands with 30000 random sequences matching the rule; AC-1 on an isolated 0.14.0; 325/325 tests. FO acceptance rerun matched. External review rounds: 3 — Codex P2 repaired, then clean on fec5b13 and df6180c; roborev:1483 clean. Proposed declines: F1 refresh updates memory silently; F4 pre-existing fold of Started-without row; F6 'only agents do' clause. Engineering reviewer not run, reason recorded. delivery_gate question and check exit 0."
+    }
+  ]
+}

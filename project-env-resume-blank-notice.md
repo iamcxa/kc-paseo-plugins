@@ -60,6 +60,11 @@ gates:
                 by: agent:first-officer
                 at: "2026-11-05T06:46:10.86925Z"
                 reason: The Captain asked (「加」, 2026-11-05) to add one Reference sentence that Paseo terminals get no project variables to this PR; the candidate changes, so the validation gate at fec5b13 is withdrawn and re-prepared after a recheck.
+            - id: gate-attempt:project-env-resume-blank-notice-validation-2
+              briefing:
+                id: briefing:project-env-resume-blank-notice:validation:attempt-2:revision-1
+                digest: sha256:6f3d0d8f8a202805b655f1a31dd2892bcbc2ac8e7db72db0153f7c5aa6b7cb54
+                room-ref: ./project-env-resume-blank-notice/review/validation/briefing-2
 started: 2026-10-30T14:42:08Z
 ---
 
