@@ -142,3 +142,21 @@ Current evidence: the base lint passes on `origin/main` and the lint with all fo
 ### Summary
 
 The map needs four small edits to match main: two stories to `exists`, the terminal limit as an answered question on `new-agent-env`, and the status card. No Captain decision is open; two stale-after-merge items (r1b `slice_because`, the r2 `resumed-env` story) are named as proposals outside the Scope. The one weak point is `read-the-docs`: the lint only accepts a symbol in an executable file, so `PAGES_REPO_NWO` proves the site's build script exists, and the live site (Pages `built`, home 200, the terminal sentence served) is checked separately in this report.
+
+## Stage Report: implementation
+
+- DONE: Branch from a freshly fetched `origin/main`; apply exactly the four approved edits to `docs/journey/project-env/give-agents-their-project-setup.yaml`, re-reading each evidence symbol on origin/main.
+  Fetched origin/main = c1458f7 (one doc-only commit past ideation's 3aeb2f1); branch fast-forwarded to it, `git apply` of `design/journey-edits.diff` clean; `git grep -w -F` finds `addProjectLine` (project-env/shared/project-list.ts, client/settings-screen.tsx, test/project-list.test.ts) and `PAGES_REPO_NWO` (docs/project-env/capture/build-site.sh) on origin/main.
+- DONE: Run the journey lint and save its output; exit 0 with `slice-size` at 9 stories.
+  Exit 0, `all lints pass`, `slice-size (accepted): release r1b holds 9 stories`; saved at `project-env-journey-map-r1b-catch-up/implementation/lint-candidate.txt`. Falsifier: a non-grepping evidence symbol fails with `evidence-not-found` (ideation mutation check).
+- DONE: Confirm the diff touches only that file and only those lines (9 insertions, 7 deletions).
+  `git diff --stat origin/main`: 1 file, 9 insertions, 7 deletions; +/- lines identical to the approved diff.
+- DONE: Commit, push, open a Draft PR with the evidence in the body; not ready, not merged.
+  Commit f09ebae on spacedock-ensign/project-env-journey-map-r1b-catch-up; Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/71.
+- SKIPPED: Close only browser sessions you opened yourself, by name.
+  No browser session opened.
+- Affected documents (`doc_impact.py`): not run; the only changed file is the journey map, which is the artifact itself.
+
+### Summary
+
+Applied the approved four edits unchanged to the journey file on a fetched origin/main; lint passes with 9 stories in r1b and both evidence symbols grep on main. Draft PR #71 is open. Limit carried from ideation: `PAGES_REPO_NWO` proves the site build script, not the live site.
