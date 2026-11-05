@@ -1,0 +1,388 @@
+✔ 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send (370.70975ms)
+✔ 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send (251.64175ms)
+✖ each context link reads its exact source, earlier/later use window edges and FO exit uses the chosen host (267.135042ms)
+✔ invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history (233.66125ms)
+✔ a stale source response cannot populate a different point's Replay (239.79825ms)
+✔ switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only (78.405958ms)
+✔ malformed collection prose and its raw snapshot never bypass digest validation; ordinary discussion still renders (285.733875ms)
+✖ collection provenance survives agent-message before malformed output (231.052875ms)
+✖ collection provenance survives agent-notification before malformed output (227.688292ms)
+✖ collection provenance survives bridge-automated before malformed output (228.027125ms)
+✖ ordinary discussion keeps [Design notes](https://example.invalid/design) (232.931ms)
+✖ ordinary discussion keeps [1,2,3] (226.300042ms)
+✖ ordinary discussion keeps {"count":3} (228.235ms)
+✖ ordinary discussion keeps ```json
+{"count":3}
+``` (230.691625ms)
+✖ ordinary discussion keeps The field "roundId": identifies a round (228.58525ms)
+✖ ordinary discussion keeps The field "contextLines": describes context (224.941084ms)
+✔ unknown page fails closed; a real Captain request including a human envelope ends collection (227.73975ms)
+✖ Open FO arrives in the source conversation and retains both unsent drafts across Commander return (236.522583ms)
+✖ unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines (230.540833ms)
+✖ selected point remains outside the history scroll area (236.758667ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ valid digest reads the exact assistant source once and never searches words (3.916042ms)
+✔ reject round without exposing unverified text (1.16175ms)
+✔ reject foreign without exposing unverified text (0.23625ms)
+✔ reject hash without exposing unverified text (0.157041ms)
+✔ reject missing without exposing unverified text (0.211209ms)
+✔ reject line-foreign without exposing unverified text (0.140375ms)
+✔ reject kinds without exposing unverified text (0.223125ms)
+✔ reject duplicate-point without exposing unverified text (0.155791ms)
+✔ read-back rejects epoch changes (0.26525ms)
+✔ read-back rejects agentId changes (0.521958ms)
+✔ read-back rejects reset changes (1.004083ms)
+✔ read-back rejects gap changes (0.287041ms)
+✔ read-back rejects staleCursor changes (0.269833ms)
+✔ read-back rejects text changes (0.193416ms)
+✔ read-back rejects range changes (0.131417ms)
+✔ read-back rejects missing changes (0.113959ms)
+✔ read-back rejects role changes (0.128333ms)
+✔ Replay reads two canonical neighbors each side, preserves roles and pages from edges (0.8725ms)
+✔ side failure is unavailable, never end-of-history or a cross-gap join (0.288292ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (0.515708ms)
+✔ collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO (3.122292ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.319708ms)
+✖ fleet budget admits recent reports after oversized oldest (3.517667ms)
+✖ fleet budget admits recent reports after oversized middle (0.532042ms)
+✔ fleet budget admits recent reports after oversized newest (0.255708ms)
+✖ fleet budget admits recent reports after newest priority (0.346541ms)
+✖ fleet budget admits recent reports after UTF-8 bytes (0.367791ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 30
+ℹ fail 17
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5465.995291
+
+✖ failing tests:
+
+test at test/digest-ui.test.mts:1:2582
+✖ each context link reads its exact source, earlier/later use window edges and FO exit uses the chosen host (267.135042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message A FO"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:39:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:7191
+✖ collection provenance survives agent-message before malformed output (231.052875ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("UNVERIFIED OUTPUT"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:96:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:7191
+✖ collection provenance survives agent-notification before malformed output (227.688292ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("UNVERIFIED OUTPUT"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:96:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:7191
+✖ collection provenance survives bridge-automated before malformed output (228.027125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes("UNVERIFIED OUTPUT"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:96:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8029
+✖ ordinary discussion keeps [Design notes](https://example.invalid/design) (232.931ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.text().includes(text))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:102:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8029
+✖ ordinary discussion keeps [1,2,3] (226.300042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.text().includes(text))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:102:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8029
+✖ ordinary discussion keeps {"count":3} (228.235ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.text().includes(text))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:102:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8029
+✖ ordinary discussion keeps ```json
+{"count":3}
+``` (230.691625ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.text().includes(text))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:102:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8029
+✖ ordinary discussion keeps The field "roundId": identifies a round (228.58525ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.text().includes(text))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:102:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8029
+✖ ordinary discussion keeps The field "contextLines": describes context (224.941084ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.text().includes(text))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:102:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:8930
+✖ Open FO arrives in the source conversation and retains both unsent drafts across Commander return (236.522583ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Existing A FO report/. Input:
+  
+  'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    '立即收集\n' +
+    '收集於 2026-11-05T10:00:00Z\n' +
+    'Digest for a\n' +
+    'Replay · 查看來龍去脈\n' +
+    'Digest for b\n' +
+    'Replay · 查看來龍去脈\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:114:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Commander\nBoard\nComms officer · idle\nOpen full view\n立即收集\n收集於 2026-11-05T10:00:00Z\nDigest for a\nReplay · 查看來龍去脈\nDigest for b\nReplay · 查看來龍去脈\n↑ sends to Comms officer\n',
+    expected: /Existing A FO report/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:9738
+✖ unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines (230.540833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /a.*#3/. Input:
+  
+  'Digest for a這件事about of a原文 · FO · 2026-11-05T10:00:00Z之前發生before of a原文 · FO · 2026-11-05T10:00:00Z現在需要你now of a原文 · FO · 2026-11-05T10:00:00Z原文所在的對話 · FO · 收集於 2026-11-05T10:00:00Z原文 · FO · 2026-11-05T10:00:00Z原文 · FO · 2026-11-05T10:00:00Z原文 · FO · 2026-11-05T10:00:00Z來源不可用；不以相似文字替代。重讀原文開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:124:54)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Digest for a這件事about of a原文 · FO · 2026-11-05T10:00:00Z之前發生before of a原文 · FO · 2026-11-05T10:00:00Z現在需要你now of a原文 · FO · 2026-11-05T10:00:00Z原文所在的對話 · FO · 收集於 2026-11-05T10:00:00Z原文 · FO · 2026-11-05T10:00:00Z原文 · FO · 2026-11-05T10:00:00Z原文 · FO · 2026-11-05T10:00:00Z來源不可用；不以相似文字替代。重讀原文開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。',
+    expected: /a.*#3/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/digest-ui.test.mts:1:10405
+✖ selected point remains outside the history scroll area (236.758667ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.find("Replay 內容")!.textContent!.includes("Digest for a"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-ui.test.mts:131:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/digest.test.mts:1:8682
+✖ fleet budget admits recent reports after oversized oldest (3.517667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   3
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest.test.mts:139:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 3 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/digest.test.mts:1:8682
+✖ fleet budget admits recent reports after oversized middle (0.532042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      1,
+  -   5
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest.test.mts:139:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1 ],
+    expected: [ 1, 5 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/digest.test.mts:1:8682
+✖ fleet budget admits recent reports after newest priority (0.346541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   1
+  -   3
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest.test.mts:139:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1 ],
+    expected: [ 3 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/digest.test.mts:1:8682
+✖ fleet budget admits recent reports after UTF-8 bytes (0.367791ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   3
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest.test.mts:139:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 3 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

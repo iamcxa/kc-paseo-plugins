@@ -182,3 +182,29 @@ Method: two inline, fixture-only `node --import tsx --input-type=module` runs ex
 - Capture-coverage nuance: the existing fixture does contain three distinct singleton source refs (#3/#5/#7) and individual link captures; that basic multi-source selection is demonstrated. It has short originals, always opens the trial point, and does not demonstrate long/multi-entry ranges or point-switch rendering. The collector intentionally emits singleton canonical ranges; do not manufacture merged ranges just to label a capture “multiple sources”.
 
 Disposition: investigation complete; fixes are proposals only. Candidate remains clean at the pinned SHA and PR #74 is untouched. Await FO's separate authorization for the affected class-level repairs and their regression/capture scope.
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Fix authorization for items 1-3 of "## Investigation result: roborev 1532 and design review 1": implement the proposed class-level fixes (message provenance before collection state; collection replies validated by provenance, not by brackets, braces, fences or field mentions; newest-first admission charging only admitted bytes) with the proposed regressions, each shown failing at b8fb54c38cce2bbc7a9356961535d73902d69321 and passing after (AC-1)
+  `cdc488ef7dd7640b1e58fde9c909c41f7d27e83e`; final regressions fail on b8fb54c (19 expected failures overall), then whole suite passes 318/318. Provenance notifications, six ordinary formats and four failing budget selections have named failures; unknown/human/UTF-8 boundary controls remain checked. See `d3-commander-digest-slice-1/evidence/repair-hZpDwQ/RESULT.md` and `red-binding.json`.
+- DONE: Fix authorization for items 4-6: Open FO routes the exact source host/agent into Bridge's existing FO conversation-only detail with ← Commander and retained drafts; the unavailable-source state leads the card, names the requested original and qualifies or suppresses uncheckable lines; the selected point stays outside the scroll area and the phone opening shows all three context lines with the actions fixed — if the supported SDK layout cannot fit that, stop and report the host constraint instead of changing the design (AC-1, AC-2)
+  Exact source host/agent now opens existing conversation-only detail, preserving both drafts and ← Commander. Unavailable context leads and suppresses uncheckable lines; the point is outside history. Supported SDK flex/ScrollView fits three initial phone lines and fixed actions; no host constraint or design fallback was needed.
+- DONE: New captures at 1440 and 360 of the states the director reviewed plus Open FO arrival and return, source unavailable, phone opening with three lines, scrolled bottom with the point visible, a long original, and switching between two points; npm test and typecheck pass; commit, push to the PR #74 branch (no force push), and write "## Stage Report: implementation (cycle 2)" naming the new head (AC-2)
+  New head `cdc488ef7dd7640b1e58fde9c909c41f7d27e83e` pushed normally to Draft PR #74. Forty final fixture-host captures (20 at each size), all 91 candidate-file hashes matching, are in `phone-final/`, `desktop-final/` and `capture-binding.json`. `npm test` 318/318; typecheck exit 0; all capture hosts/PIDs/ports cleaned.
+- SKIPPED: AC-4 measurement.
+  FO ruling stands: needs configurable fleet listener/data directory with current defaults; no live Bridge or provider round was touched, and no cost claim is made.
+- SKIPPED: ADR record.
+  FO applied the workflow POC rule “reserves no number”; Captain rulings remain in the task and accepted design, with no docs/adr changes.
+- SKIPPED: RoboRev in worker sandbox.
+  The daemon is inaccessible (package gap 5); FO runs review on the pushed head against 33952f9b3d02fceab104ba09272d65e432a3d095.
+
+### Verification and limits
+
+Evidence root: `d3-commander-digest-slice-1/evidence/repair-hZpDwQ/`. `checks.json` binds logs and exits. Comment ratio 0.0% (486 code, 0 comment lines); number guards PASS on the explicit stack base; seven existing ADRs linted; design surfaces presentable; doc impact empty and affected OVERVIEW claims updated. Candidate, main and flywheel-live were checked clean; PR #74 remains OPEN/Draft at the named head, with no CI jobs reported.
+
+Falsifiers: ignoring agent/automated provenance exposes malformed collection output; punctuation sniffing hides ordinary examples; old accumulation drops recent sources; forwarding native navigation fails internal FO arrival; leaving context visible on read failure breaks unavailable-state checks; moving the point into history breaks orientation/bottom checks. Boundary controls include exact UTF-8 budget, excluded user/tool entries, foreign host/agent refusal, human requests and truncated-context fail-closed handling.
+
+### Summary
+
+All six authorized repairs are implemented, tested and pushed; both final viewport runs match the committed files and demonstrate the requested journey. This remains a bounded POC with fixture RPC/timeline captures and server-function tests, not provider-quality, physical-device, live-fleet or delivery acceptance. FO owns RoboRev, independent validation and design-director re-review; the PR remains Draft.

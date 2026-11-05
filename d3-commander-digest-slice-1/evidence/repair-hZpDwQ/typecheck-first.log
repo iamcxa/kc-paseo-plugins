@@ -1,0 +1,7 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 typecheck
+> tsc --noEmit
+
+client/board.tsx(598,20): error TS2345: Argument of type '{ key: string; kind: "ask"; title: string; fo: BoardRow; since: string; }' is not assignable to parameter of type 'QueueItem'.
+  Property 'detail' is missing in type '{ key: string; kind: "ask"; title: string; fo: BoardRow; since: string; }' but required in type 'QueueItem'.

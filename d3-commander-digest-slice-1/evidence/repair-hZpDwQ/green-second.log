@@ -1,0 +1,69 @@
+✔ 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send (1004.963ms)
+✔ 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send (338.362417ms)
+✔ each context link reads its exact source, earlier/later use window edges and FO exit uses the chosen host (399.07125ms)
+✔ invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history (292.086ms)
+✔ a stale source response cannot populate a different point's Replay (272.368333ms)
+✔ switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only (92.86325ms)
+✔ malformed collection prose and its raw snapshot never bypass digest validation; ordinary discussion still renders (268.591833ms)
+✔ collection provenance survives agent-message before malformed output (229.790334ms)
+✔ collection provenance survives agent-notification before malformed output (229.893667ms)
+✔ collection provenance survives bridge-automated before malformed output (231.1065ms)
+✔ ordinary discussion keeps [Design notes](https://example.invalid/design) (240.035459ms)
+✔ ordinary discussion keeps [1,2,3] (230.6075ms)
+✔ ordinary discussion keeps {"count":3} (227.442416ms)
+✔ ordinary discussion keeps ```json
+{"count":3}
+``` (227.964709ms)
+✔ ordinary discussion keeps The field "roundId": identifies a round (225.05825ms)
+✔ ordinary discussion keeps The field "contextLines": describes context (225.087709ms)
+✔ unknown page fails closed; a real Captain request including a human envelope ends collection (228.136583ms)
+✔ Open FO arrives in the source conversation and retains both unsent drafts across Commander return (275.21ms)
+✔ unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines (228.802208ms)
+✔ selected point remains outside the history scroll area (231.675333ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ valid digest reads the exact assistant source once and never searches words (4.881625ms)
+✔ reject round without exposing unverified text (0.303792ms)
+✔ reject foreign without exposing unverified text (0.200625ms)
+✔ reject hash without exposing unverified text (0.159ms)
+✔ reject missing without exposing unverified text (0.216917ms)
+✔ reject line-foreign without exposing unverified text (0.169916ms)
+✔ reject kinds without exposing unverified text (0.176834ms)
+✔ reject duplicate-point without exposing unverified text (0.18425ms)
+✔ read-back rejects epoch changes (0.259791ms)
+✔ read-back rejects agentId changes (0.201584ms)
+✔ read-back rejects reset changes (0.180458ms)
+✔ read-back rejects gap changes (0.1525ms)
+✔ read-back rejects staleCursor changes (0.125084ms)
+✔ read-back rejects text changes (0.143875ms)
+✔ read-back rejects range changes (0.137709ms)
+✔ read-back rejects missing changes (0.116417ms)
+✔ read-back rejects role changes (0.161458ms)
+✔ Replay reads two canonical neighbors each side, preserves roles and pages from edges (0.405625ms)
+✔ side failure is unavailable, never end-of-history or a cross-gap join (0.130208ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (0.433625ms)
+✔ collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO (3.27775ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.458709ms)
+✔ fleet budget admits recent reports after oversized oldest (18.204584ms)
+✔ fleet budget admits recent reports after oversized middle (42.025667ms)
+✔ fleet budget admits recent reports after oversized newest (0.300833ms)
+✔ fleet budget admits recent reports after newest priority (0.297417ms)
+✔ fleet budget admits recent reports after UTF-8 bytes (8.221167ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 47
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7675.017708

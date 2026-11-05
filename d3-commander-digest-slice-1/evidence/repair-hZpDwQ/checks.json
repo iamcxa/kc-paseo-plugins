@@ -1,0 +1,61 @@
+[
+  {
+    "name": "npm test",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "exit": 0,
+    "log": "npm-test-final.log",
+    "tests": 318,
+    "pass": 318,
+    "fail": 0
+  },
+  {
+    "name": "typecheck",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "exit": 0,
+    "log": "typecheck.log"
+  },
+  {
+    "name": "final regressions on base",
+    "head": "b8fb54c38cce2bbc7a9356961535d73902d69321",
+    "exit": 1,
+    "log": "red-final-tests-on-b8fb54c.log",
+    "tests": 51,
+    "pass": 32,
+    "fail": 19
+  },
+  {
+    "name": "comment-ratio",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "comment-ratio.log"
+  },
+  {
+    "name": "doc-impact",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "doc-impact.log"
+  },
+  {
+    "name": "number-guards-stack-base",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "number-guards-stack-base.log"
+  },
+  {
+    "name": "adr-lint",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "adr-lint.log"
+  },
+  {
+    "name": "design-surfaces",
+    "head": "cdc488ef7dd7640b1e58fde9c909c41f7d27e83e",
+    "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+    "exit": 0,
+    "log": "design-surfaces.log"
+  }
+]
