@@ -1,0 +1,61 @@
+{
+  "allowedTools": [
+    "mcp__paseo__create_agent",
+    "mcp__paseo__send_agent_prompt",
+    "mcp__paseo__list_agents",
+    "mcp__paseo__get_agent_status",
+    "mcp__paseo__get_agent_activity",
+    "mcp__paseo__list_workspaces",
+    "mcp__paseo__list_pending_permissions",
+    "mcp__paseo__list_models",
+    "mcp__paseo__list_providers"
+  ],
+  "settings": {
+    "permissions": {
+      "deny": [
+        "Bash",
+        "Read",
+        "Edit",
+        "Write",
+        "NotebookEdit",
+        "Grep",
+        "Glob",
+        "WebFetch",
+        "WebSearch",
+        "Agent",
+        "Task",
+        "mcp__paseo__respond_to_permission",
+        "mcp__paseo__set_agent_mode",
+        "mcp__paseo__kill_agent",
+        "mcp__paseo__cancel_agent",
+        "mcp__paseo__archive_agent",
+        "mcp__paseo__update_agent",
+        "mcp__paseo__create_terminal",
+        "mcp__paseo__send_terminal_keys",
+        "mcp__paseo__capture_terminal",
+        "mcp__paseo__kill_terminal",
+        "mcp__paseo__list_terminals",
+        "mcp__paseo__create_workspace",
+        "mcp__paseo__archive_workspace",
+        "mcp__paseo__rename_workspace",
+        "mcp__paseo__start_workspace_script",
+        "mcp__paseo__stop_workspace_script",
+        "mcp__paseo__list_workspace_scripts",
+        "mcp__paseo__create_schedule",
+        "mcp__paseo__update_schedule",
+        "mcp__paseo__pause_schedule",
+        "mcp__paseo__resume_schedule",
+        "mcp__paseo__delete_schedule",
+        "mcp__paseo__run_schedule_once",
+        "mcp__paseo__create_heartbeat",
+        "mcp__paseo__delete_heartbeat",
+        "mcp__paseo__browser_navigate",
+        "mcp__paseo__browser_evaluate",
+        "mcp__paseo__browser_click",
+        "mcp__paseo__browser_fill",
+        "mcp__paseo__browser_type",
+        "mcp__paseo__browser_new_tab"
+      ]
+    }
+  }
+}

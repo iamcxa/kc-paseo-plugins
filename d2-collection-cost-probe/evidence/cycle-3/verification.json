@@ -1,0 +1,27 @@
+[
+  {
+    "name": "probe turn attribution, request deduplication and token reconciliation",
+    "status": "passed",
+    "falsifier": "Changing a terminal token count or duplicating a provider response causes failure."
+  },
+  {
+    "name": "probe per-FO byte/read totals",
+    "status": "passed",
+    "falsifier": "Dropping an FO or changing a per-FO byte count without its total causes failure."
+  },
+  {
+    "name": "baseline turn attribution, request deduplication and token reconciliation",
+    "status": "passed",
+    "falsifier": "Changing a terminal token count or duplicating a provider response causes failure."
+  },
+  {
+    "name": "baseline per-FO byte/read totals",
+    "status": "passed",
+    "falsifier": "Dropping an FO or changing a per-FO byte count without its total causes failure."
+  },
+  {
+    "name": "isolated PID, port, files and allowed live fields",
+    "status": "passed",
+    "falsifier": "A retained runtime directory or any failed cleanup/live-state flag causes failure."
+  }
+]

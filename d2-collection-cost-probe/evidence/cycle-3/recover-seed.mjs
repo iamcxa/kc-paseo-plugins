@@ -1,0 +1,4 @@
+import fs from 'node:fs';
+import {createPaseoClient} from '/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge/node_modules/@getpaseo/client/dist/index.js';
+const dir=new URL('.',import.meta.url),info=JSON.parse(fs.readFileSync(new URL('runtime.json',dir))),m=JSON.parse(fs.readFileSync(new URL('fleet.json',dir)));
+const c=createPaseoClient({url:`ws://127.0.0.1:${info.port}/ws`,reconnect:{enabled:false}});await c.connect();try{const a=c.agents.ref(m[0].agentId);await a.refresh();const t=await a.timeline.refetch({limit:200});fs.writeFileSync(new URL('seed-1-timeline.json',dir),JSON.stringify(t,null,2));m[0].snapshot=a.current();m[0].recoveredWithoutModelRerun=true;fs.writeFileSync(new URL('fleet.json',dir),JSON.stringify(m,null,2));console.log(JSON.stringify({status:a.status,error:a.lastError,keys:Object.keys(t),shape:JSON.stringify(t).slice(0,300)}));}finally{await c.close();}

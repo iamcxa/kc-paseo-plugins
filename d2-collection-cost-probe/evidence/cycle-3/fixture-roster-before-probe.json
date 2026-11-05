@@ -1,0 +1,1724 @@
+{
+  "requestId": "25741909-2585-46e7-b1f8-8d4d05df8772",
+  "entries": [
+    {
+      "agent": {
+        "id": "efe9f708-4174-478b-966f-51ba53707403",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_6bf148605c04a269",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": null,
+          "model": null,
+          "modeId": "default"
+        },
+        "createdAt": "2026-11-05T14:58:03.626Z",
+        "updatedAt": "2026-11-05T14:58:03.628Z",
+        "lastUserMessageAt": null,
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": null,
+        "title": "Fictional FO 18",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-18"
+        },
+        "archivedAt": null,
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "0cb5a5de-fea2-4904-9c43-26aa8a33c417",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_4f747df1fb038d5d",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": null,
+          "model": null,
+          "modeId": "default"
+        },
+        "createdAt": "2026-11-05T14:58:03.413Z",
+        "updatedAt": "2026-11-05T14:58:03.415Z",
+        "lastUserMessageAt": null,
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": null,
+        "title": "Fictional FO 17",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-17"
+        },
+        "archivedAt": null,
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "117d712b-c291-41c2-b5f0-d345cdf2b56a",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_258134cb1c990ea7",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "15f2f83d-5687-4bf8-aa2f-f4a2d5e96125",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:51:23.212Z",
+        "updatedAt": "2026-11-05T14:58:01.423Z",
+        "lastUserMessageAt": "2026-11-05T14:51:23.246Z",
+        "status": "closed",
+        "capabilities": {
+          "supportsStreaming": false,
+          "supportsSessionPersistence": true,
+          "supportsDynamicModes": false,
+          "supportsMcpServers": false,
+          "supportsReasoningStream": false,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": false,
+          "supportsRewindFiles": false,
+          "supportsRewindBoth": false
+        },
+        "currentModeId": "default",
+        "availableModes": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "15f2f83d-5687-4bf8-aa2f-f4a2d5e96125",
+          "nativeHandle": "15f2f83d-5687-4bf8-aa2f-f4a2d5e96125",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 08",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 08",
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null,
+        "archivedAt": "2026-11-05T14:58:01.423Z",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-8"
+        }
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "14368c9c-162b-4873-8e69-cf27173963f1",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_508b2f6c1f8dbb55",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "3983cb75-e79a-464e-88fd-a508aec68d1a",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:48:43.974Z",
+        "updatedAt": "2026-11-05T14:58:01.423Z",
+        "lastUserMessageAt": "2026-11-05T14:48:44.027Z",
+        "status": "closed",
+        "capabilities": {
+          "supportsStreaming": false,
+          "supportsSessionPersistence": true,
+          "supportsDynamicModes": false,
+          "supportsMcpServers": false,
+          "supportsReasoningStream": false,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": false,
+          "supportsRewindFiles": false,
+          "supportsRewindBoth": false
+        },
+        "currentModeId": "default",
+        "availableModes": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "3983cb75-e79a-464e-88fd-a508aec68d1a",
+          "nativeHandle": "3983cb75-e79a-464e-88fd-a508aec68d1a",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 05",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 05",
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null,
+        "archivedAt": "2026-11-05T14:58:01.423Z",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-5"
+        }
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "6f1cd9f2-9e1e-47f9-9626-ce4a04e45f1d",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_4d925f2ae0f039d9",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "67bbc2d8-9a4e-475f-bebd-79f7c7d4a8f9",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:52:16.967Z",
+        "updatedAt": "2026-11-05T14:58:01.423Z",
+        "lastUserMessageAt": "2026-11-05T14:52:17.013Z",
+        "status": "closed",
+        "capabilities": {
+          "supportsStreaming": false,
+          "supportsSessionPersistence": true,
+          "supportsDynamicModes": false,
+          "supportsMcpServers": false,
+          "supportsReasoningStream": false,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": false,
+          "supportsRewindFiles": false,
+          "supportsRewindBoth": false
+        },
+        "currentModeId": "default",
+        "availableModes": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "67bbc2d8-9a4e-475f-bebd-79f7c7d4a8f9",
+          "nativeHandle": "67bbc2d8-9a4e-475f-bebd-79f7c7d4a8f9",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 09",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 09",
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null,
+        "archivedAt": "2026-11-05T14:58:01.423Z",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-9"
+        }
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "7bba7a45-8832-4a51-ada6-7549face74d9",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_1fe98e53dfc08dd7",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "c7eb8ee1-a6f1-45c4-8a57-2fcd42b1a972",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:47:46.864Z",
+        "updatedAt": "2026-11-05T14:58:01.422Z",
+        "lastUserMessageAt": "2026-11-05T14:47:46.892Z",
+        "status": "closed",
+        "capabilities": {
+          "supportsStreaming": false,
+          "supportsSessionPersistence": true,
+          "supportsDynamicModes": false,
+          "supportsMcpServers": false,
+          "supportsReasoningStream": false,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": false,
+          "supportsRewindFiles": false,
+          "supportsRewindBoth": false
+        },
+        "currentModeId": "default",
+        "availableModes": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "c7eb8ee1-a6f1-45c4-8a57-2fcd42b1a972",
+          "nativeHandle": "c7eb8ee1-a6f1-45c4-8a57-2fcd42b1a972",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 04",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 04",
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null,
+        "archivedAt": "2026-11-05T14:58:01.422Z",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-4"
+        }
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "50640a07-5797-46d0-b567-a6d0b5124983",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_4d479f566922da72",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "9ca92808-9e34-4c45-b5df-25c8438e27b0",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:53:53.190Z",
+        "updatedAt": "2026-11-05T14:58:01.421Z",
+        "lastUserMessageAt": "2026-11-05T14:53:53.224Z",
+        "status": "closed",
+        "capabilities": {
+          "supportsStreaming": false,
+          "supportsSessionPersistence": true,
+          "supportsDynamicModes": false,
+          "supportsMcpServers": false,
+          "supportsReasoningStream": false,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": false,
+          "supportsRewindFiles": false,
+          "supportsRewindBoth": false
+        },
+        "currentModeId": "default",
+        "availableModes": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "9ca92808-9e34-4c45-b5df-25c8438e27b0",
+          "nativeHandle": "9ca92808-9e34-4c45-b5df-25c8438e27b0",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 10",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 10",
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null,
+        "archivedAt": "2026-11-05T14:58:01.421Z",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-10"
+        }
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "b7eeae99-d20e-4110-8437-1fc92d9c795a",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_0658cacd96b735c8",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "b97ba544-503e-43f0-8f98-4c03175c861e",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:50:27.179Z",
+        "updatedAt": "2026-11-05T14:58:01.421Z",
+        "lastUserMessageAt": "2026-11-05T14:50:27.211Z",
+        "status": "closed",
+        "capabilities": {
+          "supportsStreaming": false,
+          "supportsSessionPersistence": true,
+          "supportsDynamicModes": false,
+          "supportsMcpServers": false,
+          "supportsReasoningStream": false,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": false,
+          "supportsRewindFiles": false,
+          "supportsRewindBoth": false
+        },
+        "currentModeId": "default",
+        "availableModes": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "b97ba544-503e-43f0-8f98-4c03175c861e",
+          "nativeHandle": "b97ba544-503e-43f0-8f98-4c03175c861e",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 07",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 07",
+        "requiresAttention": false,
+        "attentionReason": null,
+        "attentionTimestamp": null,
+        "archivedAt": "2026-11-05T14:58:01.421Z",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-7"
+        }
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "bd8f76dc-9d9c-4555-9fc7-aebd523cb4a3",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_6cd52495a1d15fd3",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "e16c47f1-65ea-4cf0-b87e-170c404223d7",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:54:50.065Z",
+        "updatedAt": "2026-11-05T14:55:29.219Z",
+        "lastUserMessageAt": "2026-11-05T14:54:50.125Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "e16c47f1-65ea-4cf0-b87e-170c404223d7",
+          "nativeHandle": "e16c47f1-65ea-4cf0-b87e-170c404223d7",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 15",
+            "systemPrompt": "Write only fictional reports in plain ASCII English. Never use tools or refer to any real project, person, or conversation. Follow the requested length."
+          }
+        },
+        "title": "Fictional FO 15",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-15"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12652,
+          "outputTokens": 2323,
+          "totalCostUsd": 0.055576200000000006,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 36328
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:55:29.219Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "9bf78ff6-4dfe-495b-a7d8-7cf348ffea7f",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_62f80975e6e27368",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "68c90f9f-3b4b-4b7a-8fd1-7828c0bbea6d",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:54:50.065Z",
+        "updatedAt": "2026-11-05T14:55:25.032Z",
+        "lastUserMessageAt": "2026-11-05T14:54:50.119Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "68c90f9f-3b4b-4b7a-8fd1-7828c0bbea6d",
+          "nativeHandle": "68c90f9f-3b4b-4b7a-8fd1-7828c0bbea6d",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 16",
+            "systemPrompt": "Write only fictional reports in plain ASCII English. Never use tools or refer to any real project, person, or conversation. Follow the requested length."
+          }
+        },
+        "title": "Fictional FO 16",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-16"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12652,
+          "outputTokens": 1928,
+          "totalCostUsd": 0.0536012,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 35933
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:55:25.031Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "863f4bd0-90cc-4468-a653-1ac236324d23",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_269f9b9c84f2a84f",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "c837d749-1c62-4e64-82ed-b61e9a6bd183",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:54:08.790Z",
+        "updatedAt": "2026-11-05T14:54:49.932Z",
+        "lastUserMessageAt": "2026-11-05T14:54:08.823Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "c837d749-1c62-4e64-82ed-b61e9a6bd183",
+          "nativeHandle": "c837d749-1c62-4e64-82ed-b61e9a6bd183",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 14",
+            "systemPrompt": "Write only fictional reports in plain ASCII English. Never use tools or refer to any real project, person, or conversation. Follow the requested length."
+          }
+        },
+        "title": "Fictional FO 14",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-14"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12652,
+          "outputTokens": 2591,
+          "totalCostUsd": 0.0569162,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 36596
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:54:49.931Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "7ce8b936-8e07-4b92-adc8-7ff579818f9f",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_b90f5f6bc5a6e46c",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "657d9e14-5904-49c2-871e-2e68a921e1f7",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:54:08.790Z",
+        "updatedAt": "2026-11-05T14:54:41.495Z",
+        "lastUserMessageAt": "2026-11-05T14:54:08.825Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "657d9e14-5904-49c2-871e-2e68a921e1f7",
+          "nativeHandle": "657d9e14-5904-49c2-871e-2e68a921e1f7",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 13",
+            "systemPrompt": "Write only fictional reports in plain ASCII English. Never use tools or refer to any real project, person, or conversation. Follow the requested length."
+          }
+        },
+        "title": "Fictional FO 13",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-13"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12652,
+          "outputTokens": 1705,
+          "totalCostUsd": 0.0524862,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 35710
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:54:41.494Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "9ef56f58-2506-4caf-8919-fb82646c9d38",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_a54d89cc3da1bea2",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "4ad151d6-5191-46af-84b2-399896020c00",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:53:32.076Z",
+        "updatedAt": "2026-11-05T14:54:08.704Z",
+        "lastUserMessageAt": "2026-11-05T14:53:32.114Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "4ad151d6-5191-46af-84b2-399896020c00",
+          "nativeHandle": "4ad151d6-5191-46af-84b2-399896020c00",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 12",
+            "systemPrompt": "Write only fictional reports in plain ASCII English. Never use tools or refer to any real project, person, or conversation. Follow the requested length."
+          }
+        },
+        "title": "Fictional FO 12",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-12"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 8792,
+          "outputTokens": 2420,
+          "totalCostUsd": 0.0634592,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 36457
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:54:08.703Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "7ef7534e-79b1-46c9-89a3-0aaff5aef56c",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_d9e419e97a0dd7b4",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "7234aac4-c51a-4afd-a53d-eefb1a44486b",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:53:32.076Z",
+        "updatedAt": "2026-11-05T14:54:06.098Z",
+        "lastUserMessageAt": "2026-11-05T14:53:32.113Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "7234aac4-c51a-4afd-a53d-eefb1a44486b",
+          "nativeHandle": "7234aac4-c51a-4afd-a53d-eefb1a44486b",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 11",
+            "systemPrompt": "Write only fictional reports in plain ASCII English. Never use tools or refer to any real project, person, or conversation. Follow the requested length."
+          }
+        },
+        "title": "Fictional FO 11",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-11"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 8792,
+          "outputTokens": 2235,
+          "totalCostUsd": 0.0625342,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 36272
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:54:06.097Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "4f8e7de2-4cf0-48ad-a4f6-c5712750ba30",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_abe85e780078da48",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "7e563e4a-0b3d-496c-b77e-5de2209922d9",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:49:36.427Z",
+        "updatedAt": "2026-11-05T14:50:27.085Z",
+        "lastUserMessageAt": "2026-11-05T14:49:36.463Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "7e563e4a-0b3d-496c-b77e-5de2209922d9",
+          "nativeHandle": "7e563e4a-0b3d-496c-b77e-5de2209922d9",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 06",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 06",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-6"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12654,
+          "outputTokens": 3587,
+          "totalCostUsd": 0.06201039999999999,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 37651
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:50:27.084Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "ad15c291-965c-4a59-b4e3-a7715831188f",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_e7a07409c064faf2",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "a28baef0-7add-4573-895c-fd2b2bff0456",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:47:01.458Z",
+        "updatedAt": "2026-11-05T14:47:46.776Z",
+        "lastUserMessageAt": "2026-11-05T14:47:01.487Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "a28baef0-7add-4573-895c-fd2b2bff0456",
+          "nativeHandle": "a28baef0-7add-4573-895c-fd2b2bff0456",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 03",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 03",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-3"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12654,
+          "outputTokens": 3348,
+          "totalCostUsd": 0.060735399999999995,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 37372
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:47:46.775Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "5874faff-a222-46b2-a131-3a8bb1af4d50",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_a4ad8fbb6cca545a",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "c443f424-cc08-4b51-b42a-89f4bafa020f",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:46:22.915Z",
+        "updatedAt": "2026-11-05T14:47:01.367Z",
+        "lastUserMessageAt": "2026-11-05T14:46:22.951Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "c443f424-cc08-4b51-b42a-89f4bafa020f",
+          "nativeHandle": "c443f424-cc08-4b51-b42a-89f4bafa020f",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 02",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 02",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-2"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 12654,
+          "outputTokens": 2830,
+          "totalCostUsd": 0.0580914,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 36827
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:47:01.366Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    },
+    {
+      "agent": {
+        "id": "27b01417-8b03-4ebe-ac6e-d6132a4b593c",
+        "provider": "claude",
+        "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+        "workspaceId": "wks_76a62305ea5b2394",
+        "model": "claude-haiku-4-5",
+        "thinkingOptionId": null,
+        "effectiveThinkingOptionId": null,
+        "runtimeInfo": {
+          "provider": "claude",
+          "sessionId": "d07fd791-8b68-41fc-8603-efe9b92ad1bc",
+          "model": "claude-haiku-4-5",
+          "modeId": "default",
+          "extra": {
+            "runtimeModel": "claude-haiku-4-5"
+          }
+        },
+        "createdAt": "2026-11-05T14:44:26.852Z",
+        "updatedAt": "2026-11-05T14:44:59.886Z",
+        "lastUserMessageAt": "2026-11-05T14:44:26.890Z",
+        "status": "idle",
+        "activeTurn": null,
+        "capabilities": {
+          "supportsStreaming": true,
+          "supportsSessionPersistence": true,
+          "supportsSessionListing": true,
+          "supportsDynamicModes": true,
+          "supportsMcpServers": true,
+          "supportsReasoningStream": true,
+          "supportsToolInvocations": true,
+          "supportsRewindConversation": true,
+          "supportsRewindFiles": true,
+          "supportsRewindBoth": true
+        },
+        "currentModeId": "default",
+        "availableModes": [
+          {
+            "id": "plan",
+            "label": "Plan Mode",
+            "description": "Analyze the codebase without executing tools or edits"
+          },
+          {
+            "id": "default",
+            "label": "Always Ask",
+            "description": "Prompts for permission the first time a tool is used"
+          },
+          {
+            "id": "acceptEdits",
+            "label": "Accept File Edits",
+            "description": "Automatically approves edit-focused tools without prompting"
+          },
+          {
+            "id": "auto",
+            "label": "Auto mode",
+            "description": "Uses a model classifier to review permission prompts automatically"
+          },
+          {
+            "id": "bypassPermissions",
+            "label": "Bypass",
+            "description": "Skip all permission prompts (use with caution)"
+          }
+        ],
+        "features": [],
+        "pendingPermissions": [],
+        "persistence": {
+          "provider": "claude",
+          "sessionId": "d07fd791-8b68-41fc-8603-efe9b92ad1bc",
+          "nativeHandle": "d07fd791-8b68-41fc-8603-efe9b92ad1bc",
+          "metadata": {
+            "provider": "claude",
+            "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+            "model": "claude-haiku-4-5",
+            "title": "Fictional FO 01",
+            "systemPrompt": "Produce fictional project status reports only. Never use tools, read files or refer to any real person, project or conversation. Follow the requested output length."
+          }
+        },
+        "title": "Fictional FO 01",
+        "labels": {
+          "role": "fo",
+          "repo": "fictional-project-1"
+        },
+        "archivedAt": null,
+        "lastUsage": {
+          "inputTokens": 10,
+          "cachedInputTokens": 0,
+          "outputTokens": 2329,
+          "totalCostUsd": 0.079683,
+          "contextWindowMaxTokens": 200000,
+          "contextWindowUsedTokens": 36353
+        },
+        "requiresAttention": true,
+        "attentionReason": "finished",
+        "attentionTimestamp": "2026-11-05T14:44:59.885Z"
+      },
+      "project": {
+        "projectKey": "prj_b03eba397b74af6c",
+        "projectName": "fictional-workspace",
+        "workspaceName": "fictional-workspace",
+        "checkout": {
+          "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+          "isGit": false,
+          "currentBranch": null,
+          "remoteUrl": null,
+          "worktreeRoot": null,
+          "isPaseoOwnedWorktree": false,
+          "mainRepoRoot": null
+        }
+      }
+    }
+  ],
+  "pageInfo": {
+    "nextCursor": null,
+    "prevCursor": null,
+    "hasMore": false
+  }
+}

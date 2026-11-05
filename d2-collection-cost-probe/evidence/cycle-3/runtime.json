@@ -1,0 +1,28 @@
+{
+  "runtimeRoot": "/tmp/d2-no-bridge-007nb3y3",
+  "home": "/tmp/d2-no-bridge-007nb3y3/daemon-home",
+  "cwd": "/tmp/d2-no-bridge-007nb3y3/fictional-workspace",
+  "port": 49770,
+  "before": {
+    "at": "2026-11-05T14:41:05.576677+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "daemonPid": 83019,
+  "pluginsEnabled": false,
+  "bridgeLoaded": false,
+  "launchExit": 0,
+  "launch": {
+    "action": "started",
+    "home": "/tmp/d2-no-bridge-007nb3y3/daemon-home",
+    "pid": 83019,
+    "listen": "127.0.0.1:49770",
+    "logPath": "/tmp/d2-no-bridge-007nb3y3/daemon-home/daemon.log"
+  }
+}

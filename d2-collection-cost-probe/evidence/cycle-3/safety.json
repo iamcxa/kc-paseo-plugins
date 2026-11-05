@@ -1,0 +1,88 @@
+{
+  "before": {
+    "at": "2026-11-05T14:41:05.576677+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "after": {
+    "at": "2026-11-05T15:09:26.395002+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "idle",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "observedLiveFieldsEqual": true,
+  "daemonPid": 83019,
+  "stoppedByCapturedPid": true,
+  "pidGone": true,
+  "portClosed": true,
+  "homeDeleted": true,
+  "runtimeRootDeleted": true,
+  "bridgeLoaded": false,
+  "isolatedRunningAgentsBeforeStop": 0,
+  "ownedNativeProjectDirectoryRemoved": "/Users/kent/.claude/projects/-private-tmp-d2-no-bridge-007nb3y3-fictional-workspace",
+  "ownedNativeSessionIds": [
+    "14218214-b7cb-461b-9233-802d369c8136",
+    "15f2f83d-5687-4bf8-aa2f-f4a2d5e96125",
+    "3983cb75-e79a-464e-88fd-a508aec68d1a",
+    "4ad151d6-5191-46af-84b2-399896020c00",
+    "657d9e14-5904-49c2-871e-2e68a921e1f7",
+    "67bbc2d8-9a4e-475f-bebd-79f7c7d4a8f9",
+    "68c90f9f-3b4b-4b7a-8fd1-7828c0bbea6d",
+    "7234aac4-c51a-4afd-a53d-eefb1a44486b",
+    "7e563e4a-0b3d-496c-b77e-5de2209922d9",
+    "8326cad4-3b31-4271-a5a4-7ccd1508ca05",
+    "9ca92808-9e34-4c45-b5df-25c8438e27b0",
+    "a28baef0-7add-4573-895c-fd2b2bff0456",
+    "b97ba544-503e-43f0-8f98-4c03175c861e",
+    "c443f424-cc08-4b51-b42a-89f4bafa020f",
+    "c7eb8ee1-a6f1-45c4-8a57-2fcd42b1a972",
+    "c837d749-1c62-4e64-82ed-b61e9a6bd183",
+    "d07fd791-8b68-41fc-8603-efe9b92ad1bc",
+    "e16c47f1-65ea-4cf0-b87e-170c404223d7"
+  ],
+  "additionalTitleOnlySessionIds": [
+    "413fd3ed-eb23-4878-ab35-7ad8e6e6449b",
+    "52b6d0d7-4657-44c8-a908-e0243c357416",
+    "5d815923-a664-4fcc-8e1c-800d77d7800e",
+    "6d0a1b9d-a7dd-41a6-95da-93d9bd086e74",
+    "76e37745-c659-46fd-86e6-8e0c8b79160a",
+    "bbc1587a-09fb-4057-964c-4a356aeacc28",
+    "d5c7197d-d752-4fd2-aa24-209e190a69c0",
+    "f44f3dcd-b04e-4308-82dd-b7b90b68040d"
+  ],
+  "ownedDebugFilesRemoved": [],
+  "cleanupGuardPause": "Initial cleanup paused after daemon stop when eight extra transcript filenames were found; verified those contain only ai-title records (zero API requests), then resumed exact-namespace deletion. No pattern kill used.",
+  "credentialFilesReadOrCopied": false,
+  "liveConversationTextRead": false,
+  "livePromptsSent": false,
+  "livePermissionResponsesSent": false,
+  "worktrees": {
+    "main": {
+      "head": "6709c7283b0906cbdf8d6155048e198625520e8e",
+      "branch": "main",
+      "porcelain": ""
+    },
+    "pinnedBridge": {
+      "head": "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "branch": "",
+      "porcelain": ""
+    },
+    "unusedDispatch": {
+      "head": "6709c7283b0906cbdf8d6155048e198625520e8e",
+      "branch": "spacedock-ensign/d2-collection-cost-probe",
+      "porcelain": ""
+    }
+  },
+  "limits": "Live count/status equality is the requested bounded check, not a global filesystem audit. Native Claude generated transcripts/debug files in real HOME; removed only this newly-created fictional project namespace and exact owned session-ID debug files. No unrelated history or credentials were read or removed."
+}

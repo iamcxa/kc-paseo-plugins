@@ -1,0 +1,537 @@
+{
+  "round": "probe",
+  "byteUnits": "UTF-8. modelVisibleReportTextBytes counts complete curated content strings plus any persisted-output preview string actually delivered; it excludes JSON framing of structured tool results. serialized bytes use normalized compact JSON, not measured transport framing.",
+  "pageDefinition": "One get_agent_activity response is one curated summary read, limited by entry count. The tool exposes no cursor/pagination; this is not a count of backend pages.",
+  "agents": [
+    {
+      "agentId": "27b01417-8b03-4ebe-ac6e-d6132a4b593c",
+      "title": "Fictional FO 01",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 8508,
+      "seedVisibleTextBytes": 9198,
+      "activityCalls": 1,
+      "curatedTextBytes": 9232,
+      "modelVisibleReportTextBytes": 9232,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 9442,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01MmnQCMHXuS8pJMCDsdYSiu",
+          "input": {
+            "agentId": "27b01417-8b03-4ebe-ac6e-d6132a4b593c",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 9232,
+          "modelVisibleReportTextBytes": 9232,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 9442,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "5874faff-a222-46b2-a131-3a8bb1af4d50",
+      "title": "Fictional FO 02",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 10886,
+      "seedVisibleTextBytes": 11576,
+      "activityCalls": 1,
+      "curatedTextBytes": 11610,
+      "modelVisibleReportTextBytes": 11610,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 11846,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01UW2eFQrjNueHHQuWxx65gu",
+          "input": {
+            "agentId": "5874faff-a222-46b2-a131-3a8bb1af4d50",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 11610,
+          "modelVisibleReportTextBytes": 11610,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 11846,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "ad15c291-965c-4a59-b4e3-a7715831188f",
+      "title": "Fictional FO 03",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 15772,
+      "seedVisibleTextBytes": 16462,
+      "activityCalls": 1,
+      "curatedTextBytes": 16496,
+      "modelVisibleReportTextBytes": 16496,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 16711,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01Vg3QrPdwnjGTgeGRgPKKZp",
+          "input": {
+            "agentId": "ad15c291-965c-4a59-b4e3-a7715831188f",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 16496,
+          "modelVisibleReportTextBytes": 16496,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 16711,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "7bba7a45-8832-4a51-ada6-7549face74d9",
+      "title": "Fictional FO 04",
+      "initialStatus": "closed",
+      "seedAssistantBytes": 17381,
+      "seedVisibleTextBytes": 18071,
+      "activityCalls": 1,
+      "curatedTextBytes": 18105,
+      "modelVisibleReportTextBytes": 18105,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 18325,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_0162KgUMF5HensgCwe2DkeqY",
+          "input": {
+            "agentId": "7bba7a45-8832-4a51-ada6-7549face74d9",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 18105,
+          "modelVisibleReportTextBytes": 18105,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 18325,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "14368c9c-162b-4873-8e69-cf27173963f1",
+      "title": "Fictional FO 05",
+      "initialStatus": "closed",
+      "seedAssistantBytes": 16699,
+      "seedVisibleTextBytes": 17389,
+      "activityCalls": 1,
+      "curatedTextBytes": 17423,
+      "modelVisibleReportTextBytes": 17423,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 17814,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01AGtTvcBLxYPKtgakc51nRo",
+          "input": {
+            "agentId": "14368c9c-162b-4873-8e69-cf27173963f1",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 17423,
+          "modelVisibleReportTextBytes": 17423,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 17814,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "4f8e7de2-4cf0-48ad-a4f6-c5712750ba30",
+      "title": "Fictional FO 06",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 15025,
+      "seedVisibleTextBytes": 15715,
+      "activityCalls": 1,
+      "curatedTextBytes": 15749,
+      "modelVisibleReportTextBytes": 15749,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 16035,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01Gwc67WmjGX1ehYFDrxiNhq",
+          "input": {
+            "agentId": "4f8e7de2-4cf0-48ad-a4f6-c5712750ba30",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 15749,
+          "modelVisibleReportTextBytes": 15749,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 16035,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "b7eeae99-d20e-4110-8437-1fc92d9c795a",
+      "title": "Fictional FO 07",
+      "initialStatus": "closed",
+      "seedAssistantBytes": 20088,
+      "seedVisibleTextBytes": 20780,
+      "activityCalls": 1,
+      "curatedTextBytes": 20814,
+      "modelVisibleReportTextBytes": 20814,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 21107,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01WaoitUR8fhCs5SWyGt9hSf",
+          "input": {
+            "agentId": "b7eeae99-d20e-4110-8437-1fc92d9c795a",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 20814,
+          "modelVisibleReportTextBytes": 20814,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 21107,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "117d712b-c291-41c2-b5f0-d345cdf2b56a",
+      "title": "Fictional FO 08",
+      "initialStatus": "closed",
+      "seedAssistantBytes": 17906,
+      "seedVisibleTextBytes": 18598,
+      "activityCalls": 1,
+      "curatedTextBytes": 18632,
+      "modelVisibleReportTextBytes": 18632,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 18844,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01C3R7CV4Nzzv9qJywCTRbTz",
+          "input": {
+            "agentId": "117d712b-c291-41c2-b5f0-d345cdf2b56a",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 18632,
+          "modelVisibleReportTextBytes": 18632,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 18844,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "6f1cd9f2-9e1e-47f9-9626-ce4a04e45f1d",
+      "title": "Fictional FO 09",
+      "initialStatus": "closed",
+      "seedAssistantBytes": 30657,
+      "seedVisibleTextBytes": 31349,
+      "activityCalls": 1,
+      "curatedTextBytes": 31383,
+      "modelVisibleReportTextBytes": 31383,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 31760,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01Pg7StzpoQygvB6giAivWQS",
+          "input": {
+            "agentId": "6f1cd9f2-9e1e-47f9-9626-ce4a04e45f1d",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 31383,
+          "modelVisibleReportTextBytes": 31383,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 31760,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "50640a07-5797-46d0-b567-a6d0b5124983",
+      "title": "Fictional FO 10",
+      "initialStatus": "closed",
+      "seedAssistantBytes": 50090,
+      "seedVisibleTextBytes": 50783,
+      "activityCalls": 1,
+      "curatedTextBytes": 0,
+      "modelVisibleReportTextBytes": 2283,
+      "previewResponses": 1,
+      "serializedToolOutputBytes": 2325,
+      "sourceEntriesReturned": 0,
+      "calls": [
+        {
+          "callId": "toolu_012S2fU6EsEnsSgjyxwU7gqE",
+          "input": {
+            "agentId": "50640a07-5797-46d0-b567-a6d0b5124983",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 0,
+          "modelVisibleReportTextBytes": 2283,
+          "persistedPreviewOnly": true,
+          "serializedOutputBytes": 2325,
+          "updateCount": 0,
+          "summaryHeader": ""
+        }
+      ]
+    },
+    {
+      "agentId": "7ef7534e-79b1-46c9-89a3-0aaff5aef56c",
+      "title": "Fictional FO 11",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 8361,
+      "seedVisibleTextBytes": 9031,
+      "activityCalls": 1,
+      "curatedTextBytes": 9065,
+      "modelVisibleReportTextBytes": 9065,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 9234,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_0124RULmY8wd96AxSFK3mvcy",
+          "input": {
+            "agentId": "7ef7534e-79b1-46c9-89a3-0aaff5aef56c",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 9065,
+          "modelVisibleReportTextBytes": 9065,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 9234,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "9ef56f58-2506-4caf-8919-fb82646c9d38",
+      "title": "Fictional FO 12",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 9190,
+      "seedVisibleTextBytes": 9860,
+      "activityCalls": 1,
+      "curatedTextBytes": 9894,
+      "modelVisibleReportTextBytes": 9894,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 10080,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_018rvQS6zYbTKLFYEA3fwBL6",
+          "input": {
+            "agentId": "9ef56f58-2506-4caf-8919-fb82646c9d38",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 9894,
+          "modelVisibleReportTextBytes": 9894,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 10080,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "7ce8b936-8e07-4b92-adc8-7ff579818f9f",
+      "title": "Fictional FO 13",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 6163,
+      "seedVisibleTextBytes": 6833,
+      "activityCalls": 1,
+      "curatedTextBytes": 6867,
+      "modelVisibleReportTextBytes": 6867,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 7054,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_013eMCecXwQs5QoqGsYHMem2",
+          "input": {
+            "agentId": "7ce8b936-8e07-4b92-adc8-7ff579818f9f",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 6867,
+          "modelVisibleReportTextBytes": 6867,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 7054,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "863f4bd0-90cc-4468-a653-1ac236324d23",
+      "title": "Fictional FO 14",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 10077,
+      "seedVisibleTextBytes": 10747,
+      "activityCalls": 1,
+      "curatedTextBytes": 10781,
+      "modelVisibleReportTextBytes": 10781,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 10958,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_016GJTqJRNgq1W3spjGureAH",
+          "input": {
+            "agentId": "863f4bd0-90cc-4468-a653-1ac236324d23",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 10781,
+          "modelVisibleReportTextBytes": 10781,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 10958,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "bd8f76dc-9d9c-4555-9fc7-aebd523cb4a3",
+      "title": "Fictional FO 15",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 9388,
+      "seedVisibleTextBytes": 10058,
+      "activityCalls": 1,
+      "curatedTextBytes": 10092,
+      "modelVisibleReportTextBytes": 10092,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 10265,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01CC16jk8MV4HrjzNNj8cbDc",
+          "input": {
+            "agentId": "bd8f76dc-9d9c-4555-9fc7-aebd523cb4a3",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 10092,
+          "modelVisibleReportTextBytes": 10092,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 10265,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "9bf78ff6-4dfe-495b-a7d8-7cf348ffea7f",
+      "title": "Fictional FO 16",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 6878,
+      "seedVisibleTextBytes": 7548,
+      "activityCalls": 1,
+      "curatedTextBytes": 7582,
+      "modelVisibleReportTextBytes": 7582,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 7758,
+      "sourceEntriesReturned": 2,
+      "calls": [
+        {
+          "callId": "toolu_01FDSCBKbF9cnZgZ6whj4MAr",
+          "input": {
+            "agentId": "9bf78ff6-4dfe-495b-a7d8-7cf348ffea7f",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 7582,
+          "modelVisibleReportTextBytes": 7582,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 7758,
+          "updateCount": 2,
+          "summaryHeader": "Showing all 2 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "0cb5a5de-fea2-4904-9c43-26aa8a33c417",
+      "title": "Fictional FO 17",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 0,
+      "seedVisibleTextBytes": 0,
+      "activityCalls": 1,
+      "curatedTextBytes": 49,
+      "modelVisibleReportTextBytes": 49,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 197,
+      "sourceEntriesReturned": 0,
+      "calls": [
+        {
+          "callId": "toolu_018M3n4akG4qnsAeoRZ1LaG6",
+          "input": {
+            "agentId": "0cb5a5de-fea2-4904-9c43-26aa8a33c417",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 49,
+          "modelVisibleReportTextBytes": 49,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 197,
+          "updateCount": 0,
+          "summaryHeader": "Showing all 0 activities"
+        }
+      ]
+    },
+    {
+      "agentId": "efe9f708-4174-478b-966f-51ba53707403",
+      "title": "Fictional FO 18",
+      "initialStatus": "idle",
+      "seedAssistantBytes": 0,
+      "seedVisibleTextBytes": 0,
+      "activityCalls": 1,
+      "curatedTextBytes": 49,
+      "modelVisibleReportTextBytes": 49,
+      "previewResponses": 0,
+      "serializedToolOutputBytes": 197,
+      "sourceEntriesReturned": 0,
+      "calls": [
+        {
+          "callId": "toolu_01HjeVUHj5j4UX7zg943XJ5D",
+          "input": {
+            "agentId": "efe9f708-4174-478b-966f-51ba53707403",
+            "limit": 10
+          },
+          "status": "completed",
+          "summaryBytes": 49,
+          "modelVisibleReportTextBytes": 49,
+          "persistedPreviewOnly": false,
+          "serializedOutputBytes": 197,
+          "updateCount": 0,
+          "summaryHeader": "Showing all 0 activities"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "activityCalls": 18,
+    "curatedTextBytes": 213823,
+    "modelVisibleReportTextBytes": 216106,
+    "previewResponses": 1,
+    "serializedToolOutputBytes": 219952,
+    "sourceEntriesReturned": 30
+  }
+}

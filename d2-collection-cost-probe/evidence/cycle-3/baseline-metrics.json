@@ -1,0 +1,217 @@
+{
+  "round": "baseline",
+  "agentId": "32ac777e-1012-4c1a-9275-7e7f02388b80",
+  "sessionId": "14218214-b7cb-461b-9233-802d369c8136",
+  "turnId": "foreground-turn-1",
+  "terminalType": "turn_completed",
+  "wallMs": 64851.598167,
+  "requestCount": 4,
+  "successfulResponseCount": 4,
+  "requests": [
+    {
+      "id": "e14a0792-7cdb-4728-853f-b2824ef1914c",
+      "at": "2026-11-05T15:03:19.764Z",
+      "querySource": "sdk"
+    },
+    {
+      "id": "679b75bc-3936-4237-b2ec-27dfd94b86de",
+      "at": "2026-11-05T15:03:29.053Z",
+      "querySource": "sdk"
+    },
+    {
+      "id": "182e436a-8065-4d50-8047-b2be2f5ebd50",
+      "at": "2026-11-05T15:03:39.535Z",
+      "querySource": "sdk"
+    },
+    {
+      "id": "3e4b8e57-87d1-4b64-bc63-ed97d7b36524",
+      "at": "2026-11-05T15:03:52.683Z",
+      "querySource": "sdk"
+    }
+  ],
+  "responses": [
+    {
+      "messageId": "msg_011Cgjz5VFNySZJ8WZR5Pis4",
+      "requestId": "req_011Cgjz5V2UKKF65u8PaLDar",
+      "usage": {
+        "input_tokens": 47545,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 287,
+        "output_tokens_details": {
+          "thinking_tokens": 79
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 47545,
+            "output_tokens": 287,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "messageId": "msg_011Cgjz6As7XDo5UssPpw6z6",
+      "requestId": "req_011Cgjz6AeD2T7YHoQ6niBUA",
+      "usage": {
+        "input_tokens": 49105,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 73,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 49105,
+            "output_tokens": 73,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "messageId": "msg_011Cgjz6wkrNAy3vGUJTT71r",
+      "requestId": "req_011Cgjz6wPmU3JGwh43noxkS",
+      "usage": {
+        "input_tokens": 51297,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 130,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 51297,
+            "output_tokens": 130,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    {
+      "messageId": "msg_011Cgjz7utW1ZrSsjBWkjkit",
+      "requestId": "req_011Cgjz7ub9aPh4eHrgDzYYp",
+      "usage": {
+        "input_tokens": 55593,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 992,
+        "output_tokens_details": {
+          "thinking_tokens": 192
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 55593,
+            "output_tokens": 992,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "rawTokenSums": {
+    "input_tokens": 203540,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 1482
+  },
+  "totalInputTokens": 203540,
+  "uncachedInputTokens": 203540,
+  "cacheReadInputTokens": 0,
+  "cacheCreationInputTokens": 0,
+  "outputTokens": 1482,
+  "turnCompletedUsage": {
+    "inputTokens": 203540,
+    "cachedInputTokens": 0,
+    "outputTokens": 1482,
+    "totalCostUsd": 0.8438,
+    "contextWindowMaxTokens": 1000000,
+    "contextWindowUsedTokens": 56585
+  },
+  "tokenSumMatchesTerminal": {
+    "input_tokens": true,
+    "cache_read_input_tokens": true,
+    "output_tokens": true
+  },
+  "usageUpdatedCount": 0,
+  "cachePolicy": "DISABLE_PROMPT_CACHING=1 on both fresh Commanders to prevent cross-round prompt-cache inheritance",
+  "nativeTranscript": {
+    "path": "/Users/kent/.claude/projects/-private-tmp-d2-no-bridge-007nb3y3-fictional-workspace/14218214-b7cb-461b-9233-802d369c8136.jsonl",
+    "sha256": "7b3fa57682b72e7f9c34cff01d449892e249aca15dac7bd91a234d7d9f256332",
+    "selection": "Exact session ID emitted by this isolated synthetic Commander; no other transcript or credential file read."
+  }
+}

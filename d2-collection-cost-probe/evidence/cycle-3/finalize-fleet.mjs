@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import {DaemonClient} from '/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge/node_modules/@getpaseo/client/dist/daemon-client.js';
+import {createPaseoApi} from '/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge/node_modules/@getpaseo/client/dist/index.js';
+const dir=new URL('.',import.meta.url),info=JSON.parse(fs.readFileSync(new URL('runtime.json',dir))),raw=new DaemonClient({url:`ws://127.0.0.1:${info.port}/ws`,clientType:'cli',clientId:'fictional-fixture-finalizer',reconnect:{enabled:false}}),c=createPaseoApi(raw);await raw.connect();
+try{const m=[...JSON.parse(fs.readFileSync(new URL('fleet.json',dir))),...JSON.parse(fs.readFileSync(new URL('fleet-small.json',dir)))];if(m.length!==16)throw Error('Need exactly sixteen populated fixture agents');
+for(const row of m){const t=JSON.parse(fs.readFileSync(new URL(`seed-${row.index+1}-timeline.json`,dir)));row.assistantBytes=t.entries.filter(e=>e.item.type==='assistant_message').reduce((s,e)=>s+Buffer.byteLength(e.item.text),0);row.visibleTextBytes=t.entries.filter(e=>['assistant_message','user_message'].includes(e.item.type)).reduce((s,e)=>s+Buffer.byteLength(e.item.text),0);}
+const sorted=[...m].sort((a,b)=>a.assistantBytes-b.assistantBytes),idle=sorted.slice(0,10),closed=sorted.slice(10);
+if(idle.some(x=>x.assistantBytes<6000||x.assistantBytes>17408))throw Error('Idle text outside 6 KB to 17 KiB range');
+await raw.closeItems({agentIds:closed.map(x=>x.agentId)});
+for(const row of m)row.fixtureStatus=closed.includes(row)?'closed':'idle';
+const existingAll=await c.agents.list({filter:{labels:{role:'fo'},includeArchived:true}});for(let i=16;i<18;i++){const existing=existingAll.entries.find(e=>e.agent.title===`Fictional FO ${i+1}`);const a=existing?.agent??await c.agents.create({config:{provider:'claude/claude-haiku-4-5'},cwd:info.cwd,title:`Fictional FO ${i+1}`,labels:{role:'fo',repo:`fictional-project-${i+1}`}});m.push({index:i,agentId:a.id,title:`Fictional FO ${i+1}`,fixtureStatus:'idle',assistantBytes:0,visibleTextBytes:0,seedModelTurns:0});}
+const roster=await c.agents.list({filter:{labels:{role:'fo'},includeArchived:true}});fs.writeFileSync(new URL('fixture-roster-before-probe.json',dir),JSON.stringify(roster,null,2));
+const statuses={};for(const e of roster.entries)statuses[e.agent.status]=(statuses[e.agent.status]??0)+1;
+if(roster.entries.length!==18||statuses.idle!==12||statuses.closed!==6)throw Error('Wrong roster '+JSON.stringify(statuses));
+const sizes=idle.map(x=>x.assistantBytes).sort((a,b)=>a-b),report={agents:m.sort((a,b)=>a.index-b.index),statuses,idlePopulatedMedianBytes:(sizes[4]+sizes[5])/2,idlePopulatedMinBytes:sizes[0],idlePopulatedMaxBytes:sizes.at(-1),selectionMethod:'Generate sixteen fictional reports, assign six largest histories to the six closed FOs, retain ten populated idle FOs and add two empty idle FOs. Closed history sizes were unspecified by the dispatch.'};fs.writeFileSync(new URL('fixture.json',dir),JSON.stringify(report,null,2));console.log(JSON.stringify({count:roster.entries.length,statuses,median:report.idlePopulatedMedianBytes,min:sizes[0],max:sizes.at(-1)}));
+}finally{await c.dispose();await raw.close();}

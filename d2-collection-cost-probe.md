@@ -140,3 +140,26 @@ Stopped before daemon or model execution because the pinned Bridge requires proh
 ### Summary
 
 Prepared and removed the Captain-authorized two-line disposable copy; its exact diff is retained. The unchanged review poller independently reaches the live Bridge review store and can generate unbudgeted activity, so the follow-up stop condition applies before daemon/provider startup; AC-1 and AC-2 still have no measurement. The FO must resolve that additional automatic path before a new dispatch; no broader copy edit, product change, PR, live text access, credential access or model round was performed.
+
+## Stage Report: implementation (cycle 3)
+
+- DONE: Captain amendment 2 (task file, ## Captain amendments): start the isolated daemon (own --home, port outside 6767, 6787 and 6860-6935) with no Bridge plugin and no Bridge code running; record the daemon PID
+  cycle-3/runtime.json and isolated-plugins.json: own /tmp home, port 49770, captured PID 83019, plugins disabled/empty and relay disabled; no Bridge module imported or executed.
+- DONE: Seed the fictional 18-FO fleet as in implementation-1 item 2 inside that daemon
+  fixture.json and seed timelines: 18 role=fo agents, 6 closed, 10 populated idle (6,163–15,772 assistant B; median 9,289 B), 2 empty idle. Sixteen Haiku 4.5 seed turns; six largest histories assigned closed; setup excluded from measurement.
+- DONE: Probe round and baseline round as in implementation-1 items 3-4, each on a fresh Commander created directly in the isolated daemon with provider claude/claude-opus-5-5, the pinned COORDINATOR_PROMPT text as its system prompt and the Paseo tools it allows; the roster comes from Paseo's own agent list (labels role=fo), not fleet_status; keep the probe instruction in evidence/probe-prompt.md
+  probe-run.json and baseline-run.json: separate fresh Claude Opus 5.5 agents/sessions, exact resolved pinned system prompt and allowed Paseo tools; one requested user message each. No round retry or FO messaging. Cache disabled for both; probe-prompt.md retained.
+- DONE: Usage by turn id and RESULT.md with probe, baseline and increment, per-FO scaling, and every approximation (no fleet_status: tasks/gates summary missing) (AC-1, AC-2)
+  RESULT.md: probe 336,753 input / 7,397 output, 5 requests, 107.472s; baseline 203,540 / 1,482, 4 requests, 64.852s; cached input 0 both. Events reconcile with deduplicated provider metadata per (agentId, turnId); per-FO files record 18 reads, 216,106 delivered B, one preview-only result and missing Bridge summaries.
+- DONE: Read the live roster count and comms officer status before and after; stop the isolated daemon by captured PID and delete its home (AC-3)
+  safety.json: live 18 FOs and idle comms officer unchanged; only captured PID stopped, PID gone/port closed and own /tmp home deleted. Removed only new fictional provider transcript/debug artifacts. Three code worktrees clean; no live text, prompt, permission action or credential-file access.
+- DONE: Verify saved measurement attribution, byte totals and cleanup
+  verify-evidence.py: five checks pass; changing a terminal token counter, duplicating a provider response or dropping an FO/byte total causes failure. Evidence is retained, so verification needs no live provider or daemon.
+- DONE: Applicable no-code workflow checks
+  cycle-3/checks.json: comment_ratio/doc_impact/number_guards/design_surfaces all exit 0; zero product lines and affected documents, migration guard skipped (no migrations-path), original dispatch code base 6709c7283b0906cbdf8d6155048e198625520e8e unchanged.
+- SKIPPED: roborev
+  roborev not run: a measurement task with no code change and no candidate branch, as the dispatch explicitly records.
+
+### Summary
+
+Completed one probe and one baseline; the measured increment is 133,213 input tokens, 5,915 output tokens, one provider request and 42.621s. This is a single cache-off, no-Bridge comparison: baseline sees 12 unarchived FOs versus probe coverage of all 18, one long closed history is preview-only, and activity reads load synthetic closed runtimes (restored before baseline); it is not a production frequency or billed-cost prediction. Isolated runtime cleanup and bounded live-state checks passed; no product code, PR, enduring runtime or decision about collection frequency/cap was created.

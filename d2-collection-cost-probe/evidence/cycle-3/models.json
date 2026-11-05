@@ -1,0 +1,595 @@
+{
+  "provider": "claude",
+  "models": [
+    {
+      "provider": "claude",
+      "id": "claude-opus-5-5",
+      "label": "Opus 5.5",
+      "description": "Opus 5.5 · Latest release",
+      "isDefault": true,
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium",
+          "isDefault": true
+        },
+        {
+          "id": "high",
+          "label": "High"
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "medium"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-5",
+      "label": "Opus 5",
+      "description": "Opus 5 · Previous release",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-fable-5-1",
+      "label": "Fable 5.1",
+      "description": "Fable 5.1 · Most powerful model",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-fable-5",
+      "label": "Fable 5",
+      "description": "Fable 5 · Previous release",
+      "aliases": [
+        "claude-fable-5[1m]"
+      ],
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-4-8[1m]",
+      "label": "Opus 4.8 1M",
+      "description": "Opus 4.8 with 1M context window",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-4-8",
+      "label": "Opus 4.8",
+      "description": "Opus 4.8 · Previous release",
+      "contextWindowMaxTokens": 200000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-sonnet-5-5",
+      "label": "Sonnet 5.5",
+      "description": "Sonnet 5.5 · Best for everyday tasks",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium",
+          "isDefault": true
+        },
+        {
+          "id": "high",
+          "label": "High"
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "medium"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-sonnet-5",
+      "label": "Sonnet 5",
+      "description": "Sonnet 5 · Previous release",
+      "contextWindowMaxTokens": 200000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-sonnet-5[1m]",
+      "label": "Sonnet 5 1M",
+      "description": "Sonnet 5 with 1M context window",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-4-7[1m]",
+      "label": "Opus 4.7 1M",
+      "description": "Opus 4.7 with 1M context window",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-4-7",
+      "label": "Opus 4.7",
+      "description": "Opus 4.7 · Previous release",
+      "contextWindowMaxTokens": 200000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-4-6[1m]",
+      "label": "Opus 4.6 1M",
+      "description": "Opus 4.6 with 1M context window",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-opus-4-6",
+      "label": "Opus 4.6",
+      "description": "Opus 4.6 · Most capable for complex work",
+      "contextWindowMaxTokens": 200000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-sonnet-4-6[1m]",
+      "label": "Sonnet 4.6 1M",
+      "description": "Sonnet 4.6 with 1M context window",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-sonnet-4-6",
+      "label": "Sonnet 4.6",
+      "description": "Sonnet 4.6 · Best for everyday tasks",
+      "contextWindowMaxTokens": 200000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "isDefault": true
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        }
+      ],
+      "defaultThinkingOptionId": "high"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-haiku-5-5",
+      "label": "Haiku 5.5",
+      "description": "Haiku 5.5 · Fastest for quick answers",
+      "contextWindowMaxTokens": 1000000,
+      "thinkingOptions": [
+        {
+          "id": "off",
+          "label": "Off"
+        },
+        {
+          "id": "low",
+          "label": "Low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium",
+          "isDefault": true
+        },
+        {
+          "id": "high",
+          "label": "High"
+        },
+        {
+          "id": "xhigh",
+          "label": "Extra High"
+        },
+        {
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "id": "ultracode",
+          "label": "Ultra Code"
+        }
+      ],
+      "defaultThinkingOptionId": "medium"
+    },
+    {
+      "provider": "claude",
+      "id": "claude-haiku-4-5",
+      "label": "Haiku 4.5",
+      "description": "Haiku 4.5 · Previous release",
+      "contextWindowMaxTokens": 200000
+    }
+  ],
+  "error": null,
+  "fetchedAt": "2026-11-05T14:41:57.135Z",
+  "requestId": "3c738af0-1319-48b1-a1ec-e5572229286f"
+}

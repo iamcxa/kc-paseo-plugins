@@ -1,37 +1,75 @@
-# Commander collection cost probe — cycle 2 stopped before startup
+# One Commander collection: measured, with bounded approximations
 
-Outcome: no cost measurement. Captain amendment 1 authorized a disposable copy with only the fleet server port and token directory changed. That copy was prepared and removed, but preflight found another automatic live-file access in its unchanged review poller. The follow-up explicitly requires stopping if anything else in the copy reaches the live Bridge files or ports. No daemon, plugin, synthetic agent, probe round or baseline round was started.
+Latest outcome: one probe and one baseline completed on a single isolated Paseo daemon, without Bridge. No model-round retry was used. This replaces the stopped outcomes from cycles 1 and 2, retained in git at a74499c315cc62dd59073c7925c048192502d65d and eb866fb0015f3779f919d0d3fe145acac371195a.
 
-## Requested comparison (AC-1 and AC-2 remain unmet)
+## Observed cost (AC-1, AC-2)
 
-| Round | Input tokens | Cached-input tokens | Output tokens | Provider requests | Wall time | Per-FO bytes / pages |
-| --- | --- | --- | --- | --- | --- | --- |
-| Probe | not measured | not measured | not measured | not measured | not measured | not read |
-| Baseline | not measured | not measured | not measured | not measured | not measured | not read |
-| Increment | unavailable | unavailable | unavailable | unavailable | unavailable | unavailable |
+| Round | Total input tokens | Cached input tokens | Output tokens | Provider requests | Wall seconds | FO summary reads | Delivered FO text bytes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Probe | 336,753 | 0 | 7,397 | 5 | 107.472 | 18 | 216,106 |
+| Baseline | 203,540 | 0 | 1,482 | 4 | 64.852 | 0 | 0 |
+| Increment | +133,213 | +0 | +5,915 | +1 | +42.621 | +18 | +216,106 |
 
-Missing measurements are not zero. Per-FO scaling is unavailable: the requested fictional 18-FO fleet (6 closed, 10 idle with 6–17 KB each, 2 nearly empty) was not seeded. No provider authentication was attempted, no turn IDs or usage events exist, cumulative/per-turn usage semantics remain unestablished, and no account totals or dollars were reported. The one-probe/one-baseline budget and round-retry allowance remain unused. These results cannot set a collection frequency or cost cap.
+Token counts cover the Commander's complete turn, including native system/tool instructions and repeated context across requests; they are not merely a tokenization of FO text. Total input includes raw input, cache creation and cache reads. Both cache-created and cache-read counts were zero in these two rounds. All `totalCostUsd` fields in raw SDK evidence are provider-imputed estimates, not billed amounts; this report does not use them to set a monetary cap.
 
-## What was prepared
+These are single observations, with caching deliberately disabled on both fresh Commanders (`DISABLE_PROMPT_CACHING=1`) to avoid cross-round cache inheritance. They measure a cold collection and cold baseline, not an incremental turn in a long-lived, cached production Commander. They do not establish an average, variance, universal per-FO rate or safe collection frequency.
 
-Pinned source: `.worktrees/flywheel-live/spacedock-bridge` at `33952f9b3d02fceab104ba09272d65e432a3d095`. Exported tracked plugin files into a new mktemp directory under /tmp, without product-checkout edits. In `server/fleet-mcp.ts`, changed only the PORT constant and HOME token-directory constant, with the latter inside the planned isolated daemon home. Both planned ports were free when checked and outside 6767, 6787 and 6860–6935; they were not reserved for a daemon. `copy-diff.patch` is the exact two-line patch. `cycle-2/safety.json` records paths, ports, source hashes, changed-file verification and deletion.
+## Fixture and per-FO scaling
 
-## Additional stopping evidence
+The starting roster was identical before each round: 18 labelled FOs, 12 idle and 6 closed. Ten populated idle FOs held 6,163–15,772 assistant-text bytes, median 9,289; two other idle FOs were empty. Sixteen fictional reports were generated with the small Claude Haiku 4.5 model; the six largest histories were assigned to the six closed FOs, whose history sizes the dispatch did not specify. No catalog price field was exposed, so a billed-price ranking across providers was not measured. Seed generation and agent creation are setup costs, excluded from the two Commander turns.
 
-At the pinned source and in the copy, `index.server.ts:26` calls `startReviewPoller(rememberedPaseo)` without a configuration guard. `server/reviews.ts:11–12` independently defines HOME as `homedir()/.local/share/paseo-fo-coordinator` and FILE as its `reviews.json`; it does not use the amended fleet token-directory constant. Its `load` and `save` functions read that file and write/rename it, and `checkReviews` runs `gh search prs --review-requested=@me` before saving success or error. The poller schedules its first check after 30 seconds and later checks every five minutes. If new review requests are found, it can also call ensureCoordinator and send a wake message. Thus the two allowed edits do not isolate this automatically active third path; it could access real review data and generate unbudgeted Commander activity.
+UTF-8 bytes below distinguish stored assistant text from text actually delivered by get_agent_activity, which also includes the fictional seed instruction and summary header. Each baseline entry has zero activity reads/bytes. A “read” is one curated summary response with limit 10; this tool exposes no cursor, so backend pagination is not observable.
 
-No review store, token or credential was opened. The poller was not executed to demonstrate the violation, because doing so would itself cross the explicit boundary. No additional product edits, timer interception, poller bypass or alternate home arrangement was introduced. Other homedir references were found in server/coordinator.ts and server/decisions.ts, but their handlers were not invoked; the unconditional review-poller path alone establishes this stop. A daemon --home does not redirect this plugin's explicit os.homedir-based store.
+- Fictional FO 01 (idle): stored assistant text 8,508 B; delivered report/preview text 9,232 B; 1 read.
+- Fictional FO 02 (idle): stored assistant text 10,886 B; delivered report/preview text 11,610 B; 1 read.
+- Fictional FO 03 (idle): stored assistant text 15,772 B; delivered report/preview text 16,496 B; 1 read.
+- Fictional FO 04 (closed): stored assistant text 17,381 B; delivered report/preview text 18,105 B; 1 read.
+- Fictional FO 05 (closed): stored assistant text 16,699 B; delivered report/preview text 17,423 B; 1 read.
+- Fictional FO 06 (idle): stored assistant text 15,025 B; delivered report/preview text 15,749 B; 1 read.
+- Fictional FO 07 (closed): stored assistant text 20,088 B; delivered report/preview text 20,814 B; 1 read.
+- Fictional FO 08 (closed): stored assistant text 17,906 B; delivered report/preview text 18,632 B; 1 read.
+- Fictional FO 09 (closed): stored assistant text 30,657 B; delivered report/preview text 31,383 B; 1 read.
+- Fictional FO 10 (closed): stored assistant text 50,090 B; delivered report/preview text 2,283 B; 1 read; persisted-output preview only.
+- Fictional FO 11 (idle): stored assistant text 8,361 B; delivered report/preview text 9,065 B; 1 read.
+- Fictional FO 12 (idle): stored assistant text 9,190 B; delivered report/preview text 9,894 B; 1 read.
+- Fictional FO 13 (idle): stored assistant text 6,163 B; delivered report/preview text 6,867 B; 1 read.
+- Fictional FO 14 (idle): stored assistant text 10,077 B; delivered report/preview text 10,781 B; 1 read.
+- Fictional FO 15 (idle): stored assistant text 9,388 B; delivered report/preview text 10,092 B; 1 read.
+- Fictional FO 16 (idle): stored assistant text 6,878 B; delivered report/preview text 7,582 B; 1 read.
+- Fictional FO 17 (idle): stored assistant text 0 B; delivered report/preview text 49 B; 1 read; no activity.
+- Fictional FO 18 (idle): stored assistant text 0 B; delivered report/preview text 49 B; 1 read; no activity.
 
-## Planned method and approximations
+Probe delivery totals: 213,823 B of complete curated content plus one 2,283 B persisted-output preview = 216,106 B. The long closed FO 10 response was persisted by Claude as a 50.1 KB tool output and only a preview was delivered; the Commander did not read the persisted file. That is partial evidence, not an empty or no-change report. See `cycle-3/probe-per-fo.json` for all call IDs, statuses, entry limits, UTF-8 byte counts and normalized JSON-output sizes. Do not extrapolate a fixed token-per-byte slope from this one fixture: repeated prompts, tool discovery, batching and source coverage contribute overhead.
 
-`probe-prompt.md` remains the planned, NOT EXECUTED fictional-only collection prompt. The probe would use fleet_status and get_agent_activity, then synthesize about/before/now lines with provisional FO/entry-position/timestamp sources. The baseline would use a separate fresh Commander, the pinned COORDINATOR_PROMPT and claude/claude-opus-5-5, with one message: `What is the fleet's status?` No inherited Commander conversation would be reused.
+## Method and turn attribution
 
-Relative to d1-commander-digest/design/DIGEST.md: recent activity summaries and provisional references approximate exact per-line source links; synthetic text volumes/status counts approximate the fleet, not real project complexity or historical causality; context would be returned in a response, with no rendered Replay, source navigation or expansion. The two-line disposable patch would also differ from the installed production bytes. Provider cache isolation, paging/summary losses and usage semantics were not exercised. None of these plans or approximations produced a model result.
+The daemon used its own new /tmp home, port 49770 and captured PID 83019. Its config disabled plugins and relay; `cycle-3/isolated-plugins.json` is empty. No Bridge module was imported or executed. Only the pinned COORDINATOR_PROMPT text and its four-part FO_STATUS_RULE string were read from build 33952f9b3d02fceab104ba09272d65e432a3d095; the resolved prompt and source hashes are in `coordinator-system-prompt.txt` and `prompt-source.json`. The nine allowed Paseo tools and original deny rules were retained, removing only the unavailable fleet-tool preapproval.
+
+Each Commander was created directly through the supported SDK on an explicit ws://127.0.0.1:49770/ws connection, provider claude/claude-opus-5-5. Both received exactly one user message: `evidence/probe-prompt.md` or `What is the fleet's status?`. The baseline had a new agent and provider session. Its source conversation and provider cache were not inherited from the probe.
+
+Attribution key is (agentId, turnId), because both fresh sessions independently name their first turn `foreground-turn-1`. Wall time runs from the user-message send through terminal completion, excluding creation and seeding. `probe-run.json`, `baseline-run.json` and their JSONL event streams preserve this boundary. Neither Commander sent a message to an FO, created an agent or used an external host.
+
+Before summing usage, inspected the installed provider: usage_updated is a context-window snapshot and must never be summed as token cost; turn_completed.usage is the final SDK result usage. Fresh one-user-message sessions avoid ambiguity between session-cumulative and turn-cumulative totals. For each exact newly created native transcript, deduplicated assistant usage by message ID (repeated content-block rows otherwise double-count), counted distinct api-request IDs with querySource=sdk, and reconciled raw input/cache-read/output sums to the one final turn event. All three counters match in both rounds, with one successful response per request. The final SDK event omits cache-creation counts; those were separately extracted and are zero here. No account totals were queried. Numeric metadata and source hashes were retained in `*-provider-metadata.json`; full native transcripts were cleaned up.
+
+The probe made 21 tool calls (one ToolSearch, one workspace list, one agent list, 18 activity reads), across five provider requests. The baseline made five tool calls (two ToolSearch, workspace list, agent list and permission list), across four requests. Its permission-list result concerned only the isolated synthetic daemon and was empty. `verify-evidence.py` rechecks the retained metadata against final turn events and per-FO totals without a provider or daemon.
+
+## Approximations and limits versus d1
+
+- No fleet_status: tasks, gates, unread-reply enrichment and Bridge next-step summaries were unavailable. The unchanged system prompt still mentions that unavailable tool; native tool discovery and fallback are part of the measured cost.
+- Same configured 18-FO roster, different effective coverage: the probe explicitly used includeArchived=true and read all 18; the exact baseline message/default list omitted the six closed/archived FOs and reported 12. The measured increment includes that coverage expansion as well as reading reports and writing context. It is not a pure prompt-only change or exact production delta.
+- Reading a closed FO through get_agent_activity loaded its runtime and changed its synthetic status to idle, without a model turn. Restored the six closed states through the supported lifecycle API before baseline; before-round roster snapshots are retained. The Commander's own statement that it did not “wake” an FO is not proof of unchanged lifecycle state. No live FO was read or loaded.
+- Synthetic history consists of one long assistant report per populated FO, plus a short seed user instruction; chronological entries are inside that report rather than ten separate live assistant messages. Content complexity, closed histories, project labels and the shared disposable cwd differ from production. The longest closed report hit persisted-output truncation, explicitly marked partial by the digest.
+- Per-line sources are provisional FO/entry/date references, not immutable source links. The result is a text digest with about/before/now context, not a rendered Replay. Source navigation, expanding history, mobile behavior and scheduling were not measured. Repeated points can share a report, and synthesis quality is not independently validated here.
+- Cache-off, fresh-session timing includes native provider/tool initialization. Production prefix reuse, persistent Commander context, a Bridge roster and different batching can materially change input, output, requests and latency. No billed price or collection-frequency cap follows automatically from this sample.
 
 ## Safety and cleanup (AC-3)
 
-`cycle-2/safety.json` records 18 live FOs before and after and an unchanged idle comms officer/provider. Only the permitted count/status fields were retained; no live conversation text, prompts, permissions, command lines or credentials were collected. The exact mktemp root, including the plugin copy and planned daemon-home directory, was deleted and its absence checked. No daemon PID existed, so stopping a running daemon and answering fleet_status were not exercised. Main, the pinned plugin checkout and the unused dispatch worktree remained clean on their original revisions/branches.
+Live checks were explicitly targeted to the real daemon only for the authorized FO count and comms-officer status/provider. They were 18 and idle/claude-opus-5-5 both before and after; no live conversation, prompt, permission payload or agent command line was read or printed. No credential file was opened or copied by the worker. Native provider authentication used the existing real HOME normally.
 
-FO-added Surfaces: none and Visible change: none resolve the previous task-metadata check; `cycle-2/checks.json` records the rerun. The earlier stopped attempt and evidence remain in git at `a74499c315cc62dd59073c7925c048192502d65d`; this file is the latest outcome. roborev not run: a measurement task with no code change and no candidate branch.
+Stopped only captured PID 83019, verified PID absence and closed port, and deleted its unique /tmp home/workspace. The provider also generated transcripts/debug artifacts under the real HOME: removed only this new disposable-workspace transcript namespace and exact owned session-ID debug files. Cleanup paused when eight additional filenames were found, verified those were ai-title-only records with zero API requests, then resumed scoped deletion. `cycle-3/safety.json` records these checks and their limits; this is not a global filesystem audit.
 
-Next action belongs to the FO: resolve the newly identified automatic review-poller access before another measurement dispatch. This report authorizes no extra source edit, runtime bypass, provider call or additional model round.
+Main, the pinned Bridge checkout and unused dispatch worktree stayed clean on their original revisions/branches. Only this task's state report/evidence changed. No product commit, PR or enduring runtime seam was created. Required no-code workflow checks all exited 0; number guards skipped migrations because no migrations-path exists. roborev not run: a measurement task with no code change and no candidate branch, per dispatch.
+
+## Evidence entry points
+
+`cycle-3/{probe,baseline}-metrics.json`: token/request totals and final-usage reconciliation. `{probe,baseline}-provider-metadata.json`: deduplicated request/usage records. `{probe,baseline}-events.jsonl` and `*-timeline.json`: actual turn/tool stream. `*-answer.txt`: the Commander's responses. `fixture.json` and `seed-*-timeline.json`: fictional stored content and byte measurements. `*-per-fo.json`: read counts/bytes and truncation. `safety.json`: cleanup and permitted live comparison. `verification.json` and `checks.json`: checks actually executed. The preserved scripts declare their installed SDK/app paths; verifying saved measurements uses Python and these retained files, without authentication or recreating the experiment.
