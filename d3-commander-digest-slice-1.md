@@ -109,3 +109,11 @@ Visible change: digest points in the Commander conversation, the Replay card, th
 ### Summary
 
 Implemented the sourced collect-now digest, per-line Replay and confirmed replacement-officer flow on the pushed task branch; Draft PR #74 remains unmerged. No schedule, FO prompt, live-officer switch, gate/permission semantic change, new migration or persistent storage beyond switch IDs was introduced. AC-4 is intentionally skipped under FO steering; the exact-head review and independent design/validation handoff remain open.
+
+## Investigation: roborev 1532
+
+FO ran roborev on b8fb54c38cce2bbc7a9356961535d73902d69321 (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1532, rerun roborev:1533 same three Medium findings.
+1. shared/digest.ts collection tracking: an agent notification arriving as a user message resets collection tracking, so a malformed prose reply after it renders unverified.
+2. shared/digest.ts digest detection: any assistant reply starting with `[` or `{` is treated as a digest, so an ordinary reply opening with a Markdown link shows 「摘要無法驗證」.
+3. server/fleet-mcp.ts report byte budget: oldest first and counting rejected reports, so one oversized older report drops every newer short report.
+Read-only investigation dispatched as implementation-1-followup-1 before any fix.
