@@ -1,6 +1,6 @@
 ---
 title: Design — the Commander's periodic digest in its own words, with a replay of the FO originals behind each point
-status: backlog
+status: implementation
 variant: kc-dev-flow-2
 profile: poc
 merge: pr
@@ -26,7 +26,7 @@ gates:
                 reason: Captain chat 2026-11-05, asked 「照第二種開設計任務嗎？」, answered 「好」.
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Design, before any code, the model the Captain chose: the comms officer (the Commander) collects every FO's progress on a schedule and tells him in its own words without pasting originals; each point opens a replay card with the Commander's sentence and the quoted FO originals, from which he can open the FO, keep discussing with the Commander, or reply with a new decision.
