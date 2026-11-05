@@ -5,6 +5,17 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d1-commander-digest
+gates:
+    version: 1
+    records:
+        - id: gate:d1-commander-digest:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:d1-commander-digest-backlog-1
+              briefing:
+                id: briefing:d1-commander-digest:backlog:attempt-1:revision-1
+                digest: sha256:f6f114ede6f122e5f40cfdab5f4d5d5e2883470b188335200f6e1778b4636363
+                room-ref: ./d1-commander-digest/review/backlog/briefing-1
 ---
 
 Design, before any code, the model the Captain chose: the comms officer (the Commander) collects every FO's progress on a schedule and tells him in its own words without pasting originals; each point opens a replay card with the Commander's sentence and the quoted FO originals, from which he can open the FO, keep discussing with the Commander, or reply with a new decision.
