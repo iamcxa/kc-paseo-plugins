@@ -1,12 +1,12 @@
 ---
 id:
 title: An agent that resumes without a project variable tells the person why
-status: validation
+status: done
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-resume-blank-notice
-pr: iamcxa/kc-paseo-plugins#66
+pr: pr-merge:66
 gates:
     version: 1
     records:
@@ -75,8 +75,11 @@ gates:
                 reason: '「准。再教我一次選 repo 怎樣驗收」 — Captain in FO chat, 2026-11-05, on the validation gate attempt 2 (sha256:6f3d0d8f), FO having recommended approval; approves validation and the three proposed declines (F1, F4, F6 Polish) at candidate df6180ce252d2ae007614dab15aadd7daed12b28. Asked: Approve validation of the resume notice (PR #66 at df6180c) and the three proposed declines? Approval lets FO merge it and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds; the Captain then gives UAT.'
               application:
                 target-stage: done
-                state: pending
+                state: consumed
 started: 2026-10-30T14:42:08Z
+verdict: PASSED
+completed: 2026-11-05T08:17:30Z
+archived: 2026-11-05T08:17:30Z
 ---
 
 Paseo 0.14.0 (released 2026-10-29) "Release eligible agent runtimes after one idle hour, resuming the saved session on the next prompt" (its release notes, read with `gh release view v0.14.0 -R getpaseo/paseo` on 2026-10-30). In `agent.session_open` in `project-env/server/contribute.ts` on main, a variable that cannot be read is blanked for every opening, but the "Started without N project variables" line is recorded only when `request.reason === "create"`. FO has not run this on 0.14.0; whether a release and resume fires `agent.session_open` is unverified. Asked whether to open a small task to test it on 0.14.0 and add the notice if it is a problem, recommending it, the Captain answered 「開」 on 2026-10-30.
