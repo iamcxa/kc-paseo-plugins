@@ -84,6 +84,7 @@ Visible change: A resumed agent that lost a project variable shows a line in its
 Direction alignment with the Captain: done — he answered 「開」 on 2026-10-30 to FO's recommendation to test this before he upgrades.
 Release review: not needed: it follows a host release and adds no journey story.
 Map footprints: not needed: no open map question is answered by this task.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-05: Captain amendment 1 adds one sentence to OVERVIEW.md "Limits worth knowing" and supersedes no acceptance criterion (Supersedes: none); nothing the Captain approved is withdrawn, and validation cycle 4 checked the sentence against the SDK 0.14.0 hook list.
 
 ## Captain amendments
 
