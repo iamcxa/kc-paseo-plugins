@@ -43,8 +43,8 @@ Stop condition: the acceptance criterion passes and the Captain's UAT is recorde
 
 ## Acceptance criteria
 
-**AC-1**: On an isolated Paseo 0.14.0 in the default chat display, a new agent that starts without a mapped variable shows the "Started without" line on the page after its first turn ends, in every run of the case that folded it before.
-Verified by: repeated runs on an isolated Paseo 0.14.0 with fake `op` and `security`, recording each row's position and whether it is on the page, pictures at 1280 and 400 px, and a unit test for the chosen placement.
+**AC-2**: Amended by Captain, amendment 1. On an isolated Paseo of the newest release at validation (v0.15.2 is Latest on 2026-11-05 by `gh release list -R getpaseo/paseo`; the Captain runs 0.15.1) in the default chat display, a new agent that starts without a mapped variable shows the "Started without" line on the page after its first turn ends, in every run of the case that folded it before. One version only: 0.14.0 is no longer verified.
+Verified by: repeated runs on an isolated Paseo of that release with fake `op` and `security`, recording each row's position and whether it is on the page, pictures at 1280 and 400 px, and a unit test for the chosen placement.
 
 ## FO alignment
 
@@ -61,6 +61,9 @@ Map footprints: not needed: no map answer is recorded by this task.
 Captain: 「驗證最新的就好」 (FO chat, 2026-11-05)
 Asked: "這份的驗收條件寫的是「在 Paseo 0.14.0 上那行不會被收起來」，但你現在用的是 0.15.1。我建議 0.14.0 和 0.15.1 兩個版本都驗。…回「兩版都驗」或「只驗 0.15.1」"
 Supersedes: AC-1
+Superseded text:
+> **AC-1**: On an isolated Paseo 0.14.0 in the default chat display, a new agent that starts without a mapped variable shows the "Started without" line on the page after its first turn ends, in every run of the case that folded it before.
+> Verified by: repeated runs on an isolated Paseo 0.14.0 with fake `op` and `security`, recording each row's position and whether it is on the page, pictures at 1280 and 400 px, and a unit test for the chosen placement.
 
 ## PRFAQ
 
@@ -112,22 +115,22 @@ Doc sentences that go stale and change with it: `docs/project-env/index.md` "a l
 UI proposal: When an agent starts without one or more mapped variables, the same warning row it shows today ("Started without N project variables", then one line per variable: the name in monospace, the reason in the screen's own words) appears under the final reply of the agent's first turn, above the "Worked for" footer, in Paseo's default Chat display, whether the turn finishes, fails or is stopped. While the first turn runs no row is shown. The row is not folded away by a later turn. Its words and look do not change.
 
 Preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/shots/index.html
-The preview is disposable: real Paseo 0.14.0 and 0.15.1 windows on isolated daemons running the candidate, driven through the app (operable, not mock-ups), 1280 x 900 and 400 x 900, dark theme, default Chat display: `cand-warm-1-*`, `cand-fail-1-*`, `cand151-warm-1-*`, `cand151-fail-1-*`; `main-*` and `main151-*` are today's build, context. Not drawn: the turn while it runs (no row, nothing to draw), light theme, a desktop-app window; the running screen settles these in validation (AC-1 clause).
+The preview is disposable: real Paseo 0.14.0 and 0.15.1 windows on isolated daemons running the candidate, driven through the app (operable, not mock-ups), 1280 x 900 and 400 x 900, dark theme, default Chat display: `cand-warm-1-*`, `cand-fail-1-*`, `cand151-warm-1-*`, `cand151-fail-1-*`; `main-*` and `main151-*` are today's build, context. Not drawn: the turn while it runs (no row, nothing to draw), light theme, a desktop-app window; the running screen settles these in validation (AC-2 clause).
 
 ### Design review
 
 Design review: design/ideation-1.yaml
-Design finding 1: AC-1 (the evidence clause below asks for a stopped first turn, three variables and a wrapping reason at 400 px, each with the row above the footer; a stopped turn is already in `evidence/runs/pass1-cases-cand-0140.txt`, `stop-1`)
-Design finding 2: AC-1 (the clause asks for a picture of the running turn with no row and a rerun showing the row appears once, below the last reply, without moving the reply)
-Design finding 3: AC-1 (the row's colours come from the host; the clause asks for one light-theme picture at 1280 and 400)
-Design finding 4: AC-1 (the clause states the row is a note about the start, not the cause of a failure, and its words are unchanged)
+Design finding 1: AC-2 (the evidence clause below asks for a stopped first turn, three variables and a wrapping reason at 400 px, each with the row above the footer; a stopped turn is already in `evidence/runs/pass1-cases-cand-0140.txt`, `stop-1`)
+Design finding 2: AC-2 (the clause asks for a picture of the running turn with no row and a rerun showing the row appears once, below the last reply, without moving the reply)
+Design finding 3: AC-2 (the row's colours come from the host; the clause asks for one light-theme picture at 1280 and 400)
+Design finding 4: AC-2 (the clause states the row is a note about the start, not the cause of a failure, and its words are unchanged)
 
-### AC-1 evidence clause
+### AC-2 evidence clause
 
-The criterion text above is the Captain's and is not edited here. Reviewer-rerunnable evidence, harness in `evidence/harness/` (README.txt there):
+AC-2 replaces AC-1 by the Captain's amendment 1 (one version only: the newest Paseo release at validation, v0.15.2 on 2026-11-05; 0.14.0 is no longer verified). Reviewer-rerunnable evidence, harness in `evidence/harness/` (README.txt there):
 
 1. Unit: `npm test` in `project-env` passes (main 325 of 325); the test "does not listen for agent.created: the line goes in when the first turn ends" fails when `server.on("agent.created", addLine)` is put back in `server/contribute.ts` (shown: 1 failure, `evidence/runs/mutations-candidate.txt`).
-2. Runtime, per version: on an isolated Paseo 0.14.0 and on 0.15.1 (own home, port, fake `op` and `security`, mock provider), build the plugin from the implementation commit and run `cases.sh` with `WARM=2 COLD=8 STOP=1 FAIL=1`. Passes when every line says `after-last-assistant-message` and `1280=visible 400=visible`. The same run on main must show at least one `between-user-message-and-last-assistant-message ... 1280=ABSENT` line, or the run did not exercise the case; main folded it in 4 of 6 cold runs on 0.14.0 and 5 of 8 on 0.15.1 (`evidence/runs/pass1-*`), so rerun with a larger `COLD` when none folds.
+2. Runtime, one version: on an isolated Paseo of the newest release at validation (v0.15.2 today; own home, port, fake `op` and `security`, mock provider), build the plugin from the implementation commit and run `cases.sh` with `WARM=2 COLD=8 STOP=1 FAIL=1`. Passes when every line says `after-last-assistant-message` and `1280=visible 400=visible`. The same run on main must show at least one `between-user-message-and-last-assistant-message ... 1280=ABSENT` line, or the run did not exercise the case; main folded it in 5 of 12 starts on 0.15.1 (`evidence/runs/pass1-cases-main-0151.txt`; 4 of 11 on 0.14.0, no longer verified), so rerun with a larger `COLD` when none folds.
 3. Pictures from the implementation, each at 1280 and 400 px with `window.innerWidth` checked: a finished turn, a failed turn, a stopped turn, three variables with one long reason at 400, the first turn while it runs (no row), the same agent after a second message (row still there, above it; shown on the candidate, `evidence/runs/followup-second-turn.txt`), and one light-theme picture at 1280 and 400.
 4. The row is a note about how the agent started, not the cause of a failed turn; its words, icon and layout are unchanged (compare with `main-cold-1-1280.png`, where the row was not folded).
 
@@ -156,7 +159,9 @@ Setup: `@getpaseo/cli@0.14.0` and `@getpaseo/cli@0.15.1` installed by npm into `
 
 ### Needs decision
 
-Should AC-1 name Paseo 0.15.1 too? The task title and AC-1 say 0.14.0; the Captain's install reads 0.15.1 today (FO, 2026-11-05; `defaults read` of the app bundle and `paseo --version` agree), and the same fold happens there: 5 of 12 starts folded on 0.15.1 against 4 of 11 on 0.14.0, same `collapseTurns` code, candidate 9 of 9 and 15 of 15 visible. Recommendation: yes, reword AC-1 to "Paseo 0.14.0 and 0.15.1" so validation runs both. What gets worse: validation runs two versions instead of one. The Captain owns the wording; this stage has not changed AC-1.
+None open. The version question was answered by the Captain, 「驗證最新的就好」 (2026-11-05, amendment 1): AC-1 is superseded by AC-2, which verifies one version, the newest release at validation.
+
+Honest state of that version: 0.15.2 (Latest on 2026-11-05) has not been run by this task. The runtime evidence is on 0.15.1 (the Captain's install), where the row folded in 5 of 12 starts and the candidate kept it visible in 9 of 9. For 0.15.2 only a static check was made (`npm install @getpaseo/cli@0.15.2` in a throwaway directory, since removed): its `collapseTurns` function text, with webpack module ids masked, and its default `chatDisplay:"collapseTurns"` are identical to 0.15.1's (same sha256 prefix 7b2f725fbaa0 over 1690 characters); this predicts the same fold and is not a run. Validation runs the pictures on the newest release then current.
 
 ## Stage Report: ideation
 
@@ -165,19 +170,19 @@ Should AC-1 name Paseo 0.15.1 too? The task title and AC-1 say 0.14.0; the Capta
 - DONE: Name when the row is folded and the smallest plugin-side placement that keeps it visible, or state with evidence that no plugin-side fix exists.
   Folded when it lands between the person's first message and the turn's last reply of a closed turn that has tool calls or other replies (`collapseTurns` in the web bundle, same on 0.14.0 and 0.15.1). Smallest placement: add it at `agent.turn_ended` only (remove the `agent.created` listener and the ten-minute expiry): candidate 15 of 15 on 0.14.0 and 9 of 9 on 0.15.1 after the last reply and visible, warm, cold, stopped and failed turns; 4 mutations each fail a test.
 - DONE: Write the PRFAQ, Mermaid and the ui artifact the Surfaces value owes, plus AC-1 evidence clauses that a reviewer can rerun.
-  `## PRFAQ`, sequence diagram, `### UI proposal`, `Preview:` (`evidence/shots/index.html`, disposable), `### Design review` (4 MINOR findings, all dispositioned `AC-1`, design director report `design/ideation-1.yaml` with the preview line shortened to the path so the checker matches it), `### AC-1 evidence clause`. `design_surfaces.py check`: "design surfaces presentable; 4 findings, 0 fixed, 4 criteria, 0 declined, 0 decisions".
+  (Amendment 1 superseded AC-1; the clause is now the AC-2 evidence clause.) `## PRFAQ`, sequence diagram, `### UI proposal`, `Preview:` (`evidence/shots/index.html`, disposable), `### Design review` (4 MINOR findings, all dispositioned `AC-1`, design director report `design/ideation-1.yaml` with the preview line shortened to the path so the checker matches it), `### AC-1 evidence clause`. `design_surfaces.py check`: "design surfaces presentable; 4 findings, 0 fixed, 4 criteria, 0 declined, 0 decisions".
 - DONE: Every project-env change you propose names how `npm test` in project-env stays green; run `npm test` on main once and record the result.
   Main 6709c72: 325 of 325 (`evidence/npm-test-main.txt`). Candidate: the `agent.created` calls in the tests become `agent.turn_ended`, one test added, the expiry tests replaced by a pair, 325 of 325 and `tsc --noEmit` clean; listed in `## Design`.
 - DONE: Live probes run only on an isolated Paseo (own PASEO_HOME, fake op/security); never touch the Captain's live install paseo-project-env or its settings, and never read or print a secret value.
   Four daemons with own homes and ports 19711 to 19714, fake `op` and `security`; none of the Captain's app, `~/.paseo` or plugin settings was run or read; all four daemons and installs removed.
-- DONE: AC-1 (per criterion; the Captain's text is unchanged): the "Started without" line is on the page after the first turn ends.
-  Current evidence on the disposable candidate: 15 of 15 (0.14.0) and 9 of 9 (0.15.1) starts, plus width-checked pictures of warm and failed turns at 1280 and 400, and a second turn leaves it in place. Not yet verified: stopped-turn, three-variable and light-theme pictures, a running-turn picture, a real provider, the desktop app (all in the clause for implementation and validation).
+- DONE: AC-2 (amendment 1 replaced AC-1; written under the Captain's amendment 1): on the newest Paseo release at validation, the "Started without" line is on the page after the first turn ends.
+  Current evidence is on 0.15.1 (the Captain's install), on the disposable candidate: 9 of 9 starts after the last reply and visible at 1280, width-checked pictures of warm and failed turns at 1280 and 400, a second turn leaves the row in place (observed on 0.14.0 only). 0.15.2 (Latest today) is not yet observed: only its `collapseTurns` source was compared (identical to 0.15.1). Not yet verified: stopped-turn, three-variable, running-turn and light-theme pictures, a real provider, the desktop app (all in the AC-2 evidence clause for implementation and validation). The 0.14.0 runs stay in the record as observation only.
 
 ### Summary
 
-The row is lost because the plugin adds it at agent creation, in a race with Paseo recording the first message, and the default display folds everything inside a closed turn; a plugin can set nothing to opt out. The fix is to add it when the first turn ends, which also holds on 0.15.1 (the Captain's install today, where 5 of 12 starts folded). One decision for the Captain: whether AC-1 should name 0.15.1 too. Candidate code and pictures are disposable evidence only; I did not touch the repository.
+The row is lost because the plugin adds it at agent creation, in a race with Paseo recording the first message, and the default display folds everything inside a closed turn; a plugin can set nothing to opt out. The fix is to add it when the first turn ends, which also holds on 0.15.1 (the Captain's install today, where 5 of 12 starts folded). No decision is open: the Captain answered the version question (amendment 1). Candidate code and pictures are disposable evidence only; I did not touch the repository.
 
 ### Findings for FO
 
-- Version: the Captain's install is 0.15.1; the fold is unchanged there (Needs decision above).
+- Version: the Captain ruled 「驗證最新的就好」; AC-2 verifies the newest release at validation. The Scope line, the "Visible change" line and the task title still say 0.14.0 (FO's text, not edited here).
 - Housekeeping: while clearing leaked headless browsers I closed sessions named `dbg2`, `dbg3`, `dbg5` and `dbg400` that were probably another worker's, not mine; no data lost, but the owner may need to reopen them.
