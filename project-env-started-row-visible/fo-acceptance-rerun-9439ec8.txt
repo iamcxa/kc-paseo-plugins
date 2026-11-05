@@ -1,0 +1,19 @@
+## started-row-visible
+9439ec8b2aec5fcd2604e4bb0846d5a197ec1949
+ℹ pass 335
+ℹ fail 0
+tsc-exit=0
+Run `npm audit` for details.
+ready: http://127.0.0.1:19871
+[agent-browser] launched browser
+cand warm warm-1 agent=51831af6 row: seq=177 user=1 last-assistant=169 after-last-assistant-message | 1280=visible 400=visible
+cand cold cold-1 agent=74165b74 row: seq=180 user=1 last-assistant=170 after-last-assistant-message | 1280=visible 400=visible
+cand fail fail-1 agent=86d36cad row: seq=3 user=1 last-assistant=2 after-last-assistant-message | 1280=visible 400=visible
+cand-cold-1-1280.png
+cand-cold-1-400.png
+cand-fail-1-1280.png
+cand-fail-1-400.png
+cand-warm-1-1280.png
+cand-warm-1-400.png
+removed /tmp/pe-srv/run-uat
+done
