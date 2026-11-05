@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-picker-slow-hint:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-picker-slow-hint-validation-1
+              briefing:
+                id: briefing:project-env-picker-slow-hint:validation:attempt-1:revision-1
+                digest: sha256:faac1b2585a22e2b24a7282df1a57897bd99472171531dcb91628adae342ae18
+                room-ref: ./project-env-picker-slow-hint/review/validation/briefing-1
 started: 2026-11-05T08:40:10Z
 journey: paseo-project-env
 journey-release: r1b

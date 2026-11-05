@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-picker-slow-hint:validation:attempt-1:revision-1",
+  "question": "Approve validation of the timed-out vault list sentence (PR iamcxa/kc-paseo-plugins#72 at b684b68de779ba2174a5efc6437f2a7d6805e26d) and the proposed declines (F1 Deferred risk, F2 dispatch records)? FO recommends approving. Approval lets FO merge it first in the batch order and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-picker-slow-hint:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/1ad172123185b5937468fd1fe04b0a3b55ce4d56/project-env-picker-slow-hint.md",
+      "rev": "sha256:86e4ba882db2ec41071a97076ce2eb67d3a766540993017606b6fc173ae94115",
+      "mediaType": "text/markdown",
+      "summary": "Merge ask: PR #72 at b684b68de779ba2174a5efc6437f2a7d6805e26d makes a field picker that hits Paseo's 30 s plugin timeout say \"Listing this vault took too long.\" with a typed-reference next step, and keeps today's words for every other failure.\nSufficiency: validation-1 PASSED at b684b68 with no Material or Needs decision finding; AC-1 observed on an isolated Paseo 0.15.2 at 1280 and 400 px; 327/327 tests and tsc clean; FO's acceptance rerun matched (fo-acceptance-rerun-b684b68.txt).\nNecessity: the PR adds vaultListFailure and FIX_CONNECTION_HINT, three lines in the settings screen and one test file; without it a person with a working connection is told to fix it when a large vault times out.\nReviews: external review rounds: 1 — Codex summary:6664389049 clean on b684b68de.\nExternal rounds: 1\nSecond reviewer: roborev not run: FO did not run the local roborev gate for this batch.\nDeclined: Deferred risk, F1 the fix matches Paseo's own sentence \"Plugin RPC timed out\" seen on 0.15.1 and 0.15.2 only (a reworded sentence falls back to today's words, no worse than before).\nDeclined: Polish, F2 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch and lack the Package root and completion-recipient lines that were never sent, an FO record defect with no effect on the candidate)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-picker-slow-hint:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/1ad172123185b5937468fd1fe04b0a3b55ce4d56/project-env-picker-slow-hint/gate-validation.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:94c92d6b278abe788bbcb89cd25026873149a568571f741871e8b0429ef505c8"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-picker-slow-hint:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/1ad172123185b5937468fd1fe04b0a3b55ce4d56/project-env-picker-slow-hint/delivery-gate-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:a6fb11822fe1fa4f769d8d698aac45de2da01ace71e64e47713fe33d5cc9449d"
+    }
+  ]
+}
