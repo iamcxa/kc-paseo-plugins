@@ -1,7 +1,7 @@
 ---
 id:
 title: The "Started without" line stays visible in Paseo 0.14.0's default chat display
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
