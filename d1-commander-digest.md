@@ -80,6 +80,7 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 - Captain ruling 2026-11-05 on step A's open question, asked 「CO 定時收集進度時，要怎麼取得資料？」, answered 「只讀既有回報 (Recommended)」 (option text: read only the FOs' existing reports, mark missing ones unknown, never prod an FO). Frequency, cost cap and how a new Commander prompt is applied remain open until measured.
 - Captain ruling 2026-11-05 on the step B stop, asked 「摘要設計稿只剩「可點擊示範」一個路徑錯誤，要怎麼做？」, answered 「你先看截圖定方向 (Recommended)」 (option text: he reviews the screenshots and says go or change; the routing error becomes an acceptance item for the code task).
 - Captain review 2026-11-05 on the mockups (phone page): 「好像確實比較好，但是要注意我不是只有看到原文，我需要的是前因後果，不然光看到一個問題或是一段句子，看不出脈絡，所以也給不了意見或決策」. Not yet his go: FO sends the design back for a revision of the Replay (steps A and B) before he decides.
+- Captain's go 2026-11-05, asked 「照這個方向做，還是有哪裡要改？」 (the cycle 5 mockups, review-phone.html), answered 「照這個方向可以」.
 
 ### Summary
 
