@@ -1,0 +1,14 @@
+candidate (main 6709c72 + candidate.diff): npm test
+ℹ tests 327
+ℹ pass 327
+ℹ fail 0
+
+mutation: timeout branch replaced by false in shared/field-picker.ts
+  ✖ says the list took too long when the daemon timed the call out, and does not send the person to the connection (2.354041ms)
+ℹ pass 1
+ℹ fail 1
+
+mutation: connection branch (return today's words) replaced by timeout words
+  ✖ keeps today's words for a connection failure (1.950709ms)
+ℹ pass 1
+ℹ fail 1

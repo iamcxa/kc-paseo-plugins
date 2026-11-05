@@ -1,0 +1,77 @@
+diff -ruN a/client/settings-screen.tsx b/client/settings-screen.tsx
+--- a/client/settings-screen.tsx	2026-10-29 08:21:33
++++ b/client/settings-screen.tsx	2026-11-05 17:00:00
+@@ -38,6 +38,7 @@
+ import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
+ import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
+ import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
++import { FIX_CONNECTION_HINT, vaultListFailure } from "../shared/field-picker";
+ import { countPointingAt, markedOutside, type PillView, pillView, repointLine, settleConnection } from "../shared/ref";
+ import { type AddProjectState, addProjectLine, addProjectState } from "../shared/project-list";
+ import { type OpenProject, openProject, useOpenProject } from "./open-project";
+@@ -734,7 +735,7 @@
+   useEffect(() => {
+     if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
+   }, [view, line.kind, nothingPending]);
+-  const fix = "Close this list, fix the 1Password connection on this page, then open it again.";
++  const fix = FIX_CONNECTION_HINT;
+   const unusable =
+     current?.state === "ok"
+       ? vaultReadable
+@@ -747,11 +748,7 @@
+         ? null
+         : { message: tokenText.label, hint: `${tokenText.hint} ${fix}` };
+   const list: VaultList = refs.isError
+-    ? {
+-        status: "error",
+-        message: (refs.error as Error).message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""),
+-        hint: fix,
+-      }
++    ? { status: "error", ...vaultListFailure((refs.error as Error).message) }
+     : refs.data
+       ? { status: "ready", refs: refs.data.refs, skipped: refs.data.skipped }
+       : unusable
+diff -ruN a/shared/field-picker.ts b/shared/field-picker.ts
+--- a/shared/field-picker.ts	2026-10-23 12:06:19
++++ b/shared/field-picker.ts	2026-11-05 17:06:31
+@@ -107,3 +107,16 @@
+ }
+ 
+ export const hasFields = (rows: readonly PickerRow[]) => rows.some((r) => r.kind === "field");
++
++export const FIX_CONNECTION_HINT = "Close this list, fix the 1Password connection on this page, then open it again.";
++
++export function vaultListFailure(raw: string): { message: string; hint: string } {
++  const message = raw.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, "");
++  if (message.startsWith("Plugin RPC timed out")) {
++    return {
++      message: "Listing this vault took too long.",
++      hint: "Type the reference below instead. A large vault can be too slow to list.",
++    };
++  }
++  return { message, hint: FIX_CONNECTION_HINT };
++}
+diff -ruN a/test/vault-list-failure.test.ts b/test/vault-list-failure.test.ts
+--- a/test/vault-list-failure.test.ts	1970-01-01 08:00:00
++++ b/test/vault-list-failure.test.ts	2026-11-05 17:00:10
+@@ -0,0 +1,20 @@
++import assert from "node:assert/strict";
++import { describe, it } from "node:test";
++import { FIX_CONNECTION_HINT, vaultListFailure } from "../shared/field-picker.ts";
++
++const wire = (error: string) => `Request failed: ${error} requestType=plugin.rpc.invoke.request code=handler_error`;
++
++describe("the field picker's failure line", () => {
++  it("says the list took too long when the daemon timed the call out, and does not send the person to the connection", () => {
++    const shown = vaultListFailure(wire("Plugin RPC timed out: paseo-project-env.invoke"));
++    assert.equal(shown.message, "Listing this vault took too long.");
++    assert.match(shown.hint, /^Type the reference below instead\./);
++    assert.doesNotMatch(`${shown.message} ${shown.hint}`, /connection/i);
++  });
++  it("keeps today's words for a connection failure", () => {
++    assert.deepEqual(vaultListFailure(wire("1Password could not be reached")), {
++      message: "1Password could not be reached",
++      hint: FIX_CONNECTION_HINT,
++    });
++  });
++});

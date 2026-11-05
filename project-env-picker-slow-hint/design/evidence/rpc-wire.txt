@@ -1,0 +1,5 @@
+Frame received by the browser on the isolated Paseo (Paseo 0.15.1, plugin id pe-psh) when the picker's list call timed out; captured with a WebSocket tap (harness/ws-tap.js). Run: 3 items, every fake `op item list` waits 35000 ms.
+{"type":"session","message":{"type":"rpc_error","payload":{"requestId":"<id>","requestType":"plugin.rpc.invoke.request","error":"Request failed: Plugin RPC timed out: pe-psh.invoke","code":"handler_error"}}}
+Picker text in that run: "Plugin RPC timed out: pe-psh.invoke" over "Close this list, fix the 1Password connection on this page, then open it again."
+Same text with N=100, DELAY=1500 ms (each `op` call far below 30 s): 5 runs on main, list gave up after 31.4 to 32.4 s of "Loading the vault…" (click to text).
+Source of the limit (Paseo 0.15.1 app bundle, read 2026-11-05): REQUEST_TIMEOUT_MS = 30000 and reject(new Error(`Plugin RPC timed out: ${pluginId}.${message.type}`)) in the plugin host; a ToolCall gets 10 minutes, every other request 30 s.

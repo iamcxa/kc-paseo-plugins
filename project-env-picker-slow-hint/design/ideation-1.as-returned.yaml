@@ -1,0 +1,33 @@
+design_review:
+  preview: page /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-picker-slow-hint/design/previews.html ; pictures of the proposed design: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-picker-slow-hint/design/proposed-*.png (proposed-timeout-1280, proposed-timeout-400, proposed-timeout-typed-1280, proposed-timeout-used-1280, proposed-conn-1280, proposed-conn-400)
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0004-reserved-variable-names-are-skipped-not-blanked.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: proposed-timeout-1280.png and proposed-timeout-400.png
+      seen: The hint sends the person to "Type the reference below", but the row reads only "Type a reference…" with no example of what a reference looks like; the op://Dev/Item/Field shape appears only after typing (proposed-timeout-typed-1280.png), so a person who has never seen one must leave the screen to learn it.
+      fix: Make the placeholder of the reference row show the shape with the saved vault, for example "op://Dev/Item/Field", so the same cue also tells them the reference must be in this vault (ADR 0001: a reference to another vault is refused).
+    - severity: MINOR
+      dimension: states
+      where: timeout state, 1280 and 400
+      seen: Two inputs sit in the dialog, "Search fields, or type a name" at the top and the reference row below; with the list failed, the top search box looks live but has nothing to search, and the typed picture shows it still unchanged.
+      fix: Disable or dim the search box while the list is in the timeout state, or accept it as today's behaviour and add one criterion that the box does not mislead (typing in it does nothing visible); the hint already names "below" as the place to type.
+    - severity: MINOR
+      dimension: states
+      where: proposed-timeout-typed-1280.png, proposed-timeout-used-1280.png
+      seen: Only the happy path of the typed reference is shown (valid reference, Use, new row KEY_5 with "1 unsaved change"); a typed reference that is malformed or outside the saved vault, and Use pressed with an empty row, have no picture.
+      fix: Add a criterion, or one more picture, for a rejected typed reference showing what the person sees and that the dialog stays open.
+    - severity: MINOR
+      dimension: theme-size
+      where: proposed-timeout-typed-1280.png, proposed-timeout-used-1280.png
+      seen: The typed and used states are shown only at 1280 and only in the dark theme; no picture at 400 (where the Use button shares a row with the input and the hint wraps to two lines), none in light theme.
+      fix: Add a 400 px typed-state picture and one light-theme timeout picture, or state in limitations that they are unchecked.
+  limitations:
+    - Pictures come from an isolated Paseo with a fake op (100 items, 1.5 s per call); a real large vault and the real time to the timeout were not seen.
+    - Only the dark theme is shown in every picture.
+    - The conn pictures (proposed-conn-1280, proposed-conn-400) match today's main-conn pictures in both text and layout; I found nothing new to report there, and the unchanged-failure claim in the proposal holds as drawn.
+    - No ADR in force settles a question about this screen's look; none of the findings is ruled by a record.
