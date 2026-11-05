@@ -105,3 +105,4 @@ Needs decision: 只讀收集策略、後續頻率／成本上限，以及既有 
 ### Summary
 
 修正摘要點不能指定關卡的目標歧義，關卡決定一律先按具名關卡、讀說明，再選決定及 Confirm；一般方向可直接輸入後送出，不必 Replay。主頁只保留使用者閱讀與操作資訊，技術依據留在 EVIDENCE.md；沒有產品變更，Step B 未開始，待設計總監複審。
+- Design director pass 2 on step A (2026-11-05): SATISFIED — gate decisions bound to a named gate (5 from the replay; 6 with a reason); general direction type → send (2) with the replay optional; one question for the Captain: read only existing reports, mark missing data unknown, do not prod FOs; frequency, cost cap and applying a new Commander prompt still to decide; nothing claimed as built.
