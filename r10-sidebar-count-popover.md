@@ -52,6 +52,11 @@ gates:
               application:
                 target-stage: done
                 state: superseded
+            - id: gate-attempt:r10-sidebar-count-popover-validation-2
+              briefing:
+                id: briefing:r10-sidebar-count-popover:validation:attempt-2:revision-1
+                digest: sha256:7c8801bb2cd2cb329bc03f90689540d5c8f3f8a98829871a12c9a3e3a966007d
+                room-ref: ./r10-sidebar-count-popover/review/validation/briefing-2
 started: 2026-11-04T01:40:15Z
 worktree: .worktrees/spacedock-ensign-r10-sidebar-count-popover
 pr: 69

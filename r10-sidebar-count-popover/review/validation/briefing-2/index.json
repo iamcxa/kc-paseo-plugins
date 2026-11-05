@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:r10-sidebar-count-popover:validation:attempt-2:revision-1",
+  "question": "Flywheel round 10 validation (attempt 2, after the Captain's amendment 1): accept PR #69 at 33952f9b3d02 — a count on the Bridge sidebar row (gates plus questions waiting on the Captain, \"?\" while unchecked, none at zero) and a popover with gate and question counts and items newest first — as the eighth stacked layer, unmerged, for the Captain's trial?\nSufficiency: validation-2 passed AC-1 and AC-3 at 33952f9 with 267 tests, an oldest-first mutant rejected and four isolated host runs (dark and light at 1440 and 360); the FO reran the acceptance script and every step passed.\nNecessity: only the popover order changed since the approved 2a31ef4 (summary() in client/sidebar-waiting.tsx, its test and OVERVIEW.md), which is what amendment 1 asked for.",
+  "artifacts": [
+    {
+      "id": "artifact:r10-sidebar-count-popover:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/82d653e87d1f42884b9b423c66261da71c99dc32/r10-sidebar-count-popover.md",
+      "rev": "sha256:1f695b64d24142502c2d652194d0f73cc3bee42753fc733e4bb8a693bafed1c2",
+      "mediaType": "text/markdown",
+      "summary": "Validation-2 PASSED AC-1 and AC-3 (AC-2 superseded by the Captain's amendment 1) at 33952f9; FO acceptance rerun passed. Roborev: 1470 investigated then fixed; clean on 2a31ef4 and 33952f9. Engineering-reviewer on amendment 1: proceed. Team pass 2 on 2a31ef4: director and picky B satisfied; picky A's phone failure-state clipping is a Captain-ruled known issue. Observer on the amendment window: 1 FO record violation (validation-1's gate summary lacked External rounds and Sufficiency/Necessity; this briefing repairs it), 2 package mismatches.\nExternal rounds: 1\nCodex review on 2a31ef4 found no major issues; re-requested on 33952f9.\nSecond reviewer: not triggered (no second reviewer configured in this workflow).\nApproval keeps #69 stacked and unmerged and reinstalls it for the Captain."
+    }
+  ]
+}
