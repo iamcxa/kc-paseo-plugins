@@ -56,6 +56,10 @@ gates:
                 id: briefing:project-env-resume-blank-notice:validation:attempt-1:revision-1
                 digest: sha256:8bedffded8f81676dd09a8651431d5127fc9782e221736c2f7bcb5561a900bfa
                 room-ref: ./project-env-resume-blank-notice/review/validation/briefing-1
+              withdrawal:
+                by: agent:first-officer
+                at: "2026-11-05T06:46:10.86925Z"
+                reason: The Captain asked (「加」, 2026-11-05) to add one Reference sentence that Paseo terminals get no project variables to this PR; the candidate changes, so the validation gate at fec5b13 is withdrawn and re-prepared after a recheck.
 started: 2026-10-30T14:42:08Z
 ---
 
@@ -80,6 +84,14 @@ Visible change: A resumed agent that lost a project variable shows a line in its
 Direction alignment with the Captain: done — he answered 「開」 on 2026-10-30 to FO's recommendation to test this before he upgrades.
 Release review: not needed: it follows a host release and adds no journey story.
 Map footprints: not needed: no open map question is answered by this task.
+
+## Captain amendments
+
+### Amendment 1 — 2026-11-05, chat
+Captain: 「加」 (FO chat, 2026-11-05)
+Asked: "要不要在參考頁的「Limits worth knowing」加一句「Paseo 裡開的 terminal 不會有這些變數」？我建議加，只改一句文件，可以併進下一個 PR。…回「加」或「不用」。"
+Supersedes: none
+Design: Scope gains one sentence in project-env/OVERVIEW.md "Limits worth knowing" saying that terminals opened in Paseo get no project variables
 
 ## PRFAQ
 
