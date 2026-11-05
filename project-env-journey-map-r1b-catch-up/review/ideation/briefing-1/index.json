@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-journey-map-r1b-catch-up:ideation:attempt-1:revision-1",
+  "question": "設計關（r1b 修小地方 4/4）：地圖上 pick-repository、read-the-docs 改成 exists，終端機限制記成 new-agent-env 的已答問題 q8，狀態卡更新到 2026-11-05；只改這個檔案 9 增 7 減，地圖檢查通過。read-the-docs 的證據只能指到建站腳本，網站上線另查證。我建議准。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-journey-map-r1b-catch-up:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9e57015b1541d3d88d940546d103d2a8e8860c9b/project-env-journey-map-r1b-catch-up.md",
+      "rev": "sha256:f130a9167d736a25c3c9304ba18986ddbe785683c782483e5128454c4f172dd4",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: four journey-file edits, lint passes on a throwaway copy; read-the-docs evidence is the site build script. FO recommendation: approve."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-journey-map-r1b-catch-up:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/9e57015b1541d3d88d940546d103d2a8e8860c9b/project-env-journey-map-r1b-catch-up/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:875af2a65380d4273d791327924d8ae8a29417565b759051e713c183a8f6ba42"
+    }
+  ]
+}
