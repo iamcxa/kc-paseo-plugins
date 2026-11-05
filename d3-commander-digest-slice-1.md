@@ -208,3 +208,12 @@ Falsifiers: ignoring agent/automated provenance exposes malformed collection out
 ### Summary
 
 All six authorized repairs are implemented, tested and pushed; both final viewport runs match the committed files and demonstrate the requested journey. This remains a bounded POC with fixture RPC/timeline captures and server-function tests, not provider-quality, physical-device, live-fleet or delivery acceptance. FO owns RoboRev, independent validation and design-director re-review; the PR remains Draft.
+
+## Investigation: roborev 1536 and design review 2
+
+Design director review 2 (Codex gpt-6.1-sol high, agent 302cb384) on the 40 captures of cdc488ef7dd7640b1e58fde9c909c41f7d27e83e: SATISFIED — Open FO arrival and return, the leading unavailable-source state, and the phone opening with three lines and a kept selected point all match the mockups; no new visible blocker. Unpictured: multiple source ranges within one context line.
+
+FO ran roborev on cdc488ef7dd7640b1e58fde9c909c41f7d27e83e (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1536, two Medium findings.
+7. server/digest.ts parsing: a digest split across adjacent assistant entries (which the chat renderer already joins) fails validation although the combined text is valid.
+8. client/co-chat.tsx and useCoAsk: the Commander question reader still publishes rejected collection replies to the Commander header and sidebar (malformed collection prose with "Next: ... (you)" shows as a Captain question). Same class as item 1 (collection provenance), reaching a second consumer — repair cycle 2, the last the seed's budget allows before the Captain sees it.
+Read-only investigation dispatched as implementation-1-followup-4 before any fix.
