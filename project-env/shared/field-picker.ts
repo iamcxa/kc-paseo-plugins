@@ -107,3 +107,16 @@ export function pickerRows(input: {
 }
 
 export const hasFields = (rows: readonly PickerRow[]) => rows.some((r) => r.kind === "field");
+
+export const FIX_CONNECTION_HINT = "Close this list, fix the 1Password connection on this page, then open it again.";
+
+export function vaultListFailure(raw: string): { message: string; hint: string } {
+  const message = raw.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, "");
+  if (message.startsWith("Plugin RPC timed out")) {
+    return {
+      message: "Listing this vault took too long.",
+      hint: "Type the reference below instead. A large vault can be too slow to list.",
+    };
+  }
+  return { message, hint: FIX_CONNECTION_HINT };
+}

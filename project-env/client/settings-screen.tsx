@@ -38,6 +38,7 @@ import {
 import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
 import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
 import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
+import { FIX_CONNECTION_HINT, vaultListFailure } from "../shared/field-picker";
 import { countPointingAt, markedOutside, type PillView, pillView, repointLine, settleConnection } from "../shared/ref";
 import { type AddProjectState, addProjectLine, addProjectState } from "../shared/project-list";
 import { type OpenProject, openProject, useOpenProject } from "./open-project";
@@ -734,7 +735,7 @@ function ProjectEditor({
   useEffect(() => {
     if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
   }, [view, line.kind, nothingPending]);
-  const fix = "Close this list, fix the 1Password connection on this page, then open it again.";
+  const fix = FIX_CONNECTION_HINT;
   const unusable =
     current?.state === "ok"
       ? vaultReadable
@@ -747,11 +748,7 @@ function ProjectEditor({
         ? null
         : { message: tokenText.label, hint: `${tokenText.hint} ${fix}` };
   const list: VaultList = refs.isError
-    ? {
-        status: "error",
-        message: (refs.error as Error).message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""),
-        hint: fix,
-      }
+    ? { status: "error", ...vaultListFailure((refs.error as Error).message) }
     : refs.data
       ? { status: "ready", refs: refs.data.refs, skipped: refs.data.skipped }
       : unusable
