@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-started-row-visible:validation:attempt-1:revision-1",
+  "question": "Approve validation of the Started-without line placement (PR iamcxa/kc-paseo-plugins#75 at 9439ec8b2aec5fcd2604e4bb0846d5a197ec1949, stacked on #73 and #72), including the removal of the ten-minute expiry, and the proposed declines (F1, F2 dispatch records, F3 Deferred risk)? FO recommends approving. Approval lets FO merge it after #73 and reload the live plugin under ADR 0007 class 2, unless the Captain says he merges or holds.",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-started-row-visible:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/655b067cadf565329e93fb1d7b59a0847dc523d2/project-env-started-row-visible.md",
+      "rev": "sha256:bfa0e48fe0eba05aec947544f961858cb9b31541505db9570bca15963177521e",
+      "mediaType": "text/markdown",
+      "summary": "Merge ask: PR #75 at 9439ec8b2aec5fcd2604e4bb0846d5a197ec1949 adds the Started-without row only when the first turn ends, so Paseo's default Collapse turns display no longer folds it, removes the ten-minute expiry, and updates one sentence each in docs/project-env/index.md and project-env/OVERVIEW.md.\nSufficiency: validation-1 PASSED at 9439ec8 with no Material finding; AC-2 (Captain amendment 1, newest Paseo only) observed on an isolated Paseo 0.15.2: candidate 15 of 15 rows after the last reply and visible at 1280 and 400, base 3 of 15 folded; 335/335 tests and tsc clean; FO's acceptance rerun matched (fo-acceptance-rerun-9439ec8.txt).\nNecessity: the PR removes the agent.created listener and the expiry and changes tests and two doc sentences; without it the line is folded away in about a third of starts on the Captain's Paseo.\nReviews: external review rounds: 1 — Codex summary:6664388798 clean on 9439ec8b2.\nExternal rounds: 1\nSecond reviewer: roborev not run: FO did not run the local roborev gate for this batch.\nDeclined: Polish, F1 index.md says the line is under the first reply where it is under the last reply of the first turn (the same for one-reply turns, the wording fix goes to the follow-up docs and map PR after this batch).\nDeclined: Polish, F2 dispatch_records.py exits 1 for this task (FO's records were reconstructed after dispatch, an FO record defect with no effect on the candidate).\nDeclined: Deferred risk, F3 a first turn over ten minutes, a real provider's turn end, the desktop app and the light theme were not run (would become Material if a real provider emitted no turn end for a normal first turn)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-started-row-visible:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/655b067cadf565329e93fb1d7b59a0847dc523d2/project-env-started-row-visible/gate-validation.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:fd678b9ed6eaf3d03e92f881eadb94c04b8da5473935a9b570e5fc05e698fafd"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-started-row-visible:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/655b067cadf565329e93fb1d7b59a0847dc523d2/project-env-started-row-visible/delivery-gate-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:7423f1604e15109b2854867b6580bcd4042a585851e1759b15db06fcc16e2898"
+    }
+  ]
+}

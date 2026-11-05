@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-started-row-visible:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-started-row-visible-validation-1
+              briefing:
+                id: briefing:project-env-started-row-visible:validation:attempt-1:revision-1
+                digest: sha256:05ebb2199b6f53e47aef31d0551ef471705475491b5299a37ff578014433ff4d
+                room-ref: ./project-env-started-row-visible/review/validation/briefing-1
 started: 2026-11-05T08:40:23Z
 ---
 
