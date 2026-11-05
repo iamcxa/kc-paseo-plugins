@@ -1,7 +1,7 @@
 ---
 id:
 title: The "Started without" line stays visible in Paseo 0.14.0's default chat display
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: 「准」 — Captain in FO chat, 2026-11-05, on the batch r1b-polish-1 ideation gates presented together (picker-slow-hint cd66afef, rate-limit-cause b950f3c3, started-row-visible e37a1851, journey-map-r1b-catch-up d0cd0aa6), FO having recommended approving all four and building in the order picker-slow-hint, rate-limit-cause, started-row-visible, with the map task independent.
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-11-05T08:40:23Z
 ---
 
