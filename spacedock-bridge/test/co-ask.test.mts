@@ -9,6 +9,12 @@ import { useCoAsk } from "../client/use-co-ask";
 
 const { PaseoApiProvider } = createRequire(import.meta.url)("@getpaseo/plugin/client/host") as typeof import("@getpaseo/plugin/client/host");
 
+function ordinaryPage(entries: any[], agentId = "co", fields: Record<string, unknown> = {}): any {
+  const request = { seqStart: (entries[0]?.seqStart ?? 1) - 1, item: { type: "user_message", text: "Discuss the current direction" } };
+  return { agentId, epoch: "fixture-epoch", projection: "canonical", reset: false, gap: false, staleCursor: false, error: null, ...fields,
+    entries: (entries.length ? [request, ...entries] : []).map(e => ({ seqEnd: e.seqStart, sourceSeqRanges: [{ startSeq: e.seqStart, endSeq: e.seqStart }], collapsed: [], ...e })) };
+}
+
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
 test("a reconnect detects the last displayed Captain question after earlier FO work", { timeout: 3000 }, async (t) => {
@@ -41,7 +47,7 @@ test("a reconnect detects the last displayed Captain question after earlier FO w
           ] : [],
         };
         if (completedOffline) refreshed();
-        return page;
+        return ordinaryPage(page.entries, "co", { agent: page.agent });
       },
     },
   };
@@ -83,7 +89,7 @@ test("manual comms reads retain timestamp, expose pending/failure and drop stale
     const result = useCoAsk("co"); retry = result.retry;
     return createElement("output", null, `${result.state}|${result.ask}|${result.since}`);
   }
-  const page = (timestamp?: string): Page => ({ entries: [{ seqStart: 2, timestamp, item: { type: "assistant_message", text: "Next: Choose release (you)" } }] });
+  const page = (timestamp?: string): Page => ordinaryPage([{ seqStart: 2, timestamp, item: { type: "assistant_message", text: "Next: Choose release (you)" } }]);
   await act(async () => root.render(createElement(PaseoApiProvider, { paseo, children: createElement(Question) })));
   await act(async () => reads[0].reject(Error("offline")));
   assert.match(container.textContent!, /^failed/);
@@ -139,7 +145,7 @@ test("Check again restores an errored subscription and waits for live readiness 
     subscription.listener({ agentId: "co", subscriptionId: String(index), event: { type } } as PaseoAgentTimelineEvent);
   };
   const flush = () => { const pending = [...timers.values()]; timers.clear(); pending.forEach((fn) => fn()); };
-  const page = (text = ""): Page => ({ entries: text ? [{ seqStart: 1, item: { type: "assistant_message", text } }] : [] });
+  const page = (text = ""): Page => ordinaryPage(text ? [{ seqStart: 1, item: { type: "assistant_message", text } }] : []);
   const paseo = { agents: { ref: () => handle } } as unknown as PaseoApi;
   function Question() {
     const { ask, state, retry } = useCoAsk("co");
@@ -192,7 +198,7 @@ test("manual reconnection reads after readiness and a cancelled attempt cannot r
     refetch: async () => {
       reads.push(id);
       const text = history[id];
-      return { entries: text ? [{ seqStart: 1, item: { type: "assistant_message", text } }] : [] };
+      return ordinaryPage(text ? [{ seqStart: 1, item: { type: "assistant_message", text } }] : [], id);
     },
     subscribe: (listener: (value: PaseoAgentTimelineEvent) => void) => {
       let connect!: () => void;
@@ -245,7 +251,7 @@ test("switching coordinators clears the previous question and timestamp while th
   t.after(async () => { await act(() => root.unmount()); dom.window.close(); });
   const oldTimestamp = "2026-10-27T00:00:00Z";
   const newTimestamp = "2026-10-27T01:00:00Z";
-  const page = (text: string, timestamp: string) => ({ entries: [{ seqStart: 1, timestamp, item: { type: "assistant_message", text } }] });
+  const page = (text: string, timestamp: string, id = "old") => ordinaryPage([{ seqStart: 1, timestamp, item: { type: "assistant_message", text } }], id);
   let connect!: () => void;
   const ready = new Promise<void>((resolve) => { connect = resolve; });
   let read!: (value: ReturnType<typeof page>) => void;
@@ -265,6 +271,6 @@ test("switching coordinators clears the previous question and timestamp while th
   assert.equal(container.textContent, "new|loading|null|null", "a new coordinator cannot inherit the old question or age");
   await act(async () => connect());
   assert.equal(container.textContent, "new|loading|null|null", "the previous payload stays cleared until the new history arrives");
-  await act(async () => read(page("Next: Choose the new release window (you)", newTimestamp)));
+  await act(async () => read(page("Next: Choose the new release window (you)", newTimestamp, "new")));
   assert.equal(container.textContent, `new|loaded|Choose the new release window (you)|${newTimestamp}`);
 });

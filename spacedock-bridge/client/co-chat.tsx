@@ -16,13 +16,15 @@ import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/draf
 import { useDraft } from "./use-draft";
 import { useComposerPadding } from "./use-composer-padding";
 import { DigestMessage } from "./digest";
-import { contextMessage, splitContextMessage, isCollectionRequest, digestSequences, type PointContext } from "../shared/digest";
+import { contextMessage, splitContextMessage, isCollectionRequest, type PointContext } from "../shared/digest";
+import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 import type { GateIdentityFields } from "../shared/gate-identity";
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
   readOnly?: boolean;
   digestHostId?: string;
+  commander?: boolean;
   onOpenFO?: (source: import("../shared/digest").ReportSource) => boolean;
   headerExtra?: import("react").ReactNode;
   gate?: GateIdentityFields | null;
@@ -53,6 +55,7 @@ function Chat({
   navigation,
   agentId,
   digestHostId,
+  commander = false,
   onOpenFO,
   readOnly,
   headerExtra,
@@ -253,13 +256,17 @@ function Chat({
     const request = ++readRequest.current;
     setConversation("loading");
     try {
+      if (commander && !digestHostId) throw new Error("Commander host identity unavailable");
       const page = await paseo.agents
         .ref(agentId)
-        .timeline.refetch({ direction: "tail", limit: 120, projection: digestHostId ? "canonical" : "projected" });
+        .timeline.refetch({ direction: "tail", limit: COMMANDER_ENTRY_LIMIT, projection: commander || digestHostId ? "canonical" : "projected" });
       if (request !== readRequest.current) return;
-      if (digestHostId && (page.agentId !== agentId || page.reset || page.staleCursor || page.gap || page.error)) throw new Error("Commander timeline unavailable");
-      setPositions({ epoch: page.epoch, digests: digestSequences(page.entries), ends: Object.fromEntries(page.entries.map(e => [String(e.seqStart), e.seqEnd])) });
-      setLines(digestHostId ? page.entries.flatMap(e => toLines([e])) : toLines(page.entries));
+      if (commander || digestHostId) {
+        const replies = commanderReplies(page, agentId);
+        if (!replies) throw new Error("Commander timeline unavailable");
+        setPositions({ epoch: page.epoch, digests: new Set(replies.filter(r => r.item.type === "assistant_message" && r.provenance !== "ordinary").map(r => String(r.seqStart))), ends: Object.fromEntries(replies.map(r => [String(r.seqStart), r.seqEnd])) });
+        setLines(replies.flatMap(r => toLines([r])));
+      } else setLines(toLines(page.entries));
       setConversation("loaded");
       setReadError("");
     } catch (e) {
@@ -267,7 +274,7 @@ function Chat({
       setConversation("failed");
       setReadError(String(e));
     }
-  }, [paseo, agentId, digestHostId]);
+  }, [paseo, agentId, digestHostId, commander]);
 
   useEffect(() => {
     setLines([]);

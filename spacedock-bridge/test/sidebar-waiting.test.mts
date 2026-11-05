@@ -76,7 +76,7 @@ test("popover sorts gates and questions together newest first; item routes to th
 test("label opens Bridge directly and Commander questions are read without creating a coordinator", async t => {
   let creates = 0;
   const host = await mountBridge(t, false, rpc => { rpc["coordinator.open"] = async () => { ++creates; return { agentId: "co" }; }; }, true);
-  host.timeline.set("co", [{ seqStart: 1, timestamp: "2026-11-01T10:00:00Z", item: { type: "assistant_message", text: "Next: Choose the next direction (you)" } }]);
+  host.timeline.set("co", [{ seqStart: 0, item: { type: "user_message", text: "Discuss the direction" } }, { seqStart: 1, timestamp: "2026-11-01T10:00:00Z", item: { type: "assistant_message", text: "Next: Choose the next direction (you)" } }]);
   await host.refresh("co");
   assert.ok(host.find("3 gates and questions waiting for you"));
   assert.equal(creates, 0);

@@ -85,7 +85,7 @@ for (const surface of surfaces) {
       if (recovery === "retry control") assert.ok(h.find(surface.retry), "each failed reader offers a visible retry");
       else assert.match(h.text(), /Unavailable|Cannot read|Could not read/, "the reader actually failed before the detour");
       restore();
-      h.timeline.set(surface.mode === "commander" ? "co" : "a", [{ seqStart: 1, item: { type: "assistant_message", text: "Recovered conversation" } }]);
+      h.timeline.set(surface.mode === "commander" ? "co" : "a", [...(surface.mode === "commander" ? [{ seqStart: 0, item: { type: "user_message", text: "Discuss current work" } }] : []), { seqStart: 1, item: { type: "assistant_message", text: "Recovered conversation" } }]);
       if (surface.reader === "relay") h.timeline.set("a", [{ seqStart: 1, item: { type: "user_message", text: claim.decisionId } }]);
       if (recovery === "reactivate") { await away(h, surface); await open(h, surface); }
       else await h.click(surface.retry);
@@ -128,7 +128,7 @@ for (const surface of surfaces) {
       const name = surface.reader === "briefing" ? "gate.briefing" : "decisions.read";
       const read = h.rpc[name]; h.rpc[name] = blocked; restore = () => { h.rpc[name] = read; };
     } else {
-      const key = `${surface.mode === "commander" ? "co" : "a"}:${surface.reader === "relay" ? "canonical" : "projected"}`;
+      const key = `${surface.mode === "commander" ? "co" : "a"}:${surface.mode === "commander" || surface.reader === "relay" ? "canonical" : "projected"}`;
       h.readOverrides.set(key, blocked); restore = () => { h.readOverrides.delete(key); };
       if (surface.mode === "commander") await h.refresh("co");
     }
@@ -154,7 +154,7 @@ for (const mode of ["gate", "fo", "commander"] as const) {
       if (failure === "event" || mode === "commander") await h.emitTimeline(id, "error");
       assert.ok(h.find(surface.retry));
       h.subscriptionFailures.delete(id);
-      h.timeline.set(id, [{ seqStart: 1, item: { type: "assistant_message", text: "Subscription recovered" } }]);
+      h.timeline.set(id, [...(id === "co" ? [{ seqStart: 0, item: { type: "user_message", text: "Discuss current work" } }] : []), { seqStart: 1, item: { type: "assistant_message", text: "Subscription recovered" } }]);
       await away(h, surface); await open(h, surface);
       assert.ok(!h.find(surface.retry));
       assert.match(h.text(), /Subscription recovered/);
@@ -254,7 +254,7 @@ for (const surface of surfaces) {
       const read = h.rpc["gate.briefing"];
       h.rpc["gate.briefing"] = async (input: unknown) => { const reply = await read(input); return { ...reply, briefing: { ...reply.briefing, artifacts: [{ summary: "Fresh briefing", markdown: "Fresh evidence" }] } }; };
     } else if (surface.reader === "claim") h.claims.delete("brief-a");
-    else h.timeline.set(surface.mode === "commander" ? "co" : "a", [{ seqStart: 1, item: { type: surface.reader === "relay" ? "user_message" : "assistant_message", text: surface.reader === "relay" ? claim.decisionId : "Next: Fresh conversation (you)" } }]);
+    else h.timeline.set(surface.mode === "commander" ? "co" : "a", [...(surface.mode === "commander" ? [{ seqStart: 0, item: { type: "user_message", text: "Discuss current work" } }] : []), { seqStart: 1, item: { type: surface.reader === "relay" ? "user_message" : "assistant_message", text: surface.reader === "relay" ? claim.decisionId : "Next: Fresh conversation (you)" } }]);
     await open(h, surface);
     assert.ok(h.find(label(surface)) === composer, "refresh preserves the mounted surface");
     assert.equal((composer as HTMLTextAreaElement).value, "Freshness draft");

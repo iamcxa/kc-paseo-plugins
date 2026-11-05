@@ -66,7 +66,7 @@ test("switch offer and cancel never archive; explicit confirmation changes recip
   await h.click("換用新的通訊官"); assert.equal(archived,0);
   await h.click("取消換用"); assert.equal(archived,0);
   await h.click("換用新的通訊官"); await h.click("確認換用並封存舊官"); assert.equal(archived,1);
-  h.timeline.set("old", [{ seqStart: 1, seqEnd: 1, timestamp: "old", item: { type: "assistant_message", text: "Readable old conversation" } }]);
+  h.timeline.set("old", [{ seqStart: 0, seqEnd: 0, item: { type: "user_message", text: "Discuss previous work" } }, { seqStart: 1, seqEnd: 1, timestamp: "old", item: { type: "assistant_message", text: "Readable old conversation" } }]);
   await h.click("讀取舊通訊官對話"); assert.match(h.text(), /Readable old conversation/);
   assert.equal(h.find("Message Previous comms officer"),undefined);
 });

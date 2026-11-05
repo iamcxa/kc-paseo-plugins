@@ -3,7 +3,9 @@ import type { RpcInput } from "@getpaseo/plugin";
 import { collectDigest, readDigest, readReplay, digestSchema, sourceKey } from "../shared/digest";
 import { DIGEST_VERSION } from "../shared/coordinator";
 import { fleetSnapshot, rememberCollection } from "./fleet-mcp";
-import { goodPage, validateDigest, replayWindow, type SourceRound, type TimelineReader } from "./report-sources";
+import { validateDigest, replayWindow, type SourceRound, type TimelineReader } from "./report-sources";
+
+import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 
 const rounds = new Map<string, SourceRound>();
 const collecting = new Set<string>();
@@ -26,12 +28,15 @@ export async function collectDigestHandler(input: RpcInput<typeof collectDigest>
   } finally { collecting.delete(input.agentId); }
 }
 export async function readDigestHandler(input: RpcInput<typeof readDigest>, api: PaseoApi) {
-  const page = await reader(api)(input.agentId, { projection: "canonical", direction: "after", cursor: { epoch: input.epoch, seq: input.seqStart - 1 }, limit: 1 });
-  if (!goodPage(page, input.agentId, input.epoch)) return null;
-  const entry = page.entries[0];
-  if (!entry || entry.seqStart !== input.seqStart || entry.seqEnd !== input.seqEnd || entry.item.type !== "assistant_message" || entry.collapsed.length || entry.sourceSeqRanges.length !== 1 || entry.sourceSeqRanges[0].startSeq !== input.seqStart || entry.sourceSeqRanges[0].endSeq !== input.seqEnd) return null;
+  const count = input.seqEnd - input.seqStart + 1;
+  if (!Number.isSafeInteger(count) || count < 1 || count > COMMANDER_ENTRY_LIMIT || !Number.isSafeInteger(input.seqStart) || input.seqStart < 0) return null;
+  const page = await reader(api)(input.agentId, { projection: "canonical", direction: "after", cursor: { epoch: input.epoch, seq: input.seqStart - 1 }, limit: count });
+  const replies = commanderReplies(page, input.agentId, input.epoch);
+  if (!replies || page.entries.length !== count || replies.length !== 1) return null;
+  const reply = replies[0];
+  if (reply.seqStart !== input.seqStart || reply.seqEnd !== input.seqEnd || reply.item.type !== "assistant_message") return null;
   let raw: unknown;
-  try { raw = JSON.parse(entry.item.text); } catch { return null; }
+  try { raw = JSON.parse(reply.item.text); } catch { return null; }
   const parsed = digestSchema.safeParse(raw);
   if (!parsed.success) return null;
   const round = rounds.get(parsed.data.roundId);

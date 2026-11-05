@@ -72,7 +72,7 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
       <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="取消換用" disabled={busy} onPress={() => setConfirmSwitch(false)}><Text style={{ color: colors.foregroundMuted }}>取消</Text></Pressable>
       {actionError ? <Text style={{ color: colors.statusDanger }}>{actionError}</Text> : null}
     </View></Modal.Content></Modal>
-    <Modal title="舊通訊官 · 唯讀對話" open={oldOpen} onOpenChange={setOldOpen}><Modal.Content>{oldOpen && previous ? <View style={{ height: 560, maxHeight: "100%" }}><CoChat theme={theme} layout={layout} agentId={previous} title="Previous comms officer" readOnly /></View> : null}</Modal.Content></Modal>
+    <Modal title="舊通訊官 · 唯讀對話" open={oldOpen} onOpenChange={setOldOpen}><Modal.Content>{oldOpen && previous ? <View style={{ height: 560, maxHeight: "100%" }}><CoChat theme={theme} layout={layout} agentId={previous} title="Previous comms officer" commander digestHostId={props.host?.id} readOnly /></View> : null}</Modal.Content></Modal>
   </View>;
 
   const chat = (active: boolean, openFO: (agentId: string) => boolean) => coId ? (
@@ -81,6 +81,7 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
       layout={layout}
       navigation={props.navigation}
       agentId={coId}
+      commander
       digestHostId={props.host?.id}
       onOpenFO={source => source.hostId === props.host?.id && openFO(source.agentId)}
       headerExtra={tools}

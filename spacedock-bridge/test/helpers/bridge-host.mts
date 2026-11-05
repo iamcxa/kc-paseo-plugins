@@ -17,7 +17,7 @@ let current: any;
 let Bridge: any;
 let BoardItem: any;
 const calls = new Map<string, (...args: any[]) => any>();
-export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}, digest = false) {
+export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}, digest = false, identity = true) {
   const dom = new JSDOM("<!doctype html><div id='root'></div>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   Object.assign(dom.window.HTMLElement.prototype, { attachEvent() {}, detachEvent() {} });
@@ -44,6 +44,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   let hold = false;
   const rpc: any = {
     "coordinator.open": async () => ({ agentId: "co" }),
+    "digest.read": async () => null,
     "tasks.read": async () => ({ tasks: {}, failedWorkflowDirs: [] }),
     "gates.read": async () => ({ gates: agents.filter(a => a.id !== "idle").map(a => ({ ...briefing(a.id), title: attempts.get(a.id)?.title ?? `Approve ${a.id}?`, workflowDir: a.labels["workflow-dir"] })), failedWorkflowDirs: [] }),
     "reviews.read": async () => ({ requests: [], checkedAt: 1, nextCheckAt: null, error: null }),
@@ -69,7 +70,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const paseo = { agents: {
     list: async ({ filter }: any = {}) => ({ subscription: { subscribe: (h: any) => { const publish = () => h.snapshot({ entries: agentList(filter).map(agent => ({ agent })) }); snapshots.add(publish); publish(); }, release() {} } }),
     ref: (id: string) => ({ status: "idle", subscribe: (fn: () => void) => { const set = listeners.get(id) ?? new Set(); set.add(fn); listeners.set(id, set); return () => set.delete(fn); }, send: async (text: string) => { sent.push({ id, text }); await sendOverrides.get(id)?.(text); }, timeline: {
-      refetch: async ({ projection }: any) => { reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { ...(digest ? { agentId: id, epoch: "epoch", reset: false, gap: false, staleCursor: false, error: null } : {}), entries: timeline.get(id) ?? [], agent: { status: "idle" } }; },
+      refetch: async ({ projection }: any) => { reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { agentId: id, epoch: "epoch", projection, reset: false, gap: false, staleCursor: false, error: null, entries: (timeline.get(id) ?? []).map(e => ({ seqEnd: e.seqStart, sourceSeqRanges: [{ startSeq: e.seqStart, endSeq: e.seqEnd ?? e.seqStart }], collapsed: [], ...e })), agent: { status: "idle" } }; },
       subscribe: (fn: (event: any) => void) => { const set = timelineListeners.get(id) ?? new Set(); set.add(fn); timelineListeners.set(id, set); return Object.assign(() => set.delete(fn), { ready: subscriptionFailures.has(id) ? Promise.reject(new Error(`Subscription failed ${id}`)) : Promise.resolve() }); },
     } }),
   } };
@@ -99,7 +100,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   let route: any = null;
   let Popover: any = null;
   const opened: any[] = [];
-  const props = { ...(digest ? { host: { id: "fixture-host", label: "Fictional" } } : {}), theme: { colors }, layout: { compact, platform: "web" }, navigation: { openAgent(value: any) { opened.push(value); } } };
+  const props = { ...(identity ? { host: { id: "fixture-host", label: "Fictional" } } : {}), theme: { colors }, layout: { compact, platform: "web" }, navigation: { openAgent(value: any) { opened.push(value); } } };
   const openScreen = (input: any) => { screens.push(input); route = input; Popover = null; draw(); };
   const draw = () => root.render(sidebar ? createElement("div", null,
     createElement(BoardItem, { ...props, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
