@@ -75,3 +75,4 @@ Visible change: digest points in the Commander conversation, the Replay card, th
 ### FO notes
 
 - 2026-11-05: worker preflight confirmed the known class (fixed 6787 listener, real-HOME data paths), so AC-4's measurement needs a configurable fleet listener/data directory, outside this task's scope; the worker proposed holding the task. FO steered: only the AC-4 item stops and reports the smallest change for the Captain; items 2–5 continue. Worker loaded the installed kc-dev-flow-2 0.35.0 implementation skill (dispatch named 0.34.0); the stage definition prefers the loaded skill root.
+- 2026-11-05: worker asked FO to reserve an ADR number (0.35.0 implementation skill: one ADR per enduring decision). FO answered no number: workflow README number guards, POC bullet, "reserves no number"; the rulings stay in the task and d1 design until the Captain moves this out of POC.

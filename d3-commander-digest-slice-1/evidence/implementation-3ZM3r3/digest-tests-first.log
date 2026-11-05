@@ -1,0 +1,31 @@
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+✔ valid digest reads the exact assistant source once and never searches words (4.936916ms)
+✔ reject round without exposing unverified text (1.48ms)
+✔ reject foreign without exposing unverified text (0.2825ms)
+✔ reject hash without exposing unverified text (0.186917ms)
+✔ reject missing without exposing unverified text (0.238541ms)
+✔ reject line-foreign without exposing unverified text (0.140792ms)
+✔ reject kinds without exposing unverified text (0.156583ms)
+✔ reject duplicate-point without exposing unverified text (0.184792ms)
+✔ read-back rejects epoch changes (0.29675ms)
+✔ read-back rejects agentId changes (0.258292ms)
+✔ read-back rejects reset changes (2.50075ms)
+✔ read-back rejects gap changes (0.250083ms)
+✔ read-back rejects staleCursor changes (0.280375ms)
+✔ read-back rejects text changes (0.187375ms)
+✔ read-back rejects range changes (0.125541ms)
+✔ read-back rejects missing changes (0.091542ms)
+✔ read-back rejects role changes (0.109291ms)
+✔ Replay reads two canonical neighbors each side, preserves roles and pages from edges (0.413584ms)
+✔ side failure is unavailable, never end-of-history or a cross-gap join (0.12225ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (0.459167ms)
+✔ collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO (3.638708ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 961.817542
