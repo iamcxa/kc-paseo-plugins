@@ -87,6 +87,7 @@ Verified by: captures at 1440 (anchored) and 360 (bottom sheet), in dark and lig
 
 Alignment: not needed: the Captain chose this scope on 2026-11-04 with reference pictures, recorded in `_l3-dogfood/rounds.md`.
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:engineering-reviewer codex/gpt-6-astra:xhigh 2026-11-05 — do these amendments withdraw what the Captain approved, and what changes in the build?
 
 ## Captain amendments
 
