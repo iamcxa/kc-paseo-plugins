@@ -36,7 +36,7 @@ It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, 
 
 A blank variable means the plugin could not read it. The agent started anyway with that variable empty, so it never runs on an old value of the same name. There are three places to see the reason:
 
-- The line "Started without N project variables" in a new conversation, or "Resumed without N project variables" when a paused agent picks up again, lists each variable and why. The resumed line appears when the first turn after the resume ends, not when you open the conversation, and is not repeated while the same variables stay blank.
+- The line "Started without N project variables" for a new agent, or "Resumed without N project variables" when a paused agent picks up again, lists each variable and why. Each line appears when the agent's turn ends (the first turn for a new agent, the first turn after the resume for a resumed one), under the last reply, not when you open the conversation; the resumed line is not repeated while the same variables stay blank.
 - **Settings**, **Plugins**, the actions menu, **Project environment**: edit the repository and press **Test**. The summary reads like "2 failed · 1 set", and each failed row has a red "!" that shows the reason when you press or hover it.
 - The plugin's Logs, in the same actions menu, hold one line per failed variable with the reason class and never a value.
 
