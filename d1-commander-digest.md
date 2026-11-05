@@ -35,6 +35,17 @@ gates:
                 id: briefing:d1-commander-digest:validation:attempt-1:revision-1
                 digest: sha256:1849f55f1d36b56ef91101c27469d7451055983354a3a0e570b9d28bacb868b7
                 room-ref: ./d1-commander-digest/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d1-commander-digest:validation:1
+                briefing: briefing:d1-commander-digest:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T13:08:41.722691Z"
+                decision: approve
+                reason: 'Captain 2026-11-05, asked 「照這個方向做，還是有哪裡要改？」 on the cycle 5 mockups: 「照這個方向可以」 — accepts the Commander digest design as the reference for a code task.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-05T09:13:43Z
 worktree: .worktrees/spacedock-ensign-d1-commander-digest
 ---
