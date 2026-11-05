@@ -1,0 +1,21 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  rulings:
+    - finding: 2
+      ruling: upheld
+      evidence: preview-picker-1280.png and preview-picker-400.png show the box above a clear red line and a "Type a reference..." row, so a person is not blocked or told something false; the claim that typing still offers "Add NAME and pick the field later" cannot be seen in any picture, and the today-* pictures show the partial-limit case as a normal list, not an error, so "as today" is not pictured either.
+      change: none
+    - finding: 3
+      ruling: upheld
+      evidence: preview-picker-1280.png and preview-picker-400.png show the centred red line and hint above the left-aligned "Type a reference..." row; this is a look difference only, and the sentence and hint stay fully readable.
+      change: none
+    - finding: 6
+      ruling: upheld
+      evidence: today-test-bubble-400.png shows the same bubble covering the POSTHOG_API_KEY label of the row below, so preview-test-bubble-400.png is unchanged in this respect; the field select under it still shows posthog > POSTHOG_API_KEY and the bubble is transient.
+      change: none
+    - finding: 7
+      ruling: upheld
+      evidence: the red line and muted hint in preview-picker-1280.png and preview-picker-400.png are the same colours as the existing error states; no light-theme picture exists, so contrast on a light surface is unverified, but the red line alone already tells the person to wait and try again.
+      change: none

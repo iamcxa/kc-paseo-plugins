@@ -1,0 +1,47 @@
+design_review:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0005-an-agent-lays-out-vault-items-and-a-person-fills-values.md (Accepted)
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-rate-limit-cause/design/previews.html
+  findings:
+    - severity: MINOR
+      dimension: flow
+      where: preview-picker-1280.png and preview-picker-400.png
+      seen: the proposed picker drops the items already read before the limit (today shows posthog, sentry and stripe as pickable), so a person who could have picked one of them must close, wait and reopen, with only the "Type a reference..." row as a way forward.
+      fix: Have the author confirm that discarding the partial list is intended, because it stops an incomplete list looking complete; if it is, state that in the acceptance criteria. Otherwise keep the items read and put the red line and hint above them.
+      adr: none (neither record rules on the picker's partial list)
+    - severity: MINOR
+      dimension: states
+      where: preview-picker-1280.png and preview-picker-400.png, the search field above the red line
+      seen: the "Search fields, or type a name" box still looks usable while the list under it is replaced by an error, so typing has nothing to filter and the screen does not say what typing there does now.
+      fix: Say in the criteria what typing in the box does in this state (for example it still turns into the "Type a reference..." row), or show the box disabled.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-picker-1280.png and preview-picker-400.png
+      seen: the red line and its muted hint are centred, while the "Type a reference..." row below and the search box edge are left-aligned.
+      fix: Left-align the red line and hint with the "Type a reference..." row, or add a criterion that the centring is deliberate.
+    - severity: MINOR
+      dimension: states
+      where: picker, rate limit at the item list (the proposal's other case)
+      seen: only the "partway through the items" case is pictured; the case where the item list itself hits the limit has no picture of its own.
+      fix: Add a criterion that both cases render the identical red line, hint and "Type a reference..." row, checked by a screenshot of each.
+    - severity: MINOR
+      dimension: states
+      where: Test, a vault where only some failed variables hit the limit
+      seen: both red (!) rows show the same cause, so the set does not show one row with the rate-limit bubble beside another row with a different failure cause (for example a missing field) in the same Test run.
+      fix: Add a criterion with a Test run that mixes a rate-limited variable and a differently-failed one, each bubble naming its own cause.
+    - severity: MINOR
+      dimension: spacing
+      where: preview-test-bubble-400.png
+      seen: the pressed bubble covers the POSTHOG_API_KEY label of the row below; it is transient and the same as today, but at 400 px a person cannot read that name while the bubble is open.
+      fix: Accept as today's behaviour, or place the bubble above the (!) when the row below would be covered.
+    - severity: MINOR
+      dimension: theme-size
+      where: all eight proposed pictures
+      seen: every picture is dark theme; the red line and muted hint in the picker, and the (!) bubble, are not shown in the light theme.
+      fix: Add a light-theme screenshot of the picker's red line and hint, and check the muted hint's contrast against the light surface.
+  limitations:
+    - Pictures are static: I could not press or hover the (!) mark, open the picker, scroll it, or run Test; the bubble text is read from the pressed-state screenshots only.
+    - Only the proposed pictures are under review. At 1280 px, a bubble text fragment shows behind the dimmed dialog in preview-picker-1280.png; the same fragment shows in today-picker-1280.png, so I treated it as a capture leftover and did not count it as a finding.
+    - The Started line was shown for two variables with the same cause; one variable, many variables, and mixed causes in that line are not pictured.
+    - I could not tell from the pictures whether the 1Password rate limit sentence and the Test summary "2 failed" are consistent with ADR 0002 beyond what its text says (the cause is named, no value is shown, the variable is counted failed); the pictures agree with that record.

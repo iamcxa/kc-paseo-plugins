@@ -1,0 +1,6 @@
+== mutation 1: remove the classification branch in server/cause.ts
+✖ Browse vault with an item that cannot be read (5276.811084ms) ✖ classifyOpFailure (3.054375ms) ✖ each failure names exactly one cause class (5415.626417ms) ℹ tests 332 ℹ pass 326 ℹ fail 6 ✖ failing tests: ✖ stops the whole list on a rate limit instead of naming every item (592.020084ms) ✖ stops on a rate limit that hits the item list itself (751.524667ms) ✖ a rate-limit reply is rate-limited (0.577625ms) ✖ a rate-limit reply without the prefix is rate-limited (0.102ms) ✖ rate-limited (636.353292ms) ✖ every id is produced by a case here (14.066292ms) 
+== mutation 2: remove rate-limited from the picker stop set in server/secrets.ts
+✖ Browse vault with an item that cannot be read (5745.533125ms) ℹ tests 332 ℹ pass 331 ℹ fail 1 ✖ failing tests: ✖ stops the whole list on a rate limit instead of naming every item (858.915709ms) 
+== restored
+ℹ tests 332 ℹ pass 332 ℹ fail 0 

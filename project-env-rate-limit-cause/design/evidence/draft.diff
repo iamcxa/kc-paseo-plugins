@@ -1,0 +1,150 @@
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/OVERVIEW.md ./OVERVIEW.md
+--- /Users/kent/Project/kc-paseo-plugins/project-env/OVERVIEW.md	2026-11-05 16:07:16
++++ ./OVERVIEW.md	2026-11-05 16:55:27
+@@ -58,6 +58,10 @@
+ 
+ The network failed, or 1Password did not answer within 20 seconds as the agent was starting. Check the network, then press Test and start a new agent.
+ 
++### 1Password rate limit reached so wait and try again
++
++1Password limits how many reads a service account may make: a number per hour for each token and a number per day for the whole 1Password account. When one is used up, 1Password answers "Too Many Requests" to every read until the limit resets, so the plugin shows this reason instead of "could not read this item". Wait, then press Test or open the field list again, and start a new agent. Pressing Test or opening the field list sooner only spends more reads. Opening the field list reads every item of the vault, so a large vault uses a lot of an hour's allowance.
++
+ ### The 1Password field is empty
+ 
+ The field exists but holds nothing or only spaces. Fill it in 1Password, then press Test or start a new agent.
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/client/settings-screen.tsx ./client/settings-screen.tsx
+--- /Users/kent/Project/kc-paseo-plugins/project-env/client/settings-screen.tsx	2026-10-29 08:21:33
++++ ./client/settings-screen.tsx	2026-11-05 16:53:57
+@@ -35,6 +35,7 @@
+   saveRule,
+   unsavedCount,
+ } from "../shared/config";
++import { causeText } from "../shared/cause";
+ import { type MarkEvent, type MarkView, nextMark, rowReason, summaryParts, type Run } from "../shared/test-marks";
+ import { type Anchor, BUBBLE_WIDTH, FailureMark, MarkBubble } from "./failure-mark";
+ import { FieldPicker, type PickedField, type VaultList } from "./field-picker";
+@@ -735,6 +736,7 @@
+     if (view === "setup" && line.kind === "connected" && nothingPending) setView("line");
+   }, [view, line.kind, nothingPending]);
+   const fix = "Close this list, fix the 1Password connection on this page, then open it again.";
++  const wait = "Close this list, wait a while, then open it again.";
+   const unusable =
+     current?.state === "ok"
+       ? vaultReadable
+@@ -746,12 +748,11 @@
+       : token.isFetching
+         ? null
+         : { message: tokenText.label, hint: `${tokenText.hint} ${fix}` };
++  const refsMessage = refs.isError
++    ? (refs.error as Error).message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, "")
++    : "";
+   const list: VaultList = refs.isError
+-    ? {
+-        status: "error",
+-        message: (refs.error as Error).message.replace(/^Request failed:\s*/, "").replace(/\s+requestType=.*$/s, ""),
+-        hint: fix,
+-      }
++    ? { status: "error", message: refsMessage, hint: refsMessage === causeText["rate-limited"] ? wait : fix }
+     : refs.data
+       ? { status: "ready", refs: refs.data.refs, skipped: refs.data.skipped }
+       : unusable
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/server/cause.ts ./server/cause.ts
+--- /Users/kent/Project/kc-paseo-plugins/project-env/server/cause.ts	2026-10-23 12:06:19
++++ ./server/cause.ts	2026-11-05 16:51:19
+@@ -13,6 +13,7 @@
+ 
+ // Wording is a hypothesis from 1Password community threads; a miss degrades to "unexpected".
+ const MISSING = /isn't (a|an) (vault|item|field)|no such (vault|item|field)|could not find|not found|does not exist|doesn't exist/i;
++const RATE_LIMITED = /too many requests|maximum number of this type of requests|rate[- ]?limit/i;
+ const NETWORK = /network|timed? ?out|connection|could not resolve|no such host|dial tcp|unreachable|offline|ENOTFOUND|ECONNREFUSED|\bEOF\b/i;
+ const AUTH = /401|DecodeSACredentials|authenticat|unauthori[sz]ed|invalid (service account )?token|token.*(expired|invalid|malformed)|not signed in|not currently signed in/i;
+ 
+@@ -23,6 +24,7 @@
+   if (typeof exit.code === "string") return "unexpected";
+   const line = (typeof exit.stderr === "string" ? exit.stderr : "").trim().split("\n")[0];
+   if (MISSING.test(line)) return "missing-field";
++  if (RATE_LIMITED.test(line)) return "rate-limited";
+   if (NETWORK.test(line)) return "unreachable";
+   if (AUTH.test(line)) return "rejected-token";
+   return "unexpected";
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/server/secrets.ts ./server/secrets.ts
+--- /Users/kent/Project/kc-paseo-plugins/project-env/server/secrets.ts	2026-10-27 13:03:34
++++ ./server/secrets.ts	2026-11-05 16:51:19
+@@ -209,7 +209,7 @@
+       } catch (error) {
+         const cause = failureCause(error);
+         // These hit every item, so naming each as skipped would hide the real problem.
+-        if (cause === "rejected-token" || cause === "unreachable") return { stop: cause };
++        if (cause === "rejected-token" || cause === "unreachable" || cause === "rate-limited") return { stop: cause };
+         return { skip: true };
+       }
+       try {
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/shared/cause.ts ./shared/cause.ts
+--- /Users/kent/Project/kc-paseo-plugins/project-env/shared/cause.ts	2026-11-05 16:07:16
++++ ./shared/cause.ts	2026-11-05 16:55:27
+@@ -5,6 +5,7 @@
+   "rejected-token",
+   "missing-field",
+   "unreachable",
++  "rate-limited",
+   "empty",
+   "outside-vault",
+   "reserved-name",
+@@ -19,6 +20,7 @@
+   "rejected-token": "1Password rejected the token",
+   "missing-field": "field not found in the vault",
+   unreachable: "1Password could not be reached",
++  "rate-limited": "1Password rate limit reached so wait and try again",
+   empty: "the 1Password field is empty",
+   "outside-vault": "reference points outside the chosen vault",
+   "reserved-name": "reserved name",
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/test/browse-vault.test.ts ./test/browse-vault.test.ts
+--- /Users/kent/Project/kc-paseo-plugins/project-env/test/browse-vault.test.ts	2026-10-22 01:15:13
++++ ./test/browse-vault.test.ts	2026-11-05 16:54:10
+@@ -94,6 +94,7 @@
+   for (const [label, stderr, cause] of [
+     ["a rejected token", "[ERROR] 401 Authentication: invalid service account token", "rejected-token"],
+     ["an unreachable 1Password", "[ERROR] network is unreachable", "unreachable"],
++    ["a rate limit", "[ERROR] Too Many Requests: You've reached the maximum number of this type of requests", "rate-limited"],
+   ] as const) {
+     it(`stops the whole list on ${label} instead of naming every item`, async () => {
+       const { call } = listRefsHandler({
+@@ -103,6 +104,14 @@
+       await assert.rejects(call, { message: causeText[cause] });
+     });
+   }
++
++  it("stops on a rate limit that hits the item list itself", async () => {
++    const { call } = listRefsHandler({
++      ...account([login, note]),
++      fail: { "item list": { stderr: "[ERROR] Too Many Requests: You've reached the maximum number of this type of requests" } },
++    });
++    await assert.rejects(call, { message: causeText["rate-limited"] });
++  });
+ 
+   it("stops with fixed text when no token is stored", async () => {
+     const { call } = listRefsHandler(account([login]), {});
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/test/cause.test.ts ./test/cause.test.ts
+--- /Users/kent/Project/kc-paseo-plugins/project-env/test/cause.test.ts	2026-10-22 01:15:13
++++ ./test/cause.test.ts	2026-11-05 16:55:27
+@@ -11,6 +11,9 @@
+     ["a missing vault", { code: 1, stderr: `[ERROR] "V" isn't a vault in this account\n` }, "missing-field"],
+     ["a missing field", { code: 1, stderr: `[ERROR] "f" isn't a field in the item\n` }, "missing-field"],
+     ["an unresolvable host", { code: 1, stderr: "dial tcp: lookup my.1password.com: no such host" }, "unreachable"],
++    ["a rate-limit reply", { code: 1, stderr: "[ERROR] 2026/10/27 14:01:40 Too Many Requests: You've reached the maximum number of this type of requests this service account is allowed to make. Please retry in 40 minutes.\n" }, "rate-limited"],
++    ["a rate-limit reply without the prefix", { code: 1, stderr: "Too Many Requests: You've reached the maximum number of this type of requests" }, "rate-limited"],
++    ["an item named like a rate-limit reply", { code: 1, stderr: `[ERROR] "op://V/Too Many Requests/f" isn't an item in the vault` }, "missing-field"],
+     ["a killed process", { code: null, killed: true, signal: "SIGTERM", stderr: "" }, "unreachable"],
+     ["a missing binary", { code: "ENOENT", stderr: "" }, "unexpected"],
+     ["unrecognised wording", { code: 1, stderr: "[ERROR] something new" }, "unexpected"],
+diff -ru -x n /Users/kent/Project/kc-paseo-plugins/project-env/test/failure-reason.test.ts ./test/failure-reason.test.ts
+--- /Users/kent/Project/kc-paseo-plugins/project-env/test/failure-reason.test.ts	2026-10-27 10:53:39
++++ ./test/failure-reason.test.ts	2026-11-05 16:53:57
+@@ -43,6 +43,7 @@
+     ["rejected-token", async () => (await causeOf({ keychain: { "sa-a": "gone" }, op: { accounts } })).cause],
+     ["missing-field", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/nope")).cause],
+     ["unreachable", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "dial tcp: lookup my.1password.com: no such host" } } } })).cause],
++    ["rate-limited", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "[ERROR] 2026/10/27 14:01:40 Too Many Requests: You've reached the maximum number of this type of requests this service account is allowed to make." } } } })).cause],
+     ["empty", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/blank")).cause],
+     ["outside-vault", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts: { a: { refs: { "op://Other/i/x": "v" } } } } }, "op://Other/i/x")).cause],
+     ["unexpected", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "[ERROR] something new" } } } })).cause],
