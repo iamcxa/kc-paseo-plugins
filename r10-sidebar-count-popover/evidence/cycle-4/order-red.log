@@ -1,0 +1,37 @@
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (0.972666ms)
+✔ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (226.769167ms)
+✖ popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board (15.112291ms)
+✔ label opens Bridge directly and Commander questions are read without creating a coordinator (263.574875ms)
+✔ loading gates show a question mark and an incomplete note before any Bridge screen mounts (21.293375ms)
+✔ a changed workflow excludes previous gates while loading (16.513334ms)
+✔ a changed workflow excludes previous gates while failed (33.745625ms)
+✔ a successful new workflow read shows only its own gate, owner and Bridge destination (75.455625ms)
+✔ same-workflow refresh keeps its own cached gate during loading and failure (17.520667ms)
+✔ sidebar badge and popover actions use attention theme colors instead of accent (38.210792ms)
+✔ scroll cue follows measured overflow on compact popovers (21.796833ms)
+✔ scroll cue follows measured overflow on wide popovers (30.986792ms)
+✔ empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls (18.53175ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1776.304458
+
+✖ failing tests:
+
+test at test/sidebar-waiting.test.mts:1:2243
+✖ popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board (15.112291ms)
+  AssertionError [ERR_ASSERTION]: newer gate must precede the older question
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-r10-sidebar-count-popover/spacedock-bridge/test/sidebar-waiting.test.mts:60:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

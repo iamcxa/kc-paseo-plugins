@@ -80,8 +80,8 @@ Stop condition: ADR 0008 Limits and stops (team unsatisfied twice, FO record vio
 **AC-1**: The sidebar row tells the truth about what waits on the Captain.
 Verified by: tests for the count from the shared count function (gates plus questions, sent or relayed items excluded, "?" while a source is loading or failed, nothing when zero) and a capture of the sidebar row at 1440 and 360 with a count, with "?", and with none.
 
-**AC-2**: The popover lets him see and reach what waits.
-Verified by: captures of the popover at 1440 (anchored) and 360 (bottom sheet) showing gate and question counts and the items oldest first; a test that pressing an item opens Bridge on that item and "Open Bridge" opens the board.
+**AC-3** — Amended by Captain, amendment 1: The popover lists the items newest first (most recently waiting at the top), with gate and question counts, owner and age, each opening Bridge on that item and "Open Bridge" opening the board.
+Verified by: captures at 1440 (anchored) and 360 (bottom sheet), in dark and light, showing newest-first order; a regression test that fails with oldest-first ordering and checks item and board navigation.
 
 ## FO alignment
 
@@ -94,6 +94,11 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 Captain: 「此外我對於順序想改下，應該越新的越上面」 (chat, 2026-11-05, with a screenshot of the built popover: `_l3-dogfood/walks/round-10/captain/popover-order.png`)
 Supersedes: AC-2
 Design: "Pressing the count opens a popover (openPopover: anchored on wide layouts, a bottom sheet on compact): the number of gates and the number of questions, then those items oldest first with owner and age, each opening Bridge on that item (openScreen); an "Open Bridge" action; the incomplete-source note when a source is not checked." (## Scope)
+
+Superseded text:
+
+**AC-2**: The popover lets him see and reach what waits.
+Verified by: captures of the popover at 1440 (anchored) and 360 (bottom sheet) showing gate and question counts and the items oldest first; a test that pressing an item opens Bridge on that item and "Open Bridge" opens the board.
 
 ## Stage Report: implementation
 
@@ -241,3 +246,24 @@ Limits: deterministic SDK/RPC injection exercises production components in the i
 Environment: sandbox npm test/socket bind failed with EPERM; approved unchanged tests/captures ran outside the restriction. Empty prelaunch directory removed. First state commit encountered sandbox index.lock denial; retry requires the approved filesystem scope. These are environment limits, not product findings.
 Cleanup: cleanup-final.json verifies all five launched daemon PIDs stopped and homes removed, including the superseded capture; all three candidate/root/flywheel-live heads and branches unchanged and clean. Captures were sequential with private HOME/--home and fresh profiles blocking localhost. Live daemon untouched; no agent command lines printed or existing /tmp files overwritten.
 PR: pr-readback.json independently confirms #69 OPEN/Draft, unmerged, exact head/base; no PR mutation or code commit. Only this entity and its validation evidence are submitted to state. FO must run acceptance.sh exactly and complete the pending gate; this verdict is not delivery approval.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: Captain amendment 1 (「此外我對於順序想改下，應該越新的越上面」, 2026-11-05): move AC-2's block verbatim from ## Acceptance criteria into the amendment entry under a "Superseded text:" line and write AC-3 "Amended by Captain, amendment 1": the popover lists the items newest first (most recently waiting at the top), with gate and question counts, owner and age, each opening Bridge on that item and "Open Bridge" opening the board; change only the popover's item order to newest first, keeping counts, filters, colours and the incomplete-source note; a test that fails on 2a31ef4 if the order reverts to oldest first
+  33952f9b3d02fceab104ba09272d65e432a3d095 reverses only summary()'s since comparator; unchanged key tie-break, counts, filters, colours, source note and routing. amendment.json verifies AC-2 moved verbatim under Amendment 1; AC-1/AC-3 are active.
+- DONE: Re-capture the popover at 1440 (anchored) and 360 (bottom sheet) in dark and light at the new head; npm test and typecheck pass; push to PR #69 (it is ready for review — do not change its state, do not merge); a short "## Stage Report: implementation (cycle 4)" section
+  evidence/cycle-4/: order-red.log fails on the 2a31ef4 source; order-green.log passes 13/13; npm-test.log passes 267/267; typecheck.log exit 0. Four sequential isolated-host captures bind to 33952f9; pr-after.json confirms #69 OPEN, ready (isDraft false), unmerged, exact head and unchanged base.
+
+### Summary
+
+Implemented Captain Amendment 1: newest waiting items first. OVERVIEW.md now describes that order; no other product behavior changed, no new file/dependency/storage/permission/relay work. Evidence root: r10-sidebar-count-popover/evidence/cycle-4/.
+
+### Findings
+
+Regression: “popover sorts gates and questions together newest first” asserts the newer gate precedes the older question and still exercises gate/question detail plus Open Bridge routes. It fails with “newer gate must precede the older question” on unmodified 2a31ef4 production bytes (12 pass/1 fail), then passes after the comparator reversal; reverting to oldest-first would fail it again.
+Captures: dark-1440, light-1440, dark-360, light-360; 10 PNGs (sidebar, popover, plus phone tail). verification.json / verify.py verify actual mixed order Commander question 5m, Export FO gate 12m, Demo FO question 35m, Demo FO gate 1h, owner/age labels, Gates 2/Questions 2, phone-only scroll cue, reachable Open Bridge and no horizontal overflow. All four popovers visually inspected.
+Provenance: each run installed the disposable candidate copy in the existing Paseo web host with deterministic SDK/RPC injection. All 85 tracked package files' pre-injection SHA-256 hashes match git blobs at 33952f9b3d02fceab104ba09272d65e432a3d095. No live-daemon/plugin change; live fleet correctness and physical iOS/Android remain unverified. Fixture/harness stay in task evidence, not the candidate.
+Cleanup: verification.json confirms all four captured daemon PIDs stopped and their owned homes removed; browser close completed, fresh profiles blocked localhost, safe random ports were used, captures ran one at a time. Root/main and flywheel-live stayed clean and unchanged; no agent command lines printed and no existing /tmp files overwritten.
+Guards: comment-ratio.log exit 0 (1 code line added, 0 comments, 0%; below 20-line enforcement minimum); doc-impact.json is []; retained OVERVIEW.md checked against actual ordering/navigation. number-guards.log exit 0 at base 224b03f2da6eefc89d7a055ac95be2d858eaa5c5, no findings, migration check skipped because no migrations-path is declared. No ADR added/changed; ADR 0008 remains Accepted at base/head, SHA-256 d073fe7d162608eefe32c6d37e125b268bb7435b36cfe7d00cb85296004e9b8f.
+SKIPPED: design_surfaces.py exit 1 remains package gap 2 (FO-owned Surfaces:/Visible change: absent); no FO fields repaired. roborev not run, package gap 5; FO reruns its gate on this pushed head. No new material finding or POC boundary crossing; the Captain's accepted phone failure-state clipping disposition is unchanged.
+Delivery: only the r10 branch was pushed; PR #69 remains ready for review and unmerged. Independent revalidation and FO/Captain gate work remain; this implementation report is not delivery approval.
