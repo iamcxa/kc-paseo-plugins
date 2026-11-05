@@ -27,6 +27,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-05T09:13:43Z
+worktree: .worktrees/spacedock-ensign-d1-commander-digest
 ---
 
 Design, before any code, the model the Captain chose: the comms officer (the Commander) collects every FO's progress on a schedule and tells him in its own words without pasting originals; each point opens a replay card with the Commander's sentence and the quoted FO originals, from which he can open the FO, keep discussing with the Commander, or reply with a new decision.
