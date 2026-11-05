@@ -4,6 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d2-collection-cost-probe
+status: backlog
 ---
 
 Measure, once, what one Commander digest collection costs in model tokens and wall time, so the Captain can set the collection frequency and a cost cap before any code.
