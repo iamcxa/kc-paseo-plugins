@@ -117,3 +117,12 @@ FO ran roborev on b8fb54c38cce2bbc7a9356961535d73902d69321 (base 33952f9b3d02fce
 2. shared/digest.ts digest detection: any assistant reply starting with `[` or `{` is treated as a digest, so an ordinary reply opening with a Markdown link shows 「摘要無法驗證」.
 3. server/fleet-mcp.ts report byte budget: oldest first and counting rejected reports, so one oversized older report drops every newer short report.
 Read-only investigation dispatched as implementation-1-followup-1 before any fix.
+
+## Investigation: design director capture review 1
+
+Design director (Codex gpt-6.1-sol high, agent 775d16e2, design-director's declared sonnet mapped per the Captain's 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」) on the 30 verified captures of b8fb54c38cce2bbc7a9356961535d73902d69321: NOT SATISFIED, three gaps.
+4. Open FO exit: 1440-exit-open-fo.png and 360-exit-open-fo.png stay in the Commander with its composer; the mockups (1440-fo-chat.png, 360-fo-chat.png) show the named FO's conversation, its reply destination and the return to the Commander. Blocks action.
+5. Source unavailable: 1440/360-source-unavailable.png present the three context lines normally, the warning below them on desktop and absent before the actions on phone; the mockups (source-missing.png) say first that the context cannot be checked and name the missing original. Blocks informed action.
+6. Reading area and selected point: phone opening shows only two of the three context lines; after scrolling, both sizes keep only the generic Replay heading and lose the selected point; the mockups show all three lines on phone and keep the point visible. Extra scrolling, not a full block.
+Not demonstrated by the capture set: long original text, multiple source ranges, switching between points.
+Added to the read-only investigation (implementation-1-followup-1) before any fix.
