@@ -1,0 +1,67 @@
+Usage: paseo [options] [command]
+
+Paseo CLI - control your AI coding agents from the command line
+
+Options:
+  -v, --version                    output the version number
+  -o, --format <format>            output format: table, json, yaml (default:
+                                   "table")
+  --json                           output in JSON format (alias for --format
+                                   json)
+  -q, --quiet                      minimal output (IDs only)
+  --no-headers                     omit table headers
+  --no-color                       disable colored output
+  --host <host>                    Explicit daemon endpoint: host:port, TCP,
+                                   socket, SSH, or pairing URL (default: local
+                                   home)
+  --home <path>                    Select a local daemon home (default:
+                                   ~/.paseo)
+  -h, --help                       display help for command
+
+Commands:
+  host [options]                   Manage hosts connected to the selected
+                                   daemon
+  ls [options]                     List agents. By default excludes archived
+                                   agents.
+  run [options] <prompt>           Create and start an agent with a task
+  import [options] <id>            Import an existing provider session as a
+                                   Paseo agent
+  clone [options] <repo>           Clone a GitHub repo and register it as a
+                                   Paseo workspace
+  attach [options] <id>            Attach to a running agent's output stream
+  logs [options] <id>              View agent activity/timeline
+  stop [options] [id]              Interrupt an agent if it is running (no-op
+                                   for idle agents)
+  delete [options] [id]            Delete an agent (interrupt if running, then
+                                   hard-delete)
+  send [options] <id> [prompt]     Send a message/task to an existing agent
+  inspect [options] <id>           Show detailed information about an agent
+  wait [options] <id>              Wait for an agent to become idle
+  archive [options] <id>           Archive an agent (soft-delete)
+  onboard [options]                Run first-time setup, start daemon, and
+                                   print pairing instructions
+  start [options]                  Start the local daemon from persistent
+                                   configuration (local operation)
+  hooks [options] <agent> <event>  Record agent hook activity
+  status [options]                 Observe the selected daemon and its
+                                   published endpoint
+  restart [options]                Restart the selected daemon worker,
+                                   retaining its supervisor launch
+  reload [options]                 Reload config.json without restarting
+  pair [options]                   Print the daemon pairing QR code and link
+  agent [options]                  Manage agents (advanced operations)
+  daemon [options]                 Manage the Paseo daemon
+  hub [options]                    Manage Paseo Hub
+  terminal [options]               Manage workspace terminals
+  script [options]                 Manage configured workspace scripts
+  schedule [options]               Manage recurring schedules
+  heartbeat [options]              Manage this agent's heartbeats
+  permit [options]                 Manage permission requests
+  provider [options]               Manage agent providers
+  usage [options]                  Show account usage reports
+  plugin [options]                 Manage trusted, unsandboxed plugins
+  speech [options]                 Speech commands
+  project [options]                Manage projects
+  workspace [options]              Manage workspaces
+  help [command]                   display help for command
+[1105/172612.150878:ERROR:electron/shell/common/mac/codesign_util.cc:79] task_name_for_pid: (os/kern) failure (5)

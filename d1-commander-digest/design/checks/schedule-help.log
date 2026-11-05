@@ -1,0 +1,28 @@
+Usage: paseo schedule create [options] <prompt>
+
+Create a schedule
+
+Arguments:
+  prompt                   Prompt to run on the schedule
+
+Options:
+  --every <duration>       Cron-compatible cadence preset (for example: 5m, 1h)
+  --cron <expr>            Cron cadence expression
+  --timezone <iana>        IANA time zone for cron cadence (default: UTC)
+  --name <name>            Optional schedule name
+  --provider <provider>    Agent provider, or provider/model (e.g. codex or
+                           codex/gpt-5.4)
+  --mode <mode>            Provider-specific mode (e.g. claude
+                           bypassPermissions, opencode build)
+  --thinking <id>          Thinking option ID for new-agent runs
+  --cwd <path>             Working directory (default: current; required with
+                           --host)
+  --run-now                Fire one immediate run on creation
+  --max-runs <n>           Maximum number of runs
+  --expires-in <duration>  Time to live for the schedule
+  --json                   Output in JSON format
+  --host <host>            Explicit daemon endpoint: host:port, TCP, socket,
+                           SSH, or pairing URL (default: local home)
+  --home <path>            Select a local daemon home (default: ~/.paseo)
+  -h, --help               display help for command
+[1105/172612.902899:ERROR:electron/shell/common/mac/codesign_util.cc:79] task_name_for_pid: (os/kern) failure (5)

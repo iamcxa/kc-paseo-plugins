@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Installed schema accepts a canonical source with no optional messageId",
+    "status": "passed"
+  },
+  {
+    "name": "Public SDK forwards exact agent, canonical projection and epoch cursor",
+    "status": "passed"
+  },
+  {
+    "name": "Identical text from another FO is rejected",
+    "status": "passed"
+  },
+  {
+    "name": "Identical text at another sequence is rejected",
+    "status": "passed"
+  },
+  {
+    "name": "Another host and a replaced epoch are rejected",
+    "status": "passed"
+  },
+  {
+    "name": "Reset, stale cursor, gap and missing entry are rejected",
+    "status": "passed"
+  },
+  {
+    "name": "Changed source bytes, user message and changed source ranges are rejected",
+    "status": "passed"
+  },
+  {
+    "name": "A later page can resolve the exact reference without a text search",
+    "status": "passed"
+  }
+]

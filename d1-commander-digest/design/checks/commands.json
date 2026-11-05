@@ -1,0 +1,95 @@
+[
+  {
+    "command": [
+      "node",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest/design/source-contract-probe.mjs",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge"
+    ],
+    "exit": 0,
+    "evidence": "checks/source-contract.json"
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest.md"
+    ],
+    "exit": 1,
+    "evidence": "checks/design-surfaces.log"
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/number_guards.py",
+      "check",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d1-commander-digest.md",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+      "--base",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "--head",
+      "33952f9b3d02fceab104ba09272d65e432a3d095"
+    ],
+    "exit": 0,
+    "evidence": "checks/number-guards.log"
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/comment_ratio.py",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ],
+    "exit": 0,
+    "evidence": "checks/comment-ratio.log"
+  },
+  {
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.34.0/scripts/doc_impact.py",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "33952f9b3d02fceab104ba09272d65e432a3d095",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+      "--json"
+    ],
+    "exit": 0,
+    "evidence": "checks/doc-impact.json"
+  },
+  {
+    "command": [
+      "paseo",
+      "--help"
+    ],
+    "exit": 0,
+    "evidence": "checks/paseo-help.log"
+  },
+  {
+    "command": [
+      "paseo",
+      "schedule",
+      "create",
+      "--help"
+    ],
+    "exit": 0,
+    "evidence": "checks/schedule-help.log"
+  },
+  {
+    "command": [
+      "paseo",
+      "heartbeat",
+      "create",
+      "--help"
+    ],
+    "exit": 0,
+    "evidence": "checks/heartbeat-help.log"
+  }
+]
