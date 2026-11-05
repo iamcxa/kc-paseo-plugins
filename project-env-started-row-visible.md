@@ -18,6 +18,17 @@ gates:
                 id: briefing:project-env-started-row-visible:backlog:attempt-1:revision-1
                 digest: sha256:eb4dd08340d0c8b5167526612bc02c2060333e0836cac51024e7ed618aa87970
                 room-ref: ./project-env-started-row-visible/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-started-row-visible:backlog:1
+                briefing: briefing:project-env-started-row-visible:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-05T08:39:04.010278Z"
+                decision: approve
+                reason: '「開這批」 — Captain in FO chat, 2026-11-05. Asked: 「回「開這批」，我就開這 4 個任務，同時派設計」 after FO proposed batch r1b-polish-1 (picker-slow-hint, rate-limit-cause, started-row-visible, journey-map-r1b-catch-up) and recommended opening it.'
+              application:
+                target-stage: ideation
+                state: pending
 ---
 
 Batch: r1b-polish-1, approved by the Captain on 2026-11-05 (「開這批」) with four members: project-env-picker-slow-hint, project-env-rate-limit-cause, project-env-started-row-visible, project-env-journey-map-r1b-catch-up. On 2026-10-30 the resume-notice task observed on an isolated Paseo 0.14.0 that the existing "Started without N project variables" row is visible when it lands before the first user message (seq 1) and is folded by the default "Collapse turns" display when it lands after it (seq 3 in one run); a row appended at turn end stays visible (archived project-env-resume-blank-notice, "Observation record"). The Captain runs Paseo 0.14.0 (`paseo --version`, 2026-11-01).
