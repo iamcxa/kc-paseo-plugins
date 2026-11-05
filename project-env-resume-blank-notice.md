@@ -472,3 +472,48 @@ Head: df6180ce2 on PR #66's branch (pushed), one docs commit on top of fec5b13; 
 - DONE: rebuilt the site with `docs/project-env/capture/build-site.sh` (ruby:3.3, github-pages gem set, `git archive` of the branch plus the edit); the built Reference page (`docs/project-env/reference.html`) lists the sentence in "Limits worth knowing" (`evidence/fb3/page-sentence.txt`, `build-site.txt`).
 - DONE: `npm test` 325 of 325, `npm run typecheck` clean (no code changed).
 - DONE: roborev gate (`--base 06aa5bee`) `clean on df6180ce2; evidence=roborev:1483` (`evidence/fb3/roborev-gate.txt`).
+
+## Stage Report: validation (cycle 4)
+
+Verdict: PASSED recommended for candidate df6180ce252d2ae007614dab15aadd7daed12b28 (PR #66 after feedback cycle 3, Captain amendment 1; previous candidate fec5b13). Run from `git archive`; evidence under `evidence/val4/`.
+
+- DONE: Re-review candidate df6180ce for amendment 1: confirm the diff against fec5b13 is the one OVERVIEW.md sentence about terminals and nothing else
+  `git diff --stat fec5b13 df6180c`: `project-env/OVERVIEW.md | 1 +`, one added line, no other file; the line is "A terminal you open in Paseo does not get the project variables; only agents do." under "Limits worth knowing". comment_ratio 0 of 229 exit 0, adr_lint exit 0, dispatch_records 9 complete, doc_impact the same single ADR 0004 line (unaffected, unchanged).
+- DONE: check the sentence against the FO's 2026-11-04 observation and Paseo plugin SDK 0.14.0's hooks (agent and workspace only, no terminal hook)
+  Checked the hooks myself on a throwaway `npm install @getpaseo/plugin@0.14.0 @getpaseo/cli@0.14.0`: the SDK's `PluginLifecycleEvents` are `agent.turn_started/turn_ended/permission_requested/permission_resolved/archived/created/closed` and `workspace.created/archived`; `PluginBeforeRequests` are `agent.create`, `agent.session_open`, `workspace.create`; the daemon's `beforeHookNames` and event list in `plugins/lifecycle/index.js` say the same. No terminal hook, and project-env registers only `agent.create`, `agent.session_open`, `agent.created`, `agent.turn_ended`, `agent.closed` (`contribute.ts`), so the plugin cannot put a variable in a terminal. The FO's observation (new agent had all five variables, new terminal none, 2026-11-04, the Captain's own workspace) is read from the implementation dispatch record `dispatch/implementation-4.md`; I did not open a terminal there or in my isolated daemon.
+- DONE: rebuild the site and confirm the Reference page shows it
+  `docs/project-env/capture/build-site.sh` (Docker, github-pages 232) on the archive, `evidence/val4/site-build.txt`: built `docs/project-env/reference.html` lists the sentence as the fourth item of "Limits worth knowing", between the headless-daemon item and the renamed-vault item (`page-sentence.txt`). The words "terminal" elsewhere in the Install and Prepare pages mean the reader's own macOS terminal for `op` and `brew` commands and do not conflict.
+- DONE: rerun `npm test` and `npm run typecheck` from git archive
+  `npm ci`, `npm test` 325 of 325, `tsc --noEmit` clean (no code changed).
+- DONE: update the acceptance script
+  `evidence/val4/acceptance.sh` (24 s measured), steps below.
+- DONE: Built screen review: no client file changed (confirm with the diff); if so, say so.
+  Confirmed: the only changed file is `project-env/OVERVIEW.md`; nothing under `project-env/client/` or `shared/`; the validation-1 pictures stand.
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: no-row and repeat-adds-nothing cannot be drawn; proven by `resume-check-cand.txt` and unit tests
+Built screen finding 2: declined: wrapped-reason layout belongs to the shared MissingVariablesRow, already upheld as its own task
+Built screen finding 3: declined: light three-variable and failed pictures cover the same component
+Built screen decline check: design/validation-declines-1.yaml
+
+### Findings
+
+- F6 Polish: the added sentence says slightly more than the Captain's words. His question proposed "Paseo 裡開的 terminal 不會有這些變數" (a Paseo terminal gets none of these variables); the sentence adds "; only agents do". It is true by the hook list above, so I found no harm; FO or the Captain may keep it or cut the clause.
+
+### Acceptance script (Captain or FO, fresh shell, 24 s measured)
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-resume-blank-notice/evidence/val4/acceptance.sh`. It extracts the candidate into a temp folder, then:
+1. Prints the diff stat since the previous candidate: expect `project-env/OVERVIEW.md | 1 +` and `1 file changed, 1 insertion(+)`.
+2. Prints the "Limits worth knowing" lines that mention a terminal: expect "A terminal you open in Paseo does not get the project variables; only agents do."
+3. Lists the hooks the plugin registers: expect only `agent.create`, `agent.session_open`, `agent.created`, `agent.turn_ended`, `agent.closed`.
+4. `npm ci`, then the whole suite and typecheck: expect `ℹ pass 325`, `ℹ fail 0`, `typecheck clean`.
+5. Prints the built-page evidence line `A terminal you open in Paseo does not get the project variables; only agents do.` (the site build itself needs Docker: `bash docs/project-env/capture/build-site.sh <copy>`, run once above).
+Does not cover: a live terminal in a running Paseo (only the hook list and the FO's recorded observation), the live resume behaviour (covered in cycles 1 to 3; no code changed since fec5b13), a real provider, a real 1Password account.
+
+### Unverified obligations
+
+Unchanged from cycle 3, plus: the FO's 2026-11-04 observation is second-hand (dispatch record); I verified the cause (no terminal hook), not a live terminal. The roborev gate result (`clean on df6180ce2; evidence=roborev:1483`) is read from `evidence/fb3/roborev-gate.txt`, not rerun. Temp installs and `/tmp/pe-val4*`, `/tmp/val4-cand` removed; no daemon was started; Paseo.app, the global `paseo` and `~/.paseo` untouched.
+
+### Summary
+
+The candidate adds one documentation sentence to the Reference page's "Limits worth knowing" and changes nothing else; the Paseo 0.14.0 hook list confirms the plugin has no way to reach a terminal, the rebuilt page shows the sentence, and checks are 325 of 325 with a clean typecheck. One Polish note: "; only agents do" goes a clause beyond the Captain's words. Recommend PASSED.
