@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-picker-slow-hint:backlog:attempt-1:revision-1",
+  "question": "今天先做一批「r1b 修小地方」(r1b-polish-1)，4 個任務：project-env-picker-slow-hint（清單逾時的提示改對）、project-env-rate-limit-cause（1Password 限流顯示成限流）、project-env-started-row-visible（0.14.0 會把「Started without」那行收起來）、project-env-journey-map-r1b-catch-up（地圖補上已出貨的兩個故事）。我建議開。回「開這批」，我就開這 4 個任務，同時派設計。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-picker-slow-hint:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/561d19da499038d303a98fa7b7522cffaaa193ca/project-env-picker-slow-hint.md",
+      "rev": "sha256:c6ce4c9968c23228426d07f00abed8268a796f940718fc040ff2e56e1b9077bd",
+      "mediaType": "text/markdown",
+      "summary": "Batch r1b-polish-1 member: a timed-out field picker says the vault took too long instead of blaming the connection. FO recommendation: open."
+    }
+  ]
+}
