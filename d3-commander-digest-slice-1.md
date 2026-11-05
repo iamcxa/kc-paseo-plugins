@@ -71,3 +71,7 @@ Alignment: not needed: the Captain accepted the design (d1-commander-digest), th
 Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
 Visible change: digest points in the Commander conversation, the Replay card, the new comms officer switch, and a collect-now action.
+
+### FO notes
+
+- 2026-11-05: worker preflight confirmed the known class (fixed 6787 listener, real-HOME data paths), so AC-4's measurement needs a configurable fleet listener/data directory, outside this task's scope; the worker proposed holding the task. FO steered: only the AC-4 item stops and reports the smallest change for the Captain; items 2–5 continue. Worker loaded the installed kc-dev-flow-2 0.35.0 implementation skill (dispatch named 0.34.0); the stage definition prefers the loaded skill root.
