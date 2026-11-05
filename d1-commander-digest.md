@@ -63,3 +63,7 @@ Verified by: one page for step A and review.html for step B; his answers recorde
 
 Alignment: not needed: the Captain chose this model and asked for the design task on 2026-11-05.
 Release review: not needed: spacedock-bridge has no journey map yet.
+
+### FO notes
+
+- 2026-11-05: the first worker for implementation-1 (an existing Codex designer session) stopped with "Selected model is at capacity" before any work; FO started one fresh Codex agent on the same model (gpt-6.1-sol, high) with the same emitted prompt. No retry loop.
