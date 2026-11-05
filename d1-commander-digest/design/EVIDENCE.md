@@ -1,6 +1,6 @@
 # Step A 證據與限制
 
-2026-11-05；設計限定：文字、操作數與讀取介面核對。全部例子與探針資料為虛構；不存放真實 Captain／FO 對話。任務是 POC（有界可行性驗證）；沒有產品修改、排程設定、模型呼叫或代理生命週期操作。設計總監與 Captain 尚未審查。
+2026-11-05；設計限定：文字、操作數與讀取介面核對。全部例子與探針資料為虛構；不存放真實 Captain／FO 對話。任務是 POC（有界可行性驗證）；沒有產品修改、排程設定、模型呼叫或代理生命週期操作。設計總監第一輪認可主要模型及精確來源機制，但要求修正決定目標與主頁資訊量；本文件為 cycle 2（第二次文字修訂），尚待複審及 Captain 判斷。
 
 ## 檢查邊界與來源
 
@@ -65,13 +65,19 @@ SDK 證據位置（相對 `node_modules/`）：
 
 ## AC-2 — 幾分鐘判斷方向
 
-入口是同目錄單頁 `DIGEST.md`：結論、虛構主摘要／原文例子、五個目的的操作表、最小機制、成本與代價；不用第二套模式或導覽。操作數為推演，不是真人計時或裝置驗收。從 Commander 主入口之外進入，另計一次選 Commander；讀取原文須捲動時另計，不藏在最短路徑數字裡。
+入口是同目錄單頁 `DIGEST.md`：結論、虛構主摘要／原文例子、五個目的及一般方向／關卡分支的操作表、收集建議、成本與代價；不用第二套模式或導覽。版本、函式、來源欄位與 API 呼叫集中在本證據文件，主頁只保留每句可找回精確原文、找不到便明說的承諾。操作數為推演，不是真人計時或裝置驗收。從 Commander 主入口之外進入，另計一次選 Commander；捲動或另外打開關卡入口時另計，不藏在最短路徑數字裡。
 
-保留／退出條件：關 Replay 回到該點、焦點回 Replay 按鈕；討論與新決定把焦點移入原輸入框；既有草稿保留，點識別作為附加可移除上下文；返回 FO 後回到原摘要位置。跨 FO 先挑明確連結；使用者不須選「模式」。手機鍵盤／返回／原生 sheet 的實際行為留給 Step B 之後驗證，本次沒有畫圖或聲稱原生互動通過。
+第二次修訂的計數以 Commander、摘要、輸入框及具名關卡入口已可見為起點；一次點按、整段文字輸入及送出各計一次，閱讀說明與系統載入不計。讀摘要 0；Replay 1；Replay 後開 FO 2；帶著摘要點繼續討論或給一般方向 4；直接輸入一般方向再送出只需 2。從摘要點進關卡的 5 次明確是：Replay、回覆新決定、按具名關卡、選決定、Confirm；按關卡後必先閱讀它的 briefing（完整關卡說明）才選決定。須填原因時在 Confirm 前多一次整段輸入，合計 6。直接按具名關卡也能開始同一決定流程，Replay 從來不是前置條件。
+
+保留／退出條件：關 Replay 回到該點、焦點回 Replay 按鈕；討論與回覆新決定先回到一般 Commander 輸入框，不將輸入框綁到關卡；既有草稿保留，點識別只作附加可移除的討論上下文；返回 FO 後回到原摘要位置。跨 FO 先挑明確連結；使用者不須選「模式」。手機鍵盤／返回／原生 sheet 的實際行為留給 Step B 之後驗證，本次沒有畫圖或聲稱原生互動通過。
 
 ### 關卡決定不變
 
-`client/co-chat.tsx` 既有 choose／reason／Confirm UI，`shared/decide.ts` 的 `decideGate` 先驗證 briefing／beforeSend、以 `claimDecision` 防重複，組 `shared/relay.ts` 的 `gateDecisionMessage`，經 Commander 傳給 FO；發送失敗會 release claim。`server/gate.ts` 讀真正關卡記錄，`deliveryState` 分開 sent／relayed／recorded。Replay 的新決定只導向這條路，不把一般討論中的同意文字當作已記錄的 gate 決定，不以摘要來源 ID 取代 briefingId。來源已過期時仍讀最新 briefing，失敗時禁止確認。沒有內嵌 permission approve，權限仍由 Captain 處理。
+`client/co-chat.tsx` 既有 choose／reason／Confirm UI，`shared/decide.ts` 的 `decideGate` 先驗證 briefing／beforeSend、以 `claimDecision` 防重複，組 `shared/relay.ts` 的 `gateDecisionMessage`，經 Commander 傳給 FO；發送失敗會 release claim。`server/gate.ts` 讀真正關卡記錄，`deliveryState` 分開 sent／relayed／recorded。
+
+摘要的來源鍵只回答「這句根據哪段 FO 原文」，沒有 gate 身分，也沒有批准目標的權限。Replay 的「回覆新決定」只附討論上下文，不能選 gate；即使只有一個待決 gate，也必須由 Captain 按有名稱的 gate。該具名入口須明示 FO、任務及關卡階段，從它讀出的目前 briefingId／digest 才能綁定 `DecideContext.gate`、`DecideContext.briefing` 與目標 FO；不能按 FO、摘要點、同名主題或單一候選自動補目標。閱讀 briefing 後才可 choose／Confirm；若它在確認前被替換或無法讀取，必須重新讀取及確認，不能沿用舊目標。
+
+一般方向的 type → send（輸入後送出）留在 Commander 對話，不因此建立 claim 或宣告已記錄的 gate 決定。送到正確 gate 的原話、條件及重複防護維持原路徑；不以摘要來源 ID 取代 briefingId。沒有內嵌 permission approve，權限仍由 Captain 處理。第一版把「摘要來源」與「決定目標」混在一起的計數及單一關卡例外已撤回；本修訂不改產品行為。
 
 ### 待審，不替 Captain 作答
 
@@ -80,3 +86,5 @@ SDK 證據位置（相對 `node_modules/`）：
 ## 檢查紀錄
 
 `checks/commands.json` 保存本輪實際執行的命令、退出碼及證據檔。已知套件缺口沿派工處置：design_surfaces 缺口 2、number_guards 的 R4 缺口 3 若失敗，記 SKIPPED，不補寫虛構欄位或挪用號碼。roborev 未跑：無程式變更，且派工指定套件缺口 5；不算乾淨 review。comment_ratio／doc_impact 只比較未變產品的同一固定提交，不能冒充設計總監審查。
+
+第二次修訂只改主頁、證據文字及本次階段報告；先前八項來源契約探針的程式與資料都沒改，設計總監也已重跑認可，故不把舊輸出冒充新的互動測試，也不重做來源調查。`checks/cycle-2-operations.json` 保存各路徑的計次動作與合計供核對；它是設計操作推演，不是已實作的介面測試。Step B 仍未開始。

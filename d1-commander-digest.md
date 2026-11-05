@@ -93,3 +93,15 @@ Needs decision: 只讀收集策略、後續頻率／成本上限，以及既有 
 ### FO findings before the gate
 
 - Design director pass 1 on step A (codex/gpt-6-astra:xhigh, 2026-11-05): NOT SATISFIED. Block: a digest point's source is bound to the FO original but not to a gate, so "one gate, no choice needed" can decide the wrong target — general replies stay in the Commander; a gate decision needs pressing a named gate, reading its briefing, choosing and Confirm (5 operations, 6 with a reason). Annoys: list the shortest path for general direction (type → send, 2) so the replay is not a required step; move version hashes, function names, source fields and API calls from DIGEST.md to EVIDENCE.md. Passed: the SDK methods and fields for exact sources exist (eight fictional probes rerun), no guessed matching; the Captain's decisions (collection strategy, frequency, cost cap, applying a new prompt) are left to him, nothing claimed as built. FO authorizes one revision (no investigation needed: design text, not a code defect).
+
+
+## Stage Report: implementation (cycle 2)
+
+- DONE: Bind gate decisions to a named gate, never to a digest point: general replies stay in the Commander; a gate decision is press a named gate → read its briefing → choose → Confirm (5 operations; 6 with a required reason); remove "one gate, no choice needed"; add the shortest general-direction path (type → send, 2) so the replay is never a required step; recount the table
+  DIGEST.md 重列直接一般方向 2 次、帶摘要點的一般方向／討論 4 次、具名關卡決定 5 次／須原因 6 次；即使僅一個關卡仍須明確點選並閱讀說明。EVIDENCE.md 區分來源鍵與 gate 目標；checks/cycle-2-operations.json 核對八條設計路徑的逐項計數，非介面實測。
+- DONE: Move version hashes, function names, source fields and API calls from DIGEST.md to EVIDENCE.md; keep on the page "every sentence can show its exact original; if it cannot be found it says so"; a short "## Stage Report: implementation (cycle 2)" section; do not start step B
+  主頁已移除版本 SHA、函式名、來源欄位及 API 呼叫，保留每句能顯示精確原文、找不到便明說；技術依據集中 EVIDENCE.md。沒有 HTML／PNG／review.html；本報告後停止，交回設計總監第二次審查。
+
+### Summary
+
+修正摘要點不能指定關卡的目標歧義，關卡決定一律先按具名關卡、讀說明，再選決定及 Confirm；一般方向可直接輸入後送出，不必 Replay。主頁只保留使用者閱讀與操作資訊，技術依據留在 EVIDENCE.md；沒有產品變更，Step B 未開始，待設計總監複審。

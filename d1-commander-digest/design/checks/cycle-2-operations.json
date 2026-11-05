@@ -1,0 +1,85 @@
+{
+  "scope": "設計推演，非實作介面測試",
+  "readingCounted": false,
+  "paths": [
+    {
+      "purpose": "讀摘要",
+      "actions": [],
+      "count": 0
+    },
+    {
+      "purpose": "看這點的 Replay",
+      "actions": [
+        "Replay"
+      ],
+      "count": 1
+    },
+    {
+      "purpose": "開 FO 對話",
+      "actions": [
+        "Replay",
+        "開啟該 FO"
+      ],
+      "count": 2
+    },
+    {
+      "purpose": "留在 Commander 討論",
+      "actions": [
+        "Replay",
+        "繼續討論",
+        "輸入",
+        "送出"
+      ],
+      "count": 4
+    },
+    {
+      "purpose": "回覆一般方向，最短路徑",
+      "actions": [
+        "輸入",
+        "送出"
+      ],
+      "count": 2
+    },
+    {
+      "purpose": "帶著這點回覆一般方向",
+      "actions": [
+        "Replay",
+        "回覆新決定",
+        "輸入",
+        "送出"
+      ],
+      "count": 4
+    },
+    {
+      "purpose": "從這點作關卡決定",
+      "actions": [
+        "Replay",
+        "回覆新決定",
+        "按具名關卡",
+        "選決定",
+        "Confirm"
+      ],
+      "uncounted": [
+        "按具名關卡後，先閱讀其完整說明"
+      ],
+      "count": 5
+    },
+    {
+      "purpose": "從這點作關卡決定，須填原因",
+      "actions": [
+        "Replay",
+        "回覆新決定",
+        "按具名關卡",
+        "選決定",
+        "輸入原因",
+        "Confirm"
+      ],
+      "uncounted": [
+        "按具名關卡後，先閱讀其完整說明"
+      ],
+      "count": 6
+    }
+  ],
+  "technicalDetailsRemovedFromMain": true,
+  "stepBStarted": false
+}
