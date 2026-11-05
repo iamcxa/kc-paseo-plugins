@@ -94,6 +94,7 @@ describe("Browse vault with an item that cannot be read", () => {
   for (const [label, stderr, cause] of [
     ["a rejected token", "[ERROR] 401 Authentication: invalid service account token", "rejected-token"],
     ["an unreachable 1Password", "[ERROR] network is unreachable", "unreachable"],
+    ["a rate limit", "[ERROR] Too Many Requests: You've reached the maximum number of this type of requests", "rate-limited"],
   ] as const) {
     it(`stops the whole list on ${label} instead of naming every item`, async () => {
       const { call } = listRefsHandler({
@@ -103,6 +104,14 @@ describe("Browse vault with an item that cannot be read", () => {
       await assert.rejects(call, { message: causeText[cause] });
     });
   }
+
+  it("stops on a rate limit that hits the item list itself", async () => {
+    const { call } = listRefsHandler({
+      ...account([login, note]),
+      fail: { "item list": { stderr: "[ERROR] Too Many Requests: You've reached the maximum number of this type of requests" } },
+    });
+    await assert.rejects(call, { message: causeText["rate-limited"] });
+  });
 
   it("stops with fixed text when no token is stored", async () => {
     const { call } = listRefsHandler(account([login]), {});

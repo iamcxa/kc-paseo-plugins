@@ -1,3 +1,5 @@
+import { causeText } from "./cause.ts";
+
 export type Skipped = { item: string; reason: string };
 export type Holder = { name: string; ref: string };
 
@@ -117,6 +119,9 @@ export function vaultListFailure(raw: string): { message: string; hint: string }
       message: "Listing this vault took too long.",
       hint: "Type the reference below instead. A large vault can be too slow to list.",
     };
+  }
+  if (message === causeText["rate-limited"]) {
+    return { message, hint: "Close this list, wait a while, then open it again." };
   }
   return { message, hint: FIX_CONNECTION_HINT };
 }

@@ -209,7 +209,7 @@ export function createSecrets(tools: Tools) {
       } catch (error) {
         const cause = failureCause(error);
         // These hit every item, so naming each as skipped would hide the real problem.
-        if (cause === "rejected-token" || cause === "unreachable") return { stop: cause };
+        if (cause === "rejected-token" || cause === "unreachable" || cause === "rate-limited") return { stop: cause };
         return { skip: true };
       }
       try {
