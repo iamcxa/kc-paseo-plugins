@@ -100,6 +100,7 @@ export const missingVariablesRowId = "project-env-missing-variables";
 // `cause` stays a plain string on the wire so a client older than the daemon still draws the row.
 export const missingVariablesData = z.object({
   variables: z.array(z.object({ name: z.string(), cause: z.string() })).min(1),
+  resumed: z.literal(true).optional(),
 });
 export type MissingVariablesData = z.infer<typeof missingVariablesData>;
 

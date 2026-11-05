@@ -15,24 +15,46 @@ interface Options {
   log?: (line: string) => void;
 }
 
+interface Pending {
+  at: number;
+  resumed: boolean;
+  variables: MissingVariablesData["variables"];
+}
+
+const failureKeys = (variables: MissingVariablesData["variables"]) =>
+  variables.map((v) => `${v.name}\0${v.cause}`).sort();
+
 export function createNotices({ now = Date.now, log = console.error }: Options = {}) {
-  const pending = new Map<string, { at: number; variables: MissingVariablesData["variables"] }>();
+  const pending = new Map<string, Pending>();
+  const shown = new Map<string, string[]>();
+  const current = new Map<string, string[]>();
 
   function prune(at: number) {
     for (const [agentId, entry] of pending) {
-      if (at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
+      if (!entry.resumed && at - entry.at > PENDING_TTL_MS) pending.delete(agentId);
     }
   }
 
-  function record(agentId: string, failures: Failure[]) {
+  function remember(memory: Map<string, string[]>, agentId: string, keys: string[]) {
+    if (keys.length > 0) memory.set(agentId, keys);
+    else memory.delete(agentId);
+  }
+
+  function observe(agentId: string, keys: string[]) {
+    remember(current, agentId, keys);
+    remember(shown, agentId, (shown.get(agentId) ?? []).filter((key) => keys.includes(key)));
+  }
+
+  function record(agentId: string, failures: Failure[], { resumed = false } = {}) {
     try {
       const at = now();
       prune(at);
-      if (failures.length === 0) return;
-      pending.set(agentId, {
-        at,
-        variables: failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" })),
-      });
+      const variables = failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }));
+      const keys = failureKeys(variables);
+      if (resumed) pending.delete(agentId);
+      const repeats = resumed && (shown.get(agentId) ?? []).join("\n") === keys.join("\n");
+      if (variables.length > 0 && !repeats) pending.set(agentId, { at, resumed, variables });
+      observe(agentId, keys);
     } catch (error) {
       reportFailure(agentId, error);
     }
@@ -43,10 +65,16 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     if (!entry) return;
     pending.delete(agentId);
     try {
-      await appendRow({ variables: entry.variables });
+      await appendRow({ variables: entry.variables, ...(entry.resumed ? { resumed: true as const } : {}) });
+      const still = current.get(agentId) ?? [];
+      remember(shown, agentId, failureKeys(entry.variables).filter((key) => still.includes(key)));
     } catch (error) {
       reportFailure(agentId, error);
     }
+  }
+
+  function retain(agentId: string, failures: Failure[]) {
+    observe(agentId, failureKeys(failures.map((f) => ({ name: f.name, cause: f.cause ?? "unexpected" }))));
   }
 
   function drop(agentId: string) {
@@ -62,7 +90,7 @@ export function createNotices({ now = Date.now, log = console.error }: Options =
     }
   }
 
-  return { record, flush, drop };
+  return { record, flush, retain, drop };
 }
 
 export type Notices = ReturnType<typeof createNotices>;

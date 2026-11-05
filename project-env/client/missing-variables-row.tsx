@@ -5,13 +5,13 @@ import { causeWords, missingVariablesTitle } from "../shared/cause";
 import type { MissingVariablesData } from "../shared/config";
 
 export function MissingVariablesRow({ item, theme }: PluginTimelineItemProps<MissingVariablesData>) {
-  const { variables } = item.data;
+  const { variables, resumed } = item.data;
   return (
     <View style={{ flexDirection: "row", gap: 8, paddingVertical: 6 }}>
       <Icon name="TriangleAlert" size={16} color={theme.colors.statusWarning} />
       <View style={{ flex: 1, gap: 2 }}>
         <Text style={{ color: theme.colors.foreground, fontSize: 14 }}>
-          {missingVariablesTitle(variables.length)}
+          {missingVariablesTitle(variables.length, resumed === true)}
         </Text>
         {variables.map((v) => (
           <Text key={v.name} style={{ color: theme.colors.foregroundMuted, fontSize: 13 }}>

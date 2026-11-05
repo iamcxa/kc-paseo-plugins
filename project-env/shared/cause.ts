@@ -39,8 +39,9 @@ export function causeWords(id: string): string {
   return Object.hasOwn(causeText, id) ? causeText[id as Cause] : "reason not available";
 }
 
-export function missingVariablesTitle(count: number): string {
-  return count === 1 ? "Started without 1 project variable" : `Started without ${count} project variables`;
+export function missingVariablesTitle(count: number, resumed = false): string {
+  const verb = resumed ? "Resumed" : "Started";
+  return count === 1 ? `${verb} without 1 project variable` : `${verb} without ${count} project variables`;
 }
 
 export function causeSentence(cause: Cause | undefined): string {
