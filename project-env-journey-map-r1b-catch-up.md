@@ -7,6 +7,17 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-journey-map-r1b-catch-up:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-journey-map-r1b-catch-up-backlog-1
+              briefing:
+                id: briefing:project-env-journey-map-r1b-catch-up:backlog:attempt-1:revision-1
+                digest: sha256:f4a599f8cb65c195dcf2ded408822569026e2adee0aea425e69c101239199e80
+                room-ref: ./project-env-journey-map-r1b-catch-up/review/backlog/briefing-1
 ---
 
 Batch: r1b-polish-1, approved by the Captain on 2026-11-05 (「開這批」) with four members: project-env-picker-slow-hint, project-env-rate-limit-cause, project-env-started-row-visible, project-env-journey-map-r1b-catch-up. Since the map update merged as #59 (637d054), PR #61 shipped story `pick-repository` (task project-env-pick-repository, UAT OK 2026-11-05) and PR #58 shipped the docs site story `read-the-docs` (task project-env-docs-site, UAT OK 2026-10-28); both still read `gap` on `docs/journey/project-env/give-agents-their-project-setup.yaml`. The terminal limit the Captain asked to document (「加」, 2026-11-05) is not on the map.
