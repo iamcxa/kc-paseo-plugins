@@ -221,3 +221,7 @@ Design director (same agent 383de5e1): SATISFIED for AC-4, AC-2 and AC-3 — tri
 ### Summary
 
 Updated the accepted trigger and the 30-minute single-gate/permission exception, then replaced the superseded entry-first pictures with one accumulated-event-call direction. The offline desktop and embedded phone reviews are complete and checked, with total-preserving call/entry states, one named focus and target, no-call and unknown-source states; the earlier missing analysis-in-progress picture is also included. All work stays in task state/design artifacts and is submitted for the design director's review, not product or Captain acceptance.
+
+## Design director review: amendment 1 step B pass 1
+
+Design director (same agent 383de5e1), all 22 new PNGs: SATISFIED for showing the Captain — total at rest, red pulsing badge with a one-time sound caption on a call, the 30-minute single-gate exception, one named focus with its target after entry, pulse stopped and total kept, quiet empty state, "?" for an incomplete source, board newest first. Nonblocking gap: 360-call.png and 360-exception.png show the sidebar already open; on a phone, returning takes two operations (open sidebar, tap the count), not the one DESIGN.md states — draw the collapsed start and correct the count before code.
