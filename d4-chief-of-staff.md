@@ -126,3 +126,7 @@ Design director (same agent 383de5e1): SATISFIED — the reopening gap is closed
 ### Summary
 
 Delivered one chief-of-staff conversation direction with a named focus beside a single newest-first Board, including unchanged reopen, empty, partial, failed/stale, missing-history, target/return and short-discussion states. The offline review and embedded phone review are ready, six static verification groups and four workflow checks passed, and all owned headless-browser profiles were cleaned up. Step A stays unchanged; this is the first Step B submission, awaiting the design director rather than Captain or product approval.
+
+## Design director review: step B pass 1
+
+Design director (same agent 383de5e1), all 22 PNGs: SATISFIED for showing the Captain — entry shows one named priority, who waits and one direct action; target keeps choosing and confirming separate; return keeps the conversation and draft; one descending time order with interleaved status rows; phone keeps the focus and action visible. Nonblocking coverage gap: no picture of the scan in progress or of entry while she is busy; carry into the code task's captures.
