@@ -1,0 +1,16 @@
+Dispatched: from c6d3936e57adfc5ad22e5a31aa4bd2e8933390b5 (state head after the Captain's revise; latency probe before the design revision)
+Model: codex gpt-6.1-sol, reasoning high (worker 3fef21bb from d2-collection-cost-probe, continued for its isolated-daemon method; Captain: 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」, chat 2026-10-27)
+
+## Checklist
+
+Measure, once per model, how fast a small model words the chief of staff's focus line on an isolated Paseo daemon (own --home, port outside 6767, 6787 and 6860-6935, no Bridge plugin): input is a fictional board of ten items (title, kind, owner, waiting since) already ranked by rule, the instruction "say in at most three sentences what to do first, who waits and for how long, and the action"; run claude/claude-haiku-5-5 (thinking off and low) and codex/gpt-6.1-terra (low), each as a fresh Paseo agent with one user message, three runs each; record per run wall time from send to finish, time to first assistant text if the stream shows it, input, cached and output tokens and provider requests by turn id (AC-2)
+Write d4-chief-of-staff/evidence/latency-probe/RESULT.md with the table, the method (the d2-collection-cost-probe method for usage), what part of the time is the agent harness rather than the model if you can tell, and every approximation; read the live FO count and comms officer status before and after; stop the daemon by captured PID and delete its home (AC-2)
+
+## Scope notes
+
+Package root: /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0
+Send your completion message to `main`. You run as a Codex agent started through Paseo, so you have no SendMessage tool: finish with a final reply whose first line starts "Done:"; the FO receives Paseo's finish notification.
+
+The Captain chose 「改成兩層，先量小模型多快 (Recommended)」 at the d4-chief-of-staff gate (2026-11-06): Bridge picks the first item by rule, a small model words it, the Opus chief of staff speaks only when he talks to her; he expects three to five seconds. This is a measurement only: no Bridge code, no product edit, no live agent prompted. Facts you know from d2: claude totalCostUsd is imputed, not billed; check whether usage_updated is cumulative; attribute by turn id; HOME may stay real only for provider authentication, never read, copy or print credential files. No direct API call: that would need a key, which is the Captain's decision. Budget: the eighteen runs above, at most one retry per run for an environment reason. Fictional content only (public branch).
+roborev not run: a measurement with no code change and no candidate branch.
+Hard limits: the live Paseo daemon may only be read, for the FO count and comms officer status; never kill by pattern; never print agent command lines; never overwrite an existing /tmp file; never switch branch on, or leave dirty, /Users/kent/Project/kc-paseo-plugins or .worktrees/flywheel-live. Write your report as "## Stage Report: implementation (cycle 4)" in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d4-chief-of-staff.md and commit with `spacedock state commit d4-chief-of-staff --workflow-dir /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc`.
