@@ -18,7 +18,7 @@ import {
   switchCoordinator,
 } from "./shared/coordinator";
 
-import { readChief, markChief, RESPONSE_MARKER } from "./shared/chief";
+import { readChief, markChief, batchResponseId } from "./shared/chief";
 import { chiefObserver } from "./server/chief";
 
 export default function contribute(server: PluginServerContext) {
@@ -43,8 +43,8 @@ export default function contribute(server: PluginServerContext) {
   server.handle(markChief, input => chiefObserver.mark(input.batchId, input.action));
   server.on("agent.turn_started", ({ agent }, { paseo }) => rememberPaseo(paseo));
   server.on("agent.turn_ended", ({ timeline }) => {
-    for (const item of timeline) if (item.type === "user_message" && item.text.startsWith(RESPONSE_MARKER)) {
-      const id = item.text.slice(RESPONSE_MARKER.length).split("]")[0]; chiefObserver.responded(id);
+    for (const item of timeline) if (item.type === "user_message") {
+      const id = batchResponseId(item.text); if (id) chiefObserver.responded(id);
     }
   });
   server.handle(readTasks, (input, { paseo }) => {

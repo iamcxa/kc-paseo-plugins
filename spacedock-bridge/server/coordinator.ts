@@ -36,8 +36,10 @@ async function open(paseo: PaseoApi, provider: string, role: string) {
     filter: { labels: { [ROLE_LABEL]: role } },
   });
   const record = await switchStore.read();
-  const unfinishedOld = record && entries.find(e => e.agent.id === record.previousAgentId && !e.agent.archivedAt)?.agent;
-  const existing = unfinishedOld || entries.find(e => e.agent.id === record?.agentId && !e.agent.archivedAt)?.agent || entries.find(e => !e.agent.archivedAt)?.agent;
+  const transition = record ? await switchTransition(paseo, record) : null;
+  const active = entries.filter(e => !e.agent.archivedAt);
+  if (!record && active.length > 1) throw new Error("Multiple officers; the switch cannot be confirmed");
+  const existing = transition?.officer ?? active[0]?.agent;
   if (existing)
     return {
       agentId: existing.id,
@@ -87,13 +89,22 @@ export function switchCoordinatorHandler(api: PaseoApi, input: { oldAgentId: str
   switching = performSwitch(api, input.oldAgentId, store).finally(() => { switching = null; });
   return switching;
 }
+async function switchTransition(api: PaseoApi, record: SwitchRecord) {
+  if (record.agentId === record.previousAgentId) throw new Error("Invalid officer transition");
+  const [next, old] = await Promise.all([api.agents.ref(record.agentId).refresh(), api.agents.ref(record.previousAgentId).refresh()]);
+  if (!next || !old || next.agent.labels[ROLE_LABEL] !== ROLE_COORDINATOR || old.agent.labels[ROLE_LABEL] !== ROLE_COORDINATOR || next.agent.archivedAt) throw new Error("Officer transition cannot be confirmed");
+  if (old.agent.archivedAt) return { officer: next.agent, pending: false };
+  if (next.agent.labels["coordinator-version"] !== COORDINATOR_VERSION || old.agent.labels["coordinator-version"] === COORDINATOR_VERSION) throw new Error("An unfinished older officer transition needs review");
+  return { officer: old.agent, pending: true };
+}
 async function performSwitch(api: PaseoApi, oldAgentId: string, store: SwitchStore) {
   const previous = await store.read();
-  if (previous && previous.previousAgentId !== oldAgentId) throw new Error("The previous officer has changed; reopen the switch offer");
+  const transition = previous ? await switchTransition(api, previous) : null;
+  if (transition && transition.officer.id !== oldAgentId) throw new Error("The previous officer has changed; reopen the switch offer");
   const old = await api.agents.ref(oldAgentId).refresh();
   if (!old || old.agent.labels[ROLE_LABEL] !== ROLE_COORDINATOR || old.agent.labels["coordinator-version"] === COORDINATOR_VERSION) throw new Error("This is not the old comms officer");
   if (old.agent.status === "running" || old.agent.status === "initializing") throw new Error("Wait for the old officer to finish");
-  let record = previous;
+  let record = transition?.pending ? previous : null;
   if (!record) {
     const cwd = (process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator"));
     const agent = await api.agents.create({ config: { provider: COORDINATOR_PROVIDER, systemPrompt: COORDINATOR_PROMPT, options: COORDINATOR_OPTIONS }, cwd, title: "幕僚長 / Chief of staff", labels: { [ROLE_LABEL]: ROLE_COORDINATOR, "coordinator-version": COORDINATOR_VERSION } });

@@ -342,6 +342,7 @@ export function Board({
     () => buildQueue(grouped, reviews, withReplies(rows, replies), replies),
     [grouped, reviews, rows, replies],
   );
+  const sourcesReady = () => (!workflowKey || gateCheck.key === workflowKey && gateCheck.state === "loaded") && reviewState === "loaded";
   const appliedTarget = useRef("");
   useEffect(() => {
     const target = params?.item;
@@ -353,11 +354,15 @@ export function Board({
       return;
     }
     const item = liveQueue.find(item => item.key === target);
-    if (!item) return;
+    if (!item) {
+      if (foState === "loaded" && sourcesReady()) { setMessage("This named item is no longer available or has changed; reopen its current source."); appliedTarget.current = request; }
+      return;
+    }
+    setMessage("");
     setVisited(old => ({ ...old, [item.key]: item }));
     setOpen(item.key);
     appliedTarget.current = request;
-  }, [params?.item, params?.request, liveQueue]);
+  }, [params?.item, params?.request, liveQueue, foState, gateCheck, reviewState]);
   const queue = [...liveQueue, ...Object.values(visited).filter(item => !liveQueue.some(live => live.key === item.key) && (progress[item.key]?.sent || progress[item.key]?.relayed))]
     .filter(item => !progress[item.key]?.recorded && !progress[item.key]?.closed);
   const sources: SourceStates = {
@@ -528,6 +533,7 @@ export function Board({
         {open === "comms" ? <Text style={styles.name}>Chief of staff</Text> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Chief of staff" onPress={() => enterChief()} style={{ minHeight: 44, justifyContent: "center" }}><Text style={styles.muted}>← Chief of staff</Text></Pressable>}
         <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Board" onPress={() => setOpen(layout.compact ? null : "comms")} style={{ minHeight: 44, minWidth: 44, paddingHorizontal: 6, justifyContent: "center" }}><Text style={styles.muted}>Board</Text></Pressable>
       </View> : null}
+      {message ? <Text style={{color:colors.statusDanger,padding:12}}>{message}</Text> : null}
       {open === null ? <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24, gap: 8 }}><Text style={styles.name}>Choose an item</Text><Text style={styles.muted}>Its detail and conversation open here.</Text></View> : null}
       {Object.values(visited).map(item => item.fo ? (
         <View key={item.key} style={{ flex: 1, minHeight: 0, display: open === item.key ? "flex" : "none" }}>

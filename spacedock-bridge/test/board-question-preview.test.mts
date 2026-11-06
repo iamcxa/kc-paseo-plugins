@@ -33,7 +33,7 @@ test("both board views share unread-question rows and counts across waiting-item
       } }] }),
       release: () => {},
     } }),
-    ref: () => ({ timeline: { refetch: async () => ({ entries: [{ item: { type: "assistant_message", text: "The two release windows are ready.\nNext: Choose the release window (you)" } }] }) } }),
+    ref: () => ({ timeline: { refetch: async () => ({ agentId:"question-fo",epoch:"epoch",projection:"projected",reset:false,gap:false,staleCursor:false,error:null,entries: [{ seqStart:1,seqEnd:1,sourceSeqRanges:[{startSeq:1,endSeq:1}],collapsed:[],item: { type: "assistant_message", text: "The two release windows are ready.\nNext: Choose the release window (you)" } }] }) } }),
   } };
   const readReviews = async () => ({ requests: scenario.review ? [{ url: "https://github.com/example/bridge/pull/12", owner: "example", repo: "bridge", number: 12, title: "Review the adapter", author: "fixture", firstSeenAt: Date.now() }] : [], checkedAt: Date.now(), error: null, nextCheckAt: null });
   const readGates = async () => ({ gates: scenario.gate ? [{ workflowDir: "/workflow", slug: "gate-task", title: "Approve the adapter", stage: "validation" }] : [], failedWorkflowDirs: [] });

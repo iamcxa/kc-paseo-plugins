@@ -35,7 +35,7 @@ async function token(): Promise<string> {
 
 export async function fleetSnapshot(api: PaseoApi) {
   const board = await chiefBoard(api);
-  return { checkedAt: new Date().toISOString(), complete: board.complete, total: board.total, events: board.events, fleet: board.rows };
+  return { checkedAt: new Date().toISOString(), complete: board.complete, total: board.total, events: board.events, fleet: board.rows, queue: board.queue };
 }
 
 const TOOL = {

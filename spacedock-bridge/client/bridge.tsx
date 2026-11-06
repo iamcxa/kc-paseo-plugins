@@ -15,7 +15,9 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
   const callOpenCoordinator = useRpc(openCoordinator);
   const callSwitch = useRpc(switchCoordinator);
   const chief = useChief();
-  const [target, setTarget] = useState<BoardProps["params"]>();
+  const externalRequest = JSON.stringify([props.params?.item, props.params?.request]);
+  const [target, setTarget] = useState<{ params: BoardProps["params"]; externalRequest: string }>();
+  const targetRequest = useRef(0);
   const [replyBatch, setReplyBatch] = useState<string | null>(null);
   const [needsSwitch, setNeedsSwitch] = useState(false);
   const [previous, setPrevious] = useState<string | null>(null);
@@ -80,7 +82,7 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
       agentId={coId}
       commander
       highlightedBatchId={chief.state?.phase === "calling" ? chief.state.batch?.id : undefined}
-      headerExtra={<>{tools}{chief.state?.phase === "calling" && chief.state.focus ? <View style={{padding:16,gap:8}}><Text style={{color:colors.foreground}}>{chief.state.focus.sentence}</Text><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="回應這一批" onPress={() => setReplyBatch(chief.state!.batch!.id)}><Text style={{color:colors.accent}}>{replyBatch ? "正在回應這一批" : "回應這一批"}</Text></Pressable><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="開啟幕僚長的焦點" onPress={() => setTarget({item:chief.state!.focus!.targetKey,request:String(Date.now())})}><Text style={{color:colors.accent}}>開啟具名事項 →</Text></Pressable></View> : null}</>}
+      headerExtra={<>{tools}{chief.state?.phase === "calling" && chief.state.focus ? <View style={{padding:16,gap:8}}><Text style={{color:colors.foreground}}>{chief.state.focus.sentence}</Text>{chief.state.error ? <Text style={{color:colors.statusWarning}}>來源無法確認；保留焦點，暫停開啟。</Text> : null}<Pressable colors={colors} accessibilityRole="button" accessibilityLabel="回應這一批" onPress={() => setReplyBatch(chief.state!.batch!.id)}><Text style={{color:colors.accent}}>{replyBatch ? "正在回應這一批" : "回應這一批"}</Text></Pressable><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="開啟幕僚長的焦點" disabled={Boolean(chief.state.error)} onPress={() => setTarget({params:{item:chief.state!.focus!.targetKey,request:`focus:${++targetRequest.current}`},externalRequest})}><Text style={{color:colors.accent}}>開啟具名事項 →</Text></Pressable></View> : null}</>}
       sendText={text => replyBatch ? batchResponse(replyBatch, text) : text}
       onSent={() => { setReplyBatch(null); void chief.refresh(); }}
       active={active}
@@ -94,7 +96,7 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
     <ChiefConnection active={active} error={error} colors={colors} retry={connectCoordinator} />
   );
 
-  return <Board {...props} params={target ?? props.params} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} onEnterChief={() => { void chief.mark("entered"); }}
+  return <Board {...props} params={target?.externalRequest === externalRequest ? target.params : props.params} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} onEnterChief={() => { void chief.mark("entered"); }}
     comms={chat} renderLayout={(list, detail, selected) => <BridgeLayout compact={layout.compact} colors={colors} list={list} detail={detail} selected={selected} />} />;
 }
 

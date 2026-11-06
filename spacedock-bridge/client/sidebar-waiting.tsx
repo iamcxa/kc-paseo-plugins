@@ -5,8 +5,9 @@ import { Text } from "react-native";
 import { useChief } from "./use-chief";
 import { CHIEF_SOUND } from "../shared/chief-sound";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
+let navigationRequest = 0;
 export function waitingDestination(item = "queue"): PluginOpenScreenInput {
-  return {screenId:"board",params:{item,request:String(Date.now())}};
+  return {screenId:"board",params:{item,request:`sidebar:${++navigationRequest}`}};
 }
 
 export function BoardItem({ currentScreen, openScreen, theme, playAudio }: PluginSidebarItemProps & { playAudio?: (audio: {base64:string;mimeType:string}) => Promise<void> }) {

@@ -3,6 +3,7 @@ import type { PaseoApi } from "@getpaseo/client";
 import { type PermissionLike, permissionPreview, lastReply, nextStepIsCaptains, replyPreview } from "./preview";
 import type { AwaitingGate } from "./tasks";
 import type { SourceState } from "./board-empty";
+import { readTimeline } from "./timeline";
 
 export const ROLE_LABEL = "role";
 export const ROLE_FO = "fo";
@@ -128,6 +129,15 @@ export function withReplies(
     .sort(byGroupThenTitle);
 }
 
+export const needsQuestion = (row: BoardRow) => row.status === "new reply" || row.status === "waiting on Kent" && !row.permission;
+export async function readQuestion(paseo: PaseoApi, agentId: string): Promise<ReplyFact> {
+  const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: 30 });
+  const reply = lastReply(page.entries.map(entry => entry.item));
+  const message = page.entries.findLast(entry => entry.item.type === "assistant_message" && entry.item.text);
+  return { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply),
+    ...(message ? { messageId: `${page.epoch}:${message.seqStart}:${message.seqEnd}`, since: message.timestamp } : {}) };
+}
+
 export async function observeBoard(
   paseo: PaseoApi,
   onRows: (rows: BoardRow[], replies: Record<string, ReplyFact>, state: SourceState) => void,
@@ -141,22 +151,13 @@ export async function observeBoard(
     if (!active) return;
     const current = ++generation;
     const rows = toRows(known.values());
-    const questions = rows.filter((row) => row.status === "new reply" && !row.hasNextOwner);
+    const questions = rows.filter(needsQuestion);
     onRows(rows, {}, questions.length ? "loading" : "loaded");
     if (!questions.length) return;
     const reads = questions.map((row) => {
       const cached = fetched.get(row.id);
       if (cached?.at === row.lastActivityAt) return cached.promise;
-      const promise = Promise.resolve().then(async () => {
-        const { entries } = await paseo.agents.ref(row.id).timeline.refetch({ direction: "tail", limit: 30, projection: "projected" });
-        const reply = lastReply(entries.map((entry) => entry.item));
-        const message = [...entries].reverse().find(entry => entry.item.type === "assistant_message" && entry.item.text);
-        return {
-          preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply),
-          ...(message?.seqStart != null ? { messageId: String(message.seqStart) } : {}),
-          ...(message?.timestamp ? { since: message.timestamp } : {}),
-        };
-      });
+      const promise = readQuestion(paseo, row.id);
       fetched.set(row.id, { at: row.lastActivityAt, promise });
       void promise.catch(() => { if (fetched.get(row.id)?.promise === promise) fetched.delete(row.id); });
       return promise;

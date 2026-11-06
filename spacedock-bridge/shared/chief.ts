@@ -41,6 +41,7 @@ export class BatchTracker {
   consume(events: readonly ChiefEvent[]) { events.forEach(event => { this.consumed.add(eventVersion(event)); this.pending.delete(event.key); }); }
   reset() { this.baseline = null; this.pending.clear(); }
   observe(events: readonly ChiefEvent[], now: number, complete: boolean) {
+    if (!complete) { this.reset(); return null; }
     const current = new Map(events.map(event => [event.key, event]));
     if (!this.baseline) { this.baseline = new Map(events.map(event => [event.key, event.version])); return null; }
     for (const [key, event] of current) {
@@ -57,3 +58,5 @@ export function batchRequest(text: string): ChiefBatch | null {
   try { return batchSchema.parse(JSON.parse(text.slice(BATCH_MARKER.length).split("\n")[0])); } catch { return null; }
 }
 export const batchResponse = (id: string, text: string) => `${RESPONSE_MARKER}${id}]\n${text}`;
+
+export const batchResponseId = (text: string) => /^\[Bridge batch response: ([^\]\r\n]+)\]\n/.exec(text)?.[1] ?? null;

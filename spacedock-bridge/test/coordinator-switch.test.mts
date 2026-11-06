@@ -22,7 +22,7 @@ test("an archive failure retains the exact replacement IDs and a confirmed retry
   let creates = 0, archives = 0;
   let saved: { agentId: string; previousAgentId: string } | null = null;
   const api = { agents: {
-    ref: () => ({ refresh: async () => ({ agent: { labels: { role: "comms-officer" }, status: "idle" } }), archive: async () => { if (++archives === 1) throw Error("archive unavailable"); } }),
+    ref: (id:string) => ({ refresh: async () => ({ agent: { id,labels: { role: "comms-officer",...(id==="replacement"?{"coordinator-version":COORDINATOR_VERSION}:{}) }, status: "idle" } }), archive: async () => { if (++archives === 1) throw Error("archive unavailable"); } }),
     create: async () => { ++creates; return { id: "replacement" }; },
   } } as unknown as PaseoApi;
   const store = { read: async () => saved, write: async (record: any) => { saved = record; } };
