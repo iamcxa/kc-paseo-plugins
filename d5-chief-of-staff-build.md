@@ -16,6 +16,17 @@ gates:
                 id: briefing:d5-chief-of-staff-build:backlog:attempt-1:revision-1
                 digest: sha256:dd75b17bef74fd90c98a93390e198eef5c85dc5b0e83ab86f049c5cb08bb2781
                 room-ref: ./d5-chief-of-staff-build/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d5-chief-of-staff-build:backlog:1
+                briefing: briefing:d5-chief-of-staff-build:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-06T14:29:17.999572Z"
+                decision: approve
+                reason: 'Captain chat 2026-11-06, asked 「幕僚長的設計已經記成你核准了。下一步開程式任務，要從哪裡開始寫？設計說要留下第一片（PR #74）的兩樣東西：讀真 Paseo 對話的方式、確認後才換通訊官。也說要拿掉摘要、Replay、立即收集。」, answered 「接在 PR #74 後面，拿掉不要的 (Recommended)」.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Build the accepted d4-chief-of-staff design: the comms officer becomes the chief of staff; accumulated board events past the Captain's trigger start one Terra plus one Opus analysis; when she calls, the Bridge sidebar total turns red, pulses and plays a short sound; she opens with one named focus and its target; the board is one time order, newest first; slice 1's digest, Replay and collect-now are removed.
