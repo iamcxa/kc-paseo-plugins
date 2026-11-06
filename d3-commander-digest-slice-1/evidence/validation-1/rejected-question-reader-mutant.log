@@ -1,4 +1,4 @@
-✖ no rejected collection prose question in desktop card and header after none (458.813291ms)
+✖ no rejected collection prose question in desktop card and header after none (435.52675ms)
 ℹ tests 1
 ℹ suites 0
 ℹ pass 0
@@ -6,17 +6,17 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 894.021125
+ℹ duration_ms 852.872792
 
 ✖ failing tests:
 
 test at test/commander-ui.test.mts:14:169
-✖ no rejected collection prose question in desktop card and header after none (458.813291ms)
+✖ no rejected collection prose question in desktop card and header after none (435.52675ms)
   AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
   
     assert.ok(!h.text().includes("False collection question"))
   
-      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/commander-ui.test.mts:18:9)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-wzyaa1i5/spacedock-bridge/test/commander-ui.test.mts:18:9)
       at async Test.run (node:internal/test_runner/test:1332:7)
       at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
     generatedMessage: true,
