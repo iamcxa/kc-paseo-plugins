@@ -78,6 +78,8 @@ Design: "one more repair cycle, for roborev 1540 findings 9 and 10 only; after i
 
 Alignment: not needed: the Captain accepted the design (d1-commander-digest), the collection rule (d2-collection-cost-probe) and the new comms officer on 2026-11-05; scope is slice 1 of that design.
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-06 — is the repair tail after roborev 1540 converging or drifting, are findings 9 and 10 material for this POC, and what is the next smallest step?
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-06: Captain amendment 1 supersedes no acceptance criterion and changes no build scope; it adds one repair cycle for roborev 1540 findings 9 and 10 only.
 Surfaces: ui
 Visible change: digest points in the Commander conversation, the Replay card, the new comms officer switch, and a collect-now action.
 
