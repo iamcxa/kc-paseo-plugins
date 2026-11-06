@@ -107,3 +107,7 @@ Design director (Codex gpt-6.1-sol high, agent 383de5e1, design-director's decla
 ### Summary
 
 Replaced the rejected page-memory exception with scan identity carried in the chief of staff's existing conversation; unchanged reopening reuses it, and unknown history cannot trigger another scan. The design keeps request identity for failed/incomplete turns as well as the successful last-scan message, without a new storage location or silent persistence decision. This is the AC-2 design revision for second-pass review, not a product fix or approval; Step B remains unstarted.
+
+## Design director review: step A pass 2
+
+Design director (same agent 383de5e1): SATISFIED — the reopening gap is closed (the previous scan identity is recovered from the existing conversation; an unchanged board makes no model call, including after reopening; missing history reads "cannot confirm"); AC-1 and AC-3 still satisfied; no new storage or authority; no objection to step B.
