@@ -107,6 +107,8 @@ Isolation and cleanup — BRIDGE_DATA_HOME overrides only the existing data-dire
 
 Documents and checks — OVERVIEW.md updated for the retained behavior and declared isolation switches; doc-impact-head.json lists no additional documents. comment-ratio-head.log and number-guards-head.log bind checks to base 7a4dbc057803d791dc5626182636c8e0fc2c2d32 and the final head. No migration, ADR number, new persistent store or CI workflow was added. roborev not run: worker cannot reach its daemon; FO runs the dispatched review on the pushed head.
 
+Provider environment limit — Normal provider authentication used the existing HOME; no credential file was read, copied or printed by this worker. Native provider caches outside the owned daemon/runtime home were not audited or removed.
+
 ### Summary
 
 Implemented the bounded chief-of-staff route and removed the first slice's collection surfaces, retaining its projected reader and confirmed switch. Delivery remains HOLD on AC-2 and AC-3: local tests and the real client path pass, but the complete visual acceptance and a successful one-Terra/one-Opus batch still need the FO's follow-up.
