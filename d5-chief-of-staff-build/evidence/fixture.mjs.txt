@@ -1,0 +1,2 @@
+import {DaemonClient} from "../spacedock-bridge/node_modules/@getpaseo/client/dist/daemon-client.js";
+const c=new DaemonClient({clientId:"d5-client-fixture",url:"ws://127.0.0.1:55479/ws",reconnect:{enabled:false}});await c.connect();try{console.log(JSON.stringify(await c.invokePluginRpc("paseo-spacedock-bridge","chief.fixture",{mode:process.argv[2]||"call"})));}finally{await c.close();}

@@ -1,0 +1,105 @@
+import { defineRpc } from "@getpaseo/plugin";
+import {z} from "zod";
+import {chiefBoard} from "./server/chief";
+import type { PluginServerContext } from "@getpaseo/plugin/server";
+import { ensureCoordinator, switchCoordinatorHandler } from "./server/coordinator";
+import { FLEET_SERVER_NAME, rememberPaseo, rememberedPaseo, startFleetServer } from "./server/fleet-mcp";
+import { readReviewsHandler, startReviewPoller } from "./server/reviews";
+import { readReviews } from "./shared/reviews";
+import { stopAgentHandler } from "./server/control";
+import { stopAgent } from "./shared/control";
+import { claimDecisionHandler, readDecisionHandler, releaseDecisionHandler } from "./server/decisions";
+import { readGateBriefingHandler } from "./server/gate";
+import { claimDecision, readDecision, releaseDecision } from "./shared/decisions";
+import { readGatesHandler, readTasksHandler } from "./server/tasks";
+import { readGateBriefing } from "./shared/gate";
+import { readGates, readTasks } from "./shared/tasks";
+import {
+  COORDINATOR_PROMPT,
+  RESPONDER_TOOL,
+  openCoordinator,
+  switchCoordinator,
+} from "./shared/coordinator";
+
+import { readChief, markChief, RESPONSE_MARKER } from "./shared/chief";
+import { chiefObserver } from "./server/chief";
+
+export default function contribute(server: PluginServerContext) {
+  if(process.env.BRIDGE_REVIEW_POLLING === "off") server.handle(defineRpc({name:"chief.fixture",input:z.object({mode:z.enum(["rest","call"])}),output:z.object({ok:z.boolean()})}),async({mode},{paseo})=>{
+    if(mode === "rest"){chiefObserver.state={...chiefObserver.state,phase:"quiet",focus:null,batch:null,soundAttempted:true,entered:false};return {ok:true};}
+    const board=await chiefBoard(paseo);const target=board.events[0];
+    const batch={id:`fictional-client-path-${Date.now()}`,events:board.events,reason:"threshold" as const,checkedAt:new Date().toISOString(),score:16};
+    await chiefObserver.publish(paseo,chiefObserver.state.agentId!,batch,{batchId:batch.id,targetKey:target.key,sentence:"先看 Fictional release 1：範例 FO 在等你的關卡決定，請開啟這個具名關卡。Client path proven; model-backed batch not run (Claude weekly limit)."});return {ok:true};
+  });
+
+  const fleet = startFleetServer().catch((error) => {
+    console.error("fleet MCP server did not start:", error);
+    return null;
+  });
+
+  const stopReviews = startReviewPoller(rememberedPaseo);
+  server.on("agent.turn_ended", (_event, { paseo }) => rememberPaseo(paseo));
+  server.handle(readReviews, (_input, { paseo }) => {
+    rememberPaseo(paseo);
+    return readReviewsHandler();
+  });
+
+  server.handle(openCoordinator, (_input, { paseo }) => {
+    rememberPaseo(paseo);
+    return ensureCoordinator(paseo);
+  });
+  server.handle(switchCoordinator, (input, { paseo }) => switchCoordinatorHandler(paseo, input));
+  server.handle(readChief, (_input, { paseo }) => { rememberPaseo(paseo); return chiefObserver.read(paseo); });
+  server.handle(markChief, input => chiefObserver.mark(input.batchId, input.action));
+  server.on("agent.turn_started", ({ agent }, { paseo }) => rememberPaseo(paseo));
+  server.on("agent.turn_ended", ({ timeline }) => {
+    for (const item of timeline) if (item.type === "user_message" && item.text.startsWith(RESPONSE_MARKER)) {
+      const id = item.text.slice(RESPONSE_MARKER.length).split("]")[0]; chiefObserver.responded(id);
+    }
+  });
+  server.handle(readTasks, (input, { paseo }) => {
+    rememberPaseo(paseo);
+    return readTasksHandler(input);
+  });
+  server.handle(readGateBriefing, readGateBriefingHandler);
+  server.handle(claimDecision, claimDecisionHandler);
+  server.handle(readDecision, readDecisionHandler);
+  server.handle(releaseDecision, releaseDecisionHandler);
+  server.handle(stopAgent, stopAgentHandler);
+  server.handle(readGates, (input, { paseo }) => {
+    rememberPaseo(paseo);
+    return readGatesHandler(input);
+  });
+
+  server.before("agent.create", async ({ request }, { paseo }) => {
+    rememberPaseo(paseo);
+    const config = request.config;
+    if (config.systemPrompt === COORDINATOR_PROMPT) {
+      const started = await fleet;
+      if (!started) return undefined;
+      return {
+        ...request,
+        config: {
+          ...config,
+          mcpServers: {
+            ...config.mcpServers,
+            [FLEET_SERVER_NAME]: { type: "http", url: started.url },
+          },
+        },
+      };
+    }
+    // create_agent copies a same-provider caller's providerOptions onto the agent it starts;
+    // without this the FOs a coordinator starts would carry its tool restrictions.
+    const options = config.providerOptions ?? {};
+    if (!JSON.stringify(options.settings ?? null).includes(RESPONDER_TOOL)) return undefined;
+    const { allowedTools: _allowed, settings: _settings, ...rest } = options;
+    const { [FLEET_SERVER_NAME]: _fleet, ...mcpServers } = config.mcpServers ?? {};
+    return { ...request, config: { ...config, providerOptions: rest, mcpServers } };
+  });
+
+  return async () => {
+    stopReviews();
+    const started = await fleet;
+    started?.server.close();
+  };
+}

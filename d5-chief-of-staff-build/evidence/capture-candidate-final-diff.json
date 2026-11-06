@@ -1,0 +1,13 @@
+{
+  "candidate": "6df55e54f07337e5284f0b134c2eb7fd2af1b67b",
+  "changedSinceFinalClientCapture": [
+    "index.server.ts",
+    "server/chief.ts",
+    "test/chief.test.mts"
+  ],
+  "added": [
+    "test/projected-timeline.test.mts"
+  ],
+  "clientAndSharedBytesMatch": true,
+  "limit": "Captured real runtime used 520d434 plus the removed isolated fixture handler. Later server question-count guard and retained reader tests have unit/typecheck proof only; full model-backed acceptance remains blocked."
+}

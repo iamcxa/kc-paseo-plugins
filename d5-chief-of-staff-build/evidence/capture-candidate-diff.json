@@ -1,0 +1,7 @@
+{
+  "candidate": "520d434688f325a7b83688e860cc216af86bcaa2",
+  "changedSinceFinalClientCapture": [
+    "index.server.ts"
+  ],
+  "reason": "Removed isolated-only chief.fixture RPC and its three imports; all client, shared and production server modules match captures."
+}

@@ -1,0 +1,21 @@
+import fs from "node:fs";
+import {DaemonClient} from "../spacedock-bridge/node_modules/@getpaseo/client/dist/daemon-client.js";
+import {createPaseoApi} from "../spacedock-bridge/node_modules/@getpaseo/client/dist/index.js";
+const evidence="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d5-chief-of-staff-build/evidence/";
+const transport=new DaemonClient({clientId:"d5-capability-probe",url:"ws://127.0.0.1:55479/ws",reconnect:{enabled:false}});
+await transport.connect();const api=createPaseoApi(transport);
+try{
+if(process.argv[2]==="append"){
+const agent=await api.agents.create({config:{provider:"claude/claude-opus-5-5"},cwd:new URL("./fictional",import.meta.url).pathname,title:"Fictional timeline capability probe",labels:{experiment:"d5-timeline"}});
+fs.writeFileSync(evidence+"probe-agent.json",JSON.stringify({id:agent.id}),{flag:"wx"});
+await transport.invokePluginRpc("d5-timeline-probe","probe.append",{agentId:agent.id});
+const page=await agent.timeline.refetch({projection:"projected",limit:120});
+fs.writeFileSync(evidence+"probe-before.json",JSON.stringify(page,null,2),{flag:"wx"});
+console.log(JSON.stringify({stage:"before",count:page.entries.length,items:page.entries.map(e=>e.item.type)}));
+}else{
+const {id}=JSON.parse(fs.readFileSync(evidence+"probe-agent.json"));
+const page=await api.agents.ref(id).timeline.refetch({projection:"projected",limit:120});
+fs.writeFileSync(evidence+"probe-after.json",JSON.stringify(page,null,2),{flag:"wx"});
+console.log(JSON.stringify({stage:"after",count:page.entries.length,items:page.entries.map(e=>e.item.type)}));
+}
+}finally{await api.dispose();await transport.close();}

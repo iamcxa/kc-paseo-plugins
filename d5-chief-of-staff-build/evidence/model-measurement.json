@@ -1,0 +1,24 @@
+{
+  "opus": {
+    "agentId": "c0842194-8690-4dec-a9a2-e322e8575416",
+    "turnId": "foreground-turn-1",
+    "startReceivedAt": "2026-11-06T14:53:04.746Z",
+    "endReceivedAt": "2026-11-06T14:53:09.482Z",
+    "observedTurnMs": 4736.0,
+    "usage": {
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "totalCostUsd": 0,
+      "contextWindowMaxTokens": 1000000
+    },
+    "providerMessage": "You've hit your weekly limit \u00b7 resets 3pm (Asia/Taipei)"
+  },
+  "terra": {
+    "started": false,
+    "turnId": null,
+    "usage": null
+  },
+  "automaticRetries": 0,
+  "verdict": "FAILED/HOLD"
+}

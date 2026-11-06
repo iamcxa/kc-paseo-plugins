@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import {performance} from 'node:perf_hooks';
+import {DaemonClient} from '../spacedock-bridge/node_modules/@getpaseo/client/dist/daemon-client.js';
+import {createPaseoApi} from '../spacedock-bridge/node_modules/@getpaseo/client/dist/index.js';
+const output='/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d5-chief-of-staff-build/evidence/';
+const root=new URL('.',import.meta.url).pathname;
+const client=new DaemonClient({clientId:'d5-real-batch-proof',url:'ws://127.0.0.1:55479/ws',reconnect:{enabled:false}});await client.connect();
+const api=createPaseoApi(client),subscriptions=[];const observed=new Set();
+const record={startedAt:new Date().toISOString(),daemonPid:48258,port:55479,fleetPort:55480,fictionalSources:true,modelRetries:0,agents:[]};
+const save=()=>fs.writeFileSync(output+'real-batch-run.json',JSON.stringify(record,null,2));
+const watch=async agent=>{if(observed.has(agent.id))return;observed.add(agent.id);record.agents.push({id:agent.id,role:agent.labels.role,provider:agent.provider});save();const sub=api.agents.ref(agent.id).timeline.subscribe(event=>fs.appendFileSync(output+`real-${agent.id}-events.jsonl`,JSON.stringify({receivedAt:new Date().toISOString(),...event})+'\n'));subscriptions.push(sub);await sub.ready;};
+try{
+ const listing=await api.agents.list({subscribe:{}});listing.subscription.subscribe({snapshot:({entries})=>{for(const {agent} of entries)if(['comms-officer','chief-assistant'].includes(agent.labels.role))void watch(agent);},update:message=>{if(message.type==='agent_update'&&message.payload.kind==='upsert'&&['comms-officer','chief-assistant'].includes(message.payload.agent.labels.role))void watch(message.payload.agent);}});subscriptions.push(()=>listing.subscription.release());
+ const chief=await client.invokePluginRpc('paseo-spacedock-bridge','coordinator.open',{});record.chief=chief;save();
+ const initial=await client.invokePluginRpc('paseo-spacedock-bridge','chief.read',{});record.initial=initial;save();
+ for(let n=1;n<=4;n++)await api.agents.create({config:{provider:'claude/claude-opus-5-5'},cwd:root+'fictional',title:`Fictional release ${n} FO`,labels:{role:'fo',repo:'fictional',task:`fictional-${n}`,'workflow-dir':root+'fictional/workflow'}});
+ const started=performance.now();record.trigger=await client.invokePluginRpc('paseo-spacedock-bridge','chief.read',{});save();
+ for(let step=0;step<100;step++){
+  await new Promise(resolve=>setTimeout(resolve,3000));
+  const state=await client.invokePluginRpc('paseo-spacedock-bridge','chief.read',{});record.last=state;record.wallMs=performance.now()-started;save();
+  if(['calling','failed','unknown'].includes(state.phase))break;
+ }
+ for(const {id} of record.agents){const handle=api.agents.ref(id);await handle.refresh();const page=await handle.timeline.refetch({projection:'projected',limit:120});fs.writeFileSync(output+`real-${id}-timeline.json`,JSON.stringify(page,null,2),{flag:'wx'});record.agents.find(agent=>agent.id===id).lastUsage=handle.lastUsage;record.agents.find(agent=>agent.id===id).status=handle.status;record.agents.find(agent=>agent.id===id).lastError=handle.lastError;}
+ record.completedAt=new Date().toISOString();save();console.log(JSON.stringify({phase:record.last?.phase,error:record.last?.error,total:record.last?.total,wallMs:record.wallMs,agents:record.agents}));
+}finally{for(const subscription of subscriptions)await subscription();await api.dispose();await client.close();}

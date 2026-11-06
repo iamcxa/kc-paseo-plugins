@@ -1,0 +1,8 @@
+import {createPaseoClient} from '../spacedock-bridge/node_modules/@getpaseo/client/dist/index.js';
+import {readTimeline} from '../spacedock-bridge/shared/timeline.ts';
+import {writeFile} from 'node:fs/promises';
+const client=createPaseoClient({url:'ws://127.0.0.1:6767/ws',reconnect:{enabled:false}});await client.connect();
+try{const {entries}=await client.agents.list({filter:{labels:{role:'comms-officer'}}});const results=[];
+for(const {agent} of entries.filter(e=>!e.agent.archivedAt)){const page=await readTimeline((id,options)=>client.agents.ref(id).timeline.refetch(options),agent.id,{direction:'tail',limit:120});results.push({status:agent.status,entries:page.entries.length,range:page.entries.length?[page.entries[0].seqStart,page.entries.at(-1)!.seqEnd]:null,epochPresent:Boolean(page.epoch),projection:page.projection,gap:page.gap,reset:page.reset,staleCursor:page.staleCursor});}
+await writeFile('/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d5-chief-of-staff-build/evidence/live-reader-counts.json',JSON.stringify({readOnly:true,textStored:false,coordinatorCount:entries.length,pages:results},null,2),{flag:'wx'});console.log(JSON.stringify({pages:results.length,entries:results.map(p=>p.entries)}));
+}finally{await client.close();}
