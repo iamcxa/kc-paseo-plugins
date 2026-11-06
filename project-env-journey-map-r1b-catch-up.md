@@ -220,3 +220,9 @@ Does not cover: the map's look on the canvas, the `unverified` r2 story, or whet
 ### Summary
 
 The candidate matches AC-1: lint exit 0 with 9 stories, the diff is exactly the approved nine added and seven removed lines, and both evidence symbols grep on origin/main. Every new claim on the card was checked against code, PR state, the live docs site or the archived UAT records; three items could not be re-confirmed today and are listed above. Three Polish findings, none Material; nothing returns to implementation.
+
+## UAT
+
+UAT (Captain, 2026-11-06): OK — 「ＯＫ」
+Asked: FO asked for the UAT of batch r1b-polish-1 after merging #71, #72, #73 and #75 and reloading the live plugin (「回「OK」或問題」): a real-environment check of the Started-without line and a no-regression check of the field picker and Test; his 「ＯＫ」 answers all four tasks.
+Cost: Captain messages 4, shared across batch r1b-polish-1; worker tokens not measured (reported: ideation 146226, implementation 78363, validation 90149)
