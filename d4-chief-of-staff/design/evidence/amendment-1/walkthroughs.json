@@ -1,0 +1,103 @@
+{
+  "scope": "Arithmetic of fictional design examples only, not a product trigger or model test",
+  "X": 3,
+  "YWeightedPoints": 8,
+  "examples": [
+    {
+      "scenario": "four fast reviews before five minutes",
+      "fictionalMinuteArrivals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "importanceWeights": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "evaluatedAtMinute": 4,
+      "frequencyMultiplier": 1.5,
+      "score": 12.0,
+      "eligible": false,
+      "matchesWrittenExample": true
+    },
+    {
+      "scenario": "four fast reviews at five minutes",
+      "fictionalMinuteArrivals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "importanceWeights": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "evaluatedAtMinute": 5,
+      "frequencyMultiplier": 1.5,
+      "score": 12.0,
+      "eligible": true,
+      "matchesWrittenExample": true
+    },
+    {
+      "scenario": "four spaced reviews equal score eight",
+      "fictionalMinuteArrivals": [
+        0,
+        3,
+        6,
+        9
+      ],
+      "importanceWeights": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "evaluatedAtMinute": 9,
+      "frequencyMultiplier": 1,
+      "score": 8,
+      "eligible": false,
+      "matchesWrittenExample": true
+    },
+    {
+      "scenario": "fifth spaced review exceeds eight",
+      "fictionalMinuteArrivals": [
+        0,
+        3,
+        6,
+        9,
+        12
+      ],
+      "importanceWeights": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "evaluatedAtMinute": 12,
+      "frequencyMultiplier": 1,
+      "score": 10,
+      "eligible": true,
+      "matchesWrittenExample": true
+    },
+    {
+      "scenario": "one gate no distinct followups",
+      "fictionalMinuteArrivals": [
+        0
+      ],
+      "importanceWeights": [
+        4
+      ],
+      "evaluatedAtMinute": 30,
+      "frequencyMultiplier": 1,
+      "score": 4,
+      "eligible": false,
+      "matchesWrittenExample": true
+    }
+  ]
+}

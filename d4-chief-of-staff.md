@@ -71,8 +71,8 @@ Stop condition: the design director unsatisfied twice on a step, or a proposal t
 
 ## Acceptance criteria
 
-**AC-1**: The Captain sees, on entry, the one thing to do and why it unblocks others, grounded only in board facts.
-Verified by: DESIGN.md names the board facts the ranking uses and the tool that supplies them, checked by the design director.
+**AC-1**: Amended by Captain, amendment 1. The chief of staff calls the Captain only when accumulated board events cross the trigger, weighted by importance and frequency and grounded only in board facts; she no longer speaks automatically on entry.
+Verified by: DESIGN.md names the five-minutes-unanswered trigger, proposed X and Y for the Captain to decide, the board facts and tool, the GPT-6.1 Terra assistant's part and the Opus chief of staff's part, and how the total Bridge sidebar count turns red, pulses and plays a sound when she calls, including any missing host capability.
 
 **AC-2**: A rescan happens only when the board changed, and its cost is stated.
 Verified by: DESIGN.md's rescan rule and cost line from d2-collection-cost-probe's recorded numbers.
@@ -80,7 +80,7 @@ Verified by: DESIGN.md's rescan rule and cost line from d2-collection-cost-probe
 **AC-3**: The Captain can judge the direction in a few minutes.
 Verified by: one page for step A and review.html / review-phone.html for step B; his answers recorded verbatim.
 
-UI proposal: a chief-of-staff conversation that opens with her scan (one top item, why, the action) beside a board in one time order, newest first, at 1440 and 360.
+UI proposal: accumulated board events trigger a Terra-assisted chief-of-staff analysis; when she calls, the total Bridge sidebar count turns red, pulses and plays a sound; opening Bridge alone does not start analysis. The board remains newest first.
 Preview: d1-commander-digest/mockups/review.html
 
 ## Captain amendments
@@ -91,13 +91,17 @@ Asked: 量到了：透過 Paseo 代理跑小模型，九次都沒進五秒。最
 Supersedes: AC-1
 Design: "The chief of staff no longer speaks on entry. New board events accumulate; when an event has gone five minutes without his response and X further events have arrived and the accumulated events exceed Y, the chief of staff is started to analyse them, weighted by each event's importance and frequency, with a GPT-6.1 Terra pass as her assistant; when she wants him, the Bridge sidebar count (the total) turns red and pulses and a sound plays, and he comes back to discuss with her. Purpose: he does not over-watch the FOs she manages — fewer, higher-quality conversations."
 
+Superseded text:
+
+**AC-1**: The Captain sees, on entry, the one thing to do and why it unblocks others, grounded only in board facts.
+Verified by: DESIGN.md names the board facts the ranking uses and the tool that supplies them, checked by the design director.
 
 ## FO alignment
 
 Alignment: not needed: the Captain set this direction and asked for the design first on 2026-11-06.
 Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
-Visible change: the comms officer renamed as a chief of staff whose conversation opens with a scan of the board, and the board in one time order, newest first.
+Visible change: the chief of staff calls after the amended accumulated-event trigger; the total sidebar count turns red and pulses with a sound; the board remains newest first.
 
 ## Stage Report: implementation
 
@@ -172,3 +176,22 @@ Design director (same agent 383de5e1), all 22 PNGs: SATISFIED for showing the Ca
 ### Summary
 
 Verified Terra low completes in 6.981–7.531s (median 7.157s), first visible text 5.298–5.513s; verified Haiku low median is 13.900s. None of the nine observed turns met the three-to-five-second completion target, and the requested off mode was not actually observed; native agent preparation/context and extra Terra status-block output limit inference about model-only speed. Measurement artifacts and cleanup are complete, but FO must retain the off-setting evidence gap and use these bounded results for the Captain's design revision; no new model/API authority is implied.
+
+## Stage Report: implementation (cycle 5)
+
+- DONE: Captain amendment 1 (task "## Captain amendments", read his words in full): move the superseded AC-1 verbatim under that amendment's "Superseded text:" and write the replacement AC-1 marked "Amended by Captain, amendment 1" from its Design line (the chief of staff calls the Captain only when accumulated board events cross the trigger, weighted by importance and frequency, grounded only in board facts; verified by DESIGN.md naming the trigger with proposed X and Y, the board facts and tool, the Terra assistant's part, and how the sidebar count turns red, pulses and plays a sound) (AC-1)
+  Original two-line AC-1 moved verbatim into amendment 1 Superseded text; replacement AC-1 uses the explicit dispatched ID and amendment marker. UI proposal/Visible change follow the amended trigger; frontmatter and Captain/Asked/Supersedes/Design lines verified unchanged. The same-ID instruction conflicts with the workflow check, recorded below rather than silently renumbered.
+- DONE: Revise step A to the amendment: drop "speaks on entry"; the trigger (five minutes unanswered, X further events, accumulated over Y) with proposed X and Y and their reasons, for the Captain to decide; what counts as an event and its importance and frequency weights from board facts only; the GPT-6.1 Terra assistant's part and the Opus chief of staff's part, with costs from d2-collection-cost-probe and d4's latency-probe/RESULT.md (Terra low 27,610 input tokens and about 7 s per run); the sidebar count as the total, turning red, pulsing and playing a sound when she calls — check first whether Paseo's own agent attention feature (requiresAttention, attentionReason) or the plugin SDK already gives a badge or sound, and say which part needs new capability; keep the board in one time order, newest first, and the no-new-storage scan identity (AC-1, AC-2)
+  DESIGN.md proposes X=3 further distinct pending matters, Y=8 weighted points with strict >, 300s unanswered, importance 4/3/2 and a recent-event multiplier; five fictional arithmetic cases include pre-timeout, strict-equality and duplicate-update falsifiers in design/evidence/amendment-1/walkthroughs.json. EVIDENCE.md checks native attention/notifications, installed SDK 0.12 playAudio and SidebarRow.trailing, current client implementation and official docs; native helper-finish suppression and suspended/closed-client custom delivery remain unproven and require a Captain decision if new host capability is needed.
+- DONE: Keep DESIGN.md to one page; update EVIDENCE.md; add "## Stage Report: implementation (cycle 5)" and stop for the design director's review; do not redraw mockups yet (AC-3)
+  DESIGN.md stays 2,163 characters; EVIDENCE.md replaces the withdrawn entry-first explanation and preserves timeline identity, source/flicker limits and both measured cost references. No mockup bytes changed; page entry alone cannot trigger analysis, unchanged batches cannot rerun/replay, and no new store is adopted. Appended cycle 5 report and stop for design-director review.
+- FAILED: design_surfaces check
+  design/evidence/amendment-1/design-surfaces.log exits 1 because amendment 1 supersedes AC-1 while the dispatch explicitly requests replacement AC-1 in the active criteria. FO must correct the criterion-ID instruction; no check bypass, amendment rewrite or unapproved renumbering performed.
+- DONE: Remaining no-code workflow checks
+  checks.json: comment_ratio, doc_impact and number_guards exit 0 on unchanged product base/head 91625588dff1b3e5737f6f6f8843b90d69468f32; zero code/comment lines and product-document impacts, migration guard skipped without migrations-path. All new examples fictional; no native user data or agent command lines retained.
+- SKIPPED: roborev, redraw, live model/runtime and audio tests
+  Explicit design-only revision: no code, host changes, new store, global notification edits, prompts, daemon mutations, actual sound or platform activation.
+
+### Summary
+
+Replaced speaks-on-entry with a proposed five-minute/event/weighted-score trigger, Terra preparation and an Opus-led discussion, keeping the newest-first Board and existing-conversation identity. Existing client audio and custom sidebar rendering are available, but helper/native alert deduplication and background delivery are not claimed; the task also has an explicit dispatched criterion-ID conflict that leaves one workflow check failed. Design artifacts are ready for the director, with the ID correction returned to FO; no mockups redrawn or product behavior enabled.
