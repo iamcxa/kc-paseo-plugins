@@ -27,6 +27,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:d4-chief-of-staff:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:d4-chief-of-staff-validation-1
+              briefing:
+                id: briefing:d4-chief-of-staff:validation:attempt-1:revision-1
+                digest: sha256:69ad46bd637c72765e45d7741734b6b4a5519b5acb7998d29019648294335fb0
+                room-ref: ./d4-chief-of-staff/review/validation/briefing-1
 started: 2026-11-06T04:23:48Z
 worktree: .worktrees/spacedock-ensign-d4-chief-of-staff
 ---

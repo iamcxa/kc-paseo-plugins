@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:d4-chief-of-staff:validation:attempt-1:revision-1",
+  "question": "照這個方向做，還是有哪裡要改？（幕僚長：進來先說一件事並給一個按鈕、board 一律最新在上、board 沒變不重掃）",
+  "artifacts": [
+    {
+      "id": "artifact:d4-chief-of-staff:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9c4d33b57f5d80d78969de775656e4198de66185/d4-chief-of-staff.md",
+      "rev": "sha256:930a6dc07aaf4d439cc980891752f6a1a58107c11c73286221d95dfa2acd6a87",
+      "mediaType": "text/markdown",
+      "summary": "Step A passed the design director on pass 2 (reopening must not rescan an unchanged board, recovered from her own last scan message, no new storage); step B passed on pass 1 with one nonblocking gap (no picture of a scan in progress). The Captain's go makes it the design reference for a code task."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:d4-chief-of-staff:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/9c4d33b57f5d80d78969de775656e4198de66185/d4-chief-of-staff/design/DESIGN.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:af5f62a1d28f86852dcbcaa8e2aadca9cc7e1101c478f8591eef3a6558a65f3c"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:d4-chief-of-staff:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/9c4d33b57f5d80d78969de775656e4198de66185/d4-chief-of-staff/mockups/REVIEW.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:a09aa583fd6b98d46e7914299174e574500605a5c2ed4cecbd58c816dc5c6891"
+    }
+  ]
+}
