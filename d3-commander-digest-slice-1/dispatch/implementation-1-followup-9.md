@@ -1,0 +1,19 @@
+Dispatched: from ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 (PR #74 head; repair after Captain trial 1 under Captain amendment 2)
+Model: codex gpt-6.1-sol, reasoning high (same worker 523cd98b, continued; Captain: 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」, chat 2026-10-27)
+
+## Checklist
+
+Fix authorization under Captain amendment 2 for item 12 ("## Investigation result: Captain trial 1"): one shared runtime-aware timeline reader for the whole inventory you listed; conversation, old-officer history and question readers accept healthy projected pages and healthy empty pages, with collection and unknown replies still never reaching discussion or question previews; identity, epoch, reset, stale, gap, error and bounds stay enforced (AC-1)
+Exact sources move to projected display entries per amendment 2: a source is one projected entry over its full sequence range with the hash of its merged text; collection, digest validation, Replay anchor and earlier/later read projected entries; an entry still being written or no longer matching shows unavailable; no renumbering, faked singleton coverage, cleared collapse markers or spliced text (AC-1)
+The proposed regressions from the fictionalized real page shape (user #1, merged assistant #2–#6, collapsed, projected), empty new-agent and empty end pages, first page, merged tool rows and a 120-row range; each fails at ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 and passes after; the decision card relay check keeps its behaviour with a test (AC-1)
+Real-daemon proof, which every earlier cycle lacked: (a) read-only on the live daemon, run the repaired shared reader in memory on the new and old comms officers' real pages and one FO's real page, emitting only counts, ranges and loaded or refused results; (b) on an isolated real daemon (own HOME and data, safe port outside 6767, 6787 and 6860-6935, fictional seeded history, no Bridge server startup), call the repaired collection source reader, digest validation and Replay read in memory against real SDK responses, and show a fictional digest validating and a Replay window at both edges; stop by captured PID and delete the home (AC-1, AC-2)
+Recapture only states whose pixels change at 1440 and 360; npm test and typecheck pass; commit, push to the PR #74 branch (no force push); write "## Stage Report: implementation (cycle 5)" naming the new head
+
+## Scope notes
+
+Package root: /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0
+Send your completion message to `main`. You run as a Codex agent started through Paseo, so you have no SendMessage tool: finish with a final reply whose first line starts "Done:"; the FO receives Paseo's finish notification.
+
+The Captain chose 「改用顯示版當來源 (Recommended)」, recorded as amendment 2; it supersedes the canonical source contract in Scope bullet 1, no acceptance criterion. Authorized: exactly the repair above. The live daemon may only be read: no prompt, archive, unarchive, plugin reload, write under ~/.local/share/paseo-fo-coordinator, or edit of .worktrees/flywheel-live; the FO reinstalls for the Captain. No conversation text in any committed file (public branch): shapes, counts and ranges only. PR #74 stays Draft; never mark ready or merge. All other hard limits and the POC boundary of implementation-1 stand. If the isolated daemon proof needs Bridge server startup or the live Bridge's files or port, stop that item and report.
+roborev not run: the Codex worker sandbox cannot reach the roborev daemon (package gap 5); the FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/extensions/roborev/roborev_gate.py on the pushed head with base 33952f9b3d02fceab104ba09272d65e432a3d095.
+Commit the task file with `spacedock state commit d3-commander-digest-slice-1 --workflow-dir /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc`.

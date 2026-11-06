@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d3-commander-digest-slice-1
-status: validation
+status: implementation
 gates:
     version: 1
     records:
@@ -41,7 +41,7 @@ consumer: the Captain, reading the digest in Bridge between other work and openi
 
 ## Scope
 
-- Source contract from d1-commander-digest/design/EVIDENCE.md (AC-1 section, "建議的最小來源契約" and "脈絡行與前後視窗"): `fleetSnapshot` returns per-FO report sources `{hostId, agentId, epoch, seqStart, seqEnd, textHash, timestamp}`; the Commander returns one structured digest `{roundId, collectedAt, points:[{pointId, sentence, sources, contextLines:[about|before|now, sentence, refs]}]}`; Bridge validates round, sources and hashes before showing a point, else shows 「摘要無法驗證」.
+- Source contract on the host's projected timeline: a source is one projected display entry as the FO conversation shows it — `{hostId, agentId, epoch, seqStart, seqEnd, textHash, timestamp}` over its full sequence range and merged text; Replay neighbours are projected entries; the Commander returns the structured digest `{roundId, collectedAt, points:[{pointId, sentence, sources, contextLines:[about|before|now, sentence, refs]}]}`; Bridge validates round, sources and hashes before showing a point, else 「摘要無法驗證」; a source whose entry is still being written or no longer matches shows as unavailable.
 - New comms officer: the new Commander prompt (read existing reports only, never prod an FO, missing report = unknown) on a newly created comms officer; Bridge offers the switch, archives the old one only after the Captain confirms, and the old conversation stays readable.
 - Digest and Replay UI as in d1-commander-digest/mockups (review.html, cycle 5): digest in the Commander conversation; Replay card with the three context lines, each with its own source link; the quoted message in its own FO's timeline with two entries either side and earlier/later; exits open FO, keep discussing, reply with a new decision; phone sheet at 360.
 - A "collect now" action runs one full collection; its tokens and time are recorded by turn id with the d2-collection-cost-probe method.
@@ -73,6 +73,16 @@ Captain: 「再修一輪，只修這兩個 (Recommended)」
 Asked: 第一片還剩兩個問題，而任務允許的兩輪修正已經用完。第一個是 FO 對話裡最早的那則回報查不到也打不開，但只會顯示「查不到」，不會給你錯的內容。第二個比較嚴重：Replay 整個讀取失敗時，三行脈絡還留在畫面上，看起來像已經核對過，其實當下無法確認。總工程師建議只修這兩個、再加一輪，修完不論結果都拿給你看。要怎麼做？ (options: 「再修一輪，只修這兩個 (Recommended)」 — "修完跑自動審查，然後不論結果都拿給你驗收。代價：你要再等一輪才能試用，而且審查可能又找到新的小問題。"; 「現在就拿給我試，兩個記成已知問題」)
 Supersedes: none
 Design: "one more repair cycle, for roborev 1540 findings 9 and 10 only; after it, the task goes to the Captain whatever the review finds" (beyond the seed's Budget line of two repair cycles)
+
+### Amendment 2 — 2026-11-06, chat
+Captain: 「改用顯示版當來源 (Recommended)」
+Asked: 問題找到了，是設計層的：你裝的 Paseo（0.15.1）給外掛的對話一律是「合併後的顯示版」（一則回覆的好幾段合成一則），不給「逐段原始版」。但摘要的來源核對設計時假設拿得到逐段原始版，而且只用假資料測過。所以指揮官對話、看板檢查、舊對話、摘要來源全都讀不到。（換通訊官本身沒問題，舊的已封存。）來源要怎麼核對？ (options: 「改用顯示版當來源 (Recommended)」 — "每個來源對應 FO 對話裡你看得到的那一則訊息（含它涵蓋的序號範圍與內容指紋），Replay 前後文也用顯示版。同一輪修正也會先讓指揮官對話和舊對話恢復可讀。代價：粒度變粗，只能指到「哪一則」而不是「哪一段」；若 FO 仍在寫那則回覆，指紋會對不上，顯示「查不到」。"; 「只恢復對話，摘要先停」; 「先退回上一版 Bridge」)
+Supersedes: none
+Design: "Source contract on the host's projected timeline: a source is one projected display entry as the FO conversation shows it — `{hostId, agentId, epoch, seqStart, seqEnd, textHash, timestamp}` over its full sequence range and merged text; Replay neighbours are projected entries; the Commander returns the structured digest `{roundId, collectedAt, points:[{pointId, sentence, sources, contextLines:[about|before|now, sentence, refs]}]}`; Bridge validates round, sources and hashes before showing a point, else 「摘要無法驗證」; a source whose entry is still being written or no longer matches shows as unavailable." (## Scope)
+
+Superseded text:
+
+- Source contract from d1-commander-digest/design/EVIDENCE.md (AC-1 section, "建議的最小來源契約" and "脈絡行與前後視窗"): `fleetSnapshot` returns per-FO report sources `{hostId, agentId, epoch, seqStart, seqEnd, textHash, timestamp}`; the Commander returns one structured digest `{roundId, collectedAt, points:[{pointId, sentence, sources, contextLines:[about|before|now, sentence, refs]}]}`; Bridge validates round, sources and hashes before showing a point, else shows 「摘要無法驗證」.
 
 ## FO alignment
 
