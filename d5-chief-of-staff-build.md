@@ -68,6 +68,7 @@ Preview: d4-chief-of-staff/mockups/review.html
 
 Alignment: not needed: the Captain accepted the design (d4-chief-of-staff), the trigger and the starting point on 2026-11-06.
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-07 — after roborev 1578 with both repair cycles spent, converging or drifting, are findings 10-12 material, and what is the next smallest step?
 Surfaces: ui
 Visible change: the comms officer renamed as the chief of staff, a red pulsing sidebar count with a sound when she calls, her opening focus, and the board in one time order, newest first.
 
@@ -77,7 +78,7 @@ Visible change: the comms officer renamed as the chief of staff, a red pulsing s
 - 2026-11-06: worker probe on an isolated real daemon: plugin timeline.append rows do not survive a daemon restart (1 row before, 0 after), so they cannot hold the batch identity. Worker proposed: the automated batch request is an Opus user message in her conversation, and inside that one Opus turn a plugin tool runs one Terra low pass before Opus chooses the focus. FO approved as within the accepted design (identity in her conversation, no new storage, Terra before Opus's choice, one turn each), with conditions: automated marker, never shown as or counted as the Captain's words; the tool only reads board facts; on Terra failure no call and no retry; Opus and Terra measured separately by turn id.
 - 2026-11-06: worker ran the candidate on an isolated real daemon (port 55479, fleet 55480) with BRIDGE_DATA_HOME pointing at fictional data and GitHub polling off — product isolation switches with live defaults unchanged, the prerequisite d3's AC-4 measurement named; listed for the Captain in the stage report. FO allowed a fresh browser profile with exactly 127.0.0.1:55479 and :55480 and every other loopback port and localhost blocked, for the real client sidebar and audio proof.
 - 2026-11-06: AC-3's first real Opus turn on the isolated daemon returned the Claude account's weekly limit message (resets 3pm Asia/Taipei), 0 tokens, no Terra pass; no retry, substitution or workaround. FO steered: prove the client path (sidebar red, pulse, client.playAudio, stop on entry) in the allowed browser from a fictional prepared batch, labelled not model-backed; package as AC-3 FAILED/HOLD; FO reruns the single real batch after the reset.
-
+- 2026-11-07: chief-engineer (Codex gpt-6-astra xhigh, agent 452ff60f) after roborev 1578: partial improvement, delivery drifting, convergence not proven; 10 and 11 can make the Captain act on wrong state, 12 is usability unless the live conversation is shown under the limit and overflow says unavailable. Recommends the Captain approve one extra bounded cycle for 10–12 only, then the real batch with restart read-back after the limit is confirmed reset, then visual acceptance and his trial; stop and report if the real tool result breaks the recovery assumptions.
 
 ## Stage Report: implementation
 
