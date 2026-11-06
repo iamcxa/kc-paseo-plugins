@@ -4,7 +4,7 @@ import { join } from "node:path";
 import type { PaseoApi } from "@getpaseo/client";
 import { ROLE_COORDINATOR, ROLE_LABEL } from "../shared/board";
 import {
-  DIGEST_VERSION,
+  COORDINATOR_VERSION,
   COORDINATOR_OPTIONS,
   COORDINATOR_PROMPT,
   COORDINATOR_PROVIDER,
@@ -43,11 +43,11 @@ async function open(paseo: PaseoApi, provider: string, role: string) {
       agentId: existing.id,
       workspaceId: existing.workspaceId ?? null,
       created: false,
-      needsSwitch: existing.labels["digest-version"] !== DIGEST_VERSION,
+      needsSwitch: existing.labels["coordinator-version"] !== COORDINATOR_VERSION,
       previousAgentId: record?.previousAgentId ?? null,
     };
 
-  const cwd = join(homedir(), ".local", "share", "paseo-fo-coordinator");
+  const cwd = (process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator"));
   await mkdir(cwd, { recursive: true });
   const agent = await paseo.agents.create({
     config: {
@@ -56,15 +56,15 @@ async function open(paseo: PaseoApi, provider: string, role: string) {
       options: COORDINATOR_OPTIONS,
     },
     cwd,
-    title: "Comms officer",
-    labels: { [ROLE_LABEL]: role, "digest-version": DIGEST_VERSION },
+    title: "幕僚長 / Chief of staff",
+    labels: { [ROLE_LABEL]: role, "coordinator-version": COORDINATOR_VERSION },
   });
   return { agentId: agent.id, workspaceId: agent.workspaceId ?? null, created: true, needsSwitch: false, previousAgentId: record?.previousAgentId ?? null };
 }
 
 type SwitchRecord = { agentId: string; previousAgentId: string };
 export interface SwitchStore { read(): Promise<SwitchRecord | null>; write(record: SwitchRecord): Promise<void> }
-const switchFile = join(homedir(), ".local", "share", "paseo-fo-coordinator", "coordinator-switch.json");
+const switchFile = join(process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator"), "coordinator-switch.json");
 const switchStore: SwitchStore = {
   async read() {
     try {
@@ -74,7 +74,7 @@ const switchStore: SwitchStore = {
     } catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return null; throw error; }
   },
   async write(record) {
-    await mkdir(join(homedir(), ".local", "share", "paseo-fo-coordinator"), { recursive: true });
+    await mkdir((process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator")), { recursive: true });
     const pending = `${switchFile}.${process.pid}.pending`;
     await writeFile(pending, JSON.stringify(record), { mode: 0o600, flag: "wx" });
     await rename(pending, switchFile);
@@ -91,12 +91,12 @@ async function performSwitch(api: PaseoApi, oldAgentId: string, store: SwitchSto
   const previous = await store.read();
   if (previous && previous.previousAgentId !== oldAgentId) throw new Error("The previous officer has changed; reopen the switch offer");
   const old = await api.agents.ref(oldAgentId).refresh();
-  if (!old || old.agent.labels[ROLE_LABEL] !== ROLE_COORDINATOR || old.agent.labels["digest-version"] === DIGEST_VERSION) throw new Error("This is not the old comms officer");
+  if (!old || old.agent.labels[ROLE_LABEL] !== ROLE_COORDINATOR || old.agent.labels["coordinator-version"] === COORDINATOR_VERSION) throw new Error("This is not the old comms officer");
   if (old.agent.status === "running" || old.agent.status === "initializing") throw new Error("Wait for the old officer to finish");
   let record = previous;
   if (!record) {
-    const cwd = join(homedir(), ".local", "share", "paseo-fo-coordinator");
-    const agent = await api.agents.create({ config: { provider: COORDINATOR_PROVIDER, systemPrompt: COORDINATOR_PROMPT, options: COORDINATOR_OPTIONS }, cwd, title: "Comms officer", labels: { [ROLE_LABEL]: ROLE_COORDINATOR, "digest-version": DIGEST_VERSION } });
+    const cwd = (process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator"));
+    const agent = await api.agents.create({ config: { provider: COORDINATOR_PROVIDER, systemPrompt: COORDINATOR_PROMPT, options: COORDINATOR_OPTIONS }, cwd, title: "幕僚長 / Chief of staff", labels: { [ROLE_LABEL]: ROLE_COORDINATOR, "coordinator-version": COORDINATOR_VERSION } });
     record = { agentId: agent.id, previousAgentId: oldAgentId };
     await store.write(record);
   }

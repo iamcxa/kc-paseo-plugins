@@ -47,7 +47,7 @@ test("message and reason share a shrinkable scroll area inside keyboard padding"
   assert.equal(scroll.style.minHeight, "0");
   assert.equal(scroll.getAttribute("data-taps"), "handled", "decision buttons must receive taps with keyboard open");
   assert.equal(scroll.parentElement!.style.paddingBottom, "280px");
-  for (const label of ["Confirm 要求修改 via comms officer", "Cancel decision"]) {
+  for (const label of ["Confirm 要求修改 via chief of staff", "Cancel decision"]) {
     assert.ok(scroll.contains(container.querySelector(`[aria-label="${label}"]`)));
   }
 });

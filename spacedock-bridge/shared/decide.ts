@@ -73,6 +73,6 @@ export async function decideGate(
     ports.setClaim(null);
     throw error;
   }
-  ports.markSent({ text: `${record.words} (${decisionId}, via comms officer)` });
+  ports.markSent({ text: `${record.words} (${decisionId}, via chief of staff)` });
   return null;
 }

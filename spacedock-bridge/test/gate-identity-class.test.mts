@@ -24,10 +24,10 @@ test("identical slugs in two workflows keep separate recipients", async t => {
   for (const id of ["a", "b"]) {
     await h.click(`Approve ${id.toUpperCase()} workflow? — ${id.toUpperCase()} FO`);
     await h.click("Choose 要求修改"); await h.type("Reason for 要求修改", `Reason for ${id}`);
-    await h.click("Confirm 要求修改 via comms officer");
+    await h.click("Confirm 要求修改 via chief of staff");
     assert.equal(h.claims.get(`shared-${id}`).foId, id);
     assert.ok(h.sent.at(-1)!.text.includes(`to ${id.toUpperCase()} FO (agent ${id})`));
-    await h.click("Back to Commander");
+    await h.click("Back to Chief of staff");
   }
 });
 
@@ -59,7 +59,7 @@ for (const changed of ["workflow", "briefing"] as const) {
     await h.click("Choose 要求修改"); await h.type("Reason for 要求修改", "Second reason");
     assert.equal(readDecisionDraft(draftKey("a", first)).word, "暫緩");
     assert.equal(readDecisionDraft(draftKey("a", first)).reason, "First reason");
-    await h.click("Confirm 要求修改 via comms officer");
+    await h.click("Confirm 要求修改 via chief of staff");
     assert.equal(h.claims.get("second-attempt").words, "要求修改，Second reason");
     assert.equal(h.claims.has("first-attempt"), false);
     await h.click("First retained gate? — A FO");
@@ -72,7 +72,7 @@ for (const changed of ["workflow", "briefing"] as const) {
     await h.click("Second retained gate? — A FO");
     assert.ok(h.find("Message A FO") === newComposer);
     assert.equal((newComposer as HTMLTextAreaElement).value, "Second message");
-    assert.match(h.text(), /Sent to the comms officer/);
+    assert.match(h.text(), /Sent to the chief of staff/);
     assert.equal(h.sent.length, 2);
   });
 }

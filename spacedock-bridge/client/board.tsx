@@ -3,7 +3,7 @@ import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Platform, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
-import { invalidateWaiting } from "./use-waiting";
+import { invalidateChief } from "./use-chief";
 import { TabClosedBadge } from "./tab-closed-badge";
 import {
   type BoardRow,
@@ -57,9 +57,10 @@ export function Board({
   commsState = "loaded",
   onRetryComms,
   onAskCo,
+  onEnterChief,
   comms,
   renderLayout,
-}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; comms?: (active: boolean, openFO: (agentId: string) => boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
+}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; onEnterChief?: () => void; comms?: (active: boolean, openFO: (agentId: string) => boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
   const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
@@ -170,7 +171,7 @@ export function Board({
 
   const callOpenCoordinator = useRpc(openCoordinator);
   const askCo = (text: string) => {
-    if (onAskCo) { setOpen("comms"); return onAskCo(text); }
+    if (onAskCo) { enterChief(); return onAskCo(text); }
     callOpenCoordinator({}).then(
       ({ agentId }) => navigation?.openAgent({ agentId }),
       (error) => setMessage(String(error)),
@@ -212,14 +213,13 @@ export function Board({
   );
 
   const [open, setOpen] = useState<string | null>(comms ? "comms" : null);
+  const enterChief = () => { setOpen("comms"); onEnterChief?.(); };
   const [visited, setVisited] = useState<Record<string, QueueItem>>({});
   const [progress, setProgress] = useState<Record<string, ItemProgress>>({});
-  const [filter, setFilter] = useState<"all" | QueueKind>("all");
   const reportProgress = useCallback((key: string, next: ItemProgress) => {
     setProgress(old => JSON.stringify(old[key]) === JSON.stringify(next) ? old : { ...old, [key]: next });
-    invalidateWaiting(paseo);
+    invalidateChief(paseo);
   }, [paseo]);
-  const [view, setView] = useState<"decision" | "fo">("decision");
 
   const colors = theme.colors;
   const styles = useMemo(
@@ -380,8 +380,7 @@ export function Board({
   }, [boardVisible]);
   const failedGateWorkflows = gateCheck.key === workflowKey ? gateCheck.failed : [];
   const empty = boardEmptyState(sources, queue.length + (coAsk ? 1 : 0), failedGateWorkflows);
-  const foEmpty = boardEmptyState({ fos: foState, gates: "loaded", reviews: "loaded", comms: "loaded" }, grouped.length);
-  const notice = view === "decision" ? empty.message : foEmpty.count === "0" ? null : foEmpty.message;
+  const notice = empty.message;
   const kindLabel: Record<QueueKind, string> = {
     permission: "PERMISSION",
     review: "REVIEW REQUEST",
@@ -391,15 +390,6 @@ export function Board({
   const recordedItems = Object.values(visited).filter(item => progress[item.key]?.recorded);
   const countedItems = [...queue.map(item => ({ ...progress[item.key], kind: item.kind })), ...(coAsk ? [{ kind: "ask" as const }] : [])];
   const counts = filterCounts(countedItems, sources);
-  const shownQueue = queue.filter(item => filter === "all" || item.kind === filter);
-  const sections = (["permission", "review", "gate", "ask"] as const).map(kind => ({ kind, items: shownQueue.filter(item => item.kind === kind) }));
-  const sectionTitle: Record<QueueKind, string> = {
-    permission: "Permissions",
-    review: "Reviews",
-    gate: "Gates",
-    ask: "Questions",
-  };
-  const waitingCount = (id: string) => queue.filter((item) => item.fo?.id === id).length;
   const openItem = (item: QueueItem) => {
     if (item.kind === "permission" && item.fo) return navigation?.openAgent({ agentId: item.fo.id });
     if (item.kind === "review" && item.review && !item.fo)
@@ -444,11 +434,11 @@ export function Board({
   );
   const commsRow = coAsk ? (
     <View style={styles.queueRow}>
-    <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Comms officer question" onPress={() => { coAsk.onPress(); setOpen("comms"); }} style={styles.line}>
+    <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Chief of staff question" onPress={() => { coAsk.onPress(); enterChief(); }} style={styles.line}>
       <Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text}</Text>
       <Text style={styles.lineTitle} numberOfLines={2}>{coAsk.text}</Text>
       <View style={styles.lineMeta}>
-        <Text style={styles.lineAge}>Comms officer</Text>
+        <Text style={styles.lineAge}>Chief of staff</Text>
         <Text style={styles.kind}>QUESTION</Text>
         <Text style={styles.lineAge}>{ago(coAsk.since)}</Text>
       </View>
@@ -458,11 +448,11 @@ export function Board({
 
   const list = (
     <View style={{ flex: 1, minHeight: 0 }}>
-    {layout.compact && comms ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Commander" onPress={() => setOpen("comms")} style={{ padding: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}><Text style={styles.muted}>← Commander</Text></Pressable> : null}
+    {layout.compact && comms ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Chief of staff" onPress={() => enterChief()} style={{ padding: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}><Text style={styles.muted}>← Chief of staff</Text></Pressable> : null}
     {!layout.compact ? <View style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: colors.border }}>
-      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Commander" accessibilityState={{ selected: open === "comms" }} onPress={() => comms ? setOpen("comms") : askCo("")}
+      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Chief of staff" accessibilityState={{ selected: open === "comms" }} onPress={() => comms ? enterChief() : askCo("")}
         style={{ padding: 12, borderWidth: 1, borderColor: open === "comms" ? colors.accent : colors.border, borderRadius: 8, backgroundColor: colors.surface1, gap: 5 }}>
-        <Text style={{ ...styles.name, fontSize: 18 }}>◉ Commander</Text><Text style={styles.muted}>Comms officer</Text>
+        <Text style={{ ...styles.name, fontSize: 18 }}>◉ 幕僚長</Text><Text style={styles.muted}>Chief of staff</Text>
         {!coAsk && commsState !== "loaded" ? <Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text}</Text> : null}
         {coAsk ? <><Text style={styles.kind}>{itemStatus({ kind: "ask", sourceState: commsState }).icon} {itemStatus({ kind: "ask", sourceState: commsState }).text} · {ago(coAsk.since)}</Text><Text style={styles.text}>{coAsk.text}</Text></> : null}
       </Pressable>
@@ -474,64 +464,22 @@ export function Board({
       ) : null}
       {taskState === "loading" ? <Text style={styles.muted}>Reading tasks…</Text> : null}
       {taskFailures.length ? <Text style={{ color: colors.statusDanger }}>Could not check tasks for {taskFailures.join(", ")}</Text> : null}
-      <View style={styles.toggle}>
-        {(["decision", "fo"] as const).map((id) => (
-          <Pressable colors={colors}
-            key={id}
-            accessibilityRole="tab"
-            accessibilityLabel={id === "fo" ? "By FO" : "By decision"}
-            accessibilityState={{ selected: view === id }}
-            onPress={() => setView(id)}
-            style={[styles.toggleButton, view === id ? styles.toggleActive : null]}
-          >
-            <Text style={view === id ? styles.toggleTextActive : styles.toggleText}>
-              {id === "decision" ? `By decision · ${counts.all}` : `By FO · ${foEmpty.count}`}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
-      {view === "decision" ? <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
-        {(["all", "permission", "review", "gate", "ask"] as const).map(kind => (
-          <Pressable key={kind} colors={colors} accessibilityRole="button" accessibilityLabel={`Filter ${kind}`} accessibilityState={{ selected: filter === kind }} onPress={() => setFilter(kind)}
-            style={{ minHeight: layout.compact ? 44 : 30, justifyContent: "center", paddingHorizontal: 10, borderWidth: 1, borderColor: filter === kind ? colors.accent : colors.border, borderRadius: 16, backgroundColor: filter === kind ? colors.surface2 : undefined }}>
-            <Text style={styles.muted}>{kind === "all" ? "All" : sectionTitle[kind]} {counts[kind]}</Text>
-          </Pressable>
-        ))}
-      </View> : null}
       {notice ? <Text style={styles.muted}>{notice}</Text> : null}
       {([
         ["FOs", foState !== "loaded", () => setFoRead((value) => value + 1)],
         ["gates", Boolean(workflowKey) && sources.gates !== "loaded", () => void refreshGates(true)],
         ["tasks", taskState !== "loaded", () => void refreshTasks()],
         ["review source", reviewState !== "loaded", () => void refreshReviews()],
-        ["comms officer", commsState !== "loaded" && Boolean(onRetryComms), onRetryComms],
+        ["chief of staff", commsState !== "loaded" && Boolean(onRetryComms), onRetryComms],
       ] as const).map(([name, failed, retry]) => failed ? (
         <Pressable key={name} colors={colors} accessibilityRole="button" accessibilityLabel={`Check ${name} again`} onPress={retry} style={styles.add}><Text style={styles.addText}>Check again · {name}</Text></Pressable>
       ) : null)}
       {sources.gates === "loading" && workflowKey ? <Text style={styles.muted}>Checking gates…</Text> : null}
       {reviewState === "failed" ? <Text style={styles.muted}>{reviewNextCheck ? `Next automatic review check: ${new Date(reviewNextCheck).toLocaleTimeString()}` : "Next automatic review check: unknown"}</Text> : null}
-      {view === "decision" ? sections.map(section => section.items.length || (section.kind === "ask" && layout.compact && coAsk && (filter === "all" || filter === "ask")) ? (
-        <View key={section.kind} style={{ gap: 2 }}>
-          <View style={styles.sectionHead}><Text style={styles.group}>{sectionTitle[section.kind]}</Text><Text style={styles.group}>{section.items.length + (section.kind === "ask" && layout.compact && coAsk ? 1 : 0)}</Text></View>
-          {section.items.map(itemRow)}
-          {section.kind === "ask" && layout.compact && coAsk ? commsRow : null}
-        </View>
-      ) : null) : (
-        <>
-          {foState === "loaded" && rows.length === 0 ? <Text style={styles.muted}>No agents labelled role=fo.</Text> : null}
-          {queue.some(item => !item.fo) ? <View><Text style={styles.group}>Unassigned reviews</Text>{queue.filter(item => !item.fo).map(itemRow)}</View> : null}
-          {grouped.map(row => (
-            <View key={row.id} style={{ gap: 4 }}>
-              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Conversation with ${foName(row.title || row.id)}`} style={{ paddingVertical: 12, minHeight: 44 }}
-                onPress={() => openItem({ key: `f:${row.id}`, kind: "ask", title: row.next || `Conversation with ${foName(row.title || row.id)}`, detail: "", since: row.lastActivityAt, fo: row })}>
-                <Text style={styles.name}>{row.title || row.id}</Text><Text style={styles.muted}> · {waitingCount(row.id)} waiting · {tasks[row.id]?.title || row.task || row.repo}</Text>
-              </Pressable>
-              {queue.filter(item => item.fo?.id === row.id).map(itemRow)}
-            </View>
-          ))}
-          {layout.compact && coAsk ? <View><Text style={styles.group}>Comms officer · 1</Text>{commsRow}</View> : null}
-        </>
-      )}
+      {[...queue.map(item => ({key:item.key,since:item.since,item,fo:null as BoardRow|null})),
+        ...grouped.map(fo => ({key:`status:${fo.id}`,since:fo.lastActivityAt,item:null as QueueItem|null,fo}))]
+        .sort((a,b)=>b.since.localeCompare(a.since)||a.key.localeCompare(b.key)).map(entry => entry.item ? itemRow(entry.item) : <Pressable key={entry.key} colors={colors} accessibilityRole="button" accessibilityLabel={`Conversation with ${foName(entry.fo!.title || entry.fo!.id)}`} onPress={() => openItem({key:`f:${entry.fo!.id}`,kind:"ask",title:`Conversation with ${foName(entry.fo!.title || entry.fo!.id)}`,detail:"",since:entry.since,fo:entry.fo})} style={{paddingVertical:12,minHeight:44,gap:4}}><Text style={styles.name}>{entry.fo!.title || entry.fo!.id}</Text><Text style={styles.muted}>{entry.fo!.status} · {ago(entry.since)}</Text></Pressable>)}
+      {layout.compact && coAsk ? commsRow : null}
       <View style={styles.bar}>
         <Pressable colors={colors}
           accessibilityRole="button"
@@ -577,7 +525,7 @@ export function Board({
   const detail = (
     <View style={{ flex: 1, minHeight: 0 }}>
       {comms ? <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}>
-        {open === "comms" ? <Text style={styles.name}>Commander</Text> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Commander" onPress={() => setOpen("comms")} style={{ minHeight: 44, justifyContent: "center" }}><Text style={styles.muted}>← Commander</Text></Pressable>}
+        {open === "comms" ? <Text style={styles.name}>Chief of staff</Text> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Chief of staff" onPress={() => enterChief()} style={{ minHeight: 44, justifyContent: "center" }}><Text style={styles.muted}>← Chief of staff</Text></Pressable>}
         <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Board" onPress={() => setOpen(layout.compact ? null : "comms")} style={{ minHeight: 44, minWidth: 44, paddingHorizontal: 6, justifyContent: "center" }}><Text style={styles.muted}>Board</Text></Pressable>
       </View> : null}
       {open === null ? <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24, gap: 8 }}><Text style={styles.name}>Choose an item</Text><Text style={styles.muted}>Its detail and conversation open here.</Text></View> : null}
@@ -587,7 +535,7 @@ export function Board({
             conversationOnly={item.key === `f:${item.fo.id}`}
             questionSince={item.kind === "ask" ? item.since : undefined}
             active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
-            onBack={(recorded) => { setOpen(comms && !layout.compact ? "comms" : null); if (recorded) void refreshGates(true); }} />
+            onBack={(recorded) => { setOpen(comms ? "comms" : null); if (recorded) void refreshGates(true); }} />
         </View>
       ) : null)}
       {comms ? <View style={{ flex: 1, minHeight: 0, display: open === "comms" ? "flex" : "none" }}>

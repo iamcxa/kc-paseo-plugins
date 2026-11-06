@@ -18,8 +18,8 @@ import {
   switchCoordinator,
 } from "./shared/coordinator";
 
-import { collectDigest, readDigest, readReplay } from "./shared/digest";
-import { collectDigestHandler, readDigestHandler, readReplayHandler } from "./server/digest";
+import { readChief, markChief, RESPONSE_MARKER } from "./shared/chief";
+import { chiefObserver } from "./server/chief";
 
 export default function contribute(server: PluginServerContext) {
   const fleet = startFleetServer().catch((error) => {
@@ -39,9 +39,14 @@ export default function contribute(server: PluginServerContext) {
     return ensureCoordinator(paseo);
   });
   server.handle(switchCoordinator, (input, { paseo }) => switchCoordinatorHandler(paseo, input));
-  server.handle(collectDigest, (input, { paseo }) => collectDigestHandler(input, paseo));
-  server.handle(readDigest, (input, { paseo }) => readDigestHandler(input, paseo));
-  server.handle(readReplay, (input, { paseo }) => readReplayHandler(input, paseo));
+  server.handle(readChief, (_input, { paseo }) => { rememberPaseo(paseo); return chiefObserver.read(paseo); });
+  server.handle(markChief, input => chiefObserver.mark(input.batchId, input.action));
+  server.on("agent.turn_started", ({ agent }, { paseo }) => rememberPaseo(paseo));
+  server.on("agent.turn_ended", ({ timeline }) => {
+    for (const item of timeline) if (item.type === "user_message" && item.text.startsWith(RESPONSE_MARKER)) {
+      const id = item.text.slice(RESPONSE_MARKER.length).split("]")[0]; chiefObserver.responded(id);
+    }
+  });
   server.handle(readTasks, (input, { paseo }) => {
     rememberPaseo(paseo);
     return readTasksHandler(input);

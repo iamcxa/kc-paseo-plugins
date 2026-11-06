@@ -45,7 +45,7 @@ export function useCoAsk(coId: string): { ask: string | null; since: string | nu
         const status = page.agent?.status ?? handle.status;
         working = status === "running" || status === "initializing";
         const replies = commanderReplies(page, coId);
-        if (!replies) throw new Error("Commander timeline unavailable");
+        if (!replies) throw new Error("Chief of staff timeline unavailable");
         const visible = replies.flatMap(r => toLines([r])).at(-1);
         const last = replies.find(r => String(r.seqStart) === visible?.key);
         const reply = last?.item.type === "assistant_message" && last.provenance === "ordinary" ? last.item.text : "";

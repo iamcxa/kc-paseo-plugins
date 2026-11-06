@@ -59,14 +59,11 @@ test("both board views share unread-question rows and counts across waiting-item
     const root = createRoot(container);
     caseTest.after(async () => { await act(() => root.unmount()); dom.window.close(); });
     await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation: {} })));
-    for (const view of ["decision", "FO"]) {
-      const tab = [...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
-      await act(async () => (tab as HTMLElement).click());
+    for (const view of ["timeline"]) {
       const titleCount = (title: string) => [...container.querySelectorAll("div")].filter((e) => e.childElementCount === 0 && e.textContent === title).length;
       assert.equal(titleCount(preview), 1, `${view}: show the actual unread question exactly once`);
       assert.doesNotMatch(container.textContent!, /Has a question for you/);
-      if (view === "FO") assert.match(container.textContent!, new RegExp(`Question FO\\s*· ${item.count} waiting`));
-      else assert.equal(tab.textContent, `By decision · ${item.count}`);
+      assert.match(container.textContent!,new RegExp(`Board · ${item.count}`));
       const next = [...container.querySelectorAll('[role="button"]')].find((e) => e.textContent!.startsWith("NEXT ·"));
       assert.equal(container.querySelectorAll('[aria-label$="— Question FO"]').length + (next ? 1 : 0), item.count, `${view}: count equals displayed rows including the next card`);
       if (item.gate) assert.equal(titleCount("Approve the adapter"), 1);

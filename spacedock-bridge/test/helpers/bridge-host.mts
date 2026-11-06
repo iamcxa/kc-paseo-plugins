@@ -17,7 +17,7 @@ let current: any;
 let Bridge: any;
 let BoardItem: any;
 const calls = new Map<string, (...args: any[]) => any>();
-export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}, digest = false, identity = true, sdk?: any) {
+export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}, showModals = false, identity = true, sdk?: any) {
   const dom = new JSDOM("<!doctype html><div id='root'></div>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   Object.assign(dom.window.HTMLElement.prototype, { attachEvent() {}, detachEvent() {} });
@@ -45,7 +45,8 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   let hold = false;
   const rpc: any = {
     "coordinator.open": async () => ({ agentId: "co" }),
-    "digest.read": async () => null,
+    "chief.read": async () => ({ agentId:"co",total:"2",phase:"quiet",batch:null,focus:null,entered:false,soundAttempted:true,error:null }),
+    "chief.mark": async () => ({accepted:true}),
     "tasks.read": async () => ({ tasks: {}, failedWorkflowDirs: [] }),
     "gates.read": async () => ({ gates: agents.filter(a => a.id !== "idle").map(a => ({ ...briefing(a.id), title: attempts.get(a.id)?.title ?? `Approve ${a.id}?`, workflowDir: a.labels["workflow-dir"] })), failedWorkflowDirs: [] }),
     "reviews.read": async () => ({ requests: [], checkedAt: 1, nextCheckAt: null, error: null }),
@@ -66,7 +67,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const snapshots = new Set<(value: any) => void>();
   const reads: { id: string; projection: string }[] = [];
   const readOverrides = new Map<string, (options?: any) => Promise<any>>();
-  const coordinator = { id: "co", title: "Commander", labels: { role: "comms-officer" } };
+  const coordinator = { id: "co", title: "Chief of staff", labels: { role: "comms-officer" } };
   const agentList = (filter: any) => filter?.labels?.role === "comms-officer" ? [coordinator] : agents;
   const paseo = { agents: {
     list: async ({ filter }: any = {}) => ({ subscription: { subscribe: (h: any) => { const publish = () => h.snapshot({ entries: agentList(filter).map(agent => ({ agent })) }); snapshots.add(publish); publish(); }, release() {} } }),
@@ -77,14 +78,14 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   } };
   prepare?.(rpc);
   const measurements = new Map<string, any>();
-  current = { paseo: sdk ?? paseo, rpc, measurements, digest };
+  current = { paseo: sdk ?? paseo, rpc, measurements, showModals };
   if (!Bridge) {
     const loader = Module as any;
     const original = loader._load;
     const restore = t.mock.method(loader, "_load", function(this: unknown, id: string, ...args: unknown[]) {
       if (id === "@getpaseo/plugin/client") return { usePaseo: () => current.paseo, useRpc: (r: any) => { if (!calls.has(r.name)) calls.set(r.name, (...values) => current.rpc[r.name](...values)); return calls.get(r.name); }, openExternalUrl: () => {} };
       if (id === "@getpaseo/plugin/client/ui") return { SidebarRow: (p: any) => createElement("div", null, createElement("button", { "aria-label": p.label, onClick: p.onPress }, p.label), p.trailing) };
-      if (id === "@getpaseo/plugin/client/react-native") return { ScrollView: element, TextInput: input, Icon: () => null, Modal: Object.assign(({ open, children }: any) => current.digest && open ? createElement("div", { role: "dialog" }, children) : null, { Content: element }) };
+      if (id === "@getpaseo/plugin/client/react-native") return { ScrollView: element, TextInput: input, Icon: () => null, Modal: Object.assign(({ open, children }: any) => current.showModals && open ? createElement("div", { role: "dialog" }, children) : null, { Content: element }) };
       if (id === "react-native") return { Text: element, View: element, ScrollView: element, Pressable: element, Platform: { OS: "web" }, Keyboard: {}, PanResponder: { create: () => ({ panHandlers: {} }) } };
       if (id === "./feedback-pressable") return { FeedbackPressable: element };
       if (id === "./markdown-view") return { MarkdownView: ({ source }: { source: string }) => createElement("span", null, source) };
@@ -98,13 +99,14 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const find = (label: string) => [...container.querySelectorAll<HTMLElement>("[aria-label]")].find(e => e.getAttribute("aria-label") === label && visible(e));
   const click = async (label: string) => { const node = find(label); assert.ok(node, `visible control: ${label}`); await act(async () => node.click()); };
   const screens: any[] = [];
+  const audio: any[] = [];
   let route: any = null;
   let Popover: any = null;
   const opened: any[] = [];
   const props = { ...(identity ? { host: { id: "fixture-host", label: "Fictional" } } : {}), theme: { colors }, layout: { compact, platform: "web" }, navigation: { openAgent(value: any) { opened.push(value); } } };
   const openScreen = (input: any) => { screens.push(input); route = input; Popover = null; draw(); };
   const draw = () => root.render(sidebar ? createElement("div", null,
-    createElement(BoardItem, { ...props, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
+    createElement(BoardItem, { ...props, playAudio: async (value:any)=>{audio.push(value);}, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
     Popover ? createElement(Popover, { ...props, close() {}, openScreen }) : null,
     route ? createElement(Bridge, { ...props, params: route.params }) : null,
   ) : createElement(Bridge, props));
@@ -125,5 +127,5 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
     const props = measurements.get(label); assert.ok(props, `measurable: ${label}`);
     await act(async () => { props.onLayout?.({ nativeEvent: { layout: { height } } }); props.onContentSizeChange?.(300, contentHeight); });
   };
-  return { statuses, setIdentity: async (present: boolean) => { Object.assign(props, { host: present ? { id: "fixture-host", label: "Fictional" } : undefined }); await render(); }, opened, measure, screens, sendOverrides, readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
+  return { audio, statuses, setIdentity: async (present: boolean) => { Object.assign(props, { host: present ? { id: "fixture-host", label: "Fictional" } : undefined }); await render(); }, opened, measure, screens, sendOverrides, readOverrides, readFailures, subscriptionFailures, emitTimeline: async (id: string, type: string) => { await act(async () => { for (const fn of [...timelineListeners.get(id) ?? []]) fn({ event: { type } }); }); }, agents, reads, publishAgents: async () => { await act(async () => { for (const snapshot of snapshots) snapshot({ entries: agents.map(agent => ({ agent })) }); }); }, deferBriefing: () => { hold = true; return async () => { assert.ok(deferred); await act(async () => deferred!({ briefing: briefing("a"), recorded: null, error: null })); }; }, refresh: async (id: string) => { await act(async () => { for (const fn of listeners.get(id) ?? []) fn(); await new Promise(resolve => setTimeout(resolve, 200)); }); }, pollGates: async () => { await act(async () => { for (const timer of [...timers.values()]) if (timer.ms === 60_000) timer.callback(); }); }, timers, attempts, click, find, type, text, poll, render, rpc, records, claims, sent, failures, timeline, container, briefing };
 }

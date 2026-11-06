@@ -332,11 +332,11 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
   const state =
     claim && delivery
       ? {
-          sent: { color: colors.foregroundMuted, status: "Sent to the comms officer", detail: `${claim.decision} 「${claim.words}」 · waiting for the relay, ${minutes(claim.at)} min` },
+          sent: { color: colors.foregroundMuted, status: "Sent to the chief of staff", detail: `${claim.decision} 「${claim.words}」 · waiting for the relay, ${minutes(claim.at)} min` },
           relayed: { color: colors.foregroundMuted, status: `Relayed to ${fo.title || "the FO"}`, detail: `${claim.decision} 「${claim.words}」 · waiting for its record` },
           recorded: { color: colors.statusSuccess, status: `Recorded: ${recorded?.decision}`, detail: recorded?.reason ?? "" },
           "recorded-elsewhere": { color: colors.statusWarning, status: "Recorded · check it", detail: `The reason does not carry both ${claim.decisionId} and your words: ${recorded?.decision} — ${recorded?.reason}. Check it.` },
-          check: { color: colors.statusWarning, status: "Not recorded · do not resend", detail: `${relayed ? "Relayed" : "Not relayed yet"} after ${minutes(claim.at)} min, nothing recorded. Check the comms officer or the FO.` },
+          check: { color: colors.statusWarning, status: "Not recorded · do not resend", detail: `${relayed ? "Relayed" : "Not relayed yet"} after ${minutes(claim.at)} min, nothing recorded. Check the chief of staff or the FO.` },
         }[delivery]
       : recorded
         ? { color: colors.statusSuccess, status: `Recorded: ${recorded.decision}`, detail: recorded.reason }
