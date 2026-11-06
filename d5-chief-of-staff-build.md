@@ -5,6 +5,17 @@ profile: poc
 merge: pr
 id: d5-chief-of-staff-build
 status: backlog
+gates:
+    version: 1
+    records:
+        - id: gate:d5-chief-of-staff-build:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:d5-chief-of-staff-build-backlog-1
+              briefing:
+                id: briefing:d5-chief-of-staff-build:backlog:attempt-1:revision-1
+                digest: sha256:dd75b17bef74fd90c98a93390e198eef5c85dc5b0e83ab86f049c5cb08bb2781
+                room-ref: ./d5-chief-of-staff-build/review/backlog/briefing-1
 ---
 
 Build the accepted d4-chief-of-staff design: the comms officer becomes the chief of staff; accumulated board events past the Captain's trigger start one Terra plus one Opus analysis; when she calls, the Bridge sidebar total turns red, pulses and plays a short sound; she opens with one named focus and its target; the board is one time order, newest first; slice 1's digest, Replay and collect-now are removed.
