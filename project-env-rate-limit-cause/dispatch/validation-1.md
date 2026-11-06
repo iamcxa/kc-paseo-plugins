@@ -1,6 +1,7 @@
 # Dispatch record: project-env-rate-limit-cause validation-1
 
 Candidate: 6fcce94de4514d490cd1922a4ab935f1cc05c731
+Candidate: 6e9e801f73900fadb4c164256479a99c11c4bb5b
 Dispatched: 6fcce94de4514d490cd1922a4ab935f1cc05c731
 Model: sonnet (stage default emitted by spacedock dispatch build)
 
@@ -17,3 +18,7 @@ Reconstructed by FO on 2026-11-06, after the dispatch, from the dispatch build F
 ## Scope notes
 
 Fresh validation; you did not write this change. Batch r1b-polish-1, second code task, stacked on #72 (validated PASSED at b684b68).
+
+## FO note (2026-11-06, not sent to the worker)
+
+After the Captain approved validation and #72 was squash-merged, GitHub reported this PR conflicting because its branch still carried #72's original commit. With the Captain's 「可以」 (FO chat, 2026-11-06) FO rebased the branch onto main 53c9ab3 and force-pushed 6e9e801f73900fadb4c164256479a99c11c4bb5b. `git diff 6fcce94de4514d490cd1922a4ab935f1cc05c731 6e9e801f73900fadb4c164256479a99c11c4bb5b` changes only docs/journey/project-env/give-agents-their-project-setup.yaml, which #71 merged to main; every project-env file is identical to the validated head. FO ran `npm test` (335 pass, 0 fail) and `tsc --noEmit` (exit 0) on the new head. No worker re-validated it.
