@@ -1,3 +1,4 @@
+import { readTimeline } from "../shared/timeline";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
@@ -257,9 +258,7 @@ function Chat({
     setConversation("loading");
     try {
       if (commander && !digestHostId) throw new Error("Commander host identity unavailable");
-      const page = await paseo.agents
-        .ref(agentId)
-        .timeline.refetch({ direction: "tail", limit: COMMANDER_ENTRY_LIMIT, projection: commander || digestHostId ? "canonical" : "projected" });
+      const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
       if (request !== readRequest.current) return;
       if (commander || digestHostId) {
         const replies = commanderReplies(page, agentId);

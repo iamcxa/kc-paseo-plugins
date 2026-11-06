@@ -17,7 +17,7 @@ async function fixture(sourceSeq = 3, start = 10, parts = 1) {
     FetchAgentTimelineRequestMessageSchema.parse({ type: "fetch_agent_timeline_request", requestId: "fixture", agentId: id, ...options });
     calls.push({ id, ...options });
     if (id === "co" && mode === "commander-throw") throw Error("Commander unavailable");
-    if (id === "a" && options.direction === "after" && options.limit === 1) {
+    if (id === "a" && options.direction === "after" && options.limit === 120) {
       exactReads++;
       if (mode === "source-throw" || (mode === "anchor-throw" && exactReads === 2)) throw Error("Source unavailable");
     }
@@ -25,9 +25,9 @@ async function fixture(sourceSeq = 3, start = 10, parts = 1) {
     const all = id === "co" ? co : fo;
     const matching = options.direction === "tail" ? all : all.filter(e => options.direction === "before" ? e.seqEnd < options.cursor.seq : options.cursor === undefined || e.seqStart > options.cursor.seq);
     const selected = options.direction === "before" ? matching.slice(-options.limit) : options.direction === "tail" ? matching : matching.slice(0, options.limit);
-    const page: any = { agentId: id, epoch: "epoch", projection: "canonical", reset: false, gap: false, staleCursor: false, error: null, entries: structuredClone(selected), hasOlder: !!selected.length && selected[0].seqStart > all[0].seqStart, hasNewer: !!selected.length && selected.at(-1).seqEnd < all.at(-1).seqEnd };
+    const page: any = { agentId: id, epoch: "epoch", projection: "projected", reset: false, gap: false, staleCursor: false, error: null, entries: structuredClone(selected), hasOlder: !!selected.length && selected[0].seqStart > all[0].seqStart, hasNewer: !!selected.length && selected.at(-1).seqEnd < all.at(-1).seqEnd };
     if (id === "co" && mode === "commander-invalid") page.epoch = "other";
-    if (id === "a" && options.limit === 1 && mode === "point-invalid") page.entries = [];
+    if (id === "a" && options.limit === 120 && mode === "point-invalid") page.entries = [];
     return page;
   };
   const api: any = { agents: { list: async () => ({ entries: [{ agent: { id: "a", title: "A FO", status: "idle", updatedAt: at, labels: { role: "fo" } } }] }), ref: (id: string) => ({ refresh: async () => ({ agent: { status: "idle", labels: { "digest-version": DIGEST_VERSION } } }), send: async () => {}, timeline: { refetch: (o: any) => read(id, o) } }) } };
@@ -35,7 +35,7 @@ async function fixture(sourceSeq = 3, start = 10, parts = 1) {
   const source = reportSource("fixture-host", "a", "epoch", fo[sourceSeq])!;
   const data: any = { ...round, points: [{ pointId: "p", sentence: "Sourced point", sources: [source], contextLines: ["about", "before", "now"].map(kind => ({ kind, sentence: `Context ${kind}`, refs: [source] })) }] };
   const text = JSON.stringify(data);
-  co = Array.from({ length: parts }, (_, i) => entry(start + i, text.slice(Math.floor(i * text.length / parts), Math.floor((i + 1) * text.length / parts))));
+  co = [{ ...entry(start, text), seqEnd: start + parts - 1, sourceSeqRanges: [{ startSeq: start, endSeq: start + parts - 1 }], collapsed: parts > 1 ? ["assistant_merge"] : [] }];
   const position = { hostId: "fixture-host", agentId: "co", epoch: "epoch", seqStart: start, seqEnd: start + parts - 1 };
   return { api, read, calls, source, data, position, co, set mode(value: string) { mode = value; exactReads = 0; } };
 }
@@ -50,14 +50,14 @@ test("sequence-zero source validates every context ref and Replay reads its firs
   assert.equal(result?.older, "end"); assert.equal(result?.newer, "more");
   assert.equal((await replayWindow(f.read, "fixture-host", f.source, "before", 0))?.older, "end");
   assert.ok(f.calls.every(c => !c.cursor || c.cursor.seq >= 0));
-  assert.equal(f.calls.find(c => c.direction === "after" && c.limit === 1).cursor, undefined);
+  assert.equal(f.calls.find(c => c.direction === "after" && c.limit === 120).cursor, undefined);
 });
 for (const start of [0, 1]) for (const parts of [1, 2]) test(`Commander interval starts at ${start}, ${parts} fragments: digest and Replay use a legal exact-start read`, async () => {
   const f = await fixture(3, start, parts);
   assert.equal((await readDigestHandler(f.position, f.api))?.points[0].valid, true);
   assert.ok(await readReplayHandler({ position: f.position, pointId: "p", source: f.source, direction: "anchor" }, f.api));
   const reads = f.calls.filter(c => c.id === "co");
-  assert.ok(reads.every(c => c.limit === parts));
+  assert.ok(reads.every(c => c.limit === 120));
   assert.deepEqual(reads[0].cursor, start ? { epoch: "epoch", seq: 0 } : undefined);
 });
 test("sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes", async () => {

@@ -15,7 +15,7 @@ const read: TimelineReader = async (id, o) => {
   calls.push({ id, ...o });
   const seq = o?.cursor?.seq ?? 0;
   const items = o?.direction === "before" ? timeline.filter(e => e.seqEnd < seq).slice(-o!.limit!) : timeline.filter(e => e.seqStart > seq).slice(0, o?.limit ?? 40);
-  return { agentId: id, epoch: "epoch-1", projection: "canonical", reset: false, gap: false, staleCursor: false, error: null, entries: items, hasOlder: items.length > 0 && items[0].seqStart > 1, hasNewer: items.length > 0 && items.at(-1)!.seqEnd < 9 } as TimelinePage;
+  return { agentId: id, epoch: "epoch-1", projection: "projected", reset: false, gap: false, staleCursor: false, error: null, entries: items, hasOlder: items.length > 0 && items[0].seqStart > 1, hasNewer: items.length > 0 && items.at(-1)!.seqEnd < 9 } as TimelinePage;
 };
 const source = reportSource("host", "fo", "epoch-1", timeline[4])!;
 const round = { roundId: "round", collectedAt: timestamp, hostId: "host", agentId: "co", sources: [source] };
@@ -26,7 +26,7 @@ test("valid digest reads the exact assistant source once and never searches word
   const result = await validateDigest(digest, round, read);
   assert.equal(result?.points[0].valid, true);
   assert.equal(calls.length, 1);
-  assert.deepEqual(calls[0], { id: "fo", projection: "canonical", direction: "after", cursor: { epoch: "epoch-1", seq: 4 }, limit: 1 });
+  assert.deepEqual(calls[0], { id: "fo", projection: "projected", direction: "after", cursor: { epoch: "epoch-1", seq: 4 }, limit: 120 });
   assert.equal(reportSource("host", "fo", "epoch-1", timeline[3]), null);
 });
 for (const variant of ["round", "foreign", "hash", "missing", "line-foreign", "kinds", "duplicate-point"]) test(`reject ${variant} without exposing unverified text`, async () => {
@@ -65,7 +65,7 @@ test("Replay reads two canonical neighbors each side, preserves roles and pages 
   const after = await replayWindow(read, "host", source, "after", 7);
   assert.deepEqual(before?.entries.map(e => e.seqStart), [1, 2]); assert.equal(before?.older, "end");
   assert.deepEqual(after?.entries.map(e => e.seqStart), [8, 9]); assert.equal(after?.newer, "end");
-  assert.ok(calls.every(c => c.id === "fo" && c.projection === "canonical"));
+  assert.ok(calls.every(c => c.id === "fo" && c.projection === "projected"));
   assert.equal(await replayWindow(read, "different-host", source), null);
 });
 test("side failure is unavailable, never end-of-history or a cross-gap join", async () => {
@@ -134,7 +134,7 @@ for (const [name, texts, want] of [
 ] as const) test(`fleet budget admits recent reports after ${name}`, async () => {
   const { fleetSnapshot } = await import("../server/fleet-mcp");
   const entries = texts.flatMap((text,i) => [entry(i*2+1,"assistant_message",text),entry(i*2+2,"user_message","not a report")]);
-  const api = { agents: { list: async () => ({ entries: [{ agent: { id:"fo",title:"Fixture FO",status:"idle",updatedAt:timestamp,labels:{role:"fo"} } }] }),ref: () => ({timeline:{refetch:async()=>({agentId:"fo",epoch:"epoch-1",projection:"canonical",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder:false,hasNewer:false})}}) } } as unknown as PaseoApi;
+  const api = { agents: { list: async () => ({ entries: [{ agent: { id:"fo",title:"Fixture FO",status:"idle",updatedAt:timestamp,labels:{role:"fo"} } }] }),ref: () => ({timeline:{refetch:async()=>({agentId:"fo",epoch:"epoch-1",projection:"projected",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder:false,hasNewer:false})}}) } } as unknown as PaseoApi;
   const report = (await fleetSnapshot(api,"host")).reports[0];
   assert.deepEqual(report.sources.map(s=>s.source.seqStart),want); assert.equal(report.truncated,true);
   assert.ok(report.sources.reduce((n,s)=>n+Buffer.byteLength(s.text,"utf8"),0)<=64000);
@@ -144,7 +144,7 @@ test("fleet budget accepts exactly 64000 UTF-8 bytes, excludes non-reports and r
   const {fleetSnapshot}=await import("../server/fleet-mcp");
   const entries=[entry(1,"assistant_message","漢".repeat(21333)),entry(2,"user_message","x".repeat(64001)),entry(3,"assistant_message","n"),entry(4,"tool_call","ignored")];
   let hasOlder=false;
-  const api={agents:{list:async()=>({entries:[{agent:{id:"fo",title:"Fixture FO",status:"idle",updatedAt:timestamp,labels:{role:"fo"}}}]}),ref:()=>({timeline:{refetch:async()=>({agentId:"fo",epoch:"epoch-1",projection:"canonical",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder,hasNewer:false})}})}} as unknown as PaseoApi;
+  const api={agents:{list:async()=>({entries:[{agent:{id:"fo",title:"Fixture FO",status:"idle",updatedAt:timestamp,labels:{role:"fo"}}}]}),ref:()=>({timeline:{refetch:async()=>({agentId:"fo",epoch:"epoch-1",projection:"projected",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder,hasNewer:false})}})}} as unknown as PaseoApi;
   let report=(await fleetSnapshot(api,"host")).reports[0];
   assert.deepEqual(report.sources.map(s=>s.source.seqStart),[1,3]); assert.equal(report.truncated,false); assert.equal(report.sources.reduce((n,s)=>n+Buffer.byteLength(s.text,"utf8"),0),64000);
   hasOlder=true; report=(await fleetSnapshot(api,"host")).reports[0]; assert.equal(report.truncated,true);

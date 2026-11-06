@@ -1,3 +1,4 @@
+import { readTimeline } from "../shared/timeline";
 import { usePaseo } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { SourceState } from "../shared/board-empty";
@@ -39,7 +40,7 @@ export function useCoAsk(coId: string): { ask: string | null; since: string | nu
       try {
         await subscription.ready;
         if (cancelled || current !== request) return;
-        const page = await handle.timeline.refetch({ direction: "tail", limit: COMMANDER_ENTRY_LIMIT, projection: "canonical" });
+        const page = await readTimeline((_id, options) => handle.timeline.refetch(options), coId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
         if (cancelled || current !== request) return;
         const status = page.agent?.status ?? handle.status;
         working = status === "running" || status === "initializing";

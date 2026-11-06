@@ -1,3 +1,4 @@
+import { readTimeline, entryIsWriting } from "../shared/timeline";
 import { randomBytes, randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { type IncomingMessage, type Server, type ServerResponse, createServer } from "node:http";
@@ -51,12 +52,12 @@ export async function fleetSnapshot(api: PaseoApi, hostId = "") {
   const reports = await Promise.all(rows.map(async row => {
     try {
       if (!hostId) throw new Error("Collect now in Bridge to establish the source host");
-      const page = await api.agents.ref(row.id).timeline.refetch({ projection: "canonical", direction: "tail", limit: 40 });
+      const page = await readTimeline((id, options) => api.agents.ref(id).timeline.refetch(options), row.id, { direction: "tail", limit: 40 });
       if (!goodPage(page, row.id)) throw new Error("Timeline unavailable");
       let bytes = 0;
       let omitted = false;
       const sources = [...page.entries].sort((a,b) => b.seqStart - a.seqStart).flatMap(entry => {
-        const source = reportSource(hostId, row.id, page.epoch, entry);
+        const source = entryIsWriting(page, entry) ? null : reportSource(hostId, row.id, page.epoch, entry);
         if (!source || entry.item.type !== "assistant_message") return [];
         const size = Buffer.byteLength(entry.item.text, "utf8");
         if (bytes + size > 64000) { omitted = true; return []; }

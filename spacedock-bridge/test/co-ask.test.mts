@@ -11,7 +11,7 @@ const { PaseoApiProvider } = createRequire(import.meta.url)("@getpaseo/plugin/cl
 
 function ordinaryPage(entries: any[], agentId = "co", fields: Record<string, unknown> = {}): any {
   const request = { seqStart: (entries[0]?.seqStart ?? 1) - 1, item: { type: "user_message", text: "Discuss the current direction" } };
-  return { agentId, epoch: "fixture-epoch", projection: "canonical", reset: false, gap: false, staleCursor: false, error: null, ...fields,
+  return { agentId, epoch: "fixture-epoch", projection: "projected", reset: false, gap: false, staleCursor: false, error: null, ...fields,
     entries: (entries.length ? [request, ...entries] : []).map(e => ({ seqEnd: e.seqStart, sourceSeqRanges: [{ startSeq: e.seqStart, endSeq: e.seqStart }], collapsed: [], ...e })) };
 }
 

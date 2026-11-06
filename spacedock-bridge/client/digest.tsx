@@ -3,7 +3,7 @@ import { useRpc } from "@getpaseo/plugin/client";
 import { Modal, ScrollView } from "@getpaseo/plugin/client/react-native";
 import { useEffect, useRef, useState } from "react";
 import { Text, View, type ScrollView as NativeScrollView } from "react-native";
-import { readDigest, readReplay, sourceKey, type DigestPosition, type PointContext, type ReportSource, type ReplayWindow, type VerifiedDigest } from "../shared/digest";
+import { readDigest, readReplay, sourceKey, sourceRangeLabel, type DigestPosition, type PointContext, type ReportSource, type ReplayWindow, type VerifiedDigest } from "../shared/digest";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 
 type Host = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & { onOpenFO?: (source: ReportSource) => boolean };
@@ -65,7 +65,7 @@ export function ReplayCard({ context, onClose, onContext, ...host }: Host & { co
   };
   useEffect(() => { void load(); scroll.current?.scrollTo({ y: 0, animated: false }); return () => { ++request.current; }; }, [sourceIdentity, context.point.pointId]);
   const label = { about: "這件事", before: "之前發生", now: "現在需要你" };
-  const link = (ref: ReportSource, key: string) => <Pressable colors={c} key={key} accessibilityRole="button" accessibilityLabel={`原文 ${key}`} disabled={loading} onPress={() => { setRouteError(false); jump.current = true; if (sourceKey(ref) === sourceIdentity) { void load(); } else setSource(ref); }}><Text style={{ color: c.foreground, fontSize: 12, textDecorationLine: "underline" }}>原文 #{ref.seqStart}</Text></Pressable>;
+  const link = (ref: ReportSource, key: string) => <Pressable colors={c} key={key} accessibilityRole="button" accessibilityLabel={`原文 ${key}`} disabled={loading} onPress={() => { setRouteError(false); jump.current = true; if (sourceKey(ref) === sourceIdentity) { void load(); } else setSource(ref); }}><Text style={{ color: c.foreground, fontSize: 12, textDecorationLine: "underline" }}>原文 {sourceRangeLabel(ref)}</Text></Pressable>;
   const side = (direction: "before" | "after", state: ReplayWindow["older"]) => <View style={{ gap: 6 }}>
     <Text style={{ color: c.foregroundMuted, fontSize: 12 }}>{state === "end" ? direction === "before" ? "沒有更早的對話" : "沒有更後的對話" : state === "unavailable" ? direction === "before" ? "前段未能讀取" : "後段未能讀取" : ""}</Text>
     {state !== "end" ? <Pressable colors={c} accessibilityRole="button" accessibilityLabel={direction === "before" ? "更早的對話" : "更後的對話"} disabled={loading} onPress={() => void load(direction)}><Text style={{ color: c.foreground }}>{direction === "before" ? "更早的對話" : "更後的對話"}{state === "unavailable" ? " · 重試" : ""}</Text></Pressable> : null}
@@ -75,7 +75,7 @@ export function ReplayCard({ context, onClose, onContext, ...host }: Host & { co
       <View style={{ flexShrink: 0, paddingHorizontal: 14, paddingVertical: 10, gap: 6, borderBottomWidth: 1, borderBottomColor: c.border }}>
         {error ? <View style={{ gap: 4 }}>
           <Text style={{ color: c.statusDanger, fontSize: 13 }}>來源不可用；目前無法核對這個摘要的脈絡。</Text>
-          <Text selectable style={{ color: c.foregroundMuted, fontSize: 12 }}>請求的原文 · {context.sourceLabels?.[source.agentId] ?? source.agentId} · #{source.seqStart} · {source.timestamp}</Text>
+          <Text selectable style={{ color: c.foregroundMuted, fontSize: 12 }}>請求的原文 · {context.sourceLabels?.[source.agentId] ?? source.agentId} · {sourceRangeLabel(source)} · {source.timestamp}</Text>
           <Pressable colors={c} accessibilityRole="button" accessibilityLabel="重讀原文" onPress={() => void load()}><Text style={{ color: c.foreground }}>重讀原文</Text></Pressable>
         </View> : null}
         <Text accessibilityLabel="Replay 選定摘要點" style={{ color: c.foreground, fontSize: 16, lineHeight: 23 }}>{context.point.sentence}</Text>
@@ -88,7 +88,7 @@ export function ReplayCard({ context, onClose, onContext, ...host }: Host & { co
         </View>) : <Text style={{ color: c.foregroundMuted, fontSize: 13 }}>三行脈絡暫不顯示；不以相似文字替代。</Text>}
         {loading ? <Text style={{ color: c.foregroundMuted }}>正在讀取原文…</Text> : null}
         {window && sourceKey(window.source) === sourceIdentity ? <View onLayout={e => { windowTop.current = e.nativeEvent.layout.y; }} style={{ gap: 12 }}>{side("before", window.older)}{window.entries.map(e => <View key={e.seqStart} onLayout={event => { if (e.seqStart === source.seqStart && jump.current) { jump.current = false; scroll.current?.scrollTo({ y: windowTop.current + event.nativeEvent.layout.y, animated: false }); } }} style={{ padding: 12, gap: 5, borderLeftWidth: 3, borderLeftColor: e.seqStart === source.seqStart ? c.foregroundMuted : c.border, backgroundColor: e.seqStart === source.seqStart ? c.surface2 : c.surface1 }}>
-          <Text style={{ color: c.foregroundMuted, fontSize: 11 }}>{e.seqStart === source.seqStart ? "引用原文 · " : ""}{e.kind === "user_message" ? "對話訊息" : e.kind === "assistant_message" ? "FO 回報" : e.kind} · #{e.seqStart} · {e.timestamp}{Date.parse(e.timestamp) > Date.parse(source.timestamp) && Date.parse(e.timestamp) > Date.parse(context.collectedAt) ? " · 摘要之後的新訊息" : ""}</Text>
+          <Text style={{ color: c.foregroundMuted, fontSize: 11 }}>{e.seqStart === source.seqStart ? "引用原文 · " : ""}{e.kind === "user_message" ? "對話訊息" : e.kind === "assistant_message" ? "FO 回報" : e.kind} · {sourceRangeLabel(e)} · {e.timestamp}{Date.parse(e.timestamp) > Date.parse(source.timestamp) && Date.parse(e.timestamp) > Date.parse(context.collectedAt) ? " · 摘要之後的新訊息" : ""}</Text>
           <Text selectable style={{ color: c.foreground, fontSize: 13, lineHeight: 21 }}>{e.text}</Text>
         </View>)}{side("after", window.newer)}</View> : null}
       </ScrollView>

@@ -36,9 +36,12 @@ function fault(h: Host, s: Surface) {
     const name = s.reader === "briefing" ? "gate.briefing" : "decisions.read";
     const read = h.rpc[name];
     h.rpc[name] = (input: unknown) => broken ? Promise.reject(new Error(`Unavailable ${s.name}`)) : read(input);
-  } else if (s.reader === "relay") h.readFailures.add("a:canonical");
+  } else if (s.reader === "relay") h.readOverrides.set("a:projected", async options => {
+    if (broken && options.limit === 80) throw new Error("Unavailable relay status");
+    return { agentId: "a", epoch: "epoch", projection: "projected", reset: false, gap: false, staleCursor: false, error: null, entries: [] };
+  });
   else h.failures.add(s.mode === "commander" ? "co" : "a");
-  return () => { broken = false; h.failures.clear(); h.readFailures.clear(); };
+  return () => { broken = false; h.failures.clear(); h.readFailures.clear(); if (s.reader === "relay") h.readOverrides.delete("a:projected"); };
 }
 
 for (const surface of surfaces) {
@@ -128,7 +131,7 @@ for (const surface of surfaces) {
       const name = surface.reader === "briefing" ? "gate.briefing" : "decisions.read";
       const read = h.rpc[name]; h.rpc[name] = blocked; restore = () => { h.rpc[name] = read; };
     } else {
-      const key = `${surface.mode === "commander" ? "co" : "a"}:${surface.mode === "commander" || surface.reader === "relay" ? "canonical" : "projected"}`;
+      const key = `${surface.mode === "commander" ? "co" : "a"}:${surface.mode === "commander" || surface.reader === "relay" ? "projected" : "projected"}`;
       h.readOverrides.set(key, blocked); restore = () => { h.readOverrides.delete(key); };
       if (surface.mode === "commander") await h.refresh("co");
     }

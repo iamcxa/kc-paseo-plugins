@@ -64,13 +64,13 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const listeners = new Map<string, Set<() => void>>();
   const snapshots = new Set<(value: any) => void>();
   const reads: { id: string; projection: string }[] = [];
-  const readOverrides = new Map<string, () => Promise<any>>();
+  const readOverrides = new Map<string, (options?: any) => Promise<any>>();
   const coordinator = { id: "co", title: "Commander", labels: { role: "comms-officer" } };
   const agentList = (filter: any) => filter?.labels?.role === "comms-officer" ? [coordinator] : agents;
   const paseo = { agents: {
     list: async ({ filter }: any = {}) => ({ subscription: { subscribe: (h: any) => { const publish = () => h.snapshot({ entries: agentList(filter).map(agent => ({ agent })) }); snapshots.add(publish); publish(); }, release() {} } }),
     ref: (id: string) => ({ status: "idle", subscribe: (fn: () => void) => { const set = listeners.get(id) ?? new Set(); set.add(fn); listeners.set(id, set); return () => set.delete(fn); }, send: async (text: string) => { sent.push({ id, text }); await sendOverrides.get(id)?.(text); }, timeline: {
-      refetch: async ({ projection }: any) => { reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { agentId: id, epoch: "epoch", projection, reset: false, gap: false, staleCursor: false, error: null, entries: (timeline.get(id) ?? []).map(e => ({ seqEnd: e.seqStart, sourceSeqRanges: [{ startSeq: e.seqStart, endSeq: e.seqEnd ?? e.seqStart }], collapsed: [], ...e })), agent: { status: "idle" } }; },
+      refetch: async (options: any) => { const { projection } = options; reads.push({ id, projection }); const override = readOverrides.get(`${id}:${projection}`); if (override) return override(options); if (failures.has(id) || readFailures.has(`${id}:${projection}`)) throw new Error(`Cannot read ${id}`); return { agentId: id, epoch: "epoch", projection, reset: false, gap: false, staleCursor: false, error: null, entries: (timeline.get(id) ?? []).map((e, i) => ({ seqStart: e.seqStart ?? i + 1, seqEnd: e.seqEnd ?? e.seqStart ?? i + 1, sourceSeqRanges: [{ startSeq: e.seqStart ?? i + 1, endSeq: e.seqEnd ?? e.seqStart ?? i + 1 }], collapsed: [], ...e })), agent: { status: "idle" } }; },
       subscribe: (fn: (event: any) => void) => { const set = timelineListeners.get(id) ?? new Set(); set.add(fn); timelineListeners.set(id, set); return Object.assign(() => set.delete(fn), { ready: subscriptionFailures.has(id) ? Promise.reject(new Error(`Subscription failed ${id}`)) : Promise.resolve() }); },
     } }),
   } };

@@ -1,6 +1,5 @@
 import { defineRpc } from "@getpaseo/plugin";
 import { z } from "zod";
-import { COMMANDER_ENTRY_LIMIT } from "./commander-replies";
 export { isCollectionRequest } from "./commander-replies";
 
 export const sourceSchema = z.object({
@@ -24,7 +23,8 @@ export const digestSchema = z.object({
 }).strict().refine(d => new Set(d.points.map(p => p.pointId)).size === d.points.length);
 export type Digest = z.infer<typeof digestSchema>;
 export const sourceKey = (s: ReportSource): string => JSON.stringify([s.hostId, s.agentId, s.epoch, s.seqStart, s.seqEnd, s.textHash, s.timestamp]);
-export const digestPosition = z.object({ hostId: z.string().min(1), agentId: z.string().min(1), epoch: z.string().min(1), seqStart: z.number().int().nonnegative(), seqEnd: z.number().int().nonnegative() }).refine(p => p.seqEnd >= p.seqStart && p.seqEnd - p.seqStart < COMMANDER_ENTRY_LIMIT);
+export const sourceRangeLabel = (s: Pick<ReportSource, "seqStart" | "seqEnd">): string => s.seqStart === s.seqEnd ? `#${s.seqStart}` : `#${s.seqStart}–${s.seqEnd}`;
+export const digestPosition = z.object({ hostId: z.string().min(1), agentId: z.string().min(1), epoch: z.string().min(1), seqStart: z.number().int().nonnegative(), seqEnd: z.number().int().nonnegative() }).refine(p => p.seqEnd >= p.seqStart);
 export type DigestPosition = z.infer<typeof digestPosition>;
 export const verifiedDigestSchema = z.object({
   roundId: z.string(), collectedAt: z.string(),

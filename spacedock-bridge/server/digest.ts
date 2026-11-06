@@ -1,9 +1,10 @@
+import { entryIsWriting } from "../shared/timeline";
 import type { PaseoApi } from "@getpaseo/client";
 import type { RpcInput } from "@getpaseo/plugin";
 import { collectDigest, readDigest, readReplay, digestSchema, sourceKey } from "../shared/digest";
 import { DIGEST_VERSION } from "../shared/coordinator";
 import { fleetSnapshot, rememberCollection } from "./fleet-mcp";
-import { validateDigest, replayWindow, readCanonicalStart, type SourceRound, type TimelineReader } from "./report-sources";
+import { validateDigest, replayWindow, readProjectedStart, type SourceRound, type TimelineReader } from "./report-sources";
 
 import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 
@@ -28,13 +29,12 @@ export async function collectDigestHandler(input: RpcInput<typeof collectDigest>
   } finally { collecting.delete(input.agentId); }
 }
 export async function readDigestHandler(input: RpcInput<typeof readDigest>, api: PaseoApi) {
-  const count = input.seqEnd - input.seqStart + 1;
-  if (!Number.isSafeInteger(count) || count < 1 || count > COMMANDER_ENTRY_LIMIT || !Number.isSafeInteger(input.seqStart) || input.seqStart < 0) return null;
-  const page = await readCanonicalStart(reader(api), input.agentId, input.epoch, input.seqStart, count);
+  if (!Number.isSafeInteger(input.seqStart) || !Number.isSafeInteger(input.seqEnd) || input.seqStart < 0 || input.seqEnd < input.seqStart) return null;
+  const page = await readProjectedStart(reader(api), input.agentId, input.epoch, input.seqStart, COMMANDER_ENTRY_LIMIT).catch(() => null);
+  if (!page) return null;
   const replies = commanderReplies(page, input.agentId, input.epoch);
-  if (!replies || page.entries.length !== count || replies.length !== 1) return null;
-  const reply = replies[0];
-  if (reply.seqStart !== input.seqStart || reply.seqEnd !== input.seqEnd || reply.item.type !== "assistant_message") return null;
+  const reply = replies?.find(r => r.seqStart === input.seqStart && r.seqEnd === input.seqEnd);
+  if (!reply || reply.item.type !== "assistant_message" || entryIsWriting(page, page.entries.find(e => e.seqStart === reply.seqStart)!)) return null;
   let raw: unknown;
   try { raw = JSON.parse(reply.item.text); } catch { return null; }
   const parsed = digestSchema.safeParse(raw);
