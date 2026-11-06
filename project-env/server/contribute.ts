@@ -55,7 +55,6 @@ export function contribute(server: PluginServerContext, tools: Tools) {
         data,
       }),
     );
-  server.on("agent.created", addLine);
   server.on("agent.turn_ended", addLine);
   server.on("agent.closed", ({ agent }) => notices.drop(agent.id));
 

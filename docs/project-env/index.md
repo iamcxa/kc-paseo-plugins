@@ -15,7 +15,7 @@ Project environment is a Paseo plugin. It gives every agent that Paseo starts in
 
 - **Every new agent starts ready.** When an agent starts in a connected repository, the plugin reads each mapped field with the 1Password CLI and sets the variable before the agent's first message.
 - **The agent is told where the values come from.** A short notice in the agent's instructions says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and holds no value.
-- **A failure is visible, not silent.** A variable that cannot be read is set to an empty value, the agent still starts, and a line at the top of the new conversation, "Started without 1 project variable", says which one and why. A resumed agent that can no longer read a variable gets a "Resumed without N project variables" line when its next turn ends.
+- **A failure is visible, not silent.** A variable that cannot be read is set to an empty value, the agent still starts, and a line under the new agent's first reply, "Started without 1 project variable", says which one and why; it appears when the first turn ends. A resumed agent that can no longer read a variable gets a "Resumed without N project variables" line when its next turn ends.
 
 ## How it fits together
 
