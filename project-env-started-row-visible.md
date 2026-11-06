@@ -294,3 +294,13 @@ Needs agent-browser, node/npm, and the PR #75 worktree. Not covered: a real prov
 4. `cd /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/harness && RUN=uat PORT=19871 TAG=cand OUT=/tmp/pe-uat/out WARM=1 COLD=1 STOP=0 FAIL=1 bash cases152.sh | grep -v launched` expect three lines, each `after-last-assistant-message | 1280=visible 400=visible`.
 5. Open `/tmp/pe-uat/out/cand-warm-1-1280.png` expect "Started without 1 project variable" under the last reply, above "Worked for".
 6. Cleanup: `cd /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-started-row-visible/evidence/harness && RUN=uat PORT=19871 bash teardown.sh; rm -rf /tmp/pe-uat`
+
+## UAT
+
+UAT (Captain, 2026-11-06): OK — 「ＯＫ」
+Asked: FO asked for the UAT of batch r1b-polish-1 after merging #71, #72, #73 and #75 and reloading the live plugin (「回「OK」或問題」): a real-environment check of the Started-without line and a no-regression check of the field picker and Test; his 「ＯＫ」 answers all four tasks.
+Cost: Captain messages 6, shared across batch r1b-polish-1; worker tokens not measured (reported: ideation 249457 then 262095 after the amendment rework, implementation 101077 then 151109 after a resume, validation 143432)
+
+### Local extension doc-site (round 5)
+
+Asked: as round 3. Caught: implementation updated the two sentences ideation named (`docs/project-env/index.md`, `project-env/OVERVIEW.md`); validation F1 found index.md says "first reply" where the row is under the last reply of the first turn, declined to the follow-up docs PR. Pictures: no change. Cost: one capture run, no extra cycle. By hand: FO wrote both lines into the checklists.
