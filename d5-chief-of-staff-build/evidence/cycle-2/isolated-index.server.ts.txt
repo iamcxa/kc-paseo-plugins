@@ -1,0 +1,118 @@
+import { defineRpc } from "@getpaseo/plugin";
+import { z } from "zod";
+import { chiefBoard } from "./server/chief";
+import { readFile, writeFile, realpath } from "node:fs/promises";
+import type { PluginServerContext } from "@getpaseo/plugin/server";
+import { ensureCoordinator, switchCoordinatorHandler } from "./server/coordinator";
+import { FLEET_SERVER_NAME, rememberPaseo, rememberedPaseo, startFleetServer } from "./server/fleet-mcp";
+import { readReviewsHandler, startReviewPoller } from "./server/reviews";
+import { readReviews } from "./shared/reviews";
+import { stopAgentHandler } from "./server/control";
+import { stopAgent } from "./shared/control";
+import { claimDecisionHandler, readDecisionHandler, releaseDecisionHandler } from "./server/decisions";
+import { readGateBriefingHandler } from "./server/gate";
+import { claimDecision, readDecision, releaseDecision } from "./shared/decisions";
+import { readGatesHandler, readTasksHandler } from "./server/tasks";
+import { readGateBriefing } from "./shared/gate";
+import { readGates, readTasks } from "./shared/tasks";
+import {
+  COORDINATOR_PROMPT,
+  RESPONDER_TOOL,
+  openCoordinator,
+  switchCoordinator,
+} from "./shared/coordinator";
+
+import { readChief, markChief, batchResponseId } from "./shared/chief";
+import { chiefObserver } from "./server/chief";
+
+export default function contribute(server: PluginServerContext) {
+  server.handle(defineRpc({name:"chief.fixture",input:z.object({mode:z.enum(["rest","call","exception","analysis","source","empty"])}),output:z.any()}), async({mode},{paseo})=>{
+    const root=await realpath(process.env.BRIDGE_DATA_HOME!+"/..");
+    for(let n=1;n<=4;n++){
+      const file=`${root}/fictional/workflow/.spacedock-state/fictional-${n}.md`;
+      const text=await readFile(file,"utf8");
+      await writeFile(file,text.replace(/status: (validation|done)/,`status: ${mode==="empty"||mode==="exception"&&n!==1?"done":"validation"}`));
+    }
+    await writeFile(`${root}/fictional-data/reviews.json`,JSON.stringify({seen:{},requests:[],checkedAt:mode==="source"?null:1,error:mode==="source"?"Fictional review source unavailable":null}));
+    await readGatesHandler({workflowDirs:[`${root}/fictional/workflow`],fresh:true});
+    const chief=await ensureCoordinator(paseo),board=await chiefBoard(paseo);
+    chiefObserver.state={agentId:chief.agentId,total:board.total,phase:mode==="source"?"unknown":"quiet",batch:null,focus:null,entered:false,soundAttempted:true,error:mode==="source"?"Fictional source unavailable":null};
+    if(["call","exception","analysis"].includes(mode)){
+      const events=mode==="exception"?board.events.slice(0,1):board.events;
+      const batch={id:`fictional-capture-${mode}-${Date.now()}`,events,reason:mode==="exception"?"exception" as const:"threshold" as const,checkedAt:new Date().toISOString(),score:mode==="exception"?4:16};
+      if(mode==="analysis")chiefObserver.state={...chiefObserver.state,phase:"preparing",batch};
+      else await chiefObserver.publish(paseo,chief.agentId,batch,{batchId:batch.id,targetKey:events[0].key,sentence:mode==="exception"?"Fictional release 1 已等超過 30 分鐘；Fictional FO 1 等你開啟這個具名關卡，讀完再決定。":"先看 Fictional release 1：Fictional FO 1 正等你的關卡決定，請開啟這個具名關卡。"});
+    }
+    return {state:chiefObserver.state,events:board.events,modelTurns:0};
+  });
+  const fleet = startFleetServer().catch((error) => {
+    console.error("fleet MCP server did not start:", error);
+    return null;
+  });
+
+  const stopReviews = startReviewPoller(rememberedPaseo);
+  server.on("agent.turn_ended", (_event, { paseo }) => rememberPaseo(paseo));
+  server.handle(readReviews, (_input, { paseo }) => {
+    rememberPaseo(paseo);
+    return readReviewsHandler();
+  });
+
+  server.handle(openCoordinator, (_input, { paseo }) => {
+    rememberPaseo(paseo);
+    return ensureCoordinator(paseo);
+  });
+  server.handle(switchCoordinator, (input, { paseo }) => switchCoordinatorHandler(paseo, input));
+  server.handle(readChief, (_input, { paseo }) => { rememberPaseo(paseo); return chiefObserver.state; });
+  server.handle(markChief, input => chiefObserver.mark(input.batchId, input.action));
+  server.on("agent.turn_started", ({ agent }, { paseo }) => rememberPaseo(paseo));
+  server.on("agent.turn_ended", ({ timeline }) => {
+    for (const item of timeline) if (item.type === "user_message") {
+      const id = batchResponseId(item.text); if (id) chiefObserver.responded(id);
+    }
+  });
+  server.handle(readTasks, (input, { paseo }) => {
+    rememberPaseo(paseo);
+    return readTasksHandler(input);
+  });
+  server.handle(readGateBriefing, readGateBriefingHandler);
+  server.handle(claimDecision, claimDecisionHandler);
+  server.handle(readDecision, readDecisionHandler);
+  server.handle(releaseDecision, releaseDecisionHandler);
+  server.handle(stopAgent, stopAgentHandler);
+  server.handle(readGates, (input, { paseo }) => {
+    rememberPaseo(paseo);
+    return readGatesHandler(input);
+  });
+
+  server.before("agent.create", async ({ request }, { paseo }) => {
+    rememberPaseo(paseo);
+    const config = request.config;
+    if (config.systemPrompt === COORDINATOR_PROMPT) {
+      const started = await fleet;
+      if (!started) return undefined;
+      return {
+        ...request,
+        config: {
+          ...config,
+          mcpServers: {
+            ...config.mcpServers,
+            [FLEET_SERVER_NAME]: { type: "http", url: started.url },
+          },
+        },
+      };
+    }
+    // create_agent copies a same-provider caller's providerOptions onto the agent it starts;
+    // without this the FOs a coordinator starts would carry its tool restrictions.
+    const options = config.providerOptions ?? {};
+    if (!JSON.stringify(options.settings ?? null).includes(RESPONDER_TOOL)) return undefined;
+    const { allowedTools: _allowed, settings: _settings, ...rest } = options;
+    const { [FLEET_SERVER_NAME]: _fleet, ...mcpServers } = config.mcpServers ?? {};
+    return { ...request, config: { ...config, providerOptions: rest, mcpServers } };
+  });
+
+  return async () => {
+    stopReviews();
+    const started = await fleet;
+    started?.server.close();
+  };
+}

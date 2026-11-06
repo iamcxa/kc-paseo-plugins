@@ -1,0 +1,30 @@
+✔ completed two-key switch advances once only after confirmation and archive retry reuses the new chief (27.369ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ server question opens its exact Board destination, including merged range and epoch changes (false) (249.812125ms)
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+✔ server question opens its exact Board destination, including merged range and epoch changes (true) (126.020583ms)
+✔ source partial retains call/marks, healthy disappearance alone resolves it (2.678709ms)
+✔ source throw retains call/marks, healthy disappearance alone resolves it (0.215375ms)
+✔ incomplete observation cannot remove pending items or replay old ones across a gap (0.177375ms)
+✔ restart restores only a successful unresolved batch, never sound or models (none) (1.90225ms)
+✔ restart restores only a successful unresolved batch, never sound or models (unrelated) (0.386542ms)
+✔ restart restores only a successful unresolved batch, never sound or models (matching) (0.174083ms)
+✔ restart restores only a successful unresolved batch, never sound or models (failed) (0.125709ms)
+✔ restart restores only a successful unresolved batch, never sound or models (gap) (0.115875ms)
+✔ new sidebar intent wins after focus without losing draft (false) (153.253083ms)
+✔ new sidebar intent wins after focus without losing draft (true) (77.712916ms)
+✔ fleet response preserves unknown-time board matters separately from trigger eligibility (3.722125ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1800.6585

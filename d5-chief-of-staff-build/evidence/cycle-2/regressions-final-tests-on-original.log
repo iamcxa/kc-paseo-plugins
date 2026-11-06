@@ -1,0 +1,266 @@
+✖ completed two-key switch advances once only after confirmation and archive retry reuses the new chief (26.477417ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✖ server question opens its exact Board destination, including merged range and epoch changes (false) (174.779375ms)
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✖ server question opens its exact Board destination, including merged range and epoch changes (true) (34.1745ms)
+✖ source partial retains call/marks, healthy disappearance alone resolves it (2.307375ms)
+✖ source throw retains call/marks, healthy disappearance alone resolves it (0.203209ms)
+✖ incomplete observation cannot remove pending items or replay old ones across a gap (0.69925ms)
+✖ restart restores only a successful unresolved batch, never sound or models (none) (1.643167ms)
+✖ restart restores only a successful unresolved batch, never sound or models (unrelated) (0.265042ms)
+✔ restart restores only a successful unresolved batch, never sound or models (matching) (0.113833ms)
+✔ restart restores only a successful unresolved batch, never sound or models (failed) (0.099916ms)
+✔ restart restores only a successful unresolved batch, never sound or models (gap) (0.090375ms)
+✖ new sidebar intent wins after focus without losing draft (false) (73.631ms)
+✖ new sidebar intent wins after focus without losing draft (true) (60.17375ms)
+✖ fleet response preserves unknown-time board matters separately from trigger eligibility (3.767333ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 3
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1255.169
+
+✖ failing tests:
+
+test at test/chief-repair.test.mts:1:1619
+✖ completed two-key switch advances once only after confirmation and archive retry reuses the new chief (26.477417ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /archive unavailable/. Input:
+  
+  'Error: The previous officer has changed; reopen the switch offer'
+  
+      at async TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:33:3)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: The previous officer has changed; reopen the switch offer
+        at performSwitch (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/server/coordinator.ts:92:66)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:33:3)
+        at async Test.run (node:internal/test_runner/test:1332:7)
+        at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3),
+    expected: /archive unavailable/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:4893
+✖ server question opens its exact Board destination, including merged range and epoch changes (false) (174.779375ms)
+  AssertionError [ERR_ASSERTION]: server identity must open actual question
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:63:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:4893
+✖ server question opens its exact Board destination, including merged range and epoch changes (true) (34.1745ms)
+  AssertionError [ERR_ASSERTION]: server identity must open actual question
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:63:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:6835
+✖ source partial retains call/marks, healthy disappearance alone resolves it (2.307375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'fictional-batch'
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:74:55)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'fictional-batch',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:6835
+✖ source throw retains call/marks, healthy disappearance alone resolves it (0.203209ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unknown'
+  - 'calling'
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:75:52)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unknown',
+    expected: 'calling',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:7710
+✖ incomplete observation cannot remove pending items or replay old ones across a gap (0.69925ms)
+  AssertionError [ERR_ASSERTION]: first healthy observation after gap is baseline, not a fresh batch
+  + actual - expected
+  
+  + {
+  +   events: [
+  +     {
+  +       agentId: 'a',
+  +       key: 'a',
+  +       kind: 'gate',
+  +       since: '2026-11-06T10:00:00Z',
+  +       target: 'fictional-gate',
+  +       title: 'Fictional gate',
+  +       version: 'a'
+  +     },
+  +     {
+  +       agentId: 'a',
+  +       key: 'b',
+  +       kind: 'gate',
+  +       since: '2026-11-06T10:00:00Z',
+  +       target: 'fictional-gate',
+  +       title: 'Fictional gate',
+  +       version: 'b'
+  +     },
+  +     {
+  +       agentId: 'a',
+  +       key: 'c',
+  +       kind: 'gate',
+  +       since: '2026-11-06T10:00:00Z',
+  +       target: 'fictional-gate',
+  +       title: 'Fictional gate',
+  +       version: 'c'
+  +     },
+  +     {
+  +       agentId: 'a',
+  +       key: 'd',
+  +       kind: 'gate',
+  +       since: '2026-11-06T10:00:00Z',
+  +       target: 'fictional-gate',
+  +       title: 'Fictional gate',
+  +       version: 'd'
+  +     }
+  +   ],
+  +   reason: 'threshold',
+  +   score: 16
+  + }
+  - null
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:83:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { events: [ [Object], [Object], [Object], [Object] ], reason: 'threshold', score: 16 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:8268
+✖ restart restores only a successful unresolved batch, never sound or models (none) (1.643167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'quiet' !== 'calling'
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:92:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'quiet',
+    expected: 'calling',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:8268
+✖ restart restores only a successful unresolved batch, never sound or models (unrelated) (0.265042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'quiet' !== 'calling'
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:92:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'quiet',
+    expected: 'calling',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:9281
+✖ new sidebar intent wins after focus without losing draft (false) (73.631ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message Chief of staff"))
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:101:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:9281
+✖ new sidebar intent wins after focus without losing draft (true) (60.17375ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find("Message Chief of staff"))
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:101:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/chief-repair.test.mts:1:10648
+✖ fleet response preserves unknown-time board matters separately from trigger eligibility (3.767333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/baseline/spacedock-bridge/test/chief-repair.test.mts:120:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

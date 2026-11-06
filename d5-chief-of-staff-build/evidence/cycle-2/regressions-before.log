@@ -1,0 +1,355 @@
+TAP version 13
+# Subtest: completed two-key switch advances once only after confirmation and archive retry reuses the new chief
+not ok 1 - completed two-key switch advances once only after confirmation and archive retry reuses the new chief
+  ---
+  duration_ms: 17.169416
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:1619'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /archive unavailable/. Input:
+    
+    'Error: The previous officer has changed; reopen the switch offer'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+  error: 'The previous officer has changed; reopen the switch offer'
+  stack: |-
+    performSwitch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/coordinator.ts:92:66)
+    async waitForActual (node:assert:646:5)
+    async strict.rejects (node:assert:769:25)
+    async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:36:3)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:36:3)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# Subtest: server question opens its exact Board destination, including merged range and epoch changes (false)
+not ok 2 - server question opens its exact Board destination, including merged range and epoch changes (false)
+  ---
+  duration_ms: 123.447709
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:4893'
+  failureType: 'testCodeFailure'
+  error: 'server identity must open actual question'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:66:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# Subtest: server question opens its exact Board destination, including merged range and epoch changes (true)
+not ok 3 - server question opens its exact Board destination, including merged range and epoch changes (true)
+  ---
+  duration_ms: 26.96125
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:4893'
+  failureType: 'testCodeFailure'
+  error: 'server identity must open actual question'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:66:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: source partial retains call/marks, healthy disappearance alone resolves it
+not ok 4 - source partial retains call/marks, healthy disappearance alone resolves it
+  ---
+  duration_ms: 2.08725
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:6800'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - 'fictional-batch'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'fictional-batch'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:77:55)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: source throw retains call/marks, healthy disappearance alone resolves it
+not ok 5 - source throw retains call/marks, healthy disappearance alone resolves it
+  ---
+  duration_ms: 0.230417
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:6800'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'unknown'
+    - 'calling'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'unknown'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:78:52)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: incomplete observation cannot remove pending items or replay old ones across a gap
+not ok 6 - incomplete observation cannot remove pending items or replay old ones across a gap
+  ---
+  duration_ms: 0.63125
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:7675'
+  failureType: 'testCodeFailure'
+  error: |-
+    first healthy observation after gap is baseline, not a fresh batch
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'a',
+    +       key: 'a',
+    +       kind: 'gate',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: 'fictional-gate',
+    +       title: 'Fictional gate',
+    +       version: 'a'
+    +     },
+    +     {
+    +       agentId: 'a',
+    +       key: 'b',
+    +       kind: 'gate',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: 'fictional-gate',
+    +       title: 'Fictional gate',
+    +       version: 'b'
+    +     },
+    +     {
+    +       agentId: 'a',
+    +       key: 'c',
+    +       kind: 'gate',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: 'fictional-gate',
+    +       title: 'Fictional gate',
+    +       version: 'c'
+    +     },
+    +     {
+    +       agentId: 'a',
+    +       key: 'd',
+    +       kind: 'gate',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: 'fictional-gate',
+    +       title: 'Fictional gate',
+    +       version: 'd'
+    +     }
+    +   ],
+    +   reason: 'threshold',
+    +   score: 16
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'a'
+        version: 'a'
+        kind: 'gate'
+        title: 'Fictional gate'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a'
+        target: 'fictional-gate'
+      1:
+        key: 'b'
+        version: 'b'
+        kind: 'gate'
+        title: 'Fictional gate'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a'
+        target: 'fictional-gate'
+      2:
+        key: 'c'
+        version: 'c'
+        kind: 'gate'
+        title: 'Fictional gate'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a'
+        target: 'fictional-gate'
+      3:
+        key: 'd'
+        version: 'd'
+        kind: 'gate'
+        title: 'Fictional gate'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a'
+        target: 'fictional-gate'
+    reason: 'threshold'
+    score: 16
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:86:9)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (none)
+not ok 7 - restart restores only a successful unresolved batch, never sound or models (none)
+  ---
+  duration_ms: 1.18375
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:8233'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'quiet' !== 'calling'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'quiet'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:95:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (unrelated)
+not ok 8 - restart restores only a successful unresolved batch, never sound or models (unrelated)
+  ---
+  duration_ms: 0.245709
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:8233'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'quiet' !== 'calling'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'quiet'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:95:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (matching)
+ok 9 - restart restores only a successful unresolved batch, never sound or models (matching)
+  ---
+  duration_ms: 0.118417
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (failed)
+ok 10 - restart restores only a successful unresolved batch, never sound or models (failed)
+  ---
+  duration_ms: 0.202541
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (gap)
+ok 11 - restart restores only a successful unresolved batch, never sound or models (gap)
+  ---
+  duration_ms: 0.174167
+  type: 'test'
+  ...
+# Subtest: new sidebar intent wins after focus without losing draft (false)
+not ok 12 - new sidebar intent wins after focus without losing draft (false)
+  ---
+  duration_ms: 62.364334
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:9246'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Message Chief of staff"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:104:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: new sidebar intent wins after focus without losing draft (true)
+not ok 13 - new sidebar intent wins after focus without losing draft (true)
+  ---
+  duration_ms: 55.068958
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:9246'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Message Chief of staff"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:104:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: fleet response preserves unknown-time board matters separately from trigger eligibility
+not ok 14 - fleet response preserves unknown-time board matters separately from trigger eligibility
+  ---
+  duration_ms: 3.468375
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:10332'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:120:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 3
+# fail 11
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1191.5555

@@ -1,0 +1,208 @@
+TAP version 13
+# Subtest: completed two-key switch advances once only after confirmation and archive retry reuses the new chief
+ok 1 - completed two-key switch advances once only after confirmation and archive retry reuses the new chief
+  ---
+  duration_ms: 93.479333
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# Subtest: server question opens its exact Board destination, including merged range and epoch changes (false)
+not ok 2 - server question opens its exact Board destination, including merged range and epoch changes (false)
+  ---
+  duration_ms: 183.278459
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:4893'
+  failureType: 'testCodeFailure'
+  error: 'stale focus must explain why it cannot open'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    1
+    ◉ 幕僚長
+    Chief of staff
+    Board · 3
+    ◆ Your turn
+    Choose fictional release (you)
+    A FO
+    QUESTION
+    6h ago
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    78h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    78h ago
+    A FO
+    waiting on Kent · 78h ago
+    B FO
+    waiting on Kent · 78h ago
+    Research FO
+    idle · 78h ago
+    + New FO
+    Gates read 11:56:33 PM · 2 open
+    ← Chief of staff
+    Board
+    ← Queue
+    QUESTION · A
+    Choose fictional release (you)
+    A FO
+    waiting 6h
+    
+    Conversation with A FO · includes other tasks
+    Open full view
+    Next: Choose fictional release (you)
+    ↑ sends to A FO
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:69:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# Subtest: server question opens its exact Board destination, including merged range and epoch changes (true)
+not ok 3 - server question opens its exact Board destination, including merged range and epoch changes (true)
+  ---
+  duration_ms: 73.225959
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:1:4893'
+  failureType: 'testCodeFailure'
+  error: 'stale focus must explain why it cannot open'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    1
+    ◉ 幕僚長
+    Chief of staff
+    Board · 3
+    ◆ Your turn
+    Choose fictional release (you)
+    A FO
+    QUESTION
+    6h ago
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    78h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    78h ago
+    A FO
+    waiting on Kent · 78h ago
+    B FO
+    waiting on Kent · 78h ago
+    Research FO
+    idle · 78h ago
+    + New FO
+    Gates read 11:56:33 PM · 2 open
+    ← Chief of staff
+    Board
+    ← Queue
+    QUESTION · A
+    Choose fictional release (you)
+    A FO
+    waiting 6h
+    
+    Conversation with A FO · includes other tasks
+    Open full view
+    Next: Choose fictional release (you)
+    ↑ sends to A FO
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/chief-repair.test.mts:69:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: source partial retains call/marks, healthy disappearance alone resolves it
+ok 4 - source partial retains call/marks, healthy disappearance alone resolves it
+  ---
+  duration_ms: 1.809833
+  type: 'test'
+  ...
+# Subtest: source throw retains call/marks, healthy disappearance alone resolves it
+ok 5 - source throw retains call/marks, healthy disappearance alone resolves it
+  ---
+  duration_ms: 0.201083
+  type: 'test'
+  ...
+# Subtest: incomplete observation cannot remove pending items or replay old ones across a gap
+ok 6 - incomplete observation cannot remove pending items or replay old ones across a gap
+  ---
+  duration_ms: 0.195542
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (none)
+ok 7 - restart restores only a successful unresolved batch, never sound or models (none)
+  ---
+  duration_ms: 1.171167
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (unrelated)
+ok 8 - restart restores only a successful unresolved batch, never sound or models (unrelated)
+  ---
+  duration_ms: 0.245833
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (matching)
+ok 9 - restart restores only a successful unresolved batch, never sound or models (matching)
+  ---
+  duration_ms: 0.183417
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (failed)
+ok 10 - restart restores only a successful unresolved batch, never sound or models (failed)
+  ---
+  duration_ms: 0.104125
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (gap)
+ok 11 - restart restores only a successful unresolved batch, never sound or models (gap)
+  ---
+  duration_ms: 0.082792
+  type: 'test'
+  ...
+# Subtest: new sidebar intent wins after focus without losing draft (false)
+ok 12 - new sidebar intent wins after focus without losing draft (false)
+  ---
+  duration_ms: 130.782875
+  type: 'test'
+  ...
+# Subtest: new sidebar intent wins after focus without losing draft (true)
+ok 13 - new sidebar intent wins after focus without losing draft (true)
+  ---
+  duration_ms: 69.553666
+  type: 'test'
+  ...
+# Subtest: fleet response preserves unknown-time board matters separately from trigger eligibility
+ok 14 - fleet response preserves unknown-time board matters separately from trigger eligibility
+  ---
+  duration_ms: 4.2815
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 12
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1326.227292

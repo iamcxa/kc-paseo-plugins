@@ -1,0 +1,46 @@
+{
+  "state": {
+    "agentId": "11e34e63-2bf3-445c-a3d6-69bc4eee8ab6",
+    "total": "1",
+    "phase": "calling",
+    "batch": {
+      "id": "fictional-capture-exception-1793981723058",
+      "events": [
+        {
+          "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]",
+          "version": "44295d62f5c71eb504af6d6118630a192986685ac0e1f1e395e6055e82f35afb",
+          "kind": "gate",
+          "title": "Fictional release 1",
+          "waiter": "Fictional FO 1",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "8eefc317-e6ac-475c-b5ea-51686f08b3e6",
+          "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]"
+        }
+      ],
+      "reason": "exception",
+      "checkedAt": "2026-11-06T16:15:23.058Z",
+      "score": 4
+    },
+    "focus": {
+      "batchId": "fictional-capture-exception-1793981723058",
+      "targetKey": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]",
+      "sentence": "Fictional release 1 已等超過 30 分鐘；Fictional FO 1 等你開啟這個具名關卡，讀完再決定。"
+    },
+    "entered": false,
+    "soundAttempted": false,
+    "error": null
+  },
+  "events": [
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]",
+      "version": "44295d62f5c71eb504af6d6118630a192986685ac0e1f1e395e6055e82f35afb",
+      "kind": "gate",
+      "title": "Fictional release 1",
+      "waiter": "Fictional FO 1",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "8eefc317-e6ac-475c-b5ea-51686f08b3e6",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]"
+    }
+  ],
+  "modelTurns": 0
+}

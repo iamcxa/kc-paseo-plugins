@@ -1,0 +1,55 @@
+{
+  "state": {
+    "agentId": "11e34e63-2bf3-445c-a3d6-69bc4eee8ab6",
+    "total": "4",
+    "phase": "quiet",
+    "batch": null,
+    "focus": null,
+    "entered": false,
+    "soundAttempted": true,
+    "error": null
+  },
+  "events": [
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]",
+      "version": "0ea2924bb88fcaf7f3254e7375de2f3de9a875012420cfa21b4d892fcda5b10f",
+      "kind": "gate",
+      "title": "Fictional release 2",
+      "waiter": "Fictional FO 2",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "319ba43d-234d-440f-9fe9-35ddbf6f5081",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]"
+    },
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]",
+      "version": "e24375fdeeec74fb92430bbac12d90ceec2be68d96afda35f7902d707a57b0d9",
+      "kind": "gate",
+      "title": "Fictional release 3",
+      "waiter": "Fictional FO 3",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "4e20e85f-690e-4ecf-b844-3cf987ef1437",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]"
+    },
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]",
+      "version": "7c9c57dfadc636f857ffdefc666cefa3466e9821143b41e0076dddc002c49979",
+      "kind": "gate",
+      "title": "Fictional release 4",
+      "waiter": "Fictional FO 4",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "ac318dd1-625c-457d-b7f3-fc48982d4fcd",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]"
+    },
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-2\"]",
+      "version": "bde747f07cd162612f0398f1aeb9c3c4c489346b2f3939d798e492455fcf96a5",
+      "kind": "gate",
+      "title": "Fictional release 1",
+      "waiter": "Fictional FO 1",
+      "since": "2026-11-06T16:23:30.000Z",
+      "agentId": "8eefc317-e6ac-475c-b5ea-51686f08b3e6",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-repair-7u4tmhlu/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-2\"]"
+    }
+  ],
+  "modelTurns": 0
+}
