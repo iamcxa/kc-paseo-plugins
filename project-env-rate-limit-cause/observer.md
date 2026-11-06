@@ -1,0 +1,33 @@
+Observer report, task project-env-rate-limit-cause. Window: 372e758 (task added) to 020987c (state HEAD, 2026-11-06 11:02 +0800).
+
+violation | rule: "FO saves those scope notes, the checklist, the model it dispatches on and the SHA it dispatches from as `<task>/dispatch/<stage>-<cycle>.md` ... committed with that dispatch's `spacedock state commit`" (Dispatch, stage `ideation`, `implementation` and `validation` text) | evidence: "Reconstructed by FO on 2026-11-06, after the dispatch ... FO did not save this record at dispatch time." All three records were first committed together in b905178 (2026-11-06 01:18). The ideation dispatch was 2026-11-05 16:40 (2fd1f2f). (b905178)
+
+violation | rule: "Every worker dispatch FO builds carries that absolute path as a `Package root: <absolute path>` line in its scope notes" and the scope notes carry the completion-recipient line naming `main` (same section) | evidence: "the scope notes it received carried no `Package root:` line and no completion-recipient line." `dispatch_records.py project-env-rate-limit-cause` exits 1 with 7 lines: ideation-1.md needs a full 40-character `Dispatched:` SHA (it has 12), a `Package root:` line, and a completion-recipient line; implementation-1.md and validation-1.md need the last two. (b905178; script run at HEAD)
+
+violation | rule: "for validation a `Candidate: <full head SHA>` line per head validated" (Dispatch, same section) | evidence: dispatch/validation-1.md gained `Candidate: 6e9e801f...` with the note "No worker re-validated it." (85c86fa). FO ran `npm test` and `tsc` on that head. ask-2.json for 6e9e801 exists. (85c86fa, 020987c)
+
+violation | rule: "Before the gate, FO runs the stage's minimal acceptance script exactly as written in a fresh shell, then presents every step in full beside its observed output, never a pointer" (`validation`, Gate content) | evidence: the script's step 4 prints `rate-limited unexpected`. FO's rerun file holds "## rate-limit classify / rate-limited". The gate summary says "FO's acceptance rerun matched (fo-acceptance-rerun-6fcce94.txt)", and that file is not among the briefing's artifacts. Step 5 (open the pictures) carries no "not run" mark in FO's file. How the steps were shown to the Captain in chat is outside state. (b0ceedc, 47ac7b8)
+
+can't tell | rule: "For a `ui` task FO runs `python3 <package>/scripts/design_surfaces.py check <task>` and includes its output" (`validation`, Gate content) | evidence: absent from gate-validation.txt and delivery-gate-check.txt. The task file carries only the validator's own rerun ("exit 0, design surfaces presentable"). Whether FO ran it, or showed it in chat, is outside state. (d0d8ab6)
+
+ok | rule: "FO runs `python3 <package>/scripts/design_surfaces.py check`" (backlog `--seed`, ideation) | evidence: backlog copy at e745f81: exit 0, "seed fields and FO alignment recorded". Ideation copy at 1cc4bf3: exit 0, "design surfaces presentable ... 4 upheld, 0 overruled". (replayed with `git archive`)
+
+ok | rule: "FO runs `python3 <package>/scripts/delivery_gate.py check` before the merge ask" (Delivery authority) | evidence: merge/ask-1.json `time` 2026-11-05T17:43:46Z, `head` 6fcce94de4514d490cd1922a4ab935f1cc05c731. The ask's briefing commit d0d8ab6 is 17:44:32Z, so the file predates it. (d0d8ab6)
+
+ok | rule: "FO confirms both goal sufficiency and minimal necessity" (`validation`) | evidence: ask-1.json holds `sufficiency` "validation-1 PASSED at 6fcce94 with no Material finding; ..." and `necessity` "the PR changes classifyOpFailure, the cause list, ..." (d0d8ab6)
+
+ok | rule: Captain rulings quote his words and answer a question put before them (Review findings step; `## Decision records`) | evidence: ledger rows for backlog (「開這批」), ideation (「准」) and validation (「准」, 2026-11-06T00:45:02Z) quote his words, give the question text, and carry no `Override:` (the recommendation was approved each time). No ruling quotes a peer, although `peers` is listed under `extensions:`. No `## Captain amendments` exist (`amended_after` 0). (e81096f)
+
+ok | rule: "FO may explicitly decline evidenced Deferred risk or Polish in the existing committed gate summary, naming the finding, reason, candidate revision" (Review findings step 2) | evidence: gate-validation.txt has four `Declined:` lines naming F1, F2, the unobserved stderr risk and F3, each with a reason. The merge ask line names 6fcce94. (47ac7b8)
+
+can't tell | rule: same step 2 and step 1, "Preserve findings and assess the four evidence fields" | evidence: the second Deferred risk (the hour/day limit wording) is not among the `Declined:` lines. delivery-gate-check.txt lists it as "point: deferred". F3, the validator's "Needs FO" item, was declined as "Polish" with no four-field assessment recorded in state. (47ac7b8)
+
+can't tell | rule: "Approval of a validation gate is not permission to push, create or merge a PR, except as follows" (Delivery authority) | evidence: the approved question says "Approval lets FO merge it after #72 and reload the live plugin under ADR 0007 class 2". It names head 6fcce94. FO later force-pushed 6e9e801 "With the Captain's 「可以」 (FO chat, 2026-11-06)". The question he answered for the force-push is not in state. The ADR 0007 reference carries no `Precedent:` line. The merge itself is a GitHub fact. (85c86fa)
+
+ok | rule: "FO records under `## FO alignment` either `Release review: <journey>/<release-id> at <journey-file commit>` or `Release review: not needed`" (backlog) | evidence: "Release review: paseo-project-env/r1b at 637d05404ccafa198d9f283e1d7d2183c8304dea — signal 1 ..." The review run itself is recorded under project-env-picker-slow-hint/release-review-r1b-2.md, outside this task.
+
+ok | rule: local extension doc-site "FO records, per task, under `### Local extension doc-site`" | evidence: "### Local extension doc-site (round 4)" with asked, caught, cost and by-hand lines. (020987c)
+
+observed | `Reviewer:` line: absent. Surfaces is `ui` only, no stronger-model ideation, validation not sent back. `role_triggers.py STATE TASK --rev HEAD` printed no `next:` line ("0 event(s) read").
+
+Coverage: I read in full the task file at HEAD, the dispatch records, gate-validation.txt, both delivery-gate-check files, ask-1/ask-2.json, the three briefing index.json files, the README FO sections and the decision ledger rows for this task. I read the FO-authored diffs of 020987c, e81096f, 47ac7b8, 85c86fa, b905178 and b0ceedc. I sampled the other commits by stat only. I did not read the pictures or the worker evidence files. Not evaluable from state: `delivery_gate.py question`, `package_version.py`, `workflow_checkout.py`, and FO's merge, reload and force-push, which belong to chat, GitHub or a shell run.
