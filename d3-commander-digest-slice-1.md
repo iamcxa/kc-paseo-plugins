@@ -66,6 +66,14 @@ Verified by: tokens (input, cached, output), provider requests and wall time by 
 UI proposal: build the accepted d1-commander-digest cycle 5 mockups (digest in the Commander conversation, Replay card with three sourced context lines and the same-FO window, three exits, phone sheet); add only the new comms officer switch and a collect-now action in the same style.
 Preview: d1-commander-digest/mockups/review.html
 
+## Captain amendments
+
+### Amendment 1 — 2026-11-06, chat
+Captain: 「再修一輪，只修這兩個 (Recommended)」
+Asked: 第一片還剩兩個問題，而任務允許的兩輪修正已經用完。第一個是 FO 對話裡最早的那則回報查不到也打不開，但只會顯示「查不到」，不會給你錯的內容。第二個比較嚴重：Replay 整個讀取失敗時，三行脈絡還留在畫面上，看起來像已經核對過，其實當下無法確認。總工程師建議只修這兩個、再加一輪，修完不論結果都拿給你看。要怎麼做？ (options: 「再修一輪，只修這兩個 (Recommended)」 — "修完跑自動審查，然後不論結果都拿給你驗收。代價：你要再等一輪才能試用，而且審查可能又找到新的小問題。"; 「現在就拿給我試，兩個記成已知問題」)
+Supersedes: none
+Design: "one more repair cycle, for roborev 1540 findings 9 and 10 only; after it, the task goes to the Captain whatever the review finds" (beyond the seed's Budget line of two repair cycles)
+
 ## FO alignment
 
 Alignment: not needed: the Captain accepted the design (d1-commander-digest), the collection rule (d2-collection-cost-probe) and the new comms officer on 2026-11-05; scope is slice 1 of that design.
