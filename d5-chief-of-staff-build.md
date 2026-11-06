@@ -204,3 +204,12 @@ Checks and documents — OVERVIEW.md now describes the repaired switch, question
 ### Summary
 
 Repair cycle 1 is implemented, committed and pushed as dbe429118dc906fb88811a4d83a9a3f75f4a7131, with the requested cycle-2 report and complete client-only capture matrix. The POC boundary remains unchanged: no new store, product model turn, live switch/archive, merge or ready transition. Delivery remains HOLD for the design director's AC-2 verdict, FO-run roborev and AC-3's authorized real-model rerun.
+
+## Investigation: roborev 1574
+
+FO ran roborev on dbe429118dc906fb88811a4d83a9a3f75f4a7131 (base 7a4dbc057803d791dc5626182636c8e0fc2c2d32): exit 1, evidence=roborev:1574, four Medium. Two reach surfaces repair cycle 1 changed (navigation, call lifecycle) — the second and last repair cycle the seed allows must close the classes, not the instances.
+6. client/board.tsx focus opening of a permission mounts a DecisionCard directly, bypassing openItem() and its permission navigation, so no permission response controls appear.
+7. server/chief.ts history recovery: an agent message or notification between an automated batch request and its focus response clears the current batch, so a restart loses an unresolved call (same provenance class as d3's item 1).
+8. client/bridge.tsx replyBatch survives the batch resolving or being answered elsewhere; the next ordinary message silently carries the obsolete batch-response marker.
+9. client/board.tsx compact "← Queue" now opens the chief conversation instead of the queue (regression from item 4's navigation fix).
+Read-only investigation dispatched as implementation-1-followup-3 before any fix.
