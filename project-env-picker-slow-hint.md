@@ -245,3 +245,13 @@ Not covered: a real 1Password vault and its real time to the timeout; any Paseo 
 ### Summary
 
 PR #72 at b684b68 meets AC-1 on a real Paseo 0.15.2 with a fake `op`: a timed-out list says it took too long and offers the reference row, a connection failure keeps today's words, and the unit test fails when the timeout branch is removed. One dependence on Paseo's own sentence is recorded as a deferred risk; the built-screen MINOR was declined and upheld. The Captain's UAT remains.
+
+## UAT
+
+UAT (Captain, 2026-11-06): OK — 「ＯＫ」
+Asked: FO asked for the UAT of batch r1b-polish-1 after merging #71, #72, #73 and #75 and reloading the live plugin (「回「OK」或問題」): a real-environment check of the Started-without line and a no-regression check of the field picker and Test; his 「ＯＫ」 answers all four tasks.
+Cost: Captain messages 5, shared across batch r1b-polish-1; worker tokens not measured (reported: ideation 224404, implementation 127068 after a session restart, earlier part not reported, validation 137644)
+
+### Local extension doc-site (round 3)
+
+Asked: implementation retakes the docs pictures; validation follows the built Install and Prepare 1Password pages through the picker. Caught: nothing stale (`docs: no change`; the pages name no slow list or timeout, a gap rather than a mismatch). Cost: one capture run and one site build, no extra cycle. By hand: FO wrote both lines into the checklists.
