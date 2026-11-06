@@ -30,7 +30,8 @@ steps:
       - id: read-the-docs
         card: "Read the plugin's introduction and docs (「plugin 介紹，文件說明」, Captain)"
         release: r1b
-        status: gap
+        status: exists
+        evidence: PAGES_REPO_NWO
 
   - id: prepare-1password
     card: "Prepares 1Password for a repository"
@@ -64,8 +65,8 @@ steps:
       - id: pick-repository
         card: "Pick the repository from Paseo's project list"
         release: r1b
-        status: gap
-        evidence: candidates
+        status: exists
+        evidence: addProjectLine
         questions:
           - {id: "q1", ask: "What does a user do when the repository is missing from Paseo's list or the list fails to load?", status: "answered", answer: "Gap: a failed load and an empty list both hide the picker without a word; release 1b shows the load error and how to add the project in Paseo."}
       - id: paste-token
@@ -189,6 +190,7 @@ steps:
           - {id: "q5", ask: "How is the release proven without automated seams for op, the Keychain and git?", status: "answered", answer: "Gap: only a typecheck exists; release 1 adds fakes for those calls covering its fixes; releases 1 and 1.5 are accepted by Kent's own use, release 1b by one run on a teammate's Mac."}
           - {id: "q6", ask: "What happens at session open to a variable named like one the agent relies on, such as PATH?", status: "answered", answer: "Ruling, Captain 2026-10-20: 「做法一」 — a reserved name is neither applied nor blanked; the agent keeps its own value and the timeline names it as not applied, with a reserved-name cause. The reserved set is settled in project-env-new-agent-env ideation. Fact: the name check in shared/config.ts admits PATH, and the session_open hook spreads resolved values over request.env, so a mapped PATH replaces the agent's own; Paseo sets PASEO_AGENT_ID and PASEO_AGENT_CWD after the hooks. No ruling names which names are reserved, or whether a reserved name is skipped or blanked; blanking PATH as ADR 0002 blanks a failed variable would break the agent."}
           - {id: "q7", ask: "Does an empty value count as a failed variable at session open?", status: "answered", answer: "Ruling, Captain 2026-10-20: 「算失敗」 — an empty value is a failed variable, blanked and shown like ADR 0002's other causes. Gap: resolveProject marks an empty value from readRef as ok, caches it and passes it as set; release 1 counts it as failed.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md"}
+          - {id: "q8", ask: "Does a terminal opened in Paseo get the variables?", status: "answered", answer: "No: only agents do; Paseo gives plugins no terminal hook.", doc: "https://github.com/iamcxa/kc-paseo-plugins/blob/main/project-env/OVERVIEW.md#limits-worth-knowing"}
       - id: worktree-env
         card: "Agents in any worktree of the repository get them too"
         release: r1
@@ -258,8 +260,8 @@ rules:
   - {id: registered-worktrees-only, text: "Secrets go only to the repository's main checkout and its registered worktrees."}
 
 status:
-  as_of: "2026-10-28"
-  unproven: "No end-to-end test; r1 rests on unit tests with fakes and Kent's own use."
-  unmerged: "r1 is merged and tagged project-env-v0.1.0; r1.5 is merged and tagged project-env-v0.2.0; r1b is not built."
-  undeployed: "Runs on Kent's Paseo daemon from his main checkout; no teammate install."
+  as_of: "2026-11-05"
+  unproven: "No end-to-end test; r1 rests on unit tests with fakes and Kent's own use; r1b's two built stories have Kent's UAT only."
+  unmerged: "r1 is merged and tagged project-env-v0.1.0; r1.5 is merged and tagged project-env-v0.2.0; r1b has pick-repository (v0.3.0) and read-the-docs (#58); 9 more are open."
+  undeployed: "Docs site live; plugin runs on Kent's Paseo daemon from his main checkout; no teammate install."
   irreversible: "Storing a token writes, and overwrites, a login Keychain entry on the Paseo Mac."
