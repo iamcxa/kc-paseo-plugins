@@ -48,6 +48,17 @@ gates:
                 id: briefing:d4-chief-of-staff:validation:attempt-2:revision-1
                 digest: sha256:1f3c773065636ccf2099771dbd4d1dd3180d13999277b81bd30271287feb2753
                 room-ref: ./d4-chief-of-staff/review/validation/briefing-2
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d4-chief-of-staff:validation:2
+                briefing: briefing:d4-chief-of-staff:validation:attempt-2:revision-1
+                by: person:captain
+                at: "2026-11-06T14:26:10.848011Z"
+                decision: approve
+                reason: Captain chat 2026-11-06, asked 「照這個方向做，還是有哪裡要改？（幕僚長事件累積才找你：X=3、Y=8、單一關卡等超過 30 分鐘例外；側欄總數變紅跳動加短音；進來談一件具名焦點）」; after confirming he can still talk to her any time, answered 「照這樣做吧」 — accepts the chief of staff design as the reference for a code task.
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-06T04:23:48Z
 worktree: .worktrees/spacedock-ensign-d4-chief-of-staff
 ---
