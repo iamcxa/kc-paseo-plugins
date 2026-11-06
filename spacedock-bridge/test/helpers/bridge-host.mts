@@ -16,8 +16,9 @@ const input = forwardRef<any, any>((p, ref) => createElement("textarea", { ref, 
 let current: any;
 let Bridge: any;
 let BoardItem: any;
+let Board: any;
 const calls = new Map<string, (...args: any[]) => any>();
-export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}, showModals = false, identity = true, sdk?: any) {
+export async function mountBridge(t: TestContext, compact = false, prepare?: (rpc: any) => void, sidebar = false, colors: Record<string, string> = {}, showModals = false, identity = true, sdk?: any, surface: "bridge" | "fleet" = "bridge") {
   const dom = new JSDOM("<!doctype html><div id='root'></div>");
   Object.assign(globalThis, { window: dom.window, document: dom.window.document });
   Object.assign(dom.window.HTMLElement.prototype, { attachEvent() {}, detachEvent() {} });
@@ -92,6 +93,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
       return original.call(this, id, ...args);
     });
     Bridge = require("../../client/bridge").Bridge;
+    Board = require("../../client/board").Board;
     BoardItem = require("../../client/sidebar-waiting").BoardItem;
     restore.mock.restore();
   }
@@ -109,7 +111,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
     createElement(BoardItem, { ...props, playAudio: async (value:any)=>{audio.push(value);}, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
     Popover ? createElement(Popover, { ...props, close() {}, openScreen }) : null,
     route ? createElement(Bridge, { ...props, params: route.params }) : null,
-  ) : createElement(Bridge, props));
+  ) : createElement(surface === "fleet" ? Board : Bridge, { ...props, params: route?.params }));
   const render = async () => { await act(async () => draw()); };
   const text = () => [...container.querySelectorAll<HTMLElement>("div,span,button")].filter(e => visible(e) && !e.children.length).map(e => e.textContent).join("\n");
   const type = async (label: string, value: string) => {

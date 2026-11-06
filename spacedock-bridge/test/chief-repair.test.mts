@@ -84,8 +84,8 @@ test("incomplete observation cannot remove pending items or replay old ones acro
  assert.equal(tracker.observe(four,now,true),null);
 });
 for(const response of ["none","unrelated","matching","failed","gap"])test(`restart restores only a successful unresolved batch, never sound or models (${response})`,async()=>{
- const messages=[entry(1,"user_message",BATCH_MARKER+JSON.stringify(batch)),entry(2,"assistant_message",response==="failed"?"Preparation failed":JSON.stringify(focus))];
- if(["unrelated","matching"].includes(response))messages.push(entry(3,"user_message",batchResponse(response==="matching"?batch.id:"another-batch","My answer")));
+ const messages=[entry(1,"user_message",BATCH_MARKER+JSON.stringify(batch)),{...entry(2,"tool_call",""),item:{type:"tool_call",name:"mcp__fleet__prepare_batch",callId:"prep",status:"completed",error:null,detail:{type:"unknown",input:{batchId:batch.id},output:{content:[{type:"text",text:JSON.stringify({batchId:batch.id,facts:batch.events,preparation:"Supplied facts only"})}]}}}},entry(3,"assistant_message",response==="failed"?"Preparation failed":JSON.stringify(focus))];
+ if(["unrelated","matching"].includes(response))messages.push(entry(4,"user_message",batchResponse(response==="matching"?batch.id:"another-batch","My answer")));
  const api=chiefApi(messages);if(response==="gap")api.agents.ref=(id:string)=>({timeline:{refetch:async()=>({...page(id,messages),gap:true})}});
  const observer=new ChiefObserver(async()=>({events:[event],total:"1",complete:true,rows:[]}));
  const state=await observer.read(api);

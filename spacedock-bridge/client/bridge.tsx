@@ -18,7 +18,7 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
   const externalRequest = JSON.stringify([props.params?.item, props.params?.request]);
   const [target, setTarget] = useState<{ params: BoardProps["params"]; externalRequest: string }>();
   const targetRequest = useRef(0);
-  const [replyBatch, setReplyBatch] = useState<string | null>(null);
+  const [replyBatch, setReplyBatch] = useState<{ chiefAgentId: string; batchId: string } | null>(null);
   const [needsSwitch, setNeedsSwitch] = useState(false);
   const [previous, setPrevious] = useState<string | null>(null);
   const [confirmSwitch, setConfirmSwitch] = useState(false);
@@ -32,8 +32,21 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
   const coAsk = ask ? { text: ask, since, onPress: () => {} } : null;
   const [seed, setSeed] = useState<{ text: string; nonce: number } | null>(null);
   const onAskCo = useCallback((text: string) => {
+    setReplyBatch(null);
     setSeed({ text, nonce: Date.now() });
   }, []);
+
+  const replyContext = useRef({ coId, selection: replyBatch });
+  const validReply = Boolean(replyBatch && chief.state?.phase === "calling" && chief.state.agentId === coId && replyBatch.chiefAgentId === coId && chief.state.batch?.id === replyBatch.batchId);
+  replyContext.current = { coId, selection: validReply ? replyBatch : null };
+  useEffect(() => { if (replyBatch && !validReply) setReplyBatch(null); }, [replyBatch, validReply]);
+  const responseText = async (text: string) => {
+    const selected = replyContext.current.selection;
+    if (!selected) return text;
+    const current = await chief.refresh();
+    return replyContext.current.selection === selected && replyContext.current.coId === selected.chiefAgentId && current?.phase === "calling" && current.agentId === selected.chiefAgentId && current.batch?.id === selected.batchId
+      ? batchResponse(selected.batchId, text) : text;
+  };
 
   const coordinatorRequest = useRef(0);
   const connectCoordinator = useCallback(() => {
@@ -82,8 +95,8 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
       agentId={coId}
       commander
       highlightedBatchId={chief.state?.phase === "calling" ? chief.state.batch?.id : undefined}
-      headerExtra={<>{tools}{chief.state?.phase === "calling" && chief.state.focus ? <View style={{padding:16,gap:8}}><Text style={{color:colors.foreground}}>{chief.state.focus.sentence}</Text>{chief.state.error ? <Text style={{color:colors.statusWarning}}>來源無法確認；保留焦點，暫停開啟。</Text> : null}<Pressable colors={colors} accessibilityRole="button" accessibilityLabel="回應這一批" onPress={() => setReplyBatch(chief.state!.batch!.id)}><Text style={{color:colors.accent}}>{replyBatch ? "正在回應這一批" : "回應這一批"}</Text></Pressable><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="開啟幕僚長的焦點" disabled={Boolean(chief.state.error)} onPress={() => setTarget({params:{item:chief.state!.focus!.targetKey,request:`focus:${++targetRequest.current}`},externalRequest})}><Text style={{color:colors.accent}}>開啟具名事項 →</Text></Pressable></View> : null}</>}
-      sendText={text => replyBatch ? batchResponse(replyBatch, text) : text}
+      headerExtra={<>{tools}{chief.state?.phase === "calling" && chief.state.focus ? <View style={{padding:16,gap:8}}><Text style={{color:colors.foreground}}>{chief.state.focus.sentence}</Text>{chief.state.error ? <Text style={{color:colors.statusWarning}}>來源無法確認；保留焦點，暫停開啟。</Text> : null}<Pressable colors={colors} accessibilityRole="button" accessibilityLabel="回應這一批" onPress={() => setReplyBatch({chiefAgentId:coId,batchId:chief.state!.batch!.id})}><Text style={{color:colors.accent}}>{validReply ? "正在回應這一批" : "回應這一批"}</Text></Pressable><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="開啟幕僚長的焦點" disabled={Boolean(chief.state.error)} onPress={() => setTarget({params:{item:chief.state!.focus!.targetKey,request:`focus:${++targetRequest.current}`},externalRequest})}><Text style={{color:colors.accent}}>開啟具名事項 →</Text></Pressable></View> : null}</>}
+      sendText={responseText}
       onSent={() => { setReplyBatch(null); void chief.refresh(); }}
       active={active}
       sourceState={commsState}

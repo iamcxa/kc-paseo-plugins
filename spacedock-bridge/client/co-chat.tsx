@@ -1,4 +1,4 @@
-import { focusSchema, RESPONSE_MARKER } from "../shared/chief";
+import { type ChiefFocus } from "../shared/chief";
 import { AUTOMATED_MARKER } from "../shared/reviews";
 import { readTimeline } from "../shared/timeline";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
@@ -18,7 +18,7 @@ import { stopAgent } from "../shared/control";
 import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
 import { useComposerPadding } from "./use-composer-padding";
-import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
+import { readCommanderConversation, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 import type { GateIdentityFields } from "../shared/gate-identity";
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
@@ -33,7 +33,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   chips?: readonly string[];
   footer?: string;
   beforeSend?: () => Promise<string | null>;
-  sendText?: (text: string) => string;
+  sendText?: (text: string) => string | Promise<string>;
   onSent?: (text: string) => void;
   onChip?: (word: string, draft: string) => Promise<string | null>;
   decisionTarget?: string;
@@ -78,7 +78,9 @@ function Chat({
   onRetrySource,
 }: Props) {
   const paseo = usePaseo();
-  const [automatedReplies, setAutomatedReplies] = useState(new Set<string>());
+  const [batchFocuses, setBatchFocuses] = useState(new Map<string, ChiefFocus>());
+  const latestSendText = useRef(sendText); latestSendText.current = sendText;
+  const [captainResponses, setCaptainResponses] = useState(new Set<string>());
   const [lines, setLines] = useState<Line[]>([]);
   const input = useRef<import("react").ElementRef<typeof TextInput>>(null);
   const [working, setWorking] = useState(false);
@@ -255,14 +257,17 @@ function Chat({
     const request = ++readRequest.current;
     setConversation("loading");
     try {
-      const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
-      if (request !== readRequest.current) return;
       if (commander) {
-        const replies = commanderReplies(page, agentId);
-        if (!replies) throw new Error("Chief of staff timeline unavailable");
-        setAutomatedReplies(new Set(replies.filter(r => r.provenance === "automated" && r.item.type === "assistant_message").map(r => String(r.seqStart))));
+        const { replies } = await readCommanderConversation((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId);
+        if (request !== readRequest.current) return;
+        setCaptainResponses(new Set(replies.filter(r => r.responseId).map(r => String(r.seqStart))));
+        setBatchFocuses(new Map(replies.filter(r => r.focus).map(r => [String(r.seqStart), r.focus!])));
         setLines(replies.flatMap(r => toLines([r])));
-      } else setLines(toLines(page.entries));
+      } else {
+        const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
+        if (request !== readRequest.current) return;
+        setLines(toLines(page.entries));
+      }
       setConversation("loaded");
       setReadError("");
     } catch (e) {
@@ -325,11 +330,8 @@ function Chat({
     wasVisible.current = visible;
   }, [visible]);
 
-  const focusFor = (line: Line) => {
-    if (line.role !== "assistant" || !automatedReplies.has(line.key)) return null;
-    try { return focusSchema.parse(JSON.parse(line.text)); } catch { return null; }
-  };
-  const ownWords = (text: string) => text.startsWith(RESPONSE_MARKER) ? text.slice(text.indexOf("]\n") + 2) : text;
+  const focusFor = (line: Line) => line.role === "assistant" ? batchFocuses.get(line.key) ?? null : null;
+  const ownWords = (line: Extract<Line, { role: "user" | "assistant" }>) => captainResponses.has(line.key) ? line.text.slice(line.text.indexOf("]\n") + 2) : line.text;
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
   useEffect(() => {
@@ -350,7 +352,11 @@ function Chat({
     setError,
     sending: () => readDraftSending(key),
     setSending,
-    sendToAgent: (text) => paseo.agents.ref(agentId).send(sendText ? sendText(text) : text),
+    sendToAgent: async (text) => {
+      const outgoing = latestSendText.current ? await latestSendText.current(text) : text;
+      if (!active.current || !visibleRef.current || currentTarget.current !== decisionTarget) throw new Error("The briefing or officer changed; your draft is kept.");
+      await paseo.agents.ref(agentId).send(outgoing);
+    },
     footer,
     beforeSend: () => checkComposerTarget(
       () => active.current && visibleRef.current && currentTarget.current === decisionTarget,
@@ -451,7 +457,7 @@ function Chat({
           ) : line.role === "user" ? (
             <View key={line.key} style={index === 0 ? null : styles.turn}>
               <View style={styles.user}>
-                <Text style={styles.text} selectable>{ownWords(line.text)}</Text>
+                <Text style={styles.text} selectable>{ownWords(line)}</Text>
               </View>
             </View>
           ) : focusFor(line)?.batchId === highlightedBatchId && highlightedBatchId ? null : (

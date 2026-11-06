@@ -138,8 +138,12 @@ test("an ordinary message never consumes the gate decision controls", async t =>
   assert.equal(h.sent[0].id, "a");
 });
 
-test("desktop board navigation keeps the commander as the default detail", async t => {
-  const h = await mountBridge(t); await openA(h);
+test("desktop Board and chief destinations remain distinct while retaining the chief draft", async t => {
+  const h = await mountBridge(t);
+  await h.type("Message Chief of staff", "Retained chief draft"); await openA(h);
   await h.click("Board");
-  assert.ok(h.find("Message Chief of staff"));
+  assert.match(h.text(), /Choose an item/);
+  assert.equal(h.find("Message Chief of staff"), undefined);
+  await h.click("Chief of staff");
+  assert.equal((h.find("Message Chief of staff") as HTMLTextAreaElement).value, "Retained chief draft");
 });

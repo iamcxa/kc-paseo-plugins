@@ -2,12 +2,12 @@ import { createHash } from "node:crypto";
 import type { PaseoApi } from "@getpaseo/client";
 import { FO_FILTER, ROLE_COORDINATOR, toRows, attachGates, withReplies, needsQuestion, readQuestion, type BoardAgent, type ReplyFact } from "../shared/board";
 import { buildQueue } from "../shared/queue";
-import { batchRequest, batchResponseId, BATCH_MARKER, BatchTracker, eventVersion, focusSchema, type ChiefBatch, type ChiefEvent, type ChiefState } from "../shared/chief";
+import { BATCH_MARKER, BatchTracker, eventVersion, focusSchema, type ChiefBatch, type ChiefEvent, type ChiefState } from "../shared/chief";
 import { COORDINATOR_VERSION } from "../shared/coordinator";
 import { readTimeline } from "../shared/timeline";
-import { commanderReplies } from "../shared/commander-replies";
+import { readCommanderConversation } from "../shared/commander-replies";
 import { toLines } from "../shared/chat-lines";
-import { lastReply, nextStepIsCaptains, replyPreview, parseEnvelope } from "../shared/preview";
+import { nextStepIsCaptains, replyPreview } from "../shared/preview";
 import { readGatesHandler } from "./tasks";
 import { readReviewsHandler } from "./reviews";
 import { readDecisionHandler } from "./decisions";
@@ -24,8 +24,7 @@ export async function chiefBoard(api: PaseoApi, readReviewSource = readReviewsHa
     const officers = await api.agents.list({ filter: { labels: { role: ROLE_COORDINATOR } } });
     const officer = officers.entries.find(entry => entry.agent.labels.role === ROLE_COORDINATOR && !entry.agent.archivedAt)?.agent;
     if (officer) {
-      const page = await readTimeline((id, options) => api.agents.ref(id).timeline.refetch(options), officer.id, { direction: "tail", limit: 120 });
-      const replies = commanderReplies(page, officer.id)!;
+      const { replies } = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), officer.id);
       const shown = replies.flatMap(reply => toLines([reply])).at(-1);
       const last = replies.find(reply => String(reply.seqStart) === shown?.key);
       if (officer.status !== "running" && officer.status !== "initializing" && last?.item.type === "assistant_message" && last.provenance === "ordinary" && nextStepIsCaptains(last.item.text)) chiefQuestions = 1;
@@ -92,6 +91,7 @@ export class ChiefObserver {
   private tracker = new BatchTracker();
   private agentId = "";
   private running = false;
+  private terminal = new Set<string>();
   private reading: Promise<ChiefState> | null = null;
   constructor(private board: (api: PaseoApi) => Promise<{ events: ChiefEvent[]; total: string; complete: boolean; rows: unknown[] }> = chiefBoard) {}
   read(api: PaseoApi): Promise<ChiefState> {
@@ -99,36 +99,10 @@ export class ChiefObserver {
     return this.reading;
   }
   private async history(api: PaseoApi, id: string) {
-    const entries: Awaited<ReturnType<typeof readTimeline>>["entries"] = [];
-    let cursor: { epoch: string; seq: number } | undefined;
-    const seen = new Set<string>();
-
-    for (let pages = 0; pages < 100; pages++) {
-      const page = await readTimeline((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id, { direction: cursor ? "before" : "tail", cursor, limit: 120 }, cursor?.epoch);
-      entries.unshift(...page.entries);
-      if (!page.hasOlder) {
-        const unresolved = new Map<string, { batch: ChiefBatch; focus: ReturnType<typeof focusSchema.parse> }>();
-        let current: ChiefBatch | null = null;
-        for (const entry of entries) {
-          if (entry.item.type === "user_message") {
-            if (parseEnvelope(entry.item.text)) { current = null; continue; }
-            const batch = batchRequest(entry.item.text);
-            if (batch) { this.tracker.consume(batch.events); current = batch; }
-            else { const response = batchResponseId(entry.item.text); if (response) unresolved.delete(response); current = null; }
-          } else if (entry.item.type === "assistant_message" && current) {
-            try {
-              const focus = focusSchema.parse(JSON.parse(entry.item.text));
-              if (focus.batchId === current.id && current.events.some(event => event.key === focus.targetKey)) unresolved.set(current.id, { batch: current, focus });
-            } catch {}
-          }
-        }
-        return [...unresolved.values()].at(-1) ?? null;
-      }
-      const first = page.entries[0]?.seqStart;
-      if (first === undefined || seen.has(`${page.epoch}:${first}`)) throw new Error("Batch history did not advance");
-      seen.add(`${page.epoch}:${first}`); cursor = { epoch: page.epoch, seq: first };
-    }
-    throw new Error("Batch history could not be confirmed");
+    const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id);
+    conversation.attempts.forEach(batch => this.tracker.consume(batch.events));
+    if (!conversation.unresolved.length && conversation.uncertain.size) throw new Error("Preparation cannot be confirmed from conversation history; no call or retry");
+    return conversation.unresolved.at(-1) ?? null;
   }
   private async update(api: PaseoApi) {
     try {
@@ -145,6 +119,7 @@ export class ChiefObserver {
       this.state.error = snapshot.complete ? null : "Board sources cannot be confirmed";
       const qualified = this.tracker.observe(snapshot.events, Date.now(), snapshot.complete);
       if (snapshot.complete && this.state.phase === "calling" && this.state.focus && !snapshot.events.some(event => event.key === this.state.focus!.targetKey && this.state.batch?.events.some(old => eventVersion(old) === eventVersion(event)))) {
+        this.terminal.add(`${chief.id}:${this.state.batch!.id}`);
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total };
       }
       if (!this.running && this.state.phase !== "calling" && qualified && chief.status === "idle") {
@@ -166,12 +141,12 @@ export class ChiefObserver {
       const handle = api.agents.ref(id);
       await handle.run(`${BATCH_MARKER}${JSON.stringify(batch)}\nAutomated batch request, not the Captain. Call prepare_batch ONCE with this batchId before choosing a focus. If it fails, report preparation failed and make no call, no retry. After successful preparation, choose ONE supplied unresolved target, without external actions. Return ONLY JSON {"batchId":"${batch.id}","targetKey":"exact supplied key","sentence":"one concise Traditional Chinese opening naming the item, its explicit waiter, known waiting time and action"}. No inferred urgency, approval, message to an FO, or tools besides prepare_batch.`, { timeoutMs: 240_000 });
       if (!preparation.succeeded || handle.status !== "idle" || handle.lastError) throw new Error("Batch could not be prepared; no retry");
-      const page = await readTimeline((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id, { direction: "tail", limit: 120 });
-      const last = page.entries.findLast(entry => entry.item.type === "assistant_message");
-      const focus = focusSchema.parse(JSON.parse(last?.item.type === "assistant_message" ? last.item.text : ""));
-      if (focus.batchId !== batch.id) throw new Error("Focus batch identity changed");
+      const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id, batch.id);
+      const result = conversation.unresolved.find(result => result.batch.id === batch.id);
+      if (!result || conversation.responses.has(batch.id)) throw new Error("Batch result provenance could not be confirmed");
+      const focus = result.focus;
       await this.publish(api, id, batch, focus);
-    } catch (error) { this.state = { ...this.state, phase: "failed", error: String(error) }; }
+    } catch (error) { if (this.state.agentId === id && this.state.batch?.id === batch.id && !this.terminal.has(`${id}:${batch.id}`)) this.state = { ...this.state, phase: "failed", error: String(error) }; }
     finally { preparation = null; }
   }
   async publish(api: PaseoApi, id: string, batch: ChiefBatch, raw: unknown) {
@@ -180,6 +155,7 @@ export class ChiefObserver {
     const current = await this.board(api);
     const target = batch.events.find(event => event.key === focus.targetKey);
     if (!current.complete || !target || !current.events.some(event => eventVersion(event) === eventVersion(target))) throw new Error("Focus no longer awaits the Captain");
+    if (this.terminal.has(`${id}:${batch.id}`) || this.state.agentId && this.state.agentId !== id) throw new Error("Batch already ended or chief changed");
     this.state = { ...quiet(), agentId: id, total: current.total, batch, phase: "calling", focus, entered: false, soundAttempted: false };
   }
   mark(batchId: string, action: "entered" | "sound") {
@@ -188,6 +164,18 @@ export class ChiefObserver {
     else this.state.entered = true;
     return { accepted: true };
   }
-  responded(batchId: string) { if (this.state.batch?.id === batchId) this.state = { ...quiet(), agentId: this.agentId, total: this.state.total }; }
+  responded(batchId: string, agentId: string) {
+    if (agentId !== this.state.agentId || this.state.batch?.id !== batchId) return;
+    this.terminal.add(`${agentId}:${batchId}`);
+    this.state = { ...quiet(), agentId, total: this.state.total };
+  }
+  async receive(api: PaseoApi, agentId: string) {
+    if (agentId !== this.state.agentId || !this.state.batch) return;
+    const batchId = this.state.batch.id;
+    try {
+      const conversation = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), agentId);
+      if (conversation.responses.has(batchId)) this.responded(batchId, agentId);
+    } catch {}
+  }
 }
 export const chiefObserver = new ChiefObserver();

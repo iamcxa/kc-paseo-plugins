@@ -90,7 +90,7 @@ test("one qualifying batch persists its request before one Terra pass and one Op
   assert.equal(observer.mark(observer.state.batch!.id,"sound").accepted,false);
   observer.mark(observer.state.batch!.id,"entered");assert.equal(observer.state.total,"4");
   await observer.read(api);assert.deepEqual([chiefRuns,helperRuns],[1,1]);
-  observer.responded(observer.state.batch!.id);await observer.read(api);assert.equal(observer.state.phase,"quiet");assert.deepEqual([chiefRuns,helperRuns],[1,1]);
+  observer.responded(observer.state.batch!.id,"co");await observer.read(api);assert.equal(observer.state.phase,"quiet");assert.deepEqual([chiefRuns,helperRuns],[1,1]);
   const restarted=new ChiefObserver(board);await restarted.read(api);await restarted.read(api);assert.deepEqual([chiefRuns,helperRuns],[1,1]);
   assert.ok(batchResponse("batch","我的回覆").includes("我的回覆"));
 });

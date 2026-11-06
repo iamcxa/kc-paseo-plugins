@@ -173,7 +173,7 @@ export function Board({
   const askCo = (text: string) => {
     if (onAskCo) { enterChief(); return onAskCo(text); }
     callOpenCoordinator({}).then(
-      ({ agentId }) => navigation?.openAgent({ agentId }),
+      ({ agentId }) => { if (navigation?.openAgent) navigation.openAgent({ agentId }); else setMessage("The native chief conversation is unavailable."); },
       (error) => setMessage(String(error)),
     );
   };
@@ -213,7 +213,10 @@ export function Board({
   );
 
   const [open, setOpen] = useState<string | null>(comms ? "comms" : null);
-  const enterChief = () => { setOpen("comms"); onEnterChief?.(); };
+  const enterChief = () => dispatch("comms");
+  const chiefVisible = Boolean(comms && open === "comms");
+  const enterChiefRef = useRef(onEnterChief); enterChiefRef.current = onEnterChief;
+  useEffect(() => { if (chiefVisible) enterChiefRef.current?.(); }, [chiefVisible]);
   const [visited, setVisited] = useState<Record<string, QueueItem>>({});
   const [progress, setProgress] = useState<Record<string, ItemProgress>>({});
   const reportProgress = useCallback((key: string, next: ItemProgress) => {
@@ -349,19 +352,22 @@ export function Board({
     const request = params?.request ?? target ?? "";
     if (!target || appliedTarget.current === request) return;
     if (target === "queue" || target === "comms") {
-      setOpen(target === "queue" ? null : "comms");
+      dispatch(target);
       appliedTarget.current = request;
       return;
     }
-    const item = liveQueue.find(item => item.key === target);
+    if (foState !== "loaded" || !sourcesReady()) {
+      if (foState === "failed" || gateCheck.state === "failed" || reviewState === "failed") setMessage("This named item’s source cannot be confirmed; retry its source.");
+      return;
+    }
+    const statusFO = rows.find(row => `f:${row.id}` === target);
+    const item = liveQueue.find(item => item.key === target) ?? ((progress[target]?.recorded || progress[target]?.sent || progress[target]?.relayed) ? visited[target] : null) ?? (statusFO ? { key: target, kind: "ask" as const, title: `Conversation with ${statusFO.title || statusFO.repo || "FO"}`, detail: statusFO.repo, fo: statusFO, since: statusFO.lastActivityAt } : null);
     if (!item) {
       if (foState === "loaded" && sourcesReady()) { setMessage("This named item is no longer available or has changed; reopen its current source."); appliedTarget.current = request; }
       return;
     }
-    setMessage("");
-    setVisited(old => ({ ...old, [item.key]: item }));
-    setOpen(item.key);
     appliedTarget.current = request;
+    dispatch(item);
   }, [params?.item, params?.request, liveQueue, foState, gateCheck, reviewState]);
   const queue = [...liveQueue, ...Object.values(visited).filter(item => !liveQueue.some(live => live.key === item.key) && (progress[item.key]?.sent || progress[item.key]?.relayed))]
     .filter(item => !progress[item.key]?.recorded && !progress[item.key]?.closed);
@@ -395,17 +401,24 @@ export function Board({
   const recordedItems = Object.values(visited).filter(item => progress[item.key]?.recorded);
   const countedItems = [...queue.map(item => ({ ...progress[item.key], kind: item.kind })), ...(coAsk ? [{ kind: "ask" as const }] : [])];
   const counts = filterCounts(countedItems, sources);
-  const openItem = (item: QueueItem) => {
-    if (item.kind === "permission" && item.fo) return navigation?.openAgent({ agentId: item.fo.id });
-    if (item.kind === "review" && item.review && !item.fo)
-      return askCo(
-        `Who should review ${item.review.owner}/${item.review.repo}#${item.review.number} (${item.review.url})?`,
-      );
-    if (item.fo) {
-      setVisited(old => old[item.key] ? old : { ...old, [item.key]: item });
-      setOpen(item.key);
+  function dispatch(destination: "queue" | "comms" | QueueItem) {
+    setMessage("");
+    if (destination === "queue") { setOpen(null); return; }
+    if (destination === "comms") { if (open === "comms") enterChiefRef.current?.(); setOpen("comms"); return; }
+    const item = destination;
+    if (item.kind === "permission") {
+      if (!item.fo || !navigation?.openAgent) { setMessage("This permission's native conversation is unavailable."); return; }
+      try { void Promise.resolve(navigation.openAgent({ agentId: item.fo.id })).catch(error => setMessage(`Native conversation unavailable: ${String(error)}`)); } catch (error) { setMessage(`Native conversation unavailable: ${String(error)}`); }
+      return;
     }
-  };
+    if (item.kind === "review" && item.review && !item.fo) {
+      askCo(`Who should review ${item.review.owner}/${item.review.repo}#${item.review.number} (${item.review.url})?`); return;
+    }
+    if (!item.fo) { setMessage("This named item's conversation is unavailable."); return; }
+    setVisited(old => old[item.key] ? old : { ...old, [item.key]: item });
+    setOpen(item.key);
+  }
+  const openItem = (item: QueueItem) => dispatch(item);
 
   const reference = (ref: string) => {
     const split = ref.lastIndexOf("#");
@@ -531,7 +544,7 @@ export function Board({
     <View style={{ flex: 1, minHeight: 0 }}>
       {comms ? <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 12, minHeight: 44, borderBottomWidth: 1, borderBottomColor: colors.border }}>
         {open === "comms" ? <Text style={styles.name}>Chief of staff</Text> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Back to Chief of staff" onPress={() => enterChief()} style={{ minHeight: 44, justifyContent: "center" }}><Text style={styles.muted}>← Chief of staff</Text></Pressable>}
-        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Board" onPress={() => setOpen(layout.compact ? null : "comms")} style={{ minHeight: 44, minWidth: 44, paddingHorizontal: 6, justifyContent: "center" }}><Text style={styles.muted}>Board</Text></Pressable>
+        <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Board" onPress={() => dispatch("queue")} style={{ minHeight: 44, minWidth: 44, paddingHorizontal: 6, justifyContent: "center" }}><Text style={styles.muted}>Board</Text></Pressable>
       </View> : null}
       {message ? <Text style={{color:colors.statusDanger,padding:12}}>{message}</Text> : null}
       {open === null ? <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24, gap: 8 }}><Text style={styles.name}>Choose an item</Text><Text style={styles.muted}>Its detail and conversation open here.</Text></View> : null}
@@ -541,7 +554,7 @@ export function Board({
             conversationOnly={item.key === `f:${item.fo.id}`}
             questionSince={item.kind === "ask" ? item.since : undefined}
             active={open === item.key} title={item.title} onProgress={next => reportProgress(item.key, next)}
-            onBack={(recorded) => { setOpen(comms ? "comms" : null); if (recorded) void refreshGates(true); }} />
+            onBack={(recorded) => { dispatch("queue"); if (recorded) void refreshGates(true); }} />
         </View>
       ) : null)}
       {comms ? <View style={{ flex: 1, minHeight: 0, display: open === "comms" ? "flex" : "none" }}>
