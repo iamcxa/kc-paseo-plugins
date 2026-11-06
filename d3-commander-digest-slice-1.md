@@ -500,3 +500,9 @@ Live SDK reads prove the repaired algorithm accepts the actual pages; they do no
 ### Summary
 
 Amendment 2 is implemented and pushed with the real-daemon proof missing from earlier cycles. The Commander/history/question readers and exact projected source/Replay path now share the same runtime contract, with the original safety guards retained. FO owns review and reinstall for the Captain; PR #74 stays Draft and AC-4 stays skipped.
+
+## Investigation: roborev 1546
+
+FO ran roborev on f090b676e21a2f024bde579d3f4476efb42591c8 (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1546, one Medium.
+13. client/digest.tsx verification effect: a complete digest that arrives while the Commander is still running is rejected as still being written; when the turn finishes with the same text and range the effect does not rerun, so the finished digest stays unavailable until a manual retry. A collect-now digest is the Commander's last message, so this is the likely path of the Captain's next trial; FO holds the reinstall for it.
+Read-only investigation dispatched as implementation-1-followup-10 before any fix.
