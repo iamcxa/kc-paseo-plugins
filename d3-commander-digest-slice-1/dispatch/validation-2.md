@@ -1,6 +1,7 @@
 Dispatched: from 7a4dbc057803d791dc5626182636c8e0fc2c2d32 (candidate head; base 33952f9b3d02fceab104ba09272d65e432a3d095)
 Model: codex gpt-6.1-sol, reasoning high (Captain: 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」, chat 2026-10-27)
 Candidate: 7a4dbc057803d791dc5626182636c8e0fc2c2d32
+Symptom: Commander timeline unavailable on the live Bridge (real daemon serves projected timelines only)
 
 ## Checklist
 
