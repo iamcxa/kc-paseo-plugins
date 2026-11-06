@@ -1,0 +1,586 @@
+TAP version 13
+# Subtest: reopen keeps the confirmed choice and reason
+ok 1 - reopen keeps the confirmed choice and reason
+  ---
+  duration_ms: 274.744458
+  type: 'test'
+  ...
+# Subtest: sent and relayed progress survives a comms detour
+ok 2 - sent and relayed progress survives a comms detour
+  ---
+  duration_ms: 110.137209
+  type: 'test'
+  ...
+# Subtest: a recorded item never becomes actionable again
+ok 3 - a recorded item never becomes actionable again
+  ---
+  duration_ms: 88.166916
+  type: 'test'
+  ...
+# Subtest: switching items keeps separate drafts and rejects stale actions
+ok 4 - switching items keeps separate drafts and rejects stale actions
+  ---
+  duration_ms: 51.084375
+  type: 'test'
+  ...
+# Subtest: errors and progress stay with their own source and owner
+ok 5 - errors and progress stay with their own source and owner
+  ---
+  duration_ms: 267.155125
+  type: 'test'
+  ...
+# Subtest: every drill-down returns to the commander in one step keeping drafts and progress
+ok 6 - every drill-down returns to the commander in one step keeping drafts and progress
+  ---
+  duration_ms: 156.232333
+  type: 'test'
+  ...
+# Subtest: an FO with nothing waiting is reachable from By FO
+ok 7 - an FO with nothing waiting is reachable from By FO
+  ---
+  duration_ms: 33.665875
+  type: 'test'
+  ...
+# Subtest: a recorded item reopens to its result and reason this session and is never actionable
+ok 8 - a recorded item reopens to its result and reason this session and is never actionable
+  ---
+  duration_ms: 32.90925
+  type: 'test'
+  ...
+# Subtest: an ordinary message never consumes the gate decision controls
+ok 9 - an ordinary message never consumes the gate decision controls
+  ---
+  duration_ms: 21.702208
+  type: 'test'
+  ...
+# Subtest: desktop Board and chief destinations remain distinct while retaining the chief draft
+ok 10 - desktop Board and chief destinations remain distinct while retaining the chief draft
+  ---
+  duration_ms: 21.888666
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by row at 1440 (bridge)
+ok 11 - semantic destination permission by row at 1440 (bridge)
+  ---
+  duration_ms: 162.807916
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 1440 (bridge)
+ok 12 - semantic destination gate by row at 1440 (bridge)
+  ---
+  duration_ms: 75.970125
+  type: 'test'
+  ...
+# Subtest: semantic destination question by row at 1440 (bridge)
+ok 13 - semantic destination question by row at 1440 (bridge)
+  ---
+  duration_ms: 54.914083
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by row at 1440 (bridge)
+ok 14 - semantic destination owned review by row at 1440 (bridge)
+  ---
+  duration_ms: 69.5955
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by row at 1440 (bridge)
+ok 15 - semantic destination ownerless review by row at 1440 (bridge)
+  ---
+  duration_ms: 35.595667
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 1440 (bridge)
+ok 16 - semantic destination status by row at 1440 (bridge)
+  ---
+  duration_ms: 51.228625
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by named at 1440 (bridge)
+ok 17 - semantic destination permission by named at 1440 (bridge)
+  ---
+  duration_ms: 15.123292
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by named at 1440 (bridge)
+ok 18 - semantic destination gate by named at 1440 (bridge)
+  ---
+  duration_ms: 45.334375
+  type: 'test'
+  ...
+# Subtest: semantic destination question by named at 1440 (bridge)
+ok 19 - semantic destination question by named at 1440 (bridge)
+  ---
+  duration_ms: 67.169625
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by named at 1440 (bridge)
+ok 20 - semantic destination owned review by named at 1440 (bridge)
+  ---
+  duration_ms: 57.101
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by named at 1440 (bridge)
+ok 21 - semantic destination ownerless review by named at 1440 (bridge)
+  ---
+  duration_ms: 38.361833
+  type: 'test'
+  ...
+# Subtest: semantic destination status by named at 1440 (bridge)
+ok 22 - semantic destination status by named at 1440 (bridge)
+  ---
+  duration_ms: 55.391875
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by row at 360 (bridge)
+ok 23 - semantic destination permission by row at 360 (bridge)
+  ---
+  duration_ms: 33.069583
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 360 (bridge)
+ok 24 - semantic destination gate by row at 360 (bridge)
+  ---
+  duration_ms: 33.890834
+  type: 'test'
+  ...
+# Subtest: semantic destination question by row at 360 (bridge)
+ok 25 - semantic destination question by row at 360 (bridge)
+  ---
+  duration_ms: 27.046375
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by row at 360 (bridge)
+ok 26 - semantic destination owned review by row at 360 (bridge)
+  ---
+  duration_ms: 26.816125
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by row at 360 (bridge)
+ok 27 - semantic destination ownerless review by row at 360 (bridge)
+  ---
+  duration_ms: 17.164375
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 360 (bridge)
+ok 28 - semantic destination status by row at 360 (bridge)
+  ---
+  duration_ms: 24.972458
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by named at 360 (bridge)
+ok 29 - semantic destination permission by named at 360 (bridge)
+  ---
+  duration_ms: 14.533083
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by named at 360 (bridge)
+ok 30 - semantic destination gate by named at 360 (bridge)
+  ---
+  duration_ms: 26.035666
+  type: 'test'
+  ...
+# Subtest: semantic destination question by named at 360 (bridge)
+ok 31 - semantic destination question by named at 360 (bridge)
+  ---
+  duration_ms: 26.038834
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by named at 360 (bridge)
+ok 32 - semantic destination owned review by named at 360 (bridge)
+  ---
+  duration_ms: 30.405791
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by named at 360 (bridge)
+ok 33 - semantic destination ownerless review by named at 360 (bridge)
+  ---
+  duration_ms: 14.642292
+  type: 'test'
+  ...
+# Subtest: semantic destination status by named at 360 (bridge)
+ok 34 - semantic destination status by named at 360 (bridge)
+  ---
+  duration_ms: 21.997459
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by row at 1440 (fleet)
+ok 35 - semantic destination permission by row at 1440 (fleet)
+  ---
+  duration_ms: 7.347375
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 1440 (fleet)
+ok 36 - semantic destination gate by row at 1440 (fleet)
+  ---
+  duration_ms: 12.978333
+  type: 'test'
+  ...
+# Subtest: semantic destination question by row at 1440 (fleet)
+ok 37 - semantic destination question by row at 1440 (fleet)
+  ---
+  duration_ms: 15.600833
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by row at 1440 (fleet)
+ok 38 - semantic destination owned review by row at 1440 (fleet)
+  ---
+  duration_ms: 13.314667
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by row at 1440 (fleet)
+ok 39 - semantic destination ownerless review by row at 1440 (fleet)
+  ---
+  duration_ms: 8.269208
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 1440 (fleet)
+ok 40 - semantic destination status by row at 1440 (fleet)
+  ---
+  duration_ms: 11.426834
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by named at 1440 (fleet)
+ok 41 - semantic destination permission by named at 1440 (fleet)
+  ---
+  duration_ms: 8.614958
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by named at 1440 (fleet)
+ok 42 - semantic destination gate by named at 1440 (fleet)
+  ---
+  duration_ms: 13.2835
+  type: 'test'
+  ...
+# Subtest: semantic destination question by named at 1440 (fleet)
+ok 43 - semantic destination question by named at 1440 (fleet)
+  ---
+  duration_ms: 11.597917
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by named at 1440 (fleet)
+ok 44 - semantic destination owned review by named at 1440 (fleet)
+  ---
+  duration_ms: 11.063459
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by named at 1440 (fleet)
+ok 45 - semantic destination ownerless review by named at 1440 (fleet)
+  ---
+  duration_ms: 7.859833
+  type: 'test'
+  ...
+# Subtest: semantic destination status by named at 1440 (fleet)
+ok 46 - semantic destination status by named at 1440 (fleet)
+  ---
+  duration_ms: 14.287792
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by row at 360 (fleet)
+ok 47 - semantic destination permission by row at 360 (fleet)
+  ---
+  duration_ms: 7.954708
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 360 (fleet)
+ok 48 - semantic destination gate by row at 360 (fleet)
+  ---
+  duration_ms: 14.743333
+  type: 'test'
+  ...
+# Subtest: semantic destination question by row at 360 (fleet)
+ok 49 - semantic destination question by row at 360 (fleet)
+  ---
+  duration_ms: 14.483583
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by row at 360 (fleet)
+ok 50 - semantic destination owned review by row at 360 (fleet)
+  ---
+  duration_ms: 13.9395
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by row at 360 (fleet)
+ok 51 - semantic destination ownerless review by row at 360 (fleet)
+  ---
+  duration_ms: 7.600292
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 360 (fleet)
+ok 52 - semantic destination status by row at 360 (fleet)
+  ---
+  duration_ms: 11.491417
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by named at 360 (fleet)
+ok 53 - semantic destination permission by named at 360 (fleet)
+  ---
+  duration_ms: 10.826666
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by named at 360 (fleet)
+ok 54 - semantic destination gate by named at 360 (fleet)
+  ---
+  duration_ms: 15.555417
+  type: 'test'
+  ...
+# Subtest: semantic destination question by named at 360 (fleet)
+ok 55 - semantic destination question by named at 360 (fleet)
+  ---
+  duration_ms: 14.2695
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by named at 360 (fleet)
+ok 56 - semantic destination owned review by named at 360 (fleet)
+  ---
+  duration_ms: 14.246584
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by named at 360 (fleet)
+ok 57 - semantic destination ownerless review by named at 360 (fleet)
+  ---
+  duration_ms: 7.008708
+  type: 'test'
+  ...
+# Subtest: semantic destination status by named at 360 (fleet)
+ok 58 - semantic destination status by named at 360 (fleet)
+  ---
+  duration_ms: 12.532417
+  type: 'test'
+  ...
+# Subtest: stale batch selection never wraps ordinary words: quiet
+ok 59 - stale batch selection never wraps ordinary words: quiet
+  ---
+  duration_ms: 15.791958
+  type: 'test'
+  ...
+# Subtest: stale batch selection never wraps ordinary words: new batch
+ok 60 - stale batch selection never wraps ordinary words: new batch
+  ---
+  duration_ms: 18.123667
+  type: 'test'
+  ...
+# Subtest: stale batch selection never wraps ordinary words: unavailable
+ok 61 - stale batch selection never wraps ordinary words: unavailable
+  ---
+  duration_ms: 16.01575
+  type: 'test'
+  ...
+# Subtest: stale batch selection never wraps ordinary words: new seed
+ok 62 - stale batch selection never wraps ordinary words: new seed
+  ---
+  duration_ms: 22.8805
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# Subtest: stale batch selection never wraps ordinary words: send-time quiet
+ok 63 - stale batch selection never wraps ordinary words: send-time quiet
+  ---
+  duration_ms: 13.985
+  type: 'test'
+  ...
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# Subtest: one conversation fold preserves agent-message across pages and restart without new runs
+ok 64 - one conversation fold preserves agent-message across pages and restart without new runs
+  ---
+  duration_ms: 16.868958
+  type: 'test'
+  ...
+# Subtest: one conversation fold preserves agent-notification across pages and restart without new runs
+ok 65 - one conversation fold preserves agent-notification across pages and restart without new runs
+  ---
+  duration_ms: 11.086583
+  type: 'test'
+  ...
+# Subtest: history provenance: no preparation
+ok 66 - history provenance: no preparation
+  ---
+  duration_ms: 0.580916
+  type: 'test'
+  ...
+# Subtest: history provenance: failed preparation
+ok 67 - history provenance: failed preparation
+  ---
+  duration_ms: 0.100542
+  type: 'test'
+  ...
+# Subtest: history provenance: ordinary boundary
+ok 68 - history provenance: ordinary boundary
+  ---
+  duration_ms: 0.158416
+  type: 'test'
+  ...
+# Subtest: history provenance: wrong batch
+ok 69 - history provenance: wrong batch
+  ---
+  duration_ms: 0.082167
+  type: 'test'
+  ...
+# Subtest: history provenance: wrong target
+ok 70 - history provenance: wrong target
+  ---
+  duration_ms: 0.088375
+  type: 'test'
+  ...
+# Subtest: history provenance: matching response
+ok 71 - history provenance: matching response
+  ---
+  duration_ms: 0.1385
+  type: 'test'
+  ...
+# Subtest: history provenance: unrelated response
+ok 72 - history provenance: unrelated response
+  ---
+  duration_ms: 0.091333
+  type: 'test'
+  ...
+# Subtest: history provenance: quoted response
+ok 73 - history provenance: quoted response
+  ---
+  duration_ms: 0.099125
+  type: 'test'
+  ...
+# Subtest: history provenance: malformed response
+ok 74 - history provenance: malformed response
+  ---
+  duration_ms: 0.073584
+  type: 'test'
+  ...
+# Subtest: reply mode is recipient-bound; failed sends keep drafts and delayed checks never rebind to B
+ok 75 - reply mode is recipient-bound; failed sends keep drafts and delayed checks never rebind to B
+  ---
+  duration_ms: 42.233792
+  type: 'test'
+  ...
+# Subtest: the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve
+ok 76 - the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve
+  ---
+  duration_ms: 5.493708
+  type: 'test'
+  ...
+# Subtest: an owning response during the one model-stub turn prevents late completion from resurrecting a call
+ok 77 - an owning response during the one model-stub turn prevents late completion from resurrecting a call
+  ---
+  duration_ms: 1.555792
+  type: 'test'
+  ...
+# Subtest: permission focus opens native FO once and queue/chief entries remain separate (1440)
+ok 78 - permission focus opens native FO once and queue/chief entries remain separate (1440)
+  ---
+  duration_ms: 26.656208
+  type: 'test'
+  ...
+# Subtest: permission focus opens native FO once and queue/chief entries remain separate (360)
+ok 79 - permission focus opens native FO once and queue/chief entries remain separate (360)
+  ---
+  duration_ms: 50.526292
+  type: 'test'
+  ...
+# Subtest: named requests wait for source identity, then fail visibly instead of substituting after change
+ok 80 - named requests wait for source identity, then fail visibly instead of substituting after change
+  ---
+  duration_ms: 73.7385
+  type: 'test'
+  ...
+# Subtest: completed two-key switch advances once only after confirmation and archive retry reuses the new chief
+ok 81 - completed two-key switch advances once only after confirmation and archive retry reuses the new chief
+  ---
+  duration_ms: 19.34525
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# Subtest: server question opens its exact Board destination, including merged range and epoch changes (false)
+ok 82 - server question opens its exact Board destination, including merged range and epoch changes (false)
+  ---
+  duration_ms: 211.608542
+  type: 'test'
+  ...
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 1ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# Subtest: server question opens its exact Board destination, including merged range and epoch changes (true)
+ok 83 - server question opens its exact Board destination, including merged range and epoch changes (true)
+  ---
+  duration_ms: 83.043875
+  type: 'test'
+  ...
+# Subtest: source partial retains call/marks, healthy disappearance alone resolves it
+ok 84 - source partial retains call/marks, healthy disappearance alone resolves it
+  ---
+  duration_ms: 1.616083
+  type: 'test'
+  ...
+# Subtest: source throw retains call/marks, healthy disappearance alone resolves it
+ok 85 - source throw retains call/marks, healthy disappearance alone resolves it
+  ---
+  duration_ms: 0.15925
+  type: 'test'
+  ...
+# Subtest: incomplete observation cannot remove pending items or replay old ones across a gap
+ok 86 - incomplete observation cannot remove pending items or replay old ones across a gap
+  ---
+  duration_ms: 0.161875
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (none)
+ok 87 - restart restores only a successful unresolved batch, never sound or models (none)
+  ---
+  duration_ms: 1.31475
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (unrelated)
+ok 88 - restart restores only a successful unresolved batch, never sound or models (unrelated)
+  ---
+  duration_ms: 0.298625
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (matching)
+ok 89 - restart restores only a successful unresolved batch, never sound or models (matching)
+  ---
+  duration_ms: 0.192209
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (failed)
+ok 90 - restart restores only a successful unresolved batch, never sound or models (failed)
+  ---
+  duration_ms: 0.137458
+  type: 'test'
+  ...
+# Subtest: restart restores only a successful unresolved batch, never sound or models (gap)
+ok 91 - restart restores only a successful unresolved batch, never sound or models (gap)
+  ---
+  duration_ms: 0.093791
+  type: 'test'
+  ...
+# Subtest: new sidebar intent wins after focus without losing draft (false)
+ok 92 - new sidebar intent wins after focus without losing draft (false)
+  ---
+  duration_ms: 143.473833
+  type: 'test'
+  ...
+# Subtest: new sidebar intent wins after focus without losing draft (true)
+ok 93 - new sidebar intent wins after focus without losing draft (true)
+  ---
+  duration_ms: 125.371666
+  type: 'test'
+  ...
+# Subtest: fleet response preserves unknown-time board matters separately from trigger eligibility
+ok 94 - fleet response preserves unknown-time board matters separately from trigger eligibility
+  ---
+  duration_ms: 2.59875
+  type: 'test'
+  ...
+1..94
+# tests 94
+# suites 0
+# pass 94
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2178.339708

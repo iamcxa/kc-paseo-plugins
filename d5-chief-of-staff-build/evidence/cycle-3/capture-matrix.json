@@ -1,0 +1,70 @@
+{
+  "head": "df49d36f0f3aaa62e36a5ead28e5849229a99138",
+  "label": "Client path proven; model-backed batch not run (Claude weekly limit).",
+  "frames": [
+    {
+      "file": "1440-queue-return.png",
+      "width": 1440,
+      "height": 1000,
+      "state": "queue-return",
+      "sha256": "a12347e0873ddf1f9e64d68e0753cb088c1737d663d4c492c949abfa38dcaa60"
+    },
+    {
+      "file": "1440-reply-mode-expired.png",
+      "width": 1440,
+      "height": 1000,
+      "state": "reply-mode-expired",
+      "sha256": "0b4c290f4eb641e2bc4d31daa6ffe5890076c3767a229c4f48339710da58a235"
+    },
+    {
+      "file": "360-queue-return.png",
+      "width": 360,
+      "height": 780,
+      "state": "queue-return",
+      "sha256": "1a7dafadb2a937ed04046f0dec23a0c7750650a4bcb971f74e1493cb5b224b96"
+    },
+    {
+      "file": "360-reply-mode-expired.png",
+      "width": 360,
+      "height": 780,
+      "state": "reply-mode-expired",
+      "sha256": "eb451b7d6aba597849fc194667ef56649cf3442b78755f4838256196908496d5"
+    }
+  ],
+  "selection": "Only changed owned pixels: queue return/desktop Board neutral destination, and stale reply-mode label after batch replacement. Existing native permission and seeded-review surfaces are unchanged pixels; destination/recipient behavior is covered by the 48-case Bridge/Fleet matrix, not a native permission approval capture. Other states retain cycle-2 evidence at its stated earlier head, not relabelled as new-head captures.",
+  "modelBacked": false,
+  "modelTurns": 0,
+  "sequentialCaptures": true,
+  "runtimeFiles": 53,
+  "productFilesMatching": 52,
+  "pageExceptions": 0,
+  "networkAllowlist": [
+    "127.0.0.1:55479",
+    "127.0.0.1:55480"
+  ],
+  "blockedChecks": [
+    "http://127.0.0.1:6767/",
+    "http://127.0.0.1:6787/",
+    "http://127.0.0.1:6860/",
+    "http://127.0.0.1:6935/",
+    "http://127.0.0.1:65500/",
+    "http://localhost:55479/",
+    "http://[::1]:55479/",
+    "http://127.0.0.2:55479/"
+  ],
+  "cleanup": {
+    "capturedPids": [
+      39533,
+      39535,
+      39524,
+      41473
+    ],
+    "allStopped": true,
+    "portsClosed": true,
+    "homeDeleted": true,
+    "rootDeleted": true,
+    "browserPid": 43649,
+    "browserStopped": true,
+    "profileDeleted": true
+  }
+}

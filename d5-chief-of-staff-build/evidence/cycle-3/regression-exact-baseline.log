@@ -1,0 +1,1771 @@
+TAP version 13
+# Subtest: semantic destination permission by row at 1440 (bridge)
+ok 1 - semantic destination permission by row at 1440 (bridge)
+  ---
+  duration_ms: 200.100375
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 1440 (bridge)
+not ok 2 - semantic destination gate by row at 1440 (bridge)
+  ---
+  duration_ms: 63.2955
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 2\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 2
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination question by row at 1440 (bridge)
+not ok 3 - semantic destination question by row at 1440 (bridge)
+  ---
+  duration_ms: 59.583916
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 3\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Choose fictional direction\n' +
+      'A FO\n' +
+      'QUESTION\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 3
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Choose fictional direction
+    A FO
+    QUESTION
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination owned review by row at 1440 (bridge)
+not ok 4 - semantic destination owned review by row at 1440 (bridge)
+  ---
+  duration_ms: 51.527709
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 3\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '◆ Your turn\n' +
+      'Fictional review\n' +
+      'a\n' +
+      '#1\n' +
+      'A FO\n' +
+      'REVIEW REQUEST\n' +
+      '498329h ago\n' +
+      '↗\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 3
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    ◆ Your turn
+    Fictional review
+    a
+    #1
+    A FO
+    REVIEW REQUEST
+    498329h ago
+    ↗
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination ownerless review by row at 1440 (bridge)
+ok 5 - semantic destination ownerless review by row at 1440 (bridge)
+  ---
+  duration_ms: 33.401083
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 1440 (bridge)
+not ok 6 - semantic destination status by row at 1440 (bridge)
+  ---
+  duration_ms: 41.57275
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 2\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 2
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination permission by named at 1440 (bridge)
+not ok 7 - semantic destination permission by named at 1440 (bridge)
+  ---
+  duration_ms: 37.082917
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'a'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'a'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:29:33)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination gate by named at 1440 (bridge)
+not ok 8 - semantic destination gate by named at 1440 (bridge)
+  ---
+  duration_ms: 33.904167
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 2\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 2
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination question by named at 1440 (bridge)
+not ok 9 - semantic destination question by named at 1440 (bridge)
+  ---
+  duration_ms: 26.701792
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 3\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Choose fictional direction\n' +
+      'A FO\n' +
+      'QUESTION\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 3
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Choose fictional direction
+    A FO
+    QUESTION
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination owned review by named at 1440 (bridge)
+not ok 10 - semantic destination owned review by named at 1440 (bridge)
+  ---
+  duration_ms: 32.940333
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose an item/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      'Board · 3\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '79h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 79h ago\n' +
+      'Research FO\n' +
+      'idle · 79h ago\n' +
+      '◆ Your turn\n' +
+      'Fictional review\n' +
+      'a\n' +
+      '#1\n' +
+      'A FO\n' +
+      'REVIEW REQUEST\n' +
+      '498329h ago\n' +
+      '↗\n' +
+      '+ New FO\n' +
+      'Gates read 1:01:34 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'No messages yet\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 3
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    ◆ Your turn
+    Fictional review
+    a
+    #1
+    A FO
+    REVIEW REQUEST
+    498329h ago
+    ↗
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:214)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination ownerless review by named at 1440 (bridge)
+not ok 11 - semantic destination ownerless review by named at 1440 (bridge)
+  ---
+  duration_ms: 16.798917
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Message Chief of staff"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:31:44)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination status by named at 1440 (bridge)
+not ok 12 - semantic destination status by named at 1440 (bridge)
+  ---
+  duration_ms: 14.148375
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    Board · 2
+    This named item is no longer available or has changed; reopen its current source.
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+    Chief of staff
+    Board
+    This named item is no longer available or has changed; reopen its current source.
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    No messages yet
+    ↑ sends to Chief of staff
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:15)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination permission by row at 360 (bridge)
+ok 13 - semantic destination permission by row at 360 (bridge)
+  ---
+  duration_ms: 16.848583
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 360 (bridge)
+not ok 14 - semantic destination gate by row at 360 (bridge)
+  ---
+  duration_ms: 27.977166
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination question by row at 360 (bridge)
+not ok 15 - semantic destination question by row at 360 (bridge)
+  ---
+  duration_ms: 31.460667
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination owned review by row at 360 (bridge)
+not ok 16 - semantic destination owned review by row at 360 (bridge)
+  ---
+  duration_ms: 25.468583
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination ownerless review by row at 360 (bridge)
+ok 17 - semantic destination ownerless review by row at 360 (bridge)
+  ---
+  duration_ms: 19.097166
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 360 (bridge)
+not ok 18 - semantic destination status by row at 360 (bridge)
+  ---
+  duration_ms: 20.109292
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination permission by named at 360 (bridge)
+not ok 19 - semantic destination permission by named at 360 (bridge)
+  ---
+  duration_ms: 21.408292
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'a'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'a'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:29:33)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination gate by named at 360 (bridge)
+not ok 20 - semantic destination gate by named at 360 (bridge)
+  ---
+  duration_ms: 28.957917
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination question by named at 360 (bridge)
+not ok 21 - semantic destination question by named at 360 (bridge)
+  ---
+  duration_ms: 24.251292
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination owned review by named at 360 (bridge)
+not ok 22 - semantic destination owned review by named at 360 (bridge)
+  ---
+  duration_ms: 24.663958
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Conversation with A FO"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:135)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination ownerless review by named at 360 (bridge)
+not ok 23 - semantic destination ownerless review by named at 360 (bridge)
+  ---
+  duration_ms: 16.056542
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Message Chief of staff"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:31:44)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination status by named at 360 (bridge)
+not ok 24 - semantic destination status by named at 360 (bridge)
+  ---
+  duration_ms: 18.079875
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Bridge
+    2
+    ← Chief of staff
+    Board · 2
+    This named item is no longer available or has changed; reopen its current source.
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:15)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination permission by row at 1440 (fleet)
+ok 25 - semantic destination permission by row at 1440 (fleet)
+  ---
+  duration_ms: 12.740667
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 1440 (fleet)
+ok 26 - semantic destination gate by row at 1440 (fleet)
+  ---
+  duration_ms: 14.918417
+  type: 'test'
+  ...
+# Subtest: semantic destination question by row at 1440 (fleet)
+ok 27 - semantic destination question by row at 1440 (fleet)
+  ---
+  duration_ms: 14.822833
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by row at 1440 (fleet)
+ok 28 - semantic destination owned review by row at 1440 (fleet)
+  ---
+  duration_ms: 14.177209
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by row at 1440 (fleet)
+ok 29 - semantic destination ownerless review by row at 1440 (fleet)
+  ---
+  duration_ms: 8.144667
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 1440 (fleet)
+ok 30 - semantic destination status by row at 1440 (fleet)
+  ---
+  duration_ms: 10.937458
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by named at 1440 (fleet)
+not ok 31 - semantic destination permission by named at 1440 (fleet)
+  ---
+  duration_ms: 10.897375
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'a'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'a'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:29:33)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination gate by named at 1440 (fleet)
+ok 32 - semantic destination gate by named at 1440 (fleet)
+  ---
+  duration_ms: 14.5905
+  type: 'test'
+  ...
+# Subtest: semantic destination question by named at 1440 (fleet)
+ok 33 - semantic destination question by named at 1440 (fleet)
+  ---
+  duration_ms: 20.289792
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by named at 1440 (fleet)
+ok 34 - semantic destination owned review by named at 1440 (fleet)
+  ---
+  duration_ms: 13.951667
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by named at 1440 (fleet)
+not ok 35 - semantic destination ownerless review by named at 1440 (fleet)
+  ---
+  duration_ms: 8.953083
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'co'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'co'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:30:65)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination status by named at 1440 (fleet)
+not ok 36 - semantic destination status by named at 1440 (fleet)
+  ---
+  duration_ms: 8.689
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    ◉ 幕僚長
+    Chief of staff
+    Board · 2
+    This named item is no longer available or has changed; reopen its current source.
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:34 AM · 2 open
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:15)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination permission by row at 360 (fleet)
+ok 37 - semantic destination permission by row at 360 (fleet)
+  ---
+  duration_ms: 7.661875
+  type: 'test'
+  ...
+# Subtest: semantic destination gate by row at 360 (fleet)
+ok 38 - semantic destination gate by row at 360 (fleet)
+  ---
+  duration_ms: 16.491208
+  type: 'test'
+  ...
+# Subtest: semantic destination question by row at 360 (fleet)
+ok 39 - semantic destination question by row at 360 (fleet)
+  ---
+  duration_ms: 18.152208
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by row at 360 (fleet)
+ok 40 - semantic destination owned review by row at 360 (fleet)
+  ---
+  duration_ms: 21.719666
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by row at 360 (fleet)
+ok 41 - semantic destination ownerless review by row at 360 (fleet)
+  ---
+  duration_ms: 7.76975
+  type: 'test'
+  ...
+# Subtest: semantic destination status by row at 360 (fleet)
+ok 42 - semantic destination status by row at 360 (fleet)
+  ---
+  duration_ms: 13.224709
+  type: 'test'
+  ...
+# Subtest: semantic destination permission by named at 360 (fleet)
+not ok 43 - semantic destination permission by named at 360 (fleet)
+  ---
+  duration_ms: 24.04875
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'a'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'a'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:29:33)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination gate by named at 360 (fleet)
+ok 44 - semantic destination gate by named at 360 (fleet)
+  ---
+  duration_ms: 41.277625
+  type: 'test'
+  ...
+# Subtest: semantic destination question by named at 360 (fleet)
+ok 45 - semantic destination question by named at 360 (fleet)
+  ---
+  duration_ms: 38.301125
+  type: 'test'
+  ...
+# Subtest: semantic destination owned review by named at 360 (fleet)
+ok 46 - semantic destination owned review by named at 360 (fleet)
+  ---
+  duration_ms: 43.092
+  type: 'test'
+  ...
+# Subtest: semantic destination ownerless review by named at 360 (fleet)
+not ok 47 - semantic destination ownerless review by named at 360 (fleet)
+  ---
+  duration_ms: 17.873542
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'co'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'co'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:30:65)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: semantic destination status by named at 360 (fleet)
+not ok 48 - semantic destination status by named at 360 (fleet)
+  ---
+  duration_ms: 16.574583
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:2027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Board · 2
+    This named item is no longer available or has changed; reopen its current source.
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    79h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    79h ago
+    A FO
+    waiting on Kent · 79h ago
+    B FO
+    waiting on Kent · 79h ago
+    Research FO
+    idle · 79h ago
+    + New FO
+    Gates read 1:01:35 AM · 2 open
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:32:15)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: stale batch selection never wraps ordinary words: quiet
+not ok 49 - stale batch selection never wraps ordinary words: quiet
+  ---
+  duration_ms: 34.1685
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:4595'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          id: 'co',
+    +     text: '[Bridge batch response: fictional-batch]\nOrdinary fictional words'
+    -     text: 'Ordinary fictional words'
+        }
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      id: 'co'
+      text: 'Ordinary fictional words'
+  actual:
+    0:
+      id: 'co'
+      text: |-
+        [Bridge batch response: fictional-batch]
+        Ordinary fictional words
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:41:115)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: stale batch selection never wraps ordinary words: new batch
+not ok 50 - stale batch selection never wraps ordinary words: new batch
+  ---
+  duration_ms: 33.167375
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:4595'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          id: 'co',
+    +     text: '[Bridge batch response: fictional-batch]\nOrdinary fictional words'
+    -     text: 'Ordinary fictional words'
+        }
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      id: 'co'
+      text: 'Ordinary fictional words'
+  actual:
+    0:
+      id: 'co'
+      text: |-
+        [Bridge batch response: fictional-batch]
+        Ordinary fictional words
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:41:115)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: stale batch selection never wraps ordinary words: unavailable
+not ok 51 - stale batch selection never wraps ordinary words: unavailable
+  ---
+  duration_ms: 20.921291
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:4595'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          id: 'co',
+    +     text: '[Bridge batch response: fictional-batch]\nOrdinary fictional words'
+    -     text: 'Ordinary fictional words'
+        }
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      id: 'co'
+      text: 'Ordinary fictional words'
+  actual:
+    0:
+      id: 'co'
+      text: |-
+        [Bridge batch response: fictional-batch]
+        Ordinary fictional words
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:41:115)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: stale batch selection never wraps ordinary words: new seed
+not ok 52 - stale batch selection never wraps ordinary words: new seed
+  ---
+  duration_ms: 17.032041
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:4595'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          id: 'co',
+    +     text: '[Bridge batch response: fictional-batch]\nOrdinary fictional words'
+    -     text: 'Ordinary fictional words'
+        }
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      id: 'co'
+      text: 'Ordinary fictional words'
+  actual:
+    0:
+      id: 'co'
+      text: |-
+        [Bridge batch response: fictional-batch]
+        Ordinary fictional words
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:41:115)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# Subtest: stale batch selection never wraps ordinary words: send-time quiet
+not ok 53 - stale batch selection never wraps ordinary words: send-time quiet
+  ---
+  duration_ms: 17.89
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:4595'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          id: 'co',
+    +     text: '[Bridge batch response: fictional-batch]\nOrdinary fictional words'
+    -     text: 'Ordinary fictional words'
+        }
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      id: 'co'
+      text: 'Ordinary fictional words'
+  actual:
+    0:
+      id: 'co'
+      text: |-
+        [Bridge batch response: fictional-batch]
+        Ordinary fictional words
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:41:115)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one conversation fold preserves agent-message across pages and restart without new runs
+not ok 54 - one conversation fold preserves agent-message across pages and restart without new runs
+  ---
+  duration_ms: 3.926
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:5754'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'quiet' !== 'calling'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'quiet'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:48:143)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one conversation fold preserves agent-notification across pages and restart without new runs
+not ok 55 - one conversation fold preserves agent-notification across pages and restart without new runs
+  ---
+  duration_ms: 0.32575
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:5754'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'quiet' !== 'calling'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'quiet'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:48:143)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: history provenance: no preparation
+not ok 56 - history provenance: no preparation
+  ---
+  duration_ms: 0.643458
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:7592'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected "actual" to be strictly unequal to:
+    
+    'calling'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'calling'
+  operator: 'notStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:56:267)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: history provenance: failed preparation
+not ok 57 - history provenance: failed preparation
+  ---
+  duration_ms: 0.142958
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:7592'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected "actual" to be strictly unequal to:
+    
+    'calling'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'calling'
+  operator: 'notStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:56:267)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: history provenance: ordinary boundary
+ok 58 - history provenance: ordinary boundary
+  ---
+  duration_ms: 0.127959
+  type: 'test'
+  ...
+# Subtest: history provenance: wrong batch
+ok 59 - history provenance: wrong batch
+  ---
+  duration_ms: 0.0875
+  type: 'test'
+  ...
+# Subtest: history provenance: wrong target
+ok 60 - history provenance: wrong target
+  ---
+  duration_ms: 0.092292
+  type: 'test'
+  ...
+# Subtest: history provenance: matching response
+ok 61 - history provenance: matching response
+  ---
+  duration_ms: 0.104916
+  type: 'test'
+  ...
+# Subtest: history provenance: unrelated response
+ok 62 - history provenance: unrelated response
+  ---
+  duration_ms: 0.087042
+  type: 'test'
+  ...
+# Subtest: history provenance: quoted response
+ok 63 - history provenance: quoted response
+  ---
+  duration_ms: 0.104584
+  type: 'test'
+  ...
+# Subtest: history provenance: malformed response
+ok 64 - history provenance: malformed response
+  ---
+  duration_ms: 0.073209
+  type: 'test'
+  ...
+# Subtest: reply mode is recipient-bound; failed sends keep drafts and delayed checks never rebind to B
+not ok 65 - reply mode is recipient-bound; failed sends keep drafts and delayed checks never rebind to B
+  ---
+  duration_ms: 15.711292
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:9033'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '[Bridge batch response: fictional-batch]\nSelected answer'
+    - 'Selected answer'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'Selected answer'
+  actual: |-
+    [Bridge batch response: fictional-batch]
+    Selected answer
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:67:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve
+not ok 66 - the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve
+  ---
+  duration_ms: 10.67725
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:10668'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'quiet' !== 'calling'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'quiet'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:85:158)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: an owning response during the one model-stub turn prevents late completion from resurrecting a call
+not ok 67 - an owning response during the one model-stub turn prevents late completion from resurrecting a call
+  ---
+  duration_ms: 1.46825
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:13219'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'calling' !== 'quiet'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'quiet'
+  actual: 'calling'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:94:232)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: permission focus opens native FO once and queue/chief entries remain separate (1440)
+not ok 68 - permission focus opens native FO once and queue/chief entries remain separate (1440)
+  ---
+  duration_ms: 14.292833
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:15100'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'a'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'a'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:100:254)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: permission focus opens native FO once and queue/chief entries remain separate (360)
+not ok 69 - permission focus opens native FO once and queue/chief entries remain separate (360)
+  ---
+  duration_ms: 14.404083
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:15100'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   {
+    -     agentId: 'a'
+    -   }
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      agentId: 'a'
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:100:254)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: named requests wait for source identity, then fail visibly instead of substituting after change
+not ok 70 - named requests wait for source identity, then fail visibly instead of substituting after change
+  ---
+  duration_ms: 15.193417
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:1:16163'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("Message Chief of staff"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-baseline-hum6o7s2/spacedock-bridge/test/chief-navigation-lifecycle.test.mts:107:182)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+1..70
+# tests 70
+# suites 0
+# pass 29
+# fail 41
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2647.884584

@@ -1,0 +1,23 @@
+{
+  "pids": {
+    "root": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei",
+    "home": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/home",
+    "data": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional-data",
+    "plugin": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/plugin",
+    "head": "df49d36f0f3aaa62e36a5ead28e5849229a99138",
+    "cliPid": 39524,
+    "daemonPids": [
+      39535
+    ],
+    "fleetPids": [
+      41473
+    ],
+    "supervisorPid": 39533
+  },
+  "identities": [
+    "39533 39524 Paseo Supervisor",
+    "39535 39533 Paseo Daemon",
+    "39524     1 /Applications/Paseo.app/Contents/Resources/../Frameworks/Paseo Helper.app/Contents/MacOS/Paseo Helper",
+    "41473 39535 /Applications/Paseo.app/Contents/Frameworks/Paseo Helper.app/Contents/MacOS/Paseo Helper"
+  ]
+}

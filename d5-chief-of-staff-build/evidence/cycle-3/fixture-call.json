@@ -1,0 +1,106 @@
+{
+  "state": {
+    "agentId": "ccf56dd2-4130-4989-8887-abfe664f9603",
+    "total": "4",
+    "phase": "calling",
+    "batch": {
+      "id": "fictional-capture-call-1793985001344",
+      "events": [
+        {
+          "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]",
+          "version": "84bc4f3ac3823b215a561d5e7e8c87a0709997c751ad1008e6837e0e7358640e",
+          "kind": "gate",
+          "title": "Fictional release 2",
+          "waiter": "Fictional FO 2",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "d4ae4d6c-c76e-42d0-85e1-cb541712f8ab",
+          "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]"
+        },
+        {
+          "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]",
+          "version": "fb6655a3faf0b4cc3ed6dc91f55c0c9fd0f625bdcb5bab091b03cf2abaecd25a",
+          "kind": "gate",
+          "title": "Fictional release 3",
+          "waiter": "Fictional FO 3",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "03f9713e-dae8-4b7f-ac6c-967547877e70",
+          "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]"
+        },
+        {
+          "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]",
+          "version": "aa3b3d03cd280544ecd743c943ce2069821396727f071474254c63386e1fed04",
+          "kind": "gate",
+          "title": "Fictional release 4",
+          "waiter": "Fictional FO 4",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "29b137e9-e846-4b38-a637-5739cdb138be",
+          "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]"
+        },
+        {
+          "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-2\"]",
+          "version": "97fef9e93ae79873ce5610b670730d5e666fc03734dd00153edcb24670bb3418",
+          "kind": "gate",
+          "title": "Fictional release 1",
+          "waiter": "Fictional FO 1",
+          "since": "2026-11-06T16:23:30.000Z",
+          "agentId": "0f71a886-c02c-4954-aded-673943290ef8",
+          "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-2\"]"
+        }
+      ],
+      "reason": "threshold",
+      "checkedAt": "2026-11-06T17:10:01.344Z",
+      "score": 16
+    },
+    "focus": {
+      "batchId": "fictional-capture-call-1793985001344",
+      "targetKey": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]",
+      "sentence": "先看 Fictional release 1：Fictional FO 1 正等你的關卡決定，請開啟這個具名關卡。"
+    },
+    "entered": false,
+    "soundAttempted": false,
+    "error": null
+  },
+  "events": [
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]",
+      "version": "84bc4f3ac3823b215a561d5e7e8c87a0709997c751ad1008e6837e0e7358640e",
+      "kind": "gate",
+      "title": "Fictional release 2",
+      "waiter": "Fictional FO 2",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "d4ae4d6c-c76e-42d0-85e1-cb541712f8ab",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]"
+    },
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]",
+      "version": "fb6655a3faf0b4cc3ed6dc91f55c0c9fd0f625bdcb5bab091b03cf2abaecd25a",
+      "kind": "gate",
+      "title": "Fictional release 3",
+      "waiter": "Fictional FO 3",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "03f9713e-dae8-4b7f-ac6c-967547877e70",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]"
+    },
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]",
+      "version": "aa3b3d03cd280544ecd743c943ce2069821396727f071474254c63386e1fed04",
+      "kind": "gate",
+      "title": "Fictional release 4",
+      "waiter": "Fictional FO 4",
+      "since": "2026-11-06T14:48:00.000Z",
+      "agentId": "29b137e9-e846-4b38-a637-5739cdb138be",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]"
+    },
+    {
+      "key": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-2\"]",
+      "version": "97fef9e93ae79873ce5610b670730d5e666fc03734dd00153edcb24670bb3418",
+      "kind": "gate",
+      "title": "Fictional release 1",
+      "waiter": "Fictional FO 1",
+      "since": "2026-11-06T16:23:30.000Z",
+      "agentId": "0f71a886-c02c-4954-aded-673943290ef8",
+      "target": "[\"g\",\"/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle3-csgczrei/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-2\"]"
+    }
+  ],
+  "modelTurns": 0
+}
