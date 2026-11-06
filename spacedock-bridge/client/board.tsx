@@ -59,7 +59,7 @@ export function Board({
   onAskCo,
   comms,
   renderLayout,
-}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; comms?: (active: boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
+}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; comms?: (active: boolean, openFO: (agentId: string) => boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
   const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
@@ -592,7 +592,12 @@ export function Board({
       ) : null)}
       {comms ? <View style={{ flex: 1, minHeight: 0, display: open === "comms" ? "flex" : "none" }}>
         {coAsk ? <Text style={{ ...styles.text, paddingHorizontal: 16 }}>{coAsk.text}</Text> : null}
-        {comms(open === "comms")}
+        {comms(open === "comms", agentId => {
+          const fo = rows.find(row => row.id === agentId);
+          if (!fo) return false;
+          openItem({ key: `f:${fo.id}`, kind: "ask", title: `Conversation with ${fo.title || fo.repo || "FO"}`, detail: fo.repo, fo, since: fo.lastActivityAt });
+          return true;
+        })}
       </View> : null}
     </View>
   );

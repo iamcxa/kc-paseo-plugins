@@ -1,3 +1,4 @@
+import { readTimeline } from "../shared/timeline";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Icon, TextInput } from "@getpaseo/plugin/client/react-native";
@@ -15,10 +16,18 @@ import { stopAgent } from "../shared/control";
 import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
 import { useComposerPadding } from "./use-composer-padding";
+import { DigestMessage } from "./digest";
+import { contextMessage, splitContextMessage, isCollectionRequest, type PointContext } from "../shared/digest";
+import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 import type { GateIdentityFields } from "../shared/gate-identity";
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
+  readOnly?: boolean;
+  digestHostId?: string;
+  commander?: boolean;
+  onOpenFO?: (source: import("../shared/digest").ReportSource) => boolean;
+  headerExtra?: import("react").ReactNode;
   gate?: GateIdentityFields | null;
   title?: string;
   placeholder?: string;
@@ -46,6 +55,11 @@ function Chat({
   layout,
   navigation,
   agentId,
+  digestHostId,
+  commander = false,
+  onOpenFO,
+  readOnly,
+  headerExtra,
   gate,
   title = "Comms officer",
   placeholder = "Message the comms officer",
@@ -65,6 +79,10 @@ function Chat({
 }: Props) {
   const paseo = usePaseo();
   const [lines, setLines] = useState<Line[]>([]);
+  const input = useRef<import("react").ElementRef<typeof TextInput>>(null);
+  const [pointContext, setPointContext] = useState<PointContext | null>(null);
+  const sentContext = useRef<PointContext | null>(null);
+  const [positions, setPositions] = useState({ epoch: "", ends: {} as Record<string, number>, digests: new Set<string>() });
   const [working, setWorking] = useState(false);
   const key = draftKey(agentId, gate);
   const [draft, setDraft, sending, setSending] = useDraft(key);
@@ -239,11 +257,15 @@ function Chat({
     const request = ++readRequest.current;
     setConversation("loading");
     try {
-      const page = await paseo.agents
-        .ref(agentId)
-        .timeline.refetch({ direction: "tail", limit: 120, projection: "projected" });
+      if (commander && !digestHostId) throw new Error("Commander host identity unavailable");
+      const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
       if (request !== readRequest.current) return;
-      setLines(toLines(page.entries));
+      if (commander || digestHostId) {
+        const replies = commanderReplies(page, agentId);
+        if (!replies) throw new Error("Commander timeline unavailable");
+        setPositions({ epoch: page.epoch, digests: new Set(replies.filter(r => r.item.type === "assistant_message" && r.provenance !== "ordinary").map(r => String(r.seqStart))), ends: Object.fromEntries(replies.map(r => [String(r.seqStart), r.seqEnd])) });
+        setLines(replies.flatMap(r => toLines([r])));
+      } else setLines(toLines(page.entries));
       setConversation("loaded");
       setReadError("");
     } catch (e) {
@@ -251,7 +273,7 @@ function Chat({
       setConversation("failed");
       setReadError(String(e));
     }
-  }, [paseo, agentId]);
+  }, [paseo, agentId, digestHostId, commander]);
 
   useEffect(() => {
     setLines([]);
@@ -326,13 +348,13 @@ function Chat({
     setError,
     sending: () => readDraftSending(key),
     setSending,
-    sendToAgent: (text) => paseo.agents.ref(agentId).send(text),
+    sendToAgent: (text) => { sentContext.current = pointContext; return paseo.agents.ref(agentId).send(pointContext ? contextMessage(pointContext, text) : text); },
     footer,
     beforeSend: () => checkComposerTarget(
       () => active.current && visibleRef.current && currentTarget.current === decisionTarget,
       beforeSend,
     ),
-    onSent,
+    onSent: (text) => { onSent?.(text); setPointContext(current => current === sentContext.current ? null : current); },
     onChip,
   });
   const [showEarlier, setShowEarlier] = useState(false);
@@ -390,6 +412,7 @@ function Chat({
           ) : null}
         </View>
       )}
+      {headerExtra}
       <ScrollView
         ref={scroller}
         accessibilityLabel={`Conversation messages with ${title}`}
@@ -417,7 +440,7 @@ function Chat({
           </Pressable>
         ) : null}
         {shown.map((line, index) =>
-          line.role === "agent" ? (
+          line.role === "user" && isCollectionRequest(line.text) ? <Text key={line.key} style={styles.muted}>立即收集 · 只讀既有回報，等待驗證摘要</Text> : line.role === "agent" ? (
             <AgentNote key={line.key} theme={theme} label={line.label} from={line.from} text={line.text} />
           ) : line.role === "tools" ? (
             <Text key={line.key} style={styles.muted} numberOfLines={1}>
@@ -426,32 +449,34 @@ function Chat({
           ) : line.role === "user" ? (
             <View key={line.key} style={index === 0 ? null : styles.turn}>
               <View style={styles.user}>
-                <Text style={styles.text} selectable>
-                  {line.text}
-                </Text>
+                {splitContextMessage(line.text) ? <View style={{ gap: 10 }}><Text style={styles.muted}>引用摘要點 · {splitContextMessage(line.text)!.sentence}</Text><Text style={styles.text} selectable>{splitContextMessage(line.text)!.ownText}</Text></View> : <Text style={styles.text} selectable>{line.text}</Text>}
               </View>
             </View>
           ) : (
             <View key={line.key} style={styles.assistant}>
-              <MarkdownView
+              {commander && !digestHostId ? <Text style={styles.muted}>摘要無法驗證 · 主機識別不可用</Text> : digestHostId && positions.digests.has(line.key) ? <DigestMessage theme={theme} layout={layout} navigation={navigation} onOpenFO={onOpenFO}
+                position={{ hostId: digestHostId, agentId, epoch: positions.epoch, seqStart: Number(line.key), seqEnd: positions.ends[line.key] ?? Number(line.key) }} revision={line.text}
+                onContext={context => { setPointContext(context); input.current?.focus(); }} /> : <MarkdownView
                 theme={theme}
                 source={line.text}
                 hideStatusBlocks={line.key !== lastAssistant}
                 onlyLastStatus
-              />
+              />}
             </View>
           ),
         )}
       </ScrollView>
       {error ? <Text style={styles.danger}>{error}</Text> : null}
-      <ScrollView style={styles.composerScroll} contentContainerStyle={styles.composer} keyboardShouldPersistTaps="handled">
+      {readOnly ? null : <ScrollView style={styles.composerScroll} contentContainerStyle={styles.composer} keyboardShouldPersistTaps="handled">
         <View
           onPointerEnter={() => setBoxHovered(true)}
           onPointerLeave={() => setBoxHovered(false)}
           style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
         >
+          {pointContext ? <View style={{ padding: 12, gap: 6 }}><Text style={styles.muted}>引用摘要點 · {pointContext.point.pointId}</Text><Text style={styles.text}>{pointContext.point.sentence}</Text><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="移除摘要上下文" onPress={() => setPointContext(null)}><Text style={[styles.toggle, { color: colors.foreground }]}>移除上下文</Text></Pressable></View> : null}
           <Text style={styles.hint}>↑ sends to {title}{sending ? " · sending…" : ""}</Text>
           <TextInput
+            ref={input}
             accessibilityLabel={`Message ${title}`}
             style={[styles.input, hasChips ? styles.inputWithRow : null, Platform.OS === "web" ? ({ outlineStyle: "none" } as unknown as TextStyle) : null]}
             value={draft}
@@ -520,7 +545,7 @@ function Chat({
             </View>
           </View>
         ) : null}
-      </ScrollView>
+      </ScrollView>}
     </View>
   );
 }

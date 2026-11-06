@@ -1,3 +1,4 @@
+import { readTimeline } from "../shared/timeline";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
 import { Modal } from "@getpaseo/plugin/client/react-native";
@@ -149,7 +150,7 @@ export function DecisionCard({ theme, layout, navigation, fo: openedFo, gate: op
     if (!claim) return;
     const request = ++relayRequest.current;
     try {
-      const page = await paseo.agents.ref(claim.foId).timeline.refetch({ direction: "tail", limit: 80, projection: "canonical" });
+      const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), claim.foId, { direction: "tail", limit: 80 });
       if (request !== relayRequest.current) return;
       setRelayed(page.entries.some(entry => {
         const item = entry.item as { type: string; text?: string };
