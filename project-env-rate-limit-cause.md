@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-rate-limit-cause:validation:attempt-1:revision-1
                 digest: sha256:a2fca5f9cec2773b6b0a855835cf1ab765599d142bf73f084e9654ce88535033
                 room-ref: ./project-env-rate-limit-cause/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-rate-limit-cause:validation:1
+                briefing: briefing:project-env-rate-limit-cause:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-06T00:45:02.087978Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-11-06, on the batch r1b-polish-1 validation gates presented together (picker-slow-hint faac1b25 PR #72, rate-limit-cause a2fca5f9 PR #73, started-row-visible 05ebb219 PR #75, journey-map-r1b-catch-up 4e0593b0 PR #71), FO having recommended approving all four with the proposed declines and merging #72, #73, #75 in order plus #71, then one plugin reload under ADR 0007 class 2.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-05T08:40:17Z
 journey: paseo-project-env
 journey-release: r1b
