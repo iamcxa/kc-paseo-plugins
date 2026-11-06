@@ -47,19 +47,20 @@ export function ReplayCard({ context, onClose, onContext, ...host }: Host & { co
   const sourceIdentity = sourceKey(source);
   const load = async (direction: "anchor" | "before" | "after" = "anchor") => {
     const id = ++request.current;
-    setLoading(true); setError("");
+    setLoading(true);
     if (direction === "anchor") setWindow(null);
     const edge = direction === "before" ? window?.entries[0]?.seqStart : window?.entries.at(-1)?.seqEnd;
     try {
       const result = await read({ position: context.position, pointId: context.point.pointId, source, direction, edge });
       if (id !== request.current) return;
       if (!result) { setError("來源不可用"); setWindow(null); return; }
+      setError("");
       setWindow(old => {
         if (!old || direction === "anchor") return result;
         const entries = [...new Map([...old.entries, ...result.entries].map(e => [e.seqStart, e])).values()].sort((a,b) => a.seqStart - b.seqStart);
         return { ...old, entries, older: direction === "before" ? result.older : old.older, newer: direction === "after" ? result.newer : old.newer };
       });
-    } catch { if (id === request.current) { if (direction === "anchor") setError("來源不可用"); else setWindow(old => old && ({ ...old, [direction === "before" ? "older" : "newer"]: "unavailable" })); } }
+    } catch { if (id === request.current) { setError("來源不可用"); setWindow(null); } }
     finally { if (id === request.current) setLoading(false); }
   };
   useEffect(() => { void load(); scroll.current?.scrollTo({ y: 0, animated: false }); return () => { ++request.current; }; }, [sourceIdentity, context.point.pointId]);

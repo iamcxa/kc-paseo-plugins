@@ -3,7 +3,7 @@ import type { RpcInput } from "@getpaseo/plugin";
 import { collectDigest, readDigest, readReplay, digestSchema, sourceKey } from "../shared/digest";
 import { DIGEST_VERSION } from "../shared/coordinator";
 import { fleetSnapshot, rememberCollection } from "./fleet-mcp";
-import { validateDigest, replayWindow, type SourceRound, type TimelineReader } from "./report-sources";
+import { validateDigest, replayWindow, readCanonicalStart, type SourceRound, type TimelineReader } from "./report-sources";
 
 import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 
@@ -30,7 +30,7 @@ export async function collectDigestHandler(input: RpcInput<typeof collectDigest>
 export async function readDigestHandler(input: RpcInput<typeof readDigest>, api: PaseoApi) {
   const count = input.seqEnd - input.seqStart + 1;
   if (!Number.isSafeInteger(count) || count < 1 || count > COMMANDER_ENTRY_LIMIT || !Number.isSafeInteger(input.seqStart) || input.seqStart < 0) return null;
-  const page = await reader(api)(input.agentId, { projection: "canonical", direction: "after", cursor: { epoch: input.epoch, seq: input.seqStart - 1 }, limit: count });
+  const page = await readCanonicalStart(reader(api), input.agentId, input.epoch, input.seqStart, count);
   const replies = commanderReplies(page, input.agentId, input.epoch);
   if (!replies || page.entries.length !== count || replies.length !== 1) return null;
   const reply = replies[0];

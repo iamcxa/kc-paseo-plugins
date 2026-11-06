@@ -18,9 +18,12 @@ export function reportSource(hostId: string, agentId: string, epoch: string, e: 
   if (!canonical(e) || e.item.type !== "assistant_message" || !e.item.text.trim()) return null;
   return { hostId, agentId, epoch, seqStart: e.seqStart, seqEnd: e.seqEnd, textHash: textHash(e.item.text), timestamp: e.timestamp };
 }
+export function readCanonicalStart(read: TimelineReader, agentId: string, epoch: string, start: number, limit: number): Promise<TimelinePage> {
+  return read(agentId, { projection: "canonical", direction: "after", ...(start > 0 ? { cursor: { epoch, seq: start - 1 } } : {}), limit });
+}
 export async function readSource(read: TimelineReader, hostId: string, source: ReportSource): Promise<TimelineEntry | null> {
   if (hostId !== source.hostId) return null;
-  const page = await read(source.agentId, { projection: "canonical", direction: "after", cursor: { epoch: source.epoch, seq: source.seqStart - 1 }, limit: 1 });
+  const page = await readCanonicalStart(read, source.agentId, source.epoch, source.seqStart, 1);
   if (!goodPage(page, source.agentId, source.epoch)) return null;
   const entry = page.entries[0];
   if (!entry || !canonical(entry) || sourceKey(reportSource(hostId, source.agentId, page.epoch, entry) ?? { ...source, textHash: "" }) !== sourceKey(source)) return null;
