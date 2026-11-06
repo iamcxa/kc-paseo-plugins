@@ -376,3 +376,7 @@ Findings 9 and 10 are repaired and pushed under Captain amendment 1; the report 
 
 FO ran roborev on ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1543, one Medium finding outside findings 9-10. Under Captain amendment 1 the task now goes to the Captain; no repair is authorized.
 11. server/coordinator.ts replacement persistence: if creating the replacement comms officer succeeds but saving its ids fails, a retry creates another officer; a failed rename leaves the fixed `.pending` file, so later writes fail with EEXIST and each retry creates another orphan replacement.
+
+### FO declines
+
+- roborev 1543 on ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 (item 11) — a replacement comms officer created but not saved is created again on retry, and a failed rename leaves `.pending` so each retry makes another orphan officer. Declined as a known issue by the Captain's ruling 2026-11-06, asked 「第一片最後一輪修好了（403 個測試通過），前面兩個問題都解決。自動審查另外找到一個新問題：換新通訊官時，如果新的已經開好、但存檔失敗，重試會再多開一個通訊官。只有存檔失敗（例如磁碟錯誤）才會發生，後果是多出幾個沒用的通訊官，不會給你錯的資訊。接下來怎麼做？」, answered 「記成已知問題，驗證後裝給我試 (Recommended)」. Would become Material: if a switch on the Captain's install leaves more than one new comms officer, or a `.pending` file blocks a later switch.
