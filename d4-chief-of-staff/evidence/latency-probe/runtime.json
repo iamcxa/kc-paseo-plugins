@@ -1,0 +1,72 @@
+{
+  "runtimeRoot": "/tmp/d4-small-model-g072wdrh",
+  "home": "/tmp/d4-small-model-g072wdrh/daemon-home",
+  "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+  "port": 54275,
+  "before": {
+    "at": "2026-11-06T06:33:32.741253+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "closed",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      },
+      {
+        "status": "closed",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "pins": {
+    "main": {
+      "path": "/Users/kent/Project/kc-paseo-plugins",
+      "head": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+      "branch": "main",
+      "porcelain": ""
+    },
+    "pinnedBridge": {
+      "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+      "head": "7a4dbc057803d791dc5626182636c8e0fc2c2d32",
+      "branch": "",
+      "porcelain": ""
+    },
+    "unusedD4": {
+      "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d4-chief-of-staff",
+      "head": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+      "branch": "spacedock-ensign/d4-chief-of-staff",
+      "porcelain": ""
+    }
+  },
+  "daemonPid": 89571,
+  "config": {
+    "daemon": {
+      "listen": "127.0.0.1:54275",
+      "relay": {
+        "enabled": false
+      },
+      "mcp": {
+        "enabled": true,
+        "injectIntoAgents": true
+      }
+    },
+    "pluginsEnabled": false,
+    "plugins": {},
+    "agents": {
+      "idleRuntimeCleanup": false,
+      "resumeOnStartup": false
+    },
+    "log": {
+      "level": "warn"
+    }
+  },
+  "launchExit": 0,
+  "launch": {
+    "action": "started",
+    "home": "/tmp/d4-small-model-g072wdrh/daemon-home",
+    "pid": 89571,
+    "listen": "127.0.0.1:54275",
+    "logPath": "/tmp/d4-small-model-g072wdrh/daemon-home/daemon.log"
+  }
+}

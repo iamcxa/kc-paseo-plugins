@@ -1,0 +1,187 @@
+{
+  "requestId": "04f20114-cb1a-48b6-95cd-ba43fbf49ed8",
+  "agentId": "14beb4ae-a551-456a-aa5d-a39e738e6e20",
+  "agent": {
+    "id": "14beb4ae-a551-456a-aa5d-a39e738e6e20",
+    "provider": "codex",
+    "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+    "workspaceId": "wks_842ff0581206250f",
+    "model": "gpt-6.1-terra",
+    "thinkingOptionId": "low",
+    "effectiveThinkingOptionId": "low",
+    "runtimeInfo": {
+      "provider": "codex",
+      "sessionId": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+      "model": "gpt-6.1-terra",
+      "thinkingOptionId": "low",
+      "modeId": "auto",
+      "extra": {
+        "collaborationMode": "Default"
+      }
+    },
+    "createdAt": "2026-11-06T06:36:53.613Z",
+    "updatedAt": "2026-11-06T06:37:01.651Z",
+    "lastUserMessageAt": "2026-11-06T06:36:54.147Z",
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": false,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": false,
+      "supportsRewindBoth": false
+    },
+    "currentModeId": "auto",
+    "availableModes": [
+      {
+        "id": "auto",
+        "label": "Default Permissions",
+        "description": "Edit files and run commands with Codex's default approval flow."
+      },
+      {
+        "id": "auto-review",
+        "label": "Auto-review",
+        "description": "Same workspace-write permissions as Default, but eligible `on-request` approvals are routed through the auto-reviewer subagent."
+      },
+      {
+        "id": "full-access",
+        "label": "Full Access",
+        "description": "Edit files, run commands, and access the network without additional prompts."
+      }
+    ],
+    "features": [
+      {
+        "type": "select",
+        "id": "service_tier",
+        "label": "Speed",
+        "description": "Choose processing speed. Faster tiers increase usage.",
+        "tooltip": "Select speed",
+        "icon": "zap",
+        "desktopTrigger": "icon",
+        "value": "default",
+        "options": [
+          {
+            "id": "default",
+            "label": "Normal",
+            "isDefault": true
+          },
+          {
+            "id": "priority",
+            "label": "Fast"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "id": "plan_mode",
+        "label": "Plan",
+        "description": "Switch Codex into planning-only collaboration mode",
+        "tooltip": "Toggle plan mode",
+        "icon": "list-todo",
+        "value": false
+      }
+    ],
+    "pendingPermissions": [],
+    "persistence": {
+      "provider": "codex",
+      "sessionId": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+      "nativeHandle": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+      "metadata": {
+        "provider": "codex",
+        "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+        "title": "Fictional focus 03-terra-low-1 attempt 1",
+        "threadId": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+        "model": "gpt-6.1-terra",
+        "thinkingOptionId": "low",
+        "asyncQuestions": []
+      }
+    },
+    "title": "Fictional focus 03-terra-low-1 attempt 1",
+    "labels": {
+      "experiment": "d4-latency",
+      "configuration": "terra-low",
+      "repeat": "1"
+    },
+    "archivedAt": null,
+    "lastUsage": {
+      "inputTokens": 27610,
+      "cachedInputTokens": 0,
+      "outputTokens": 82,
+      "contextWindowMaxTokens": 475000,
+      "contextWindowUsedTokens": 27692
+    },
+    "requiresAttention": true,
+    "attentionReason": "finished",
+    "attentionTimestamp": "2026-11-06T06:37:01.650Z"
+  },
+  "direction": "tail",
+  "projection": "projected",
+  "epoch": "0ab72d87-44f2-4a8b-9bea-8f136b6d5c60",
+  "reset": false,
+  "staleCursor": false,
+  "gap": false,
+  "window": {
+    "minSeq": 1,
+    "maxSeq": 19,
+    "nextSeq": 20
+  },
+  "startCursor": {
+    "epoch": "0ab72d87-44f2-4a8b-9bea-8f136b6d5c60",
+    "seq": 1
+  },
+  "endCursor": {
+    "epoch": "0ab72d87-44f2-4a8b-9bea-8f136b6d5c60",
+    "seq": 19
+  },
+  "hasOlder": false,
+  "hasNewer": false,
+  "entries": [
+    {
+      "provider": "codex",
+      "item": {
+        "type": "user_message",
+        "text": "say in at most three sentences what to do first, who waits and for how long, and the action\n\nThe fictional board below is already ranked by rule. Use its first item; do not re-rank or infer extra dependencies. Use the fixed as_of time, not the computer clock. Reply in Traditional Chinese. This is wording only: do not use tools, inspect files, fetch data, or take action.\n\n{\n  \"as_of\": \"2026-11-06T07:00:00Z\",\n  \"ordering\": \"already ranked by rule; first item is the selected focus\",\n  \"items\": [\n    {\n      \"title\": \"批准虛構燈塔試用\",\n      \"kind\": \"gate\",\n      \"owner\": \"虛構 FO 燈塔\",\n      \"waiting_since\": \"2026-11-06T05:00:00Z\"\n    },\n    {\n      \"title\": \"決定虛構松果驗證範圍\",\n      \"kind\": \"gate\",\n      \"owner\": \"虛構 FO 松果\",\n      \"waiting_since\": \"2026-11-06T05:30:00Z\"\n    },\n    {\n      \"title\": \"確認虛構溪流資料讀取權限\",\n      \"kind\": \"permission\",\n      \"owner\": \"虛構 FO 溪流\",\n      \"waiting_since\": \"2026-11-06T06:00:00Z\"\n    },\n    {\n      \"title\": \"回覆虛構紙船試用時段\",\n      \"kind\": \"question\",\n      \"owner\": \"虛構 FO 紙船\",\n      \"waiting_since\": \"2026-11-06T06:10:00Z\"\n    },\n    {\n      \"title\": \"檢視虛構石橋測試結果\",\n      \"kind\": \"review\",\n      \"owner\": \"虛構 FO 石橋\",\n      \"waiting_since\": \"2026-11-06T06:15:00Z\"\n    },\n    {\n      \"title\": \"選擇虛構晨星文案\",\n      \"kind\": \"question\",\n      \"owner\": \"虛構 FO 晨星\",\n      \"waiting_since\": \"2026-11-06T06:20:00Z\"\n    },\n    {\n      \"title\": \"確認虛構樹屋回復內容\",\n      \"kind\": \"review\",\n      \"owner\": \"虛構 FO 樹屋\",\n      \"waiting_since\": \"2026-11-06T06:30:00Z\"\n    },\n    {\n      \"title\": \"核對虛構海貝交接摘要\",\n      \"kind\": \"review\",\n      \"owner\": \"虛構 FO 海貝\",\n      \"waiting_since\": \"2026-11-06T06:40:00Z\"\n    },\n    {\n      \"title\": \"查看虛構風車完成回報\",\n      \"kind\": \"status\",\n      \"owner\": \"虛構 FO 風車\",\n      \"waiting_since\": \"2026-11-06T06:45:00Z\"\n    },\n    {\n      \"title\": \"閱讀虛構蒲公英進度\",\n      \"kind\": \"status\",\n      \"owner\": \"虛構 FO 蒲公英\",\n      \"waiting_since\": \"2026-11-06T06:50:00Z\"\n    }\n  ]\n}",
+        "clientMessageId": "adeb9915-cc49-4039-a303-32a1a1ef3222",
+        "messageId": "adeb9915-cc49-4039-a303-32a1a1ef3222"
+      },
+      "timestamp": "2026-11-06T06:36:54.147Z",
+      "seqStart": 1,
+      "seqEnd": 1,
+      "sourceSeqRanges": [
+        {
+          "startSeq": 1,
+          "endSeq": 1
+        }
+      ],
+      "turnId": "codex-turn-0",
+      "collapsed": []
+    },
+    {
+      "provider": "codex",
+      "item": {
+        "type": "assistant_message",
+        "text": "先處理「批准虛構燈塔試用」：虛構 FO（副手）燈塔已等待 2 小時，請決定是否批准試用。\n\n```text\n剩餘: 燈塔試用的批准決定\n下一步: 決定是否批准（你）\n可收線: 否\n```",
+        "messageId": "msg_0f363697cc57539a016aed758b569887d0bca36e4d9f968195"
+      },
+      "timestamp": "2026-11-06T06:37:00.819Z",
+      "seqStart": 2,
+      "seqEnd": 19,
+      "sourceSeqRanges": [
+        {
+          "startSeq": 2,
+          "endSeq": 19
+        }
+      ],
+      "turnId": "codex-turn-0",
+      "collapsed": [
+        "assistant_merge"
+      ]
+    }
+  ],
+  "error": null
+}

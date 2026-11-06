@@ -1,0 +1,73 @@
+{
+  "agentId": "14beb4ae-a551-456a-aa5d-a39e738e6e20",
+  "paseoTurnId": "codex-turn-0",
+  "sessionId": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+  "provider": "codex",
+  "method": "Only the exact new fictional session transcript, selected by its emitted session ID; no unrelated history or credentials.",
+  "responseRecords": [
+    {
+      "thread_id": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+      "turn_id": "01a1af93-13ef-7431-a7e8-c5c2ae73ad7e",
+      "session_id": "01a1af93-11fd-73f3-be1f-35cfe2dcd5e4",
+      "root_turn_id": "01a1af93-13ef-7431-a7e8-c5c2ae73ad7e",
+      "response_id": "resp_0f363697cc57539a016aed758a54d487d0b9fde7207711faed",
+      "usage": {
+        "input_tokens": 27610,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 82,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 27692
+      },
+      "turn_token_usage": {
+        "input_tokens": 27610,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 82,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 27692
+      },
+      "thread_token_usage": {
+        "input_tokens": 27610,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 82,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 27692
+      }
+    }
+  ],
+  "tokenSums": {
+    "input_tokens": 27610,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 82,
+    "reasoning_output_tokens": 0
+  },
+  "context": [
+    {
+      "turn_id": "01a1af93-13ef-7431-a7e8-c5c2ae73ad7e",
+      "model": "gpt-6.1-terra",
+      "effort": "low"
+    }
+  ],
+  "completion": {
+    "turn_id": "01a1af93-13ef-7431-a7e8-c5c2ae73ad7e",
+    "root_turn_id": "01a1af93-13ef-7431-a7e8-c5c2ae73ad7e",
+    "duration_ms": 7512,
+    "time_to_first_token_ms": 5281,
+    "started_at": 1793947014,
+    "completed_at": 1793947021
+  },
+  "source": {
+    "path": "/Users/kent/.codex/sessions/2026/11/06/rollout-2026-11-06T14-36-53-01a1af93-11fd-73f3-be1f-35cfe2dcd5e4.jsonl",
+    "sha256": "69c90d8193647c13cd4dda7289ba51f4f025a52383527c7a49e6cd34fbdfd52f"
+  },
+  "turnCompletedUsage": {
+    "inputTokens": 27610,
+    "cachedInputTokens": 0,
+    "outputTokens": 82,
+    "contextWindowMaxTokens": 475000,
+    "contextWindowUsedTokens": 27692
+  }
+}

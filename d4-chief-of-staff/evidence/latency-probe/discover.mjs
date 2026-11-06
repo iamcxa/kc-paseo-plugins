@@ -1,0 +1,3 @@
+import fs from 'node:fs';
+import {createPaseoClient} from '/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge/node_modules/@getpaseo/client/dist/index.js';
+const dir=new URL('.',import.meta.url),r=JSON.parse(fs.readFileSync(new URL('runtime.json',dir))),c=createPaseoClient({url:`ws://127.0.0.1:${r.port}/ws`,reconnect:{enabled:false}});await c.connect();try{for(const provider of ['claude','codex']){const m=await c.providers.listModels(provider,{cwd:r.cwd});fs.writeFileSync(new URL(`${provider}-models.json`,dir),JSON.stringify(m,null,2));console.log(JSON.stringify({provider,requested:m.models?.filter(x=>/claude-haiku-5-5|gpt-6.1-terra/.test(x.id??'')),error:m.error??null}));}}finally{await c.close();}

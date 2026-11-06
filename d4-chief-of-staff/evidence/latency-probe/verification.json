@@ -1,0 +1,104 @@
+{
+  "dataRunsReconciled": 9,
+  "confirmedThinkingRuns": 6,
+  "unconfirmedThinkingRuns": 3,
+  "withinFiveSecondsFinished": 0,
+  "checks": [
+    {
+      "id": "01-haiku-off-1",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": false,
+      "actualThinking": {
+        "thinking": {
+          "type": "adaptive",
+          "display": "updates"
+        },
+        "effort": "medium"
+      }
+    },
+    {
+      "id": "02-haiku-low-1",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": true,
+      "actualThinking": {
+        "thinking": {
+          "type": "adaptive",
+          "display": "summarized"
+        },
+        "effort": "low"
+      }
+    },
+    {
+      "id": "03-terra-low-1",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": true,
+      "actualThinking": "low"
+    },
+    {
+      "id": "04-haiku-off-2",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": false,
+      "actualThinking": {
+        "thinking": {
+          "type": "adaptive",
+          "display": "updates"
+        },
+        "effort": "medium"
+      }
+    },
+    {
+      "id": "05-haiku-low-2",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": true,
+      "actualThinking": {
+        "thinking": {
+          "type": "adaptive",
+          "display": "summarized"
+        },
+        "effort": "low"
+      }
+    },
+    {
+      "id": "06-terra-low-2",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": true,
+      "actualThinking": "low"
+    },
+    {
+      "id": "07-haiku-off-3",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": false,
+      "actualThinking": {
+        "thinking": {
+          "type": "adaptive",
+          "display": "updates"
+        },
+        "effort": "medium"
+      }
+    },
+    {
+      "id": "08-haiku-low-3",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": true,
+      "actualThinking": {
+        "thinking": {
+          "type": "adaptive",
+          "display": "summarized"
+        },
+        "effort": "low"
+      }
+    },
+    {
+      "id": "09-terra-low-3",
+      "turnUsageAndTimingReconciled": true,
+      "thinkingVerified": true,
+      "actualThinking": "low"
+    }
+  ],
+  "cleanupFlagsVerified": true,
+  "falsifiers": [
+    "Changing a terminal input/cache/output value breaks the native-to-stream reconciliation.",
+    "Dropping a run or duplicating its agent ID breaks the nine-fresh-agent check.",
+    "Marking off as confirmed would contradict its captured adaptive/medium request parameters."
+  ]
+}

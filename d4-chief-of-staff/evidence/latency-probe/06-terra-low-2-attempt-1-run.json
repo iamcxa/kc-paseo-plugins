@@ -1,0 +1,369 @@
+{
+  "id": "06-terra-low-2",
+  "index": 5,
+  "repeat": 2,
+  "attempt": 1,
+  "config": {
+    "key": "terra-low",
+    "provider": "codex/gpt-6.1-terra",
+    "thinking": "low"
+  },
+  "createdAt": "2026-11-06T06:37:49.915Z",
+  "cachePolicy": "Default provider caching; no explicit warmup; fresh agent and one user message per attempt",
+  "inputFile": "prompt.txt",
+  "createMs": 1747.2303329999995,
+  "agentId": "3eb32ce8-c835-4e10-a5f8-2942509711c5",
+  "initialSnapshot": {
+    "id": "3eb32ce8-c835-4e10-a5f8-2942509711c5",
+    "provider": "codex",
+    "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+    "workspaceId": "wks_d08bf55635163d59",
+    "model": "gpt-6.1-terra",
+    "thinkingOptionId": "low",
+    "effectiveThinkingOptionId": "low",
+    "runtimeInfo": {
+      "provider": "codex",
+      "sessionId": null,
+      "model": "gpt-6.1-terra",
+      "thinkingOptionId": "low",
+      "modeId": "auto",
+      "extra": {
+        "collaborationMode": "Default"
+      }
+    },
+    "createdAt": "2026-11-06T06:37:51.134Z",
+    "updatedAt": "2026-11-06T06:37:51.657Z",
+    "lastUserMessageAt": null,
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": false,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": false,
+      "supportsRewindBoth": false
+    },
+    "currentModeId": "auto",
+    "availableModes": [
+      {
+        "id": "auto",
+        "label": "Default Permissions",
+        "description": "Edit files and run commands with Codex's default approval flow."
+      },
+      {
+        "id": "auto-review",
+        "label": "Auto-review",
+        "description": "Same workspace-write permissions as Default, but eligible `on-request` approvals are routed through the auto-reviewer subagent."
+      },
+      {
+        "id": "full-access",
+        "label": "Full Access",
+        "description": "Edit files, run commands, and access the network without additional prompts."
+      }
+    ],
+    "features": [
+      {
+        "type": "select",
+        "id": "service_tier",
+        "label": "Speed",
+        "description": "Choose processing speed. Faster tiers increase usage.",
+        "tooltip": "Select speed",
+        "icon": "zap",
+        "desktopTrigger": "icon",
+        "value": "default",
+        "options": [
+          {
+            "id": "default",
+            "label": "Normal",
+            "isDefault": true
+          },
+          {
+            "id": "priority",
+            "label": "Fast"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "id": "plan_mode",
+        "label": "Plan",
+        "description": "Switch Codex into planning-only collaboration mode",
+        "tooltip": "Toggle plan mode",
+        "icon": "list-todo",
+        "value": false
+      }
+    ],
+    "pendingPermissions": [],
+    "persistence": null,
+    "title": "Fictional focus 06-terra-low-2 attempt 1",
+    "labels": {
+      "experiment": "d4-latency",
+      "configuration": "terra-low",
+      "repeat": "2"
+    },
+    "archivedAt": null,
+    "requiresAttention": false,
+    "attentionReason": null,
+    "attentionTimestamp": null
+  },
+  "subscribeMs": 0.67766599999959,
+  "startedAt": "2026-11-06T06:37:51.664Z",
+  "firstAssistantTextMs": 5512.792209000003,
+  "firstAssistantServerTimestamp": "2026-11-06T06:37:57.177Z",
+  "firstAssistantText": "先",
+  "result": {
+    "status": "idle",
+    "final": {
+      "id": "3eb32ce8-c835-4e10-a5f8-2942509711c5",
+      "provider": "codex",
+      "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+      "workspaceId": "wks_d08bf55635163d59",
+      "model": "gpt-6.1-terra",
+      "thinkingOptionId": "low",
+      "effectiveThinkingOptionId": "low",
+      "runtimeInfo": {
+        "provider": "codex",
+        "sessionId": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+        "model": "gpt-6.1-terra",
+        "thinkingOptionId": "low",
+        "modeId": "auto",
+        "extra": {
+          "collaborationMode": "Default"
+        }
+      },
+      "createdAt": "2026-11-06T06:37:51.134Z",
+      "updatedAt": "2026-11-06T06:37:58.820Z",
+      "lastUserMessageAt": "2026-11-06T06:37:51.744Z",
+      "status": "idle",
+      "activeTurn": null,
+      "capabilities": {
+        "supportsStreaming": true,
+        "supportsSessionPersistence": true,
+        "supportsSessionListing": true,
+        "supportsDynamicModes": false,
+        "supportsMcpServers": true,
+        "supportsReasoningStream": true,
+        "supportsToolInvocations": true,
+        "supportsRewindConversation": true,
+        "supportsRewindFiles": false,
+        "supportsRewindBoth": false
+      },
+      "currentModeId": "auto",
+      "availableModes": [
+        {
+          "id": "auto",
+          "label": "Default Permissions",
+          "description": "Edit files and run commands with Codex's default approval flow."
+        },
+        {
+          "id": "auto-review",
+          "label": "Auto-review",
+          "description": "Same workspace-write permissions as Default, but eligible `on-request` approvals are routed through the auto-reviewer subagent."
+        },
+        {
+          "id": "full-access",
+          "label": "Full Access",
+          "description": "Edit files, run commands, and access the network without additional prompts."
+        }
+      ],
+      "features": [
+        {
+          "type": "select",
+          "id": "service_tier",
+          "label": "Speed",
+          "description": "Choose processing speed. Faster tiers increase usage.",
+          "tooltip": "Select speed",
+          "icon": "zap",
+          "desktopTrigger": "icon",
+          "value": "default",
+          "options": [
+            {
+              "id": "default",
+              "label": "Normal",
+              "isDefault": true
+            },
+            {
+              "id": "priority",
+              "label": "Fast"
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "id": "plan_mode",
+          "label": "Plan",
+          "description": "Switch Codex into planning-only collaboration mode",
+          "tooltip": "Toggle plan mode",
+          "icon": "list-todo",
+          "value": false
+        }
+      ],
+      "pendingPermissions": [],
+      "persistence": {
+        "provider": "codex",
+        "sessionId": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+        "nativeHandle": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+        "metadata": {
+          "provider": "codex",
+          "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+          "title": "Fictional focus 06-terra-low-2 attempt 1",
+          "threadId": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+          "model": "gpt-6.1-terra",
+          "thinkingOptionId": "low",
+          "asyncQuestions": []
+        }
+      },
+      "title": "Fictional focus 06-terra-low-2 attempt 1",
+      "labels": {
+        "experiment": "d4-latency",
+        "configuration": "terra-low",
+        "repeat": "2"
+      },
+      "archivedAt": null,
+      "lastUsage": {
+        "inputTokens": 27610,
+        "cachedInputTokens": 0,
+        "outputTokens": 87,
+        "contextWindowMaxTokens": 475000,
+        "contextWindowUsedTokens": 27697
+      },
+      "requiresAttention": true,
+      "attentionReason": "finished",
+      "attentionTimestamp": "2026-11-06T06:37:58.819Z"
+    },
+    "error": null,
+    "lastMessage": "先處理「批准虛構燈塔試用」：虛構 FO（副手）燈塔已等待 2 小時，請審核並決定是否批准。\n\n```text\n剩餘: 燈塔試用的批准決定\n下一步: 審核並決定是否批准（你）\n可收線: 否\n```"
+  },
+  "wallMs": 7157.184041999997,
+  "completedAt": "2026-11-06T06:37:58.821Z",
+  "finalSnapshot": {
+    "id": "3eb32ce8-c835-4e10-a5f8-2942509711c5",
+    "provider": "codex",
+    "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+    "workspaceId": "wks_d08bf55635163d59",
+    "model": "gpt-6.1-terra",
+    "thinkingOptionId": "low",
+    "effectiveThinkingOptionId": "low",
+    "runtimeInfo": {
+      "provider": "codex",
+      "sessionId": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+      "model": "gpt-6.1-terra",
+      "thinkingOptionId": "low",
+      "modeId": "auto",
+      "extra": {
+        "collaborationMode": "Default"
+      }
+    },
+    "createdAt": "2026-11-06T06:37:51.134Z",
+    "updatedAt": "2026-11-06T06:37:58.820Z",
+    "lastUserMessageAt": "2026-11-06T06:37:51.744Z",
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": false,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": false,
+      "supportsRewindBoth": false
+    },
+    "currentModeId": "auto",
+    "availableModes": [
+      {
+        "id": "auto",
+        "label": "Default Permissions",
+        "description": "Edit files and run commands with Codex's default approval flow."
+      },
+      {
+        "id": "auto-review",
+        "label": "Auto-review",
+        "description": "Same workspace-write permissions as Default, but eligible `on-request` approvals are routed through the auto-reviewer subagent."
+      },
+      {
+        "id": "full-access",
+        "label": "Full Access",
+        "description": "Edit files, run commands, and access the network without additional prompts."
+      }
+    ],
+    "features": [
+      {
+        "type": "select",
+        "id": "service_tier",
+        "label": "Speed",
+        "description": "Choose processing speed. Faster tiers increase usage.",
+        "tooltip": "Select speed",
+        "icon": "zap",
+        "desktopTrigger": "icon",
+        "value": "default",
+        "options": [
+          {
+            "id": "default",
+            "label": "Normal",
+            "isDefault": true
+          },
+          {
+            "id": "priority",
+            "label": "Fast"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "id": "plan_mode",
+        "label": "Plan",
+        "description": "Switch Codex into planning-only collaboration mode",
+        "tooltip": "Toggle plan mode",
+        "icon": "list-todo",
+        "value": false
+      }
+    ],
+    "pendingPermissions": [],
+    "persistence": {
+      "provider": "codex",
+      "sessionId": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+      "nativeHandle": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+      "metadata": {
+        "provider": "codex",
+        "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+        "title": "Fictional focus 06-terra-low-2 attempt 1",
+        "threadId": "01a1af93-f2b1-7352-ae83-fd64e3ab536c",
+        "model": "gpt-6.1-terra",
+        "thinkingOptionId": "low",
+        "asyncQuestions": []
+      }
+    },
+    "title": "Fictional focus 06-terra-low-2 attempt 1",
+    "labels": {
+      "experiment": "d4-latency",
+      "configuration": "terra-low",
+      "repeat": "2"
+    },
+    "archivedAt": null,
+    "lastUsage": {
+      "inputTokens": 27610,
+      "cachedInputTokens": 0,
+      "outputTokens": 87,
+      "contextWindowMaxTokens": 475000,
+      "contextWindowUsedTokens": 27697
+    },
+    "requiresAttention": true,
+    "attentionReason": "finished",
+    "attentionTimestamp": "2026-11-06T06:37:58.819Z"
+  },
+  "status": "idle",
+  "lastError": null,
+  "answer": "先處理「批准虛構燈塔試用」：虛構 FO（副手）燈塔已等待 2 小時，請審核並決定是否批准。\n\n```text\n剩餘: 燈塔試用的批准決定\n下一步: 審核並決定是否批准（你）\n可收線: 否\n```",
+  "toolCalls": [],
+  "success": true,
+  "environmentFailure": false,
+  "authenticationFailure": false
+}

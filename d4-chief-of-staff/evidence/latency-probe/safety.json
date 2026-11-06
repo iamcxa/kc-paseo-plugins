@@ -1,0 +1,86 @@
+{
+  "before": {
+    "at": "2026-11-06T06:33:32.741253+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "closed",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      },
+      {
+        "status": "closed",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "after": {
+    "at": "2026-11-06T06:42:56.703495+00:00",
+    "foCount": 18,
+    "commsStatus": [
+      {
+        "status": "closed",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      },
+      {
+        "status": "closed",
+        "provider": "claude/claude-opus-5-5",
+        "model": null
+      }
+    ]
+  },
+  "liveObservedFieldsEqual": true,
+  "capturedDaemonPid": 89571,
+  "stoppedOnlyCapturedPid": true,
+  "pidGone": true,
+  "portClosed": true,
+  "runtimeHomeDeleted": true,
+  "runtimeRootDeleted": true,
+  "isolatedAgentsIdleBeforeStop": 9,
+  "bridgePlugins": 0,
+  "nativeArtifactsRemoved": [
+    "/Users/kent/.claude/projects/-private-tmp-d4-small-model-g072wdrh-fictional-workspace",
+    "/Users/kent/.codex/sessions/2026/11/06/rollout-2026-11-06T14-36-53-01a1af93-11fd-73f3-be1f-35cfe2dcd5e4.jsonl",
+    "/Users/kent/.codex/sessions/2026/11/06/rollout-2026-11-06T14-37-51-01a1af93-f2b1-7352-ae83-fd64e3ab536c.jsonl",
+    "/Users/kent/.codex/sessions/2026/11/06/rollout-2026-11-06T14-38-24-01a1af94-7678-7393-a96b-7a891978e9fb.jsonl"
+  ],
+  "additionalTitleOnlySessionIds": [
+    "0313fd18-4bd2-4cab-8009-b664e9ee99a2",
+    "05ec5bde-76b5-4cbd-b5d1-fa2b1ff3aca1",
+    "218fab91-a025-45a2-89a3-38983b15037e",
+    "38dad8cb-5383-43b8-b780-cc5607b57ec8",
+    "51330f03-0399-4320-93c3-2630ada79131",
+    "5a7ea092-33ec-4814-9993-9b8d17f5d484",
+    "6c19bce6-4be7-4f65-a5b9-d1e7b8513e57",
+    "7f883af1-b120-45f3-bc11-acb113f7bbdd",
+    "bc1b7b39-3fcc-4ee1-90cf-91eab35d2720"
+  ],
+  "pinsAfter": {
+    "main": {
+      "path": "/Users/kent/Project/kc-paseo-plugins",
+      "head": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+      "branch": "main",
+      "porcelain": ""
+    },
+    "pinnedBridge": {
+      "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live",
+      "head": "7a4dbc057803d791dc5626182636c8e0fc2c2d32",
+      "branch": "",
+      "porcelain": ""
+    },
+    "unusedD4": {
+      "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d4-chief-of-staff",
+      "head": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+      "branch": "spacedock-ensign/d4-chief-of-staff",
+      "porcelain": ""
+    }
+  },
+  "liveTextRead": false,
+  "livePromptsSent": false,
+  "livePermissionResponsesSent": false,
+  "credentialsReadCopiedOrPrintedByWorker": false,
+  "directApiCalls": 0,
+  "limits": "The providers used real HOME for normal authentication and created native session artifacts. Only exact new fictional transcripts/debug files and the owned workspace namespace were removed. Global provider caches and shared databases were not audited or edited; live equality covers only the authorized count/status fields."
+}

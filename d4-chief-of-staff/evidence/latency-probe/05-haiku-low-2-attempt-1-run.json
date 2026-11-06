@@ -1,0 +1,298 @@
+{
+  "id": "05-haiku-low-2",
+  "index": 4,
+  "repeat": 2,
+  "attempt": 1,
+  "config": {
+    "key": "haiku-low",
+    "provider": "claude/claude-haiku-5-5",
+    "thinking": "low"
+  },
+  "createdAt": "2026-11-06T06:37:33.546Z",
+  "cachePolicy": "Default provider caching; no explicit warmup; fresh agent and one user message per attempt",
+  "inputFile": "prompt.txt",
+  "createMs": 97.9444169999988,
+  "agentId": "fa78a534-83b6-407a-b07f-bc7057bec3c6",
+  "initialSnapshot": {
+    "id": "fa78a534-83b6-407a-b07f-bc7057bec3c6",
+    "provider": "claude",
+    "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+    "workspaceId": "wks_a7b17202e8a2d3d8",
+    "model": "claude-haiku-5-5",
+    "thinkingOptionId": "low",
+    "effectiveThinkingOptionId": "low",
+    "runtimeInfo": {
+      "provider": "claude",
+      "sessionId": null,
+      "model": null,
+      "modeId": "default"
+    },
+    "createdAt": "2026-11-06T06:37:33.641Z",
+    "updatedAt": "2026-11-06T06:37:33.642Z",
+    "lastUserMessageAt": null,
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": true,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": true,
+      "supportsRewindBoth": true
+    },
+    "currentModeId": "default",
+    "availableModes": [
+      {
+        "id": "plan",
+        "label": "Plan Mode",
+        "description": "Analyze the codebase without executing tools or edits"
+      },
+      {
+        "id": "default",
+        "label": "Always Ask",
+        "description": "Prompts for permission the first time a tool is used"
+      },
+      {
+        "id": "acceptEdits",
+        "label": "Accept File Edits",
+        "description": "Automatically approves edit-focused tools without prompting"
+      },
+      {
+        "id": "auto",
+        "label": "Auto mode",
+        "description": "Uses a model classifier to review permission prompts automatically"
+      },
+      {
+        "id": "bypassPermissions",
+        "label": "Bypass",
+        "description": "Skip all permission prompts (use with caution)"
+      }
+    ],
+    "features": [],
+    "pendingPermissions": [],
+    "persistence": null,
+    "title": "Fictional focus 05-haiku-low-2 attempt 1",
+    "labels": {
+      "experiment": "d4-latency",
+      "configuration": "haiku-low",
+      "repeat": "2"
+    },
+    "archivedAt": null,
+    "requiresAttention": false,
+    "attentionReason": null,
+    "attentionTimestamp": null
+  },
+  "subscribeMs": 0.4725830000006681,
+  "startedAt": "2026-11-06T06:37:33.646Z",
+  "firstAssistantTextMs": 15908.851084,
+  "firstAssistantServerTimestamp": "2026-11-06T06:37:49.553Z",
+  "firstAssistantText": "第一件事是處理「批准虛構燈塔試用」這個閘門。等待的是虛構 FO 燈塔，自 2026-11-06 05:00 UTC 起已等 2 小時（以 07:00 UTC 為準）。動作是批准這項虛構燈塔試用。",
+  "result": {
+    "status": "idle",
+    "final": {
+      "id": "fa78a534-83b6-407a-b07f-bc7057bec3c6",
+      "provider": "claude",
+      "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+      "workspaceId": "wks_a7b17202e8a2d3d8",
+      "model": "claude-haiku-5-5",
+      "thinkingOptionId": "low",
+      "effectiveThinkingOptionId": "low",
+      "runtimeInfo": {
+        "provider": "claude",
+        "sessionId": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+        "model": "claude-haiku-5-5",
+        "modeId": "default",
+        "extra": {
+          "runtimeModel": "claude-haiku-5-5"
+        }
+      },
+      "createdAt": "2026-11-06T06:37:33.641Z",
+      "updatedAt": "2026-11-06T06:37:49.907Z",
+      "lastUserMessageAt": "2026-11-06T06:37:33.672Z",
+      "status": "idle",
+      "activeTurn": null,
+      "capabilities": {
+        "supportsStreaming": true,
+        "supportsSessionPersistence": true,
+        "supportsSessionListing": true,
+        "supportsDynamicModes": true,
+        "supportsMcpServers": true,
+        "supportsReasoningStream": true,
+        "supportsToolInvocations": true,
+        "supportsRewindConversation": true,
+        "supportsRewindFiles": true,
+        "supportsRewindBoth": true
+      },
+      "currentModeId": "default",
+      "availableModes": [
+        {
+          "id": "plan",
+          "label": "Plan Mode",
+          "description": "Analyze the codebase without executing tools or edits"
+        },
+        {
+          "id": "default",
+          "label": "Always Ask",
+          "description": "Prompts for permission the first time a tool is used"
+        },
+        {
+          "id": "acceptEdits",
+          "label": "Accept File Edits",
+          "description": "Automatically approves edit-focused tools without prompting"
+        },
+        {
+          "id": "auto",
+          "label": "Auto mode",
+          "description": "Uses a model classifier to review permission prompts automatically"
+        },
+        {
+          "id": "bypassPermissions",
+          "label": "Bypass",
+          "description": "Skip all permission prompts (use with caution)"
+        }
+      ],
+      "features": [],
+      "pendingPermissions": [],
+      "persistence": {
+        "provider": "claude",
+        "sessionId": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+        "nativeHandle": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+        "metadata": {
+          "provider": "claude",
+          "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+          "model": "claude-haiku-5-5",
+          "thinkingOptionId": "low",
+          "title": "Fictional focus 05-haiku-low-2 attempt 1"
+        }
+      },
+      "title": "Fictional focus 05-haiku-low-2 attempt 1",
+      "labels": {
+        "experiment": "d4-latency",
+        "configuration": "haiku-low",
+        "repeat": "2"
+      },
+      "archivedAt": null,
+      "lastUsage": {
+        "inputTokens": 2,
+        "cachedInputTokens": 48232,
+        "outputTokens": 800,
+        "totalCostUsd": 0.00088252,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 49034
+      },
+      "requiresAttention": true,
+      "attentionReason": "finished",
+      "attentionTimestamp": "2026-11-06T06:37:49.906Z"
+    },
+    "error": null,
+    "lastMessage": "第一件事是處理「批准虛構燈塔試用」這個閘門。等待的是虛構 FO 燈塔，自 2026-11-06 05:00 UTC 起已等 2 小時（以 07:00 UTC 為準）。動作是批准這項虛構燈塔試用。"
+  },
+  "wallMs": 16262.660000000002,
+  "completedAt": "2026-11-06T06:37:49.909Z",
+  "finalSnapshot": {
+    "id": "fa78a534-83b6-407a-b07f-bc7057bec3c6",
+    "provider": "claude",
+    "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+    "workspaceId": "wks_a7b17202e8a2d3d8",
+    "model": "claude-haiku-5-5",
+    "thinkingOptionId": "low",
+    "effectiveThinkingOptionId": "low",
+    "runtimeInfo": {
+      "provider": "claude",
+      "sessionId": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+      "model": "claude-haiku-5-5",
+      "modeId": "default",
+      "extra": {
+        "runtimeModel": "claude-haiku-5-5"
+      }
+    },
+    "createdAt": "2026-11-06T06:37:33.641Z",
+    "updatedAt": "2026-11-06T06:37:49.907Z",
+    "lastUserMessageAt": "2026-11-06T06:37:33.672Z",
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": true,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": true,
+      "supportsRewindBoth": true
+    },
+    "currentModeId": "default",
+    "availableModes": [
+      {
+        "id": "plan",
+        "label": "Plan Mode",
+        "description": "Analyze the codebase without executing tools or edits"
+      },
+      {
+        "id": "default",
+        "label": "Always Ask",
+        "description": "Prompts for permission the first time a tool is used"
+      },
+      {
+        "id": "acceptEdits",
+        "label": "Accept File Edits",
+        "description": "Automatically approves edit-focused tools without prompting"
+      },
+      {
+        "id": "auto",
+        "label": "Auto mode",
+        "description": "Uses a model classifier to review permission prompts automatically"
+      },
+      {
+        "id": "bypassPermissions",
+        "label": "Bypass",
+        "description": "Skip all permission prompts (use with caution)"
+      }
+    ],
+    "features": [],
+    "pendingPermissions": [],
+    "persistence": {
+      "provider": "claude",
+      "sessionId": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+      "nativeHandle": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+      "metadata": {
+        "provider": "claude",
+        "cwd": "/tmp/d4-small-model-g072wdrh/fictional-workspace",
+        "model": "claude-haiku-5-5",
+        "thinkingOptionId": "low",
+        "title": "Fictional focus 05-haiku-low-2 attempt 1"
+      }
+    },
+    "title": "Fictional focus 05-haiku-low-2 attempt 1",
+    "labels": {
+      "experiment": "d4-latency",
+      "configuration": "haiku-low",
+      "repeat": "2"
+    },
+    "archivedAt": null,
+    "lastUsage": {
+      "inputTokens": 2,
+      "cachedInputTokens": 48232,
+      "outputTokens": 800,
+      "totalCostUsd": 0.00088252,
+      "contextWindowMaxTokens": 1000000,
+      "contextWindowUsedTokens": 49034
+    },
+    "requiresAttention": true,
+    "attentionReason": "finished",
+    "attentionTimestamp": "2026-11-06T06:37:49.906Z"
+  },
+  "status": "idle",
+  "lastError": null,
+  "answer": "第一件事是處理「批准虛構燈塔試用」這個閘門。等待的是虛構 FO 燈塔，自 2026-11-06 05:00 UTC 起已等 2 小時（以 07:00 UTC 為準）。動作是批准這項虛構燈塔試用。",
+  "toolCalls": [],
+  "success": true,
+  "environmentFailure": false,
+  "authenticationFailure": false
+}

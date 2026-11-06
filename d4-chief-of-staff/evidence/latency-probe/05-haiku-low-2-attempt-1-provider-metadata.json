@@ -1,0 +1,81 @@
+{
+  "agentId": "fa78a534-83b6-407a-b07f-bc7057bec3c6",
+  "paseoTurnId": "foreground-turn-1",
+  "sessionId": "744b126b-f837-4d47-b72f-b512c7a38e1f",
+  "provider": "claude",
+  "method": "Only the exact new fictional session transcript, selected by its emitted session ID; no unrelated history or credentials.",
+  "requests": [
+    {
+      "id": "47ff0dd7-c354-4ac4-b41e-42c3b9812ea2",
+      "timestamp": "2026-11-06T06:37:42.756Z",
+      "querySource": "sdk",
+      "model": "claude-haiku-5-5",
+      "thinking": {
+        "type": "adaptive",
+        "display": "summarized"
+      },
+      "outputConfig": {
+        "effort": "low"
+      }
+    }
+  ],
+  "responses": [
+    {
+      "messageId": "msg_011CgmDL8X8LnMCJ5Zn6eHD5",
+      "requestId": "req_011CgmDL8JUxKRPZ13qvUhT9",
+      "model": "claude-haiku-5-5",
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 48232,
+        "output_tokens": 800,
+        "output_tokens_details": {
+          "thinking_tokens": 699
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 800,
+            "cache_read_input_tokens": 48232,
+            "cache_creation_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    }
+  ],
+  "tokenSums": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 48232,
+    "output_tokens": 800
+  },
+  "source": {
+    "path": "/Users/kent/.claude/projects/-private-tmp-d4-small-model-g072wdrh-fictional-workspace/744b126b-f837-4d47-b72f-b512c7a38e1f.jsonl",
+    "sha256": "f3d5e0760cd2a555c64f8ff34b450109f850f713498ee5a25dca401182e39a21"
+  },
+  "turnCompletedUsage": {
+    "inputTokens": 2,
+    "cachedInputTokens": 48232,
+    "outputTokens": 800,
+    "totalCostUsd": 0.00088252,
+    "contextWindowMaxTokens": 1000000,
+    "contextWindowUsedTokens": 49034
+  }
+}

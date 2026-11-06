@@ -1,0 +1,47 @@
+{
+  "sources": [
+    {
+      "path": "/Applications/Paseo.app/Contents/Resources/app.asar/node_modules/@getpaseo/server/dist/server/server/agent/providers/claude/agent.js",
+      "sha256": "cd72f73891d71b20d596e7facd87cec4124aa2241838675b1874a622ee2d7660",
+      "excerpts": [
+        {
+          "from": 1603,
+          "to": 1632,
+          "text": "    buildResultUsage(message, modelId) {\n        try {\n            if (!message.usage) {\n                return undefined;\n            }\n            const usage = {\n                inputTokens: message.usage.input_tokens,\n                cachedInputTokens: message.usage.cache_read_input_tokens,\n                outputTokens: message.usage.output_tokens,\n                totalCostUsd: message.total_cost_usd,\n            };\n            const modelContextWindowMaxTokens = this.recordModelUsage(message.modelUsage, modelId);\n            if (this.contextWindowMaxTokens !== undefined) {\n                usage.contextWindowMaxTokens = this.contextWindowMaxTokens;\n            }\n            else if (modelContextWindowMaxTokens !== undefined) {\n                usage.contextWindowMaxTokens = modelContextWindowMaxTokens;\n            }\n            const activeResultUsageTokens = readActiveUsageTokens(message.usage) ??\n                (this.completedResultTurns === 0 ? readLegacyResultUsageTokens(message.usage) : undefined);\n            const usedTokens = this.streamUsedTokens() ?? activeResultUsageTokens ?? this.compactedContextWindowUsedTokens;\n            if (usedTokens !== undefined) {\n                usage.contextWindowUsedTokens = usedTokens;\n            }\n            return usage;\n        }\n        finally {\n            this.compactedContextWindowUsedTokens = undefined;\n            this.completedResultTurns += 1;\n        }"
+        },
+        {
+          "from": 1645,
+          "to": 1657,
+          "text": "    createUsageUpdatedEvent(contextWindowUsedTokens) {\n        const usage = {\n            contextWindowUsedTokens,\n        };\n        if (this.contextWindowMaxTokens !== undefined) {\n            usage.contextWindowMaxTokens = this.contextWindowMaxTokens;\n        }\n        return {\n            type: \"usage_updated\",\n            provider: \"claude\",\n            usage,\n        };\n    }"
+        },
+        {
+          "from": 2871,
+          "to": 2893,
+          "text": "    resolveThinkingConfig() {\n        const thinkingOptionId = this.config.thinkingOptionId && this.config.thinkingOptionId !== \"default\"\n            ? this.config.thinkingOptionId\n            : undefined;\n        assertClaudeThinkingOptionSupported(this.config.model, thinkingOptionId);\n        if (thinkingOptionId === CLAUDE_DISABLED_THINKING_OPTION_ID) {\n            return { thinking: { type: \"disabled\" }, effort: undefined, ultracode: false };\n        }\n        if (thinkingOptionId === CLAUDE_ULTRACODE_THINKING_OPTION_ID) {\n            return {\n                thinking: { type: \"adaptive\", display: \"summarized\" },\n                effort: \"xhigh\",\n                ultracode: true,\n            };\n        }\n        if (thinkingOptionId && isClaudeThinkingEffort(thinkingOptionId)) {\n            return {\n                thinking: { type: \"adaptive\", display: \"summarized\" },\n                effort: thinkingOptionId,\n                ultracode: false,\n            };\n        }\n        return { thinking: undefined, effort: undefined, ultracode: false };"
+        }
+      ]
+    },
+    {
+      "path": "/Applications/Paseo.app/Contents/Resources/app.asar/node_modules/@getpaseo/server/dist/server/server/agent/providers/codex-app-server-agent.js",
+      "sha256": "137028b004cc6067c1b52005106d8bd4bc18fc3fecf07b4ddd96a9ff98fe3a7f",
+      "excerpts": [
+        {
+          "from": 735,
+          "to": 748,
+          "text": "export function toAgentUsage(tokenUsage) {\n    const usage = toObjectRecord(tokenUsage);\n    if (!usage)\n        return undefined;\n    const last = toObjectRecord(usage.last);\n    const contextWindowMaxTokens = firstPositiveFiniteNumber(usage.model_context_window, usage.modelContextWindow);\n    const contextWindowUsedTokens = firstPositiveFiniteNumber(last?.total_tokens, last?.totalTokens);\n    return {\n        inputTokens: typeof last?.inputTokens === \"number\" ? last.inputTokens : undefined,\n        cachedInputTokens: typeof last?.cachedInputTokens === \"number\" ? last.cachedInputTokens : undefined,\n        outputTokens: typeof last?.outputTokens === \"number\" ? last.outputTokens : undefined,\n        ...(contextWindowMaxTokens !== undefined ? { contextWindowMaxTokens } : {}),\n        ...(contextWindowUsedTokens !== undefined ? { contextWindowUsedTokens } : {}),\n    };"
+        },
+        {
+          "from": 4947,
+          "to": 4956,
+          "text": "    handleTokenUsageUpdatedNotification(parsed) {\n        this.latestUsage = toAgentUsage(parsed.tokenUsage);\n        if (this.latestUsage) {\n            this.notifySubscribers({\n                type: \"usage_updated\",\n                provider: CODEX_PROVIDER,\n                usage: this.latestUsage,\n            });\n        }\n    }"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    "Claude usage_updated is a context-window snapshot, not token-cost deltas; final turn usage omits cache creation. Deduplicate native assistant message IDs and reconcile input/cache-read/output to terminal event.",
+    "Codex usage_updated overwrites latest usage from tokenUsage.last; final event repeats it. Do not sum notifications. Use native token_usage_record keyed by response_id and turn_id; fresh one-request turns reconcile to final event.",
+    "Provider requests here means recorded completed model requests, not invisible HTTP retries; every measured turn had one recorded request and zero tool calls.",
+    "Paseo off configuration resolves disabled in source, while the captured Claude native request shows adaptive/medium; actual off was not verified."
+  ]
+}

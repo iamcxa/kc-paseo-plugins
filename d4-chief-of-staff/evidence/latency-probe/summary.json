@@ -1,0 +1,73 @@
+[
+  {
+    "configuration": "haiku-off",
+    "n": 3,
+    "thinkingVerified": false,
+    "wallMs": {
+      "min": 10148.81575,
+      "median": 11075.377792,
+      "max": 13191.565584
+    },
+    "firstTextMs": {
+      "min": 9543.480667,
+      "median": 10435.092167000003,
+      "max": 12683.5985
+    },
+    "firstApiRequestAfterSendMs": {
+      "min": 5672.0,
+      "median": 6859.0,
+      "max": 8552.0
+    },
+    "totalCreationMs": [
+      283.64833299999987,
+      111.28054200000003,
+      138.29275000000052
+    ]
+  },
+  {
+    "configuration": "haiku-low",
+    "n": 3,
+    "thinkingVerified": true,
+    "wallMs": {
+      "min": 12003.358833999999,
+      "median": 13900.409124999998,
+      "max": 16262.660000000002
+    },
+    "firstTextMs": {
+      "min": 11689.3825,
+      "median": 13656.109000000004,
+      "max": 15908.851084
+    },
+    "firstApiRequestAfterSendMs": {
+      "min": 5968.0,
+      "median": 9110.0,
+      "max": 9164.0
+    },
+    "totalCreationMs": [
+      96.69724999999926,
+      97.9444169999988,
+      226.46883399999933
+    ]
+  },
+  {
+    "configuration": "terra-low",
+    "n": 3,
+    "thinkingVerified": true,
+    "wallMs": {
+      "min": 6980.862958000005,
+      "median": 7157.184041999997,
+      "max": 7530.813291999999
+    },
+    "firstTextMs": {
+      "min": 5297.920959000003,
+      "median": 5438.79387500001,
+      "max": 5512.792209000003
+    },
+    "firstApiRequestAfterSendMs": null,
+    "totalCreationMs": [
+      2065.095042000001,
+      1747.2303329999995,
+      1221.3709999999992
+    ]
+  }
+]
