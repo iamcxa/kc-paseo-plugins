@@ -1,0 +1,68 @@
+{
+  "productBase": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+  "checks": [
+    {
+      "name": "design-surfaces",
+      "command": [
+        "python3",
+        "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/design_surfaces.py",
+        "check",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d4-chief-of-staff.md"
+      ],
+      "exit": 0,
+      "scope": "no product diff; design-only Step A",
+      "log": "design-surfaces.log"
+    },
+    {
+      "name": "comment-ratio",
+      "command": [
+        "python3",
+        "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/comment_ratio.py",
+        "91625588dff1b3e5737f6f6f8843b90d69468f32",
+        "HEAD",
+        "--repo",
+        "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d4-chief-of-staff",
+        "--workflow-dir",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+      ],
+      "exit": 0,
+      "scope": "no product diff; design-only Step A",
+      "log": "comment-ratio.log"
+    },
+    {
+      "name": "doc-impact",
+      "command": [
+        "python3",
+        "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/doc_impact.py",
+        "91625588dff1b3e5737f6f6f8843b90d69468f32",
+        "HEAD",
+        "--repo",
+        "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d4-chief-of-staff"
+      ],
+      "exit": 0,
+      "scope": "no product diff; design-only Step A",
+      "log": "doc-impact.log"
+    },
+    {
+      "name": "number-guards",
+      "command": [
+        "python3",
+        "/Users/kent/.codex/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/number_guards.py",
+        "check",
+        "--repo",
+        "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d4-chief-of-staff",
+        "--workflow-dir",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+        "--task",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d4-chief-of-staff.md",
+        "--base",
+        "91625588dff1b3e5737f6f6f8843b90d69468f32",
+        "--head",
+        "HEAD"
+      ],
+      "exit": 0,
+      "scope": "no product diff; design-only Step A",
+      "log": "number-guards.log"
+    }
+  ]
+}

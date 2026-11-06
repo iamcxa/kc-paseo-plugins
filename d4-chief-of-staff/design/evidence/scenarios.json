@@ -1,0 +1,249 @@
+{
+  "scope": "Design-rule arithmetic with fictional facts only. This does not import or exercise Bridge, Paseo, a model, entry detection, or actual scan suppression. Not product tests.",
+  "scenarios": [
+    {
+      "scenario": "older confirmed wait versus newest question",
+      "fictionalInput": [
+        {
+          "key": "gate-A",
+          "kind": "gate",
+          "since": "12:10",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": "Example FO A"
+        },
+        {
+          "key": "ask-B",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": "Example FO B"
+        }
+      ],
+      "boardNewestFirst": [
+        "ask-B",
+        "gate-A"
+      ],
+      "proposedFocus": "gate-A",
+      "expectedByDesign": "gate-A",
+      "matchesDesign": true,
+      "coverage": "complete"
+    },
+    {
+      "scenario": "sent is not actionable",
+      "fictionalInput": [
+        {
+          "key": "gate-A",
+          "kind": "gate",
+          "since": "12:10",
+          "explicitWait": true,
+          "state": "sent",
+          "source": "loaded",
+          "owner": null
+        },
+        {
+          "key": "ask-B",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        }
+      ],
+      "boardNewestFirst": [
+        "ask-B",
+        "gate-A"
+      ],
+      "proposedFocus": "ask-B",
+      "expectedByDesign": "ask-B",
+      "matchesDesign": true,
+      "coverage": "complete"
+    },
+    {
+      "scenario": "review repo match does not prove FO blocked",
+      "fictionalInput": [
+        {
+          "key": "review-C",
+          "kind": "review",
+          "since": "11:00",
+          "explicitWait": false,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        },
+        {
+          "key": "ask-B",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": "Example FO B"
+        }
+      ],
+      "boardNewestFirst": [
+        "ask-B",
+        "review-C"
+      ],
+      "proposedFocus": "ask-B",
+      "expectedByDesign": "ask-B",
+      "matchesDesign": true,
+      "coverage": "complete"
+    },
+    {
+      "scenario": "activity alone does not create work",
+      "fictionalInput": [
+        {
+          "key": "status-A",
+          "kind": "status",
+          "since": "12:59",
+          "explicitWait": false,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        }
+      ],
+      "boardNewestFirst": [
+        "status-A"
+      ],
+      "proposedFocus": null,
+      "expectedByDesign": null,
+      "matchesDesign": true,
+      "coverage": "complete"
+    },
+    {
+      "scenario": "failed source cannot assert global highest",
+      "fictionalInput": [
+        {
+          "key": "gate-A",
+          "kind": "gate",
+          "since": "12:10",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "failed",
+          "owner": null
+        },
+        {
+          "key": "ask-B",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        }
+      ],
+      "boardNewestFirst": [
+        "ask-B",
+        "gate-A"
+      ],
+      "proposedFocus": "ask-B",
+      "expectedByDesign": "ask-B",
+      "matchesDesign": true,
+      "coverage": "partial"
+    },
+    {
+      "scenario": "unknown waiting time follows known",
+      "fictionalInput": [
+        {
+          "key": "ask-A",
+          "kind": "ask",
+          "since": null,
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        },
+        {
+          "key": "ask-B",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        }
+      ],
+      "boardNewestFirst": [
+        "ask-B",
+        "ask-A"
+      ],
+      "proposedFocus": "ask-B",
+      "expectedByDesign": "ask-B",
+      "matchesDesign": true,
+      "coverage": "complete"
+    },
+    {
+      "scenario": "stable key breaks exact tie",
+      "fictionalInput": [
+        {
+          "key": "ask-B",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        },
+        {
+          "key": "ask-A",
+          "kind": "ask",
+          "since": "12:55",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "loaded",
+          "owner": null
+        }
+      ],
+      "boardNewestFirst": [
+        "ask-A",
+        "ask-B"
+      ],
+      "proposedFocus": "ask-A",
+      "expectedByDesign": "ask-A",
+      "matchesDesign": true,
+      "coverage": "complete"
+    },
+    {
+      "scenario": "no data does not mean no work",
+      "fictionalInput": [
+        {
+          "key": "gate-A",
+          "kind": "gate",
+          "since": "12:10",
+          "explicitWait": true,
+          "state": "your-turn",
+          "source": "failed",
+          "owner": null
+        }
+      ],
+      "boardNewestFirst": [
+        "gate-A"
+      ],
+      "proposedFocus": null,
+      "expectedByDesign": null,
+      "matchesDesign": true,
+      "coverage": "partial"
+    }
+  ],
+  "allMatch": true,
+  "operationCounts": {
+    "readFocus": 0,
+    "openTarget": 1,
+    "approve": 3,
+    "revise": 5,
+    "replyToFO": 4,
+    "talkToChief": 3,
+    "confirmSwitchExtra": 2
+  },
+  "measuredReferenceArithmetic": {
+    "inputIncrement": 133213,
+    "outputIncrement": 5915,
+    "requestIncrement": 1,
+    "secondsIncrement": 42.62
+  }
+}
