@@ -73,3 +73,20 @@ Alignment: not needed: the Captain set this direction and asked for the design f
 Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
 Visible change: the comms officer renamed as a chief of staff whose conversation opens with a scan of the board, and the board in one time order, newest first.
+
+## Stage Report: implementation
+
+- DONE: Step A in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d4-chief-of-staff/design/DESIGN.md, words only, covering every bullet of the task's Step A scope; read-only sources: Bridge at /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live/spacedock-bridge (HEAD 7a4dbc057803d791dc5626182636c8e0fc2c2d32: shared/coordinator.ts COORDINATOR_PROMPT, server/fleet-mcp.ts fleet_status, client/board.tsx, shared/board.ts, client/digest.tsx, client/co-chat.tsx), the cost numbers in d2-collection-cost-probe/evidence/RESULT.md, and the accepted r9 and d1 designs for what changes; first count the interaction models for "enter, learn the one thing, act" and pick the simplest before writing the rest (AC-1, AC-2)
+  Design artifact commit 4cf9307a9f464581fa90a2d7fa3430370a37e3a4; DESIGN.md compares three interaction models first, selects automatic entry, then covers persona, facts-only ranking, entry deduplication, newest-first Board, measured cost limits, retained/removal scope, operations and one deferred Captain question. EVIDENCE.md pins read-only sources; eight fictional rule walkthroughs show old confirmed waits can outrank newer rows and sent/ambiguous items cannot claim a blocked FO; reversing those rules changes their results. These are design arithmetic, not product tests.
+- DONE: The flicker after a digest is composed (d3 task "## Investigation: Captain trial 2", item 14): a read-only code reading of slice 1 naming the likely loop or re-render and whether it would carry into a chief-of-staff conversation; no product edit (AC-1)
+  EVIDENCE.md identifies useVerification loading/revision events → DigestMessage setDigest(null) → source re-read as the likely visible churn, with a conditional refetch/subscription loop hypothesis. Digest-specific subscriptions need not carry into ordinary chief-of-staff text; CoChat event reload still can. No runtime reproduction, product repair or claim that flicker is fixed.
+- DONE: Detail and evidence in d4-chief-of-staff/design/EVIDENCE.md; finish with a short stage report and stop for the design director's review; do not start step B (AC-3)
+  EVIDENCE.md plus design/evidence/{source-manifest,scenarios,checks}.json and four logs committed in 4cf9307. design_surfaces, comment_ratio, doc_impact and number_guards exit 0 on unchanged product base/head 91625588dff1b3e5737f6f6f8843b90d69468f32; 0 code/comment lines, 0 product-document impacts, migration guard skipped because no migrations-path. Preview check uses the pre-existing d1 reference and does not prove d4 visuals. Stop for design-director review.
+- SKIPPED: Step B static HTML, PNG, review.html and review-phone.html
+  Dispatch explicitly stops after words-only Step A pending design-director review; no code, candidate branch, PR, ADR ruling or runtime activation created.
+- SKIPPED: roborev
+  Explicit dispatch exclusion for this no-code design; no frontend tests or live model prompts run. Host re-entry without unmount, actual scan cost and ordinary-chat flicker remain unverified.
+
+### Summary
+
+Proposed a sharp, capable female chief of staff who gives one board-grounded next action on changed entry, alongside a single newest-first Board; proposals remain unapproved. The existing fleet tool needs Board-source and progress wiring, so this report does not claim that current code can already perform the design. Design artifacts are committed and pushed; main, flywheel-live and the unused code worktree remain clean on their original branch/revision, and FO should arrange the Step A design-director review before any Step B work.
