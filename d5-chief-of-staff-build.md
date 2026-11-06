@@ -324,3 +324,11 @@ Checks — comment-ratio.log: 568 code lines, zero comment lines, 0.0% against 5
 ### Summary
 
 The last authorized repair is implemented, tested, committed and pushed as df49d36f0f3aaa62e36a5ead28e5849229a99138; PR #77 remains Draft. Delivery remains HOLD for FO-run independent review, design acceptance and AC-3's real-model proof; local green tests and the changed-state client captures do not close those obligations.
+
+## Investigation: roborev 1578
+
+FO ran roborev on df49d36f0f3aaa62e36a5ead28e5849229a99138 (base 7a4dbc057803d791dc5626182636c8e0fc2c2d32): exit 1, evidence=roborev:1578, three Medium. The seed's two repair cycles are spent; no fix is authorized before the Captain sees the task. Two of three reach the shared conversation fold that cycle 2 centralized.
+10. shared/board.ts reply predicate reads replies even when next-owner=fo assigns the next step to the FO; a reply with "Next: … (you)" then creates Captain questions, inflating counts and possibly triggering batches.
+11. shared/commander-replies.ts: a valid focus stays unresolved when a later error entry marks the automated turn failed; live analysis rejects it, restart recovery restores it as an active call.
+12. shared/commander-replies.ts: every read must reach the conversation's start within 100 pages; past 12,000 projected entries every read throws (display and question counts too), and retry cannot recover.
+FO calls chief-engineer on drift before taking options to the Captain.
