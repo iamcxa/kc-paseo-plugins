@@ -43,6 +43,7 @@ describe("each failure names exactly one cause class", () => {
     ["rejected-token", async () => (await causeOf({ keychain: { "sa-a": "gone" }, op: { accounts } })).cause],
     ["missing-field", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/nope")).cause],
     ["unreachable", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "dial tcp: lookup my.1password.com: no such host" } } } })).cause],
+    ["rate-limited", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "[ERROR] 2026/10/27 14:01:40 Too Many Requests: You've reached the maximum number of this type of requests this service account is allowed to make." } } } })).cause],
     ["empty", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts } }, "op://V/i/blank")).cause],
     ["outside-vault", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts: { a: { refs: { "op://Other/i/x": "v" } } } } }, "op://Other/i/x")).cause],
     ["unexpected", async () => (await causeOf({ keychain: { "sa-a": "a" }, op: { accounts, fail: { "*": { stderr: "[ERROR] something new" } } } })).cause],

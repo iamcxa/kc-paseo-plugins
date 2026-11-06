@@ -11,6 +11,11 @@ describe("the field picker's failure line", () => {
     assert.match(shown.hint, /^Type the reference below instead\./);
     assert.doesNotMatch(`${shown.message} ${shown.hint}`, /connection/i);
   });
+  it("tells a rate limit to wait, not to fix the connection", () => {
+    const shown = vaultListFailure(wire("1Password rate limit reached so wait and try again"));
+    assert.equal(shown.message, "1Password rate limit reached so wait and try again");
+    assert.equal(shown.hint, "Close this list, wait a while, then open it again.");
+  });
   it("keeps today's words for a connection failure", () => {
     assert.deepEqual(vaultListFailure(wire("1Password could not be reached")), {
       message: "1Password could not be reached",

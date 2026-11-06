@@ -58,6 +58,10 @@ The reference names an item or field that is not there: it was renamed or delete
 
 The network failed, or 1Password did not answer within 20 seconds as the agent was starting. Check the network, then press Test and start a new agent.
 
+### 1Password rate limit reached so wait and try again
+
+1Password limits how many reads a service account may make: a number per hour for each token and a number per day for the whole 1Password account. When one is used up, 1Password answers "Too Many Requests" to every read until the limit resets, so the plugin shows this reason instead of "could not read this item". Wait, then press Test or open the field list again, and start a new agent. Pressing Test or opening the field list sooner only spends more reads. Opening the field list reads every item of the vault, so a large vault uses a lot of an hour's allowance.
+
 ### The 1Password field is empty
 
 The field exists but holds nothing or only spaces. Fill it in 1Password, then press Test or start a new agent.

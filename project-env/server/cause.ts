@@ -13,6 +13,7 @@ export interface OpExit {
 
 // Wording is a hypothesis from 1Password community threads; a miss degrades to "unexpected".
 const MISSING = /isn't (a|an) (vault|item|field)|no such (vault|item|field)|could not find|not found|does not exist|doesn't exist/i;
+const RATE_LIMITED = /too many requests|maximum number of this type of requests|rate[- ]?limit/i;
 const NETWORK = /network|timed? ?out|connection|could not resolve|no such host|dial tcp|unreachable|offline|ENOTFOUND|ECONNREFUSED|\bEOF\b/i;
 const AUTH = /401|DecodeSACredentials|authenticat|unauthori[sz]ed|invalid (service account )?token|token.*(expired|invalid|malformed)|not signed in|not currently signed in/i;
 
@@ -23,6 +24,7 @@ export function classifyOpFailure(exit: OpExit): Cause {
   if (typeof exit.code === "string") return "unexpected";
   const line = (typeof exit.stderr === "string" ? exit.stderr : "").trim().split("\n")[0];
   if (MISSING.test(line)) return "missing-field";
+  if (RATE_LIMITED.test(line)) return "rate-limited";
   if (NETWORK.test(line)) return "unreachable";
   if (AUTH.test(line)) return "rejected-token";
   return "unexpected";
