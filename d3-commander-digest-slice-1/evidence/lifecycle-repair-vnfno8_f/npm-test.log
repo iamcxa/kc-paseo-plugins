@@ -1,0 +1,743 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (15.35825ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.219959ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (3.408875ms)
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✔ unlabelled alone (339.110958ms)
+  ✔ unlabelled with gate (170.008666ms)
+  ✔ unlabelled with review (101.808125ms)
+  ✔ label represents the same reply (92.291625ms)
+  ✔ different labelled question (192.174458ms)
+  ✔ unlabelled with gate and review (201.405583ms)
+  ✔ same reply label with gate (123.453792ms)
+  ✔ different label with gate (184.113292ms)
+  ✔ same reply label with review (146.648041ms)
+  ✔ different label with review (78.550958ms)
+  ✔ same reply label with gate and review (127.064ms)
+  ✔ different label with gate and review (111.625125ms)
+✔ both board views share unread-question rows and counts across waiting-item combinations (2065.823167ms)
+✔ failed board sources reuse guarded reads; FO rows count and open each waiting destination (793.927667ms)
+✔ By FO keeps every FO and each assigned review reachable (369.279292ms)
+✔ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (427.888625ms)
+✔ a sent item never appears under a waiting-on-you claim (1440, decision) (796.760583ms)
+✔ a relayed item never appears under a waiting-on-you claim (1440, decision) (293.19275ms)
+✔ a sent item never appears under a waiting-on-you claim (1440, fo) (227.090083ms)
+✔ a relayed item never appears under a waiting-on-you claim (1440, fo) (275.054958ms)
+✔ an FO with nothing waiting opens only its conversation (1440) (298.474375ms)
+✔ a sent item never appears under a waiting-on-you claim (360, decision) (187.279042ms)
+✔ a relayed item never appears under a waiting-on-you claim (360, decision) (112.172167ms)
+✔ a sent item never appears under a waiting-on-you claim (360, fo) (276.141792ms)
+✔ a relayed item never appears under a waiting-on-you claim (360, fo) (354.7505ms)
+✔ an FO with nothing waiting opens only its conversation (360) (181.458584ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.221291ms)
+✔ an FO with no tab labels is not Tab closed (0.093542ms)
+✔ one true tab keeps an FO open across clients (0.07025ms)
+✔ a running FO is not Tab closed even when every tab is false (0.072917ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.1065ms)
+✔ an unknown tab value does not count as explicitly false (0.069ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.06025ms)
+✔ Paseo's own permission attention is waiting on Kent (0.046917ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.061875ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.0985ms)
+✔ a new reply whose next step is the Captain's moves to waiting (53.158416ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (0.567458ms)
+✔ a next-owner label decides the group without reading the reply (0.201708ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.125667ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (13.859708ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.968166ms)
+✔ an offline FO with no gate waiting is left off the board (0.205084ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (2.644542ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (2.735833ms)
+✔ reopen keeps the confirmed choice and reason (602.245792ms)
+✔ sent and relayed progress survives a comms detour (396.514792ms)
+✔ a recorded item never becomes actionable again (272.681667ms)
+✔ switching items keeps separate drafts and rejects stale actions (264.173583ms)
+✔ errors and progress stay with their own source and owner (484.537416ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (578.907333ms)
+✔ an FO with nothing waiting is reachable from By FO (96.813459ms)
+✔ a recorded item reopens to its result and reason this session and is never actionable (235.684916ms)
+✔ an ordinary message never consumes the gate decision controls (34.76575ms)
+✔ desktop board navigation keeps the commander as the default detail (46.350917ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.517209ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.178458ms)
+✔ waiting time reads in seconds, minutes and hours (0.1145ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.543459ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.123416ms)
+✔ displayed replies join adjacent chunks but a visible tool separates them (2.012333ms)
+✔ hidden agent_message tools do not split a displayed reply; trailing visible tools do (0.349125ms)
+✔ a reconnect detects the last displayed Captain question after earlier FO work (252.736666ms)
+✔ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (15.106875ms)
+✔ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (22.861042ms)
+✔ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (37.05075ms)
+✔ switching coordinators clears the previous question and timestamp while the new connection is pending (11.010209ms)
+gates.read #1 start dirs=0
+gates.read #1 done 43ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 1ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 3ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+gates.read #16 start dirs=0
+gates.read #16 done 1ms
+gates.read #17 start dirs=0
+gates.read #17 done 0ms
+gates.read #18 start dirs=0
+gates.read #18 done 0ms
+gates.read #19 start dirs=0
+gates.read #19 done 0ms
+gates.read #20 start dirs=0
+gates.read #20 done 0ms
+gates.read #21 start dirs=0
+gates.read #21 done 0ms
+gates.read #22 start dirs=0
+gates.read #22 done 0ms
+✔ server reads one projected entry spanning 1 sequences for digest and Replay (53.65175ms)
+✔ server reads one projected entry spanning 2 sequences for digest and Replay (0.95475ms)
+✔ server reads one projected entry spanning 3 sequences for digest and Replay (0.758959ms)
+✔ server reads one projected entry spanning 120 sequences for digest and Replay (3.7205ms)
+✔ digest interval refuses missing (3.552166ms)
+✔ digest interval refuses reordered (1.332833ms)
+✔ digest interval refuses interposed (1.556042ms)
+✔ digest interval refuses epoch (1.005791ms)
+✔ digest interval refuses agent (14.628459ms)
+✔ digest interval refuses collapsed (2.765542ms)
+✔ digest interval refuses range (0.33375ms)
+✔ digest interval refuses gap (0.177875ms)
+✔ digest interval refuses stale (0.132167ms)
+✔ digest interval refuses reset (0.118667ms)
+✔ digest interval refuses projection (1.909334ms)
+✔ digest interval refuses first-truncated (1.170458ms)
+✔ digest interval refuses last-truncated (0.751167ms)
+✔ digest interval refuses oversized (4.279ms)
+✔ digest interval refuses reversed (0.410416ms)
+✔ digest interval refuses wrong-round (0.305ms)
+✔ digest interval refuses wrong-hash (0.220292ms)
+✔ digest interval refuses one-fragment-only (0.315542ms)
+✖ client preserves one merged display range spanning 2 sequences with digest and Replay (587.23775ms)
+✖ client preserves one merged display range spanning 3 sequences with digest and Replay (287.553583ms)
+✔ no rejected collection prose question in desktop card and header after none (301.161375ms)
+✔ no rejected collection prose question in desktop card and header after agent-message (243.115584ms)
+✔ no rejected collection prose question in desktop card and header after agent-notification (271.610167ms)
+✔ no rejected collection prose question in desktop card and header after automated (274.28025ms)
+✔ no rejected collection prose question in desktop card and header after unknown (378.988083ms)
+✔ no rejected collection prose question in compact board views after none (312.466042ms)
+✔ no rejected collection prose question in compact board views after agent-message (330.67525ms)
+✔ no rejected collection prose question in compact board views after agent-notification (316.746959ms)
+✔ no rejected collection prose question in compact board views after automated (316.667459ms)
+✔ no rejected collection prose question in compact board views after unknown (299.200375ms)
+✔ no rejected collection structured question in desktop card and header after none (237.388209ms)
+✔ no rejected collection structured question in desktop card and header after agent-message (240.405125ms)
+✔ no rejected collection structured question in desktop card and header after agent-notification (242.678333ms)
+✔ no rejected collection structured question in desktop card and header after automated (274.4605ms)
+✔ no rejected collection structured question in desktop card and header after unknown (439.843416ms)
+✔ no rejected collection structured question in compact board views after none (287.665084ms)
+✔ no rejected collection structured question in compact board views after agent-message (257.648125ms)
+✔ no rejected collection structured question in compact board views after agent-notification (304.823584ms)
+✔ no rejected collection structured question in compact board views after automated (274.023375ms)
+✔ no rejected collection structured question in compact board views after unknown (292.678666ms)
+✔ sidebar-only initial excludes collection badge, count, label and popover target but retains real gates (217.869708ms)
+✔ sidebar-only retry excludes collection badge, count, label and popover target but retains real gates (436.219417ms)
+✔ sidebar-only reload excludes collection badge, count, label and popover target but retains real gates (418.990625ms)
+✔ previous officer cannot fall through to ordinary collection rendering (30.607708ms)
+✔ host cannot fall through to ordinary collection rendering (228.520542ms)
+✔ known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON (259.762584ms)
+✔ Commander render and question reads refuse canonical agent corruption (231.527209ms)
+✔ Commander render and question reads refuse canonical epoch corruption (253.13475ms)
+✔ Commander render and question reads refuse canonical gap corruption (234.48725ms)
+✔ Commander render and question reads refuse canonical reset corruption (286.465917ms)
+✔ Commander render and question reads refuse canonical stale corruption (252.078875ms)
+✔ Commander render and question reads refuse canonical collapsed corruption (255.353416ms)
+✔ Commander render and question reads refuse canonical sequence corruption (238.09725ms)
+✔ Commander render and question reads refuse canonical projection corruption (251.885708ms)
+✔ active Commander retry cannot publish a new rejected collection over an ordinary question (461.287375ms)
+✔ active Commander reload cannot publish a new rejected collection over an ordinary question (443.354708ms)
+✔ known non-Captain Next lines stay ordinary and do not create questions (229.232666ms)
+✔ losing host identity never commits raw digest text while the read effect resets (237.046167ms)
+✔ native composer follows a keyboard already visible at mount (73.831958ms)
+✔ native composer follows a keyboard frame changes without a show event (94.830584ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (17.310375ms)
+✔ message and reason share a shrinkable scroll area inside keyboard padding (451.482917ms)
+✔ Enter sends the typed text to the FO and clears the box (1.21ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.180292ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.120334ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.166417ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (0.438042ms)
+✔ a chip refusal keeps the draft (0.259917ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.288041ms)
+✔ 准 goes through with an empty box, via the comms officer (0.448625ms)
+✔ a decision chip sends the typed text as the reason (0.18425ms)
+✔ a second decision on the same briefing is refused and sends nothing (1.010792ms)
+✔ a failed send releases the claim and rethrows (0.399125ms)
+✔ a changed briefing refuses before claiming (0.0975ms)
+✔ an unloaded briefing refuses (0.093333ms)
+✔ polling a newer open briefing ignores the older briefing's resolution (304.535166ms)
+✔ message never decides (2.235209ms)
+✔ decision uses only its reason (0.728167ms)
+✔ both actions keep the other draft (0.522709ms)
+✔ a changed briefing or officer cannot receive a stale action (0.791791ms)
+✔ pending, failure and duplicate presses keep existing behavior (0.482375ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✔ sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor (20.338292ms)
+✔ Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read (1.583542ms)
+✔ Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read (3.203709ms)
+✔ Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read (0.945833ms)
+✔ Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read (81.86525ms)
+✔ sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes (2.863708ms)
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+✔ Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning (523.7405ms)
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+✔ Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning (291.538ms)
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+✔ Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning (289.991042ms)
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+✔ Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning (280.960583ms)
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+✔ Replay before: source-throw is a whole failure, never an unverifiable context with a side warning (263.189125ms)
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+✔ Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning (289.960958ms)
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+✔ Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning (271.123584ms)
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+✔ Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning (291.794375ms)
+gates.read #17 start dirs=0
+gates.read #17 done 0ms
+✔ Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning (285.067459ms)
+gates.read #18 start dirs=0
+gates.read #18 done 0ms
+✔ Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning (257.758917ms)
+gates.read #19 start dirs=0
+gates.read #19 done 0ms
+✔ Replay after: source-throw is a whole failure, never an unverifiable context with a side warning (270.441375ms)
+gates.read #20 start dirs=0
+gates.read #20 done 0ms
+✔ Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning (268.098958ms)
+gates.read #21 start dirs=0
+gates.read #21 done 0ms
+✔ initial anchor throw is globally unavailable (313.844083ms)
+gates.read #22 start dirs=0
+gates.read #22 done 0ms
+✔ initial anchor null is globally unavailable (324.625333ms)
+gates.read #23 start dirs=0
+gates.read #23 done 0ms
+✔ typed side failures retain verified context; a successful empty page remains end-of-history (259.453666ms)
+gates.read #24 start dirs=0
+gates.read #24 done 0ms
+✖ a global warning survives pending and failed retries; only verified recovery restores context (248.081666ms)
+✔ a superseded paging rejection cannot clear a newly verified Replay (245.335208ms)
+✔ 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send (825.097584ms)
+✔ 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send (363.069125ms)
+✔ each context link reads its exact source, earlier/later use window edges and FO exit opens the chosen conversation (457.304291ms)
+✔ invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history (277.520167ms)
+✔ a stale source response cannot populate a different point's Replay (329.886375ms)
+✔ switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only (129.876541ms)
+✔ malformed collection prose and its raw snapshot never bypass digest validation; ordinary discussion still renders (273.020459ms)
+✔ collection provenance survives agent-message before malformed output (261.164041ms)
+✔ collection provenance survives agent-notification before malformed output (271.432625ms)
+✔ collection provenance survives bridge-automated before malformed output (340.67475ms)
+✔ ordinary discussion keeps [Design notes](https://example.invalid/design) (270.426292ms)
+✔ ordinary discussion keeps [1,2,3] (239.504333ms)
+✔ ordinary discussion keeps {"count":3} (277.729834ms)
+✔ ordinary discussion keeps ```json
+{"count":3}
+``` (278.186833ms)
+✔ ordinary discussion keeps The field "roundId": identifies a round (242.907583ms)
+✔ ordinary discussion keeps The field "contextLines": describes context (229.380291ms)
+✔ unknown page fails closed; a real Captain request including a human envelope ends collection (232.653208ms)
+✔ Open FO arrives in the source conversation and retains both unsent drafts across Commander return (318.857375ms)
+✔ unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines (279.66075ms)
+✔ selected point remains outside the history scroll area (262.460958ms)
+✔ Open FO refuses an unavailable source host without substituting a conversation (237.621333ms)
+✔ Open FO refuses an unavailable source agent without substituting a conversation (236.76675ms)
+✔ an agent envelope containing a collect marker cannot begin a collection (225.909208ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✔ valid digest reads the exact assistant source once and never searches words (44.256ms)
+✔ reject round without exposing unverified text (16.409834ms)
+✔ reject foreign without exposing unverified text (1.16325ms)
+✔ reject hash without exposing unverified text (0.542208ms)
+✔ reject missing without exposing unverified text (0.313833ms)
+✔ reject line-foreign without exposing unverified text (0.194917ms)
+✔ reject kinds without exposing unverified text (0.173667ms)
+✔ reject duplicate-point without exposing unverified text (0.182792ms)
+✔ read-back rejects epoch changes (0.340834ms)
+✔ read-back rejects agentId changes (0.225291ms)
+✔ read-back rejects reset changes (0.1895ms)
+✔ read-back rejects gap changes (0.168875ms)
+✔ read-back rejects staleCursor changes (0.137458ms)
+✔ read-back rejects text changes (0.185208ms)
+✔ read-back rejects range changes (2.674584ms)
+✔ read-back rejects missing changes (0.233958ms)
+✔ read-back rejects role changes (0.194458ms)
+✔ Replay reads two canonical neighbors each side, preserves roles and pages from edges (1.634833ms)
+✔ side failure is unavailable, never end-of-history or a cross-gap join (0.432709ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (1.165042ms)
+✔ collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO (9.905666ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.507708ms)
+✔ fleet budget admits recent reports after oversized oldest (6.245917ms)
+✔ fleet budget admits recent reports after oversized middle (0.463708ms)
+✔ fleet budget admits recent reports after oversized newest (0.258667ms)
+✔ fleet budget admits recent reports after newest priority (0.287ms)
+✔ fleet budget admits recent reports after UTF-8 bytes (0.333542ms)
+✔ fleet budget accepts exactly 64000 UTF-8 bytes, excludes non-reports and reports older-page truncation (0.66ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (1.010875ms)
+✔ mounted composers follow store updates, target changes and unsubscription (109.419042ms)
+✔ mounted composer reflects delayed send: clear (14.855958ms)
+✔ mounted composer reflects delayed send: edit (54.577958ms)
+✔ mounted composer reflects delayed send: refuse (15.551167ms)
+✔ mounted composer reflects delayed decision: clear (17.224875ms)
+✔ mounted composer reflects delayed decision: edit (13.761292ms)
+✔ mounted composer reflects delayed decision: refuse (38.710791ms)
+✔ reopening a pending send blocks button and Enter until success (19.771708ms)
+✔ reopening a pending send blocks button and Enter until failure (14.921584ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (0.628167ms)
+✔ a comms officer seed fills an empty draft and preserves non-empty text (0.097583ms)
+✔ stored draft clears after successful send (0.60025ms)
+✔ stored draft survives refused send (0.085042ms)
+✔ stored draft clears after successful decision (0.110917ms)
+✔ stored draft survives refused decision (0.074667ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (0.453542ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.187ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.178958ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (0.14175ms)
+✔ the FO source stays loading until every question read settles (18.853ms)
+✔ a failed FO question read marks the source incomplete and keeps successful questions (1.258125ms)
+✔ a recorded gate does not suppress a new implementation attempt of the same task (795.012959ms)
+✔ a recorded gate does not suppress a new validation attempt of the same task (250.875875ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (throw) (54.638ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (answer) (75.057625ms)
+✔ a retained active attempt never adopts its replacement's briefing (223.728917ms)
+✔ a late failure from the first read cannot overwrite a successful reopen (141.457667ms)
+✔ identical slugs in two workflows keep separate recipients (732.958834ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (264.785708ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (82.847625ms)
+gates.read #1 start dirs=2
+gates.read #1 done 420ms
+gates.read #2 start dirs=2
+gates.read #2 done 111ms
+gates.read #3 start dirs=2
+gates.read #3 done 121ms
+✔ each active briefing identity survives the server, RPC schema, attachment and queue (720.239458ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-HKtzHy: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-HKtzHy --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-HKtzHy --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 279ms
+gates.read #2 start dirs=1
+gates.read #2 done 62ms
+gates.read #3 start dirs=1
+gates.read #3 done 2ms
+gates.read #4 start dirs=1
+gates.read #4 done 53ms
+gates.read #5 start dirs=1
+gates.read #5 done 0ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (458.383625ms)
+gates.read #6 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:131:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:44:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+}
+gates.read #6 done 269ms
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:116:45)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:48:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+}
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:116:45)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/fleet-mcp.ts:42:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:57:3) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+}
+gates.read #7 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:131:12)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/fleet-mcp.ts:48:55)
+    at async waitForActual (node:assert:646:5)
+    at async strict.rejects (node:assert:769:25) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-cTabJQ/removed/README.md'
+}
+gates.read #7 done 13ms
+✔ a removed workflow does not hide another workflow's gates or tasks (312.935625ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (0.93875ms)
+✔ a resolution is found by the briefing it answered (0.140292ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (30.672125ms)
+✔ a git-root state URI gives the commit and path (0.268542ms)
+✔ status priority covers every waiting kind in LIST-AND-DETAIL (0.504958ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (0.561375ms)
+✔ bold and inline code are split out of a line (0.981042ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.37825ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.1825ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.1625ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.371708ms)
+✔ the last reply joins assistant text after the last user message (0.496292ms)
+✔ a status block's next step is the preview (0.44375ms)
+✔ without a next step the first line is the preview, clipped (0.180792ms)
+✔ a permission shows what it asks for (0.086ms)
+✔ the next step is the Captain's when it names 你 or you (0.176625ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (0.382875ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.156708ms)
+✔ projected first is a healthy page without fabricated singleton sequences (1.447667ms)
+✔ projected empty new agent is a healthy page without fabricated singleton sequences (0.076584ms)
+✔ projected empty end is a healthy page without fabricated singleton sequences (0.056834ms)
+✔ projected merged tool is a healthy page without fabricated singleton sequences (0.154583ms)
+✔ projected distinct assistant entries is a healthy page without fabricated singleton sequences (0.09325ms)
+✔ projected 120 display rows is a healthy page without fabricated singleton sequences (0.435125ms)
+✔ real-shaped merged discussion loads Commander, board questions and old history (false) (442.594708ms)
+✔ real-shaped merged discussion loads Commander, board questions and old history (true) (399.525375ms)
+✔ sidebar-only projected ordinary question is counted while collection and unknown remain withheld (699.567292ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✔ healthy empty projected Commander and question read settle without a failure (243.92775ms)
+✔ a projected source hashes the entire merged entry and Replay pages by display entries (4.691542ms)
+✔ collection, full projected digest range and Replay use the same real-shaped reader (1.627917ms)
+✔ the decision relay reader retains projected user-message identity across a comms detour (483.873917ms)
+✔ an assistant entry still being written is not an exact source (0.298334ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (527.264541ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 360) (415.111084ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (92.2455ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (387.49425ms)
+✔ an identical repeated question gets its own identity and time from its message (134.638458ms)
+✔ an identical repeated question gets its own identity and time from its timestamp (65.166417ms)
+✔ a repeated label question uses its new attention timestamp (29.8835ms)
+✔ an unrelated officer activity update keeps the same question detail (label) (30.533417ms)
+✔ an unrelated officer activity update keeps the same question detail (reply) (43.29525ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (9.898667ms)
+✔ a review with no FO has none (0.150541ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.282042ms)
+✔ an empty queue has no next card and one item has no rows (0.112417ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.237042ms)
+✔ a gate or question has no link to open (0.1685ms)
+✔ a captain question survives alongside the same FO's gate (0.368959ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.610833ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (0.443166ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (0.570458ms)
+✔ text already typed joins the chip word as the Captain's words (0.092459ms)
+✔ a decision id is d- and six base-36 characters (0.1265ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.096ms)
+✔ revise and hold need a typed reason; approve does not (0.070541ms)
+✔ retained surface table: gate briefing × identity changed upstream (550.662375ms)
+✔ retained surface table: gate briefing × failed read then reactivate (292.503125ms)
+✔ retained surface table: gate briefing × failed read then retry control (80.354708ms)
+✔ retained surface table: gate conversation × identity changed upstream (117.621875ms)
+✔ retained surface table: gate conversation × failed read then reactivate (87.065334ms)
+✔ retained surface table: gate conversation × failed read then retry control (21.820209ms)
+✔ retained surface table: assigned review conversation × identity changed upstream (41.333292ms)
+✔ retained surface table: assigned review conversation × failed read then reactivate (47.139708ms)
+✔ retained surface table: assigned review conversation × failed read then retry control (37.664875ms)
+✔ retained surface table: FO conversation × identity changed upstream (268.651ms)
+✔ retained surface table: FO conversation × failed read then reactivate (280.43625ms)
+✔ retained surface table: FO conversation × failed read then retry control (48.949791ms)
+✔ retained surface table: commander conversation × identity changed upstream (128.436042ms)
+✔ retained surface table: commander conversation × failed read then reactivate (254.44225ms)
+✔ retained surface table: commander conversation × failed read then retry control (232.498667ms)
+✔ retained surface table: decision record × identity changed upstream (127.863333ms)
+✔ retained surface table: decision record × failed read then reactivate (83.916583ms)
+✔ retained surface table: decision record × failed read then retry control (67.532084ms)
+✔ retained surface table: relay status × identity changed upstream (73.89175ms)
+✔ retained surface table: relay status × failed read then reactivate (50.282708ms)
+✔ retained surface table: relay status × failed read then retry control (31.101042ms)
+✔ retained surface table: commander question × identity changed upstream (49.453416ms)
+✔ retained surface table: commander question × failed read then reactivate (252.733833ms)
+✔ retained surface table: commander question × failed read then retry control (226.979209ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (54.119042ms)
+✔ retained surface table: gate briefing × unresolved read then reactivate (82.559959ms)
+✔ retained surface table: gate conversation × unresolved read then reactivate (74.801208ms)
+✔ retained surface table: assigned review conversation × unresolved read then reactivate (89.855583ms)
+✔ retained surface table: FO conversation × unresolved read then reactivate (44.797458ms)
+✔ retained surface table: commander conversation × unresolved read then reactivate (226.906667ms)
+✔ retained surface table: decision record × unresolved read then reactivate (23.22575ms)
+✔ retained surface table: relay status × unresolved read then reactivate (37.908709ms)
+✔ retained surface table: commander question × unresolved read then reactivate (230.719333ms)
+✔ retained subscription: gate × ready failure recovers with draft (47.685375ms)
+✔ retained subscription: gate × event failure recovers with draft (42.504541ms)
+✔ retained subscription: fo × ready failure recovers with draft (43.860416ms)
+✔ retained subscription: fo × event failure recovers with draft (59.125292ms)
+✔ retained subscription: commander × ready failure recovers with draft (109.55425ms)
+✔ retained subscription: commander × event failure recovers with draft (124.97225ms)
+✔ commander connection reader × failed read then reactivate (171.922125ms)
+✔ commander connection reader × failed read then retry control (32.707166ms)
+✔ retained phone board: gates × failed read then reactivate (90.147833ms)
+✔ retained phone board: gates × failed read then retry control (55.23625ms)
+✔ retained phone board: tasks × failed read then reactivate (85.94425ms)
+✔ retained phone board: tasks × failed read then retry control (30.788667ms)
+✔ retained phone board: review source × failed read then reactivate (33.310458ms)
+✔ retained phone board: review source × failed read then retry control (28.531917ms)
+✔ retained phone board: gates × unresolved read then reactivate (35.667666ms)
+✔ retained phone board: gates × unresolved read then retry control (24.052959ms)
+✔ retained phone board: tasks × unresolved read then reactivate (36.435875ms)
+✔ retained phone board: tasks × unresolved read then retry control (42.493334ms)
+✔ retained phone board: review source × unresolved read then reactivate (28.199791ms)
+✔ retained phone board: review source × unresolved read then retry control (19.362875ms)
+✔ retained phone board: FO question reader × failed read then reactivate (125.485875ms)
+✔ retained phone board: FO question reader × failed read then retry control (78.824084ms)
+✔ retained surface table: gate briefing × loaded value changes then reactivate (94.248666ms)
+✔ retained surface table: gate conversation × loaded value changes then reactivate (79.808875ms)
+✔ retained surface table: assigned review conversation × loaded value changes then reactivate (49.775083ms)
+✔ retained surface table: FO conversation × loaded value changes then reactivate (32.601625ms)
+✔ retained surface table: commander conversation × loaded value changes then reactivate (28.636041ms)
+✔ retained surface table: decision record × loaded value changes then reactivate (41.106708ms)
+✔ retained surface table: relay status × loaded value changes then reactivate (39.150334ms)
+✔ retained surface table: commander question × loaded value changes then reactivate (25.100625ms)
+✔ retained surface table: claim released by another client then reopen (45.639458ms)
+✔ retained surface table: refresh read overlaps a local send (null); the local send wins (58.901542ms)
+✔ retained surface table: refresh read overlaps a local send (old claim); the local send wins (94.57825ms)
+✔ reactivation refreshes gate closure and recorded results without reviving recorded actions (35.815541ms)
+✔ retained phone board: gates × loaded value changes then reactivate (26.882209ms)
+✔ retained phone board: tasks × loaded value changes then reactivate (33.32625ms)
+✔ retained phone board: review source × loaded value changes then reactivate (25.153916ms)
+✔ retained surface table: briefing refresh overlaps a local send (closed) (32.884292ms)
+✔ retained surface table: briefing refresh overlaps a local send (recorded) (55.478667ms)
+✔ an authoritative released claim clears cached local sent progress on reopen (94.545625ms)
+✔ review reader exposes the existing poller's scheduled first check and clears it on stop (262.757084ms)
+✔ gh search output becomes review requests, dropping incomplete rows (0.845042ms)
+✔ only requests not seen before are new (0.09975ms)
+✔ the wake message is marked as automated data and names each pull request (0.234ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (0.090666ms)
+✔ a well-formed request is exactly one routable line (0.090875ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (0.138583ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.113583ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.0815ms)
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (1.483625ms)
+✔ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (495.997041ms)
+✔ popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board (195.042959ms)
+✔ label opens Bridge directly and Commander questions are read without creating a coordinator (252.821583ms)
+✔ loading gates show a question mark and an incomplete note before any Bridge screen mounts (12.802459ms)
+✔ a changed workflow excludes previous gates while loading (17.013583ms)
+✔ a changed workflow excludes previous gates while failed (32.351958ms)
+✔ a successful new workflow read shows only its own gate, owner and Bridge destination (135.507167ms)
+✔ same-workflow refresh keeps its own cached gate during loading and failure (66.831041ms)
+✔ sidebar badge and popover actions use attention theme colors instead of accent (73.887042ms)
+✔ scroll cue follows measured overflow on compact popovers (154.273958ms)
+✔ scroll cue follows measured overflow on wide popovers (57.693042ms)
+✔ empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls (32.842292ms)
+✔ a spacedock status answer gives the task's title and stage (0.795584ms)
+✔ no matching task or unreadable output gives nothing (0.124709ms)
+✔ only a commissioned workflow README counts as a workflow directory (0.153834ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (0.150292ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+✔ server readers reject streaming then accept identical completed content on an explicit fresh read (8.98625ms)
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+✔ Commander turn_completed re-verifies identical completed content without a click (844.791834ms)
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ Commander turn_failed re-verifies identical completed content without a click (691.892125ms)
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+✔ Commander turn_canceled re-verifies identical completed content without a click (658.659083ms)
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✔ Commander status re-verifies identical completed content without a click (689.259416ms)
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+✔ pinned FO completion re-verifies an invalid digest point without changing the round (450.346875ms)
+gates.read #10 start dirs=0
+gates.read #10 done 1ms
+✔ open Replay anchor recovers from streaming rejection on identical completion (493.354ms)
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+✔ Replay withholds a running neighbour and exposes a retryable side, then recovers on completion (577.309542ms)
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+✔ question reader already recovers after completion with unchanged content and range (465.1295ms)
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+✔ completion cannot revive a source with changed epoch (477.027417ms)
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+✔ completion cannot revive a source with changed range (483.773541ms)
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+✔ completion cannot revive a source with changed hash (454.266875ms)
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+✔ an errored verification subscription hides stale content until explicit reconnection (441.544333ms)
+✔ a late Replay response cannot replace the window re-verified after completion (441.548916ms)
+ℹ tests 431
+ℹ suites 0
+ℹ pass 428
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14051.742583
+
+✖ failing tests:
+
+test at test/commander-ui.test.mts:9:27
+✖ client preserves one merged display range spanning 2 sequences with digest and Replay (587.23775ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:9:27
+✖ client preserves one merged display range spanning 3 sequences with digest and Replay (287.553583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/digest-boundaries.test.mts:123:1
+✖ a global warning survives pending and failed retries; only verified recovery restores context (248.081666ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  'Sourced pointA FO · 收集於 2026-11-06T03:08:51.426Z三行脈絡暫不顯示；不以相似文字替代。正在讀取原文…開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  
+      at globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:128:26)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Sourced pointA FO · 收集於 2026-11-06T03:08:51.426Z三行脈絡暫不顯示；不以相似文字替代。正在讀取原文…開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }

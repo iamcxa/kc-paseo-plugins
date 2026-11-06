@@ -1,0 +1,155 @@
+✖ client preserves one merged display range spanning 2 sequences with digest and Replay (521.165375ms)
+✖ client preserves one merged display range spanning 3 sequences with digest and Replay (251.709125ms)
+✔ no rejected collection prose question in desktop card and header after none (236.74ms)
+✔ no rejected collection prose question in desktop card and header after agent-message (230.883167ms)
+✔ no rejected collection prose question in desktop card and header after agent-notification (240.823791ms)
+✔ no rejected collection prose question in desktop card and header after automated (313.292958ms)
+✔ no rejected collection prose question in desktop card and header after unknown (250.593625ms)
+✔ no rejected collection prose question in compact board views after none (256.547166ms)
+✔ no rejected collection prose question in compact board views after agent-message (250.959917ms)
+✔ no rejected collection prose question in compact board views after agent-notification (249.244125ms)
+✔ no rejected collection prose question in compact board views after automated (247.564375ms)
+✔ no rejected collection prose question in compact board views after unknown (242.937792ms)
+✔ no rejected collection structured question in desktop card and header after none (227.491333ms)
+✔ no rejected collection structured question in desktop card and header after agent-message (225.513792ms)
+✔ no rejected collection structured question in desktop card and header after agent-notification (242.167583ms)
+✔ no rejected collection structured question in desktop card and header after automated (231.07725ms)
+✔ no rejected collection structured question in desktop card and header after unknown (226.104666ms)
+✔ no rejected collection structured question in compact board views after none (251.028958ms)
+✔ no rejected collection structured question in compact board views after agent-message (249.44725ms)
+✔ no rejected collection structured question in compact board views after agent-notification (259.296ms)
+✔ no rejected collection structured question in compact board views after automated (248.171167ms)
+✔ no rejected collection structured question in compact board views after unknown (247.66575ms)
+✔ sidebar-only initial excludes collection badge, count, label and popover target but retains real gates (213.261625ms)
+✔ sidebar-only retry excludes collection badge, count, label and popover target but retains real gates (435.218167ms)
+✔ sidebar-only reload excludes collection badge, count, label and popover target but retains real gates (414.80275ms)
+✔ previous officer cannot fall through to ordinary collection rendering (31.224709ms)
+✔ host cannot fall through to ordinary collection rendering (259.085334ms)
+✔ known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON (331.191167ms)
+✔ Commander render and question reads refuse canonical agent corruption (240.7955ms)
+✔ Commander render and question reads refuse canonical epoch corruption (255.001792ms)
+✔ Commander render and question reads refuse canonical gap corruption (271.334125ms)
+✔ Commander render and question reads refuse canonical reset corruption (228.502375ms)
+✔ Commander render and question reads refuse canonical stale corruption (223.55775ms)
+✔ Commander render and question reads refuse canonical collapsed corruption (230.529667ms)
+✔ Commander render and question reads refuse canonical sequence corruption (226.293125ms)
+✔ Commander render and question reads refuse canonical projection corruption (227.737292ms)
+✔ active Commander retry cannot publish a new rejected collection over an ordinary question (440.832417ms)
+✔ active Commander reload cannot publish a new rejected collection over an ordinary question (430.625541ms)
+✔ known non-Captain Next lines stay ordinary and do not create questions (225.567958ms)
+✔ losing host identity never commits raw digest text while the read effect resets (228.27275ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✔ sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor (9.548ms)
+✔ Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read (2.421125ms)
+✔ Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read (1.380833ms)
+✔ Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read (1.218ms)
+✔ Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read (1.281375ms)
+✔ sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes (0.784625ms)
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+✔ Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning (457.220041ms)
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+✔ Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning (245.845459ms)
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+✔ Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning (243.275208ms)
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+✔ Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning (283.822708ms)
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+✔ Replay before: source-throw is a whole failure, never an unverifiable context with a side warning (306.537875ms)
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+✔ Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning (243.4405ms)
+gates.read #15 start dirs=0
+gates.read #15 done 1ms
+✔ Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning (239.689041ms)
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+✔ Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning (236.729833ms)
+gates.read #17 start dirs=0
+gates.read #17 done 0ms
+✔ Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning (243.23425ms)
+gates.read #18 start dirs=0
+gates.read #18 done 0ms
+✔ Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning (244.553375ms)
+gates.read #19 start dirs=0
+gates.read #19 done 0ms
+✔ Replay after: source-throw is a whole failure, never an unverifiable context with a side warning (235.154792ms)
+gates.read #20 start dirs=0
+gates.read #20 done 0ms
+✔ Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning (235.447417ms)
+gates.read #21 start dirs=0
+gates.read #21 done 0ms
+✔ initial anchor throw is globally unavailable (237.592667ms)
+gates.read #22 start dirs=0
+gates.read #22 done 0ms
+✔ initial anchor null is globally unavailable (272.753042ms)
+gates.read #23 start dirs=0
+gates.read #23 done 0ms
+✔ typed side failures retain verified context; a successful empty page remains end-of-history (247.195833ms)
+gates.read #24 start dirs=0
+gates.read #24 done 0ms
+✔ a global warning survives pending and failed retries; only verified recovery restores context (247.999542ms)
+✔ a superseded paging rejection cannot clear a newly verified Replay (241.345208ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 61
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11116.931292
+
+✖ failing tests:
+
+test at test/commander-ui.test.mts:1:858
+✖ client preserves one merged display range spanning 2 sequences with digest and Replay (521.165375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/commander-ui.test.mts:1:858
+✖ client preserves one merged display range spanning 3 sequences with digest and Replay (251.709125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/commander-ui.test.mts:12:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

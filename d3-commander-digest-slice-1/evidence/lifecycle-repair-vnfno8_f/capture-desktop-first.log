@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 119, in <module>
+    wait(lambda:evaluate('Boolean('+el('Replay trial')+')'))
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 40, in wait
+    raise TimeoutError('fixture did not become ready')
+TimeoutError: fixture did not become ready

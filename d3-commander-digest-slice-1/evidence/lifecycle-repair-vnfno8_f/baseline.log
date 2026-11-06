@@ -1,0 +1,413 @@
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+✔ server readers reject streaming then accept identical completed content on an explicit fresh read (7.32875ms)
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+✖ Commander turn_completed re-verifies identical completed content without a click (797.348916ms)
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✖ Commander turn_failed re-verifies identical completed content without a click (658.716125ms)
+gates.read #7 start dirs=0
+gates.read #7 done 1ms
+✖ Commander turn_canceled re-verifies identical completed content without a click (653.643958ms)
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✖ Commander status re-verifies identical completed content without a click (645.337792ms)
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+✖ pinned FO completion re-verifies an invalid digest point without changing the round (243.43ms)
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+✖ open Replay anchor recovers from streaming rejection on identical completion (459.74075ms)
+✖ Replay withholds a running neighbour and exposes a retryable side, then recovers on completion (1.520042ms)
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+✔ question reader already recovers after completion with unchanged content and range (436.861417ms)
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+✖ completion cannot revive a source with changed epoch (452.867042ms)
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+✖ completion cannot revive a source with changed range (446.145417ms)
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+✖ completion cannot revive a source with changed hash (439.604542ms)
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+✖ an errored verification subscription hides stale content until explicit reconnection (237.9785ms)
+✖ a late Replay response cannot replace the window re-verified after completion (437.654166ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 2
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6777.2085
+
+✖ failing tests:
+
+test at test/verification-lifecycle.test.mts:1:3556
+✖ Commander turn_completed re-verifies identical completed content without a click (797.348916ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reads>n)
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:33:177)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:3556
+✖ Commander turn_failed re-verifies identical completed content without a click (658.716125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reads>n)
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:33:177)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:3556
+✖ Commander turn_canceled re-verifies identical completed content without a click (653.643958ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reads>n)
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:33:177)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:3556
+✖ Commander status re-verifies identical completed content without a click (645.337792ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reads>n)
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:33:177)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:4194
+✖ pinned FO completion re-verifies an invalid digest point without changing the round (243.43ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.find('重新核對摘要'))
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:39:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:4839
+✖ open Replay anchor recovers from streaming rejection on identical completion (459.74075ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reads>n)
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:45:87)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:5512
+✖ Replay withholds a running neighbour and exposes a retryable side, then recovers on completion (1.520042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!w.entries.some((e:any)=>e.seqStart===8))
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:49:64)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:7293
+✖ completion cannot revive a source with changed epoch (452.867042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Board · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '65h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '65h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:08:34 AM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    '立即收集\n' +
+    '立即收集 · 只讀既有回報，等待驗證摘要\n' +
+    '收集於 2026-11-06T03:08:34.626Z\n' +
+    'Verified fictional point\n' +
+    'Replay · 查看來龍去脈\n' +
+    'Verified fictional point\n' +
+    'Fictional FO · 收集於 2026-11-06T03:08:34.626Z\n' +
+    '這件事 · \n' +
+    '原文 #2–6\n' +
+    '之前發生 · \n' +
+    '原文 #2–6\n' +
+    '現在需要你 · \n' +
+    '原文 #2–6\n' +
+    '沒有更早的對話\n' +
+    '對話訊息 · #1 · 2026-11-05T10:00:00Z\n' +
+    'Fictional request\n' +
+    '引用原文 · FO 回報 · #2–6 · 2026-11-05T10:00:00Z\n' +
+    'Fictional FO report\n' +
+    '沒有更後的對話\n' +
+    '開啟 FO\n' +
+    '繼續討論\n' +
+    '回覆新決定\n' +
+    '回 Commander 編輯後才送出；關卡仍須另行選取與確認。\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:65:75)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nBoard · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n65h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n65h ago\n+ New FO\nGates read 11:08:34 AM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\n立即收集\n立即收集 · 只讀既有回報，等待驗證摘要\n收集於 2026-11-06T03:08:34.626Z\nVerified fictional point\nReplay · 查看來龍去脈\nVerified fictional point\nFictional FO · 收集於 2026-11-06T03:08:34.626Z\n這件事 · \n原文 #2–6\n之前發生 · \n原文 #2–6\n現在需要你 · \n原文 #2–6\n沒有更早的對話\n對話訊息 · #1 · 2026-11-05T10:00:00Z\nFictional request\n引用原文 · FO 回報 · #2–6 · 2026-11-05T10:00:00Z\nFictional FO report\n沒有更後的對話\n開啟 FO\n繼續討論\n回覆新決定\n回 Commander 編輯後才送出；關卡仍須另行選取與確認。\n↑ sends to Comms officer\n',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:7293
+✖ completion cannot revive a source with changed range (446.145417ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Board · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '65h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '65h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:08:35 AM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    '立即收集\n' +
+    '立即收集 · 只讀既有回報，等待驗證摘要\n' +
+    '收集於 2026-11-06T03:08:35.080Z\n' +
+    'Verified fictional point\n' +
+    'Replay · 查看來龍去脈\n' +
+    'Verified fictional point\n' +
+    'Fictional FO · 收集於 2026-11-06T03:08:35.080Z\n' +
+    '這件事 · \n' +
+    '原文 #2–6\n' +
+    '之前發生 · \n' +
+    '原文 #2–6\n' +
+    '現在需要你 · \n' +
+    '原文 #2–6\n' +
+    '沒有更早的對話\n' +
+    '對話訊息 · #1 · 2026-11-05T10:00:00Z\n' +
+    'Fictional request\n' +
+    '引用原文 · FO 回報 · #2–6 · 2026-11-05T10:00:00Z\n' +
+    'Fictional FO report\n' +
+    '沒有更後的對話\n' +
+    '開啟 FO\n' +
+    '繼續討論\n' +
+    '回覆新決定\n' +
+    '回 Commander 編輯後才送出；關卡仍須另行選取與確認。\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:65:75)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nBoard · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n65h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n65h ago\n+ New FO\nGates read 11:08:35 AM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\n立即收集\n立即收集 · 只讀既有回報，等待驗證摘要\n收集於 2026-11-06T03:08:35.080Z\nVerified fictional point\nReplay · 查看來龍去脈\nVerified fictional point\nFictional FO · 收集於 2026-11-06T03:08:35.080Z\n這件事 · \n原文 #2–6\n之前發生 · \n原文 #2–6\n現在需要你 · \n原文 #2–6\n沒有更早的對話\n對話訊息 · #1 · 2026-11-05T10:00:00Z\nFictional request\n引用原文 · FO 回報 · #2–6 · 2026-11-05T10:00:00Z\nFictional FO report\n沒有更後的對話\n開啟 FO\n繼續討論\n回覆新決定\n回 Commander 編輯後才送出；關卡仍須另行選取與確認。\n↑ sends to Comms officer\n',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:7293
+✖ completion cannot revive a source with changed hash (439.604542ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  '◉ Commander\n' +
+    'Comms officer\n' +
+    'Board · 2\n' +
+    'By decision · 2\n' +
+    'By FO · 3\n' +
+    'All 2\n' +
+    'Permissions 0\n' +
+    'Reviews 0\n' +
+    'Gates 2\n' +
+    'Questions 0\n' +
+    'Gates\n' +
+    '2\n' +
+    '◆ Your turn\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '65h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '65h ago\n' +
+    '+ New FO\n' +
+    'Gates read 11:08:35 AM · 2 open\n' +
+    'Commander\n' +
+    'Board\n' +
+    'Comms officer · idle\n' +
+    'Open full view\n' +
+    '立即收集\n' +
+    '立即收集 · 只讀既有回報，等待驗證摘要\n' +
+    '收集於 2026-11-06T03:08:35.526Z\n' +
+    'Verified fictional point\n' +
+    'Replay · 查看來龍去脈\n' +
+    'Verified fictional point\n' +
+    'Fictional FO · 收集於 2026-11-06T03:08:35.526Z\n' +
+    '這件事 · \n' +
+    '原文 #2–6\n' +
+    '之前發生 · \n' +
+    '原文 #2–6\n' +
+    '現在需要你 · \n' +
+    '原文 #2–6\n' +
+    '沒有更早的對話\n' +
+    '對話訊息 · #1 · 2026-11-05T10:00:00Z\n' +
+    'Fictional request\n' +
+    '引用原文 · FO 回報 · #2–6 · 2026-11-05T10:00:00Z\n' +
+    'Fictional FO report\n' +
+    '沒有更後的對話\n' +
+    '開啟 FO\n' +
+    '繼續討論\n' +
+    '回覆新決定\n' +
+    '回 Commander 編輯後才送出；關卡仍須另行選取與確認。\n' +
+    '↑ sends to Comms officer\n'
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:65:75)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Commander\nComms officer\nBoard · 2\nBy decision · 2\nBy FO · 3\nAll 2\nPermissions 0\nReviews 0\nGates 2\nQuestions 0\nGates\n2\n◆ Your turn\nApprove a?\nA FO\nGATE\n65h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n65h ago\n+ New FO\nGates read 11:08:35 AM · 2 open\nCommander\nBoard\nComms officer · idle\nOpen full view\n立即收集\n立即收集 · 只讀既有回報，等待驗證摘要\n收集於 2026-11-06T03:08:35.526Z\nVerified fictional point\nReplay · 查看來龍去脈\nVerified fictional point\nFictional FO · 收集於 2026-11-06T03:08:35.526Z\n這件事 · \n原文 #2–6\n之前發生 · \n原文 #2–6\n現在需要你 · \n原文 #2–6\n沒有更早的對話\n對話訊息 · #1 · 2026-11-05T10:00:00Z\nFictional request\n引用原文 · FO 回報 · #2–6 · 2026-11-05T10:00:00Z\nFictional FO report\n沒有更後的對話\n開啟 FO\n繼續討論\n回覆新決定\n回 Commander 編輯後才送出；關卡仍須另行選取與確認。\n↑ sends to Comms officer\n',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:8265
+✖ an errored verification subscription hides stale content until explicit reconnection (237.9785ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.text().includes('Verified fictional point'))
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:69:44)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/verification-lifecycle.test.mts:1:8963
+✖ a late Replay response cannot replace the window re-verified after completion (437.654166ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(calls>1)
+  
+      at TestContext.<anonymous> (/private/tmp/d3-lifecycle-baseline-iurswtch/spacedock-bridge/test/verification-lifecycle.test.mts:76:75)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

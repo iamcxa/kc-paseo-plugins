@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 149, in <module>
+    bottom()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 59, in bottom
+    assert two['visible'] and abs(two['y']-one['y'])<1,(before,one,two)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ({'bottomY': 839.40625, 'footerY': 823.59375, 'h': 17, 'label': '沒有更後的對話', 'mouseY': 509, 'titleBottom': 194.40625, 'visible': False, 'x': 720, 'y': 822.40625}, {'bottomY': 839.40625, 'footerY': 823.59375, 'h': 17, 'label': '沒有更後的對話', 'mouseY': 509, 'titleBottom': 194.40625, 'visible': False, 'x': 720, 'y': 822.40625}, {'bottomY': 839.40625, 'footerY': 823.59375, 'h': 17, 'label': '沒有更後的對話', 'mouseY': 509, 'titleBottom': 194.40625, 'visible': False, 'x': 720, 'y': 822.40625})

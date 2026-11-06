@@ -1,0 +1,36 @@
+{
+  "candidate": "7a4dbc057803d791dc5626182636c8e0fc2c2d32",
+  "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "tests": {
+    "passed": 431,
+    "exit": 0,
+    "log": "npm-test-final.log"
+  },
+  "typecheck": {
+    "exit": 0,
+    "log": "typecheck-exact-head.log"
+  },
+  "baseline": {
+    "failed": 12,
+    "passedControls": 2,
+    "log": "baseline.log"
+  },
+  "packageGuards": {
+    "exit": 0,
+    "names": [
+      "comment-ratio",
+      "number-guards",
+      "design-surfaces",
+      "doc-impact",
+      "adr-lint"
+    ]
+  },
+  "isolatedLifecycleProof": {
+    "passed": true,
+    "log": "isolated-proof.json",
+    "FOReadBackUsesPinnedRoundFixture": true
+  },
+  "captures": 10,
+  "liveDaemonTouched": false,
+  "cleanup": "cleanup-verified.json"
+}

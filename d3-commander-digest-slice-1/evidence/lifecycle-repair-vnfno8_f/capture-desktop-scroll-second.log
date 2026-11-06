@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 141, in <module>
+    bottom()
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 53, in bottom
+    info=evaluate("(()=>{const nodes=Array.from(document.querySelectorAll('*')).filter(e=>e.checkVisibility()&&e.clientHeight>0&&e.scrollHeight>e.clientHeight&&['auto','scroll','overlay'].includes(getComputedStyle(e).overflowY));const scroll=nodes.find(e=>e.textContent.includes('引用原文')&&(e.textContent.includes('後段未能讀取')||e.textContent.includes('沒有更後的對話')));if(!scroll)throw Error('missing scrolling Replay '+JSON.stringify(nodes.map(e=>({tag:e.tagName,label:e.getAttribute('aria-label'),h:e.clientHeight,total:e.scrollHeight,rect:{y:e.getBoundingClientRect().y,h:e.getBoundingClientRect().height}}))));scroll.scrollTop=scroll.scrollHeight;return {top:scroll.scrollTop,height:scroll.clientHeight,total:scroll.scrollHeight,tag:scroll.tagName,label:scroll.getAttribute('aria-label'),rect:{y:scroll.getBoundingClientRect().y,h:scroll.getBoundingClientRect().height},bottom:Math.abs(scroll.scrollTop+scroll.clientHeight-scroll.scrollHeight)<2};})()")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 34, in evaluate
+    def evaluate(code): return json.loads(browser('eval',code))
+                                          ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 33, in browser
+    def browser(*command): return run([args.browser,'--namespace',session,'--session',session,'--config',root/'browser.json',*command],command_env=dict(env,HOME=os.environ['HOME']),timeout=25)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/lifecycle-repair-vnfno8_f/capture.py", line 31, in run
+    if p.returncode: raise RuntimeError(p.stderr.strip() or p.stdout.strip())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ✗ Evaluation error: Error: missing scrolling Replay []
+    at <anonymous>:1:358
+    at <anonymous>:1:925

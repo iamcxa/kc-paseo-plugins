@@ -1,0 +1,192 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "New workspace" [ref=e19]
+              - image
+              - StaticText "New workspace"
+            - button "History" [ref=e20]
+              - image
+              - StaticText "History"
+            - button "Search" [ref=e21]
+              - image
+              - StaticText "Search"
+            - button "Schedules" [ref=e22]
+              - image
+              - StaticText "Schedules"
+            - generic
+              - button "Bridge" [ref=e23]
+                - image
+                - StaticText "Bridge"
+              - generic [ref=e24] clickable [cursor:pointer, onclick, tabindex]
+                - button "1 gates and questions waiting for you" [ref=e27]
+                  - StaticText "1"
+          - generic
+            - generic
+              - StaticText "No projects yet"
+              - StaticText "Add a project to get started"
+            - generic
+              - button "Add project" [ref=e25]
+                - image
+                - StaticText "Add project"
+              - button "Import session" [ref=e26]
+                - image
+                - StaticText "Import session"
+          - generic
+            - button "Add project" [ref=e14]
+              - image
+            - button "Usage" [ref=e15]
+              - image
+            - button "Hosts" [ref=e16]
+              - image
+            - button "Help and support" [expanded=false, ref=e18]
+              - image
+            - button "Settings" [ref=e17]
+              - image
+          - generic [ref=e13] clickable [onclick, tabindex]
+        - generic
+          - generic
+            - StaticText "Bridge"
+            - generic "Close plugin" [ref=e28] clickable [cursor:pointer, onclick, tabindex]
+              - image
+          - generic
+            - generic
+              - button "Commander" [ref=e29]
+                - StaticText "◉ Commander"
+                - StaticText "Comms officer"
+              - generic
+                - generic
+                  - StaticText "Board · 1"
+                - generic
+                  - tab "By decision" [ref=e31]
+                    - StaticText "By decision · 1"
+                  - tab "By FO" [ref=e32]
+                    - StaticText "By FO · 3"
+                - generic
+                  - button "Filter all" [ref=e33]
+                    - generic
+                      - StaticText "All 1"
+                  - button "Filter permission" [ref=e34]
+                    - generic
+                      - StaticText "Permissions 0"
+                  - button "Filter review" [ref=e35]
+                    - generic
+                      - StaticText "Reviews 0"
+                  - button "Filter gate" [ref=e36]
+                    - generic
+                      - StaticText "Gates 1"
+                  - button "Filter ask" [ref=e37]
+                    - generic
+                      - StaticText "Questions 0"
+                - generic
+                  - generic
+                    - StaticText "GATES"
+                    - StaticText "1"
+                  - button "Approve fictional proof? — 試用 FO" [ref=e42]
+                    - StaticText "◆ Your turn"
+                    - StaticText "Approve fictional proof?"
+                    - generic
+                      - StaticText "試用 FO"
+                      - StaticText "GATE"
+                      - StaticText "17h ago"
+                - button "+ New FO" [ref=e38]
+                  - StaticText "+ New FO"
+                - StaticText "Gates read 上午11:23:06 · 1 open"
+            - generic
+              - generic
+                - StaticText "Commander"
+                - button "Board" [ref=e30]
+                  - StaticText "Board"
+              - generic
+                - generic
+                  - generic
+                    - StaticText "Comms officer · idle"
+                  - link "Open full view" [ref=e39]
+                    - StaticText "Open full view"
+                - generic
+                  - button "立即收集" [ref=e40]
+                    - StaticText "立即收集"
+                  - button "讀取舊通訊官對話" [ref=e41]
+                    - StaticText "讀取舊通訊官對話"
+                - generic
+                  - StaticText "立即收集 · 只讀既有回報，等待驗證摘要"
+                  - generic
+                    - StaticText "收集於 2026-11-05T10:00:00Z"
+                    - generic
+                      - StaticText "範例回報已核對完成，等你決定下一步。"
+                      - button "Replay trial" [ref=e45]
+                        - StaticText "Replay · 查看來龍去脈"
+                - generic
+                  - generic
+                    - StaticText "↑ sends to Comms officer"
+                  - textbox "Message Comms officer" [ref=e43]
+                  - button "Send to Comms officer" [disabled, ref=e44]
+                    - image
+- generic [ref=e2] clickable [onclick]
+  - generic
+    - generic "Dismiss" [ref=e3] clickable [cursor:pointer, onclick, tabindex]
+    - dialog
+      - generic
+        - StaticText "Replay · 來龍去脈"
+        - button "Close" [ref=e4]
+          - image
+      - generic
+        - generic
+          - StaticText "範例回報已核對完成，等你決定下一步。"
+          - generic
+            - StaticText "試用 FO · 收集於 2026-11-05T10:00:00Z"
+        - generic
+          - generic "Replay 脈絡 about"
+            - generic
+              - StaticText "這件事 · 範例團隊試用範圍為預約、取消與改期三個流程。"
+            - button "原文 about-0" [ref=e8]
+              - generic
+                - StaticText "原文 #9–14"
+          - generic "Replay 脈絡 before"
+            - generic
+              - StaticText "之前發生 · 前次清單缺少取消步驟；現在已補齊並核對。"
+            - button "原文 before-0" [ref=e9]
+              - generic
+                - StaticText "原文 #9–14"
+          - generic "Replay 脈絡 now"
+            - generic
+              - StaticText "現在需要你 · 請決定是否開始範例團隊試用；若暫緩便不開始。"
+            - button "原文 now-0" [ref=e10]
+              - generic
+                - StaticText "原文 #9–14"
+          - generic
+            - generic
+              - button "更早的對話" [ref=e11]
+                - StaticText "更早的對話"
+            - generic
+              - generic
+                - StaticText "FO 回報 · #2–6 · 2026-11-05T10:00:00Z"
+              - StaticText "範例團隊試用範圍為預約、取消與改期三個流程。"
+            - generic
+              - generic
+                - StaticText "tool_call · #7–8 · 2026-11-05T10:00:00Z"
+              - StaticText "虛構工具讀取結果"
+            - generic
+              - generic
+                - StaticText "引用原文 · FO 回報 · #9–14 · 2026-11-05T10:00:00Z"
+              - StaticText "前次清單缺少取消步驟；現在已補齊並核對。"
+            - generic
+              - generic
+                - StaticText "對話訊息 · #15 · 2026-11-05T10:00:00Z"
+              - StaticText "範例追問：目前進度如何？"
+            - generic
+              - StaticText "後段未能讀取"
+              - button "更後的對話" [ref=e12]
+                - generic
+                  - StaticText "更後的對話 · 重試"
+        - generic
+          - generic
+            - button "開啟 FO" [ref=e5]
+              - StaticText "開啟 FO"
+            - button "繼續討論" [ref=e6]
+              - StaticText "繼續討論"
+            - button "回覆新決定" [ref=e7]
+              - StaticText "回覆新決定"
+          - StaticText "回 Commander 編輯後才送出；關卡仍須另行選取與確認。"
