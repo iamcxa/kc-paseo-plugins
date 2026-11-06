@@ -16,6 +16,17 @@ gates:
                 id: briefing:d4-chief-of-staff:backlog:attempt-1:revision-1
                 digest: sha256:8be5f96061eb6854418bf15aca321a47553ae9f5893482d2d377e66bcab4db75
                 room-ref: ./d4-chief-of-staff/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d4-chief-of-staff:backlog:1
+                briefing: briefing:d4-chief-of-staff:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-06T04:23:27.692209Z"
+                decision: approve
+                reason: Captain chat 2026-11-06, asked whether to design the chief of staff first (question quoted in the seed), answered 「先做設計稿，你看過再寫 (Recommended)」.
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Design, before any code, the Captain's new model: the comms officer stays a conversation but becomes a chief of staff — renamed, aware of the board, scanning the latest state each time he enters and telling him the one highest-priority thing to do to unblock others — with the board in one time order, newest first.
