@@ -29,6 +29,7 @@ gates:
                 state: consumed
 started: 2026-11-06T14:29:43Z
 worktree: .worktrees/spacedock-ensign-d5-chief-of-staff-build
+pr: 77
 ---
 
 Build the accepted d4-chief-of-staff design: the comms officer becomes the chief of staff; accumulated board events past the Captain's trigger start one Terra plus one Opus analysis; when she calls, the Bridge sidebar total turns red, pulses and plays a short sound; she opens with one named focus and its target; the board is one time order, newest first; slice 1's digest, Replay and collect-now are removed.
