@@ -97,7 +97,9 @@ def main(argv):
         body = record.read_text()
         corrected = any(record.name in item and item.startswith("- Process correction")
                         for sec in sections(text, "### FO notes") for item in bullets(sec))
-        if "fix authorization" in body and re.search(r"\bread-only\b", body.split("## Scope notes")[0]) and not corrected:
+        checklist = body.split("## Scope notes")[0]
+        declared = "investigation" in body.splitlines()[0].lower() and re.search(r"\bno edits\b", checklist)
+        if "fix authorization" in body and re.search(r"\bread-only\b", checklist) and not corrected and not declared:
             failures.append(f"{record.name}: one dispatch asks for a read-only diagnosis and authorizes the fix; dispatch them separately")
 
     for field in ("Non-goals:", "Budget:", "Stop condition:"):
