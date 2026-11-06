@@ -199,3 +199,7 @@ Verified Terra low completes in 6.981–7.531s (median 7.157s), first visible te
 ### Summary
 
 Replaced speaks-on-entry with a proposed five-minute/event/weighted-score trigger, Terra preparation and an Opus-led discussion, keeping the newest-first Board and existing-conversation identity. Existing client audio and custom sidebar rendering are available, but helper/native alert deduplication and background delivery are not claimed; the task also has an explicit dispatched criterion-ID conflict that leaves one workflow check failed. Design artifacts are ready for the director, with the ID correction returned to FO; no mockups redrawn or product behavior enabled.
+
+## Design director review: amendment 1 step A pass 1
+
+Design director (same agent 383de5e1): SATISFIED for AC-4, AC-2 and AC-3 — trigger, weights from board kinds only, Terra and Opus parts, costs cited from existing measurements without a new quote, sidebar custom slot and client audio available in the plugin SDK (no delivery when the app is paused or closed). A single high-importance event that never reaches the trigger is the Captain's trade-off, to decide before he accepts the threshold; the designer must not add an exception on its own. Whether the two models' completion notices can be merged is unproven.
