@@ -1,0 +1,9 @@
+{"port": 60570, "noBridgeStartup": true, "home": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.projected-daemon-xefx84w3", "pid": 95593, "importKeys": ["agentId", "status", "provider", "cwd", "title"], "passed": false, "failure": "subprocess failed: ", "homeRemoved": true, "stopped": true}
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/isolated-proof.py", line 43, in <module>
+    output=run(['/Applications/Paseo.app/Contents/Frameworks/Paseo Helper.app/Contents/MacOS/Paseo Helper','-e',js],90)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/isolated-proof.py", line 11, in run
+    if p.returncode:raise RuntimeError('subprocess failed: '+p.stderr[-1600:])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: subprocess failed: 

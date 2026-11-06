@@ -1,0 +1,365 @@
+TAP version 13
+# Subtest: projected first is a healthy page without fabricated singleton sequences
+not ok 1 - projected first is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 5.731083
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1238'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(goodPage(p,"co"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:14:36)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.start (node:internal/test_runner/test:1191:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+  ...
+# Subtest: projected empty new agent is a healthy page without fabricated singleton sequences
+not ok 2 - projected empty new agent is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.456083
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1238'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(goodPage(p,"co"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:14:36)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+# Subtest: projected empty end is a healthy page without fabricated singleton sequences
+not ok 3 - projected empty end is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.229125
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1238'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(goodPage(p,"co"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:14:36)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: projected merged tool is a healthy page without fabricated singleton sequences
+not ok 4 - projected merged tool is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.213417
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1238'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(goodPage(p,"co"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:14:36)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: projected 120 display rows is a healthy page without fabricated singleton sequences
+not ok 5 - projected 120 display rows is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.276791
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1238'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(goodPage(p,"co"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:14:36)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: real-shaped merged discussion loads Commander, board questions and old history (false)
+not ok 6 - real-shaped merged discussion loads Commander, board questions and old history (false)
+  ---
+  duration_ms: 405.588458
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1906'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose fictional direction/. Input:
+    
+    '◉ Commander\n' +
+      'Comms officer\n' +
+      '! Check\n' +
+      'Board · 2+\n' +
+      'By decision · 2+\n' +
+      'By FO · 3\n' +
+      'All 2+\n' +
+      'Permissions 0\n' +
+      'Reviews 0\n' +
+      'Gates 2\n' +
+      'Questions ?\n' +
+      'Could not check the comms officer — this list may be incomplete\n' +
+      'Check again · comms officer\n' +
+      'Gates\n' +
+      '2\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '64h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '64h ago\n' +
+      '+ New FO\n' +
+      'Gates read 10:23:53 AM · 2 open\n' +
+      'Commander\n' +
+      'Board\n' +
+      'Comms officer · idle\n' +
+      'Open full view\n' +
+      '立即收集\n' +
+      '讀取舊通訊官對話\n' +
+      'Could not read Comms officer: Error: Commander timeline unavailable\n' +
+      'Retry conversation\n' +
+      '↑ sends to Comms officer\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    ◉ Commander
+    Comms officer
+    ! Check
+    Board · 2+
+    By decision · 2+
+    By FO · 3
+    All 2+
+    Permissions 0
+    Reviews 0
+    Gates 2
+    Questions ?
+    Could not check the comms officer — this list may be incomplete
+    Check again · comms officer
+    Gates
+    2
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    64h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    64h ago
+    + New FO
+    Gates read 10:23:53 AM · 2 open
+    Commander
+    Board
+    Comms officer · idle
+    Open full view
+    立即收集
+    讀取舊通訊官對話
+    Could not read Comms officer: Error: Commander timeline unavailable
+    Retry conversation
+    ↑ sends to Comms officer
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:20:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: real-shaped merged discussion loads Commander, board questions and old history (true)
+not ok 7 - real-shaped merged discussion loads Commander, board questions and old history (true)
+  ---
+  duration_ms: 234.111792
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:1906'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose fictional direction/. Input:
+    
+    'Commander\n' +
+      'Board\n' +
+      'Comms officer · idle\n' +
+      'Open full view\n' +
+      '立即收集\n' +
+      '讀取舊通訊官對話\n' +
+      'Could not read Comms officer: Error: Commander timeline unavailable\n' +
+      'Retry conversation\n' +
+      '↑ sends to Comms officer\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Commander
+    Board
+    Comms officer · idle
+    Open full view
+    立即收集
+    讀取舊通訊官對話
+    Could not read Comms officer: Error: Commander timeline unavailable
+    Retry conversation
+    ↑ sends to Comms officer
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:20:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: sidebar-only projected ordinary question is counted while collection and unknown remain withheld
+not ok 8 - sidebar-only projected ordinary question is counted while collection and unknown remain withheld
+  ---
+  duration_ms: 210.30825
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:2983'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(h.find("3 gates and questions waiting for you"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:26:159)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# Subtest: healthy empty projected Commander and question read settle without a failure
+not ok 9 - healthy empty projected Commander and question read settle without a failure
+  ---
+  duration_ms: 232.89225
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:3739'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(!h.text().includes("Could not read"))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:31:208)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a projected source hashes the entire merged entry and Replay pages by display entries
+not ok 10 - a projected source hashes the entire merged entry and Replay pages by display entries
+  ---
+  duration_ms: 1.067375
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:4146'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(source)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:36:60)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: collection, full projected digest range and Replay use the same real-shaped reader
+not ok 11 - collection, full projected digest range and Replay use the same real-shaped reader
+  ---
+  duration_ms: 1.320042
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:1:6362'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(source)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/projected-timeline.test.mts:46:124)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 0
+# fail 11
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2225.78125

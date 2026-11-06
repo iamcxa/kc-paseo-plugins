@@ -1,0 +1,9 @@
+{"port": 60895, "noBridgeStartup": true, "home": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.projected-daemon-f3sa8595", "pid": 3596, "importKeys": ["agentId", "status", "provider", "cwd", "title"], "passed": false, "failure": "subprocess failed: [{\"diagnostic\": {\"count\": 0, \"kinds\": [], \"projection\": \"projected\"}}, {\"errorType\": \"AssertionError\", \"message\": \"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ 'unknown'\\n- 'reports'\\n\"}]", "homeRemoved": true, "stopped": true}
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/isolated-proof.py", line 43, in <module>
+    output=run(['/Applications/Paseo.app/Contents/Frameworks/Paseo Helper.app/Contents/MacOS/Paseo Helper','-e',js],90)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/isolated-proof.py", line 11, in run
+    if p.returncode:raise RuntimeError('subprocess failed: '+json.dumps([json.loads(l[5:]) for l in p.stdout.splitlines() if l.startswith('SAFE:')]))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: subprocess failed: [{"diagnostic": {"count": 0, "kinds": [], "projection": "projected"}}, {"errorType": "AssertionError", "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'unknown'\n- 'reports'\n"}]

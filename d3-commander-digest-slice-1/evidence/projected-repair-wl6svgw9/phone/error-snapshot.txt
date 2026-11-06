@@ -1,0 +1,64 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Back" [ref=e3]
+              - image
+            - StaticText "Bridge"
+          - generic
+            - generic
+              - button "Back to Commander" [ref=e4]
+                - StaticText "← Commander"
+              - generic
+                - generic
+                  - StaticText "Board · 2"
+                - generic
+                  - tab "By decision" [ref=e5]
+                    - StaticText "By decision · 2"
+                  - tab "By FO" [ref=e6]
+                    - StaticText "By FO · 3"
+                - generic
+                  - button "Filter all" [ref=e7]
+                    - generic
+                      - StaticText "All 2"
+                  - button "Filter permission" [ref=e8]
+                    - generic
+                      - StaticText "Permissions 0"
+                  - button "Filter review" [ref=e9]
+                    - generic
+                      - StaticText "Reviews 0"
+                  - button "Filter gate" [ref=e10]
+                    - generic
+                      - StaticText "Gates 1"
+                  - button "Filter ask" [ref=e11]
+                    - generic
+                      - StaticText "Questions 1"
+                - generic
+                  - generic
+                    - StaticText "GATES"
+                    - StaticText "1"
+                  - button "Approve fictional proof? — 試用 FO" [ref=e13]
+                    - StaticText "◆ Your turn"
+                    - StaticText "Approve fictional proof?"
+                    - generic
+                      - StaticText "試用 FO"
+                      - StaticText "GATE"
+                      - StaticText "17h ago"
+                - generic
+                  - generic
+                    - StaticText "QUESTIONS"
+                    - StaticText "1"
+                  - button "Comms officer question" [ref=e14]
+                    - generic
+                      - StaticText "◆ Your turn"
+                    - StaticText "Choose the fictional direction (you)"
+                    - generic
+                      - StaticText "Comms officer"
+                      - StaticText "QUESTION"
+                      - StaticText "17h ago"
+                - button "+ New FO" [ref=e12]
+                  - StaticText "+ New FO"
+                - StaticText "Gates read 上午10:38:10 · 1 open"
+- generic [ref=e2] clickable [onclick]

@@ -1,0 +1,411 @@
+{
+  "candidate": "f090b676e21a2f024bde579d3f4476efb42591c8",
+  "productionFiles": {
+    "OVERVIEW.md": "8a03465446413d06c242f2600277e48c7ecff9ab82e8826f2c5e98ca956ca087",
+    "client/board.tsx": "10a0e86df722cfb37ad3d0ac428f8f4754f52cec0798323b584ef8aa9d311313",
+    "client/bridge.tsx": "74a0c26b34b8bc68767701caff5258648f02ad8bbd6d6584df157b2f4ffa3944",
+    "client/co-chat.tsx": "1f71ca3c1a7b3ae4bfabe6674cbc142bb0ae4477d275ad198d7b56d50e07eb30",
+    "client/decision-card.tsx": "d3e5a872a8b945a672da88a31d82d4ffb172d4a72a9042abb138bc4e970063ac",
+    "client/digest.tsx": "e73868d52ceb9b69b3011a6cdb026d457556da4119280df3707b7fb94847b1cd",
+    "client/feedback-pressable.tsx": "8dd6393ba8f61390693bb3a7b9cb68662b7b8e3e75dbbb27bbc49e4f909c9e28",
+    "client/markdown-view.tsx": "b437628063a9f9c9f7df0c3920791f01fc35cb71691a9245903e94c70af1fbea",
+    "client/sidebar-waiting.tsx": "31c22665b322cc5fdbdd28039082ddd967a1542f0b5aa9d3d9ea6520284d200f",
+    "client/tab-closed-badge.tsx": "a1c46cb9e97ce89449bef1f02af3366099eae021fc7a168c1ddef0b536818098",
+    "client/use-co-ask.ts": "80b8592ddd7f57d56aef05c67330e5e11842d8b1fc397ede9658804d2d3a991a",
+    "client/use-composer-padding.ts": "6f8d7b7b74790a3357e2d3fea0c17048ffcb171fa55b02245c496b0652a84cbf",
+    "client/use-draft.ts": "2a29e9f67d38c592328e60cca80254a9ab1221efae3f21cce20557ee30d5ece6",
+    "client/use-waiting.ts": "37dd10f18c554a29749cac83578ffe82cf3ff646d4173e5cad5f6f22b927d30e",
+    "coordinator/EXTENSION.md": "643069bbf8c97b0ffd455276f4d3b489a977d98c4e5bb5014973d81e8a37030d",
+    "index.client.tsx": "c3ac3c2859d6d41877e38454f95023991e84778eb5fbad098c554e96328956e8",
+    "index.server.ts": "6dd0d29ac6601a26f26b00b3cf9206da6f8b5c4814606645d0ca0f0f917c5ac7",
+    "package-lock.json": "9841b1e2ca6678a3e1f26ba90a4d2fa9ab2b2fae4597a65ef084354bd83e3e28",
+    "package.json": "9ab11bddeaa14af438124842332ead99ee08fd6614bf284680c0ce6dd3af27f7",
+    "paseo-plugin.json": "6639ca57b44d2f6873fe37165bbf6ed154791cc413b1eb01e52c8388f0614693",
+    "server/control.ts": "4f01e0fae43954dfd9ede0acf4910439a83afa0727b659b84acaba75f416fe6b",
+    "server/coordinator.ts": "e8692e9fb6ccea3537ed62ce891b68a23589e909d6f9c6816d5ad6b522bfb6ba",
+    "server/decisions.ts": "06d63f7cd97c83f6364bed8f790856e667ae9c86d1767cbd345def08c8ff4693",
+    "server/digest.ts": "8c9a7e49a46bf17c23bc2345dbc8b9e32ba3de10bbcf82636cbe75f4755d9cfc",
+    "server/fleet-mcp.ts": "8c86906b5f56952ffe23d4a77e4ce786af74a039b42f54a834abcae2ecd8d001",
+    "server/gate.ts": "a2644227c0949f651a0ec60e2675800a0d3b25f07876f5bce453e4c4133da6f5",
+    "server/report-sources.ts": "98582e172f68dc4261be5561f1acb0a05347e3a92fa1d4c24e2aacf2e4fa225c",
+    "server/reviews.ts": "f0df78bfb288955de330b33e674ba7785424f454e90e7be9ef98fdd5fae3720a",
+    "server/tasks.ts": "835f452088529a959b1cde630fd1170fec4d98b06322efd47a2bcfe39ca0d1fb",
+    "shared/board-empty.ts": "441b77fdd103ae967a4349d8d27e66b5b8716def29de4d819e3b79477a0bacee",
+    "shared/board.ts": "37f94dd61406ccf7223cdb4d46d746776f027f4833d9357ac53e62f2dfa83082",
+    "shared/card.ts": "1af59e78967f0b6b42b6e774d43953cd66ce1c543c3143cb418531e5dce836d2",
+    "shared/chat-lines.ts": "e2b0e60fea1eab721072d601e1455161357d3cac4064fdf689fde07c45a7c3ce",
+    "shared/commander-replies.ts": "9f551140da575bc26bd251f0b88a41a76c8aac11548e265868c9af436d85ed15",
+    "shared/composer.ts": "f766ea6ab90a9366bf47c61f89b2393462c7b422ddcad1c865cef5632d58a8ef",
+    "shared/control.ts": "5122d6580d14f92a0b9490a40735b4a32ea1fbc1a855db963400723eb5ca2354",
+    "shared/coordinator.ts": "b068a0885f7eded00d07ad860fab75cd7e59bd08552a32d1221cac815fb7a8ec",
+    "shared/decide.ts": "1e8324af45f39af9d703c2149863153f74883289f59f3fa1175ab2c263545740",
+    "shared/decision-composer.ts": "9721081f9e342e9e96861973bdffdaf8b1ac9d6b3ad0c370bf40b16bb2a2d594",
+    "shared/decisions.ts": "958e86a50381ca34b37dbf064db3ba44886b1c54f45f6f9f7fb0194a3554059d",
+    "shared/digest.ts": "a794c03cf6519c9c9124d10f3dde052295dac128af46b0e21117de02ec981ea4",
+    "shared/drafts.ts": "17e4cf64e142aff068407887276f5e8d48ae91138b9b330e48e604b328a2ce12",
+    "shared/fo.ts": "b6fcd9c4ad1f47237eb2f2cd9a6c9f61f44efefd2c2a0f2a8d4956dec6a83a92",
+    "shared/gate-identity.ts": "7b39bb0584979398187bf1ba95eef68a62dc3fefb143c7c3a6ee8fe7861b8ec6",
+    "shared/gate.ts": "1823b8370713ad54331e422482866380c1ff80bae2fa63ddeaec4724fe8290e1",
+    "shared/list-status.ts": "99a6d2de35683dbf378dca81e4a7ef1b1125ab2610d753a8a2a3eba424d51338",
+    "shared/markdown.ts": "4459f4c59d6426ae9c15dd8858bcd5ccddbef379f7ea7f08002f082d915baaee",
+    "shared/preview.ts": "933ba3011fb1e9534b790fc8a56a6789d12d07c49b5c84dc183f39ca6c78fac7",
+    "shared/queue.ts": "75a6f7aeb9faad033478395c23fcff415fda2e02d0ac5167f86e42103ff68c4a",
+    "shared/relay.ts": "d11a941b78b7313f2928a10f93ab690584a37ac469829857b53902f847e1fcbc",
+    "shared/reviews.ts": "d65a8a65457ca5a3c6d4da21dd4b442bf28184533325ea3a01bcf371c09764f7",
+    "shared/tasks.ts": "8314051871e3616ea5c61fae04f21bd91c6db3328965835623a709e24d356a5a",
+    "shared/timeline.ts": "b5ba85910cf860fcacf4044329875414662a7c4abb31db6572d9bf9b2895eb2b",
+    "tsconfig.json": "4bafff5e53966323bf02536265861bc756b4da09d8b3c4039144e4dc9b0b3135"
+  },
+  "productionFileCount": 54,
+  "captureSnapshots": [
+    {
+      "folder": "desktop",
+      "productionMatches": true,
+      "testOnlyDifferences": [
+        "test/projected-timeline.test.mts",
+        "test/retained-readers.test.mts"
+      ]
+    },
+    {
+      "folder": "phone-verified",
+      "productionMatches": true,
+      "testOnlyDifferences": [
+        "test/projected-timeline.test.mts"
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "file": "desktop/1440-projected-sidebar-question.png",
+      "sha256": "dc24ff7e108a8a354c0224fde001ba4257d74833b0185689009056d745334e16",
+      "width": 1440,
+      "state": "projected-sidebar-question",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "desktop/1440-projected-board-question.png",
+      "sha256": "7ed8193214e54c7f3a0c7a90293ac67ab34353031217405a3b10bc3f72d337b5",
+      "width": 1440,
+      "state": "projected-board-question",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "desktop/1440-projected-commander-conversation.png",
+      "sha256": "f3e8cfeacbb709012950f4660d2ea098f3698b9891b11ebc231e1040122246fb",
+      "width": 1440,
+      "state": "projected-commander-conversation",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "desktop/1440-projected-old-officer-history.png",
+      "sha256": "d99546ec56a632a88661fdea9314d8550dc81619df413ad5e35157a7c5ae6989",
+      "width": 1440,
+      "state": "projected-old-officer-history",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "desktop/1440-projected-empty-conversation.png",
+      "sha256": "17193fcad866500f4af7f06581ee3809fe7cf5544c5bdf6a29ca57510b8f1806",
+      "width": 1440,
+      "state": "projected-empty-conversation",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "desktop/1440-projected-digest.png",
+      "sha256": "221858e8db1424c0e6bdd15142ea7d5f2a4b8eb002a70a8b6945d815749d14ce",
+      "width": 1440,
+      "state": "projected-digest",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "desktop/1440-projected-replay-first-edge.png",
+      "sha256": "a5a58ca8a9ea1580303cf9b03c9a3088df316358ee8e22452ecaebb4ae4bc849",
+      "width": 1440,
+      "state": "projected-replay-first-edge",
+      "overflow": false,
+      "exits": [
+        {
+          "label": "開啟 FO",
+          "rect": {
+            "h": 44,
+            "w": 159.328125,
+            "x": 473,
+            "y": 823.59375
+          },
+          "text": "開啟 FO"
+        },
+        {
+          "label": "繼續討論",
+          "rect": {
+            "h": 44,
+            "w": 159.34375,
+            "x": 640.328125,
+            "y": 823.59375
+          },
+          "text": "繼續討論"
+        },
+        {
+          "label": "回覆新決定",
+          "rect": {
+            "h": 44,
+            "w": 159.328125,
+            "x": 807.671875,
+            "y": 823.59375
+          },
+          "text": "回覆新決定"
+        }
+      ]
+    },
+    {
+      "file": "desktop/1440-projected-replay-both-edges.png",
+      "sha256": "33475f52c2a7ef055bc1679a745583f870779f803e9fe50ecc7a15e27571dcce",
+      "width": 1440,
+      "state": "projected-replay-both-edges",
+      "overflow": false,
+      "exits": [
+        {
+          "label": "開啟 FO",
+          "rect": {
+            "h": 44,
+            "w": 159.328125,
+            "x": 473,
+            "y": 823.59375
+          },
+          "text": "開啟 FO"
+        },
+        {
+          "label": "繼續討論",
+          "rect": {
+            "h": 44,
+            "w": 159.34375,
+            "x": 640.328125,
+            "y": 823.59375
+          },
+          "text": "繼續討論"
+        },
+        {
+          "label": "回覆新決定",
+          "rect": {
+            "h": 44,
+            "w": 159.328125,
+            "x": 807.671875,
+            "y": 823.59375
+          },
+          "text": "回覆新決定"
+        }
+      ]
+    },
+    {
+      "file": "desktop/1440-projected-source-unavailable.png",
+      "sha256": "dcbee4e20f51abae16527002d4d89a98151357cb1c5f5f8f164ed157c2c420bd",
+      "width": 1440,
+      "state": "projected-source-unavailable",
+      "overflow": false,
+      "exits": [
+        {
+          "label": "開啟 FO",
+          "rect": {
+            "h": 44,
+            "w": 159.328125,
+            "x": 473,
+            "y": 823.59375
+          },
+          "text": "開啟 FO"
+        },
+        {
+          "label": "繼續討論",
+          "rect": {
+            "h": 44,
+            "w": 159.34375,
+            "x": 640.328125,
+            "y": 823.59375
+          },
+          "text": "繼續討論"
+        },
+        {
+          "label": "回覆新決定",
+          "rect": {
+            "h": 44,
+            "w": 159.328125,
+            "x": 807.671875,
+            "y": 823.59375
+          },
+          "text": "回覆新決定"
+        }
+      ]
+    },
+    {
+      "file": "phone-verified/360-projected-sidebar-question.png",
+      "sha256": "5dd04d58ea0aea857ddf924cef44c1cc11568ad9b599d2b9ee8bd30869841741",
+      "width": 360,
+      "state": "projected-sidebar-question",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "phone-verified/360-projected-board-question.png",
+      "sha256": "8219fa61838e33091a195ea8b9cac046d08e09b9a5d4b669374fa5fa7855fb0d",
+      "width": 360,
+      "state": "projected-board-question",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "phone-verified/360-projected-commander-conversation.png",
+      "sha256": "cc57428c7f920294baa4e001ad1b3da11cf589096d4d4a2c63fe6d56816cd548",
+      "width": 360,
+      "state": "projected-commander-conversation",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "phone-verified/360-projected-old-officer-history.png",
+      "sha256": "136daece8b9f85d6fbc7bd729e5dc340a911101f0478bc8e1a6eb76562fb3c35",
+      "width": 360,
+      "state": "projected-old-officer-history",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "phone-verified/360-projected-empty-conversation.png",
+      "sha256": "84e821e69487e805b17fda0de94a47b29203450b02ac3ec04f56b3ec9d0adaf3",
+      "width": 360,
+      "state": "projected-empty-conversation",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "phone-verified/360-projected-digest.png",
+      "sha256": "2dceb553272325735c89e8211e521239f1757d5a7644f00a40ecf86dda144e07",
+      "width": 360,
+      "state": "projected-digest",
+      "overflow": false,
+      "exits": []
+    },
+    {
+      "file": "phone-verified/360-projected-replay-first-edge.png",
+      "sha256": "cffc125a158c7ec97bcd22551f2e61ca7342032c64c9ca9ffe66d7c4ec569460",
+      "width": 360,
+      "state": "projected-replay-first-edge",
+      "overflow": false,
+      "exits": [
+        {
+          "label": "開啟 FO",
+          "rect": {
+            "h": 44,
+            "w": 106.65625,
+            "x": 12,
+            "y": 700
+          },
+          "text": "開啟 FO"
+        },
+        {
+          "label": "繼續討論",
+          "rect": {
+            "h": 44,
+            "w": 106.671875,
+            "x": 126.65625,
+            "y": 700
+          },
+          "text": "繼續討論"
+        },
+        {
+          "label": "回覆新決定",
+          "rect": {
+            "h": 44,
+            "w": 106.671875,
+            "x": 241.328125,
+            "y": 700
+          },
+          "text": "回覆新決定"
+        }
+      ]
+    },
+    {
+      "file": "phone-verified/360-projected-replay-both-edges.png",
+      "sha256": "1e2975d957697729d02ac409376313aee26aec32c30a402dfe9a6c6dec4b5bb6",
+      "width": 360,
+      "state": "projected-replay-both-edges",
+      "overflow": false,
+      "exits": [
+        {
+          "label": "開啟 FO",
+          "rect": {
+            "h": 44,
+            "w": 106.65625,
+            "x": 12,
+            "y": 700
+          },
+          "text": "開啟 FO"
+        },
+        {
+          "label": "繼續討論",
+          "rect": {
+            "h": 44,
+            "w": 106.671875,
+            "x": 126.65625,
+            "y": 700
+          },
+          "text": "繼續討論"
+        },
+        {
+          "label": "回覆新決定",
+          "rect": {
+            "h": 44,
+            "w": 106.671875,
+            "x": 241.328125,
+            "y": 700
+          },
+          "text": "回覆新決定"
+        }
+      ]
+    },
+    {
+      "file": "phone-verified/360-projected-source-unavailable.png",
+      "sha256": "98a7ddf955a485e3ed8d7882b7772e52c154f3d3d7b39276379716ecb3da1d7a",
+      "width": 360,
+      "state": "projected-source-unavailable",
+      "overflow": false,
+      "exits": [
+        {
+          "label": "開啟 FO",
+          "rect": {
+            "h": 44,
+            "w": 106.65625,
+            "x": 12,
+            "y": 700
+          },
+          "text": "開啟 FO"
+        },
+        {
+          "label": "繼續討論",
+          "rect": {
+            "h": 44,
+            "w": 106.671875,
+            "x": 126.65625,
+            "y": 700
+          },
+          "text": "繼續討論"
+        },
+        {
+          "label": "回覆新決定",
+          "rect": {
+            "h": 44,
+            "w": 106.671875,
+            "x": 241.328125,
+            "y": 700
+          },
+          "text": "回覆新決定"
+        }
+      ]
+    }
+  ],
+  "all18VisuallyInspected": true,
+  "scope": "Only inert disposable server entry and SDK/RPC dependency injection; production JSX unchanged. Test-only fixture refinements after copying are listed, not attributed to captured runtime bytes."
+}

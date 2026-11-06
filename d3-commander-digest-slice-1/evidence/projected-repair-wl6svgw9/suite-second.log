@@ -1,0 +1,2783 @@
+TAP version 13
+# Subtest: only checked, empty sources can claim nothing is waiting and a zero count
+ok 1 - only checked, empty sources can claim nothing is waiting and a zero count
+  ---
+  duration_ms: 0.86225
+  type: 'test'
+  ...
+# Subtest: a source failure makes both the empty text and the count incomplete until success
+ok 2 - a source failure makes both the empty text and the count incomplete until success
+  ---
+  duration_ms: 0.15
+  type: 'test'
+  ...
+# Subtest: gate failures name only the failed workflows while successful gates stay counted
+ok 3 - gate failures name only the failed workflows while successful gates stay counted
+  ---
+  duration_ms: 0.080667
+  type: 'test'
+  ...
+# Subtest: both board views share unread-question rows and counts across waiting-item combinations
+    # Subtest: unlabelled alone
+    ok 1 - unlabelled alone
+      ---
+      duration_ms: 496.348167
+      type: 'test'
+      ...
+    # Subtest: unlabelled with gate
+    ok 2 - unlabelled with gate
+      ---
+      duration_ms: 343.208333
+      type: 'test'
+      ...
+    # Subtest: unlabelled with review
+    ok 3 - unlabelled with review
+      ---
+      duration_ms: 121.756625
+      type: 'test'
+      ...
+    # Subtest: label represents the same reply
+    ok 4 - label represents the same reply
+      ---
+      duration_ms: 102.625333
+      type: 'test'
+      ...
+    # Subtest: different labelled question
+    ok 5 - different labelled question
+      ---
+      duration_ms: 210.92275
+      type: 'test'
+      ...
+    # Subtest: unlabelled with gate and review
+    ok 6 - unlabelled with gate and review
+      ---
+      duration_ms: 165.966208
+      type: 'test'
+      ...
+    # Subtest: same reply label with gate
+    ok 7 - same reply label with gate
+      ---
+      duration_ms: 106.503334
+      type: 'test'
+      ...
+    # Subtest: different label with gate
+    ok 8 - different label with gate
+      ---
+      duration_ms: 144.762417
+      type: 'test'
+      ...
+    # Subtest: same reply label with review
+    ok 9 - same reply label with review
+      ---
+      duration_ms: 169.664792
+      type: 'test'
+      ...
+    # Subtest: different label with review
+    ok 10 - different label with review
+      ---
+      duration_ms: 193.383542
+      type: 'test'
+      ...
+    # Subtest: same reply label with gate and review
+    ok 11 - same reply label with gate and review
+      ---
+      duration_ms: 59.026375
+      type: 'test'
+      ...
+    # Subtest: different label with gate and review
+    ok 12 - different label with gate and review
+      ---
+      duration_ms: 82.320125
+      type: 'test'
+      ...
+    1..12
+ok 4 - both board views share unread-question rows and counts across waiting-item combinations
+  ---
+  duration_ms: 2392.085583
+  type: 'test'
+  ...
+# Subtest: failed board sources reuse guarded reads; FO rows count and open each waiting destination
+ok 5 - failed board sources reuse guarded reads; FO rows count and open each waiting destination
+  ---
+  duration_ms: 1197.79675
+  type: 'test'
+  ...
+# Subtest: By FO keeps every FO and each assigned review reachable
+ok 6 - By FO keeps every FO and each assigned review reachable
+  ---
+  duration_ms: 799.515791
+  type: 'test'
+  ...
+# Subtest: queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds
+ok 7 - queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds
+  ---
+  duration_ms: 665.718625
+  type: 'test'
+  ...
+# Subtest: a sent item never appears under a waiting-on-you claim (1440, decision)
+ok 8 - a sent item never appears under a waiting-on-you claim (1440, decision)
+  ---
+  duration_ms: 951.641375
+  type: 'test'
+  ...
+# Subtest: a relayed item never appears under a waiting-on-you claim (1440, decision)
+ok 9 - a relayed item never appears under a waiting-on-you claim (1440, decision)
+  ---
+  duration_ms: 301.070375
+  type: 'test'
+  ...
+# Subtest: a sent item never appears under a waiting-on-you claim (1440, fo)
+ok 10 - a sent item never appears under a waiting-on-you claim (1440, fo)
+  ---
+  duration_ms: 164.736584
+  type: 'test'
+  ...
+# Subtest: a relayed item never appears under a waiting-on-you claim (1440, fo)
+ok 11 - a relayed item never appears under a waiting-on-you claim (1440, fo)
+  ---
+  duration_ms: 130.277292
+  type: 'test'
+  ...
+# Subtest: an FO with nothing waiting opens only its conversation (1440)
+ok 12 - an FO with nothing waiting opens only its conversation (1440)
+  ---
+  duration_ms: 156.719
+  type: 'test'
+  ...
+# Subtest: a sent item never appears under a waiting-on-you claim (360, decision)
+ok 13 - a sent item never appears under a waiting-on-you claim (360, decision)
+  ---
+  duration_ms: 273.926875
+  type: 'test'
+  ...
+# Subtest: a relayed item never appears under a waiting-on-you claim (360, decision)
+ok 14 - a relayed item never appears under a waiting-on-you claim (360, decision)
+  ---
+  duration_ms: 506.581417
+  type: 'test'
+  ...
+# Subtest: a sent item never appears under a waiting-on-you claim (360, fo)
+ok 15 - a sent item never appears under a waiting-on-you claim (360, fo)
+  ---
+  duration_ms: 178.013209
+  type: 'test'
+  ...
+# Subtest: a relayed item never appears under a waiting-on-you claim (360, fo)
+ok 16 - a relayed item never appears under a waiting-on-you claim (360, fo)
+  ---
+  duration_ms: 217.954709
+  type: 'test'
+  ...
+# Subtest: an FO with nothing waiting opens only its conversation (360)
+ok 17 - an FO with nothing waiting opens only its conversation (360)
+  ---
+  duration_ms: 189.444042
+  type: 'test'
+  ...
+# Subtest: all known tabs false marks an idle or error FO Tab closed without moving or hiding it
+ok 18 - all known tabs false marks an idle or error FO Tab closed without moving or hiding it
+  ---
+  duration_ms: 1.174875
+  type: 'test'
+  ...
+# Subtest: an FO with no tab labels is not Tab closed
+ok 19 - an FO with no tab labels is not Tab closed
+  ---
+  duration_ms: 0.084875
+  type: 'test'
+  ...
+# Subtest: one true tab keeps an FO open across clients
+ok 20 - one true tab keeps an FO open across clients
+  ---
+  duration_ms: 0.067375
+  type: 'test'
+  ...
+# Subtest: a running FO is not Tab closed even when every tab is false
+ok 21 - a running FO is not Tab closed even when every tab is false
+  ---
+  duration_ms: 0.0655
+  type: 'test'
+  ...
+# Subtest: archived and lifecycle-closed FOs retain the offline path without a Tab closed badge
+ok 22 - archived and lifecycle-closed FOs retain the offline path without a Tab closed badge
+  ---
+  duration_ms: 0.640958
+  type: 'test'
+  ...
+# Subtest: an unknown tab value does not count as explicitly false
+ok 23 - an unknown tab value does not count as explicitly false
+  ---
+  duration_ms: 0.114166
+  type: 'test'
+  ...
+# Subtest: a pending permission is waiting on Kent even when requiresAttention is false
+ok 24 - a pending permission is waiting on Kent even when requiresAttention is false
+  ---
+  duration_ms: 0.12325
+  type: 'test'
+  ...
+# Subtest: Paseo's own permission attention is waiting on Kent
+ok 25 - Paseo's own permission attention is waiting on Kent
+  ---
+  duration_ms: 0.097125
+  type: 'test'
+  ...
+# Subtest: running without a prompt is busy, a read idle agent is idle
+ok 26 - running without a prompt is busy, a read idle agent is idle
+  ---
+  duration_ms: 0.080333
+  type: 'test'
+  ...
+# Subtest: an unread finished reply is a new reply until its next step names Kent
+ok 27 - an unread finished reply is a new reply until its next step names Kent
+  ---
+  duration_ms: 0.106333
+  type: 'test'
+  ...
+# Subtest: a new reply whose next step is the Captain's moves to waiting
+ok 28 - a new reply whose next step is the Captain's moves to waiting
+  ---
+  duration_ms: 11.557792
+  type: 'test'
+  ...
+# Subtest: only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title
+ok 29 - only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title
+  ---
+  duration_ms: 0.324417
+  type: 'test'
+  ...
+# Subtest: a next-owner label decides the group without reading the reply
+ok 30 - a next-owner label decides the group without reading the reply
+  ---
+  duration_ms: 0.18125
+  type: 'test'
+  ...
+# Subtest: an FO that is running again is busy even with an unread earlier reply
+ok 31 - an FO that is running again is busy even with an unread earlier reply
+  ---
+  duration_ms: 0.073083
+  type: 'test'
+  ...
+# Subtest: an FO's spacedock gates sit under it and make it wait on the Captain
+ok 32 - an FO's spacedock gates sit under it and make it wait on the Captain
+  ---
+  duration_ms: 0.433042
+  type: 'test'
+  ...
+# Subtest: an archived or closed FO is offline, and its gates still show under it
+ok 33 - an archived or closed FO is offline, and its gates still show under it
+  ---
+  duration_ms: 0.509416
+  type: 'test'
+  ...
+# Subtest: an offline FO with no gate waiting is left off the board
+ok 34 - an offline FO with no gate waiting is left off the board
+  ---
+  duration_ms: 0.072083
+  type: 'test'
+  ...
+# Subtest: an idle FO whose next step is the Captain's waits on him even after its reply is read
+ok 35 - an idle FO whose next step is the Captain's waits on him even after its reply is read
+  ---
+  duration_ms: 0.089833
+  type: 'test'
+  ...
+# Subtest: a gate keeps the time it started waiting when it is attached to its FO
+ok 36 - a gate keeps the time it started waiting when it is attached to its FO
+  ---
+  duration_ms: 0.218375
+  type: 'test'
+  ...
+# Subtest: reopen keeps the confirmed choice and reason
+ok 37 - reopen keeps the confirmed choice and reason
+  ---
+  duration_ms: 1081.085792
+  type: 'test'
+  ...
+# Subtest: sent and relayed progress survives a comms detour
+ok 38 - sent and relayed progress survives a comms detour
+  ---
+  duration_ms: 395.415791
+  type: 'test'
+  ...
+# Subtest: a recorded item never becomes actionable again
+ok 39 - a recorded item never becomes actionable again
+  ---
+  duration_ms: 225.47425
+  type: 'test'
+  ...
+# Subtest: switching items keeps separate drafts and rejects stale actions
+ok 40 - switching items keeps separate drafts and rejects stale actions
+  ---
+  duration_ms: 433.175917
+  type: 'test'
+  ...
+# Subtest: errors and progress stay with their own source and owner
+ok 41 - errors and progress stay with their own source and owner
+  ---
+  duration_ms: 414.59475
+  type: 'test'
+  ...
+# Subtest: every drill-down returns to the commander in one step keeping drafts and progress
+ok 42 - every drill-down returns to the commander in one step keeping drafts and progress
+  ---
+  duration_ms: 443.650167
+  type: 'test'
+  ...
+# Subtest: an FO with nothing waiting is reachable from By FO
+ok 43 - an FO with nothing waiting is reachable from By FO
+  ---
+  duration_ms: 78.738584
+  type: 'test'
+  ...
+# Subtest: a recorded item reopens to its result and reason this session and is never actionable
+ok 44 - a recorded item reopens to its result and reason this session and is never actionable
+  ---
+  duration_ms: 135.325208
+  type: 'test'
+  ...
+# Subtest: an ordinary message never consumes the gate decision controls
+ok 45 - an ordinary message never consumes the gate decision controls
+  ---
+  duration_ms: 80.484125
+  type: 'test'
+  ...
+# Subtest: desktop board navigation keeps the commander as the default detail
+ok 46 - desktop board navigation keeps the commander as the default detail
+  ---
+  duration_ms: 57.63275
+  type: 'test'
+  ...
+# Subtest: the label line is kind, stage and repo, and a gate-less card is a question
+ok 47 - the label line is kind, stage and repo, and a gate-less card is a question
+  ---
+  duration_ms: 0.527375
+  type: 'test'
+  ...
+# Subtest: the FO line drops the model name but keeps a title that is only a model name
+ok 48 - the FO line drops the model name but keeps a title that is only a model name
+  ---
+  duration_ms: 0.184791
+  type: 'test'
+  ...
+# Subtest: waiting time reads in seconds, minutes and hours
+ok 49 - waiting time reads in seconds, minutes and hours
+  ---
+  duration_ms: 0.117584
+  type: 'test'
+  ...
+# Subtest: collapsed, the discussion starts at the FO's latest message and counts the messages before it
+ok 50 - collapsed, the discussion starts at the FO's latest message and counts the messages before it
+  ---
+  duration_ms: 0.519458
+  type: 'test'
+  ...
+# Subtest: one message has nothing earlier, and no FO message falls back to the last message
+ok 51 - one message has nothing earlier, and no FO message falls back to the last message
+  ---
+  duration_ms: 0.117167
+  type: 'test'
+  ...
+# Subtest: displayed replies join adjacent chunks but a visible tool separates them
+ok 52 - displayed replies join adjacent chunks but a visible tool separates them
+  ---
+  duration_ms: 0.9235
+  type: 'test'
+  ...
+# Subtest: hidden agent_message tools do not split a displayed reply; trailing visible tools do
+ok 53 - hidden agent_message tools do not split a displayed reply; trailing visible tools do
+  ---
+  duration_ms: 0.159792
+  type: 'test'
+  ...
+# Subtest: a reconnect detects the last displayed Captain question after earlier FO work
+ok 54 - a reconnect detects the last displayed Captain question after earlier FO work
+  ---
+  duration_ms: 276.922333
+  type: 'test'
+  ...
+# Subtest: manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses
+ok 55 - manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses
+  ---
+  duration_ms: 105.555875
+  type: 'test'
+  ...
+# Subtest: Check again restores an errored subscription and waits for live readiness plus history before later questions appear
+ok 56 - Check again restores an errored subscription and waits for live readiness plus history before later questions appear
+  ---
+  duration_ms: 39.42625
+  type: 'test'
+  ...
+# Subtest: manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness
+ok 57 - manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness
+  ---
+  duration_ms: 25.693917
+  type: 'test'
+  ...
+# Subtest: switching coordinators clears the previous question and timestamp while the new connection is pending
+ok 58 - switching coordinators clears the previous question and timestamp while the new connection is pending
+  ---
+  duration_ms: 56.754208
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 1ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 0ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# gates.read \#9 start dirs=0
+# gates.read \#9 done 0ms
+# gates.read \#10 start dirs=0
+# gates.read \#10 done 0ms
+# gates.read \#11 start dirs=0
+# gates.read \#11 done 0ms
+# gates.read \#12 start dirs=0
+# gates.read \#12 done 0ms
+# gates.read \#13 start dirs=0
+# gates.read \#13 done 0ms
+# gates.read \#14 start dirs=0
+# gates.read \#14 done 0ms
+# gates.read \#15 start dirs=0
+# gates.read \#15 done 1ms
+# gates.read \#16 start dirs=0
+# gates.read \#16 done 0ms
+# gates.read \#17 start dirs=0
+# gates.read \#17 done 0ms
+# gates.read \#18 start dirs=0
+# gates.read \#18 done 0ms
+# gates.read \#19 start dirs=0
+# gates.read \#19 done 0ms
+# gates.read \#20 start dirs=0
+# gates.read \#20 done 0ms
+# gates.read \#21 start dirs=0
+# gates.read \#21 done 0ms
+# gates.read \#22 start dirs=0
+# gates.read \#22 done 0ms
+# Subtest: server reads one projected entry spanning 1 sequences for digest and Replay
+ok 59 - server reads one projected entry spanning 1 sequences for digest and Replay
+  ---
+  duration_ms: 22.153667
+  type: 'test'
+  ...
+# Subtest: server reads one projected entry spanning 2 sequences for digest and Replay
+ok 60 - server reads one projected entry spanning 2 sequences for digest and Replay
+  ---
+  duration_ms: 2.141959
+  type: 'test'
+  ...
+# Subtest: server reads one projected entry spanning 3 sequences for digest and Replay
+ok 61 - server reads one projected entry spanning 3 sequences for digest and Replay
+  ---
+  duration_ms: 1.529041
+  type: 'test'
+  ...
+# Subtest: server reads one projected entry spanning 120 sequences for digest and Replay
+ok 62 - server reads one projected entry spanning 120 sequences for digest and Replay
+  ---
+  duration_ms: 1.056791
+  type: 'test'
+  ...
+# Subtest: digest interval refuses missing
+ok 63 - digest interval refuses missing
+  ---
+  duration_ms: 0.498041
+  type: 'test'
+  ...
+# Subtest: digest interval refuses reordered
+ok 64 - digest interval refuses reordered
+  ---
+  duration_ms: 0.259458
+  type: 'test'
+  ...
+# Subtest: digest interval refuses interposed
+ok 65 - digest interval refuses interposed
+  ---
+  duration_ms: 0.330541
+  type: 'test'
+  ...
+# Subtest: digest interval refuses epoch
+ok 66 - digest interval refuses epoch
+  ---
+  duration_ms: 0.202292
+  type: 'test'
+  ...
+# Subtest: digest interval refuses agent
+ok 67 - digest interval refuses agent
+  ---
+  duration_ms: 3.178167
+  type: 'test'
+  ...
+# Subtest: digest interval refuses collapsed
+ok 68 - digest interval refuses collapsed
+  ---
+  duration_ms: 0.403959
+  type: 'test'
+  ...
+# Subtest: digest interval refuses range
+ok 69 - digest interval refuses range
+  ---
+  duration_ms: 0.207708
+  type: 'test'
+  ...
+# Subtest: digest interval refuses gap
+ok 70 - digest interval refuses gap
+  ---
+  duration_ms: 0.354667
+  type: 'test'
+  ...
+# Subtest: digest interval refuses stale
+ok 71 - digest interval refuses stale
+  ---
+  duration_ms: 0.296833
+  type: 'test'
+  ...
+# Subtest: digest interval refuses reset
+ok 72 - digest interval refuses reset
+  ---
+  duration_ms: 15.394
+  type: 'test'
+  ...
+# Subtest: digest interval refuses projection
+ok 73 - digest interval refuses projection
+  ---
+  duration_ms: 0.749167
+  type: 'test'
+  ...
+# Subtest: digest interval refuses first-truncated
+ok 74 - digest interval refuses first-truncated
+  ---
+  duration_ms: 0.262625
+  type: 'test'
+  ...
+# Subtest: digest interval refuses last-truncated
+ok 75 - digest interval refuses last-truncated
+  ---
+  duration_ms: 0.174166
+  type: 'test'
+  ...
+# Subtest: digest interval refuses oversized
+ok 76 - digest interval refuses oversized
+  ---
+  duration_ms: 0.152667
+  type: 'test'
+  ...
+# Subtest: digest interval refuses reversed
+ok 77 - digest interval refuses reversed
+  ---
+  duration_ms: 0.13325
+  type: 'test'
+  ...
+# Subtest: digest interval refuses wrong-round
+ok 78 - digest interval refuses wrong-round
+  ---
+  duration_ms: 0.481917
+  type: 'test'
+  ...
+# Subtest: digest interval refuses wrong-hash
+ok 79 - digest interval refuses wrong-hash
+  ---
+  duration_ms: 1.44025
+  type: 'test'
+  ...
+# Subtest: digest interval refuses one-fragment-only
+ok 80 - digest interval refuses one-fragment-only
+  ---
+  duration_ms: 0.31975
+  type: 'test'
+  ...
+# Subtest: client preserves one merged display range spanning 2 sequences with digest and Replay
+ok 81 - client preserves one merged display range spanning 2 sequences with digest and Replay
+  ---
+  duration_ms: 668.634459
+  type: 'test'
+  ...
+# Subtest: client preserves one merged display range spanning 3 sequences with digest and Replay
+ok 82 - client preserves one merged display range spanning 3 sequences with digest and Replay
+  ---
+  duration_ms: 381.779417
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in desktop card and header after none
+ok 83 - no rejected collection prose question in desktop card and header after none
+  ---
+  duration_ms: 272.366208
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in desktop card and header after agent-message
+ok 84 - no rejected collection prose question in desktop card and header after agent-message
+  ---
+  duration_ms: 284.30375
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in desktop card and header after agent-notification
+ok 85 - no rejected collection prose question in desktop card and header after agent-notification
+  ---
+  duration_ms: 246.22175
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in desktop card and header after automated
+ok 86 - no rejected collection prose question in desktop card and header after automated
+  ---
+  duration_ms: 243.658209
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in desktop card and header after unknown
+ok 87 - no rejected collection prose question in desktop card and header after unknown
+  ---
+  duration_ms: 292.968291
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in compact board views after none
+ok 88 - no rejected collection prose question in compact board views after none
+  ---
+  duration_ms: 288.381584
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in compact board views after agent-message
+ok 89 - no rejected collection prose question in compact board views after agent-message
+  ---
+  duration_ms: 264.290209
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in compact board views after agent-notification
+ok 90 - no rejected collection prose question in compact board views after agent-notification
+  ---
+  duration_ms: 304.633583
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in compact board views after automated
+ok 91 - no rejected collection prose question in compact board views after automated
+  ---
+  duration_ms: 289.235875
+  type: 'test'
+  ...
+# Subtest: no rejected collection prose question in compact board views after unknown
+ok 92 - no rejected collection prose question in compact board views after unknown
+  ---
+  duration_ms: 306.936292
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in desktop card and header after none
+ok 93 - no rejected collection structured question in desktop card and header after none
+  ---
+  duration_ms: 263.950584
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in desktop card and header after agent-message
+ok 94 - no rejected collection structured question in desktop card and header after agent-message
+  ---
+  duration_ms: 242.217708
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in desktop card and header after agent-notification
+ok 95 - no rejected collection structured question in desktop card and header after agent-notification
+  ---
+  duration_ms: 236.974917
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in desktop card and header after automated
+ok 96 - no rejected collection structured question in desktop card and header after automated
+  ---
+  duration_ms: 230.597541
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in desktop card and header after unknown
+ok 97 - no rejected collection structured question in desktop card and header after unknown
+  ---
+  duration_ms: 230.540833
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in compact board views after none
+ok 98 - no rejected collection structured question in compact board views after none
+  ---
+  duration_ms: 244.137583
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in compact board views after agent-message
+ok 99 - no rejected collection structured question in compact board views after agent-message
+  ---
+  duration_ms: 245.758292
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in compact board views after agent-notification
+ok 100 - no rejected collection structured question in compact board views after agent-notification
+  ---
+  duration_ms: 242.652458
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in compact board views after automated
+ok 101 - no rejected collection structured question in compact board views after automated
+  ---
+  duration_ms: 240.703583
+  type: 'test'
+  ...
+# Subtest: no rejected collection structured question in compact board views after unknown
+ok 102 - no rejected collection structured question in compact board views after unknown
+  ---
+  duration_ms: 240.199917
+  type: 'test'
+  ...
+# Subtest: sidebar-only initial excludes collection badge, count, label and popover target but retains real gates
+ok 103 - sidebar-only initial excludes collection badge, count, label and popover target but retains real gates
+  ---
+  duration_ms: 212.997417
+  type: 'test'
+  ...
+# Subtest: sidebar-only retry excludes collection badge, count, label and popover target but retains real gates
+ok 104 - sidebar-only retry excludes collection badge, count, label and popover target but retains real gates
+  ---
+  duration_ms: 415.483
+  type: 'test'
+  ...
+# Subtest: sidebar-only reload excludes collection badge, count, label and popover target but retains real gates
+ok 105 - sidebar-only reload excludes collection badge, count, label and popover target but retains real gates
+  ---
+  duration_ms: 411.566041
+  type: 'test'
+  ...
+# Subtest: previous officer cannot fall through to ordinary collection rendering
+ok 106 - previous officer cannot fall through to ordinary collection rendering
+  ---
+  duration_ms: 31.652125
+  type: 'test'
+  ...
+# Subtest: host cannot fall through to ordinary collection rendering
+ok 107 - host cannot fall through to ordinary collection rendering
+  ---
+  duration_ms: 224.204792
+  type: 'test'
+  ...
+# Subtest: known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON
+ok 108 - known Captain discussion joins ordinary chunks and keeps genuine questions and Markdown/JSON
+  ---
+  duration_ms: 245.597667
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical agent corruption
+ok 109 - Commander render and question reads refuse canonical agent corruption
+  ---
+  duration_ms: 228.351375
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical epoch corruption
+ok 110 - Commander render and question reads refuse canonical epoch corruption
+  ---
+  duration_ms: 226.584792
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical gap corruption
+ok 111 - Commander render and question reads refuse canonical gap corruption
+  ---
+  duration_ms: 224.118791
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical reset corruption
+ok 112 - Commander render and question reads refuse canonical reset corruption
+  ---
+  duration_ms: 226.268667
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical stale corruption
+ok 113 - Commander render and question reads refuse canonical stale corruption
+  ---
+  duration_ms: 234.992292
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical collapsed corruption
+ok 114 - Commander render and question reads refuse canonical collapsed corruption
+  ---
+  duration_ms: 223.76325
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical sequence corruption
+ok 115 - Commander render and question reads refuse canonical sequence corruption
+  ---
+  duration_ms: 223.655292
+  type: 'test'
+  ...
+# Subtest: Commander render and question reads refuse canonical projection corruption
+ok 116 - Commander render and question reads refuse canonical projection corruption
+  ---
+  duration_ms: 229.489125
+  type: 'test'
+  ...
+# Subtest: active Commander retry cannot publish a new rejected collection over an ordinary question
+ok 117 - active Commander retry cannot publish a new rejected collection over an ordinary question
+  ---
+  duration_ms: 444.961167
+  type: 'test'
+  ...
+# Subtest: active Commander reload cannot publish a new rejected collection over an ordinary question
+ok 118 - active Commander reload cannot publish a new rejected collection over an ordinary question
+  ---
+  duration_ms: 434.564084
+  type: 'test'
+  ...
+# Subtest: known non-Captain Next lines stay ordinary and do not create questions
+ok 119 - known non-Captain Next lines stay ordinary and do not create questions
+  ---
+  duration_ms: 228.478208
+  type: 'test'
+  ...
+# Subtest: losing host identity never commits raw digest text while the read effect resets
+ok 120 - losing host identity never commits raw digest text while the read effect resets
+  ---
+  duration_ms: 235.292541
+  type: 'test'
+  ...
+# Subtest: native composer follows a keyboard already visible at mount
+ok 121 - native composer follows a keyboard already visible at mount
+  ---
+  duration_ms: 98.950625
+  type: 'test'
+  ...
+# Subtest: native composer follows a keyboard frame changes without a show event
+ok 122 - native composer follows a keyboard frame changes without a show event
+  ---
+  duration_ms: 21.739166
+  type: 'test'
+  ...
+# Subtest: mounted native layout follows keyboard height, replaces Android clearance, and removes listeners
+ok 123 - mounted native layout follows keyboard height, replaces Android clearance, and removes listeners
+  ---
+  duration_ms: 36.941792
+  type: 'test'
+  ...
+# Subtest: message and reason share a shrinkable scroll area inside keyboard padding
+ok 124 - message and reason share a shrinkable scroll area inside keyboard padding
+  ---
+  duration_ms: 403.669208
+  type: 'test'
+  ...
+# Subtest: Enter sends the typed text to the FO and clears the box
+ok 125 - Enter sends the typed text to the FO and clears the box
+  ---
+  duration_ms: 1.024583
+  type: 'test'
+  ...
+# Subtest: the round send button path sends the same text, with the footer, to the FO
+ok 126 - the round send button path sends the same text, with the footer, to the FO
+  ---
+  duration_ms: 0.110584
+  type: 'test'
+  ...
+# Subtest: Shift+Enter and an IME confirm do not send; an empty box sends nothing
+ok 127 - Shift+Enter and an IME confirm do not send; an empty box sends nothing
+  ---
+  duration_ms: 0.099625
+  type: 'test'
+  ...
+# Subtest: a refusal from beforeSend keeps the draft and shows the refusal
+ok 128 - a refusal from beforeSend keeps the draft and shows the refusal
+  ---
+  duration_ms: 0.09425
+  type: 'test'
+  ...
+# Subtest: a decision chip passes the typed text to onChip, not to the FO, and clears the box on success
+ok 129 - a decision chip passes the typed text to onChip, not to the FO, and clears the box on success
+  ---
+  duration_ms: 0.13775
+  type: 'test'
+  ...
+# Subtest: a chip refusal keeps the draft
+ok 130 - a chip refusal keeps the draft
+  ---
+  duration_ms: 0.085459
+  type: 'test'
+  ...
+# Subtest: 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything
+ok 131 - 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything
+  ---
+  duration_ms: 1.289292
+  type: 'test'
+  ...
+# Subtest: 准 goes through with an empty box, via the comms officer
+ok 132 - 准 goes through with an empty box, via the comms officer
+  ---
+  duration_ms: 0.342042
+  type: 'test'
+  ...
+# Subtest: a decision chip sends the typed text as the reason
+ok 133 - a decision chip sends the typed text as the reason
+  ---
+  duration_ms: 0.366875
+  type: 'test'
+  ...
+# Subtest: a second decision on the same briefing is refused and sends nothing
+ok 134 - a second decision on the same briefing is refused and sends nothing
+  ---
+  duration_ms: 0.235416
+  type: 'test'
+  ...
+# Subtest: a failed send releases the claim and rethrows
+ok 135 - a failed send releases the claim and rethrows
+  ---
+  duration_ms: 0.923458
+  type: 'test'
+  ...
+# Subtest: a changed briefing refuses before claiming
+ok 136 - a changed briefing refuses before claiming
+  ---
+  duration_ms: 0.160541
+  type: 'test'
+  ...
+# Subtest: an unloaded briefing refuses
+ok 137 - an unloaded briefing refuses
+  ---
+  duration_ms: 0.129916
+  type: 'test'
+  ...
+# Subtest: polling a newer open briefing ignores the older briefing's resolution
+ok 138 - polling a newer open briefing ignores the older briefing's resolution
+  ---
+  duration_ms: 281.648084
+  type: 'test'
+  ...
+# Subtest: message never decides
+ok 139 - message never decides
+  ---
+  duration_ms: 2.441416
+  type: 'test'
+  ...
+# Subtest: decision uses only its reason
+ok 140 - decision uses only its reason
+  ---
+  duration_ms: 1.923833
+  type: 'test'
+  ...
+# Subtest: both actions keep the other draft
+ok 141 - both actions keep the other draft
+  ---
+  duration_ms: 3.366041
+  type: 'test'
+  ...
+# Subtest: a changed briefing or officer cannot receive a stale action
+ok 142 - a changed briefing or officer cannot receive a stale action
+  ---
+  duration_ms: 1.538875
+  type: 'test'
+  ...
+# Subtest: pending, failure and duplicate presses keep existing behavior
+ok 143 - pending, failure and duplicate presses keep existing behavior
+  ---
+  duration_ms: 0.528084
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 1ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 1ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 1ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 0ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# Subtest: sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor
+ok 144 - sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor
+  ---
+  duration_ms: 19.254416
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read
+ok 145 - Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 23.143833
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read
+ok 146 - Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 1.1225
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read
+ok 147 - Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 0.808959
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read
+ok 148 - Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 1.094167
+  type: 'test'
+  ...
+# Subtest: sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes
+ok 149 - sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes
+  ---
+  duration_ms: 0.684916
+  type: 'test'
+  ...
+# gates.read \#9 start dirs=0
+# gates.read \#9 done 0ms
+# Subtest: Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning
+ok 150 - Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 479.129125
+  type: 'test'
+  ...
+# gates.read \#10 start dirs=0
+# gates.read \#10 done 0ms
+# Subtest: Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning
+ok 151 - Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 275.91625
+  type: 'test'
+  ...
+# gates.read \#11 start dirs=0
+# gates.read \#11 done 0ms
+# Subtest: Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning
+ok 152 - Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 281.344125
+  type: 'test'
+  ...
+# gates.read \#12 start dirs=0
+# gates.read \#12 done 0ms
+# Subtest: Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning
+ok 153 - Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 285.074959
+  type: 'test'
+  ...
+# gates.read \#13 start dirs=0
+# gates.read \#13 done 0ms
+# Subtest: Replay before: source-throw is a whole failure, never an unverifiable context with a side warning
+ok 154 - Replay before: source-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 307.105125
+  type: 'test'
+  ...
+# gates.read \#14 start dirs=0
+# gates.read \#14 done 0ms
+# Subtest: Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning
+ok 155 - Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 295.392
+  type: 'test'
+  ...
+# gates.read \#15 start dirs=0
+# gates.read \#15 done 0ms
+# Subtest: Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning
+ok 156 - Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 257.8765
+  type: 'test'
+  ...
+# gates.read \#16 start dirs=0
+# gates.read \#16 done 0ms
+# Subtest: Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning
+ok 157 - Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 241.751416
+  type: 'test'
+  ...
+# gates.read \#17 start dirs=0
+# gates.read \#17 done 0ms
+# Subtest: Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning
+ok 158 - Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 259.642
+  type: 'test'
+  ...
+# gates.read \#18 start dirs=0
+# gates.read \#18 done 0ms
+# Subtest: Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning
+ok 159 - Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 249.207708
+  type: 'test'
+  ...
+# gates.read \#19 start dirs=0
+# gates.read \#19 done 0ms
+# Subtest: Replay after: source-throw is a whole failure, never an unverifiable context with a side warning
+ok 160 - Replay after: source-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 234.782375
+  type: 'test'
+  ...
+# gates.read \#20 start dirs=0
+# gates.read \#20 done 0ms
+# Subtest: Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning
+ok 161 - Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 232.328792
+  type: 'test'
+  ...
+# gates.read \#21 start dirs=0
+# gates.read \#21 done 0ms
+# Subtest: initial anchor throw is globally unavailable
+ok 162 - initial anchor throw is globally unavailable
+  ---
+  duration_ms: 234.355375
+  type: 'test'
+  ...
+# gates.read \#22 start dirs=0
+# gates.read \#22 done 0ms
+# Subtest: initial anchor null is globally unavailable
+ok 163 - initial anchor null is globally unavailable
+  ---
+  duration_ms: 235.22225
+  type: 'test'
+  ...
+# gates.read \#23 start dirs=0
+# gates.read \#23 done 0ms
+# Subtest: typed side failures retain verified context; a successful empty page remains end-of-history
+ok 164 - typed side failures retain verified context; a successful empty page remains end-of-history
+  ---
+  duration_ms: 253.238125
+  type: 'test'
+  ...
+# gates.read \#24 start dirs=0
+# gates.read \#24 done 0ms
+# Subtest: a global warning survives pending and failed retries; only verified recovery restores context
+ok 165 - a global warning survives pending and failed retries; only verified recovery restores context
+  ---
+  duration_ms: 244.666708
+  type: 'test'
+  ...
+# Subtest: a superseded paging rejection cannot clear a newly verified Replay
+ok 166 - a superseded paging rejection cannot clear a newly verified Replay
+  ---
+  duration_ms: 239.247583
+  type: 'test'
+  ...
+# Subtest: 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send
+ok 167 - 繼續討論 returns to the existing Commander draft, focuses it and sends only after explicit send
+  ---
+  duration_ms: 643.339042
+  type: 'test'
+  ...
+# Subtest: 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send
+ok 168 - 回覆新決定 returns to the existing Commander draft, focuses it and sends only after explicit send
+  ---
+  duration_ms: 279.214125
+  type: 'test'
+  ...
+# Subtest: each context link reads its exact source, earlier/later use window edges and FO exit opens the chosen conversation
+ok 169 - each context link reads its exact source, earlier/later use window edges and FO exit opens the chosen conversation
+  ---
+  duration_ms: 328.79575
+  type: 'test'
+  ...
+# Subtest: invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history
+ok 170 - invalid digest hides raw JSON and an unavailable Replay is distinct from exhausted history
+  ---
+  duration_ms: 263.913417
+  type: 'test'
+  ...
+# Subtest: a stale source response cannot populate a different point's Replay
+ok 171 - a stale source response cannot populate a different point's Replay
+  ---
+  duration_ms: 274.293292
+  type: 'test'
+  ...
+# Subtest: switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only
+ok 172 - switch offer and cancel never archive; explicit confirmation changes recipient and opens the old conversation read-only
+  ---
+  duration_ms: 141.405292
+  type: 'test'
+  ...
+# Subtest: malformed collection prose and its raw snapshot never bypass digest validation; ordinary discussion still renders
+ok 173 - malformed collection prose and its raw snapshot never bypass digest validation; ordinary discussion still renders
+  ---
+  duration_ms: 290.802916
+  type: 'test'
+  ...
+# Subtest: collection provenance survives agent-message before malformed output
+ok 174 - collection provenance survives agent-message before malformed output
+  ---
+  duration_ms: 271.290209
+  type: 'test'
+  ...
+# Subtest: collection provenance survives agent-notification before malformed output
+ok 175 - collection provenance survives agent-notification before malformed output
+  ---
+  duration_ms: 252.662167
+  type: 'test'
+  ...
+# Subtest: collection provenance survives bridge-automated before malformed output
+ok 176 - collection provenance survives bridge-automated before malformed output
+  ---
+  duration_ms: 230.922375
+  type: 'test'
+  ...
+# Subtest: ordinary discussion keeps [Design notes](https://example.invalid/design)
+ok 177 - ordinary discussion keeps [Design notes](https://example.invalid/design)
+  ---
+  duration_ms: 227.093208
+  type: 'test'
+  ...
+# Subtest: ordinary discussion keeps [1,2,3]
+ok 178 - ordinary discussion keeps [1,2,3]
+  ---
+  duration_ms: 224.813541
+  type: 'test'
+  ...
+# Subtest: ordinary discussion keeps {"count":3}
+ok 179 - ordinary discussion keeps {"count":3}
+  ---
+  duration_ms: 224.446666
+  type: 'test'
+  ...
+# Subtest: ordinary discussion keeps ```json\\n{"count":3}\\n```
+ok 180 - ordinary discussion keeps ```json\\n{"count":3}\\n```
+  ---
+  duration_ms: 225.870292
+  type: 'test'
+  ...
+# Subtest: ordinary discussion keeps The field "roundId": identifies a round
+ok 181 - ordinary discussion keeps The field "roundId": identifies a round
+  ---
+  duration_ms: 223.504667
+  type: 'test'
+  ...
+# Subtest: ordinary discussion keeps The field "contextLines": describes context
+ok 182 - ordinary discussion keeps The field "contextLines": describes context
+  ---
+  duration_ms: 227.178541
+  type: 'test'
+  ...
+# Subtest: unknown page fails closed; a real Captain request including a human envelope ends collection
+ok 183 - unknown page fails closed; a real Captain request including a human envelope ends collection
+  ---
+  duration_ms: 224.365833
+  type: 'test'
+  ...
+# Subtest: Open FO arrives in the source conversation and retains both unsent drafts across Commander return
+ok 184 - Open FO arrives in the source conversation and retains both unsent drafts across Commander return
+  ---
+  duration_ms: 266.712541
+  type: 'test'
+  ...
+# Subtest: unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines
+ok 185 - unavailable context leads Replay, identifies the requested original and suppresses uncheckable lines
+  ---
+  duration_ms: 228.375917
+  type: 'test'
+  ...
+# Subtest: selected point remains outside the history scroll area
+ok 186 - selected point remains outside the history scroll area
+  ---
+  duration_ms: 235.441541
+  type: 'test'
+  ...
+# Subtest: Open FO refuses an unavailable source host without substituting a conversation
+ok 187 - Open FO refuses an unavailable source host without substituting a conversation
+  ---
+  duration_ms: 230.132459
+  type: 'test'
+  ...
+# Subtest: Open FO refuses an unavailable source agent without substituting a conversation
+ok 188 - Open FO refuses an unavailable source agent without substituting a conversation
+  ---
+  duration_ms: 234.064833
+  type: 'test'
+  ...
+# Subtest: an agent envelope containing a collect marker cannot begin a collection
+ok 189 - an agent envelope containing a collect marker cannot begin a collection
+  ---
+  duration_ms: 224.750042
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 0ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# Subtest: valid digest reads the exact assistant source once and never searches words
+ok 190 - valid digest reads the exact assistant source once and never searches words
+  ---
+  duration_ms: 16.242084
+  type: 'test'
+  ...
+# Subtest: reject round without exposing unverified text
+ok 191 - reject round without exposing unverified text
+  ---
+  duration_ms: 0.631917
+  type: 'test'
+  ...
+# Subtest: reject foreign without exposing unverified text
+ok 192 - reject foreign without exposing unverified text
+  ---
+  duration_ms: 0.232625
+  type: 'test'
+  ...
+# Subtest: reject hash without exposing unverified text
+ok 193 - reject hash without exposing unverified text
+  ---
+  duration_ms: 0.171792
+  type: 'test'
+  ...
+# Subtest: reject missing without exposing unverified text
+ok 194 - reject missing without exposing unverified text
+  ---
+  duration_ms: 0.605458
+  type: 'test'
+  ...
+# Subtest: reject line-foreign without exposing unverified text
+ok 195 - reject line-foreign without exposing unverified text
+  ---
+  duration_ms: 0.21
+  type: 'test'
+  ...
+# Subtest: reject kinds without exposing unverified text
+ok 196 - reject kinds without exposing unverified text
+  ---
+  duration_ms: 0.341833
+  type: 'test'
+  ...
+# Subtest: reject duplicate-point without exposing unverified text
+ok 197 - reject duplicate-point without exposing unverified text
+  ---
+  duration_ms: 0.475333
+  type: 'test'
+  ...
+# Subtest: read-back rejects epoch changes
+ok 198 - read-back rejects epoch changes
+  ---
+  duration_ms: 0.451208
+  type: 'test'
+  ...
+# Subtest: read-back rejects agentId changes
+ok 199 - read-back rejects agentId changes
+  ---
+  duration_ms: 0.22725
+  type: 'test'
+  ...
+# Subtest: read-back rejects reset changes
+ok 200 - read-back rejects reset changes
+  ---
+  duration_ms: 0.232166
+  type: 'test'
+  ...
+# Subtest: read-back rejects gap changes
+ok 201 - read-back rejects gap changes
+  ---
+  duration_ms: 0.231167
+  type: 'test'
+  ...
+# Subtest: read-back rejects staleCursor changes
+ok 202 - read-back rejects staleCursor changes
+  ---
+  duration_ms: 0.146042
+  type: 'test'
+  ...
+# Subtest: read-back rejects text changes
+ok 203 - read-back rejects text changes
+  ---
+  duration_ms: 0.204208
+  type: 'test'
+  ...
+# Subtest: read-back rejects range changes
+ok 204 - read-back rejects range changes
+  ---
+  duration_ms: 0.120125
+  type: 'test'
+  ...
+# Subtest: read-back rejects missing changes
+ok 205 - read-back rejects missing changes
+  ---
+  duration_ms: 0.111875
+  type: 'test'
+  ...
+# Subtest: read-back rejects role changes
+ok 206 - read-back rejects role changes
+  ---
+  duration_ms: 0.142084
+  type: 'test'
+  ...
+# Subtest: Replay reads two canonical neighbors each side, preserves roles and pages from edges
+ok 207 - Replay reads two canonical neighbors each side, preserves roles and pages from edges
+  ---
+  duration_ms: 0.449875
+  type: 'test'
+  ...
+# Subtest: side failure is unavailable, never end-of-history or a cross-gap join
+ok 208 - side failure is unavailable, never end-of-history or a cross-gap join
+  ---
+  duration_ms: 0.147083
+  type: 'test'
+  ...
+# Subtest: comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable
+ok 209 - comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable
+  ---
+  duration_ms: 10.992375
+  type: 'test'
+  ...
+# Subtest: collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO
+ok 210 - collect-now integrates snapshot -> one Commander send -> digest validation -> Replay, never prompts an FO
+  ---
+  duration_ms: 15.264042
+  type: 'test'
+  ...
+# Subtest: an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer
+ok 211 - an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer
+  ---
+  duration_ms: 0.767958
+  type: 'test'
+  ...
+# Subtest: fleet budget admits recent reports after oversized oldest
+ok 212 - fleet budget admits recent reports after oversized oldest
+  ---
+  duration_ms: 5.426208
+  type: 'test'
+  ...
+# Subtest: fleet budget admits recent reports after oversized middle
+ok 213 - fleet budget admits recent reports after oversized middle
+  ---
+  duration_ms: 1.303083
+  type: 'test'
+  ...
+# Subtest: fleet budget admits recent reports after oversized newest
+ok 214 - fleet budget admits recent reports after oversized newest
+  ---
+  duration_ms: 1.714291
+  type: 'test'
+  ...
+# Subtest: fleet budget admits recent reports after newest priority
+ok 215 - fleet budget admits recent reports after newest priority
+  ---
+  duration_ms: 1.35975
+  type: 'test'
+  ...
+# Subtest: fleet budget admits recent reports after UTF-8 bytes
+ok 216 - fleet budget admits recent reports after UTF-8 bytes
+  ---
+  duration_ms: 0.581208
+  type: 'test'
+  ...
+# Subtest: fleet budget accepts exactly 64000 UTF-8 bytes, excludes non-reports and reports older-page truncation
+ok 217 - fleet budget accepts exactly 64000 UTF-8 bytes, excludes non-reports and reports older-page truncation
+  ---
+  duration_ms: 1.010542
+  type: 'test'
+  ...
+# Subtest: draft subscriptions notify only their target and stop after unsubscribe
+ok 218 - draft subscriptions notify only their target and stop after unsubscribe
+  ---
+  duration_ms: 2.388875
+  type: 'test'
+  ...
+# Subtest: mounted composers follow store updates, target changes and unsubscription
+ok 219 - mounted composers follow store updates, target changes and unsubscription
+  ---
+  duration_ms: 131.871
+  type: 'test'
+  ...
+# Subtest: mounted composer reflects delayed send: clear
+ok 220 - mounted composer reflects delayed send: clear
+  ---
+  duration_ms: 9.804125
+  type: 'test'
+  ...
+# Subtest: mounted composer reflects delayed send: edit
+ok 221 - mounted composer reflects delayed send: edit
+  ---
+  duration_ms: 13.801416
+  type: 'test'
+  ...
+# Subtest: mounted composer reflects delayed send: refuse
+ok 222 - mounted composer reflects delayed send: refuse
+  ---
+  duration_ms: 11.423
+  type: 'test'
+  ...
+# Subtest: mounted composer reflects delayed decision: clear
+ok 223 - mounted composer reflects delayed decision: clear
+  ---
+  duration_ms: 17.018833
+  type: 'test'
+  ...
+# Subtest: mounted composer reflects delayed decision: edit
+ok 224 - mounted composer reflects delayed decision: edit
+  ---
+  duration_ms: 9.969666
+  type: 'test'
+  ...
+# Subtest: mounted composer reflects delayed decision: refuse
+ok 225 - mounted composer reflects delayed decision: refuse
+  ---
+  duration_ms: 11.965334
+  type: 'test'
+  ...
+# Subtest: reopening a pending send blocks button and Enter until success
+ok 226 - reopening a pending send blocks button and Enter until success
+  ---
+  duration_ms: 21.581584
+  type: 'test'
+  ...
+# Subtest: reopening a pending send blocks button and Enter until failure
+ok 227 - reopening a pending send blocks button and Enter until failure
+  ---
+  duration_ms: 25.451208
+  type: 'test'
+  ...
+# Subtest: drafts survive remount reads, isolated by agent, gate and stage
+ok 228 - drafts survive remount reads, isolated by agent, gate and stage
+  ---
+  duration_ms: 0.925166
+  type: 'test'
+  ...
+# Subtest: a comms officer seed fills an empty draft and preserves non-empty text
+ok 229 - a comms officer seed fills an empty draft and preserves non-empty text
+  ---
+  duration_ms: 0.162875
+  type: 'test'
+  ...
+# Subtest: stored draft clears after successful send
+ok 230 - stored draft clears after successful send
+  ---
+  duration_ms: 1.481625
+  type: 'test'
+  ...
+# Subtest: stored draft survives refused send
+ok 231 - stored draft survives refused send
+  ---
+  duration_ms: 0.112417
+  type: 'test'
+  ...
+# Subtest: stored draft clears after successful decision
+ok 232 - stored draft clears after successful decision
+  ---
+  duration_ms: 0.123459
+  type: 'test'
+  ...
+# Subtest: stored draft survives refused decision
+ok 233 - stored draft survives refused decision
+  ---
+  duration_ms: 0.074334
+  type: 'test'
+  ...
+# Subtest: a delayed send keeps a newer remounted draft: New reply after remount
+ok 234 - a delayed send keeps a newer remounted draft: New reply after remount
+  ---
+  duration_ms: 1.456917
+  type: 'test'
+  ...
+# Subtest: a delayed send keeps a newer remounted draft: Original reply
+ok 235 - a delayed send keeps a newer remounted draft: Original reply
+  ---
+  duration_ms: 0.219125
+  type: 'test'
+  ...
+# Subtest: a delayed decision keeps a newer remounted draft: New reply after remount
+ok 236 - a delayed decision keeps a newer remounted draft: New reply after remount
+  ---
+  duration_ms: 0.202917
+  type: 'test'
+  ...
+# Subtest: a delayed decision keeps a newer remounted draft: Original reply
+ok 237 - a delayed decision keeps a newer remounted draft: Original reply
+  ---
+  duration_ms: 0.141625
+  type: 'test'
+  ...
+# Subtest: the FO source stays loading until every question read settles
+ok 238 - the FO source stays loading until every question read settles
+  ---
+  duration_ms: 16.132416
+  type: 'test'
+  ...
+# Subtest: a failed FO question read marks the source incomplete and keeps successful questions
+ok 239 - a failed FO question read marks the source incomplete and keeps successful questions
+  ---
+  duration_ms: 1.320333
+  type: 'test'
+  ...
+# Subtest: a recorded gate does not suppress a new implementation attempt of the same task
+ok 240 - a recorded gate does not suppress a new implementation attempt of the same task
+  ---
+  duration_ms: 623.084416
+  type: 'test'
+  ...
+# Subtest: a recorded gate does not suppress a new validation attempt of the same task
+ok 241 - a recorded gate does not suppress a new validation attempt of the same task
+  ---
+  duration_ms: 307.426583
+  type: 'test'
+  ...
+# Subtest: a failed first briefing read retries on reopen and keeps its draft (throw)
+ok 242 - a failed first briefing read retries on reopen and keeps its draft (throw)
+  ---
+  duration_ms: 106.49225
+  type: 'test'
+  ...
+# Subtest: a failed first briefing read retries on reopen and keeps its draft (answer)
+ok 243 - a failed first briefing read retries on reopen and keeps its draft (answer)
+  ---
+  duration_ms: 132.184667
+  type: 'test'
+  ...
+# Subtest: a retained active attempt never adopts its replacement's briefing
+ok 244 - a retained active attempt never adopts its replacement's briefing
+  ---
+  duration_ms: 231.246042
+  type: 'test'
+  ...
+# Subtest: a late failure from the first read cannot overwrite a successful reopen
+ok 245 - a late failure from the first read cannot overwrite a successful reopen
+  ---
+  duration_ms: 172.921
+  type: 'test'
+  ...
+# Subtest: identical slugs in two workflows keep separate recipients
+ok 246 - identical slugs in two workflows keep separate recipients
+  ---
+  duration_ms: 713.941083
+  type: 'test'
+  ...
+# Subtest: two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow)
+ok 247 - two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow)
+  ---
+  duration_ms: 366.783417
+  type: 'test'
+  ...
+# Subtest: two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing)
+ok 248 - two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing)
+  ---
+  duration_ms: 298.023167
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=2
+# gates.read \#1 done 359ms
+# gates.read \#2 start dirs=2
+# gates.read \#2 done 120ms
+# gates.read \#3 start dirs=2
+# gates.read \#3 done 120ms
+# Subtest: each active briefing identity survives the server, RPC schema, attachment and queue
+ok 249 - each active briefing identity survives the server, RPC schema, attachment and queue
+  ---
+  duration_ms: 682.736083
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=1
+# spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-NleVbY: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-NleVbY --fields slug,status,title,gate-readiness --json
+#     at genericNodeError (node:internal/errors:985:15)
+#     at wrappedFn (node:internal/errors:539:14)
+#     at ChildProcess.exithandler (node:child_process:417:12)
+#     at ChildProcess.emit (node:events:509:28)
+#     at maybeClose (node:internal/child_process:1124:16)
+#     at Socket.<anonymous> (node:internal/child_process:481:11)
+#     at Socket.emit (node:events:509:28)
+#     at Pipe.<anonymous> (node:net:351:12) {
+#   code: 1,
+#   killed: false,
+#   signal: null,
+#   cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-NleVbY --fields slug,status,title,gate-readiness --json',
+#   stdout: '',
+#   stderr: ''
+# }
+# gates.read \#1 done 254ms
+# gates.read \#2 start dirs=1
+# gates.read \#2 done 51ms
+# gates.read \#3 start dirs=1
+# gates.read \#3 done 4ms
+# gates.read \#4 start dirs=1
+# gates.read \#4 done 55ms
+# gates.read \#5 start dirs=1
+# gates.read \#5 done 0ms
+# Subtest: gate read failures reach the board, and a return refresh replaces the existing snapshot
+ok 250 - gate read failures reach the board, and a return refresh replaces the existing snapshot
+  ---
+  duration_ms: 389.486
+  type: 'test'
+  ...
+# gates.read \#6 start dirs=2
+# spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+#     at async open (node:internal/fs/promises:640:25)
+#     at async readFile (node:internal/fs/promises:1290:14)
+#     at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+#     at async Promise.allSettled (index 1)
+#     at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+#     at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:138:45)
+#     at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:131:12)
+#     at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:44:17)
+#     at async Test.run (node:internal/test_runner/test:1332:7)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+#   errno: -2,
+#   code: 'ENOENT',
+#   syscall: 'open',
+#   path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+# }
+# gates.read \#6 done 89ms
+# spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+#     at async open (node:internal/fs/promises:640:25)
+#     at async readFile (node:internal/fs/promises:1290:14)
+#     at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+#     at async Promise.allSettled (index 1)
+#     at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+#     at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:116:45)
+#     at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:48:17)
+#     at async Test.run (node:internal/test_runner/test:1332:7)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+#   errno: -2,
+#   code: 'ENOENT',
+#   syscall: 'open',
+#   path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+# }
+# spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+#     at async open (node:internal/fs/promises:640:25)
+#     at async readFile (node:internal/fs/promises:1290:14)
+#     at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+#     at async Promise.allSettled (index 1)
+#     at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+#     at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:116:45)
+#     at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/fleet-mcp.ts:42:55)
+#     at async waitForActual (node:assert:646:5)
+#     at async strict.rejects (node:assert:769:25)
+#     at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/gate-sources.test.mts:57:3) {
+#   errno: -2,
+#   code: 'ENOENT',
+#   syscall: 'open',
+#   path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+# }
+# gates.read \#7 start dirs=2
+# spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+#     at async open (node:internal/fs/promises:640:25)
+#     at async readFile (node:internal/fs/promises:1290:14)
+#     at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:67:18)
+#     at async Promise.allSettled (index 1)
+#     at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:105:19)
+#     at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:138:45)
+#     at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/tasks.ts:131:12)
+#     at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/fleet-mcp.ts:48:55)
+#     at async waitForActual (node:assert:646:5)
+#     at async strict.rejects (node:assert:769:25) {
+#   errno: -2,
+#   code: 'ENOENT',
+#   syscall: 'open',
+#   path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-IQkmMb/removed/README.md'
+# }
+# gates.read \#7 done 3ms
+# Subtest: a removed workflow does not hide another workflow's gates or tasks
+ok 251 - a removed workflow does not hide another workflow's gates or tasks
+  ---
+  duration_ms: 116.1205
+  type: 'test'
+  ...
+# Subtest: the open attempt is the latest one neither withdrawn nor resolved, for that stage
+ok 252 - the open attempt is the latest one neither withdrawn nor resolved, for that stage
+  ---
+  duration_ms: 0.86875
+  type: 'test'
+  ...
+# Subtest: a resolution is found by the briefing it answered
+ok 253 - a resolution is found by the briefing it answered
+  ---
+  duration_ms: 0.098709
+  type: 'test'
+  ...
+# Subtest: opening a closed gate without a briefing ID returns its latest stage resolution
+ok 254 - opening a closed gate without a briefing ID returns its latest stage resolution
+  ---
+  duration_ms: 37.550083
+  type: 'test'
+  ...
+# Subtest: a git-root state URI gives the commit and path
+ok 255 - a git-root state URI gives the commit and path
+  ---
+  duration_ms: 0.266208
+  type: 'test'
+  ...
+# Subtest: status priority covers every waiting kind in LIST-AND-DETAIL
+ok 256 - status priority covers every waiting kind in LIST-AND-DETAIL
+  ---
+  duration_ms: 0.520667
+  type: 'test'
+  ...
+# Subtest: counts retain pending progress, exclude finished items and distinguish incomplete from zero
+ok 257 - counts retain pending progress, exclude finished items and distinguish incomplete from zero
+  ---
+  duration_ms: 0.585625
+  type: 'test'
+  ...
+# Subtest: bold and inline code are split out of a line
+ok 258 - bold and inline code are split out of a line
+  ---
+  duration_ms: 0.87175
+  type: 'test'
+  ...
+# Subtest: a reply becomes paragraphs, list items and a fenced status block
+ok 259 - a reply becomes paragraphs, list items and a fenced status block
+  ---
+  duration_ms: 0.373708
+  type: 'test'
+  ...
+# Subtest: a status block is recognised by its Remaining or 剩餘 line
+ok 260 - a status block is recognised by its Remaining or 剩餘 line
+  ---
+  duration_ms: 0.160209
+  type: 'test'
+  ...
+# Subtest: quoted lines become one quote block that keeps its line breaks
+ok 261 - quoted lines become one quote block that keeps its line breaks
+  ---
+  duration_ms: 0.137292
+  type: 'test'
+  ...
+# Subtest: Enter sends, but not while an input method is composing or with Shift
+ok 262 - Enter sends, but not while an input method is composing or with Shift
+  ---
+  duration_ms: 0.087584
+  type: 'test'
+  ...
+# Subtest: the last reply joins assistant text after the last user message
+ok 263 - the last reply joins assistant text after the last user message
+  ---
+  duration_ms: 0.746416
+  type: 'test'
+  ...
+# Subtest: a status block's next step is the preview
+ok 264 - a status block's next step is the preview
+  ---
+  duration_ms: 0.398417
+  type: 'test'
+  ...
+# Subtest: without a next step the first line is the preview, clipped
+ok 265 - without a next step the first line is the preview, clipped
+  ---
+  duration_ms: 0.331583
+  type: 'test'
+  ...
+# Subtest: a permission shows what it asks for
+ok 266 - a permission shows what it asks for
+  ---
+  duration_ms: 0.160416
+  type: 'test'
+  ...
+# Subtest: the next step is the Captain's when it names 你 or you
+ok 267 - the next step is the Captain's when it names 你 or you
+  ---
+  duration_ms: 0.221584
+  type: 'test'
+  ...
+# Subtest: a Paseo agent envelope is read as its sender, kind and body
+ok 268 - a Paseo agent envelope is read as its sender, kind and body
+  ---
+  duration_ms: 0.397459
+  type: 'test'
+  ...
+# Subtest: a user-message envelope or an unclosed one is not shown as coming from an agent
+ok 269 - a user-message envelope or an unclosed one is not shown as coming from an agent
+  ---
+  duration_ms: 0.161042
+  type: 'test'
+  ...
+# Subtest: projected first is a healthy page without fabricated singleton sequences
+ok 270 - projected first is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 3.861375
+  type: 'test'
+  ...
+# Subtest: projected empty new agent is a healthy page without fabricated singleton sequences
+ok 271 - projected empty new agent is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.082666
+  type: 'test'
+  ...
+# Subtest: projected empty end is a healthy page without fabricated singleton sequences
+ok 272 - projected empty end is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.050291
+  type: 'test'
+  ...
+# Subtest: projected merged tool is a healthy page without fabricated singleton sequences
+ok 273 - projected merged tool is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.187292
+  type: 'test'
+  ...
+# Subtest: projected 120 display rows is a healthy page without fabricated singleton sequences
+ok 274 - projected 120 display rows is a healthy page without fabricated singleton sequences
+  ---
+  duration_ms: 0.485083
+  type: 'test'
+  ...
+# Subtest: real-shaped merged discussion loads Commander, board questions and old history (false)
+ok 275 - real-shaped merged discussion loads Commander, board questions and old history (false)
+  ---
+  duration_ms: 497.251917
+  type: 'test'
+  ...
+# Subtest: real-shaped merged discussion loads Commander, board questions and old history (true)
+ok 276 - real-shaped merged discussion loads Commander, board questions and old history (true)
+  ---
+  duration_ms: 327.310583
+  type: 'test'
+  ...
+# Subtest: sidebar-only projected ordinary question is counted while collection and unknown remain withheld
+ok 277 - sidebar-only projected ordinary question is counted while collection and unknown remain withheld
+  ---
+  duration_ms: 617.512
+  type: 'test'
+  ...
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# Subtest: healthy empty projected Commander and question read settle without a failure
+ok 278 - healthy empty projected Commander and question read settle without a failure
+  ---
+  duration_ms: 230.268291
+  type: 'test'
+  ...
+# Subtest: a projected source hashes the entire merged entry and Replay pages by display entries
+ok 279 - a projected source hashes the entire merged entry and Replay pages by display entries
+  ---
+  duration_ms: 3.867292
+  type: 'test'
+  ...
+# Subtest: collection, full projected digest range and Replay use the same real-shaped reader
+ok 280 - collection, full projected digest range and Replay use the same real-shaped reader
+  ---
+  duration_ms: 1.613459
+  type: 'test'
+  ...
+# Subtest: the decision relay reader retains projected user-message identity across a comms detour
+ok 281 - the decision relay reader retains projected user-message identity across a comms detour
+  ---
+  duration_ms: 87.267708
+  type: 'test'
+  ...
+# Subtest: an assistant entry still being written is not an exact source
+ok 282 - an assistant entry still being written is not an exact source
+  ---
+  duration_ms: 0.219292
+  type: 'test'
+  ...
+# Subtest: one officer asks two questions in turn, keeping recipient and draft (label, 1440)
+ok 283 - one officer asks two questions in turn, keeping recipient and draft (label, 1440)
+  ---
+  duration_ms: 532.202916
+  type: 'test'
+  ...
+# Subtest: one officer asks two questions in turn, keeping recipient and draft (label, 360)
+ok 284 - one officer asks two questions in turn, keeping recipient and draft (label, 360)
+  ---
+  duration_ms: 179.835833
+  type: 'test'
+  ...
+# Subtest: one officer asks two questions in turn, keeping recipient and draft (reply, 1440)
+ok 285 - one officer asks two questions in turn, keeping recipient and draft (reply, 1440)
+  ---
+  duration_ms: 65.213042
+  type: 'test'
+  ...
+# Subtest: one officer asks two questions in turn, keeping recipient and draft (reply, 360)
+ok 286 - one officer asks two questions in turn, keeping recipient and draft (reply, 360)
+  ---
+  duration_ms: 101.279459
+  type: 'test'
+  ...
+# Subtest: an identical repeated question gets its own identity and time from its message
+ok 287 - an identical repeated question gets its own identity and time from its message
+  ---
+  duration_ms: 45.227958
+  type: 'test'
+  ...
+# Subtest: an identical repeated question gets its own identity and time from its timestamp
+ok 288 - an identical repeated question gets its own identity and time from its timestamp
+  ---
+  duration_ms: 48.597958
+  type: 'test'
+  ...
+# Subtest: a repeated label question uses its new attention timestamp
+ok 289 - a repeated label question uses its new attention timestamp
+  ---
+  duration_ms: 35.586542
+  type: 'test'
+  ...
+# Subtest: an unrelated officer activity update keeps the same question detail (label)
+ok 290 - an unrelated officer activity update keeps the same question detail (label)
+  ---
+  duration_ms: 32.175833
+  type: 'test'
+  ...
+# Subtest: an unrelated officer activity update keeps the same question detail (reply)
+ok 291 - an unrelated officer activity update keeps the same question detail (reply)
+  ---
+  duration_ms: 33.395542
+  type: 'test'
+  ...
+# Subtest: items sort by kind first, then oldest first; one FO can own several items
+ok 292 - items sort by kind first, then oldest first; one FO can own several items
+  ---
+  duration_ms: 28.275041
+  type: 'test'
+  ...
+# Subtest: a review with no FO has none
+ok 293 - a review with no FO has none
+  ---
+  duration_ms: 0.127625
+  type: 'test'
+  ...
+# Subtest: the next card is the first queue item and the sections keep the queue order
+ok 294 - the next card is the first queue item and the sections keep the queue order
+  ---
+  duration_ms: 0.267083
+  type: 'test'
+  ...
+# Subtest: an empty queue has no next card and one item has no rows
+ok 295 - an empty queue has no next card and one item has no rows
+  ---
+  duration_ms: 0.118458
+  type: 'test'
+  ...
+# Subtest: each review item carries its own repo\#number and URL, and opening it passes that URL
+ok 296 - each review item carries its own repo\#number and URL, and opening it passes that URL
+  ---
+  duration_ms: 0.147666
+  type: 'test'
+  ...
+# Subtest: a gate or question has no link to open
+ok 297 - a gate or question has no link to open
+  ---
+  duration_ms: 5.984041
+  type: 'test'
+  ...
+# Subtest: a captain question survives alongside the same FO's gate
+ok 298 - a captain question survives alongside the same FO's gate
+  ---
+  duration_ms: 6.130917
+  type: 'test'
+  ...
+# Subtest: a gate alone or its repeated label does not add an empty or duplicate question
+ok 299 - a gate alone or its repeated label does not add an empty or duplicate question
+  ---
+  duration_ms: 0.266
+  type: 'test'
+  ...
+# Subtest: attaching a gate does not promote an FO-owned next step into a Captain question
+ok 300 - attaching a gate does not promote an FO-owned next step into a Captain question
+  ---
+  duration_ms: 0.473083
+  type: 'test'
+  ...
+# Subtest: a chip becomes a relay order carrying the decision and the Captain's exact words
+ok 301 - a chip becomes a relay order carrying the decision and the Captain's exact words
+  ---
+  duration_ms: 0.557042
+  type: 'test'
+  ...
+# Subtest: text already typed joins the chip word as the Captain's words
+ok 302 - text already typed joins the chip word as the Captain's words
+  ---
+  duration_ms: 0.109584
+  type: 'test'
+  ...
+# Subtest: a decision id is d- and six base-36 characters
+ok 303 - a decision id is d- and six base-36 characters
+  ---
+  duration_ms: 0.122833
+  type: 'test'
+  ...
+# Subtest: delivery moves sent, relayed, recorded, and asks for a check after ten minutes
+ok 304 - delivery moves sent, relayed, recorded, and asks for a check after ten minutes
+  ---
+  duration_ms: 0.098
+  type: 'test'
+  ...
+# Subtest: revise and hold need a typed reason; approve does not
+ok 305 - revise and hold need a typed reason; approve does not
+  ---
+  duration_ms: 0.076625
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate briefing × identity changed upstream
+ok 306 - retained surface table: gate briefing × identity changed upstream
+  ---
+  duration_ms: 387.318625
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate briefing × failed read then reactivate
+ok 307 - retained surface table: gate briefing × failed read then reactivate
+  ---
+  duration_ms: 101.428708
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate briefing × failed read then retry control
+ok 308 - retained surface table: gate briefing × failed read then retry control
+  ---
+  duration_ms: 95.639083
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate conversation × identity changed upstream
+ok 309 - retained surface table: gate conversation × identity changed upstream
+  ---
+  duration_ms: 81.295125
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate conversation × failed read then reactivate
+ok 310 - retained surface table: gate conversation × failed read then reactivate
+  ---
+  duration_ms: 47.041875
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate conversation × failed read then retry control
+ok 311 - retained surface table: gate conversation × failed read then retry control
+  ---
+  duration_ms: 28.644125
+  type: 'test'
+  ...
+# Subtest: retained surface table: assigned review conversation × identity changed upstream
+ok 312 - retained surface table: assigned review conversation × identity changed upstream
+  ---
+  duration_ms: 46.183291
+  type: 'test'
+  ...
+# Subtest: retained surface table: assigned review conversation × failed read then reactivate
+ok 313 - retained surface table: assigned review conversation × failed read then reactivate
+  ---
+  duration_ms: 33.04725
+  type: 'test'
+  ...
+# Subtest: retained surface table: assigned review conversation × failed read then retry control
+ok 314 - retained surface table: assigned review conversation × failed read then retry control
+  ---
+  duration_ms: 29.987208
+  type: 'test'
+  ...
+# Subtest: retained surface table: FO conversation × identity changed upstream
+ok 315 - retained surface table: FO conversation × identity changed upstream
+  ---
+  duration_ms: 34.939625
+  type: 'test'
+  ...
+# Subtest: retained surface table: FO conversation × failed read then reactivate
+ok 316 - retained surface table: FO conversation × failed read then reactivate
+  ---
+  duration_ms: 23.583292
+  type: 'test'
+  ...
+# Subtest: retained surface table: FO conversation × failed read then retry control
+ok 317 - retained surface table: FO conversation × failed read then retry control
+  ---
+  duration_ms: 17.725333
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander conversation × identity changed upstream
+ok 318 - retained surface table: commander conversation × identity changed upstream
+  ---
+  duration_ms: 28.314417
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander conversation × failed read then reactivate
+ok 319 - retained surface table: commander conversation × failed read then reactivate
+  ---
+  duration_ms: 231.133042
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander conversation × failed read then retry control
+ok 320 - retained surface table: commander conversation × failed read then retry control
+  ---
+  duration_ms: 224.015292
+  type: 'test'
+  ...
+# Subtest: retained surface table: decision record × identity changed upstream
+ok 321 - retained surface table: decision record × identity changed upstream
+  ---
+  duration_ms: 80.911958
+  type: 'test'
+  ...
+# Subtest: retained surface table: decision record × failed read then reactivate
+ok 322 - retained surface table: decision record × failed read then reactivate
+  ---
+  duration_ms: 75.520542
+  type: 'test'
+  ...
+# Subtest: retained surface table: decision record × failed read then retry control
+ok 323 - retained surface table: decision record × failed read then retry control
+  ---
+  duration_ms: 44.975417
+  type: 'test'
+  ...
+# Subtest: retained surface table: relay status × identity changed upstream
+ok 324 - retained surface table: relay status × identity changed upstream
+  ---
+  duration_ms: 39.126584
+  type: 'test'
+  ...
+# Subtest: retained surface table: relay status × failed read then reactivate
+not ok 325 - retained surface table: relay status × failed read then reactivate
+  ---
+  duration_ms: 19.6495
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/retained-readers.test.mts:1:4023'
+  failureType: 'testCodeFailure'
+  error: 'the reader actually failed before the detour'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    ◉ Commander
+    Comms officer
+    Board · 2
+    By decision · 2
+    By FO · 3
+    All 2
+    Permissions 0
+    Reviews 0
+    Gates 2
+    Questions 0
+    Gates
+    2
+    ◷ Waiting for relay
+    Approve a?
+    A FO
+    GATE
+    64h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    64h ago
+    + New FO
+    Gates read 10:28:05 AM · 2 open
+    ← Commander
+    Board
+    ← Queue
+    Sent to the comms officer
+    approve 「准」 · waiting for the relay, 0 min
+    Sent to the comms officer
+    approve 「准」 · waiting for the relay, 0 min
+    GATE · VALIDATION · A
+    Approve a?
+    A FO
+    waiting 64h
+    Summary a
+    Read full briefing ›
+    preview · full view in Spacedock Review
+    
+    Conversation with A FO · includes other tasks
+    Open full view
+    No messages yet
+    ↑ sends to A FO
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/retained-readers.test.mts:86:19)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: retained surface table: relay status × failed read then retry control
+not ok 326 - retained surface table: relay status × failed read then retry control
+  ---
+  duration_ms: 21.547333
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/retained-readers.test.mts:1:4023'
+  failureType: 'testCodeFailure'
+  error: 'each failed reader offers a visible retry'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/retained-readers.test.mts:85:48)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: retained surface table: commander question × identity changed upstream
+ok 327 - retained surface table: commander question × identity changed upstream
+  ---
+  duration_ms: 24.083167
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander question × failed read then reactivate
+ok 328 - retained surface table: commander question × failed read then reactivate
+  ---
+  duration_ms: 225.622333
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander question × failed read then retry control
+ok 329 - retained surface table: commander question × failed read then retry control
+  ---
+  duration_ms: 217.708916
+  type: 'test'
+  ...
+# Subtest: a gate uses its own source workflow even when first opened under another officer workflow
+ok 330 - a gate uses its own source workflow even when first opened under another officer workflow
+  ---
+  duration_ms: 33.937333
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate briefing × unresolved read then reactivate
+ok 331 - retained surface table: gate briefing × unresolved read then reactivate
+  ---
+  duration_ms: 26.19125
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate conversation × unresolved read then reactivate
+ok 332 - retained surface table: gate conversation × unresolved read then reactivate
+  ---
+  duration_ms: 21.0385
+  type: 'test'
+  ...
+# Subtest: retained surface table: assigned review conversation × unresolved read then reactivate
+ok 333 - retained surface table: assigned review conversation × unresolved read then reactivate
+  ---
+  duration_ms: 21.464
+  type: 'test'
+  ...
+# Subtest: retained surface table: FO conversation × unresolved read then reactivate
+ok 334 - retained surface table: FO conversation × unresolved read then reactivate
+  ---
+  duration_ms: 18.098833
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander conversation × unresolved read then reactivate
+ok 335 - retained surface table: commander conversation × unresolved read then reactivate
+  ---
+  duration_ms: 248.66075
+  type: 'test'
+  ...
+# Subtest: retained surface table: decision record × unresolved read then reactivate
+ok 336 - retained surface table: decision record × unresolved read then reactivate
+  ---
+  duration_ms: 52.108041
+  type: 'test'
+  ...
+# Subtest: retained surface table: relay status × unresolved read then reactivate
+ok 337 - retained surface table: relay status × unresolved read then reactivate
+  ---
+  duration_ms: 56.459416
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander question × unresolved read then reactivate
+ok 338 - retained surface table: commander question × unresolved read then reactivate
+  ---
+  duration_ms: 259.60475
+  type: 'test'
+  ...
+# Subtest: retained subscription: gate × ready failure recovers with draft
+ok 339 - retained subscription: gate × ready failure recovers with draft
+  ---
+  duration_ms: 33.712042
+  type: 'test'
+  ...
+# Subtest: retained subscription: gate × event failure recovers with draft
+ok 340 - retained subscription: gate × event failure recovers with draft
+  ---
+  duration_ms: 21.6915
+  type: 'test'
+  ...
+# Subtest: retained subscription: fo × ready failure recovers with draft
+ok 341 - retained subscription: fo × ready failure recovers with draft
+  ---
+  duration_ms: 21.598083
+  type: 'test'
+  ...
+# Subtest: retained subscription: fo × event failure recovers with draft
+ok 342 - retained subscription: fo × event failure recovers with draft
+  ---
+  duration_ms: 23.645292
+  type: 'test'
+  ...
+# Subtest: retained subscription: commander × ready failure recovers with draft
+ok 343 - retained subscription: commander × ready failure recovers with draft
+  ---
+  duration_ms: 20.386833
+  type: 'test'
+  ...
+# Subtest: retained subscription: commander × event failure recovers with draft
+ok 344 - retained subscription: commander × event failure recovers with draft
+  ---
+  duration_ms: 18.878541
+  type: 'test'
+  ...
+# Subtest: commander connection reader × failed read then reactivate
+ok 345 - commander connection reader × failed read then reactivate
+  ---
+  duration_ms: 25.564583
+  type: 'test'
+  ...
+# Subtest: commander connection reader × failed read then retry control
+ok 346 - commander connection reader × failed read then retry control
+  ---
+  duration_ms: 22.975166
+  type: 'test'
+  ...
+# Subtest: retained phone board: gates × failed read then reactivate
+ok 347 - retained phone board: gates × failed read then reactivate
+  ---
+  duration_ms: 21.105958
+  type: 'test'
+  ...
+# Subtest: retained phone board: gates × failed read then retry control
+ok 348 - retained phone board: gates × failed read then retry control
+  ---
+  duration_ms: 19.813292
+  type: 'test'
+  ...
+# Subtest: retained phone board: tasks × failed read then reactivate
+ok 349 - retained phone board: tasks × failed read then reactivate
+  ---
+  duration_ms: 22.664
+  type: 'test'
+  ...
+# Subtest: retained phone board: tasks × failed read then retry control
+ok 350 - retained phone board: tasks × failed read then retry control
+  ---
+  duration_ms: 20.075042
+  type: 'test'
+  ...
+# Subtest: retained phone board: review source × failed read then reactivate
+ok 351 - retained phone board: review source × failed read then reactivate
+  ---
+  duration_ms: 25.079167
+  type: 'test'
+  ...
+# Subtest: retained phone board: review source × failed read then retry control
+ok 352 - retained phone board: review source × failed read then retry control
+  ---
+  duration_ms: 17.090916
+  type: 'test'
+  ...
+# Subtest: retained phone board: gates × unresolved read then reactivate
+ok 353 - retained phone board: gates × unresolved read then reactivate
+  ---
+  duration_ms: 20.535875
+  type: 'test'
+  ...
+# Subtest: retained phone board: gates × unresolved read then retry control
+ok 354 - retained phone board: gates × unresolved read then retry control
+  ---
+  duration_ms: 16.084042
+  type: 'test'
+  ...
+# Subtest: retained phone board: tasks × unresolved read then reactivate
+ok 355 - retained phone board: tasks × unresolved read then reactivate
+  ---
+  duration_ms: 22.859208
+  type: 'test'
+  ...
+# Subtest: retained phone board: tasks × unresolved read then retry control
+ok 356 - retained phone board: tasks × unresolved read then retry control
+  ---
+  duration_ms: 15.773042
+  type: 'test'
+  ...
+# Subtest: retained phone board: review source × unresolved read then reactivate
+ok 357 - retained phone board: review source × unresolved read then reactivate
+  ---
+  duration_ms: 27.680959
+  type: 'test'
+  ...
+# Subtest: retained phone board: review source × unresolved read then retry control
+ok 358 - retained phone board: review source × unresolved read then retry control
+  ---
+  duration_ms: 16.753375
+  type: 'test'
+  ...
+# Subtest: retained phone board: FO question reader × failed read then reactivate
+ok 359 - retained phone board: FO question reader × failed read then reactivate
+  ---
+  duration_ms: 19.6855
+  type: 'test'
+  ...
+# Subtest: retained phone board: FO question reader × failed read then retry control
+ok 360 - retained phone board: FO question reader × failed read then retry control
+  ---
+  duration_ms: 19.47875
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate briefing × loaded value changes then reactivate
+ok 361 - retained surface table: gate briefing × loaded value changes then reactivate
+  ---
+  duration_ms: 29.750292
+  type: 'test'
+  ...
+# Subtest: retained surface table: gate conversation × loaded value changes then reactivate
+ok 362 - retained surface table: gate conversation × loaded value changes then reactivate
+  ---
+  duration_ms: 23.330292
+  type: 'test'
+  ...
+# Subtest: retained surface table: assigned review conversation × loaded value changes then reactivate
+ok 363 - retained surface table: assigned review conversation × loaded value changes then reactivate
+  ---
+  duration_ms: 26.731625
+  type: 'test'
+  ...
+# Subtest: retained surface table: FO conversation × loaded value changes then reactivate
+ok 364 - retained surface table: FO conversation × loaded value changes then reactivate
+  ---
+  duration_ms: 20.683917
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander conversation × loaded value changes then reactivate
+ok 365 - retained surface table: commander conversation × loaded value changes then reactivate
+  ---
+  duration_ms: 21.357083
+  type: 'test'
+  ...
+# Subtest: retained surface table: decision record × loaded value changes then reactivate
+ok 366 - retained surface table: decision record × loaded value changes then reactivate
+  ---
+  duration_ms: 69.820292
+  type: 'test'
+  ...
+# Subtest: retained surface table: relay status × loaded value changes then reactivate
+ok 367 - retained surface table: relay status × loaded value changes then reactivate
+  ---
+  duration_ms: 66.827208
+  type: 'test'
+  ...
+# Subtest: retained surface table: commander question × loaded value changes then reactivate
+ok 368 - retained surface table: commander question × loaded value changes then reactivate
+  ---
+  duration_ms: 54.866667
+  type: 'test'
+  ...
+# Subtest: retained surface table: claim released by another client then reopen
+ok 369 - retained surface table: claim released by another client then reopen
+  ---
+  duration_ms: 55.544833
+  type: 'test'
+  ...
+# Subtest: retained surface table: refresh read overlaps a local send (null); the local send wins
+ok 370 - retained surface table: refresh read overlaps a local send (null); the local send wins
+  ---
+  duration_ms: 33.004042
+  type: 'test'
+  ...
+# Subtest: retained surface table: refresh read overlaps a local send (old claim); the local send wins
+ok 371 - retained surface table: refresh read overlaps a local send (old claim); the local send wins
+  ---
+  duration_ms: 31.790958
+  type: 'test'
+  ...
+# Subtest: reactivation refreshes gate closure and recorded results without reviving recorded actions
+ok 372 - reactivation refreshes gate closure and recorded results without reviving recorded actions
+  ---
+  duration_ms: 33.091709
+  type: 'test'
+  ...
+# Subtest: retained phone board: gates × loaded value changes then reactivate
+ok 373 - retained phone board: gates × loaded value changes then reactivate
+  ---
+  duration_ms: 20.3525
+  type: 'test'
+  ...
+# Subtest: retained phone board: tasks × loaded value changes then reactivate
+ok 374 - retained phone board: tasks × loaded value changes then reactivate
+  ---
+  duration_ms: 20.445167
+  type: 'test'
+  ...
+# Subtest: retained phone board: review source × loaded value changes then reactivate
+ok 375 - retained phone board: review source × loaded value changes then reactivate
+  ---
+  duration_ms: 19.853375
+  type: 'test'
+  ...
+# Subtest: retained surface table: briefing refresh overlaps a local send (closed)
+ok 376 - retained surface table: briefing refresh overlaps a local send (closed)
+  ---
+  duration_ms: 30.237375
+  type: 'test'
+  ...
+# Subtest: retained surface table: briefing refresh overlaps a local send (recorded)
+ok 377 - retained surface table: briefing refresh overlaps a local send (recorded)
+  ---
+  duration_ms: 37.6695
+  type: 'test'
+  ...
+# Subtest: an authoritative released claim clears cached local sent progress on reopen
+ok 378 - an authoritative released claim clears cached local sent progress on reopen
+  ---
+  duration_ms: 25.111917
+  type: 'test'
+  ...
+# Subtest: review reader exposes the existing poller's scheduled first check and clears it on stop
+ok 379 - review reader exposes the existing poller's scheduled first check and clears it on stop
+  ---
+  duration_ms: 299.58725
+  type: 'test'
+  ...
+# Subtest: gh search output becomes review requests, dropping incomplete rows
+ok 380 - gh search output becomes review requests, dropping incomplete rows
+  ---
+  duration_ms: 0.834542
+  type: 'test'
+  ...
+# Subtest: only requests not seen before are new
+ok 381 - only requests not seen before are new
+  ---
+  duration_ms: 0.103375
+  type: 'test'
+  ...
+# Subtest: the wake message is marked as automated data and names each pull request
+ok 382 - the wake message is marked as automated data and names each pull request
+  ---
+  duration_ms: 0.78025
+  type: 'test'
+  ...
+# Subtest: a title and an author with prompt-like text, newlines and quotes never reach the wake message
+ok 383 - a title and an author with prompt-like text, newlines and quotes never reach the wake message
+  ---
+  duration_ms: 0.824042
+  type: 'test'
+  ...
+# Subtest: a well-formed request is exactly one routable line
+ok 384 - a well-formed request is exactly one routable line
+  ---
+  duration_ms: 0.134042
+  type: 'test'
+  ...
+# Subtest: a malformed owner, repo, number or url is left out of the wake and the rest still go
+ok 385 - a malformed owner, repo, number or url is left out of the wake and the rest still go
+  ---
+  duration_ms: 0.177041
+  type: 'test'
+  ...
+# Subtest: a review goes to the FO whose next step names it, else to the FO whose repo label lists it
+ok 386 - a review goes to the FO whose next step names it, else to the FO whose repo label lists it
+  ---
+  duration_ms: 0.143125
+  type: 'test'
+  ...
+# Subtest: a review ref is repo\#number, with the owner only when another request shares the repo name under a different owner
+ok 387 - a review ref is repo\#number, with the owner only when another request shares the repo name under a different owner
+  ---
+  duration_ms: 0.095
+  type: 'test'
+  ...
+# Subtest: Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds
+ok 388 - Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds
+  ---
+  duration_ms: 1.157041
+  type: 'test'
+  ...
+# Subtest: sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims
+ok 389 - sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims
+  ---
+  duration_ms: 234.023791
+  type: 'test'
+  ...
+# Subtest: popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board
+ok 390 - popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board
+  ---
+  duration_ms: 164.58325
+  type: 'test'
+  ...
+# Subtest: label opens Bridge directly and Commander questions are read without creating a coordinator
+ok 391 - label opens Bridge directly and Commander questions are read without creating a coordinator
+  ---
+  duration_ms: 234.864833
+  type: 'test'
+  ...
+# Subtest: loading gates show a question mark and an incomplete note before any Bridge screen mounts
+ok 392 - loading gates show a question mark and an incomplete note before any Bridge screen mounts
+  ---
+  duration_ms: 8.939625
+  type: 'test'
+  ...
+# Subtest: a changed workflow excludes previous gates while loading
+ok 393 - a changed workflow excludes previous gates while loading
+  ---
+  duration_ms: 10.581833
+  type: 'test'
+  ...
+# Subtest: a changed workflow excludes previous gates while failed
+ok 394 - a changed workflow excludes previous gates while failed
+  ---
+  duration_ms: 11.624
+  type: 'test'
+  ...
+# Subtest: a successful new workflow read shows only its own gate, owner and Bridge destination
+ok 395 - a successful new workflow read shows only its own gate, owner and Bridge destination
+  ---
+  duration_ms: 41.514958
+  type: 'test'
+  ...
+# Subtest: same-workflow refresh keeps its own cached gate during loading and failure
+ok 396 - same-workflow refresh keeps its own cached gate during loading and failure
+  ---
+  duration_ms: 10.375125
+  type: 'test'
+  ...
+# Subtest: sidebar badge and popover actions use attention theme colors instead of accent
+ok 397 - sidebar badge and popover actions use attention theme colors instead of accent
+  ---
+  duration_ms: 19.2235
+  type: 'test'
+  ...
+# Subtest: scroll cue follows measured overflow on compact popovers
+ok 398 - scroll cue follows measured overflow on compact popovers
+  ---
+  duration_ms: 12.399791
+  type: 'test'
+  ...
+# Subtest: scroll cue follows measured overflow on wide popovers
+ok 399 - scroll cue follows measured overflow on wide popovers
+  ---
+  duration_ms: 15.521834
+  type: 'test'
+  ...
+# Subtest: empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls
+ok 400 - empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls
+  ---
+  duration_ms: 13.537916
+  type: 'test'
+  ...
+# Subtest: a spacedock status answer gives the task's title and stage
+ok 401 - a spacedock status answer gives the task's title and stage
+  ---
+  duration_ms: 0.947417
+  type: 'test'
+  ...
+# Subtest: no matching task or unreadable output gives nothing
+ok 402 - no matching task or unreadable output gives nothing
+  ---
+  duration_ms: 0.519458
+  type: 'test'
+  ...
+# Subtest: only a commissioned workflow README counts as a workflow directory
+ok 403 - only a commissioned workflow README counts as a workflow directory
+  ---
+  duration_ms: 0.295709
+  type: 'test'
+  ...
+# Subtest: only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain
+ok 404 - only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain
+  ---
+  duration_ms: 0.158917
+  type: 'test'
+  ...
+1..404
+# tests 416
+# suites 0
+# pass 414
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12434.657625

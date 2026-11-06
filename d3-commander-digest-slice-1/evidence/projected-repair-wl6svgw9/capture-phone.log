@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/capture.py", line 114, in <module>
+    if width==360:click('Board')
+                  ^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/capture.py", line 43, in click
+    wait(lambda:evaluate('Boolean('+el(label)+')'))
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/projected-repair-wl6svgw9/capture.py", line 40, in wait
+    raise TimeoutError('fixture did not become ready')
+TimeoutError: fixture did not become ready

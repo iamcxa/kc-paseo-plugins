@@ -1,0 +1,7 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 typecheck
+> tsc --noEmit
+
+test/projected-timeline.test.mts(36,186): error TS2339: Property 'text' does not exist on type 'AgentTimelineItem'.
+  Property 'text' does not exist on type '{ type: "todo"; items: AgentTaskItem[]; }'.

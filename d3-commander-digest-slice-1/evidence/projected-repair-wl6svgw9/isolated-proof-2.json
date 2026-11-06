@@ -1,0 +1,17 @@
+{
+  "port": 60895,
+  "noBridgeStartup": true,
+  "home": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.projected-daemon-f3sa8595",
+  "pid": 3596,
+  "importKeys": [
+    "agentId",
+    "status",
+    "provider",
+    "cwd",
+    "title"
+  ],
+  "passed": false,
+  "failure": "subprocess failed: [{\"diagnostic\": {\"count\": 0, \"kinds\": [], \"projection\": \"projected\"}}, {\"errorType\": \"AssertionError\", \"message\": \"Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ 'unknown'\\n- 'reports'\\n\"}]",
+  "homeRemoved": true,
+  "stopped": true
+}
