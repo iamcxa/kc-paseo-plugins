@@ -105,6 +105,8 @@ Visible change: the chief of staff calls after the amended accumulated-event tri
 
 ### FO notes
 
+- 2026-11-06: Captain ruling on amendment 1's open values, asked 「設計總監通過新版。要你定「幕僚長何時找你」：提案是一件事等滿 5 分鐘沒回、之後又來至少 3 件（X＝3）、加權分超過 8（Y＝8；關卡／權限 4、問題 3、審查 2，5 分鐘內 3 件以上乘 1.5）。代價是：只有一個關卡在等你時，可能一直湊不到門檻而不提醒。門檻和「要不要緊急例外」一起定，因為有例外時門檻可以設得鬆一點。怎麼定？」 (option text: 「X=3、Y=8，加一個例外 (Recommended)」 — "例外：單一關卡或權限等你超過 30 分鐘（提案數字，可改），就算湊不到門檻也找你一次。代價：多一種提醒，偶爾為一件事打擾你。"), answered 「X=3、Y=8，加一個例外 (Recommended)」.
+
 - 2026-11-06: Process correction — followup-4 told the designer to write the replacement criterion as AC-1, the id amendment 1 supersedes; the FO renumbered it AC-4 (new id, as in r10-sidebar-count-popover) so design_surfaces passes. Text unchanged.
 
 ## Stage Report: implementation
