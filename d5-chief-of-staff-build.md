@@ -113,3 +113,13 @@ Provider environment limit — Normal provider authentication used the existing 
 ### Summary
 
 Implemented the bounded chief-of-staff route and removed the first slice's collection surfaces, retaining its projected reader and confirmed switch. Delivery remains HOLD on AC-2 and AC-3: local tests and the real client path pass, but the complete visual acceptance and a successful one-Terra/one-Opus batch still need the FO's follow-up.
+
+## Investigation: roborev 1570
+
+FO ran roborev on 6df55e54f07337e5284f0b134c2eb7fd2af1b67b (base 7a4dbc057803d791dc5626182636c8e0fc2c2d32): exit 1, evidence=roborev:1570, one High and four Medium.
+1. server/coordinator.ts switch guard (High): a user who already switched to slice 1's officer has a switch record naming it as agentId, but the guard requires it to match previousAgentId, so confirming the switch to the chief of staff always fails with "The previous officer has changed" — the Captain's own live state (coordinator-switch.json holds 5179b1f8 as agentId).
+2. server/chief.ts question target identity: the server uses epoch:seqStart:seqEnd, the board reader uses seqStart, so opening a named question from her focus finds no board item and does nothing.
+3. server/chief.ts pending call: an incomplete snapshot or a thrown read clears an unanswered call to quiet or unknown, and a later successful read never restores it; the batch's events are already consumed.
+4. client/bridge.tsx navigation: once a focus is opened, the internal target overrides later sidebar requests while Bridge stays mounted.
+5. server/fleet-mcp.ts fleet_status: returns raw rows with empty gates and drops gates without a confirmed waiting time from the tool response, though the board shows them.
+Read-only investigation dispatched as implementation-1-followup-1 before any fix.
