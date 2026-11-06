@@ -291,3 +291,13 @@ Needs `node` and `npm`; the checkout is the candidate worktree. Not covered: a r
 
 ### Summary
 Recommend PASSED at 6fcce94: AC-1 and all six clauses observed on Paseo 0.15.2 at 1280 and 400 px, tests and typecheck green, four falsifiers each fail as named, built docs carry the new heading and no page went stale, design director's eight MINORs all declined and upheld. Open for FO: F3 (dispatch records), and the two Polish items; no Material finding.
+
+## UAT
+
+UAT (Captain, 2026-11-06): OK — 「ＯＫ」
+Asked: FO asked for the UAT of batch r1b-polish-1 after merging #71, #72, #73 and #75 and reloading the live plugin (「回「OK」或問題」): a real-environment check of the Started-without line and a no-regression check of the field picker and Test; his 「ＯＫ」 answers all four tasks.
+Cost: Captain messages 6, shared across batch r1b-polish-1; worker tokens not measured (reported: ideation 275202, implementation 143518, validation 154085)
+
+### Local extension doc-site (round 4)
+
+Asked: as round 3. Caught: nothing stale; the built Reference page carries the new troubleshooting heading; validation F1 found the new sentence says "field list" where the screen says Add a variable, declined to the follow-up docs PR. Cost: one capture run and one site build, no extra cycle. By hand: FO wrote both lines into the checklists.
