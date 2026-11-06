@@ -1,0 +1,24 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import { createHash } from 'node:crypto';
+const wt=process.argv[2], require=createRequire(wt+'/spacedock-bridge/package.json');
+const archive=fs.readFileSync('/Applications/Paseo.app/Contents/Resources/app.asar');
+const size=archive.readUInt32LE(4), header=JSON.parse(archive.subarray(16,16+archive.readUInt32LE(12)).toString());
+const path='node_modules/@getpaseo/server/dist/server/server/agent/timeline-projection.js';
+let node=header;for(const part of path.split('/'))node=node.files[part];
+const code=archive.subarray(8+size+Number(node.offset),8+size+Number(node.offset)+node.size).toString();
+const adapted=code.replaceAll(/from "(@getpaseo\/protocol\/[^\"]+)"/g,(_,name)=>{
+ let n=header;for(const part of ('node_modules/@getpaseo/protocol/dist/'+name.split('/').at(-1)+'.js').split('/'))n=n.files[part];
+ const dep=archive.subarray(8+size+Number(n.offset),8+size+Number(n.offset)+n.size);
+ return 'from '+JSON.stringify('data:text/javascript;base64,'+dep.toString('base64'));
+});
+const {TimelineProjection}=await import('data:text/javascript;base64,'+Buffer.from(adapted).toString('base64'));
+const projection=new TimelineProjection([0,1,2].map(seq=>({seq,timestamp:'2026-11-05T10:00:00Z',item:{type:seq===1?'user_message':'assistant_message',text:'Row '+seq}})));
+const query={bounds:{minSeq:0,maxSeq:2,nextSeq:3},direction:'after',limit:1};
+assert.deepEqual(projection.selectPage(query).entries.map(e=>e.seqStart),[0]);
+assert.deepEqual(projection.selectPage({...query,limit:2}).entries.map(e=>e.seqStart),[0,1]);
+assert.deepEqual(projection.selectPage({...query,cursorSeq:0}).entries.map(e=>e.seqStart),[1]);
+assert.deepEqual(projection.selectPage({...query,direction:'before',cursorSeq:0,limit:2}).entries,[]);
+console.log(JSON.stringify({archive:'/Applications/Paseo.app/Contents/Resources/app.asar',module:path,sha256:createHash('sha256').update(code).digest('hex'),assertions:4,cursorlessAfter:[0],clampedAfterZero:[1],scope:'Installed page selector exercised without daemon, credential, provider or live access; not a full canonical RPC proof.'},null,2));

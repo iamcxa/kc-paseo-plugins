@@ -1,0 +1,196 @@
+TAP version 13
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 1ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 0ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# Subtest: sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor
+ok 1 - sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor
+  ---
+  duration_ms: 20.2105
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read
+ok 2 - Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 1.570125
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read
+ok 3 - Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 1.290542
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read
+ok 4 - Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 0.830084
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read
+ok 5 - Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 0.689416
+  type: 'test'
+  ...
+# Subtest: sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes
+ok 6 - sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes
+  ---
+  duration_ms: 0.614666
+  type: 'test'
+  ...
+# gates.read \#9 start dirs=0
+# gates.read \#9 done 0ms
+# Subtest: Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning
+ok 7 - Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 402.0945
+  type: 'test'
+  ...
+# gates.read \#10 start dirs=0
+# gates.read \#10 done 0ms
+# Subtest: Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning
+ok 8 - Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 259.826083
+  type: 'test'
+  ...
+# gates.read \#11 start dirs=0
+# gates.read \#11 done 0ms
+# Subtest: Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning
+ok 9 - Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 281.548708
+  type: 'test'
+  ...
+# gates.read \#12 start dirs=0
+# gates.read \#12 done 0ms
+# Subtest: Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning
+ok 10 - Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 268.340167
+  type: 'test'
+  ...
+# gates.read \#13 start dirs=0
+# gates.read \#13 done 0ms
+# Subtest: Replay before: source-throw is a whole failure, never an unverifiable context with a side warning
+ok 11 - Replay before: source-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 247.81175
+  type: 'test'
+  ...
+# gates.read \#14 start dirs=0
+# gates.read \#14 done 0ms
+# Subtest: Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning
+ok 12 - Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 237.343
+  type: 'test'
+  ...
+# gates.read \#15 start dirs=0
+# gates.read \#15 done 0ms
+# Subtest: Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning
+ok 13 - Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 234.8975
+  type: 'test'
+  ...
+# gates.read \#16 start dirs=0
+# gates.read \#16 done 0ms
+# Subtest: Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning
+ok 14 - Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 238.456542
+  type: 'test'
+  ...
+# gates.read \#17 start dirs=0
+# gates.read \#17 done 0ms
+# Subtest: Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning
+ok 15 - Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 236.435125
+  type: 'test'
+  ...
+# gates.read \#18 start dirs=0
+# gates.read \#18 done 0ms
+# Subtest: Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning
+ok 16 - Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 239.607208
+  type: 'test'
+  ...
+# gates.read \#19 start dirs=0
+# gates.read \#19 done 0ms
+# Subtest: Replay after: source-throw is a whole failure, never an unverifiable context with a side warning
+ok 17 - Replay after: source-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 234.471291
+  type: 'test'
+  ...
+# gates.read \#20 start dirs=0
+# gates.read \#20 done 0ms
+# Subtest: Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning
+ok 18 - Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 231.729084
+  type: 'test'
+  ...
+# gates.read \#21 start dirs=0
+# gates.read \#21 done 0ms
+# Subtest: initial anchor throw is globally unavailable
+ok 19 - initial anchor throw is globally unavailable
+  ---
+  duration_ms: 231.878417
+  type: 'test'
+  ...
+# gates.read \#22 start dirs=0
+# gates.read \#22 done 0ms
+# Subtest: initial anchor null is globally unavailable
+ok 20 - initial anchor null is globally unavailable
+  ---
+  duration_ms: 239.860709
+  type: 'test'
+  ...
+# gates.read \#23 start dirs=0
+# gates.read \#23 done 0ms
+# Subtest: typed side failures retain verified context; a successful empty page remains end-of-history
+ok 21 - typed side failures retain verified context; a successful empty page remains end-of-history
+  ---
+  duration_ms: 239.5045
+  type: 'test'
+  ...
+# gates.read \#24 start dirs=0
+# gates.read \#24 done 0ms
+# Subtest: a global warning survives pending and failed retries; only verified recovery restores context
+ok 22 - a global warning survives pending and failed retries; only verified recovery restores context
+  ---
+  duration_ms: 238.001709
+  type: 'test'
+  ...
+# Subtest: a superseded paging rejection cannot clear a newly verified Replay
+ok 23 - a superseded paging rejection cannot clear a newly verified Replay
+  ---
+  duration_ms: 238.455125
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5500.362417

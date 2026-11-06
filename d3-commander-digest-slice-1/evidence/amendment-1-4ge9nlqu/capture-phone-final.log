@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 127, in <module>
+    wait(lambda:'來源不可用' in modal_text());failed()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 38, in wait
+    if predicate(): return
+       ^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 127, in <lambda>
+    wait(lambda:'來源不可用' in modal_text());failed()
+                                ^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 117, in modal_text
+    def modal_text():return evaluate('(document.querySelector("dialog[open], [role=dialog], [role=slider][aria-label=\"Bottom Sheet\"]")||document.body).innerText')
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 34, in evaluate
+    def evaluate(code): return json.loads(browser('eval',code))
+                                          ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 33, in browser
+    def browser(*command): return run([args.browser,'--namespace',session,'--session',session,'--config',root/'browser.json',*command],command_env=dict(env,HOME=os.environ['HOME']),timeout=25)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/amendment-1-4ge9nlqu/capture.py", line 31, in run
+    if p.returncode: raise RuntimeError(p.stderr.strip() or p.stdout.strip())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ✗ Evaluation error: SyntaxError: missing ) after argument list

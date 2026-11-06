@@ -1,0 +1,326 @@
+TAP version 13
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 0ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# Subtest: sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor
+not ok 1 - sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor
+  ---
+  duration_ms: 5.204542
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:3423'
+  failureType: 'testCodeFailure'
+  error: ''
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    read (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:17:44)
+    readSource (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/report-sources.ts:23:22)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:45:23)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+# Subtest: Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read
+not ok 2 - Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 0.564417
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:4287'
+  failureType: 'testCodeFailure'
+  error: ''
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    read (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:17:44)
+    Object.refetch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:33:340)
+    <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/digest.ts:12:96)
+    readDigestHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/digest.ts:33:32)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:57:23)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read
+not ok 3 - Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 0.303417
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:4287'
+  failureType: 'testCodeFailure'
+  error: ''
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    read (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:17:44)
+    Object.refetch (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:33:340)
+    <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/digest.ts:12:96)
+    readDigestHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/digest.ts:33:32)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:57:23)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read
+ok 4 - Commander interval starts at 1, 1 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 3.584875
+  type: 'test'
+  ...
+# Subtest: Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read
+ok 5 - Commander interval starts at 1, 2 fragments: digest and Replay use a legal exact-start read
+  ---
+  duration_ms: 0.7995
+  type: 'test'
+  ...
+# Subtest: sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes
+not ok 6 - sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes
+  ---
+  duration_ms: 0.497333
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:4795'
+  failureType: 'testCodeFailure'
+  error: ''
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    Object.read (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:17:44)
+    read (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:70:25)
+    readSource (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/server/report-sources.ts:23:22)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:78:24)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#9 start dirs=0
+# gates.read \#9 done 1ms
+# Subtest: Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning
+not ok 7 - Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 346.065416
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:6797'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /來源不可用/. Input:
+    
+    'Sourced pointA FO · 收集於 2026-11-06T00:43:17.031Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3前段未能讀取更早的對話 · 重試FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Sourced pointA FO · 收集於 2026-11-06T00:43:17.031Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3前段未能讀取更早的對話 · 重試FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  operator: 'match'
+  stack: |-
+    globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#10 start dirs=0
+# gates.read \#10 done 0ms
+# Subtest: Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning
+not ok 8 - Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 241.437375
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:6797'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /來源不可用/. Input:
+    
+    'Sourced pointA FO · 收集於 2026-11-06T00:43:17.378Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3前段未能讀取更早的對話 · 重試FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Sourced pointA FO · 收集於 2026-11-06T00:43:17.378Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3前段未能讀取更早的對話 · 重試FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  operator: 'match'
+  stack: |-
+    globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#11 start dirs=0
+# gates.read \#11 done 0ms
+# Subtest: Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning
+ok 9 - Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 237.386333
+  type: 'test'
+  ...
+# gates.read \#12 start dirs=0
+# gates.read \#12 done 0ms
+# Subtest: Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning
+ok 10 - Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 247.398917
+  type: 'test'
+  ...
+# gates.read \#13 start dirs=0
+# gates.read \#13 done 0ms
+# Subtest: Replay before: source-throw is a whole failure, never an unverifiable context with a side warning
+ok 11 - Replay before: source-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 246.781
+  type: 'test'
+  ...
+# gates.read \#14 start dirs=0
+# gates.read \#14 done 0ms
+# Subtest: Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning
+ok 12 - Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 231.537083
+  type: 'test'
+  ...
+# gates.read \#15 start dirs=0
+# gates.read \#15 done 0ms
+# Subtest: Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning
+not ok 13 - Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 236.131375
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:6797'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /來源不可用/. Input:
+    
+    'Sourced pointA FO · 收集於 2026-11-06T00:43:18.583Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5後段未能讀取更後的對話 · 重試開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Sourced pointA FO · 收集於 2026-11-06T00:43:18.583Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5後段未能讀取更後的對話 · 重試開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  operator: 'match'
+  stack: |-
+    globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#16 start dirs=0
+# gates.read \#16 done 0ms
+# Subtest: Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning
+not ok 14 - Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 236.800041
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:6797'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /來源不可用/. Input:
+    
+    'Sourced pointA FO · 收集於 2026-11-06T00:43:18.819Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5後段未能讀取更後的對話 · 重試開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Sourced pointA FO · 收集於 2026-11-06T00:43:18.819Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5後段未能讀取更後的對話 · 重試開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  operator: 'match'
+  stack: |-
+    globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#17 start dirs=0
+# gates.read \#17 done 0ms
+# Subtest: Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning
+ok 15 - Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 236.440041
+  type: 'test'
+  ...
+# gates.read \#18 start dirs=0
+# gates.read \#18 done 0ms
+# Subtest: Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning
+ok 16 - Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 241.952333
+  type: 'test'
+  ...
+# gates.read \#19 start dirs=0
+# gates.read \#19 done 0ms
+# Subtest: Replay after: source-throw is a whole failure, never an unverifiable context with a side warning
+ok 17 - Replay after: source-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 237.05025
+  type: 'test'
+  ...
+# gates.read \#20 start dirs=0
+# gates.read \#20 done 0ms
+# Subtest: Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning
+ok 18 - Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning
+  ---
+  duration_ms: 233.775125
+  type: 'test'
+  ...
+# gates.read \#21 start dirs=0
+# gates.read \#21 done 0ms
+# Subtest: initial anchor throw is globally unavailable
+ok 19 - initial anchor throw is globally unavailable
+  ---
+  duration_ms: 237.303583
+  type: 'test'
+  ...
+# gates.read \#22 start dirs=0
+# gates.read \#22 done 0ms
+# Subtest: initial anchor null is globally unavailable
+ok 20 - initial anchor null is globally unavailable
+  ---
+  duration_ms: 239.66325
+  type: 'test'
+  ...
+# gates.read \#23 start dirs=0
+# gates.read \#23 done 0ms
+# Subtest: typed side failures retain verified context; a successful empty page remains end-of-history
+ok 21 - typed side failures retain verified context; a successful empty page remains end-of-history
+  ---
+  duration_ms: 237.706958
+  type: 'test'
+  ...
+# gates.read \#24 start dirs=0
+# gates.read \#24 done 0ms
+# Subtest: a global warning survives pending and failed retries; only verified recovery restores context
+not ok 22 - a global warning survives pending and failed retries; only verified recovery restores context
+  ---
+  duration_ms: 237.198708
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:1:8142'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /來源不可用/. Input:
+    
+    'Sourced pointA FO · 收集於 2026-11-06T00:43:20.720Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3正在讀取原文…開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Sourced pointA FO · 收集於 2026-11-06T00:43:20.720Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3正在讀取原文…開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  operator: 'match'
+  stack: |-
+    globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/spacedock-bridge/test/digest-boundaries.test.mts:128:26)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a superseded paging rejection cannot clear a newly verified Replay
+ok 23 - a superseded paging rejection cannot clear a newly verified Replay
+  ---
+  duration_ms: 238.582625
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 14
+# fail 9
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4779.958291

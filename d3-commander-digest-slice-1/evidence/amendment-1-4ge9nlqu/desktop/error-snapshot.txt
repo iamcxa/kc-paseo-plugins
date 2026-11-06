@@ -1,0 +1,82 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "New workspace" [ref=e9]
+              - image
+              - StaticText "New workspace"
+            - button "History" [ref=e10]
+              - image
+              - StaticText "History"
+            - button "Search" [ref=e11]
+              - image
+              - StaticText "Search"
+            - button "Schedules" [ref=e12]
+              - image
+              - StaticText "Schedules"
+            - generic
+              - button "Bridge" [ref=e13]
+                - image
+                - StaticText "Bridge"
+              - generic [ref=e14] clickable [cursor:pointer, onclick, tabindex]
+                - button "1 gates and questions waiting for you" [ref=e17]
+                  - StaticText "1"
+          - generic
+            - generic
+              - StaticText "No projects yet"
+              - StaticText "Add a project to get started"
+            - generic
+              - button "Add project" [ref=e15]
+                - image
+                - StaticText "Add project"
+              - button "Import session" [ref=e16]
+                - image
+                - StaticText "Import session"
+          - generic
+            - button "Add project" [ref=e4]
+              - image
+            - button "Usage" [ref=e5]
+              - image
+            - button "Hosts" [ref=e6]
+              - image
+            - button "Help and support" [expanded=false, ref=e8]
+              - image
+            - button "Settings" [ref=e7]
+              - image
+          - generic [ref=e3] clickable [onclick, tabindex]
+        - generic
+          - generic
+            - button "Close menu" [expanded=true, ref=e18]
+              - image
+          - generic
+            - generic
+              - image
+              - generic
+                - generic [ref=e19] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Add a project"
+                    - StaticText "Open a folder on your machine"
+                - generic [ref=e20] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Import session"
+                    - StaticText "Open a Claude Code, Codex or other session you started in a terminal"
+                - generic [ref=e21] clickable [cursor:pointer, onclick, tabindex]
+                  - image
+                  - generic
+                    - StaticText "Setup providers"
+                    - StaticText "Configure Claude Code, Codex, and more"
+            - generic
+              - button "Star" [ref=e22]
+                - image
+                - StaticText "Star"
+              - button "Sponsor" [ref=e23]
+                - image
+                - StaticText "Sponsor"
+              - button "Community" [ref=e24]
+                - image
+                - StaticText "Community"
+- generic [ref=e2] clickable [onclick]

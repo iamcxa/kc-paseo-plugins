@@ -1,0 +1,34 @@
+{
+  "candidate": "ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43",
+  "stackBase": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "npm test": {
+    "exit": 0,
+    "pass": 403,
+    "log": "npm-test-authorized.log",
+    "sandboxRetry": "initial tsx IPC pipe was denied; same npm test passed after authorized escalation"
+  },
+  "npm run typecheck": {
+    "exit": 0,
+    "log": "typecheck.log"
+  },
+  "comment-ratio": {
+    "exit": 0,
+    "log": "comment-ratio.log"
+  },
+  "number-guards": {
+    "exit": 0,
+    "log": "number-guards.log"
+  },
+  "design-surfaces": {
+    "exit": 0,
+    "log": "design-surfaces.log"
+  },
+  "doc-impact": {
+    "exit": 0,
+    "log": "doc-impact.log"
+  },
+  "adr-lint": {
+    "exit": 0,
+    "log": "adr-lint.log"
+  }
+}

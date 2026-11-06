@@ -1,0 +1,28 @@
+{
+  "baseline": "ccb29f5ac1e4dce03681cc6e86bfc331466446c0",
+  "candidate": "ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43",
+  "test": "spacedock-bridge/test/digest-boundaries.test.mts",
+  "testSha256": "0b463bf0d0e81abc0fe24d196f052b0e8daadf8542814bb37249c4750f1d7e1d",
+  "baselineResult": {
+    "pass": 14,
+    "fail": 9,
+    "log": "before-final.log"
+  },
+  "candidateResult": {
+    "pass": 23,
+    "fail": 0,
+    "log": "after.log"
+  },
+  "method": "Final test bytes were run on unchanged ccb29f5 production files before applying the repair. Passing controls stay passing.",
+  "failures": [
+    "sequence-zero source validates every context ref and Replay reads its first two neighbors without a negative cursor",
+    "Commander interval starts at 0, 1 fragments: digest and Replay use a legal exact-start read",
+    "Commander interval starts at 0, 2 fragments: digest and Replay use a legal exact-start read",
+    "sequence one still reads after zero; zero sources reject epoch, hash, range, gap and missing-row changes",
+    "Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning",
+    "Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning",
+    "Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning",
+    "Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning",
+    "a global warning survives pending and failed retries; only verified recovery restores context"
+  ]
+}
