@@ -56,6 +56,17 @@ gates:
                 id: briefing:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1
                 digest: sha256:4e0593b0463d9c9a60cf165e6516e1ceabbfc2b14ffb30a166ef4fce24be15e3
                 room-ref: ./project-env-journey-map-r1b-catch-up/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-journey-map-r1b-catch-up:validation:1
+                briefing: briefing:project-env-journey-map-r1b-catch-up:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-06T00:45:15.386539Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-11-06, on the batch r1b-polish-1 validation gates presented together (picker-slow-hint faac1b25 PR #72, rate-limit-cause a2fca5f9 PR #73, started-row-visible 05ebb219 PR #75, journey-map-r1b-catch-up 4e0593b0 PR #71), FO having recommended approving all four with the proposed declines and merging #72, #73, #75 in order plus #71, then one plugin reload under ADR 0007 class 2.'
+              application:
+                target-stage: done
+                state: pending
 started: 2026-11-05T08:40:29Z
 ---
 
