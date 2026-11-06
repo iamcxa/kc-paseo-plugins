@@ -371,3 +371,8 @@ The real installed page selector was exercised in-process: cursorless after incl
 ### Summary
 
 Findings 9 and 10 are repaired and pushed under Captain amendment 1; the report does not approve delivery or advance task state. PR #74 remains Draft, main and flywheel-live remain untouched and clean, and AC-4 stays skipped. FO owns RoboRev and the handoff to the Captain; no further repair cycle is authorized here.
+
+## Investigation: roborev 1543
+
+FO ran roborev on ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1543, one Medium finding outside findings 9-10. Under Captain amendment 1 the task now goes to the Captain; no repair is authorized.
+11. server/coordinator.ts replacement persistence: if creating the replacement comms officer succeeds but saving its ids fails, a retry creates another officer; a failed rename leaves the fixed `.pending` file, so later writes fail with EEXIST and each retry creates another orphan replacement.
