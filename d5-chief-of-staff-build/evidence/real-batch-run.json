@@ -1,0 +1,106 @@
+{
+  "startedAt": "2026-11-06T14:52:37.117Z",
+  "daemonPid": 48258,
+  "port": 55479,
+  "fleetPort": 55480,
+  "fictionalSources": true,
+  "modelRetries": 0,
+  "agents": [
+    {
+      "id": "c0842194-8690-4dec-a9a2-e322e8575416",
+      "role": "comms-officer",
+      "provider": "claude",
+      "lastUsage": {
+        "inputTokens": 0,
+        "cachedInputTokens": 0,
+        "outputTokens": 0,
+        "totalCostUsd": 0,
+        "contextWindowMaxTokens": 1000000
+      },
+      "status": "idle",
+      "lastError": null
+    }
+  ],
+  "chief": {
+    "agentId": "c0842194-8690-4dec-a9a2-e322e8575416",
+    "workspaceId": "wks_98249a3ebbde1ece",
+    "created": true,
+    "needsSwitch": false,
+    "previousAgentId": null
+  },
+  "initial": {
+    "agentId": "c0842194-8690-4dec-a9a2-e322e8575416",
+    "total": "0",
+    "phase": "quiet",
+    "batch": null,
+    "focus": null,
+    "entered": false,
+    "soundAttempted": true,
+    "error": null
+  },
+  "trigger": {
+    "agentId": "c0842194-8690-4dec-a9a2-e322e8575416",
+    "total": "4",
+    "phase": "quiet",
+    "batch": null,
+    "focus": null,
+    "entered": false,
+    "soundAttempted": true,
+    "error": null
+  },
+  "last": {
+    "agentId": "c0842194-8690-4dec-a9a2-e322e8575416",
+    "total": "4",
+    "phase": "failed",
+    "batch": {
+      "id": "7e461e470a9c94232bc61cbc594b6c71411af661472c3727c61e5ade04fa3273",
+      "events": [
+        {
+          "key": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]",
+          "version": "8d5d8e06254c992c5e375d6576456ac1a9395b024c3cbc5f0e28cfe8da8a4d0b",
+          "kind": "gate",
+          "title": "Fictional release 1",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "0ef38cb7-e92e-49b0-831c-18d154534de3",
+          "target": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-1\",\"validation\",\"briefing:fictional-1:validation:attempt-1:revision-1\"]"
+        },
+        {
+          "key": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]",
+          "version": "26cc92434d36d7f2e907f64cf98d7311ab23284169fb72e6fa8d3031cfc60537",
+          "kind": "gate",
+          "title": "Fictional release 2",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "8ab13f3d-9757-451b-8543-d313fa638cf3",
+          "target": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-2\",\"validation\",\"briefing:fictional-2:validation:attempt-1:revision-1\"]"
+        },
+        {
+          "key": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]",
+          "version": "9e1bcf88c7d858bcd2b03d2e1c664aa1ab87d73835a369c30f1813b2f45c4c25",
+          "kind": "gate",
+          "title": "Fictional release 3",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "c2a027fc-17a3-40c8-960f-43a97f690fb4",
+          "target": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-3\",\"validation\",\"briefing:fictional-3:validation:attempt-1:revision-1\"]"
+        },
+        {
+          "key": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]",
+          "version": "18be2978260018a9798f1196b80801dc229248c666b660e99e0f7dceb1487d45",
+          "kind": "gate",
+          "title": "Fictional release 4",
+          "since": "2026-11-06T14:48:00.000Z",
+          "agentId": "2302a9cb-59f1-464c-aa44-ab43ee7dfbfa",
+          "target": "[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/d5-isolated-evoigngo/fictional/workflow\",\"fictional-4\",\"validation\",\"briefing:fictional-4:validation:attempt-1:revision-1\"]"
+        }
+      ],
+      "reason": "threshold",
+      "checkedAt": "2026-11-06T14:53:01.983Z",
+      "score": 16
+    },
+    "focus": null,
+    "entered": false,
+    "soundAttempted": true,
+    "error": "Error: Batch could not be prepared; no retry"
+  },
+  "wallMs": 30255.125125,
+  "completedAt": "2026-11-06T14:53:11.066Z"
+}

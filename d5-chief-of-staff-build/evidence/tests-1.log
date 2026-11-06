@@ -1,0 +1,1094 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (0.847458ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.1545ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (0.073292ms)
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✖ unlabelled alone (296.820459ms)
+  ✖ unlabelled with gate (29.153708ms)
+  ✖ unlabelled with review (78.567708ms)
+  ✖ label represents the same reply (30.372417ms)
+  ✖ different labelled question (23.709ms)
+  ✖ unlabelled with gate and review (15.53175ms)
+  ✖ same reply label with gate (20.10175ms)
+  ✖ different label with gate (32.814916ms)
+  ✖ same reply label with review (64.474209ms)
+  ✖ different label with review (126.293166ms)
+  ✖ same reply label with gate and review (47.133792ms)
+  ✖ different label with gate and review (20.36125ms)
+✖ both board views share unread-question rows and counts across waiting-item combinations (1132.805625ms)
+✖ failed board sources reuse guarded reads; FO rows count and open each waiting destination (540.852375ms)
+✖ By FO keeps every FO and each assigned review reachable (458.501583ms)
+✖ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (476.380166ms)
+✖ a sent item never appears under a waiting-on-you claim (1440, decision) (748.686958ms)
+✖ a relayed item never appears under a waiting-on-you claim (1440, decision) (267.781042ms)
+✖ a sent item never appears under a waiting-on-you claim (1440, fo) (235.833208ms)
+✖ a relayed item never appears under a waiting-on-you claim (1440, fo) (181.227667ms)
+✔ an FO with nothing waiting opens only its conversation (1440) (141.277791ms)
+✖ a sent item never appears under a waiting-on-you claim (360, decision) (252.136709ms)
+✖ a relayed item never appears under a waiting-on-you claim (360, decision) (446.723625ms)
+✖ a sent item never appears under a waiting-on-you claim (360, fo) (461.307125ms)
+✖ a relayed item never appears under a waiting-on-you claim (360, fo) (363.549209ms)
+✔ an FO with nothing waiting opens only its conversation (360) (114.409042ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.779209ms)
+✔ an FO with no tab labels is not Tab closed (0.091583ms)
+✔ one true tab keeps an FO open across clients (0.0705ms)
+✔ a running FO is not Tab closed even when every tab is false (0.068958ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.110667ms)
+✔ an unknown tab value does not count as explicitly false (0.075667ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.057875ms)
+✔ Paseo's own permission attention is waiting on Kent (0.047333ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.070417ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.102542ms)
+✔ a new reply whose next step is the Captain's moves to waiting (18.085667ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (0.216958ms)
+✔ a next-owner label decides the group without reading the reply (0.081791ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.047792ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (0.190042ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.106833ms)
+✔ an offline FO with no gate waiting is left off the board (0.063458ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (0.056166ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (0.06375ms)
+✔ reopen keeps the confirmed choice and reason (822.953792ms)
+✔ sent and relayed progress survives a comms detour (434.62625ms)
+✔ a recorded item never becomes actionable again (174.094792ms)
+✔ switching items keeps separate drafts and rejects stale actions (346.493583ms)
+✔ errors and progress stay with their own source and owner (448.932792ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (627.616291ms)
+✖ an FO with nothing waiting is reachable from By FO (122.622625ms)
+✖ a recorded item reopens to its result and reason this session and is never actionable (196.379916ms)
+✔ an ordinary message never consumes the gate decision controls (78.88675ms)
+✔ desktop board navigation keeps the commander as the default detail (79.649166ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.462417ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.157917ms)
+✔ waiting time reads in seconds, minutes and hours (0.110125ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.494166ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.113834ms)
+✔ displayed replies join adjacent chunks but a visible tool separates them (0.853459ms)
+✔ hidden agent_message tools do not split a displayed reply; trailing visible tools do (0.196417ms)
+✔ a reconnect detects the last displayed Captain question after earlier FO work (351.141208ms)
+✔ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (77.991875ms)
+✔ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (26.023916ms)
+✔ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (144.872209ms)
+✔ switching coordinators clears the previous question and timestamp while the new connection is pending (17.642291ms)
+✔ native composer follows a keyboard already visible at mount (232.805125ms)
+✔ native composer follows a keyboard frame changes without a show event (7.72225ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (16.902417ms)
+✔ message and reason share a shrinkable scroll area inside keyboard padding (360.145792ms)
+✔ Enter sends the typed text to the FO and clears the box (0.97075ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.51925ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.108917ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.631333ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (1.498917ms)
+✔ a chip refusal keeps the draft (0.156959ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (1.057875ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.292542ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.011917ms)
+✔ 准 goes through with an empty box, via the chief of staff (0.277417ms)
+✖ a decision chip sends the typed text as the reason (0.853208ms)
+✔ a second decision on the same briefing is refused and sends nothing (0.112958ms)
+✔ a failed send releases the claim and rethrows (0.307542ms)
+✔ a changed briefing refuses before claiming (0.084167ms)
+✔ an unloaded briefing refuses (0.07125ms)
+✔ polling a newer open briefing ignores the older briefing's resolution (322.667083ms)
+✔ message never decides (1.250333ms)
+✔ decision uses only its reason (0.672166ms)
+✔ both actions keep the other draft (0.531584ms)
+✔ a changed briefing or officer cannot receive a stale action (0.384167ms)
+✔ pending, failure and duplicate presses keep existing behavior (1.574333ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (0.890542ms)
+✔ mounted composers follow store updates, target changes and unsubscription (319.857875ms)
+✔ mounted composer reflects delayed send: clear (21.512125ms)
+✔ mounted composer reflects delayed send: edit (11.472292ms)
+✔ mounted composer reflects delayed send: refuse (40.233ms)
+✔ mounted composer reflects delayed decision: clear (28.051584ms)
+✔ mounted composer reflects delayed decision: edit (10.567875ms)
+✔ mounted composer reflects delayed decision: refuse (10.744916ms)
+✔ reopening a pending send blocks button and Enter until success (56.042333ms)
+✔ reopening a pending send blocks button and Enter until failure (19.914084ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (0.600417ms)
+✔ a chief of staff seed fills an empty draft and preserves non-empty text (0.092042ms)
+✔ stored draft clears after successful send (0.632542ms)
+✔ stored draft survives refused send (0.093875ms)
+✔ stored draft clears after successful decision (0.122708ms)
+✔ stored draft survives refused decision (0.063167ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (0.482041ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.16925ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.574333ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (1.868333ms)
+✔ the FO source stays loading until every question read settles (47.798209ms)
+✔ a failed FO question read marks the source incomplete and keeps successful questions (19.077625ms)
+✔ a recorded gate does not suppress a new implementation attempt of the same task (1180.376792ms)
+✔ a recorded gate does not suppress a new validation attempt of the same task (229.497125ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (throw) (96.065917ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (answer) (94.895166ms)
+✔ a retained active attempt never adopts its replacement's briefing (77.987792ms)
+✔ a late failure from the first read cannot overwrite a successful reopen (60.212166ms)
+✔ identical slugs in two workflows keep separate recipients (1076.333708ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (213.361541ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (152.580375ms)
+gates.read #1 start dirs=2
+gates.read #1 done 429ms
+gates.read #2 start dirs=2
+gates.read #2 done 147ms
+gates.read #3 start dirs=2
+gates.read #3 done 210ms
+✔ each active briefing identity survives the server, RPC schema, attachment and queue (936.139916ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-EVVT8r: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-EVVT8r --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-EVVT8r --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 422ms
+gates.read #2 start dirs=1
+gates.read #2 done 50ms
+gates.read #3 start dirs=1
+gates.read #3 done 2ms
+gates.read #4 start dirs=1
+gates.read #4 done 44ms
+gates.read #5 start dirs=1
+gates.read #5 done 3ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (583.92225ms)
+gates.read #6 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:131:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/gate-sources.test.mts:44:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+}
+gates.read #6 done 349ms
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:105:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:116:45)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/gate-sources.test.mts:48:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+}
+gates.read #7 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:131:12)
+    at async chiefBoard (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/chief.ts:28:17)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/fleet-mcp.ts:37:17)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/gate-sources.test.mts:58:22) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+}
+gates.read #7 done 6ms
+gates.read #8 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/tasks.ts:131:12)
+    at async chiefBoard (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/chief.ts:28:17)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/server/fleet-mcp.ts:37:17)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/gate-sources.test.mts:58:22) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-z2heK0/removed/README.md'
+}
+gates.read #8 done 2ms
+✔ a removed workflow does not hide another workflow's gates or tasks (386.769333ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (0.864209ms)
+✔ a resolution is found by the briefing it answered (0.098167ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (118.968458ms)
+✔ a git-root state URI gives the commit and path (0.257542ms)
+✔ status priority covers every waiting kind in LIST-AND-DETAIL (0.492916ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (0.815166ms)
+✔ bold and inline code are split out of a line (0.865791ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.374042ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.17225ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.157667ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.083458ms)
+✔ the last reply joins assistant text after the last user message (0.477917ms)
+✔ a status block's next step is the preview (1.604542ms)
+✔ without a next step the first line is the preview, clipped (0.157959ms)
+✔ a permission shows what it asks for (0.083917ms)
+✔ the next step is the Captain's when it names 你 or you (0.557583ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (0.820625ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.218583ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (487.313459ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 360) (202.649291ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (48.709625ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (82.574ms)
+✔ an identical repeated question gets its own identity and time from its message (38.357209ms)
+✔ an identical repeated question gets its own identity and time from its timestamp (42.974333ms)
+✔ a repeated label question uses its new attention timestamp (29.687792ms)
+✔ an unrelated officer activity update keeps the same question detail (label) (29.490542ms)
+✔ an unrelated officer activity update keeps the same question detail (reply) (30.905375ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (19.560416ms)
+✔ a review with no FO has none (0.132083ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.242625ms)
+✔ an empty queue has no next card and one item has no rows (0.1045ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.148708ms)
+✔ a gate or question has no link to open (0.087125ms)
+✔ a captain question survives alongside the same FO's gate (0.194167ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (0.1885ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (12.593542ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (0.558583ms)
+✔ text already typed joins the chip word as the Captain's words (0.088708ms)
+✔ a decision id is d- and six base-36 characters (0.1145ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.098125ms)
+✔ revise and hold need a typed reason; approve does not (0.083208ms)
+✔ retained surface table: gate briefing × identity changed upstream (346.472791ms)
+✔ retained surface table: gate briefing × failed read then reactivate (92.801375ms)
+✔ retained surface table: gate briefing × failed read then retry control (70.259583ms)
+✔ retained surface table: gate conversation × identity changed upstream (98.518667ms)
+✔ retained surface table: gate conversation × failed read then reactivate (36.088333ms)
+✔ retained surface table: gate conversation × failed read then retry control (25.8845ms)
+✔ retained surface table: assigned review conversation × identity changed upstream (37.03025ms)
+✔ retained surface table: assigned review conversation × failed read then reactivate (29.571584ms)
+✔ retained surface table: assigned review conversation × failed read then retry control (17.2465ms)
+✔ retained surface table: FO conversation × identity changed upstream (29.362208ms)
+✔ retained surface table: FO conversation × failed read then reactivate (27.772458ms)
+✔ retained surface table: FO conversation × failed read then retry control (16.129792ms)
+✔ retained surface table: commander conversation × identity changed upstream (32.055208ms)
+✔ retained surface table: commander conversation × failed read then reactivate (233.846125ms)
+✔ retained surface table: commander conversation × failed read then retry control (226.159042ms)
+✔ retained surface table: decision record × identity changed upstream (103.214208ms)
+✔ retained surface table: decision record × failed read then reactivate (84.998ms)
+✔ retained surface table: decision record × failed read then retry control (56.917083ms)
+✔ retained surface table: relay status × identity changed upstream (63.608167ms)
+✔ retained surface table: relay status × failed read then reactivate (35.422083ms)
+✔ retained surface table: relay status × failed read then retry control (21.595167ms)
+✔ retained surface table: commander question × identity changed upstream (24.868416ms)
+✔ retained surface table: commander question × failed read then reactivate (221.504333ms)
+✔ retained surface table: commander question × failed read then retry control (217.750125ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (20.063875ms)
+✔ retained surface table: gate briefing × unresolved read then reactivate (19.078042ms)
+✔ retained surface table: gate conversation × unresolved read then reactivate (19.649625ms)
+✔ retained surface table: assigned review conversation × unresolved read then reactivate (21.018708ms)
+✔ retained surface table: FO conversation × unresolved read then reactivate (19.44125ms)
+✔ retained surface table: commander conversation × unresolved read then reactivate (242.906584ms)
+✔ retained surface table: decision record × unresolved read then reactivate (52.488041ms)
+✔ retained surface table: relay status × unresolved read then reactivate (54.255875ms)
+✔ retained surface table: commander question × unresolved read then reactivate (252.452958ms)
+✔ retained subscription: gate × ready failure recovers with draft (46.470625ms)
+✔ retained subscription: gate × event failure recovers with draft (20.332875ms)
+✔ retained subscription: fo × ready failure recovers with draft (16.029458ms)
+✔ retained subscription: fo × event failure recovers with draft (15.483083ms)
+✔ retained subscription: commander × ready failure recovers with draft (23.706792ms)
+✔ retained subscription: commander × event failure recovers with draft (19.072125ms)
+✔ commander connection reader × failed read then reactivate (24.988083ms)
+✔ commander connection reader × failed read then retry control (20.091375ms)
+✔ retained phone board: gates × failed read then reactivate (25.049458ms)
+✔ retained phone board: gates × failed read then retry control (17.662584ms)
+✔ retained phone board: tasks × failed read then reactivate (21.17975ms)
+✔ retained phone board: tasks × failed read then retry control (17.674958ms)
+✔ retained phone board: review source × failed read then reactivate (20.285875ms)
+✔ retained phone board: review source × failed read then retry control (19.473917ms)
+✔ retained phone board: gates × unresolved read then reactivate (20.951792ms)
+✔ retained phone board: gates × unresolved read then retry control (16.037417ms)
+✔ retained phone board: tasks × unresolved read then reactivate (24.1895ms)
+✔ retained phone board: tasks × unresolved read then retry control (19.88225ms)
+✔ retained phone board: review source × unresolved read then reactivate (21.587917ms)
+✔ retained phone board: review source × unresolved read then retry control (19.518584ms)
+✔ retained phone board: FO question reader × failed read then reactivate (19.213125ms)
+✔ retained phone board: FO question reader × failed read then retry control (15.221667ms)
+✔ retained surface table: gate briefing × loaded value changes then reactivate (20.557625ms)
+✔ retained surface table: gate conversation × loaded value changes then reactivate (20.101167ms)
+✔ retained surface table: assigned review conversation × loaded value changes then reactivate (23.415708ms)
+✔ retained surface table: FO conversation × loaded value changes then reactivate (15.347375ms)
+✔ retained surface table: commander conversation × loaded value changes then reactivate (19.994792ms)
+✔ retained surface table: decision record × loaded value changes then reactivate (26.204083ms)
+✔ retained surface table: relay status × loaded value changes then reactivate (51.428958ms)
+✔ retained surface table: commander question × loaded value changes then reactivate (63.480417ms)
+✔ retained surface table: claim released by another client then reopen (87.712917ms)
+✔ retained surface table: refresh read overlaps a local send (null); the local send wins (101.797ms)
+✔ retained surface table: refresh read overlaps a local send (old claim); the local send wins (49.578334ms)
+✔ reactivation refreshes gate closure and recorded results without reviving recorded actions (38.719208ms)
+✔ retained phone board: gates × loaded value changes then reactivate (21.637459ms)
+✔ retained phone board: tasks × loaded value changes then reactivate (22.987084ms)
+✔ retained phone board: review source × loaded value changes then reactivate (22.953875ms)
+✔ retained surface table: briefing refresh overlaps a local send (closed) (26.984958ms)
+✔ retained surface table: briefing refresh overlaps a local send (recorded) (35.765708ms)
+✔ an authoritative released claim clears cached local sent progress on reopen (32.046167ms)
+✔ review reader exposes the existing poller's scheduled first check and clears it on stop (364.988625ms)
+✔ gh search output becomes review requests, dropping incomplete rows (9.862125ms)
+✔ only requests not seen before are new (9.51675ms)
+✔ the wake message is marked as automated data and names each pull request (0.331875ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (8.409333ms)
+✔ a well-formed request is exactly one routable line (0.121417ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (0.178ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.136041ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.087625ms)
+✔ Captain counts share status priority and exclude sent, relayed, finished and other waiting kinds (1.116ms)
+✖ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (191.410084ms)
+✖ popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board (8.722041ms)
+✖ label opens Bridge directly and Chief of staff questions are read without creating a coordinator (216.695791ms)
+✖ loading gates show a question mark and an incomplete note before any Bridge screen mounts (7.386334ms)
+✖ a changed workflow excludes previous gates while loading (7.317542ms)
+✖ a changed workflow excludes previous gates while failed (15.5375ms)
+✖ a successful new workflow read shows only its own gate, owner and Bridge destination (15.756459ms)
+✖ same-workflow refresh keeps its own cached gate during loading and failure (7.247167ms)
+✖ sidebar badge and popover actions use attention theme colors instead of accent (8.287666ms)
+✖ scroll cue follows measured overflow on compact popovers (12.216375ms)
+✖ scroll cue follows measured overflow on wide popovers (13.729417ms)
+✖ empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls (7.627ms)
+✔ a spacedock status answer gives the task's title and stage (1.304ms)
+✔ no matching task or unreadable output gives nothing (0.114917ms)
+✔ only a commissioned workflow README counts as a workflow directory (0.144083ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (0.147625ms)
+ℹ tests 269
+ℹ suites 0
+ℹ pass 230
+ℹ fail 39
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8511.623792
+
+✖ failing tests:
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled alone (296.820459ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with gate (29.153708ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with review (78.567708ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ label represents the same reply (30.372417ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ different labelled question (23.709ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ unlabelled with gate and review (15.53175ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ same reply label with gate (20.10175ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with gate (32.814916ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ same reply label with review (64.474209ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with review (126.293166ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ same reply label with gate and review (47.133792ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-question-preview.test.mts:54:37
+✖ different label with gate and review (20.36125ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:50)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:64:13)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-question-preview.test.mts:54:29)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-retry.test.mts:10:1
+✖ failed board sources reuse guarded reads; FO rows count and open each waiting destination (540.852375ms)
+  TypeError: Cannot read properties of undefined (reading 'textContent')
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-retry.test.mts:73:107)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-review-owner.test.mts:10:1
+✖ By FO keeps every FO and each assigned review reachable (458.501583ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-review-owner.test.mts:44:47)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-review-owner.test.mts:44:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-row-bounds.test.mts:10:1
+✖ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (476.380166ms)
+  TypeError: Cannot read properties of undefined (reading 'click')
+      at <anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-row-bounds.test.mts:82:25)
+      at process.env.NODE_ENV.exports.act (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/react/cjs/react.development.js:789:22)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-row-bounds.test.mts:82:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a sent item never appears under a waiting-on-you claim (1440, decision) (748.686958ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /All 2/. Input:
+  
+  '◉ Chief of staff\n' +
+    'Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:26 PM · 2 open\n' +
+    'Chief of staff\n' +
+    'Board\n' +
+    'Chief of staff · idle\n' +
+    'Open full view\n' +
+    '\n' +
+    'No messages yet\n' +
+    '↑ sends to Chief of staff\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:23:43)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Chief of staff\nChief of staff\nBoard · 2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:26 PM · 2 open\nChief of staff\nBoard\nChief of staff · idle\nOpen full view\n\nNo messages yet\n↑ sends to Chief of staff\n',
+    expected: /All 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a relayed item never appears under a waiting-on-you claim (1440, decision) (267.781042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /All 2/. Input:
+  
+  '◉ Chief of staff\n' +
+    'Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:26 PM · 2 open\n' +
+    'Chief of staff\n' +
+    'Board\n' +
+    'Chief of staff · idle\n' +
+    'Open full view\n' +
+    '\n' +
+    'No messages yet\n' +
+    '↑ sends to Chief of staff\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:23:43)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Chief of staff\nChief of staff\nBoard · 2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:26 PM · 2 open\nChief of staff\nBoard\nChief of staff · idle\nOpen full view\n\nNo messages yet\n↑ sends to Chief of staff\n',
+    expected: /All 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a sent item never appears under a waiting-on-you claim (1440, fo) (235.833208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /1 waiting/. Input:
+  
+  '◉ Chief of staff\n' +
+    'Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:26 PM · 2 open\n' +
+    'Chief of staff\n' +
+    'Board\n' +
+    'Chief of staff · idle\n' +
+    'Open full view\n' +
+    '\n' +
+    'No messages yet\n' +
+    '↑ sends to Chief of staff\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:24:21)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Chief of staff\nChief of staff\nBoard · 2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:26 PM · 2 open\nChief of staff\nBoard\nChief of staff · idle\nOpen full view\n\nNo messages yet\n↑ sends to Chief of staff\n',
+    expected: /1 waiting/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a relayed item never appears under a waiting-on-you claim (1440, fo) (181.227667ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /1 waiting/. Input:
+  
+  '◉ Chief of staff\n' +
+    'Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:27 PM · 2 open\n' +
+    'Chief of staff\n' +
+    'Board\n' +
+    'Chief of staff · idle\n' +
+    'Open full view\n' +
+    '\n' +
+    'No messages yet\n' +
+    '↑ sends to Chief of staff\n'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:24:21)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '◉ Chief of staff\nChief of staff\nBoard · 2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:27 PM · 2 open\nChief of staff\nBoard\nChief of staff · idle\nOpen full view\n\nNo messages yet\n↑ sends to Chief of staff\n',
+    expected: /1 waiting/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a sent item never appears under a waiting-on-you claim (360, decision) (252.136709ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /All 2/. Input:
+  
+  '← Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:27 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:23:43)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Chief of staff\nBoard · 2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:27 PM · 2 open',
+    expected: /All 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a relayed item never appears under a waiting-on-you claim (360, decision) (446.723625ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /All 2/. Input:
+  
+  '← Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:28 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:23:43)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Chief of staff\nBoard · 2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:28 PM · 2 open',
+    expected: /All 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a sent item never appears under a waiting-on-you claim (360, fo) (461.307125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /1 waiting/. Input:
+  
+  '← Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for relay\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:28 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:24:21)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Chief of staff\nBoard · 2\n◷ Waiting for relay\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:28 PM · 2 open',
+    expected: /1 waiting/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/board-truthful-presentation.test.mts:8:7
+✖ a relayed item never appears under a waiting-on-you claim (360, fo) (363.549209ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /1 waiting/. Input:
+  
+  '← Chief of staff\n' +
+    'Board · 2\n' +
+    '◷ Waiting for record\n' +
+    'Approve a?\n' +
+    'A FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    '◆ Your turn\n' +
+    'Approve b?\n' +
+    'B FO\n' +
+    'GATE\n' +
+    '77h ago\n' +
+    'A FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'B FO\n' +
+    'waiting on Kent · 77h ago\n' +
+    'Research FO\n' +
+    'idle · 77h ago\n' +
+    '+ New FO\n' +
+    'Gates read 10:46:28 PM · 2 open'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/board-truthful-presentation.test.mts:24:21)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← Chief of staff\nBoard · 2\n◷ Waiting for record\nApprove a?\nA FO\nGATE\n77h ago\n◆ Your turn\nApprove b?\nB FO\nGATE\n77h ago\nA FO\nwaiting on Kent · 77h ago\nB FO\nwaiting on Kent · 77h ago\nResearch FO\nidle · 77h ago\n+ New FO\nGates read 10:46:28 PM · 2 open',
+    expected: /1 waiting/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:105:1
+✖ an FO with nothing waiting is reachable from By FO (122.622625ms)
+  AssertionError [ERR_ASSERTION]: visible control: Filter gate
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/bridge-continuity.test.mts:107:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/bridge-continuity.test.mts:114:1
+✖ a recorded item reopens to its result and reason this session and is never actionable (196.379916ms)
+  AssertionError [ERR_ASSERTION]: visible control: Filter permission
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/bridge-continuity.test.mts:122:11)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/decide.test.mts:54:1
+✖ a decision chip sends the typed text as the reason (0.853208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   '要求修改，先補 CI (d-abc123, via comms officer)'
+  -   '要求修改，先補 CI (d-abc123, via chief of staff)'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/decide.test.mts:60:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ '要求修改，先補 CI (d-abc123, via comms officer)' ],
+    expected: [ '要求修改，先補 CI (d-abc123, via chief of staff)' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:22:1
+✖ sidebar updates without Bridge mounted, hides zero, marks failures, retries and reads claims (191.410084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Bridge\n2'
+  - 'Bridge'
+           ^
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:30:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Bridge\n2',
+    expected: 'Bridge',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:49:1
+✖ popover sorts gates and questions together newest first; item routes to that Bridge detail and Open Bridge to board (8.722041ms)
+  AssertionError [ERR_ASSERTION]: visible control: 3 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:56:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:76:1
+✖ label opens Bridge directly and Chief of staff questions are read without creating a coordinator (216.695791ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(host.find("3 gates and questions waiting for you"))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:81:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:93:1
+✖ loading gates show a question mark and an incomplete note before any Bridge screen mounts (7.386334ms)
+  AssertionError [ERR_ASSERTION]: visible control: Waiting items: sources incomplete
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:95:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:101:44
+✖ a changed workflow excludes previous gates while loading (7.317542ms)
+  AssertionError [ERR_ASSERTION]: visible control: 1 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:110:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:101:44
+✖ a changed workflow excludes previous gates while failed (15.5375ms)
+  AssertionError [ERR_ASSERTION]: visible control: 1 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:110:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:121:1
+✖ a successful new workflow read shows only its own gate, owner and Bridge destination (15.756459ms)
+  AssertionError [ERR_ASSERTION]: visible control: 1 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:132:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:150:1
+✖ same-workflow refresh keeps its own cached gate during loading and failure (7.247167ms)
+  AssertionError [ERR_ASSERTION]: visible control: 1 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:159:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:171:1
+✖ sidebar badge and popover actions use attention theme colors instead of accent (8.287666ms)
+  TypeError: Cannot read properties of undefined (reading 'firstElementChild')
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:175:66)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at test/sidebar-waiting.test.mts:186:38
+✖ scroll cue follows measured overflow on compact popovers (12.216375ms)
+  AssertionError [ERR_ASSERTION]: visible control: 2 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:188:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:186:38
+✖ scroll cue follows measured overflow on wide popovers (13.729417ms)
+  AssertionError [ERR_ASSERTION]: visible control: 2 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:188:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:205:1
+✖ empty next text still counts a Captain-owned question, and only a checked empty fleet hides all count controls (7.627ms)
+  AssertionError [ERR_ASSERTION]: visible control: 1 gates and questions waiting for you
+      at Object.click (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/helpers/bridge-host.mts:100:143)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/test/sidebar-waiting.test.mts:211:14)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

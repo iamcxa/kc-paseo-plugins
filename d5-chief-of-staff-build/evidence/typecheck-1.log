@@ -1,0 +1,9 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 typecheck
+> tsc --noEmit
+
+client/bridge.tsx(81,535): error TS2339: Property 'openScreen' does not exist on type '{ readonly openBrowser?: ((input: { readonly url: string; readonly workspaceId: string; readonly serverId?: string | undefined; }) => void) | undefined; readonly openAgent: (input: { readonly agentId: string; readonly serverId?: string | undefined; }) => void; readonly openWorkspace: (input: { ...; }) => void; }'.
+client/co-chat.tsx(348,3): error TS2554: Expected 1-2 arguments, but got 3.
+test/gate-sources.test.mts(57,49): error TS2554: Expected 1 arguments, but got 2.
+test/gate-sources.test.mts(58,50): error TS2554: Expected 1 arguments, but got 2.
