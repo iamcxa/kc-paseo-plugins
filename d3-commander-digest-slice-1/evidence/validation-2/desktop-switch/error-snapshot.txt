@@ -1,0 +1,128 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "New workspace" [ref=e9]
+              - image
+              - StaticText "New workspace"
+            - button "History" [ref=e10]
+              - image
+              - StaticText "History"
+            - button "Search" [ref=e11]
+              - image
+              - StaticText "Search"
+            - button "Schedules" [ref=e12]
+              - image
+              - StaticText "Schedules"
+            - generic
+              - button "Bridge" [ref=e13]
+                - image
+                - StaticText "Bridge"
+              - generic [ref=e14] clickable [cursor:pointer, onclick, tabindex]
+                - button "2 gates and questions waiting for you" [ref=e17]
+                  - StaticText "2"
+          - generic
+            - generic
+              - StaticText "No projects yet"
+              - StaticText "Add a project to get started"
+            - generic
+              - button "Add project" [ref=e15]
+                - image
+                - StaticText "Add project"
+              - button "Import session" [ref=e16]
+                - image
+                - StaticText "Import session"
+          - generic
+            - button "Add project" [ref=e4]
+              - image
+            - button "Usage" [ref=e5]
+              - image
+            - button "Hosts" [ref=e6]
+              - image
+            - button "Help and support" [expanded=false, ref=e8]
+              - image
+            - button "Settings" [ref=e7]
+              - image
+          - generic [ref=e3] clickable [onclick, tabindex]
+        - generic
+          - generic
+            - StaticText "Bridge"
+            - generic "Close plugin" [ref=e18] clickable [cursor:pointer, onclick, tabindex]
+              - image
+          - generic
+            - generic
+              - button "Commander" [ref=e19]
+                - StaticText "◉ Commander"
+                - StaticText "Comms officer"
+                - generic
+                  - StaticText "◆ Your turn · 18h ago"
+                - StaticText "Choose the fictional direction (you)"
+              - generic
+                - generic
+                  - StaticText "Board · 2"
+                - generic
+                  - tab "By decision" [ref=e21]
+                    - StaticText "By decision · 2"
+                  - tab "By FO" [ref=e22]
+                    - StaticText "By FO · 3"
+                - generic
+                  - button "Filter all" [ref=e23]
+                    - generic
+                      - StaticText "All 2"
+                  - button "Filter permission" [ref=e24]
+                    - generic
+                      - StaticText "Permissions 0"
+                  - button "Filter review" [ref=e25]
+                    - generic
+                      - StaticText "Reviews 0"
+                  - button "Filter gate" [ref=e26]
+                    - generic
+                      - StaticText "Gates 1"
+                  - button "Filter ask" [ref=e27]
+                    - generic
+                      - StaticText "Questions 1"
+                - generic
+                  - generic
+                    - StaticText "GATES"
+                    - StaticText "1"
+                  - button "Approve fictional proof? — 試用 FO" [ref=e32]
+                    - StaticText "◆ Your turn"
+                    - StaticText "Approve fictional proof?"
+                    - generic
+                      - StaticText "試用 FO"
+                      - StaticText "GATE"
+                      - StaticText "18h ago"
+                - button "+ New FO" [ref=e28]
+                  - StaticText "+ New FO"
+                - StaticText "Gates read 上午11:50:36 · 1 open"
+            - generic
+              - generic
+                - StaticText "Commander"
+                - button "Board" [ref=e20]
+                  - StaticText "Board"
+              - generic
+                - StaticText "Choose the fictional direction (you)"
+                - generic
+                  - generic
+                    - generic
+                      - StaticText "Comms officer · idle"
+                    - link "Open full view" [ref=e29]
+                      - StaticText "Open full view"
+                  - generic
+                    - StaticText "新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。"
+                    - button "換用新的通訊官" [ref=e30]
+                      - StaticText "換用新的通訊官"
+                    - button "讀取舊通訊官對話" [ref=e31]
+                      - StaticText "讀取舊通訊官對話"
+                  - generic
+                    - StaticText "Discuss fictional next steps"
+                    - StaticText "範例回覆：對話已恢復。 Next: Choose the fictional direction (you)"
+                  - generic
+                    - generic
+                      - StaticText "↑ sends to Comms officer"
+                    - textbox "Message Comms officer" [ref=e33]
+                    - button "Send to Comms officer" [disabled, ref=e34]
+                      - image
+- generic [ref=e2] clickable [onclick]

@@ -1,0 +1,65 @@
+TAP version 13
+# Subtest: an assistant entry still being written is not an exact source
+not ok 1 - an assistant entry still being written is not an exact source
+  ---
+  duration_ms: 6.926625
+  type: 'test'
+  location: '/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation2-mutations-_a55svqk/spacedock-bridge/test/projected-timeline.test.mts:1:8649'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   collapsed: [
+    +     'assistant_merge'
+    +   ],
+    +   item: {
+    +     text: 'Fictional unfinished report',
+    +     type: 'assistant_message'
+    +   },
+    +   provider: 'fixture',
+    +   seqEnd: 6,
+    +   seqStart: 2,
+    +   sourceSeqRanges: [
+    +     {
+    +       endSeq: 6,
+    +       startSeq: 2
+    +     }
+    +   ],
+    +   timestamp: '2026-11-05T10:00:00Z'
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    seqStart: 2
+    seqEnd: 6
+    sourceSeqRanges:
+      0:
+        startSeq: 2
+        endSeq: 6
+    collapsed:
+      0: 'assistant_merge'
+    timestamp: '2026-11-05T10:00:00Z'
+    provider: 'fixture'
+    item:
+      type: 'assistant_message'
+      text: 'Fictional unfinished report'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation2-mutations-_a55svqk/spacedock-bridge/test/projected-timeline.test.mts:58:75)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1113.46825

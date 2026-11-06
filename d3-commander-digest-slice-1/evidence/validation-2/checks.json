@@ -1,0 +1,40 @@
+{
+  "candidate": "7a4dbc057803d791dc5626182636c8e0fc2c2d32",
+  "base": "33952f9b3d02fceab104ba09272d65e432a3d095",
+  "npmCi": {
+    "exit": 0,
+    "log": "npm-ci.log"
+  },
+  "typecheck": {
+    "exit": 0,
+    "log": "typecheck.log"
+  },
+  "tests": {
+    "exit": 0,
+    "passed": 431,
+    "log": "tests-authorized.log"
+  },
+  "mutations": {
+    "detected": 10,
+    "file": "mutations.json"
+  },
+  "livePages": {
+    "loaded": 3,
+    "file": "live-final.json"
+  },
+  "isolatedLifecycle": {
+    "passed": true,
+    "file": "isolated-proof.json",
+    "FOReadBackUsesPinnedRoundFixture": true
+  },
+  "isolatedMergedEdges": {
+    "passed": true,
+    "file": "edge-merged-proof.json"
+  },
+  "captures": {
+    "count": 34,
+    "manifest": "capture-binding.json"
+  },
+  "AC4": "SKIPPED: configurable fleet listener/data directory pending Captain; unmeasured",
+  "roborev": "FO-run, package gap 5"
+}

@@ -1,0 +1,269 @@
+[
+  {
+    "overflow": false,
+    "rows": [
+      {
+        "label": "Back",
+        "rect": {
+          "h": 32,
+          "w": 32,
+          "x": 12,
+          "y": 20
+        },
+        "text": ""
+      },
+      {
+        "label": "Board",
+        "rect": {
+          "h": 44,
+          "w": 45.375,
+          "x": 302.625,
+          "y": 64
+        },
+        "text": "Board"
+      },
+      {
+        "label": null,
+        "rect": {
+          "h": 15,
+          "w": 80.234375,
+          "x": 267.765625,
+          "y": 137
+        },
+        "text": "Open full view"
+      },
+      {
+        "label": "換用新的通訊官",
+        "rect": {
+          "h": 20,
+          "w": 328,
+          "x": 16,
+          "y": 198
+        },
+        "text": "換用新的通訊官"
+      },
+      {
+        "label": "讀取舊通訊官對話",
+        "rect": {
+          "h": 17,
+          "w": 328,
+          "x": 16,
+          "y": 226
+        },
+        "text": "讀取舊通訊官對話"
+      },
+      {
+        "label": "Send to Comms officer",
+        "rect": {
+          "h": 30,
+          "w": 30,
+          "x": 310,
+          "y": 730
+        },
+        "text": ""
+      }
+    ],
+    "text": "Bridge\nCommander\nBoard\nChoose the fictional direction (you)\nComms officer · idle\nOpen full view\n新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。\n換用新的通訊官\n讀取舊通訊官對話\nDiscuss fictional next steps\n範例回覆：對話已恢復。 Next: Choose the fictional direction (you)\n↑ sends to Comms officer",
+    "state": "switch-offer",
+    "width": 360,
+    "active": null
+  },
+  {
+    "overflow": false,
+    "rows": [
+      {
+        "label": "Back",
+        "rect": {
+          "h": 32,
+          "w": 32,
+          "x": 12,
+          "y": 20
+        },
+        "text": ""
+      },
+      {
+        "label": "Board",
+        "rect": {
+          "h": 44,
+          "w": 45.375,
+          "x": 302.625,
+          "y": 64
+        },
+        "text": "Board"
+      },
+      {
+        "label": null,
+        "rect": {
+          "h": 15,
+          "w": 80.234375,
+          "x": 267.765625,
+          "y": 137
+        },
+        "text": "Open full view"
+      },
+      {
+        "label": "換用新的通訊官",
+        "rect": {
+          "h": 20,
+          "w": 328,
+          "x": 16,
+          "y": 198
+        },
+        "text": "換用新的通訊官"
+      },
+      {
+        "label": "讀取舊通訊官對話",
+        "rect": {
+          "h": 17,
+          "w": 328,
+          "x": 16,
+          "y": 226
+        },
+        "text": "讀取舊通訊官對話"
+      },
+      {
+        "label": "Send to Comms officer",
+        "rect": {
+          "h": 30,
+          "w": 30,
+          "x": 310,
+          "y": 730
+        },
+        "text": ""
+      },
+      {
+        "label": "Bottom sheet backdrop",
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 0,
+          "y": 0
+        },
+        "text": ""
+      },
+      {
+        "label": "Close",
+        "rect": {
+          "h": 32,
+          "w": 32,
+          "x": 304,
+          "y": 313
+        },
+        "text": ""
+      },
+      {
+        "label": "確認換用並封存舊官",
+        "rect": {
+          "h": 20,
+          "w": 280,
+          "x": 40,
+          "y": 478
+        },
+        "text": "確認換用並封存舊官"
+      },
+      {
+        "label": "取消換用",
+        "rect": {
+          "h": 20,
+          "w": 280,
+          "x": 40,
+          "y": 514
+        },
+        "text": "取消"
+      }
+    ],
+    "text": "Bridge\nCommander\nBoard\nChoose the fictional direction (you)\nComms officer · idle\nOpen full view\n新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。\n換用新的通訊官\n讀取舊通訊官對話\nDiscuss fictional next steps\n範例回覆：對話已恢復。 Next: Choose the fictional direction (you)\n↑ sends to Comms officer\n確認換用新通訊官\n新通訊官只讀既有回報產生摘要，不催問 FO。確認後建立新官並封存舊官；舊對話保留。\n確認換用並封存舊官\n取消",
+    "state": "switch-confirm",
+    "width": 360,
+    "active": "換用新的通訊官"
+  },
+  {
+    "overflow": false,
+    "rows": [
+      {
+        "label": "Back",
+        "rect": {
+          "h": 32,
+          "w": 32,
+          "x": 12,
+          "y": 20
+        },
+        "text": ""
+      },
+      {
+        "label": "Board",
+        "rect": {
+          "h": 44,
+          "w": 45.375,
+          "x": 302.625,
+          "y": 64
+        },
+        "text": "Board"
+      },
+      {
+        "label": null,
+        "rect": {
+          "h": 15,
+          "w": 80.234375,
+          "x": 267.765625,
+          "y": 137
+        },
+        "text": "Open full view"
+      },
+      {
+        "label": "立即收集",
+        "rect": {
+          "h": 20,
+          "w": 328,
+          "x": 16,
+          "y": 173
+        },
+        "text": "立即收集"
+      },
+      {
+        "label": "讀取舊通訊官對話",
+        "rect": {
+          "h": 17,
+          "w": 328,
+          "x": 16,
+          "y": 201
+        },
+        "text": "讀取舊通訊官對話"
+      },
+      {
+        "label": "Send to Comms officer",
+        "rect": {
+          "h": 30,
+          "w": 30,
+          "x": 310,
+          "y": 730
+        },
+        "text": ""
+      },
+      {
+        "label": "Bottom sheet backdrop",
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 0,
+          "y": 0
+        },
+        "text": ""
+      },
+      {
+        "label": "Close",
+        "rect": {
+          "h": 32,
+          "w": 32,
+          "x": 304,
+          "y": 313
+        },
+        "text": ""
+      }
+    ],
+    "text": "Bridge\nCommander\nBoard\nChoose the fictional direction (you)\nComms officer · idle\nOpen full view\n立即收集\n讀取舊通訊官對話\nDiscuss fictional next steps\n範例回覆：對話已恢復。 Next: Choose the fictional direction (you)\n↑ sends to Comms officer\n舊通訊官 · 唯讀對話\nPrevious comms officer · idle\nDiscuss fictional next steps\n舊通訊官的範例對話仍然可讀。",
+    "state": "old-conversation-after-switch",
+    "width": 360,
+    "active": "讀取舊通訊官對話"
+  }
+]

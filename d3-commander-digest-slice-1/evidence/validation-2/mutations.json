@@ -1,0 +1,132 @@
+[
+  {
+    "mutation": "wrong-round",
+    "file": "server/report-sources.ts",
+    "from": "parsed.data.roundId !== round.roundId || ",
+    "to": "",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "reject round without exposing unverified text"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "foreign-source",
+    "file": "server/report-sources.ts",
+    "from": "members.has(key) ? readSource",
+    "to": "true ? readSource",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "reject foreign without exposing unverified text"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "hash-mismatch",
+    "file": "server/report-sources.ts",
+    "from": "sourceKey(reportSource(hostId, source.agentId, page.epoch, entry) ?? { ...source, textHash: \"\" }) !== sourceKey(source)",
+    "to": "false",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "independent exact membership still refuses changed read-back hash"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "missing-line-ref",
+    "file": "shared/digest.ts",
+    "from": "refs: z.array(sourceSchema).min(1).max(12)",
+    "to": "refs: z.array(sourceSchema).min(0).max(12)",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "reject missing without exposing unverified text"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "agent-notice-ends-collection",
+    "file": "shared/commander-replies.ts",
+    "from": "&& !parseEnvelope(text)",
+    "to": "",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "collection provenance survives agent-notification before malformed output"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "rejected-question-reader",
+    "file": "client/use-co-ask.ts",
+    "from": " && last.provenance === \"ordinary\"",
+    "to": "",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "no rejected collection prose question in desktop card and header after none"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "refuse-merged-entry",
+    "file": "shared/timeline.ts",
+    "from": "return sequence(entry.seqStart)",
+    "to": "return entry.seqStart === entry.seqEnd && sequence(entry.seqStart)",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "projected first is a healthy page without fabricated singleton sequences"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "refuse-collapsed-entry",
+    "file": "shared/timeline.ts",
+    "from": "Array.isArray(entry.collapsed) &&",
+    "to": "Array.isArray(entry.collapsed) && entry.collapsed.length === 0 &&",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "a projected source hashes the entire merged entry and Replay pages by display entries"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "accept-writing-source",
+    "file": "server/report-sources.ts",
+    "from": "entryIsWriting(page, entry) || ",
+    "to": "",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "an assistant entry still being written is not an exact source"
+    ],
+    "detected": true
+  },
+  {
+    "mutation": "no-identical-completion-reread",
+    "file": "client/use-verification.ts",
+    "from": "if (cancelled || disconnected || !connected) return;",
+    "to": "if (true) return;",
+    "baseline_exit": 0,
+    "baseline_tests": 1,
+    "mutant_exit": 1,
+    "failed_tests": [
+      "Commander turn_completed re-verifies identical completed content without a click"
+    ],
+    "detected": true
+  }
+]

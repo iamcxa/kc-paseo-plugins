@@ -1,0 +1,18 @@
+TAP version 13
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 1ms
+# Subtest: Commander turn_completed re-verifies identical completed content without a click
+ok 1 - Commander turn_completed re-verifies identical completed content without a click
+  ---
+  duration_ms: 1677.841959
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3899.347583

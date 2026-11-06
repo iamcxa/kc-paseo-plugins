@@ -1,0 +1,109 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "New workspace" [ref=e9]
+              - image
+              - StaticText "New workspace"
+            - button "History" [ref=e10]
+              - image
+              - StaticText "History"
+            - button "Search" [ref=e11]
+              - image
+              - StaticText "Search"
+            - button "Schedules" [ref=e12]
+              - image
+              - StaticText "Schedules"
+            - generic
+              - button "Bridge" [ref=e13]
+                - image
+                - StaticText "Bridge"
+              - generic [ref=e14] clickable [cursor:pointer, onclick, tabindex]
+                - button "1 gates and questions waiting for you" [ref=e17]
+                  - StaticText "1"
+          - generic
+            - generic
+              - StaticText "No projects yet"
+              - StaticText "Add a project to get started"
+            - generic
+              - button "Add project" [ref=e15]
+                - image
+                - StaticText "Add project"
+              - button "Import session" [ref=e16]
+                - image
+                - StaticText "Import session"
+          - generic
+            - button "Add project" [ref=e4]
+              - image
+            - button "Usage" [ref=e5]
+              - image
+            - button "Hosts" [ref=e6]
+              - image
+            - button "Help and support" [expanded=false, ref=e8]
+              - image
+            - button "Settings" [ref=e7]
+              - image
+          - generic [ref=e3] clickable [onclick, tabindex]
+        - generic
+          - generic
+            - StaticText "Bridge"
+            - generic "Close plugin" [ref=e18] clickable [cursor:pointer, onclick, tabindex]
+              - image
+          - generic
+            - generic
+              - button "Commander" [ref=e19]
+                - StaticText "◉ Commander"
+                - StaticText "Comms officer"
+                - generic
+                  - StaticText "◆ Your turn · 18h ago"
+                - StaticText "Choose the fictional direction (you)"
+              - generic
+                - generic
+                  - StaticText "Board · 2"
+                - generic
+                  - tab "By decision" [ref=e22]
+                    - StaticText "By decision · 2"
+                  - tab "By FO" [ref=e23]
+                    - StaticText "By FO · 3"
+                - generic
+                  - button "Filter all" [ref=e24]
+                    - generic
+                      - StaticText "All 2"
+                  - button "Filter permission" [ref=e25]
+                    - generic
+                      - StaticText "Permissions 0"
+                  - button "Filter review" [ref=e26]
+                    - generic
+                      - StaticText "Reviews 0"
+                  - button "Filter gate" [ref=e27]
+                    - generic
+                      - StaticText "Gates 1"
+                  - button "Filter ask" [ref=e28]
+                    - generic
+                      - StaticText "Questions 1"
+                - generic
+                  - generic
+                    - StaticText "GATES"
+                    - StaticText "1"
+                  - button "Approve fictional proof? — 試用 FO" [ref=e30]
+                    - StaticText "◆ Your turn"
+                    - StaticText "Approve fictional proof?"
+                    - generic
+                      - StaticText "試用 FO"
+                      - StaticText "GATE"
+                      - StaticText "18h ago"
+                - button "+ New FO" [ref=e29]
+                  - StaticText "+ New FO"
+                - StaticText "Gates read 上午11:46:54 · 1 open"
+            - generic
+              - generic
+                - button "Back to Commander" [ref=e20]
+                  - StaticText "← Commander"
+                - button "Board" [ref=e21]
+                  - StaticText "Board"
+              - generic
+                - StaticText "Choose an item"
+                - StaticText "Its detail and conversation open here."
+- generic [ref=e2] clickable [onclick]

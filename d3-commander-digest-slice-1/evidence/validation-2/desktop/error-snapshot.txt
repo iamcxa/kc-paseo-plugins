@@ -1,0 +1,165 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "New workspace" [ref=e15]
+              - image
+              - StaticText "New workspace"
+            - button "History" [ref=e16]
+              - image
+              - StaticText "History"
+            - button "Search" [ref=e17]
+              - image
+              - StaticText "Search"
+            - button "Schedules" [ref=e18]
+              - image
+              - StaticText "Schedules"
+            - generic
+              - button "Bridge" [ref=e19]
+                - image
+                - StaticText "Bridge"
+              - generic [ref=e20] clickable [cursor:pointer, onclick, tabindex]
+                - button "1 gates and questions waiting for you" [ref=e23]
+                  - StaticText "1"
+          - generic
+            - generic
+              - StaticText "No projects yet"
+              - StaticText "Add a project to get started"
+            - generic
+              - button "Add project" [ref=e21]
+                - image
+                - StaticText "Add project"
+              - button "Import session" [ref=e22]
+                - image
+                - StaticText "Import session"
+          - generic
+            - button "Add project" [ref=e10]
+              - image
+            - button "Usage" [ref=e11]
+              - image
+            - button "Hosts" [ref=e12]
+              - image
+            - button "Help and support" [expanded=false, ref=e14]
+              - image
+            - button "Settings" [ref=e13]
+              - image
+          - generic [ref=e9] clickable [onclick, tabindex]
+        - generic
+          - generic
+            - StaticText "Bridge"
+            - generic "Close plugin" [ref=e24] clickable [cursor:pointer, onclick, tabindex]
+              - image
+          - generic
+            - generic
+              - button "Commander" [ref=e25]
+                - StaticText "◉ Commander"
+                - StaticText "Comms officer"
+              - generic
+                - generic
+                  - StaticText "Board · 1"
+                - generic
+                  - tab "By decision" [ref=e27]
+                    - StaticText "By decision · 1"
+                  - tab "By FO" [ref=e28]
+                    - StaticText "By FO · 3"
+                - generic
+                  - button "Filter all" [ref=e29]
+                    - generic
+                      - StaticText "All 1"
+                  - button "Filter permission" [ref=e30]
+                    - generic
+                      - StaticText "Permissions 0"
+                  - button "Filter review" [ref=e31]
+                    - generic
+                      - StaticText "Reviews 0"
+                  - button "Filter gate" [ref=e32]
+                    - generic
+                      - StaticText "Gates 1"
+                  - button "Filter ask" [ref=e33]
+                    - generic
+                      - StaticText "Questions 0"
+                - generic
+                  - generic
+                    - StaticText "GATES"
+                    - StaticText "1"
+                  - button "Approve fictional proof? — 試用 FO" [ref=e38]
+                    - StaticText "◆ Your turn"
+                    - StaticText "Approve fictional proof?"
+                    - generic
+                      - StaticText "試用 FO"
+                      - StaticText "GATE"
+                      - StaticText "18h ago"
+                - button "+ New FO" [ref=e34]
+                  - StaticText "+ New FO"
+                - StaticText "Gates read 上午11:44:58 · 1 open"
+            - generic
+              - generic
+                - StaticText "Commander"
+                - button "Board" [ref=e26]
+                  - StaticText "Board"
+              - generic
+                - generic
+                  - generic
+                    - StaticText "Comms officer · idle"
+                  - link "Open full view" [ref=e35]
+                    - StaticText "Open full view"
+                - generic
+                  - button "立即收集" [ref=e36]
+                    - StaticText "立即收集"
+                  - StaticText "已送出收集 · 2026-11-05T10:00:00Z · 等待摘要；尚未驗證"
+                  - button "讀取舊通訊官對話" [ref=e37]
+                    - StaticText "讀取舊通訊官對話"
+                - generic
+                  - StaticText "立即收集 · 只讀既有回報，等待驗證摘要"
+                  - generic
+                    - StaticText "收集於 2026-11-05T10:00:00Z"
+                    - generic
+                      - StaticText "試用清單已補齊，等你決定是否開始。"
+                      - button "Replay trial" [ref=e41]
+                        - StaticText "Replay · 查看來龍去脈"
+                    - generic
+                      - StaticText "預約確認頁已補上車型，等你確認。"
+                      - button "Replay booking" [ref=e42]
+                        - StaticText "Replay · 查看來龍去脈"
+                    - generic
+                      - StaticText "匯入日期格式尚未定案，需要先選格式。"
+                      - button "Replay import" [ref=e43]
+                        - StaticText "Replay · 查看來龍去脈"
+                - generic
+                  - generic
+                    - StaticText "↑ sends to Comms officer"
+                  - textbox "Message Comms officer" [ref=e39]: Fictional Commander draft retained
+                    - StaticText "Fictional Commander draft retained"
+                  - button "Send to Comms officer" [ref=e40]
+                    - image
+- generic [ref=e2] clickable [onclick]
+  - generic
+    - generic "Dismiss" [ref=e3] clickable [cursor:pointer, onclick, tabindex]
+    - dialog
+      - generic
+        - StaticText "Replay · 來龍去脈"
+        - button "Close" [ref=e4]
+          - image
+      - generic
+        - generic
+          - generic
+            - StaticText "來源不可用；目前無法核對這個摘要的脈絡。"
+            - generic
+              - StaticText "請求的原文 · 試用 FO · #2–6 · 2026-11-05T10:00:00Z"
+            - button "重讀原文" [ref=e5]
+              - StaticText "重讀原文"
+          - StaticText "試用清單已補齊，等你決定是否開始。"
+          - generic
+            - StaticText "試用 FO · 收集於 2026-11-05T10:00:00Z"
+        - StaticText "三行脈絡暫不顯示；不以相似文字替代。"
+        - generic
+          - generic
+            - button "開啟 FO" [ref=e6]
+              - StaticText "開啟 FO"
+            - button "繼續討論" [ref=e7]
+              - StaticText "繼續討論"
+            - button "回覆新決定" [ref=e8]
+              - StaticText "回覆新決定"
+          - StaticText "回 Commander 編輯後才送出；關卡仍須另行選取與確認。"
