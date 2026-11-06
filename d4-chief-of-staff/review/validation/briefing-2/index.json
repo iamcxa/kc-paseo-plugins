@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:d4-chief-of-staff:validation:attempt-2:revision-1",
+  "question": "照這個方向做，還是有哪裡要改？（幕僚長事件累積才找你：X=3、Y=8、單一關卡等超過 30 分鐘例外；側欄總數變紅跳動加短音；進來談一件具名焦點）",
+  "artifacts": [
+    {
+      "id": "artifact:d4-chief-of-staff:validation:attempt-2:revision-1:item-1",
+      "uri": "git-root://state/162806dd272992519b36791fd7b5dfe81cd0da8b/d4-chief-of-staff.md",
+      "rev": "sha256:2b50939283a065526a20b536ca4050757e894a9645e503ae9fd7be12cc47c22d",
+      "mediaType": "text/markdown",
+      "summary": "Amendment 1 redesign: step A and step B each passed the design director on the first pass after the Captain's threshold ruling; nonblocking gap — the phone return from a call takes two operations (open sidebar, tap count), to draw and correct before code. Sound and pulse use the plugin SDK's sidebar slot and client audio; delivery when the app is paused or closed is not promised."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:d4-chief-of-staff:validation:attempt-2:revision-1:item-2",
+      "uri": "git-root://state/162806dd272992519b36791fd7b5dfe81cd0da8b/d4-chief-of-staff/design/DESIGN.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:0079547283289c67c2c2ceabaacb1b73bfef8bc5d38b7cc5336e0171881826a7"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:d4-chief-of-staff:validation:attempt-2:revision-1:item-3",
+      "uri": "git-root://state/162806dd272992519b36791fd7b5dfe81cd0da8b/d4-chief-of-staff/mockups/REVIEW.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:0a50572755657061ae2471b8888b40757de514d17996a20bfaa83983f43f66a1"
+    }
+  ]
+}

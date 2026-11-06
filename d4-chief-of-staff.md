@@ -43,6 +43,11 @@ gates:
                 at: "2026-11-06T06:31:12.494809Z"
                 decision: revise
                 reason: 'Captain chat 2026-11-06: asked whether the gate is up to date and expected the chief of staff to answer within three to five seconds from board metadata, with a cheap model pre-sorting for her; to the FO''s answer (board re-reads SD every 60 s, staleness unknown until record; the only measured agent turn took 65 s) he chose 「改成兩層，先量小模型多快 (Recommended)」 — revise: Bridge picks the first item by the existing rules without a model, a small model (Haiku 5.5 or GPT-6.1 Terra) words it from the top items'' titles, the Opus chief of staff answers only when he talks to her, gates show their last check time; measure the small model''s real latency first.'
+            - id: gate-attempt:d4-chief-of-staff-validation-2
+              briefing:
+                id: briefing:d4-chief-of-staff:validation:attempt-2:revision-1
+                digest: sha256:1f3c773065636ccf2099771dbd4d1dd3180d13999277b81bd30271287feb2753
+                room-ref: ./d4-chief-of-staff/review/validation/briefing-2
 started: 2026-11-06T04:23:48Z
 worktree: .worktrees/spacedock-ensign-d4-chief-of-staff
 ---
