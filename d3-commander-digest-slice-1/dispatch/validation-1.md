@@ -1,0 +1,19 @@
+Dispatched: from ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 (candidate head; base 33952f9b3d02fceab104ba09272d65e432a3d095)
+Model: codex gpt-6.1-sol, reasoning high (Captain: 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」, chat 2026-10-27)
+Candidate: ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43
+
+## Checklist
+
+Independent verdict on AC-1 for PR #74 at ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43, from your own npm ci / typecheck / test run: your own mutations of the digest validator (accept a wrong round, a foreign source, a hash mismatch, a missing per-line ref), of collection provenance (let an agent notification end a collection; let a rejected collection reply reach the question reader) and of the Replay whole-failure state (keep context lines after a whole-request failure) each make a named test fail; and a sequence-0 source reads back exactly (AC-1)
+Independent verdict on AC-2 and AC-3: your own isolated-host or fixture-host captures at 1440 and 360 of the digest, a Replay with three sourced context lines and the same-FO window, earlier/later, each of the three exits including Open FO arrival and ← Commander return with drafts kept, source unavailable leading the card, and the switch offer, confirm and the old conversation after the switch; your own check that no archive happens without confirm (AC-2, AC-3)
+AC-4 is SKIPPED (the collect-now measurement needs a configurable Bridge fleet port and data directory, outside this task; pending the Captain); record it so, with no cost claim
+
+## Scope notes
+
+Package root: /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0
+Send your completion message to `main`. You run as a Codex agent started through Paseo, so you have no SendMessage tool: finish with a final reply whose first line starts "Done:"; the FO receives Paseo's finish notification.
+
+Candidate: Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/74 (slice 1 of the Commander digest, stacked on PR #69, never merged), branch spacedock-ensign/d3-commander-digest-slice-1, head ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43; base 33952f9b3d02fceab104ba09272d65e432a3d095. FO ran roborev 1532, 1536, 1540 (each investigated, fixed) and 1543 (one Medium on the switch's persistence retry, a Captain-ruled known issue under ### FO declines). Design director SATISFIED on cdc488e captures (review 2). Validate that exact SHA.
+Run package scripts by absolute path only. Report rules: findings under findings, no checklist lines of your own; evidence under /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/validation-1/; /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/number_guards.py R4 failure is known package gap 3 → SKIPPED with that reason.
+roborev not run: the FO runs /Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/extensions/roborev/roborev_gate.py (package gap 5).
+Hard limits: assess, do not repair; no commits to the candidate branch, no PR edits, no merge; never switch branch on, or leave dirty, /Users/kent/Project/kc-paseo-plugins or /Users/kent/Project/kc-paseo-plugins/.worktrees/flywheel-live; the live Paseo daemon may only be read; never start this build where it can reach the live Bridge's files under ~/.local/share/paseo-fo-coordinator, port 6787 or the live daemon; isolated daemon with its own --home on a port outside 6767, 6787 and 6860-6935, stopped by captured PID, home deleted; HOME may stay real only for provider authentication, never read, copy or print credential files; fresh browser profile with localhost blocked; captures one at a time; never kill by pattern; never print agent command lines; never overwrite an existing /tmp file. Write your stage report in the task file and commit with `spacedock state commit d3-commander-digest-slice-1 --workflow-dir /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc`.
