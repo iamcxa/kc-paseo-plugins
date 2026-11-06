@@ -1,0 +1,8 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (0.879959ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.192125ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (0.079375ms)
