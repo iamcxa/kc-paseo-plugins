@@ -1,0 +1,22 @@
+{
+  "processes": [
+    {
+      "creates": 1,
+      "archives": 1,
+      "persisted": {
+        "agentId": "fixture-replacement",
+        "previousAgentId": "fixture-old"
+      }
+    },
+    {
+      "creates": 0,
+      "archives": 1,
+      "persisted": {
+        "agentId": "fixture-replacement",
+        "previousAgentId": "fixture-old"
+      }
+    }
+  ],
+  "path": "~/.local/share/paseo-fo-coordinator/coordinator-switch.json",
+  "meaning": "Replacement IDs survive process exit and are consumed by a separate process."
+}

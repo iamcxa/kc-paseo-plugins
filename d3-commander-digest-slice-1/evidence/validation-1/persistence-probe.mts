@@ -1,0 +1,10 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { homedir } from "node:os";
+import { switchCoordinatorHandler } from "../spacedock-bridge/server/coordinator.ts";
+let creates=0,archives=0;
+const api:any={agents:{ref:()=>({refresh:async()=>({agent:{labels:{role:"comms-officer"},status:"idle"}}),archive:async()=>{archives++}}),create:async()=>{creates++;return {id:"fixture-replacement"}}}};
+const result=await switchCoordinatorHandler(api,{oldAgentId:"fixture-old",confirm:true});
+const persisted=JSON.parse(await readFile(homedir()+"/.local/share/paseo-fo-coordinator/coordinator-switch.json","utf8"));
+assert.deepEqual(result,persisted);assert.deepEqual(persisted,{agentId:"fixture-replacement",previousAgentId:"fixture-old"});
+console.log(JSON.stringify({creates,archives,persisted}));

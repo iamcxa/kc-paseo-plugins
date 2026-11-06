@@ -1,0 +1,32 @@
+[
+  {
+    "name": "comment-ratio",
+    "exit": 0,
+    "output": "code lines 529, comment lines 0, 0.0%\nmaximum 5% (package default) met\n"
+  },
+  {
+    "name": "adr-lint",
+    "exit": 0,
+    "output": "7 ADR file(s) checked, 0 legacy\n"
+  },
+  {
+    "name": "doc-impact",
+    "exit": 0,
+    "output": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n"
+  },
+  {
+    "name": "design-surfaces",
+    "exit": 0,
+    "output": "d3-commander-digest-slice-1.md: design surfaces presentable\nscope check not run: stage is validation, not ideation\n"
+  },
+  {
+    "name": "dispatch-records",
+    "exit": 0,
+    "output": "9 dispatch record(s) complete\n"
+  },
+  {
+    "name": "number-guards",
+    "exit": 0,
+    "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase 53c9ab3c2749 head ee18aa51fb60 merge-base 78ce6c1cbcf1\n"
+  }
+]

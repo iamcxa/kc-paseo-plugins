@@ -1,0 +1,80 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Back" [ref=e11]
+              - image
+            - StaticText "Bridge"
+          - generic
+            - generic
+              - StaticText "Commander"
+              - button "Board" [ref=e12]
+                - StaticText "Board"
+            - generic
+              - generic
+                - generic
+                  - StaticText "Comms officer · idle"
+                - link "Open full view" [ref=e13]
+                  - StaticText "Open full view"
+              - generic
+                - StaticText "新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。"
+                - button "換用新的通訊官" [ref=e14]
+                  - StaticText "換用新的通訊官"
+              - generic
+                - StaticText "立即收集 · 只讀既有回報，等待驗證摘要"
+                - generic
+                  - StaticText "收集於 2026-11-05T10:00:00Z"
+                  - generic
+                    - StaticText "試用清單已補齊，等你決定是否開始。"
+                    - button "Replay trial" [ref=e17]
+                      - StaticText "Replay · 查看來龍去脈"
+                  - generic
+                    - StaticText "預約確認頁已補上車型，等你確認。"
+                    - button "Replay booking" [ref=e18]
+                      - StaticText "Replay · 查看來龍去脈"
+                  - generic
+                    - StaticText "匯入日期格式尚未定案，需要先選格式。"
+                    - button "Replay import" [ref=e19]
+                      - StaticText "Replay · 查看來龍去脈"
+              - generic
+                - generic
+                  - StaticText "↑ sends to Comms officer"
+                - textbox "Message Comms officer" [ref=e15]: 保留的 Commander 草稿
+                  - StaticText "保留的 Commander 草稿"
+                - button "Send to Comms officer" [ref=e16]
+                  - image
+      - generic
+        - generic
+          - button "Bottom sheet backdrop" [ref=e3]
+        - generic
+          - slider "Bottom Sheet" [ref=e4]: 50
+            - generic
+              - generic
+                - StaticText "Replay · 來龍去脈"
+                - button "Close" [ref=e6]
+                  - image
+              - generic
+                - generic
+                  - generic
+                    - StaticText "來源不可用；目前無法核對這個摘要的脈絡。"
+                    - generic
+                      - StaticText "請求的原文 · 試用 FO · #3 · 2026-11-05T10:00:00Z"
+                    - button "重讀原文" [ref=e7]
+                      - StaticText "重讀原文"
+                  - StaticText "試用清單已補齊，等你決定是否開始。"
+                  - generic
+                    - StaticText "試用 FO · 收集於 2026-11-05T10:00:00Z"
+                - StaticText "三行脈絡暫不顯示；不以相似文字替代。"
+                - generic
+                  - generic
+                    - button "開啟 FO" [ref=e8]
+                      - StaticText "開啟 FO"
+                    - button "繼續討論" [ref=e9]
+                      - StaticText "繼續討論"
+                    - button "回覆新決定" [ref=e10]
+                      - StaticText "回覆新決定"
+                  - StaticText "回 Commander 編輯後才送出；關卡仍須另行選取與確認。"
+          - slider "Bottom sheet handle" [ref=e5]: 50
+- generic [ref=e2] clickable [onclick]

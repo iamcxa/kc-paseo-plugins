@@ -1,0 +1,48 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Back" [ref=e3]
+              - image
+            - StaticText "Bridge"
+          - generic
+            - generic
+              - StaticText "Commander"
+              - button "Board" [ref=e4]
+                - StaticText "Board"
+            - generic
+              - generic
+                - generic
+                  - StaticText "Comms officer · idle"
+                - link "Open full view" [ref=e5]
+                  - StaticText "Open full view"
+              - generic
+                - StaticText "新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。"
+                - button "換用新的通訊官" [ref=e6]
+                  - StaticText "換用新的通訊官"
+              - generic
+                - StaticText "立即收集 · 只讀既有回報，等待驗證摘要"
+                - generic
+                  - StaticText "收集於 2026-11-05T10:00:00Z"
+                  - generic
+                    - StaticText "試用清單已補齊，等你決定是否開始。"
+                    - button "Replay trial" [ref=e9]
+                      - StaticText "Replay · 查看來龍去脈"
+                  - generic
+                    - StaticText "預約確認頁已補上車型，等你確認。"
+                    - button "Replay booking" [ref=e10]
+                      - StaticText "Replay · 查看來龍去脈"
+                  - generic
+                    - StaticText "匯入日期格式尚未定案，需要先選格式。"
+                    - button "Replay import" [ref=e11]
+                      - StaticText "Replay · 查看來龍去脈"
+              - generic
+                - generic
+                  - StaticText "↑ sends to Comms officer"
+                - textbox "Message Comms officer" [ref=e7]: 保留的 Commander 草稿
+                  - StaticText "保留的 Commander 草稿"
+                - button "Send to Comms officer" [ref=e8]
+                  - image
+- generic [ref=e2] clickable [onclick]

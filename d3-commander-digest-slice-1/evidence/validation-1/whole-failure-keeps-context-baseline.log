@@ -1,0 +1,44 @@
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning (369.666833ms)
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+✔ Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning (240.815083ms)
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+✔ Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning (242.44925ms)
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+✔ Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning (239.096833ms)
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ Replay before: source-throw is a whole failure, never an unverifiable context with a side warning (245.806084ms)
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+✔ Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning (246.831542ms)
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✔ Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning (258.269792ms)
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+✔ Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning (240.062958ms)
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+✔ Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning (237.74575ms)
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+✔ Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning (239.396792ms)
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+✔ Replay after: source-throw is a whole failure, never an unverifiable context with a side warning (236.438ms)
+✔ Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning (272.635708ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3789.476042

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/validation-1/capture.py", line 98, in <module>
+    browser('open',f'http://127.0.0.1:{port}');browser('set','viewport',1440,1000)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/validation-1/capture.py", line 33, in browser
+    def browser(*command): return run([args.browser,'--namespace',session,'--session',session,'--config',root/'browser.json',*command],command_env=env,timeout=25)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/validation-1/capture.py", line 31, in run
+    if p.returncode: raise RuntimeError(p.stderr.strip() or p.stdout.strip())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ✗ Session name 'd3-766fc43497' is too long. Socket path would be 181 bytes (max 103).
+Use a shorter session name or set AGENT_BROWSER_SOCKET_DIR to a shorter path.

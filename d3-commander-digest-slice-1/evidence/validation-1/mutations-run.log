@@ -1,0 +1,12 @@
+{"mutation": "wrong-round", "file": "server/report-sources.ts", "from": "parsed.data.roundId !== round.roundId || ", "to": "", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+{"mutation": "foreign-source", "file": "server/report-sources.ts", "from": "members.has(key) ? readSource", "to": "true ? readSource", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+{"mutation": "hash-mismatch", "file": "server/report-sources.ts", "from": "sourceKey(reportSource(hostId, source.agentId, page.epoch, entry) ?? { ...source, textHash: \"\" }) !== sourceKey(source)", "to": "false", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+{"mutation": "missing-line-ref", "file": "shared/digest.ts", "from": "refs: z.array(sourceSchema).min(1).max(12)", "to": "refs: z.array(sourceSchema).min(0).max(12)", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+{"mutation": "agent-notice-ends-collection", "file": "shared/commander-replies.ts", "from": "&& !parseEnvelope(text)", "to": "", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+{"mutation": "rejected-question-reader", "file": "client/use-co-ask.ts", "from": " && last.provenance === \"ordinary\"", "to": "", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+{"mutation": "whole-failure-keeps-context", "file": "client/digest.tsx", "from": "catch { if (id === request.current) { setError(\"\u4f86\u6e90\u4e0d\u53ef\u7528\"); setWindow(null); } }", "to": "catch { if (id === request.current) { setLoading(false); } }", "baseline_exit": 0, "mutant_exit": 1, "failed_tests": [], "detected": false}
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d3-commander-digest-slice-1/evidence/validation-1/mutations.py", line 52, in <module>
+    assert len(results)==7 and all(r["detected"] for r in results)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

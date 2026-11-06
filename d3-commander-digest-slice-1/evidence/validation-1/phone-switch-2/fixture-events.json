@@ -1,0 +1,36 @@
+{
+  "archive": [
+    "co"
+  ],
+  "calls": [
+    {
+      "input": {
+        "agentId": "co",
+        "epoch": "fictional-epoch-1",
+        "hostId": "srv_J3WgswTtprow",
+        "seqEnd": 4,
+        "seqStart": 2
+      },
+      "name": "digest-read"
+    },
+    {
+      "input": {
+        "confirm": true,
+        "oldAgentId": "co"
+      },
+      "name": "switch"
+    },
+    {
+      "input": {
+        "agentId": "co-new",
+        "epoch": "fictional-epoch-1",
+        "hostId": "srv_J3WgswTtprow",
+        "seqEnd": 4,
+        "seqStart": 2
+      },
+      "name": "digest-read"
+    }
+  ],
+  "opened": [],
+  "sent": []
+}

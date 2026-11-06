@@ -1,0 +1,118 @@
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✖ Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning (401.815333ms)
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+✖ Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning (242.639667ms)
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+✔ Replay before: commander-invalid is a whole failure, never an unverifiable context with a side warning (237.698084ms)
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+✔ Replay before: point-invalid is a whole failure, never an unverifiable context with a side warning (239.96725ms)
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ Replay before: source-throw is a whole failure, never an unverifiable context with a side warning (244.516333ms)
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+✔ Replay before: anchor-throw is a whole failure, never an unverifiable context with a side warning (237.724625ms)
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+✖ Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning (235.745708ms)
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+✖ Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning (240.531834ms)
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+✔ Replay after: commander-invalid is a whole failure, never an unverifiable context with a side warning (259.494458ms)
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+✔ Replay after: point-invalid is a whole failure, never an unverifiable context with a side warning (249.921542ms)
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+✔ Replay after: source-throw is a whole failure, never an unverifiable context with a side warning (240.816333ms)
+✔ Replay after: anchor-throw is a whole failure, never an unverifiable context with a side warning (239.074667ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 8
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3657.847791
+
+✖ failing tests:
+
+test at test/digest-boundaries.test.mts:102:184
+✖ Replay before: commander-throw is a whole failure, never an unverifiable context with a side warning (401.815333ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  'Sourced pointA FO · 收集於 2026-11-06T01:19:10.660Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  
+      at globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Sourced pointA FO · 收集於 2026-11-06T01:19:10.660Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/digest-boundaries.test.mts:102:184
+✖ Replay before: transport-throw is a whole failure, never an unverifiable context with a side warning (242.639667ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  'Sourced pointA FO · 收集於 2026-11-06T01:19:11.060Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  
+      at globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Sourced pointA FO · 收集於 2026-11-06T01:19:11.060Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/digest-boundaries.test.mts:102:184
+✖ Replay after: commander-throw is a whole failure, never an unverifiable context with a side warning (235.745708ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  'Sourced pointA FO · 收集於 2026-11-06T01:19:12.262Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  
+      at globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Sourced pointA FO · 收集於 2026-11-06T01:19:12.262Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/digest-boundaries.test.mts:102:184
+✖ Replay after: transport-throw is a whole failure, never an unverifiable context with a side warning (240.531834ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /來源不可用/. Input:
+  
+  'Sourced pointA FO · 收集於 2026-11-06T01:19:12.497Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。'
+  
+      at globalFailure (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:95:10)
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d3-commander-digest-slice-1/.validation-mutations-yk2ub7e_/spacedock-bridge/test/digest-boundaries.test.mts:107:3)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Sourced pointA FO · 收集於 2026-11-06T01:19:12.497Z這件事 · Context about原文 #3之前發生 · Context before原文 #3現在需要你 · Context now原文 #3更早的對話FO 回報 · #1 · 2026-11-05T10:00:00ZReport 1對話訊息 · #2 · 2026-11-05T10:00:00ZReport 2引用原文 · FO 回報 · #3 · 2026-11-05T10:00:00ZReport 3對話訊息 · #4 · 2026-11-05T10:00:00ZReport 4FO 回報 · #5 · 2026-11-05T10:00:00ZReport 5更後的對話開啟 FO繼續討論回覆新決定回 Commander 編輯後才送出；關卡仍須另行選取與確認。',
+    expected: /來源不可用/,
+    operator: 'match',
+    diff: 'simple'
+  }

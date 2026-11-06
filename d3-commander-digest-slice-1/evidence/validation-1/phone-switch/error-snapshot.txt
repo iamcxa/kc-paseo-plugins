@@ -1,0 +1,95 @@
+- generic [ref=e1] clickable [onclick]
+  - generic
+    - generic
+      - generic
+        - generic
+          - generic
+            - button "Back" [ref=e19]
+              - image
+            - StaticText "Bridge"
+          - generic
+            - generic
+              - StaticText "Commander"
+              - button "Board" [ref=e20]
+                - StaticText "Board"
+            - generic
+              - generic
+                - generic
+                  - StaticText "Comms officer · idle"
+                - link "Open full view" [ref=e21]
+                  - StaticText "Open full view"
+              - generic
+                - StaticText "新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。"
+                - button "換用新的通訊官" [ref=e22]
+                  - StaticText "換用新的通訊官"
+              - generic
+                - StaticText "立即收集 · 只讀既有回報，等待驗證摘要"
+                - generic
+                  - StaticText "收集於 2026-11-05T10:00:00Z"
+                  - generic
+                    - StaticText "試用清單已補齊，等你決定是否開始。"
+                    - button "Replay trial" [ref=e25]
+                      - StaticText "Replay · 查看來龍去脈"
+                  - generic
+                    - StaticText "預約確認頁已補上車型，等你確認。"
+                    - button "Replay booking" [ref=e26]
+                      - StaticText "Replay · 查看來龍去脈"
+                  - generic
+                    - StaticText "匯入日期格式尚未定案，需要先選格式。"
+                    - button "Replay import" [ref=e27]
+                      - StaticText "Replay · 查看來龍去脈"
+              - generic
+                - generic
+                  - StaticText "↑ sends to Comms officer"
+                - textbox "Message Comms officer" [ref=e23]
+                - button "Send to Comms officer" [disabled, ref=e24]
+                  - image
+        - generic
+          - generic [ref=e3] clickable [cursor:pointer, onclick, tabindex]
+          - generic
+            - generic
+              - generic
+                - button "New workspace" [ref=e15]
+                  - image
+                  - StaticText "New workspace"
+                - button "Close sidebar" [ref=e4]
+                  - image
+              - button "History" [ref=e9]
+                - image
+                - StaticText "History"
+              - button "Search" [ref=e10]
+                - image
+                - StaticText "Search"
+              - button "Schedules" [ref=e11]
+                - image
+                - StaticText "Schedules"
+              - generic
+                - button "Bridge" [ref=e13]
+                  - image
+                  - StaticText "Bridge"
+                - generic [ref=e14] clickable [cursor:pointer, onclick, tabindex]
+                  - button "1 gates and questions waiting for you" [ref=e16]
+                    - StaticText "1"
+            - generic
+              - generic
+                - StaticText "No projects yet"
+                - StaticText "Add a project to get started"
+              - generic
+                - button "Add project" [ref=e17]
+                  - image
+                  - StaticText "Add project"
+                - button "Import session" [ref=e18]
+                  - image
+                  - StaticText "Import session"
+            - generic
+              - button "Add project" [ref=e5]
+                - image
+              - button "Usage" [ref=e6]
+                - image
+              - button "Hosts" [ref=e7]
+                - image
+              - button "Help and support" [expanded=false, ref=e12]
+                - image
+              - button "Settings" [ref=e8]
+                - image
+- generic [ref=e2] clickable [onclick]
