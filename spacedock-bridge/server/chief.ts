@@ -5,18 +5,32 @@ import { buildQueue } from "../shared/queue";
 import { batchRequest, BATCH_MARKER, RESPONSE_MARKER, BatchTracker, eventVersion, focusSchema, type ChiefBatch, type ChiefEvent, type ChiefState } from "../shared/chief";
 import { COORDINATOR_VERSION } from "../shared/coordinator";
 import { readTimeline } from "../shared/timeline";
+import { commanderReplies } from "../shared/commander-replies";
+import { toLines } from "../shared/chat-lines";
 import { lastReply, nextStepIsCaptains, replyPreview, parseEnvelope } from "../shared/preview";
 import { readGatesHandler } from "./tasks";
 import { readReviewsHandler } from "./reviews";
 import { readDecisionHandler } from "./decisions";
 
 const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
-export async function chiefBoard(api: PaseoApi) {
+export async function chiefBoard(api: PaseoApi, readReviewSource = readReviewsHandler) {
   const { entries } = await api.agents.list({ filter: FO_FILTER });
   const agents = entries.map(entry => entry.agent as BoardAgent);
   const rows = toRows(agents);
   const facts: Record<string, ReplyFact> = {};
   let complete = true;
+  let chiefQuestions = 0;
+  try {
+    const officers = await api.agents.list({ filter: { labels: { role: ROLE_COORDINATOR } } });
+    const officer = officers.entries.find(entry => entry.agent.labels.role === ROLE_COORDINATOR && !entry.agent.archivedAt)?.agent;
+    if (officer) {
+      const page = await readTimeline((id, options) => api.agents.ref(id).timeline.refetch(options), officer.id, { direction: "tail", limit: 120 });
+      const replies = commanderReplies(page, officer.id)!;
+      const shown = replies.flatMap(reply => toLines([reply])).at(-1);
+      const last = replies.find(reply => String(reply.seqStart) === shown?.key);
+      if (officer.status !== "running" && officer.status !== "initializing" && last?.item.type === "assistant_message" && last.provenance === "ordinary" && nextStepIsCaptains(last.item.text)) chiefQuestions = 1;
+    }
+  } catch { complete = false; }
   await Promise.all(rows.filter(row => row.status === "new reply" || row.status === "waiting on Kent" && !row.permission).map(async row => {
     try {
       const page = await readTimeline((id, options) => api.agents.ref(id).timeline.refetch(options), row.id, { direction: "tail", limit: 30 });
@@ -26,7 +40,7 @@ export async function chiefBoard(api: PaseoApi) {
     } catch { complete = false; }
   }));
   const gates = await readGatesHandler({ workflowDirs: [...new Set(rows.map(row => row.workflowDir).filter(Boolean))] });
-  const reviews = await readReviewsHandler();
+  const reviews = await readReviewSource();
   complete &&= !gates.failedWorkflowDirs.length && !reviews.error && reviews.checkedAt !== null;
   const queue = buildQueue(attachGates(withReplies(rows, facts), gates.gates), reviews.requests, rows, facts);
   const events: ChiefEvent[] = [];
@@ -49,7 +63,7 @@ export async function chiefBoard(api: PaseoApi) {
     if (!Number.isFinite(Date.parse(since))) continue;
     events.push({ key: item.key, version: hash([identity, item.gate?.briefingId ?? null, item.title, since]), kind: item.kind, title: item.title, waiter: item.fo?.title ?? null, since, agentId: item.fo?.id ?? null, target: item.link?.url ?? item.key });
   }
-  return { events, total: complete ? String(new Set(queue.map(item => item.key)).size) : "?", complete, rows };
+  return { events, total: complete ? String(new Set(queue.map(item => item.key)).size + chiefQuestions) : "?", complete, rows };
 }
 
 export const PREPARE_TOOL = "prepare_batch";

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BatchTracker, eligibleBatch, BATCH_MARKER, batchResponse, type ChiefEvent } from "../shared/chief";
-import { ChiefObserver, prepareBatch } from "../server/chief";
+import { chiefBoard, ChiefObserver, prepareBatch } from "../server/chief";
 import { COORDINATOR_VERSION } from "../shared/coordinator";
 import { commanderReplies } from "../shared/commander-replies";
 import { readTimeline } from "../shared/timeline";
@@ -58,6 +58,13 @@ test("projected reader keeps merged ranges and rejects gaps, stale cursors, wron
 test("automated batch and its assistant response never become a Captain question",()=>{
   const messages=[entry(1,"user_message",`${BATCH_MARKER}{}`),entry(2,"assistant_message","Next: review this (you)")];
   assert.equal(commanderReplies(page("co",messages),"co")?.at(-1)?.provenance,"automated");
+});
+test("the sidebar total includes an ordinary chief question but her automated output cannot trigger herself",async()=>{
+  let automated=false;
+  const api:any={agents:{list:async({filter}:any)=>({entries:filter.labels.role==="comms-officer"?[{agent:{id:"co",status:"idle",labels:{role:"comms-officer"}}}]:[]}),ref:(id:string)=>({timeline:{refetch:async()=>page(id,[entry(1,"user_message",automated?BATCH_MARKER+"{}":"Ordinary discussion"),entry(2,"assistant_message","Next: choose the fictional direction (you)")])}})}};
+  const reviews=async()=>({requests:[],checkedAt:1,error:null,nextCheckAt:null});
+  const ordinary=await chiefBoard(api,reviews);assert.equal(ordinary.total,"1");assert.deepEqual(ordinary.events,[]);
+  automated=true;const ownOutput=await chiefBoard(api,reviews);assert.equal(ownOutput.total,"0");assert.deepEqual(ownOutput.events,[]);
 });
 test("one qualifying batch persists its request before one Terra pass and one Opus choice; unchanged and restarted observers run nothing",async t=>{
   t.mock.method(Date,"now",()=>now);
