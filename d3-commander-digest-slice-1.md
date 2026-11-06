@@ -591,3 +591,9 @@ Candidate/main/flywheel-live retain their initial clean branch and HEAD (final-p
 ### Summary
 
 Independently validated the exact projected-source candidate with 431 passing tests, ten falsifying mutations, real-daemon source/lifecycle/Replay-edge proof and 34 desktop/phone captures. No new material finding is reported; AC-4 remains skipped, PR #74 remains Draft/unmerged, and FO retains the final review and Captain handoff.
+
+## Investigation: Captain trial 2
+
+Captain 2026-11-06, trying the live install at 7a4dbc057803d791dc5626182636c8e0fc2c2d32 by captain-steps/2.md: 「合成好之後畫面會一直閃，我感覺離設計稿有點距離，不太好用。我覺得 CO 仍保持對話，但他應該要能知道，感知到目前的 board 上的東西，然後 board 上的東西統一按照時間順序排，越新越上面，每次進 CO 就讓它快速掃一下最新狀態，告訴我最優先該做什麼去 unblock 其他人，等於 CO 其實是幕僚長的角色，也考慮直接幫她改名以便轉移注意力重點，想像她是精明幹練的女性幕僚長，他的工作是快速幫艦長對齊焦點」
+14. After a digest is composed, the screen keeps flickering (his trial; cause not investigated).
+Not accepted at this trial; no gate prepared. His new direction is taken up as a separate design task; this task holds at validation, PR #74 stays Draft and unmerged.
