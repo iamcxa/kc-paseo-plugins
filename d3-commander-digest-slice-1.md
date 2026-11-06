@@ -557,3 +557,7 @@ Item 13 is confirmed and the recovery gap extends to referenced FO sources and o
 ### Summary
 
 The authorized class repair is pushed as 7a4dbc057803d791dc5626182636c8e0fc2c2d32, with automatic unchanged-content recovery, streaming-neighbour exclusion, baseline falsification, isolated real-daemon lifecycle proof and ten changed-state captures. No new persistent state, background collection, live write, reinstall or merge was performed. FO owns RoboRev (package gap 5), review and reinstall for the Captain; PR #74 stays Draft.
+
+## Investigation: roborev 1549
+
+FO ran roborev on 7a4dbc057803d791dc5626182636c8e0fc2c2d32 (base 33952f9b3d02fceab104ba09272d65e432a3d095): exit 1, evidence=roborev:1549, one Medium — the replacement comms officer created but not saved (server/coordinator.ts), the same defect as item 11, already the Captain-ruled known issue under ### FO declines. No new finding; FO reinstalls 7a4dbc0 for the Captain's second trial and dispatches validation-2.
