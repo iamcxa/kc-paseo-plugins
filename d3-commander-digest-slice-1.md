@@ -410,3 +410,10 @@ Limits: installed Paseo 0.15.1 UI/SDK components with unchanged JSX, fictional S
 ### Summary
 
 Independently validated the pinned digest, Replay and confirmed-officer behavior with 403 passing tests, seven falsifying mutations and 40 accepted desktop/phone captures. The assessment is complete with the durable-ID POC boundary returned to FO/Captain as Needs decision; AC-4 stays skipped and PR #74 stays Draft/unmerged.
+
+## Investigation: Captain trial 1
+
+Captain 2026-11-06, trying the live install at ee18aa51fb607e0f8c72c1099c5ff85b3dc8af43 by captain-steps/1.md: 「有點問題」 with a desktop screenshot (kept out of this public branch: it shows real board items). Structurally: the Commander pane shows 「立即收集」 and 「讀取舊通訊官對話」, then "Could not read Comms officer: Error: Commander timeline unavailable" with "Retry conversation"; the board shows "Could not check the comms officer — this list may be incomplete".
+FO read-only checks, 2026-11-06: ~/.local/share/paseo-fo-coordinator/coordinator-switch.json exists (written 09:34 local, keys agentId and previousAgentId), so the switch was confirmed; two role=comms-officer agents, 5179b1f8 (new) and bccc97d3 (old), both idle; plugin logs show no error lines.
+12. On the real daemon, after the confirmed switch, the Commander conversation and the board's comms officer check both fail with "Commander timeline unavailable". Every earlier capture used fixture timelines, so this is the first real-daemon read.
+Read-only investigation dispatched as implementation-1-followup-8 before any fix.
