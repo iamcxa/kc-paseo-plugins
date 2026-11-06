@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d4-chief-of-staff
-status: backlog
+status: implementation
 gates:
     version: 1
     records:
@@ -26,7 +26,7 @@ gates:
                 reason: Captain chat 2026-11-06, asked whether to design the chief of staff first (question quoted in the seed), answered 「先做設計稿，你看過再寫 (Recommended)」.
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Design, before any code, the Captain's new model: the comms officer stays a conversation but becomes a chief of staff — renamed, aware of the board, scanning the latest state each time he enters and telling him the one highest-priority thing to do to unblock others — with the board in one time order, newest first.
