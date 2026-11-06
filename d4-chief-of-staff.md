@@ -27,6 +27,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-06T04:23:48Z
+worktree: .worktrees/spacedock-ensign-d4-chief-of-staff
 ---
 
 Design, before any code, the Captain's new model: the comms officer stays a conversation but becomes a chief of staff — renamed, aware of the board, scanning the latest state each time he enters and telling him the one highest-priority thing to do to unblock others — with the board in one time order, newest first.
