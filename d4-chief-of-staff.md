@@ -90,3 +90,7 @@ Visible change: the comms officer renamed as a chief of staff whose conversation
 ### Summary
 
 Proposed a sharp, capable female chief of staff who gives one board-grounded next action on changed entry, alongside a single newest-first Board; proposals remain unapproved. The existing fleet tool needs Board-source and progress wiring, so this report does not claim that current code can already perform the design. Design artifacts are committed and pushed; main, flywheel-live and the unused code worktree remain clean on their original branch/revision, and FO should arrange the Step A design-director review before any Step B work.
+
+## Design director review: step A pass 1
+
+Design director (Codex gpt-6.1-sol high, agent 383de5e1, design-director's declared sonnet mapped per the Captain's 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」): NOT SATISFIED. AC-1 and AC-3 satisfied; simpler than slice 1 for his purpose. AC-2 not satisfied: DESIGN.md and EVIDENCE.md drop scan memory when the page reopens and allow another first scan of an unchanged board, against the task's unchanged-board rule; fix by keeping enough scan identity across reopening without silently adding persistence, or take the exception to the Captain. Blocks step B.
