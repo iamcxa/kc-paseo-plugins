@@ -1,0 +1,1396 @@
+{
+  "policy": {
+    "transport": "remote-debugging-pipe; no listening port",
+    "blockedURLs": [
+      "http://*",
+      "https://*",
+      "ws://*",
+      "wss://*"
+    ],
+    "freshProfilePerCapture": true,
+    "oneBrowserAtATime": true
+  },
+  "captures": [
+    {
+      "state": "entry",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-entry.png",
+      "sha256": "da2a4fb8183ce57a3ae481a2d7b079ec0a5a414a370239fbf26d6c05de2c7307",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 678,
+            "y": 333.5625,
+            "width": 200.5625,
+            "height": 48,
+            "bottom": 381.5625,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "unchanged",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-unchanged.png",
+      "sha256": "da81500632aaed6784b16e6345531b5281d23bbc4417b6e47d6ab4859b5e87ba",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 678,
+            "y": 402.953125,
+            "width": 200.5625,
+            "height": 48,
+            "bottom": 450.953125,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "14:35 已檢查，沒有變化。沿用 14:20 的建議。\n幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "empty",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-empty.png",
+      "sha256": "a283ea7f974086a06dd1f172f1602dd94fbdd5a53a460585f580830fbb38c8c8",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:12",
+          "13:56"
+        ],
+        "kinds": [
+          "狀態",
+          "狀態"
+        ],
+        "actions": [
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusCount": 0,
+        "chatText": "幕僚長\n14:20 · 來源已確認\n目前沒有可確認\n需要你處理的事項。\n\n沒有開放關卡、待答問題或審查請求。\nFO 的狀態仍可在 Board 查看。"
+      }
+    },
+    {
+      "state": "partial",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-partial.png",
+      "sha256": "be3d1e8899eb7246c13c395474282cd5e9f435a4ac9364a6cb98b2f09e3463ed",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 678,
+            "y": 402.953125,
+            "width": 200.5625,
+            "height": 48,
+            "bottom": 450.953125,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看已確認的「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "審查來源未能讀取；以下只依已確認事項，不代表全部工作。\n幕僚長\n14:20 · 已查看 Board\n先看已確認的「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "failed",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-failed.png",
+      "sha256": "0c1da8ccd44a41e1aaa6b4df592ffb81b88eab26131900659c855fefc538cef8",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "關卡目前狀態待確認 ↗",
+            "x": 678,
+            "y": 402.953125,
+            "width": 186.5625,
+            "height": 48,
+            "bottom": 450.953125,
+            "disabled": true
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n13:40 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 2 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗",
+        "focusCount": 1,
+        "chatText": "14:20 掃描未能完成。保留上次建議，目前不能確認是否仍適用。\n幕僚長\n13:40 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 2 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗\n\n不自動重試；可稍後重讀來源。\n\n重讀來源"
+      }
+    },
+    {
+      "state": "stale",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-stale.png",
+      "sha256": "802e1d85c0ca4f24a8bcfeb96ce2739071d2d03e6cdf6ae6135425255e095a09",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "關卡目前狀態待確認 ↗",
+            "x": 678,
+            "y": 402.953125,
+            "width": 186.5625,
+            "height": 48,
+            "bottom": 450.953125,
+            "disabled": true
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗",
+        "focusCount": 1,
+        "chatText": "14:22 之後已有變更。下方是 14:20 的舊建議，目前不能沿用為最新焦點。\n幕僚長\n14:20 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗"
+      }
+    },
+    {
+      "state": "history",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-history.png",
+      "sha256": "3bde24d024650b6dcc7ec358bfdff0bce225e6bc0e8af50d86ff231c3428a938",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "查看 Board →",
+            "x": 678,
+            "y": 290.90625,
+            "width": 132.5,
+            "height": 48,
+            "bottom": 338.90625,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusCount": 0,
+        "chatText": "幕僚長\n暫時無法確認最新焦點。\n\n上次對話未能完整讀取。\n先查看 Board，原對話仍保留。\n\n查看 Board\n→\n\n不自動重試；可稍後重讀來源。\n\n重讀來源"
+      }
+    },
+    {
+      "state": "target",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-target.png",
+      "sha256": "a34dfecc91f762550acaa2f1e6208bb92c659b089103754bd00fffed88db050f",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "← 幕僚長",
+            "x": 670,
+            "y": 36.5,
+            "width": 54.28125,
+            "height": 44,
+            "bottom": 80.5,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 674,
+            "y": 882,
+            "width": 45,
+            "height": 44,
+            "bottom": 926,
+            "disabled": false
+          },
+          {
+            "text": "修改",
+            "x": 727,
+            "y": 882,
+            "width": 58,
+            "height": 44,
+            "bottom": 926,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 793,
+            "y": 882,
+            "width": 58,
+            "height": 44,
+            "bottom": 926,
+            "disabled": false
+          },
+          {
+            "text": "選擇後，再確認",
+            "x": 674,
+            "y": 936,
+            "width": 124,
+            "height": 44,
+            "bottom": 980,
+            "disabled": true
+          }
+        ],
+        "focusCount": 0
+      }
+    },
+    {
+      "state": "returned",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-returned.png",
+      "sha256": "4ded50cd32f331ec6f03fdd8bab7e029b59fcbca919fd9819ccaedd7f4e3c492",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 678,
+            "y": 402.953125,
+            "width": 200.5625,
+            "height": 48,
+            "bottom": 450.953125,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": false
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "14:35 已檢查，沒有變化。沿用 14:20 的建議。\n幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "discussion",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-discussion.png",
+      "sha256": "8ab459b2aa728607ce9ff529860ffd0a0618a27c7fda120d720ae5b348e1762c",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 678,
+            "y": 333.5625,
+            "width": 200.5625,
+            "height": 48,
+            "bottom": 381.5625,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗\n為什麼先看這件？\n幕僚長\n\n這是目前已確認等你最久的一件。要不要批准，仍由你決定。"
+      }
+    },
+    {
+      "state": "board",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-board.png",
+      "sha256": "da2a4fb8183ce57a3ae481a2d7b079ec0a5a414a370239fbf26d6c05de2c7307",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "navWidth": 320,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 678,
+            "y": 333.5625,
+            "width": 200.5625,
+            "height": 48,
+            "bottom": 381.5625,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 1363,
+            "y": 925,
+            "width": 44,
+            "height": 44,
+            "bottom": 969,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "entry",
+      "viewport": "360x780",
+      "file": "screenshots/360-entry.png",
+      "sha256": "48dc7a148a985aac6bf74ccbd03a7f6a7c807100369dc46fa835b8e82a6cd43e",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 16,
+            "y": 338.34375,
+            "width": 328,
+            "height": 48,
+            "bottom": 386.34375,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "unchanged",
+      "viewport": "360x780",
+      "file": "screenshots/360-unchanged.png",
+      "sha256": "6a3738c50989873ee9f03b88f047705503133e30d72baf649eae4c82d4008475",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 16,
+            "y": 399.9375,
+            "width": 328,
+            "height": 48,
+            "bottom": 447.9375,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "14:35 已檢查，沒有變化。沿用 14:20 的建議。\n幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "empty",
+      "viewport": "360x780",
+      "file": "screenshots/360-empty.png",
+      "sha256": "4f31ef0fca98e412b29fc2b3e07473902b11aeb33e9afb330a881a2a257c37ff",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:12",
+          "13:56"
+        ],
+        "kinds": [
+          "狀態",
+          "狀態"
+        ],
+        "actions": [
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusCount": 0,
+        "chatText": "幕僚長\n14:20 · 來源已確認\n目前沒有可確認\n需要你處理的事項。\n\n沒有開放關卡、待答問題或審查請求。\nFO 的狀態仍可在 Board 查看。"
+      }
+    },
+    {
+      "state": "partial",
+      "viewport": "360x780",
+      "file": "screenshots/360-partial.png",
+      "sha256": "87bed225ff45441c986946103ca2d9ea8a57fc0fb1339565bce1134793922a76",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 16,
+            "y": 421.53125,
+            "width": 328,
+            "height": 48,
+            "bottom": 469.53125,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看已確認的「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "審查來源未能讀取；以下只依已確認事項，不代表全部工作。\n幕僚長\n14:20 · 已查看 Board\n先看已確認的「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "failed",
+      "viewport": "360x780",
+      "file": "screenshots/360-failed.png",
+      "sha256": "9f01090e24d630e341e822e5f7be8193dd0743caf0be1ea42e5d22fb4796d5ee",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "關卡目前狀態待確認 ↗",
+            "x": 16,
+            "y": 421.53125,
+            "width": 328,
+            "height": 48,
+            "bottom": 469.53125,
+            "disabled": true
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n13:40 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 2 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗",
+        "focusCount": 1,
+        "chatText": "14:20 掃描未能完成。保留上次建議，目前不能確認是否仍適用。\n幕僚長\n13:40 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 2 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗\n\n不自動重試；可稍後重讀來源。\n\n重讀來源"
+      }
+    },
+    {
+      "state": "stale",
+      "viewport": "360x780",
+      "file": "screenshots/360-stale.png",
+      "sha256": "022f868f035fea45705806f5b59cad16d7beadccb14f02ad785cb4762a781490",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "關卡目前狀態待確認 ↗",
+            "x": 16,
+            "y": 421.53125,
+            "width": 328,
+            "height": 48,
+            "bottom": 469.53125,
+            "disabled": true
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗",
+        "focusCount": 1,
+        "chatText": "14:22 之後已有變更。下方是 14:20 的舊建議，目前不能沿用為最新焦點。\n幕僚長\n14:20 · 上次建議\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n關卡目前狀態待確認\n↗"
+      }
+    },
+    {
+      "state": "history",
+      "viewport": "360x780",
+      "file": "screenshots/360-history.png",
+      "sha256": "e85cb2d548339dc4b81545d5b61483ffac22a1b430c852c1e8864c90d4b14d04",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "查看 Board →",
+            "x": 16,
+            "y": 306.90625,
+            "width": 328,
+            "height": 48,
+            "bottom": 354.90625,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusCount": 0,
+        "chatText": "幕僚長\n暫時無法確認最新焦點。\n\n上次對話未能完整讀取。\n先查看 Board，原對話仍保留。\n\n查看 Board\n→\n\n不自動重試；可稍後重讀來源。\n\n重讀來源"
+      }
+    },
+    {
+      "state": "target",
+      "viewport": "360x780",
+      "file": "screenshots/360-target.png",
+      "sha256": "8242661ca5cce758fb03449ab350169c682609d22bd1f9c523b60a242f839243",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "← 幕僚長",
+            "x": 12,
+            "y": 55.5,
+            "width": 54.28125,
+            "height": 44,
+            "bottom": 99.5,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 16,
+            "y": 666,
+            "width": 45,
+            "height": 44,
+            "bottom": 710,
+            "disabled": false
+          },
+          {
+            "text": "修改",
+            "x": 69,
+            "y": 666,
+            "width": 58,
+            "height": 44,
+            "bottom": 710,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 135,
+            "y": 666,
+            "width": 58,
+            "height": 44,
+            "bottom": 710,
+            "disabled": false
+          },
+          {
+            "text": "選擇後，再確認",
+            "x": 16,
+            "y": 720,
+            "width": 124,
+            "height": 44,
+            "bottom": 764,
+            "disabled": true
+          }
+        ],
+        "focusCount": 0
+      }
+    },
+    {
+      "state": "returned",
+      "viewport": "360x780",
+      "file": "screenshots/360-returned.png",
+      "sha256": "bd37266cb0a760346fa3ae2bafd52ab70323863972e1af0ee2c8d2894decff40",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 16,
+            "y": 399.9375,
+            "width": 328,
+            "height": 48,
+            "bottom": 447.9375,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": false
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "14:35 已檢查，沒有變化。沿用 14:20 的建議。\n幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗"
+      }
+    },
+    {
+      "state": "discussion",
+      "viewport": "360x780",
+      "file": "screenshots/360-discussion.png",
+      "sha256": "33edfd6f112968d7c0357a3da7b6635a2c5658b12f37a9f0d2ae573b044ba6a0",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": false,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "開啟「範例試用」關卡 ↗",
+            "x": 16,
+            "y": 338.34375,
+            "width": 328,
+            "height": 48,
+            "bottom": 386.34375,
+            "disabled": false
+          },
+          {
+            "text": "↑",
+            "x": 292,
+            "y": 714,
+            "width": 44,
+            "height": 44,
+            "bottom": 758,
+            "disabled": true
+          }
+        ],
+        "focusText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗",
+        "focusCount": 1,
+        "chatText": "幕僚長\n14:20 · 已查看 Board\n先看「範例試用」關卡。\n\n範例 FO 甲的這個關卡等你 42 分鐘。\n開關卡閱讀後，再決定是否開始。\n\n開啟「範例試用」關卡\n↗\n為什麼先看這件？\n幕僚長\n\n這是目前已確認等你最久的一件。要不要批准，仍由你決定。"
+      }
+    },
+    {
+      "state": "board",
+      "viewport": "360x780",
+      "file": "screenshots/360-board.png",
+      "sha256": "941b89b7b5f568bec74dccfe601ddfd55fc9a6d809d3f99771475bbef0461a71",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "navWidth": 0,
+        "boardVisible": true,
+        "times": [
+          "14:18",
+          "14:12",
+          "14:05",
+          "14:00",
+          "13:56",
+          "13:38"
+        ],
+        "kinds": [
+          "問題",
+          "狀態",
+          "審查",
+          "權限",
+          "狀態",
+          "關卡"
+        ],
+        "actions": [
+          {
+            "text": "← 幕僚長",
+            "x": 0,
+            "y": 54,
+            "width": 360,
+            "height": 44,
+            "bottom": 98,
+            "disabled": false
+          }
+        ],
+        "focusText": "幕僚長14:20 · 已查看 Board先看「範例試用」關卡。範例 FO 甲的這個關卡等你 42 分鐘。開關卡閱讀後，再決定是否開始。開啟「範例試用」關卡 ↗",
+        "focusCount": 1,
+        "chatText": "幕僚長14:20 · 已查看 Board先看「範例試用」關卡。範例 FO 甲的這個關卡等你 42 分鐘。開關卡閱讀後，再決定是否開始。開啟「範例試用」關卡 ↗"
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    }
+  ],
+  "standaloneRemoved": true,
+  "limits": [
+    "No live daemon or agent prompts",
+    "No actual model-call accounting or persisted scan-identity test",
+    "No real-device or keyboard acceptance"
+  ]
+}
