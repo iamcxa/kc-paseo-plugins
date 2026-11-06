@@ -3,6 +3,7 @@ import { openExternalUrl, useRpc, usePaseo } from "@getpaseo/plugin/client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Platform, ScrollView, Text, View } from "react-native";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
+import { TabClosedBadge } from "./tab-closed-badge";
 import {
   type BoardRow,
   type BoardStatus,
@@ -202,6 +203,7 @@ export function Board({
       add: { paddingVertical: 6, paddingHorizontal: 4 },
       addText: { color: colors.foregroundMuted, fontSize: 13 },
       name: { color: colors.foreground, fontSize: 14, fontWeight: "600" as const },
+      owner: { flexDirection: "row" as const, alignItems: "center" as const, gap: 6 },
       text: { color: colors.foreground, fontSize: 13, lineHeight: 18 },
       muted: { color: colors.foregroundMuted, fontSize: 12, lineHeight: 16 },
       footer: { color: colors.foregroundMuted, fontSize: 11, marginTop: 12 },
@@ -253,14 +255,15 @@ export function Board({
         paddingHorizontal: 6,
       },
       dot: { width: 7, height: 7, borderRadius: 4 },
-      lineTitle: { flex: 1, color: colors.foreground, fontSize: 13 },
-      lineAge: { color: colors.foregroundMuted, fontSize: 11 },
+      lineTitle: { flex: 1, minWidth: 64, color: colors.foreground, fontSize: 13 },
+      lineAge: { color: colors.foregroundMuted, fontSize: 11, flexShrink: 0 },
+      lineOwner: { flexBasis: 100, maxWidth: 100, minWidth: 0, flexShrink: 1 },
       ref: {
         color: colors.foregroundMuted,
         fontSize: 12,
         fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
       },
-      lineMain: { flex: 1, flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
+      lineMain: { flex: 1, minWidth: 0, flexDirection: "row" as const, alignItems: "center" as const, gap: 8 },
     }),
     [colors, layout.compact],
   );
@@ -404,9 +407,12 @@ export function Board({
               <Text style={styles.nextTitle} numberOfLines={3}>
                 {next.title}
               </Text>
-              <Text style={styles.muted} numberOfLines={1}>
-                {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
-              </Text>
+              <View style={styles.owner}>
+                <Text style={[styles.muted, { flexShrink: 1 }]} numberOfLines={1}>
+                  {next.fo ? foName(next.fo.title || next.fo.id) : "no FO"}
+                </Text>
+                <TabClosedBadge closed={next.fo?.tabClosed} colors={colors} />
+              </View>
               <View style={styles.nextButtons}>
                 <Pressable colors={colors} accessibilityRole="button" style={styles.nextButton} onPress={() => openItem(next)}>
                   <Text style={styles.nextButtonText}>{next.review && !next.fo ? "Ask comms officer" : "Open"}</Text>
@@ -439,13 +445,14 @@ export function Board({
                   <View key={item.key} style={styles.line}>
                     <Pressable colors={colors} accessibilityRole="button" onPress={() => openItem(item)} style={styles.lineMain}>
                       <View style={[styles.dot, { backgroundColor: kindColor[item.kind] }]} />
-                      <Text style={styles.ref}>{item.link.ref}</Text>
+                      <Text style={[styles.ref, { maxWidth: 96, flexShrink: 0 }]} numberOfLines={1}>{item.link.ref}</Text>
                       <Text style={styles.lineTitle} numberOfLines={1}>
                         {item.title}
                       </Text>
-                      <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
+                      <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>
                         {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                       </Text>
+                      <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
                       <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                     </Pressable>
                     <Pressable colors={colors}
@@ -464,9 +471,10 @@ export function Board({
                     <Text style={styles.lineTitle} numberOfLines={1}>
                       {item.title}
                     </Text>
-                    <Text style={[styles.lineAge, { maxWidth: 100 }]} numberOfLines={1}>
+                    <Text style={[styles.lineAge, styles.lineOwner]} numberOfLines={1}>
                       {item.fo ? foName(item.fo.title || item.fo.id) : "no FO"}
                     </Text>
+                    <TabClosedBadge closed={item.fo?.tabClosed} colors={colors} />
                     <Text style={styles.lineAge}>{ago(item.since).replace(" ago", "")}</Text>
                   </Pressable>
                 )
@@ -563,14 +571,17 @@ export function Board({
                   }
                   style={[styles.row, { borderLeftColor: statusColor(row.status) }]}
                 >
-                  <Text style={styles.name}>
-                    {row.title || row.id}
-                    {waitingCount(row.id) ? (
-                      <Text style={{ color: colors.statusWarning, fontWeight: "400" as const }}>
-                        {"  "}· {waitingCount(row.id)} waiting
-                      </Text>
-                    ) : null}
-                  </Text>
+                  <View style={styles.owner}>
+                    <Text style={[styles.name, { flexShrink: 1 }]}>
+                      {row.title || row.id}
+                      {waitingCount(row.id) ? (
+                        <Text style={{ color: colors.statusWarning, fontWeight: "400" as const }}>
+                          {"  "}· {waitingCount(row.id)} waiting
+                        </Text>
+                      ) : null}
+                    </Text>
+                    <TabClosedBadge closed={row.tabClosed} colors={colors} />
+                  </View>
                   {row.offline && status !== "offline" ? (
                     <Text style={styles.muted}>FO offline · a message will reopen it</Text>
                   ) : null}

@@ -16,6 +16,7 @@ const row = (over: Partial<BoardRow> & { attentionAt?: string }): BoardRow & { a
   workflowDir: "/w",
   gates: [],
   offline: false,
+  tabClosed: false,
   ...over,
 });
 
