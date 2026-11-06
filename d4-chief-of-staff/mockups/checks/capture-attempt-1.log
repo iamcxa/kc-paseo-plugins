@@ -1,0 +1,11 @@
+file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d4-chief-of-staff/mockups/capture.mjs:48
+      pending.delete(id); reject(new Error(`Chromium pipe timed out: ${method}; ${stderr.slice(-700)}`));
+                                 ^
+
+Error: Chromium pipe timed out: Target.createTarget; Trying to load the allocator multiple times. This is *not* supported.
+
+    at Timeout._onTimeout (file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d4-chief-of-staff/mockups/capture.mjs:48:34)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+
+Node.js v24.18.0
