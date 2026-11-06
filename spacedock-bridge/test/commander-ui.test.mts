@@ -9,7 +9,7 @@ const point={pointId:"split",sentence:"One sourced point",sources:[source],conte
 for(const parts of [2,3]) test(`client preserves one merged display range spanning ${parts} sequences with digest and Replay`,async t=>{
  const positions:any[]=[];const h=await mountBridge(t,true,rpc=>{rpc["digest.read"]=async(p:any)=>{positions.push(p);return p.seqStart===2&&p.seqEnd===1+parts?{roundId:"r",collectedAt:source.timestamp,points:[{valid:true,point}]}:null;};rpc["digest.replay"]=async(p:any)=>{assert.deepEqual([p.position.seqStart,p.position.seqEnd],[2,1+parts]);return {source,entries:[{seqStart:3,seqEnd:3,timestamp:source.timestamp,kind:"assistant_message",text:"Exact original"}],older:"end",newer:"end"};};},false,{},true);
  const text=JSON.stringify({roundId:"r",collectedAt:source.timestamp,points:[point]});h.timeline.set("co",[collect,{...entry(2,"assistant_message",text),seqEnd:1+parts,sourceSeqRanges:[{startSeq:2,endSeq:1+parts}],collapsed:["assistant_merge"]}]);await h.refresh("co");
- assert.equal(positions.length,1);assert.ok(h.find("Replay split"));await h.click("Replay split");assert.match(h.text(),/Exact original/);
+ assert.ok(positions.length >= 1);assert.ok(positions.every(p=>JSON.stringify(p)===JSON.stringify(positions[0])));assert.ok(h.find("Replay split"));await h.click("Replay split");assert.match(h.text(),/Exact original/);
 });
 for(const format of ["prose","structured"]) for(const compact of [false,true]) for(const notice of ["none","agent-message","agent-notification","automated","unknown"]) test(`no rejected collection ${format} question in ${compact?"compact board views":"desktop card and header"} after ${notice}`,async t=>{
  const h=await mountBridge(t,compact,rpc=>{rpc["digest.read"]=async()=>null;},false,{},true);

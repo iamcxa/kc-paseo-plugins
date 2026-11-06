@@ -45,6 +45,8 @@ async function side(read: TimelineReader, source: ReportSource, direction: "befo
     if (!goodPage(page, source.agentId, source.epoch)) throw new Error("Source changed");
     const entries = [...page.entries].sort((a, b) => a.seqStart - b.seqStart);
     if (entries.some(e => !validEntry(e) || (direction === "before" ? e.seqEnd >= edge : e.seqStart <= edge))) throw new Error("Wrong side");
+    const stable = entries.filter(e => !entryIsWriting(page, e));
+    if (stable.length !== entries.length) return { entries: stable, state: "unavailable" as const };
     const more = direction === "before" ? page.hasOlder : page.hasNewer;
     if (!entries.length && more) throw new Error("Non advancing page");
     return { entries, state: more ? "more" as const : "end" as const };
