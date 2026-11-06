@@ -69,3 +69,7 @@ Alignment: not needed: the Captain accepted the design (d4-chief-of-staff), the 
 Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
 Visible change: the comms officer renamed as the chief of staff, a red pulsing sidebar count with a sound when she calls, her opening focus, and the board in one time order, newest first.
+
+### FO notes
+
+- 2026-11-06: worker pre-edit report: Paseo SDK 0.12 supports the Terra and Opus passes, plugin timeline records, SidebarRow.trailing and client.playAudio; review items have no waiting timestamp (reviews firstSeenAt and agent updatedAt are not waiting times). Under DESIGN.md's "unknown event time pauses the automatic trigger", any review on the board would pause every call. FO steered: exclude unknown-time items from the batch score and the five-minute clock, never invent a time, and report any visible difference from "pause" as a Needs decision finding for the Captain.
