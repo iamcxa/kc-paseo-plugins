@@ -83,6 +83,15 @@ Verified by: one page for step A and review.html / review-phone.html for step B;
 UI proposal: a chief-of-staff conversation that opens with her scan (one top item, why, the action) beside a board in one time order, newest first, at 1440 and 360.
 Preview: d1-commander-digest/mockups/review.html
 
+## Captain amendments
+
+### Amendment 1 — 2026-11-06, chat
+Captain: 「退一步思考一下。如果改成收到新事件後，五分鐘內沒回應，且又收到 X 新事件，且累積的事件超過 Y，那就啟動幕僚長做分析，這樣是否更好？terra分析可以當作幕僚長輔助，我的意思是，改不要把重點放在一進來 bridge 就立即有話要說，而是讓幕僚長依據事件重要強弱，頻率強弱，主動找我討論，例如說側欄上的bridge數字是總和，但是幕僚長找我時，播放音效且讓數字變紅跳動，那我就可以回來找他，不要過度關注他管理的 FOs 達到降低溝通頻率，提高溝通品質的目的」
+Asked: 量到了：透過 Paseo 代理跑小模型，九次都沒進五秒。最快是 GPT-6.1 Terra，中位數 7.2 秒寫完（5.4 秒出第一個字）；Haiku 5.5 約 11–14 秒。慢在代理本身：Claude 代理光準備就花 5.7–9.2 秒才開始問模型。但「第一件事」是規則挑的（誰在等你、等最久），不用模型就能馬上出來。第二層要怎麼做？ (options: 「第一件馬上出，不用小模型 (Recommended)」; 「馬上出，再由 Terra 補一句」; 「試直接呼叫模型 API」)
+Supersedes: AC-1
+Design: "The chief of staff no longer speaks on entry. New board events accumulate; when an event has gone five minutes without his response and X further events have arrived and the accumulated events exceed Y, the chief of staff is started to analyse them, weighted by each event's importance and frequency, with a GPT-6.1 Terra pass as her assistant; when she wants him, the Bridge sidebar count (the total) turns red and pulses and a sound plays, and he comes back to discuss with her. Purpose: he does not over-watch the FOs she manages — fewer, higher-quality conversations."
+
+
 ## FO alignment
 
 Alignment: not needed: the Captain set this direction and asked for the design first on 2026-11-06.
