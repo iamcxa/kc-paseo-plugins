@@ -71,7 +71,7 @@ Stop condition: the design director unsatisfied twice on a step, or a proposal t
 
 ## Acceptance criteria
 
-**AC-1**: Amended by Captain, amendment 1. The chief of staff calls the Captain only when accumulated board events cross the trigger, weighted by importance and frequency and grounded only in board facts; she no longer speaks automatically on entry.
+**AC-4**: Amended by Captain, amendment 1. The chief of staff calls the Captain only when accumulated board events cross the trigger, weighted by importance and frequency and grounded only in board facts; she no longer speaks automatically on entry.
 Verified by: DESIGN.md names the five-minutes-unanswered trigger, proposed X and Y for the Captain to decide, the board facts and tool, the GPT-6.1 Terra assistant's part and the Opus chief of staff's part, and how the total Bridge sidebar count turns red, pulses and plays a sound when she calls, including any missing host capability.
 
 **AC-2**: A rescan happens only when the board changed, and its cost is stated.
@@ -102,6 +102,10 @@ Alignment: not needed: the Captain set this direction and asked for the design f
 Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
 Visible change: the chief of staff calls after the amended accumulated-event trigger; the total sidebar count turns red and pulses with a sound; the board remains newest first.
+
+### FO notes
+
+- 2026-11-06: Process correction — followup-4 told the designer to write the replacement criterion as AC-1, the id amendment 1 supersedes; the FO renumbered it AC-4 (new id, as in r10-sidebar-count-popover) so design_surfaces passes. Text unchanged.
 
 ## Stage Report: implementation
 
