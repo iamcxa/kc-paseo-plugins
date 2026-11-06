@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.1](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.3.0...project-env-v0.3.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* **project-env:** a 1Password rate limit is shown as a rate limit ([#73](https://github.com/iamcxa/kc-paseo-plugins/issues/73)) ([15b9f11](https://github.com/iamcxa/kc-paseo-plugins/commit/15b9f11569787634ddc9ffa0c40b2da7a7b717c4))
+* **project-env:** a timed-out vault list says it took too long ([#72](https://github.com/iamcxa/kc-paseo-plugins/issues/72)) ([1ed4831](https://github.com/iamcxa/kc-paseo-plugins/commit/1ed4831d990ebf0d92e16d8be753ca64647d0906))
+* **project-env:** the Started without line stays visible after the first turn ([#75](https://github.com/iamcxa/kc-paseo-plugins/issues/75)) ([9162558](https://github.com/iamcxa/kc-paseo-plugins/commit/91625588dff1b3e5737f6f6f8843b90d69468f32))
+
 ## [0.3.0](https://github.com/iamcxa/kc-paseo-plugins/compare/project-env-v0.2.0...project-env-v0.3.0) (2026-11-05)
 
 
