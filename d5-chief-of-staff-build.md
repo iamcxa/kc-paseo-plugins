@@ -440,3 +440,11 @@ Checks/documents — OVERVIEW.md describes shared ownership, terminal errors and
 ### Summary
 
 The Captain's extra repair cycle is implemented, tested and normally pushed as a02f53c4ca741b5b4f905ed48c9500fc1be5fdd6; PR #77 remains Draft. The current assigned implementation is packaged, while delivery stays HOLD for independent review, confirmed-reset real model/restart proof and design acceptance; the worker stops for the FO's next dispatch.
+
+## Investigation: roborev 1581
+
+FO ran roborev on a02f53c4ca741b5b4f905ed48c9500fc1be5fdd6 (base 7a4dbc057803d791dc5626182636c8e0fc2c2d32): exit 1, evidence=roborev:1581, three Medium. Captain amendment 1's extra cycle is spent; no further cycle opens automatically.
+13. server/chief.ts: if creating the replacement succeeds but archiving the old officer fails, calls belong to the replacement while ensureCoordinator still returns the old officer, so 「回應這一批」 cannot form a valid batch response (same switch-failure class as the Captain-ruled known issue in d3).
+14. index.server.ts: a matching Captain response is consumed only when the officer's turn ends, so a sent response leaves the call active until her reply finishes.
+15. client/board.tsx: named navigation requires every gate and review source to load, so an unrelated GitHub failure blocks opening a verified permission or officer conversation from her focus (the board row still opens it).
+Taken to the Captain.
