@@ -1,0 +1,24 @@
+{
+  "pids": {
+    "root": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-v_zhojet",
+    "home": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-v_zhojet/home",
+    "data": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-v_zhojet/fictional-data",
+    "plugin": "/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-v_zhojet/plugin",
+    "head": "a02f53c4ca741b5b4f905ed48c9500fc1be5fdd6",
+    "cliPid": 23255,
+    "chiefId": "10b9af67-f67c-438e-9017-30a2414037ab",
+    "daemonPids": [
+      23426
+    ],
+    "fleetPids": [
+      37882
+    ],
+    "supervisorPid": 23411
+  },
+  "identities": [
+    "23411 23255 Paseo Supervisor",
+    "23426 23411 Paseo Daemon",
+    "23255     1 /Applications/Paseo.app/Contents/Resources/../Frameworks/Paseo Helper.app/Contents/MacOS/Paseo Helper",
+    "37882 23426 /Applications/Paseo.app/Contents/Frameworks/Paseo Helper.app/Contents/MacOS/Paseo Helper"
+  ]
+}

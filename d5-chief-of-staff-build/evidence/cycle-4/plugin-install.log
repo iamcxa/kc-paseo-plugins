@@ -1,0 +1,12 @@
+Trusting plugin code: server code and preparation commands run unsandboxed on the daemon host; client code runs inside Paseo. Dependencies and future updates are part of the codebase you trust.
+{
+  "error": {
+    "name": "DaemonRpcError",
+    "requestId": "3cefb42c-34bd-4371-be4f-fdfdda727446",
+    "requestType": "plugin.source.install.request",
+    "code": "handler_error",
+    "serverId": "srv_MOd2SUnXxAZa",
+    "userMessage": "Request failed: Plugin ID \"paseo-spacedock-bridge\" is already configured; choose another ID with --id",
+    "message": "Request failed: Plugin ID \"paseo-spacedock-bridge\" is already configured; choose another ID with --id requestType=plugin.source.install.request code=handler_error"
+  }
+}

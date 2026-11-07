@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import {createPaseoApi} from '@getpaseo/client';
+import {DaemonClient} from './node_modules/@getpaseo/client/dist/daemon-client.js';
+const root=new URL('.',import.meta.url).pathname;const evidence="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d5-chief-of-staff-build/evidence/cycle-4";
+const client=new DaemonClient({clientId:'d5-cycle-4-fixture',url:'ws://127.0.0.1:55479/ws',reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);
+try{if(process.argv[2]==='setup'){
+ const agents=[];for(let n=1;n<=4;n++)agents.push(await api.agents.create({config:{provider:'claude/claude-opus-5-5'},cwd:root+'fictional',title:`Fictional FO ${n}`,labels:{role:'fo','next-owner':'fo',repo:'fictional',task:`fictional-${n}`,'workflow-dir':root+'fictional/workflow'}}));
+ const idle=await api.agents.create({config:{provider:'claude/claude-opus-5-5'},cwd:root+'fictional',title:'Fictional research FO',labels:{role:'fo',repo:'fictional'}});
+ await fs.writeFile(evidence+'/fictional-agents.json',JSON.stringify({agents:agents.map(a=>a.id),idle:idle.id,modelTurns:0},null,2));
+}
+const result=await client.invokePluginRpc('paseo-spacedock-bridge','chief.fixture',{mode:process.argv[2]==='setup'?'rest':process.argv[2]||'rest'});await fs.writeFile(evidence+'/fixture-'+(process.argv[2]||'rest')+'.json',JSON.stringify(result,null,2));console.log(JSON.stringify({phase:result.state.phase,total:result.state.total,eventCount:result.events.length,modelTurns:0}));
+}finally{await api.dispose();await client.close();}

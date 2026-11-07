@@ -1,0 +1,946 @@
+TAP version 13
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 1ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# Subtest: explicit FO ownership at admission/consumption: fo, Next: Choose direction (you)
+not ok 1 - explicit FO ownership at admission/consumption: fo, Next: Choose direction (you)
+  ---
+  duration_ms: 3.818083
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: fo, Next: Continue research (me)
+not ok 2 - explicit FO ownership at admission/consumption: fo, Next: Continue research (me)
+  ---
+  duration_ms: 0.295583
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:47)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: fo, Fictional plain question
+not ok 3 - explicit FO ownership at admission/consumption: fo, Fictional plain question
+  ---
+  duration_ms: 0.734834
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:47)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: captain, Next: Choose direction (you)
+ok 4 - explicit FO ownership at admission/consumption: captain, Next: Choose direction (you)
+  ---
+  duration_ms: 1.736208
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: captain, Next: Continue research (me)
+not ok 5 - explicit FO ownership at admission/consumption: captain, Next: Continue research (me)
+  ---
+  duration_ms: 0.199208
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: captain, Fictional plain question
+not ok 6 - explicit FO ownership at admission/consumption: captain, Fictional plain question
+  ---
+  duration_ms: 0.663125
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: absent, Next: Choose direction (you)
+ok 7 - explicit FO ownership at admission/consumption: absent, Next: Choose direction (you)
+  ---
+  duration_ms: 0.591292
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: absent, Next: Continue research (me)
+ok 8 - explicit FO ownership at admission/consumption: absent, Next: Continue research (me)
+  ---
+  duration_ms: 0.891334
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: absent, Fictional plain question
+ok 9 - explicit FO ownership at admission/consumption: absent, Fictional plain question
+  ---
+  duration_ms: 0.444625
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: unsupported, Next: Choose direction (you)
+not ok 10 - explicit FO ownership at admission/consumption: unsupported, Next: Choose direction (you)
+  ---
+  duration_ms: 0.201083
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:9)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: unsupported, Next: Continue research (me)
+not ok 11 - explicit FO ownership at admission/consumption: unsupported, Next: Continue research (me)
+  ---
+  duration_ms: 0.113583
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:47)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: explicit FO ownership at admission/consumption: unsupported, Fictional plain question
+not ok 12 - explicit FO ownership at admission/consumption: unsupported, Fictional plain question
+  ---
+  duration_ms: 0.080333
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:2597'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:25:47)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: four explicitly FO-owned replies never qualify; independent permissions/gates/reviews remain
+not ok 13 - four explicitly FO-owned replies never qualify; independent permissions/gates/reviews remain
+  ---
+  duration_ms: 12.332584
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:3656'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'a1',
+    +       key: '["q","a1","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       kind: 'ask',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: '["q","a1","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       title: 'Choose direction (you)',
+    +       version: '7ecefcd9cf9d3eaccdff87c61e5db34496f0b9cc3d9f65346c88d160fe902d2d',
+    +       waiter: 'Fictional a1'
+    +     },
+    +     {
+    +       agentId: 'a2',
+    +       key: '["q","a2","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       kind: 'ask',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: '["q","a2","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       title: 'Choose direction (you)',
+    +       version: 'b1152af8196f278d67bae4e3a74243643895bf3f7dbda0bf880d22a648004c4f',
+    +       waiter: 'Fictional a2'
+    +     },
+    +     {
+    +       agentId: 'a3',
+    +       key: '["q","a3","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       kind: 'ask',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: '["q","a3","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       title: 'Choose direction (you)',
+    +       version: '6c73be7fff7b0f4da8e3cc0af269cf928a0578af894c58af6d124a0b52aef171',
+    +       waiter: 'Fictional a3'
+    +     },
+    +     {
+    +       agentId: 'a4',
+    +       key: '["q","a4","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       kind: 'ask',
+    +       since: '2026-11-06T10:00:00Z',
+    +       target: '["q","a4","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]',
+    +       title: 'Choose direction (you)',
+    +       version: '449ab440c4bf96561ca055d953e4a396601881dbdcc70ded21c5e25664f6bbfc',
+    +       waiter: 'Fictional a4'
+    +     }
+    +   ],
+    +   reason: 'threshold',
+    +   score: 12
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: '["q","a1","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+        version: '7ecefcd9cf9d3eaccdff87c61e5db34496f0b9cc3d9f65346c88d160fe902d2d'
+        kind: 'ask'
+        title: 'Choose direction (you)'
+        waiter: 'Fictional a1'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a1'
+        target: '["q","a1","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+      1:
+        key: '["q","a2","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+        version: 'b1152af8196f278d67bae4e3a74243643895bf3f7dbda0bf880d22a648004c4f'
+        kind: 'ask'
+        title: 'Choose direction (you)'
+        waiter: 'Fictional a2'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a2'
+        target: '["q","a2","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+      2:
+        key: '["q","a3","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+        version: '6c73be7fff7b0f4da8e3cc0af269cf928a0578af894c58af6d124a0b52aef171'
+        kind: 'ask'
+        title: 'Choose direction (you)'
+        waiter: 'Fictional a3'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a3'
+        target: '["q","a3","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+      3:
+        key: '["q","a4","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+        version: '449ab440c4bf96561ca055d953e4a396601881dbdcc70ded21c5e25664f6bbfc'
+        kind: 'ask'
+        title: 'Choose direction (you)'
+        waiter: 'Fictional a4'
+        since: '2026-11-06T10:00:00Z'
+        agentId: 'a4'
+        target: '["q","a4","fixture:1:1","2026-11-06T10:00:00Z","Choose direction (you)"]'
+    reason: 'threshold'
+    score: 12
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:35:126)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: observeBoard re-evaluates ownership changes without a new message/activity timestamp
+not ok 14 - observeBoard re-evaluates ownership changes without a new message/activity timestamp
+  ---
+  duration_ms: 15.23225
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:4645'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:46:25)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: success
+ok 15 - one terminal attempt outcome across fold/restart: success
+  ---
+  duration_ms: 5.901625
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: error before focus
+not ok 16 - one terminal attempt outcome across fold/restart: error before focus
+  ---
+  duration_ms: 0.376417
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: error after focus
+not ok 17 - one terminal attempt outcome across fold/restart: error after focus
+  ---
+  duration_ms: 0.471666
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: delayed matching error
+not ok 18 - one terminal attempt outcome across fold/restart: delayed matching error
+  ---
+  duration_ms: 0.424584
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: different turn error
+ok 19 - one terminal attempt outcome across fold/restart: different turn error
+  ---
+  duration_ms: 4.580333
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: missing id error
+not ok 20 - one terminal attempt outcome across fold/restart: missing id error
+  ---
+  duration_ms: 0.357583
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: ordinary later error
+ok 21 - one terminal attempt outcome across fold/restart: ordinary later error
+  ---
+  duration_ms: 0.327583
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: failed preparation after focus
+not ok 22 - one terminal attempt outcome across fold/restart: failed preparation after focus
+  ---
+  duration_ms: 0.13875
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: canceled preparation after focus
+not ok 23 - one terminal attempt outcome across fold/restart: canceled preparation after focus
+  ---
+  duration_ms: 0.573
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: focus turn mismatch
+not ok 24 - one terminal attempt outcome across fold/restart: focus turn mismatch
+  ---
+  duration_ms: 0.123083
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: focus after failure
+not ok 25 - one terminal attempt outcome across fold/restart: focus after failure
+  ---
+  duration_ms: 0.099292
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:5975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:61:20)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: response
+ok 26 - one terminal attempt outcome across fold/restart: response
+  ---
+  duration_ms: 0.205625
+  type: 'test'
+  ...
+# Subtest: terminal failure is consumed by the owning hook read and cannot be republished
+not ok 27 - terminal failure is consumed by the owning hook read and cannot be republished
+  ---
+  duration_ms: 0.350417
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:8078'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected "actual" to be strictly unequal to:
+    
+    'calling'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'calling'
+  actual: 'calling'
+  operator: 'notStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:68:118)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: bounded read retains healthy recent entries at 12000
+not ok 28 - bounded read retains healthy recent entries at 12000
+  ---
+  duration_ms: 7.559208
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:9392'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - 'complete'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'complete'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:73:132)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: bounded read retains healthy recent entries at 12001
+not ok 29 - bounded read retains healthy recent entries at 12001
+  ---
+  duration_ms: 2.488958
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:9392'
+  failureType: 'testCodeFailure'
+  error: 'Chief history could not be confirmed'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    readCommanderConversation (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/shared/commander-replies.ts:75:9)
+    async TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:73:44)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: partial history lifecycle stays bounded: known successful batch
+not ok 30 - partial history lifecycle stays bounded: known successful batch
+  ---
+  duration_ms: 3.626375
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:10027'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:79:200)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: partial history lifecycle stays bounded: failed batch
+not ok 31 - partial history lifecycle stays bounded: failed batch
+  ---
+  duration_ms: 6.320792
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:10027'
+  failureType: 'testCodeFailure'
+  error: |-
+    initial bounded recovery need not repeat a known coverage limit
+    
+    200 !== 100
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 100
+  actual: 200
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:79:367)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: partial history lifecycle stays bounded: origin outside window
+not ok 32 - partial history lifecycle stays bounded: origin outside window
+  ---
+  duration_ms: 14.155042
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:10027'
+  failureType: 'testCodeFailure'
+  error: |-
+    initial bounded recovery need not repeat a known coverage limit
+    
+    200 !== 100
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 100
+  actual: 200
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:79:367)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: partial history lifecycle stays bounded: ordinary recent response
+not ok 33 - partial history lifecycle stays bounded: ordinary recent response
+  ---
+  duration_ms: 5.223125
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:10027'
+  failureType: 'testCodeFailure'
+  error: |-
+    initial bounded recovery need not repeat a known coverage limit
+    
+    200 !== 100
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 100
+  actual: 200
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:79:367)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: real Bridge keeps recent long conversation/question with an explicit coverage notice (1440)
+not ok 34 - real Bridge keeps recent long conversation/question with an explicit coverage notice (1440)
+  ---
+  duration_ms: 197.496667
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:11324'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose recent direction/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      '◉ 幕僚長\n' +
+      'Chief of staff\n' +
+      '! Check\n' +
+      'Board · 2+\n' +
+      'Could not check the comms officer — this list may be incomplete\n' +
+      'Check again · chief of staff\n' +
+      '◆ Your turn\n' +
+      'Approve a?\n' +
+      'A FO\n' +
+      'GATE\n' +
+      '88h ago\n' +
+      '◆ Your turn\n' +
+      'Approve b?\n' +
+      'B FO\n' +
+      'GATE\n' +
+      '88h ago\n' +
+      'A FO\n' +
+      'waiting on Kent · 88h ago\n' +
+      'B FO\n' +
+      'waiting on Kent · 88h ago\n' +
+      'Research FO\n' +
+      'idle · 88h ago\n' +
+      '+ New FO\n' +
+      'Gates read 9:47:48 AM · 2 open\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'Could not read Chief of staff: Error: Chief history could not be confirmed\n' +
+      'Retry conversation\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    ◉ 幕僚長
+    Chief of staff
+    ! Check
+    Board · 2+
+    Could not check the comms officer — this list may be incomplete
+    Check again · chief of staff
+    ◆ Your turn
+    Approve a?
+    A FO
+    GATE
+    88h ago
+    ◆ Your turn
+    Approve b?
+    B FO
+    GATE
+    88h ago
+    A FO
+    waiting on Kent · 88h ago
+    B FO
+    waiting on Kent · 88h ago
+    Research FO
+    idle · 88h ago
+    + New FO
+    Gates read 9:47:48 AM · 2 open
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    Could not read Chief of staff: Error: Chief history could not be confirmed
+    Retry conversation
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:82:179)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# Subtest: real Bridge keeps recent long conversation/question with an explicit coverage notice (360)
+not ok 35 - real Bridge keeps recent long conversation/question with an explicit coverage notice (360)
+  ---
+  duration_ms: 65.4765
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:11324'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Choose recent direction/. Input:
+    
+    'Bridge\n' +
+      '2\n' +
+      'Chief of staff\n' +
+      'Board\n' +
+      '幕僚長 / Chief of staff · idle\n' +
+      'Open full view\n' +
+      '\n' +
+      'Could not read Chief of staff: Error: Chief history could not be confirmed\n' +
+      'Retry conversation\n' +
+      '↑ sends to Chief of staff\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    Bridge
+    2
+    Chief of staff
+    Board
+    幕僚長 / Chief of staff · idle
+    Open full view
+    
+    Could not read Chief of staff: Error: Chief history could not be confirmed
+    Retry conversation
+    ↑ sends to Chief of staff
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:82:179)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: unknown truncated prefix never becomes a known chief question, and fresh events do not run a model
+not ok 36 - unknown truncated prefix never becomes a known chief question, and fresh events do not run a model
+  ---
+  duration_ms: 7.354792
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:11823'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /older history|Older history/. Input:
+    
+    'Error: Chief history could not be confirmed'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Error: Chief history could not be confirmed'
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:88:282)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: coverage metadata never masks gap corruption
+ok 37 - coverage metadata never masks gap corruption
+  ---
+  duration_ms: 0.316166
+  type: 'test'
+  ...
+# Subtest: coverage metadata never masks epoch corruption
+ok 38 - coverage metadata never masks epoch corruption
+  ---
+  duration_ms: 0.106416
+  type: 'test'
+  ...
+# Subtest: coverage metadata never masks nonadvancing corruption
+ok 39 - coverage metadata never masks nonadvancing corruption
+  ---
+  duration_ms: 0.047125
+  type: 'test'
+  ...
+# Subtest: a failed attempt cannot hide a later independent successful batch
+not ok 40 - a failed attempt cannot hide a later independent successful batch
+  ---
+  duration_ms: 0.825167
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:13041'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   'fictional-batch',
+        'batch-B'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'batch-B'
+  actual:
+    0: 'fictional-batch'
+    1: 'batch-B'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:97:105)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: live extraction rejects a persisted same-turn error even when the handle is now idle
+not ok 41 - live extraction rejects a persisted same-turn error even when the handle is now idle
+  ---
+  duration_ms: 7.983625
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:14225'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'calling'
+    - 'failed'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'failed'
+  actual: 'calling'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:104:244)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a recent known response still resolves within partial history; an origin outside it does not
+not ok 42 - a recent known response still resolves within partial history; an origin outside it does not
+  ---
+  duration_ms: 5.860833
+  type: 'test'
+  location: '/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:1:15769'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'calling' !== 'quiet'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'quiet'
+  actual: 'calling'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-baseline-dskpjhyn/spacedock-bridge/test/chief-extra-cycle.test.mts:111:235)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 11
+# fail 31
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1883.225667

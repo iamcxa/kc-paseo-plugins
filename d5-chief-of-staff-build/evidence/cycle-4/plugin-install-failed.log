@@ -1,0 +1,12 @@
+Trusting plugin code: server code and preparation commands run unsandboxed on the daemon host; client code runs inside Paseo. Dependencies and future updates are part of the codebase you trust.
+{
+  "error": {
+    "name": "DaemonRpcError",
+    "requestId": "9969da7d-5b66-4147-af89-0ee9862d13d0",
+    "requestType": "plugin.source.install.request",
+    "code": "handler_error",
+    "serverId": "srv_MOd2SUnXxAZa",
+    "userMessage": "Request failed: Build failed with 1 error:\nerror: Plugin modules belong in client/, server/, or shared/: /private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-v_zhojet/plugin/capture-input",
+    "message": "Request failed: Build failed with 1 error:\nerror: Plugin modules belong in client/, server/, or shared/: /private/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/d5-cycle4-v_zhojet/plugin/capture-input requestType=plugin.source.install.request code=handler_error"
+  }
+}

@@ -1,0 +1,294 @@
+TAP version 13
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 1ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# gates.read \#9 start dirs=0
+# gates.read \#9 done 0ms
+# gates.read \#10 start dirs=0
+# gates.read \#10 done 0ms
+# gates.read \#11 start dirs=0
+# gates.read \#11 done 0ms
+# gates.read \#12 start dirs=0
+# gates.read \#12 done 0ms
+# gates.read \#13 start dirs=0
+# gates.read \#13 done 0ms
+# Subtest: explicit FO ownership at admission/consumption: fo, Next: Choose direction (you)
+ok 1 - explicit FO ownership at admission/consumption: fo, Next: Choose direction (you)
+  ---
+  duration_ms: 2.464583
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: fo, Next: Continue research (me)
+ok 2 - explicit FO ownership at admission/consumption: fo, Next: Continue research (me)
+  ---
+  duration_ms: 0.335416
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: fo, Fictional plain question
+ok 3 - explicit FO ownership at admission/consumption: fo, Fictional plain question
+  ---
+  duration_ms: 0.240334
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: captain, Next: Choose direction (you)
+ok 4 - explicit FO ownership at admission/consumption: captain, Next: Choose direction (you)
+  ---
+  duration_ms: 0.444666
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: captain, Next: Continue research (me)
+ok 5 - explicit FO ownership at admission/consumption: captain, Next: Continue research (me)
+  ---
+  duration_ms: 0.361791
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: captain, Fictional plain question
+ok 6 - explicit FO ownership at admission/consumption: captain, Fictional plain question
+  ---
+  duration_ms: 0.221167
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: absent, Next: Choose direction (you)
+ok 7 - explicit FO ownership at admission/consumption: absent, Next: Choose direction (you)
+  ---
+  duration_ms: 0.205166
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: absent, Next: Continue research (me)
+ok 8 - explicit FO ownership at admission/consumption: absent, Next: Continue research (me)
+  ---
+  duration_ms: 0.152833
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: absent, Fictional plain question
+ok 9 - explicit FO ownership at admission/consumption: absent, Fictional plain question
+  ---
+  duration_ms: 0.153541
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: unsupported, Next: Choose direction (you)
+ok 10 - explicit FO ownership at admission/consumption: unsupported, Next: Choose direction (you)
+  ---
+  duration_ms: 0.203417
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: unsupported, Next: Continue research (me)
+ok 11 - explicit FO ownership at admission/consumption: unsupported, Next: Continue research (me)
+  ---
+  duration_ms: 0.123875
+  type: 'test'
+  ...
+# Subtest: explicit FO ownership at admission/consumption: unsupported, Fictional plain question
+ok 12 - explicit FO ownership at admission/consumption: unsupported, Fictional plain question
+  ---
+  duration_ms: 0.156625
+  type: 'test'
+  ...
+# Subtest: four explicitly FO-owned replies never qualify; independent permissions/gates/reviews remain
+ok 13 - four explicitly FO-owned replies never qualify; independent permissions/gates/reviews remain
+  ---
+  duration_ms: 13.330334
+  type: 'test'
+  ...
+# gates.read \#14 start dirs=0
+# gates.read \#14 done 0ms
+# gates.read \#15 start dirs=0
+# gates.read \#15 done 0ms
+# Subtest: observeBoard re-evaluates ownership changes without a new message/activity timestamp
+ok 14 - observeBoard re-evaluates ownership changes without a new message/activity timestamp
+  ---
+  duration_ms: 10.040625
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: success
+ok 15 - one terminal attempt outcome across fold/restart: success
+  ---
+  duration_ms: 3.575333
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: error before focus
+ok 16 - one terminal attempt outcome across fold/restart: error before focus
+  ---
+  duration_ms: 0.292542
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: error after focus
+ok 17 - one terminal attempt outcome across fold/restart: error after focus
+  ---
+  duration_ms: 0.225833
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: delayed matching error
+ok 18 - one terminal attempt outcome across fold/restart: delayed matching error
+  ---
+  duration_ms: 0.296834
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: different turn error
+ok 19 - one terminal attempt outcome across fold/restart: different turn error
+  ---
+  duration_ms: 0.229292
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: missing id error
+ok 20 - one terminal attempt outcome across fold/restart: missing id error
+  ---
+  duration_ms: 0.183167
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: ordinary later error
+ok 21 - one terminal attempt outcome across fold/restart: ordinary later error
+  ---
+  duration_ms: 0.155
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: failed preparation after focus
+ok 22 - one terminal attempt outcome across fold/restart: failed preparation after focus
+  ---
+  duration_ms: 0.159542
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: canceled preparation after focus
+ok 23 - one terminal attempt outcome across fold/restart: canceled preparation after focus
+  ---
+  duration_ms: 0.159459
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: focus turn mismatch
+ok 24 - one terminal attempt outcome across fold/restart: focus turn mismatch
+  ---
+  duration_ms: 0.217083
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: focus after failure
+ok 25 - one terminal attempt outcome across fold/restart: focus after failure
+  ---
+  duration_ms: 0.129917
+  type: 'test'
+  ...
+# Subtest: one terminal attempt outcome across fold/restart: response
+ok 26 - one terminal attempt outcome across fold/restart: response
+  ---
+  duration_ms: 0.163542
+  type: 'test'
+  ...
+# Subtest: terminal failure is consumed by the owning hook read and cannot be republished
+ok 27 - terminal failure is consumed by the owning hook read and cannot be republished
+  ---
+  duration_ms: 0.402416
+  type: 'test'
+  ...
+# Subtest: bounded read retains healthy recent entries at 12000
+ok 28 - bounded read retains healthy recent entries at 12000
+  ---
+  duration_ms: 32.489292
+  type: 'test'
+  ...
+# Subtest: bounded read retains healthy recent entries at 12001
+ok 29 - bounded read retains healthy recent entries at 12001
+  ---
+  duration_ms: 16.135375
+  type: 'test'
+  ...
+# Subtest: partial history lifecycle stays bounded: known successful batch
+ok 30 - partial history lifecycle stays bounded: known successful batch
+  ---
+  duration_ms: 8.864041
+  type: 'test'
+  ...
+# Subtest: partial history lifecycle stays bounded: failed batch
+ok 31 - partial history lifecycle stays bounded: failed batch
+  ---
+  duration_ms: 15.162666
+  type: 'test'
+  ...
+# Subtest: partial history lifecycle stays bounded: origin outside window
+ok 32 - partial history lifecycle stays bounded: origin outside window
+  ---
+  duration_ms: 13.6155
+  type: 'test'
+  ...
+# Subtest: partial history lifecycle stays bounded: ordinary recent response
+ok 33 - partial history lifecycle stays bounded: ordinary recent response
+  ---
+  duration_ms: 6.857875
+  type: 'test'
+  ...
+# Subtest: real Bridge keeps recent long conversation/question with an explicit coverage notice (1440)
+ok 34 - real Bridge keeps recent long conversation/question with an explicit coverage notice (1440)
+  ---
+  duration_ms: 407.991
+  type: 'test'
+  ...
+# gates.read \#16 start dirs=0
+# gates.read \#16 done 1ms
+# Subtest: real Bridge keeps recent long conversation/question with an explicit coverage notice (360)
+ok 35 - real Bridge keeps recent long conversation/question with an explicit coverage notice (360)
+  ---
+  duration_ms: 67.083541
+  type: 'test'
+  ...
+# Subtest: unknown truncated prefix never becomes a known chief question, and fresh events do not run a model
+ok 36 - unknown truncated prefix never becomes a known chief question, and fresh events do not run a model
+  ---
+  duration_ms: 19.967334
+  type: 'test'
+  ...
+# Subtest: coverage metadata never masks gap corruption
+ok 37 - coverage metadata never masks gap corruption
+  ---
+  duration_ms: 0.167708
+  type: 'test'
+  ...
+# Subtest: coverage metadata never masks epoch corruption
+ok 38 - coverage metadata never masks epoch corruption
+  ---
+  duration_ms: 0.084458
+  type: 'test'
+  ...
+# Subtest: coverage metadata never masks nonadvancing corruption
+ok 39 - coverage metadata never masks nonadvancing corruption
+  ---
+  duration_ms: 0.046
+  type: 'test'
+  ...
+# Subtest: a failed attempt cannot hide a later independent successful batch
+ok 40 - a failed attempt cannot hide a later independent successful batch
+  ---
+  duration_ms: 1.125417
+  type: 'test'
+  ...
+# Subtest: live extraction rejects a persisted same-turn error even when the handle is now idle
+ok 41 - live extraction rejects a persisted same-turn error even when the handle is now idle
+  ---
+  duration_ms: 1.751
+  type: 'test'
+  ...
+# Subtest: a recent known response still resolves within partial history; an origin outside it does not
+ok 42 - a recent known response still resolves within partial history; an origin outside it does not
+  ---
+  duration_ms: 13.427958
+  type: 'test'
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2456.699792

@@ -1,0 +1,10 @@
+import type { TimelineReader } from "./timeline";
+export function captureReader(real: TimelineReader, agentId: string): TimelineReader {
+  if (agentId !== (globalThis as any).__D5_CHIEF_ID__) return real;
+  return async (id, options) => {
+    const count = 12001, end = options?.cursor ? options.cursor.seq - 1 : count, start = Math.max(1, end - 119);
+    (globalThis as any).__D5_READS__ = ((globalThis as any).__D5_READS__ || 0) + 1;
+    return {agentId:id,epoch:"fictional-long-capture",projection:"projected",reset:false,gap:false,staleCursor:false,error:null,hasOlder:start>1,hasNewer:false,
+      entries:Array.from({length:end-start+1},(_,i)=>{const seq=start+i;return {provider:"fictional",seqStart:seq,seqEnd:seq,sourceSeqRanges:[{startSeq:seq,endSeq:seq}],collapsed:[],timestamp:"2026-11-06T10:00:00Z",item:seq===12000?{type:"user_message",text:"Ordinary fictional discussion"}:seq===12001?{type:"assistant_message",text:"Next: Choose the fictional retained-history direction (you)"}:{type:"reasoning",text:"Fictional earlier entry"}};})} as any;
+  };
+}
