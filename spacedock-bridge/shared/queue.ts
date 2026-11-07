@@ -1,4 +1,4 @@
-import type { BoardRow, ReplyFact } from "./board";
+import { captainOwnsQuestion, type BoardRow, type ReplyFact } from "./board";
 import { replyPreview } from "./preview";
 import { type ReviewRequestData, reviewOwner, reviewRef } from "./reviews";
 import type { AwaitingGate } from "./tasks";
@@ -35,7 +35,7 @@ export function buildQueue(
   replies: Readonly<Record<string, ReplyFact>> = {},
 ): QueueItem[] {
   const items: QueueItem[] = [];
-  const asking = new Set(questionRows.filter((row) => row.status === "waiting on Kent" && !row.permission).map((row) => row.id));
+  const asking = new Set(questionRows.filter((row) => row.status === "waiting on Kent" && !row.permission && captainOwnsQuestion(row.nextOwner, true)).map((row) => row.id));
   for (const row of rows) {
     const since = row.attentionAt || row.lastActivityAt;
     if (row.permission)
@@ -67,7 +67,7 @@ export function buildQueue(
       const title = row.next || reply?.preview || "Has a question for you";
       addQuestion(title, reply && replyPreview(title) === reply.preview ? reply : undefined);
     }
-    if (reply?.onCaptain && reply.preview) {
+    if (reply?.preview && captainOwnsQuestion(row.nextOwner, reply.onCaptain)) {
       const represented = items.some((item) => item.fo?.id === row.id && item.kind === "ask" && replyPreview(item.title) === reply.preview);
       if (!represented)
         addQuestion(reply.preview, reply);

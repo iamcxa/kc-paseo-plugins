@@ -80,6 +80,7 @@ function Chat({
   const paseo = usePaseo();
   const [batchFocuses, setBatchFocuses] = useState(new Map<string, ChiefFocus>());
   const latestSendText = useRef(sendText); latestSendText.current = sendText;
+  const [historyUnavailable, setHistoryUnavailable] = useState(false);
   const [captainResponses, setCaptainResponses] = useState(new Set<string>());
   const [lines, setLines] = useState<Line[]>([]);
   const input = useRef<import("react").ElementRef<typeof TextInput>>(null);
@@ -258,11 +259,12 @@ function Chat({
     setConversation("loading");
     try {
       if (commander) {
-        const { replies } = await readCommanderConversation((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId);
+        const { replies, coverage } = await readCommanderConversation((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId);
         if (request !== readRequest.current) return;
+        setHistoryUnavailable(coverage === "older-unavailable");
         setCaptainResponses(new Set(replies.filter(r => r.responseId).map(r => String(r.seqStart))));
         setBatchFocuses(new Map(replies.filter(r => r.focus).map(r => [String(r.seqStart), r.focus!])));
-        setLines(replies.flatMap(r => toLines([r])));
+        setLines(replies.slice(-COMMANDER_ENTRY_LIMIT).flatMap(r => toLines([r])));
       } else {
         const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
         if (request !== readRequest.current) return;
@@ -279,6 +281,7 @@ function Chat({
 
   useEffect(() => {
     setLines([]);
+    setHistoryUnavailable(false);
     setConversation("loading");
     setReadError("");
     const handle = paseo.agents.ref(agentId);
@@ -421,6 +424,7 @@ function Chat({
         </View>
       )}
       {headerExtra}
+      {commander && conversation === "loaded" && historyUnavailable ? <Text style={[styles.muted, { paddingHorizontal: 12, paddingVertical: 8 }]}>較早的對話超出讀取上限，目前只顯示可確認的近期紀錄。</Text> : null}
       <ScrollView
         ref={scroller}
         accessibilityLabel={`Conversation messages with ${title}`}

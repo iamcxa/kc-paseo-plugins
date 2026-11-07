@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import type { PaseoApi } from "@getpaseo/client";
-import { FO_FILTER, ROLE_COORDINATOR, toRows, attachGates, withReplies, needsQuestion, readQuestion, type BoardAgent, type ReplyFact } from "../shared/board";
+import { FO_FILTER, ROLE_COORDINATOR, toRows, attachGates, withReplies, needsQuestion, readQuestion, captainOwnsQuestion, type BoardAgent, type ReplyFact } from "../shared/board";
 import { buildQueue } from "../shared/queue";
 import { BATCH_MARKER, BatchTracker, eventVersion, focusSchema, type ChiefBatch, type ChiefEvent, type ChiefState } from "../shared/chief";
 import { COORDINATOR_VERSION } from "../shared/coordinator";
@@ -24,14 +24,15 @@ export async function chiefBoard(api: PaseoApi, readReviewSource = readReviewsHa
     const officers = await api.agents.list({ filter: { labels: { role: ROLE_COORDINATOR } } });
     const officer = officers.entries.find(entry => entry.agent.labels.role === ROLE_COORDINATOR && !entry.agent.archivedAt)?.agent;
     if (officer) {
-      const { replies } = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), officer.id);
+      const { replies, coverage } = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), officer.id);
       const shown = replies.flatMap(reply => toLines([reply])).at(-1);
       const last = replies.find(reply => String(reply.seqStart) === shown?.key);
+      if (coverage === "older-unavailable" && last?.provenance === "unknown") complete = false;
       if (officer.status !== "running" && officer.status !== "initializing" && last?.item.type === "assistant_message" && last.provenance === "ordinary" && nextStepIsCaptains(last.item.text)) chiefQuestions = 1;
     }
   } catch { complete = false; }
   await Promise.all(rows.filter(needsQuestion).map(async row => {
-    try { facts[row.id] = await readQuestion(api, row.id); }
+    try { facts[row.id] = await readQuestion(api, row.id, row.nextOwner); }
     catch { complete = false; }
   }));
   const gates = await readGatesHandler({ workflowDirs: [...new Set(rows.map(row => row.workflowDir).filter(Boolean))] });
@@ -48,7 +49,7 @@ export async function chiefBoard(api: PaseoApi, readReviewSource = readReviewsHa
       if (item.gate?.briefingId && (await readDecisionHandler({ briefingId: item.gate.briefingId })).record) continue;
     } else if (item.kind === "ask") {
       const fact = item.fo && facts[item.fo.id];
-      if (fact && fact.onCaptain && fact.messageId && replyPreview(item.title) === fact.preview) { since = fact.since ?? ""; identity = JSON.stringify(["question", item.fo!.id, fact.messageId]); }
+      if (fact && captainOwnsQuestion(item.fo?.nextOwner, fact.onCaptain) && fact.messageId && replyPreview(item.title) === fact.preview) { since = fact.since ?? ""; identity = JSON.stringify(["question", item.fo!.id, fact.messageId]); }
     } else if (item.kind === "permission") {
       const agent = agents.find(agent => agent.id === item.fo?.id);
       const permissions = agent?.pendingPermissions as readonly { id?: string }[] | undefined;
@@ -91,6 +92,7 @@ export class ChiefObserver {
   private tracker = new BatchTracker();
   private agentId = "";
   private running = false;
+  private historyComplete = true;
   private terminal = new Set<string>();
   private reading: Promise<ChiefState> | null = null;
   constructor(private board: (api: PaseoApi) => Promise<{ events: ChiefEvent[]; total: string; complete: boolean; rows: unknown[] }> = chiefBoard) {}
@@ -100,6 +102,7 @@ export class ChiefObserver {
   }
   private async history(api: PaseoApi, id: string) {
     const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id);
+    this.historyComplete = conversation.coverage === "complete";
     conversation.attempts.forEach(batch => this.tracker.consume(batch.events));
     if (!conversation.unresolved.length && conversation.uncertain.size) throw new Error("Preparation cannot be confirmed from conversation history; no call or retry");
     return conversation.unresolved.at(-1) ?? null;
@@ -122,7 +125,8 @@ export class ChiefObserver {
         this.terminal.add(`${chief.id}:${this.state.batch!.id}`);
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total };
       }
-      if (!this.running && this.state.phase !== "calling" && qualified && chief.status === "idle") {
+      if (!this.historyComplete && !this.state.batch) this.state = { ...this.state, phase: "unknown", error: "Older history unavailable; earlier batch outcomes cannot be confirmed. No automatic call." };
+      if (this.historyComplete && !this.running && this.state.phase !== "calling" && qualified && chief.status === "idle") {
         const batch: ChiefBatch = { ...qualified, id: hash(qualified.events.map(eventVersion)), checkedAt: new Date().toISOString() };
         this.tracker.consume(batch.events); this.running = true;
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total, phase: "preparing", batch };
@@ -175,6 +179,10 @@ export class ChiefObserver {
     try {
       const conversation = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), agentId);
       if (conversation.responses.has(batchId)) this.responded(batchId, agentId);
+      else if (conversation.failed.has(batchId) && this.state.agentId === agentId && this.state.batch?.id === batchId) {
+        this.terminal.add(`${agentId}:${batchId}`);
+        this.state = { ...this.state, phase: "failed", focus: null, entered: true, soundAttempted: true, error: "Batch turn failed; no call or retry" };
+      }
     } catch {}
   }
 }

@@ -39,12 +39,13 @@ export function useCoAsk(coId: string): { ask: string | null; since: string | nu
       try {
         await subscription.ready;
         if (cancelled || current !== request) return;
-        const { replies } = await readCommanderConversation((_id, options) => handle.timeline.refetch(options), coId);
+        const { replies, coverage } = await readCommanderConversation((_id, options) => handle.timeline.refetch(options), coId);
         if (cancelled || current !== request) return;
         const status = handle.status;
         working = status === "running" || status === "initializing";
         const visible = replies.flatMap(r => toLines([r])).at(-1);
         const last = replies.find(r => String(r.seqStart) === visible?.key);
+        if (coverage === "older-unavailable" && last?.provenance === "unknown") throw new Error("Older history unavailable; question ownership unknown");
         const reply = last?.item.type === "assistant_message" && last.provenance === "ordinary" ? last.item.text : "";
         const since = last?.timestamp ?? null;
         setResult({ id: coId, since, state: "loaded", ask: !working && nextStepIsCaptains(reply) ? replyPreview(reply) : null });

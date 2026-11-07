@@ -4,7 +4,7 @@ import { AUTOMATED_MARKER } from "./reviews";
 import { batchRequest, batchResponseId, focusSchema, eventSchema, type ChiefBatch, type ChiefFocus } from "./chief";
 
 export const COMMANDER_ENTRY_LIMIT = TIMELINE_ENTRY_LIMIT;
-export type CommanderReply = Pick<TimelineEntry, "seqStart" | "seqEnd" | "timestamp" | "item"> & {
+export type CommanderReply = Pick<TimelineEntry, "seqStart" | "seqEnd" | "timestamp" | "item" | "turnId"> & {
   provenance: "ordinary" | "automated" | "unknown";
   batchId: string | null; responseId: string | null; focus: ChiefFocus | null;
 };
@@ -25,7 +25,19 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
   let prepared = false, preparationCalls = 0;
   const replies: CommanderReply[] = [], attempts = new Map<string, ChiefBatch>();
   const unresolved = new Map<string, { batch: ChiefBatch; focus: ChiefFocus }>();
-  const responses = new Set<string>(), uncertain = new Set<string>();
+  const responses = new Set<string>(), uncertain = new Set<string>(), failed = new Set<string>();
+  const batchTurns = new Map<string, string>(), turnBatches = new Map<string, string>();
+  const invalidate = (id: string, failure: boolean) => {
+    unresolved.delete(id);
+    if (failure) { failed.add(id); uncertain.delete(id); } else if (!failed.has(id)) uncertain.add(id);
+  };
+  const bindTurn = (id: string, turnId?: string) => {
+    if (!turnId) return true;
+    if (batchTurns.has(id) && batchTurns.get(id) !== turnId || turnBatches.has(turnId) && turnBatches.get(turnId) !== id) {
+      invalidate(id, false); return false;
+    }
+    batchTurns.set(id, turnId); turnBatches.set(turnId, id); return true;
+  };
   for (const entry of entries) {
     const item = entry.item;
     const text = "text" in item ? item.text : "";
@@ -35,26 +47,37 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
       current = batchRequest(item.text);
       provenance = item.text.startsWith(AUTOMATED_MARKER) ? "automated" : "ordinary";
       prepared = Boolean(current && current.id === livePreparedBatchId); preparationCalls = 0;
-      if (current) attempts.set(current.id, current);
+      if (current) { attempts.set(current.id, current); bindTurn(current.id, entry.turnId); }
       else if (provenance === "ordinary") {
         const candidate = batchResponseId(item.text);
         responseId = candidate && attempts.has(candidate) ? candidate : null;
         if (responseId) { responses.add(responseId); unresolved.delete(responseId); uncertain.delete(responseId); }
       }
+    } else if (item.type === "error") {
+      const attributed = entry.turnId ? turnBatches.get(entry.turnId) : undefined;
+      const contextual = current && (!entry.turnId || !batchTurns.has(current.id)) ? current.id : undefined;
+      if (attributed || contextual) invalidate((attributed || contextual)!, true);
     } else if (current && item.type === "tool_call") {
-      if (["prepare_batch", "mcp__fleet__prepare_batch"].includes(item.name)) prepared = ++preparationCalls === 1 && preparedBy(item, current);
-    } else if (current && item.type === "assistant_message" && !responses.has(current.id)) {
+      if (["prepare_batch", "mcp__fleet__prepare_batch"].includes(item.name)) {
+        if (!bindTurn(current.id, entry.turnId)) prepared = false;
+        else if (++preparationCalls > 1 || item.status === "failed" || item.status === "canceled") { prepared = false; invalidate(current.id, true); }
+        else {
+          prepared = preparedBy(item, current) || livePreparedBatchId === current.id && item.status === "completed" && !item.error;
+          if (!prepared) invalidate(current.id, false);
+        }
+      }
+    } else if (current && item.type === "assistant_message" && !responses.has(current.id) && !failed.has(current.id)) {
       try {
         const candidate = focusSchema.parse(JSON.parse(item.text));
         if (candidate.batchId === current.id && current.events.some(event => event.key === candidate.targetKey)) {
-          if (prepared) { focus = candidate; unresolved.set(current.id, { batch: current, focus }); uncertain.delete(current.id); }
-          else uncertain.add(current.id);
+          if (bindTurn(current.id, entry.turnId) && prepared && !uncertain.has(current.id)) { focus = candidate; unresolved.set(current.id, { batch: current, focus }); }
+          else invalidate(current.id, false);
         }
       } catch {}
     }
     replies.push({ ...entry, item: { ...item }, provenance, batchId: current?.id ?? null, responseId, focus });
   }
-  return { replies, attempts: [...attempts.values()], unresolved: [...unresolved.values()], responses, uncertain };
+  return { replies: replies.map(reply => reply.batchId && (failed.has(reply.batchId) || uncertain.has(reply.batchId)) ? { ...reply, focus: null } : reply), attempts: [...attempts.values()], unresolved: [...unresolved.values()], responses, uncertain, failed };
 }
 export function commanderReplies(page: TimelinePage, agentId: string, epoch?: string): CommanderReply[] | null {
   if (!healthyTimeline(page, agentId, epoch)) return null;
@@ -67,10 +90,10 @@ export async function readCommanderConversation(read: TimelineReader, agentId: s
     const page = await readTimeline(read, agentId, { direction: cursor ? "before" : "tail", cursor, limit: COMMANDER_ENTRY_LIMIT }, cursor?.epoch);
     if (cursor && (page.entries.at(-1)?.seqEnd ?? cursor.seq) >= cursor.seq) throw new Error("Chief history did not advance");
     entries.unshift(...page.entries);
-    if (!page.hasOlder) return interpret(entries, livePreparedBatchId);
+    if (!page.hasOlder) return { ...interpret(entries, livePreparedBatchId), coverage: "complete" as const };
     const first = page.entries[0]?.seqStart;
     if (first === undefined) throw new Error("Chief history unavailable");
     cursor = { epoch: page.epoch, seq: first };
   }
-  throw new Error("Chief history could not be confirmed");
+  return { ...interpret(entries, livePreparedBatchId), coverage: "older-unavailable" as const };
 }

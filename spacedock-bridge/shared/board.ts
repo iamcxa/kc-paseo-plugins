@@ -38,6 +38,7 @@ export interface BoardRow {
   permission: string;
   next: string;
   hasNextOwner: boolean;
+  nextOwner?: string;
   workflowDir: string;
   gates: AwaitingGate[];
   offline: boolean;
@@ -81,6 +82,7 @@ export function toRow(agent: BoardAgent): BoardRow {
     permission: permissionPreview(agent.pendingPermissions?.[0]),
     next: agent.labels?.[NEXT_LABEL] ?? "",
     hasNextOwner: Boolean(agent.labels?.[NEXT_OWNER_LABEL]),
+    nextOwner: agent.labels?.[NEXT_OWNER_LABEL] || undefined,
     workflowDir: (agent.labels?.["workflow-dir"] ?? "").startsWith("/") ? agent.labels!["workflow-dir"] : "",
     gates: [],
     offline: Boolean(agent.archivedAt) || agent.status === "closed",
@@ -116,25 +118,27 @@ export function toRows(agents: Iterable<BoardAgent>): BoardRow[] {
   return [...agents].filter(isFo).map(toRow).sort(byGroupThenTitle);
 }
 
+export const captainOwnsQuestion = (owner: string | undefined, inferred: boolean) => owner ? owner === "captain" : inferred;
+
 export function withReplies(
   rows: readonly BoardRow[],
   facts: Readonly<Record<string, ReplyFact>>,
 ): BoardRow[] {
   return rows
     .map((row): BoardRow =>
-      row.status === "new reply" && facts[row.id]?.onCaptain
+      row.status === "new reply" && captainOwnsQuestion(row.nextOwner, Boolean(facts[row.id]?.onCaptain))
         ? { ...row, status: "waiting on Kent" }
         : row,
     )
     .sort(byGroupThenTitle);
 }
 
-export const needsQuestion = (row: BoardRow) => row.status === "new reply" || row.status === "waiting on Kent" && !row.permission;
-export async function readQuestion(paseo: PaseoApi, agentId: string): Promise<ReplyFact> {
+export const needsQuestion = (row: BoardRow) => captainOwnsQuestion(row.nextOwner, true) && (row.status === "new reply" || row.status === "waiting on Kent" && !row.permission);
+export async function readQuestion(paseo: PaseoApi, agentId: string, nextOwner?: string): Promise<ReplyFact> {
   const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: 30 });
   const reply = lastReply(page.entries.map(entry => entry.item));
   const message = page.entries.findLast(entry => entry.item.type === "assistant_message" && entry.item.text);
-  return { preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply),
+  return { preview: replyPreview(reply), onCaptain: captainOwnsQuestion(nextOwner, nextStepIsCaptains(reply)),
     ...(message ? { messageId: `${page.epoch}:${message.seqStart}:${message.seqEnd}`, since: message.timestamp } : {}) };
 }
 
@@ -144,7 +148,7 @@ export async function observeBoard(
   onError?: (error: unknown) => void,
 ): Promise<() => void> {
   const known = new Map<string, BoardAgent>();
-  const fetched = new Map<string, { at: string; promise: Promise<ReplyFact> }>();
+  const fetched = new Map<string, { at: string; owner?: string; promise: Promise<ReplyFact> }>();
   let active = true;
   let generation = 0;
   const emit = () => {
@@ -156,9 +160,9 @@ export async function observeBoard(
     if (!questions.length) return;
     const reads = questions.map((row) => {
       const cached = fetched.get(row.id);
-      if (cached?.at === row.lastActivityAt) return cached.promise;
-      const promise = readQuestion(paseo, row.id);
-      fetched.set(row.id, { at: row.lastActivityAt, promise });
+      if (cached?.at === row.lastActivityAt && cached.owner === row.nextOwner) return cached.promise;
+      const promise = readQuestion(paseo, row.id, row.nextOwner);
+      fetched.set(row.id, { at: row.lastActivityAt, owner: row.nextOwner, promise });
       void promise.catch(() => { if (fetched.get(row.id)?.promise === promise) fetched.delete(row.id); });
       return promise;
     });
