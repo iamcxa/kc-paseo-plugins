@@ -64,10 +64,19 @@ Verified by: no digest, Replay or collect-now UI or code remains; the projected 
 UI proposal: build the accepted d4-chief-of-staff mockups (rest, call, exception, focus, entered, target, returned, empty, board, source), adding only the phone return path from a call.
 Preview: d4-chief-of-staff/mockups/review.html
 
+## Captain amendments
+
+### Amendment 1 — 2026-11-07, chat
+Captain: 「再修一輪，只修這三個 (Recommended)」
+Asked: 幕僚長可以再多修一輪嗎？兩輪修正已經用完，還剩三個問題。總工程師的判斷是：有在進步，但還沒收斂。其中兩個會讓你依錯誤狀態行動：一是 FO 接手的事被算成等你的問題，可能誤發呼叫；二是已失敗的分析在重啟後變成有效呼叫。第三個是超過約 1.2 萬筆的長對話整個讀不到。 (options: 「再修一輪，只修這三個 (Recommended)」 — "只修這三個。等 Claude 額度確定恢復後，跑一次真的 Opus+Terra 批次，連重啟後讀回一起驗。之後做畫面驗收，給你試用。如果真實結果對不上就停下來回報，不自動再開下一輪。代價：試用又往後延。"; 「不修了，先給我試」)
+Supersedes: none
+Design: "one more repair cycle, for roborev 1578 findings 10-12 only; after the Claude limit is confirmed reset, one real Opus and Terra batch with restart read-back; then visual acceptance and his trial; stop and report if the real result does not match, with no further cycle opened automatically" (beyond the seed's Budget line of two repair cycles)
+
 ## FO alignment
 
 Alignment: not needed: the Captain accepted the design (d4-chief-of-staff), the trigger and the starting point on 2026-11-06.
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-07: Captain amendment 1 supersedes no acceptance criterion and changes no build scope; it adds one repair cycle for roborev 1578 findings 10-12 only.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-07 — after roborev 1578 with both repair cycles spent, converging or drifting, are findings 10-12 material, and what is the next smallest step?
 Surfaces: ui
 Visible change: the comms officer renamed as the chief of staff, a red pulsing sidebar count with a sound when she calls, her opening focus, and the board in one time order, newest first.
