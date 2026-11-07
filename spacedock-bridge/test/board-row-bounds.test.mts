@@ -78,8 +78,6 @@ test("queue rows keep visible repository and number with icon-only sibling actio
     return { row, link };
   }
   for (const view of ["decision", "FO"]) {
-    const tab = [...container.querySelectorAll<HTMLElement>("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
-    await act(() => tab.click());
     for (const number of [2, 1]) {
       const label = `Review proposal ${number} — Review owner FO`;
       const { link } = pair(label, `Open bridge#${number} on GitHub`);

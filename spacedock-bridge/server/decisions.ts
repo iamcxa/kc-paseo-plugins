@@ -4,7 +4,7 @@ import { join } from "node:path";
 import type { RpcInput } from "@getpaseo/plugin";
 import type { DecisionRecordData, claimDecision, readDecision, releaseDecision } from "../shared/decisions";
 
-const HOME = join(homedir(), ".local", "share", "paseo-fo-coordinator");
+const HOME = (process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator"));
 const FILE = join(HOME, "decisions.json");
 let chain: Promise<unknown> = Promise.resolve();
 

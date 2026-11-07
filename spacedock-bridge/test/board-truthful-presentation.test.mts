@@ -3,25 +3,23 @@ import { test } from "node:test";
 import { mountBridge } from "./helpers/bridge-host.mjs";
 
 for (const compact of [false, true]) {
-  for (const view of ["decision", "fo"]) {
+  for (const view of ["timeline"]) {
     for (const progress of ["sent", "relayed"]) {
       test(`a ${progress} item never appears under a waiting-on-you claim (${compact ? 360 : 1440}, ${view})`, async t => {
         const h = await mountBridge(t, compact);
         if (compact) await h.click("Board");
         await h.click("Approve a? — A FO");
-        await h.click("Choose 准"); await h.click("Confirm 准 via comms officer");
+        await h.click("Choose 准"); await h.click("Confirm 准 via chief of staff");
         if (progress === "relayed") {
           h.timeline.set("a", [{ seqStart: 1, item: { type: "user_message", text: h.claims.get("brief-a").decisionId } }]);
           await h.poll();
         }
-        await h.click("Back to Commander");
+        await h.click("Back to Chief of staff");
         if (compact) await h.click("Board");
-        if (view === "fo") await h.click("By FO");
         assert.match(h.text(), /Board · 2/);
         assert.doesNotMatch(h.text(), /waiting on you/i);
         assert.match(h.text(), progress === "sent" ? /◷ Waiting for relay/ : /◷ Waiting for record/);
-        if (view === "decision") { assert.match(h.text(), /All 2/); assert.match(h.text(), /Gates 2/); }
-        else assert.match(h.text(), /1 waiting/);
+        assert.equal(h.container.querySelectorAll('[aria-label="Approve a? — A FO"]').length,1);
         assert.equal(h.sent.length, 1);
       });
     }
@@ -29,7 +27,7 @@ for (const compact of [false, true]) {
   test(`an FO with nothing waiting opens only its conversation (${compact ? 360 : 1440})`, async t => {
     const h = await mountBridge(t, compact);
     if (compact) await h.click("Board");
-    await h.click("By FO"); await h.click("Conversation with Research FO");
+    await h.click("Conversation with Research FO");
     assert.ok(h.find("Message Research FO"));
     assert.doesNotMatch(h.text(), /QUESTION|waiting \d+[smhd]/);
     assert.ok(!h.find("Show briefing") && !h.find("Hide briefing"));
@@ -37,7 +35,7 @@ for (const compact of [false, true]) {
     assert.ok(!h.find("Choose 准"));
     await h.type("Message Research FO", "Research discussion draft");
     const composer = h.find("Message Research FO");
-    await h.click("Back to Commander");
+    await h.click("Back to Chief of staff");
     if (compact) await h.click("Board");
     await h.click("Conversation with Research FO");
     assert.ok(h.find("Message Research FO") === composer);

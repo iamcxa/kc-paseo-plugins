@@ -6,20 +6,24 @@ import { Board, type BoardProps } from "./board";
 import { CoChat } from "./co-chat";
 import { FeedbackPressable as Pressable } from "./feedback-pressable";
 import { Modal } from "@getpaseo/plugin/client/react-native";
-import { collectDigest } from "../shared/digest";
+import { batchResponse } from "../shared/chief";
+import { useChief } from "./use-chief";
 import { useCoAsk } from "./use-co-ask";
 
 export function Bridge(props: BoardProps & { host?: { id: string; label: string } }) {
   const { theme, layout } = props;
   const callOpenCoordinator = useRpc(openCoordinator);
   const callSwitch = useRpc(switchCoordinator);
-  const callCollect = useRpc(collectDigest);
+  const chief = useChief();
+  const externalRequest = JSON.stringify([props.params?.item, props.params?.request]);
+  const [target, setTarget] = useState<{ params: BoardProps["params"]; externalRequest: string }>();
+  const targetRequest = useRef(0);
+  const [replyBatch, setReplyBatch] = useState<{ chiefAgentId: string; batchId: string } | null>(null);
   const [needsSwitch, setNeedsSwitch] = useState(false);
   const [previous, setPrevious] = useState<string | null>(null);
   const [confirmSwitch, setConfirmSwitch] = useState(false);
   const [oldOpen, setOldOpen] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [collection, setCollection] = useState("");
   const [actionError, setActionError] = useState("");
   const [coId, setCoId] = useState("");
   const [error, setError] = useState("");
@@ -28,8 +32,21 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
   const coAsk = ask ? { text: ask, since, onPress: () => {} } : null;
   const [seed, setSeed] = useState<{ text: string; nonce: number } | null>(null);
   const onAskCo = useCallback((text: string) => {
+    setReplyBatch(null);
     setSeed({ text, nonce: Date.now() });
   }, []);
+
+  const replyContext = useRef({ coId, selection: replyBatch });
+  const validReply = Boolean(replyBatch && chief.state?.phase === "calling" && chief.state.agentId === coId && replyBatch.chiefAgentId === coId && chief.state.batch?.id === replyBatch.batchId);
+  replyContext.current = { coId, selection: validReply ? replyBatch : null };
+  useEffect(() => { if (replyBatch && !validReply) setReplyBatch(null); }, [replyBatch, validReply]);
+  const responseText = async (text: string) => {
+    const selected = replyContext.current.selection;
+    if (!selected) return text;
+    const current = await chief.refresh();
+    return replyContext.current.selection === selected && replyContext.current.coId === selected.chiefAgentId && current?.phase === "calling" && current.agentId === selected.chiefAgentId && current.batch?.id === selected.batchId
+      ? batchResponse(selected.batchId, text) : text;
+  };
 
   const coordinatorRequest = useRef(0);
   const connectCoordinator = useCallback(() => {
@@ -45,34 +62,29 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
 
   const colors = theme.colors;
 
-  const act = async (kind: "switch" | "collect") => {
+  const act = async () => {
     if (busy) return;
     setBusy(true); setActionError("");
     try {
-      if (kind === "switch") {
+      {
         const result = await callSwitch({ oldAgentId: coId, confirm: true });
         ++coordinatorRequest.current;
         setCoId(result.agentId); setPrevious(result.previousAgentId); setNeedsSwitch(false); setConfirmSwitch(false);
-      } else {
-        if (!props.host?.id) throw new Error("Host identity unavailable");
-        const round = await callCollect({ hostId: props.host.id, agentId: coId });
-        setCollection(`已送出收集 · ${round.collectedAt} · 等待摘要；尚未驗證`);
       }
     } catch (e) { setActionError(String(e)); }
     finally { setBusy(false); }
   };
   const tools = <View style={{ paddingHorizontal: 16, paddingVertical: 10, gap: 8, borderBottomWidth: 1, borderBottomColor: colors.border }}>
-    {needsSwitch ? <><Text style={{ color: colors.foregroundMuted, fontSize: 12 }}>新的摘要需要新通訊官；確認後才封存舊官，舊對話仍可讀。</Text><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="換用新的通訊官" disabled={busy} onPress={() => setConfirmSwitch(true)}><Text style={{ color: colors.foreground }}>換用新的通訊官</Text></Pressable></> : <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="立即收集" disabled={busy || !props.host?.id} onPress={() => void act("collect")}><Text style={{ color: colors.foreground }}>{busy ? "正在收集…" : "立即收集"}</Text></Pressable>}
-    {collection ? <Text style={{ color: colors.foregroundMuted, fontSize: 12 }}>{collection}</Text> : null}
+    {needsSwitch ? <><Text style={{ color: colors.foregroundMuted, fontSize: 12 }}>幕僚長需要新指示；確認後才封存舊官，舊對話仍可讀。</Text><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="換用新的通訊官" disabled={busy} onPress={() => setConfirmSwitch(true)}><Text style={{ color: colors.foreground }}>換用新的通訊官</Text></Pressable></> : null}
     {previous ? <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="讀取舊通訊官對話" onPress={() => setOldOpen(true)}><Text style={{ color: colors.foreground, fontSize: 12 }}>讀取舊通訊官對話</Text></Pressable> : null}
     {actionError ? <Text style={{ color: colors.statusDanger }}>{actionError}</Text> : null}
     <Modal title="確認換用新通訊官" open={confirmSwitch} onOpenChange={value => { if (!busy) setConfirmSwitch(value); }}><Modal.Content><View style={{ padding: 16, gap: 16 }}>
-      <Text style={{ color: colors.foreground }}>新通訊官只讀既有回報產生摘要，不催問 FO。確認後建立新官並封存舊官；舊對話保留。</Text>
-      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="確認換用並封存舊官" disabled={busy} onPress={() => void act("switch")}><Text style={{ color: colors.foreground }}>確認換用並封存舊官</Text></Pressable>
+      <Text style={{ color: colors.foreground }}>幕僚長只根據工作事項，在達門檻後選一件焦點，不催問 FO。確認後建立新官並封存舊官；舊對話保留。</Text>
+      <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="確認換用並封存舊官" disabled={busy} onPress={() => void act()}><Text style={{ color: colors.foreground }}>確認換用並封存舊官</Text></Pressable>
       <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="取消換用" disabled={busy} onPress={() => setConfirmSwitch(false)}><Text style={{ color: colors.foregroundMuted }}>取消</Text></Pressable>
       {actionError ? <Text style={{ color: colors.statusDanger }}>{actionError}</Text> : null}
     </View></Modal.Content></Modal>
-    <Modal title="舊通訊官 · 唯讀對話" open={oldOpen} onOpenChange={setOldOpen}><Modal.Content>{oldOpen && previous ? <View style={{ height: 560, maxHeight: "100%" }}><CoChat theme={theme} layout={layout} agentId={previous} title="Previous comms officer" commander digestHostId={props.host?.id} readOnly /></View> : null}</Modal.Content></Modal>
+    <Modal title="舊通訊官 · 唯讀對話" open={oldOpen} onOpenChange={setOldOpen}><Modal.Content>{oldOpen && previous ? <View style={{ height: 560, maxHeight: "100%" }}><CoChat theme={theme} layout={layout} agentId={previous} title="Previous chief of staff" commander readOnly /></View> : null}</Modal.Content></Modal>
   </View>;
 
   const chat = (active: boolean, openFO: (agentId: string) => boolean) => coId ? (
@@ -82,9 +94,10 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
       navigation={props.navigation}
       agentId={coId}
       commander
-      digestHostId={props.host?.id}
-      onOpenFO={source => source.hostId === props.host?.id && openFO(source.agentId)}
-      headerExtra={tools}
+      highlightedBatchId={chief.state?.phase === "calling" ? chief.state.batch?.id : undefined}
+      headerExtra={<>{tools}{chief.state?.phase === "calling" && chief.state.focus ? <View style={{padding:16,gap:8}}><Text style={{color:colors.foreground}}>{chief.state.focus.sentence}</Text>{chief.state.error ? <Text style={{color:colors.statusWarning}}>來源無法確認；保留焦點，暫停開啟。</Text> : null}<Pressable colors={colors} accessibilityRole="button" accessibilityLabel="回應這一批" onPress={() => setReplyBatch({chiefAgentId:coId,batchId:chief.state!.batch!.id})}><Text style={{color:colors.accent}}>{validReply ? "正在回應這一批" : "回應這一批"}</Text></Pressable><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="開啟幕僚長的焦點" disabled={Boolean(chief.state.error)} onPress={() => setTarget({params:{item:chief.state!.focus!.targetKey,request:`focus:${++targetRequest.current}`},externalRequest})}><Text style={{color:colors.accent}}>開啟具名事項 →</Text></Pressable></View> : null}</>}
+      sendText={responseText}
+      onSent={() => { setReplyBatch(null); void chief.refresh(); }}
       active={active}
       sourceState={commsState}
       sourceError={error}
@@ -93,21 +106,21 @@ export function Bridge(props: BoardProps & { host?: { id: string; label: string 
       onSeeded={() => setSeed(null)}
     />
   ) : (
-    <CommanderConnection active={active} error={error} colors={colors} retry={connectCoordinator} />
+    <ChiefConnection active={active} error={error} colors={colors} retry={connectCoordinator} />
   );
 
-  return <Board {...props} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo}
+  return <Board {...props} params={target?.externalRequest === externalRequest ? target.params : props.params} coAsk={coAsk} commsState={commsState} onRetryComms={retryComms} onAskCo={onAskCo} onEnterChief={() => { void chief.mark("entered"); }}
     comms={chat} renderLayout={(list, detail, selected) => <BridgeLayout compact={layout.compact} colors={colors} list={list} detail={detail} selected={selected} />} />;
 }
 
-function CommanderConnection({ active, error, colors, retry }: { active: boolean; error: string; colors: BoardProps["theme"]["colors"]; retry(): unknown }) {
+function ChiefConnection({ active, error, colors, retry }: { active: boolean; error: string; colors: BoardProps["theme"]["colors"]; retry(): unknown }) {
   const wasActive = useRef(active);
   useEffect(() => {
     if (active && !wasActive.current) void retry();
     wasActive.current = active;
   }, [active]);
   return <View style={{ padding: 16, gap: 8 }}>
-    <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted }}>{error || "Opening the comms officer…"}</Text>
+    <Text style={{ color: error ? colors.statusDanger : colors.foregroundMuted }}>{error || "Opening the chief of staff…"}</Text>
     <Pressable colors={colors} accessibilityRole="button" accessibilityLabel="Retry commander connection" onPress={() => void retry()}><Text style={{ color: colors.foreground }}>Retry connection</Text></Pressable>
   </View>;
 }

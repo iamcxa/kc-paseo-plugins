@@ -1,3 +1,5 @@
+import { type ChiefFocus } from "../shared/chief";
+import { AUTOMATED_MARKER } from "../shared/reviews";
 import { readTimeline } from "../shared/timeline";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { usePaseo, useRpc } from "@getpaseo/plugin/client";
@@ -16,17 +18,14 @@ import { stopAgent } from "../shared/control";
 import { draftKey, readDraft, readDraftSending, seedDraft } from "../shared/drafts";
 import { useDraft } from "./use-draft";
 import { useComposerPadding } from "./use-composer-padding";
-import { DigestMessage } from "./digest";
-import { contextMessage, splitContextMessage, isCollectionRequest, type PointContext } from "../shared/digest";
-import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
+import { readCommanderConversation, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
 import type { GateIdentityFields } from "../shared/gate-identity";
 
 type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
   readOnly?: boolean;
-  digestHostId?: string;
   commander?: boolean;
-  onOpenFO?: (source: import("../shared/digest").ReportSource) => boolean;
+  highlightedBatchId?: string;
   headerExtra?: import("react").ReactNode;
   gate?: GateIdentityFields | null;
   title?: string;
@@ -34,6 +33,7 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   chips?: readonly string[];
   footer?: string;
   beforeSend?: () => Promise<string | null>;
+  sendText?: (text: string) => string | Promise<string>;
   onSent?: (text: string) => void;
   onChip?: (word: string, draft: string) => Promise<string | null>;
   decisionTarget?: string;
@@ -55,17 +55,17 @@ function Chat({
   layout,
   navigation,
   agentId,
-  digestHostId,
   commander = false,
-  onOpenFO,
+  highlightedBatchId,
   readOnly,
   headerExtra,
   gate,
-  title = "Comms officer",
-  placeholder = "Message the comms officer",
+  title = "Chief of staff",
+  placeholder = "和幕僚長說話",
   chips,
   footer,
   beforeSend,
+  sendText,
   onSent,
   onChip,
   decisionTarget = "",
@@ -78,11 +78,12 @@ function Chat({
   onRetrySource,
 }: Props) {
   const paseo = usePaseo();
+  const [batchFocuses, setBatchFocuses] = useState(new Map<string, ChiefFocus>());
+  const latestSendText = useRef(sendText); latestSendText.current = sendText;
+  const [historyUnavailable, setHistoryUnavailable] = useState(false);
+  const [captainResponses, setCaptainResponses] = useState(new Set<string>());
   const [lines, setLines] = useState<Line[]>([]);
   const input = useRef<import("react").ElementRef<typeof TextInput>>(null);
-  const [pointContext, setPointContext] = useState<PointContext | null>(null);
-  const sentContext = useRef<PointContext | null>(null);
-  const [positions, setPositions] = useState({ epoch: "", ends: {} as Record<string, number>, digests: new Set<string>() });
   const [working, setWorking] = useState(false);
   const key = draftKey(agentId, gate);
   const [draft, setDraft, sending, setSending] = useDraft(key);
@@ -257,15 +258,18 @@ function Chat({
     const request = ++readRequest.current;
     setConversation("loading");
     try {
-      if (commander && !digestHostId) throw new Error("Commander host identity unavailable");
-      const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
-      if (request !== readRequest.current) return;
-      if (commander || digestHostId) {
-        const replies = commanderReplies(page, agentId);
-        if (!replies) throw new Error("Commander timeline unavailable");
-        setPositions({ epoch: page.epoch, digests: new Set(replies.filter(r => r.item.type === "assistant_message" && r.provenance !== "ordinary").map(r => String(r.seqStart))), ends: Object.fromEntries(replies.map(r => [String(r.seqStart), r.seqEnd])) });
-        setLines(replies.flatMap(r => toLines([r])));
-      } else setLines(toLines(page.entries));
+      if (commander) {
+        const { replies, coverage } = await readCommanderConversation((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId);
+        if (request !== readRequest.current) return;
+        setHistoryUnavailable(coverage === "older-unavailable");
+        setCaptainResponses(new Set(replies.filter(r => r.responseId).map(r => String(r.seqStart))));
+        setBatchFocuses(new Map(replies.filter(r => r.focus).map(r => [String(r.seqStart), r.focus!])));
+        setLines(replies.slice(-COMMANDER_ENTRY_LIMIT).flatMap(r => toLines([r])));
+      } else {
+        const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
+        if (request !== readRequest.current) return;
+        setLines(toLines(page.entries));
+      }
       setConversation("loaded");
       setReadError("");
     } catch (e) {
@@ -273,10 +277,11 @@ function Chat({
       setConversation("failed");
       setReadError(String(e));
     }
-  }, [paseo, agentId, digestHostId, commander]);
+  }, [paseo, agentId, commander]);
 
   useEffect(() => {
     setLines([]);
+    setHistoryUnavailable(false);
     setConversation("loading");
     setReadError("");
     const handle = paseo.agents.ref(agentId);
@@ -328,6 +333,8 @@ function Chat({
     wasVisible.current = visible;
   }, [visible]);
 
+  const focusFor = (line: Line) => line.role === "assistant" ? batchFocuses.get(line.key) ?? null : null;
+  const ownWords = (line: Extract<Line, { role: "user" | "assistant" }>) => captainResponses.has(line.key) ? line.text.slice(line.text.indexOf("]\n") + 2) : line.text;
   const lastAssistant = [...lines].reverse().find((line) => line.role === "assistant")?.key;
 
   useEffect(() => {
@@ -348,13 +355,17 @@ function Chat({
     setError,
     sending: () => readDraftSending(key),
     setSending,
-    sendToAgent: (text) => { sentContext.current = pointContext; return paseo.agents.ref(agentId).send(pointContext ? contextMessage(pointContext, text) : text); },
+    sendToAgent: async (text) => {
+      const outgoing = latestSendText.current ? await latestSendText.current(text) : text;
+      if (!active.current || !visibleRef.current || currentTarget.current !== decisionTarget) throw new Error("The briefing or officer changed; your draft is kept.");
+      await paseo.agents.ref(agentId).send(outgoing);
+    },
     footer,
     beforeSend: () => checkComposerTarget(
       () => active.current && visibleRef.current && currentTarget.current === decisionTarget,
       beforeSend,
     ),
-    onSent: (text) => { onSent?.(text); setPointContext(current => current === sentContext.current ? null : current); },
+    onSent,
     onChip,
   });
   const [showEarlier, setShowEarlier] = useState(false);
@@ -403,7 +414,7 @@ function Chat({
       ) : (
         <View style={styles.header}>
           <Text style={styles.muted}>
-            {title} · {working ? "working…" : "idle"}
+            {commander ? "幕僚長 / Chief of staff" : title} · {working ? "working…" : "idle"}
           </Text>
           {navigation ? (
             <Pressable colors={colors} accessibilityRole="link" onPress={() => navigation.openAgent({ agentId })}>
@@ -413,6 +424,7 @@ function Chat({
         </View>
       )}
       {headerExtra}
+      {commander && conversation === "loaded" && historyUnavailable ? <Text style={[styles.muted, { paddingHorizontal: 12, paddingVertical: 8 }]}>較早的對話超出讀取上限，目前只顯示可確認的近期紀錄。</Text> : null}
       <ScrollView
         ref={scroller}
         accessibilityLabel={`Conversation messages with ${title}`}
@@ -440,7 +452,7 @@ function Chat({
           </Pressable>
         ) : null}
         {shown.map((line, index) =>
-          line.role === "user" && isCollectionRequest(line.text) ? <Text key={line.key} style={styles.muted}>立即收集 · 只讀既有回報，等待驗證摘要</Text> : line.role === "agent" ? (
+          line.role === "user" && line.text.startsWith(AUTOMATED_MARKER) ? <Text key={line.key} style={styles.muted}>自動批次分析請求 · 不是艦長的話</Text> : line.role === "agent" ? (
             <AgentNote key={line.key} theme={theme} label={line.label} from={line.from} text={line.text} />
           ) : line.role === "tools" ? (
             <Text key={line.key} style={styles.muted} numberOfLines={1}>
@@ -449,16 +461,13 @@ function Chat({
           ) : line.role === "user" ? (
             <View key={line.key} style={index === 0 ? null : styles.turn}>
               <View style={styles.user}>
-                {splitContextMessage(line.text) ? <View style={{ gap: 10 }}><Text style={styles.muted}>引用摘要點 · {splitContextMessage(line.text)!.sentence}</Text><Text style={styles.text} selectable>{splitContextMessage(line.text)!.ownText}</Text></View> : <Text style={styles.text} selectable>{line.text}</Text>}
+                <Text style={styles.text} selectable>{ownWords(line)}</Text>
               </View>
             </View>
-          ) : (
+          ) : focusFor(line)?.batchId === highlightedBatchId && highlightedBatchId ? null : (
             <View key={line.key} style={styles.assistant}>
-              {commander && !digestHostId ? <Text style={styles.muted}>摘要無法驗證 · 主機識別不可用</Text> : digestHostId && positions.digests.has(line.key) ? <DigestMessage theme={theme} layout={layout} navigation={navigation} onOpenFO={onOpenFO}
-                position={{ hostId: digestHostId, agentId, epoch: positions.epoch, seqStart: Number(line.key), seqEnd: positions.ends[line.key] ?? Number(line.key) }} revision={line.text}
-                onContext={context => { setPointContext(context); input.current?.focus(); }} /> : <MarkdownView
-                theme={theme}
-                source={line.text}
+              {<MarkdownView theme={theme}
+                source={focusFor(line)?.sentence ?? line.text}
                 hideStatusBlocks={line.key !== lastAssistant}
                 onlyLastStatus
               />}
@@ -473,7 +482,6 @@ function Chat({
           onPointerLeave={() => setBoxHovered(false)}
           style={[styles.box, { borderColor: boxFocused ? colors.accent : boxHovered ? colors.foregroundMuted : colors.border }]}
         >
-          {pointContext ? <View style={{ padding: 12, gap: 6 }}><Text style={styles.muted}>引用摘要點 · {pointContext.point.pointId}</Text><Text style={styles.text}>{pointContext.point.sentence}</Text><Pressable colors={colors} accessibilityRole="button" accessibilityLabel="移除摘要上下文" onPress={() => setPointContext(null)}><Text style={[styles.toggle, { color: colors.foreground }]}>移除上下文</Text></Pressable></View> : null}
           <Text style={styles.hint}>↑ sends to {title}{sending ? " · sending…" : ""}</Text>
           <TextInput
             ref={input}
@@ -492,7 +500,7 @@ function Chat({
             <>
               <View style={styles.boxRow}>
                 <View style={styles.boxChips}>
-                  <Text style={styles.muted}>Decide via comms officer</Text>
+                  <Text style={styles.muted}>Decide via chief of staff</Text>
                   <View style={styles.chipGroup}>
                     {chips!.map((word) => {
                       const color = word === "准" ? colors.statusSuccess : word === "要求修改" ? colors.statusWarning : colors.foregroundMuted;
@@ -522,7 +530,7 @@ function Chat({
         </View>
         {hasChips && chosen ? (
           <View style={styles.reason}>
-            <Text style={styles.muted}>Reason for {chosen}{needsReason(chosen) ? " (required)" : " (optional)"} · via comms officer</Text>
+            <Text style={styles.muted}>Reason for {chosen}{needsReason(chosen) ? " (required)" : " (optional)"} · via chief of staff</Text>
             <TextInput
               accessibilityLabel={`Reason for ${chosen}`}
               placeholder={needsReason(chosen) ? "Add a reason for this decision" : "Optional reason"}
@@ -533,7 +541,7 @@ function Chat({
               multiline
             />
             <View style={styles.chipGroup}>
-              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Confirm ${chosen} via comms officer`}
+              <Pressable colors={colors} accessibilityRole="button" accessibilityLabel={`Confirm ${chosen} via chief of staff`}
                 style={styles.chip} disabled={sending || (needsReason(chosen) && !decision.reason.trim())}
                 onPress={() => void confirm()}>
                 <Text style={styles.chipText}>Confirm {chosen}</Text>

@@ -4,12 +4,11 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
 import type { PaseoApi } from "@getpaseo/client";
-import { type ReviewRequestData, newRequests, parseSearch, wakeMessage } from "../shared/reviews";
-import { ensureCoordinator } from "./coordinator";
+import { type ReviewRequestData, newRequests, parseSearch } from "../shared/reviews";
 
 const run = promisify(execFile);
-const HOME = join(homedir(), ".local", "share", "paseo-fo-coordinator");
-const FILE = join(HOME, "reviews.json");
+const DATA_DIR = process.env.BRIDGE_DATA_HOME || join(homedir(), ".local", "share", "paseo-fo-coordinator");
+const FILE = join(DATA_DIR, "reviews.json");
 const EVERY_MS = 5 * 60_000;
 const FIRST_MS = 30_000;
 let nextCheckAt: number | null = null;
@@ -31,7 +30,7 @@ async function load(): Promise<Store> {
 }
 
 async function save(store: Store): Promise<void> {
-  await mkdir(HOME, { recursive: true });
+  await mkdir(DATA_DIR, { recursive: true });
   await writeFile(`${FILE}.tmp`, JSON.stringify(store, null, 1));
   await rename(`${FILE}.tmp`, FILE);
 }
@@ -63,14 +62,7 @@ export async function checkReviews(paseo: PaseoApi | null): Promise<void> {
       firstSeenAt: store.seen[request.url] ?? request.firstSeenAt,
     }));
     const fresh = newRequests(current, store.seen).slice(0, MAX_PER_WAKE);
-    if (fresh.length && paseo) {
-      const text = wakeMessage(fresh);
-      if (text) {
-        const { agentId } = await ensureCoordinator(paseo);
-        await paseo.agents.ref(agentId).send(text);
-      }
-      for (const request of fresh) store.seen[request.url] = now;
-    }
+    for (const request of fresh) store.seen[request.url] = now;
     await save({ ...store, requests: current, checkedAt: now, error: null });
   } catch (error) {
     console.error("review requests:", error);
@@ -84,6 +76,7 @@ export async function readReviewsHandler() {
 }
 
 export function startReviewPoller(getPaseo: () => PaseoApi | null): () => void {
+  if (process.env.BRIDGE_REVIEW_POLLING === "off") return () => {};
   let running = false;
   const tick = async () => {
     if (running) return;

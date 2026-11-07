@@ -10,14 +10,14 @@ const agent: BoardAgent = {
   labels: { role: "fo" }, requiresAttention: true, attentionReason: "finished",
 };
 const turn = () => new Promise<void>((resolve) => setImmediate(resolve));
-const page = (text: string) => ({ entries: [{ item: { type: "assistant_message", text } }] });
+const page = (text: string) => ({ entries: [{ seqStart:1,seqEnd:1,sourceSeqRanges:[{startSeq:1,endSeq:1}],collapsed:[],item: { type: "assistant_message", text } }] });
 
 async function source(read: (id: string) => Promise<ReturnType<typeof page>>) {
   let observer!: { snapshot(value: unknown): void };
   let shown = { message: null as string | null, count: "", state: "loading" as SourceState };
   const paseo = { agents: {
     list: async () => ({ subscription: { subscribe: (value: typeof observer) => { observer = value; }, release: async () => {} } }),
-    ref: (id: string) => ({ timeline: { refetch: () => read(id) } }),
+    ref: (id: string) => ({ timeline: { refetch: async () => ({...await read(id),agentId:id,epoch:"epoch",projection:"projected",reset:false,gap:false,staleCursor:false,error:null}) } }),
   } } as unknown as PaseoApi;
   const stop = await observeBoard(paseo, (rows, replies: Record<string, ReplyFact> = {}, state: SourceState = "loaded") => {
     const enriched = withReplies(rows, replies);
