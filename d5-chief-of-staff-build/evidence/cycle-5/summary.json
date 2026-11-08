@@ -1,0 +1,43 @@
+{
+  "base": "a02f53c4ca741b5b4f905ed48c9500fc1be5fdd6",
+  "head": "f40c340e8204f4b7dddef238f215aea3f3a6eaab",
+  "regressions": {
+    "tests": 26,
+    "baselineFailed": 22,
+    "baselineControlsPassed": 4,
+    "candidatePassed": 26
+  },
+  "fullSuite": {
+    "command": "npm test",
+    "tests": 428,
+    "passed": 428,
+    "failed": 0,
+    "exit": 0
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exit": 0
+  },
+  "checks": {
+    "commentRatioPercent": 0,
+    "commentRatioMaximum": 5,
+    "addedCodeLinesVsStackBase": 673,
+    "numberGuardsExit": 0,
+    "designSurfacesExit": 0,
+    "docImpact": []
+  },
+  "evidence": {
+    "baseline-a02.tap": "bfd2b0e36df7bc13ccc787200db1bda614268ab41835d5e01575c87750aa8cf4",
+    "npm-test.log": "2bbc4fca6618144c24a7643b1aec84dda2891db1c84dce309e333cc88ebf57f1",
+    "typecheck.log": "add20760a130a9e0c90c4f896e67114e2a4b014c44b44caab640acb100297191",
+    "comment-ratio.log": "886cd4deada4e9b1e66c6bd3bfc66ca91065a3d95b50b6791892230567b490ba",
+    "doc-impact.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "number-guards.log": "a8e1e49a81c70a74aef5b41e432326248f40e75197bed413bc97749a40e716c5",
+    "design-surfaces.log": "5f960cc4106d506af8973781a27d0d982aad525f2c03fdcc889c5bcdd30981e6"
+  },
+  "limits": [
+    "Fictional regression inputs; no model-backed turn.",
+    "Shadow run 2 is ongoing, not an acceptance result.",
+    "No live titles, raw shadow log, agent identifiers or private script copied into this evidence."
+  ]
+}

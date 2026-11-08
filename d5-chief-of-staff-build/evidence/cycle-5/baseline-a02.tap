@@ -1,0 +1,1041 @@
+TAP version 13
+# gates.read \#1 start dirs=0
+# gates.read \#1 done 0ms
+# gates.read \#2 start dirs=0
+# gates.read \#2 done 0ms
+# gates.read \#3 start dirs=0
+# gates.read \#3 done 0ms
+# gates.read \#4 start dirs=0
+# gates.read \#4 done 0ms
+# gates.read \#5 start dirs=0
+# gates.read \#5 done 0ms
+# gates.read \#6 start dirs=0
+# gates.read \#6 done 0ms
+# gates.read \#7 start dirs=0
+# gates.read \#7 done 0ms
+# gates.read \#8 start dirs=0
+# gates.read \#8 done 0ms
+# gates.read \#9 start dirs=0
+# gates.read \#9 done 0ms
+# gates.read \#10 start dirs=0
+# gates.read \#10 done 0ms
+# Subtest: a self-only （我） step vetoes a stale captain label at the full board boundary
+not ok 1 - a self-only （我） step vetoes a stale captain label at the full board boundary
+  ---
+  duration_ms: 5.038333
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:1698'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:25:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+# Subtest: a self-only (me) step vetoes a stale captain label at the full board boundary
+not ok 2 - a self-only (me) step vetoes a stale captain label at the full board boundary
+  ---
+  duration_ms: 0.429541
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:1698'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:25:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a self-only (I) step vetoes a stale captain label at the full board boundary
+not ok 3 - a self-only (I) step vetoes a stale captain label at the full board boundary
+  ---
+  duration_ms: 0.26375
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:1698'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:25:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a self-only (FO) step vetoes a stale captain label at the full board boundary
+not ok 4 - a self-only (FO) step vetoes a stale captain label at the full board boundary
+  ---
+  duration_ms: 0.230792
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:1698'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:25:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: mixed ownership stays visible without an automatic event (captain label)
+not ok 5 - mixed ownership stays visible without an automatic event (captain label)
+  ---
+  duration_ms: 0.369833
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:2160'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:34:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: mixed ownership stays visible without an automatic event (absent label)
+not ok 6 - mixed ownership stays visible without an automatic event (absent label)
+  ---
+  duration_ms: 0.247625
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:2160'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:34:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a single parenthesis with both owners is held too
+not ok 7 - a single parenthesis with both owners is held too
+  ---
+  duration_ms: 0.276791
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:2560'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:42:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: self-only questions do not remove independent gates or permissions
+not ok 8 - self-only questions do not remove independent gates or permissions
+  ---
+  duration_ms: 0.724125
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:2873'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   'ask',
+        'gate',
+        'permission'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'gate'
+    1: 'permission'
+  actual:
+    0: 'ask'
+    1: 'gate'
+    2: 'permission'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:50:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: an actual reply ownership veto also beats a stale positive next label
+not ok 9 - an actual reply ownership veto also beats a stale positive next label
+  ---
+  duration_ms: 7.086458
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:3446'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    2 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:56:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a genuine Captain question still counts and FO ownership still vetoes it
+ok 10 - a genuine Captain question still counts and FO ownership still vetoes it
+  ---
+  duration_ms: 0.411917
+  type: 'test'
+  ...
+# gates.read \#11 start dirs=0
+# gates.read \#11 done 0ms
+# gates.read \#12 start dirs=0
+# gates.read \#12 done 0ms
+# gates.read \#13 start dirs=0
+# gates.read \#13 done 0ms
+# gates.read \#14 start dirs=0
+# gates.read \#14 done 0ms
+# gates.read \#15 start dirs=0
+# gates.read \#15 done 0ms
+# Subtest: a next-label change with identical activity invalidates cached ownership
+not ok 11 - a next-label change with identical activity invalidates cached ownership
+  ---
+  duration_ms: 6.995125
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:4100'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:73:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: question identity survives projection/range/time reconstruction with a provider message
+not ok 12 - question identity survives projection/range/time reconstruction with a provider message
+  ---
+  duration_ms: 0.648667
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:4972'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '["q","fictional-fo","projection-B:900:900","2026-11-08T09:59:59.985Z","Choose the fictional direction（你）"]'
+    - '["q","fictional-fo","projection-A:1:1","2026-11-08T10:00:00.001Z","Choose the fictional direction（你）"]'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '["q","fictional-fo","projection-A:1:1","2026-11-08T10:00:00.001Z","Choose the fictional direction（你）"]'
+  actual: '["q","fictional-fo","projection-B:900:900","2026-11-08T09:59:59.985Z","Choose the fictional direction（你）"]'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:88:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: question identity survives projection/range/time reconstruction with a provider turn
+not ok 13 - question identity survives projection/range/time reconstruction with a provider turn
+  ---
+  duration_ms: 0.515917
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:4972'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '["q","fictional-fo","projection-B:900:900","2026-11-08T09:59:59.985Z","Choose the fictional direction（你）"]'
+    - '["q","fictional-fo","projection-A:1:1","2026-11-08T10:00:00.001Z","Choose the fictional direction（你）"]'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '["q","fictional-fo","projection-A:1:1","2026-11-08T10:00:00.001Z","Choose the fictional direction（你）"]'
+  actual: '["q","fictional-fo","projection-B:900:900","2026-11-08T09:59:59.985Z","Choose the fictional direction（你）"]'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:88:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a question without a provable source identity is visible but cannot trigger
+not ok 14 - a question without a provable source identity is visible but cannot trigger
+  ---
+  duration_ms: 0.207833
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:5512'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:97:10)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: real question details survive reprojection but a genuinely new provider message retains a distinct detail
+not ok 15 - real question details survive reprojection but a genuinely new provider message retains a distinct detail
+  ---
+  duration_ms: 192.37
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:5829'
+  failureType: 'testCodeFailure'
+  error: 'projection changes retain the original question detail'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:109:69)
+    async Test.run (node:internal/test_runner/test:1332:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: seven old questions do not become arrivals after a projection rebuild
+not ok 16 - seven old questions do not become arrivals after a projection rebuild
+  ---
+  duration_ms: 0.82475
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:7533'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'q0',
+    +       key: 'q0-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-06T09:59:59.984Z',
+    +       target: 'q0',
+    +       title: 'Fictional question q0',
+    +       version: 'new-projection'
+    +     },
+    +     {
+    +       agentId: 'q1',
+    +       key: 'q1-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-06T09:59:59.984Z',
+    +       target: 'q1',
+    +       title: 'Fictional question q1',
+    +       version: 'new-projection'
+    +     },
+    +     {
+    +       agentId: 'q2',
+    +       key: 'q2-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-06T09:59:59.984Z',
+    +       target: 'q2',
+    +       title: 'Fictional question q2',
+    +       version: 'new-projection'
+    +     },
+    +     {
+    +       agentId: 'q3',
+    +       key: 'q3-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-06T09:59:59.984Z',
+    +       target: 'q3',
+    +       title: 'Fictional question q3',
+    +       version: 'new-projection'
+    +     },
+    +     {
+    +       agentId: 'q4',
+    +       key: 'q4-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-06T09:59:59.984Z',
+    +       target: 'q4',
+    +       title: 'Fictional question q4',
+    +       version: 'new-projection'
+    +     },
+    +     {
+    +       agentId: 'q5',
+    +       key: 'q5-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-08T09:39:59.984Z',
+    +       target: 'q5',
+    +       title: 'Fictional question q5',
+    +       version: 'new-projection'
+    +     },
+    +     {
+    +       agentId: 'q6',
+    +       key: 'q6-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-08T09:39:59.984Z',
+    +       target: 'q6',
+    +       title: 'Fictional question q6',
+    +       version: 'new-projection'
+    +     }
+    +   ],
+    +   reason: 'threshold',
+    +   score: 21
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'q0-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q0'
+        since: '2026-11-06T09:59:59.984Z'
+        agentId: 'q0'
+        target: 'q0'
+      1:
+        key: 'q1-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q1'
+        since: '2026-11-06T09:59:59.984Z'
+        agentId: 'q1'
+        target: 'q1'
+      2:
+        key: 'q2-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q2'
+        since: '2026-11-06T09:59:59.984Z'
+        agentId: 'q2'
+        target: 'q2'
+      3:
+        key: 'q3-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q3'
+        since: '2026-11-06T09:59:59.984Z'
+        agentId: 'q3'
+        target: 'q3'
+      4:
+        key: 'q4-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q4'
+        since: '2026-11-06T09:59:59.984Z'
+        agentId: 'q4'
+        target: 'q4'
+      5:
+        key: 'q5-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q5'
+        since: '2026-11-08T09:39:59.984Z'
+        agentId: 'q5'
+        target: 'q5'
+      6:
+        key: 'q6-rebuilt'
+        version: 'new-projection'
+        kind: 'ask'
+        title: 'Fictional question q6'
+        since: '2026-11-08T09:39:59.984Z'
+        agentId: 'q6'
+        target: 'q6'
+    reason: 'threshold'
+    score: 21
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:122:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: old questions first appearing or changing ownership after startup do not fill X
+not ok 17 - old questions first appearing or changing ownership after startup do not fill X
+  ---
+  duration_ms: 0.390625
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:7975'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'old-1',
+    +       key: 'old-1',
+    +       kind: 'ask',
+    +       since: '2026-11-07T10:00:00.000Z',
+    +       target: 'old-1',
+    +       title: 'Fictional question old-1',
+    +       version: 'old-1'
+    +     },
+    +     {
+    +       agentId: 'old-2',
+    +       key: 'old-2',
+    +       kind: 'ask',
+    +       since: '2026-11-07T10:00:00.000Z',
+    +       target: 'old-2',
+    +       title: 'Fictional question old-2',
+    +       version: 'old-2'
+    +     },
+    +     {
+    +       agentId: 'old-3',
+    +       key: 'old-3',
+    +       kind: 'ask',
+    +       since: '2026-11-07T10:00:00.000Z',
+    +       target: 'old-3',
+    +       title: 'Fictional question old-3',
+    +       version: 'old-3'
+    +     },
+    +     {
+    +       agentId: 'old-4',
+    +       key: 'old-4',
+    +       kind: 'ask',
+    +       since: '2026-11-07T10:00:00.000Z',
+    +       target: 'old-4',
+    +       title: 'Fictional question old-4',
+    +       version: 'old-4'
+    +     }
+    +   ],
+    +   reason: 'threshold',
+    +   score: 12
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'old-1'
+        version: 'old-1'
+        kind: 'ask'
+        title: 'Fictional question old-1'
+        since: '2026-11-07T10:00:00.000Z'
+        agentId: 'old-1'
+        target: 'old-1'
+      1:
+        key: 'old-2'
+        version: 'old-2'
+        kind: 'ask'
+        title: 'Fictional question old-2'
+        since: '2026-11-07T10:00:00.000Z'
+        agentId: 'old-2'
+        target: 'old-2'
+      2:
+        key: 'old-3'
+        version: 'old-3'
+        kind: 'ask'
+        title: 'Fictional question old-3'
+        since: '2026-11-07T10:00:00.000Z'
+        agentId: 'old-3'
+        target: 'old-3'
+      3:
+        key: 'old-4'
+        version: 'old-4'
+        kind: 'ask'
+        title: 'Fictional question old-4'
+        since: '2026-11-07T10:00:00.000Z'
+        agentId: 'old-4'
+        target: 'old-4'
+    reason: 'threshold'
+    score: 12
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:127:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: consumed old questions cannot replay after disappearance and a new projection
+not ok 18 - consumed old questions cannot replay after disappearance and a new projection
+  ---
+  duration_ms: 0.294709
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:8228'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'new-1',
+    +       key: 'new-1-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.001Z',
+    +       target: 'new-1',
+    +       title: 'Fictional question new-1',
+    +       version: 'rebuilt'
+    +     },
+    +     {
+    +       agentId: 'new-2',
+    +       key: 'new-2-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.002Z',
+    +       target: 'new-2',
+    +       title: 'Fictional question new-2',
+    +       version: 'rebuilt'
+    +     },
+    +     {
+    +       agentId: 'new-3',
+    +       key: 'new-3-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.003Z',
+    +       target: 'new-3',
+    +       title: 'Fictional question new-3',
+    +       version: 'rebuilt'
+    +     },
+    +     {
+    +       agentId: 'new-4',
+    +       key: 'new-4-rebuilt',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.004Z',
+    +       target: 'new-4',
+    +       title: 'Fictional question new-4',
+    +       version: 'rebuilt'
+    +     }
+    +   ],
+    +   reason: 'threshold',
+    +   score: 12
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'new-1-rebuilt'
+        version: 'rebuilt'
+        kind: 'ask'
+        title: 'Fictional question new-1'
+        since: '2026-11-08T10:00:00.001Z'
+        agentId: 'new-1'
+        target: 'new-1'
+      1:
+        key: 'new-2-rebuilt'
+        version: 'rebuilt'
+        kind: 'ask'
+        title: 'Fictional question new-2'
+        since: '2026-11-08T10:00:00.002Z'
+        agentId: 'new-2'
+        target: 'new-2'
+      2:
+        key: 'new-3-rebuilt'
+        version: 'rebuilt'
+        kind: 'ask'
+        title: 'Fictional question new-3'
+        since: '2026-11-08T10:00:00.003Z'
+        agentId: 'new-3'
+        target: 'new-3'
+      3:
+        key: 'new-4-rebuilt'
+        version: 'rebuilt'
+        kind: 'ask'
+        title: 'Fictional question new-4'
+        since: '2026-11-08T10:00:00.004Z'
+        agentId: 'new-4'
+        target: 'new-4'
+    reason: 'threshold'
+    score: 12
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:136:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: timestamp/source changes of a continuously waiting question are not new arrivals
+not ok 19 - timestamp/source changes of a continuously waiting question are not new arrivals
+  ---
+  duration_ms: 0.207875
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:8731'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'old-1',
+    +       key: 'old-1',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.001Z',
+    +       target: 'old-1',
+    +       title: 'Fictional question old-1',
+    +       version: 'reconstructed'
+    +     },
+    +     {
+    +       agentId: 'old-2',
+    +       key: 'old-2',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.001Z',
+    +       target: 'old-2',
+    +       title: 'Fictional question old-2',
+    +       version: 'reconstructed'
+    +     },
+    +     {
+    +       agentId: 'old-3',
+    +       key: 'old-3',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.001Z',
+    +       target: 'old-3',
+    +       title: 'Fictional question old-3',
+    +       version: 'reconstructed'
+    +     },
+    +     {
+    +       agentId: 'old-4',
+    +       key: 'old-4',
+    +       kind: 'ask',
+    +       since: '2026-11-08T10:00:00.001Z',
+    +       target: 'old-4',
+    +       title: 'Fictional question old-4',
+    +       version: 'reconstructed'
+    +     }
+    +   ],
+    +   reason: 'threshold',
+    +   score: 12
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'old-1'
+        version: 'reconstructed'
+        kind: 'ask'
+        title: 'Fictional question old-1'
+        since: '2026-11-08T10:00:00.001Z'
+        agentId: 'old-1'
+        target: 'old-1'
+      1:
+        key: 'old-2'
+        version: 'reconstructed'
+        kind: 'ask'
+        title: 'Fictional question old-2'
+        since: '2026-11-08T10:00:00.001Z'
+        agentId: 'old-2'
+        target: 'old-2'
+      2:
+        key: 'old-3'
+        version: 'reconstructed'
+        kind: 'ask'
+        title: 'Fictional question old-3'
+        since: '2026-11-08T10:00:00.001Z'
+        agentId: 'old-3'
+        target: 'old-3'
+      3:
+        key: 'old-4'
+        version: 'reconstructed'
+        kind: 'ask'
+        title: 'Fictional question old-4'
+        since: '2026-11-08T10:00:00.001Z'
+        agentId: 'old-4'
+        target: 'old-4'
+    reason: 'threshold'
+    score: 12
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:144:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: new verified questions still wait five minutes, and a later resolved/reasked batch can qualify
+ok 20 - new verified questions still wait five minutes, and a later resolved/reasked batch can qualify
+  ---
+  duration_ms: 0.131916
+  type: 'test'
+  ...
+# Subtest: unknown identity/time and an incomplete-read recovery cannot manufacture a question arrival
+ok 21 - unknown identity/time and an incomplete-read recovery cannot manufacture a question arrival
+  ---
+  duration_ms: 0.057542
+  type: 'test'
+  ...
+# Subtest: same-minute exceptions close together, sum existing weights and consume together
+not ok 22 - same-minute exceptions close together, sum existing weights and consume together
+  ---
+  duration_ms: 0.221208
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:10465'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'fictional-fo',
+    +       key: 'a',
+    +       kind: 'gate',
+    +       since: '2026-11-08T10:10:32Z',
+    +       target: 'a',
+    +       title: 'Fictional a',
+    +       version: 'a'
+    +     }
+    +   ],
+    +   reason: 'exception',
+    +   score: 4
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'a'
+        version: 'a'
+        kind: 'gate'
+        title: 'Fictional a'
+        since: '2026-11-08T10:10:32Z'
+        agentId: 'fictional-fo'
+        target: 'a'
+    reason: 'exception'
+    score: 4
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:173:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a poll between two same-minute deadlines cannot split or call early
+not ok 23 - a poll between two same-minute deadlines cannot split or call early
+  ---
+  duration_ms: 0.25775
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:11131'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'fictional-fo',
+    +       key: 'a',
+    +       kind: 'gate',
+    +       since: '2026-11-08T10:10:32Z',
+    +       target: 'a',
+    +       title: 'Fictional a',
+    +       version: 'a'
+    +     }
+    +   ],
+    +   reason: 'exception',
+    +   score: 4
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'a'
+        version: 'a'
+        kind: 'gate'
+        title: 'Fictional a'
+        since: '2026-11-08T10:10:32Z'
+        agentId: 'fictional-fo'
+        target: 'a'
+    reason: 'exception'
+    score: 4
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:183:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: gate and permission share a deadline cohort, while unknown/future times stay excluded
+not ok 24 - gate and permission share a deadline cohort, while unknown/future times stay excluded
+  ---
+  duration_ms: 0.198334
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:11397'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        'a',
+    -   'p'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'a'
+    1: 'p'
+  actual:
+    0: 'a'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:190:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: a true singleton waits at most one extra minute and exactly thirty minutes never qualifies
+not ok 25 - a true singleton waits at most one extra minute and exactly thirty minutes never qualifies
+  ---
+  duration_ms: 0.161458
+  type: 'test'
+  location: '/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:1:11782'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + {
+    +   events: [
+    +     {
+    +       agentId: 'fictional-fo',
+    +       key: 'single',
+    +       kind: 'gate',
+    +       since: '2026-11-08T10:10:00Z',
+    +       target: 'single',
+    +       title: 'Fictional single',
+    +       version: 'single'
+    +     }
+    +   ],
+    +   reason: 'exception',
+    +   score: 4
+    + }
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    events:
+      0:
+        key: 'single'
+        version: 'single'
+        kind: 'gate'
+        title: 'Fictional single'
+        since: '2026-11-08T10:10:00Z'
+        agentId: 'fictional-fo'
+        target: 'single'
+    reason: 'exception'
+    score: 4
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/d5-cycle5-baseline-va16wedf/spacedock-bridge/test/chief-shadow-repair.test.mts:197:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: separate deadline minutes remain separate and resolved cohort members disappear
+ok 26 - separate deadline minutes remain separate and resolved cohort members disappear
+  ---
+  duration_ms: 0.264
+  type: 'test'
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 4
+# fail 22
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1070.50875
