@@ -78,6 +78,12 @@ Asked: 要先跑影子模式嗎？ (the FO's proposal just before: run the trigg
 Supersedes: none
 Design: "Before any further repair or trial: run the candidate's trigger in shadow mode on the Captain's real board for a few hours — read-only, no model, no sound, no comms-officer switch, no FO touched — recording each time she would have called him with the batch's item titles, kept on his machine only and out of the public branch; he reads that list to judge whether the threshold and weights fit; roborev 1581 findings 13-15 wait until he has read it."
 
+### Amendment 3 — 2026-11-08, chat
+Captain: 「好」
+Asked: 要這樣做嗎？ (the FO's proposal just before, after the four-hour shadow run: fix what counts as waiting on him first — 「（我）」 items do not count, old items do not trigger a new call, exceptions falling due within the same minute merge into one call — then run the shadow again, and only after he finds the new list reasonable run the real call; cost: the trial moves later by one change round plus a few hours of shadow)
+Supersedes: none
+Design: "Fix what counts as waiting on the Captain before tuning X or Y: a next step the FO marks as its own (「（我）」) is not a question for him; questions already waiting long before the batch do not start a new call; single-gate 30-minute exceptions that fall due together become one call; then run the shadow again for him to read before the real call."
+
 ## FO alignment
 
 Alignment: not needed: the Captain accepted the design (d4-chief-of-staff), the trigger and the starting point on 2026-11-06.
