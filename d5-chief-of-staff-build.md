@@ -548,3 +548,9 @@ The three amendment-3 classes are repaired at f40c340e8204f4b7dddef238f215aea3f3
 - Poll interval: 60 seconds.
 - End time: scheduled 2026-11-08T12:39:30.240Z (2026-11-08 20:39:30 Asia/Taipei); exits automatically after four hours.
 - Counts so far: 3 polls, 3 complete successful, 0 failed; 0 would-call batches; latest poll 6 eligible timed events, 1 unknown-time item, 1 self-only next steps held and 1 mixed-ownership item held; 0 newly appearing old-question holds in the latest poll. No model/audio/action request, no listener and zero blocked boundary operations.
+
+## Investigation: roborev 1599
+
+FO ran roborev on f40c340e8204f4b7dddef238f215aea3f3a6eaab (base 7a4dbc057803d791dc5626182636c8e0fc2c2d32): exit 1, evidence=roborev:1599, three Medium. Two repeat deferred findings 13 (switch archive failure) and 15 (named navigation blocked by an unrelated source). New:
+16. shared/board.ts readQuestion returns an empty nextStep when a reply has no status line, and `??` keeps that empty string, so the ownership decision ignores the row's next label: a self-owned `next` label with a stale next-owner=captain can still count as his question — a gap in amendment 3's ownership fix.
+Held until shadow run 2 (running at this head, ends 20:39 Taipei) shows whether it occurs on his live board.
