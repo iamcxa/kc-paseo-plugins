@@ -10,7 +10,6 @@ export interface PermissionLike {
 
 const NEXT_STEP = /^\s*(下一步|Next)\s*[:：]\s*(.+)$/;
 const MAX_LENGTH = 140;
-const CAPTAIN_OWNER = /[（(]\s*(你|you\b)/i;
 
 function clip(text: string): string {
   const flat = text.replace(/\s+/g, " ").trim();
@@ -44,8 +43,18 @@ export function replyPreview(reply: string): string {
 }
 
 export function nextStepIsCaptains(reply: string): boolean {
-  const step = nextStep(replyLines(reply));
-  return step !== undefined && CAPTAIN_OWNER.test(step);
+  return questionOwnership(undefined, nextStepText(reply)).onCaptain;
+}
+
+export const nextStepText = (reply: string) => nextStep(replyLines(reply)) ?? "";
+export function questionOwnership(owner: string | undefined, step: string, inferred = false) {
+  const annotations = [...step.matchAll(/[（(]([^）)]*)[）)]/g)].flatMap(match => match[1].split(/[\/／、,，;；]|\bor\b|[和或]/i)).map(part => part.trim());
+  const self = annotations.some(part => /^(我|me\b|i\b|fo\b)/i.test(part));
+  const captain = annotations.some(part => /^(你|you\b)/i.test(part));
+  const parsed = self && captain ? "mixed" : self ? "self" : captain ? "captain" : "unknown";
+  if (self) return { parsed, onCaptain: false, reason: captain ? "mixed-step" : "self-step" };
+  if (owner) return { parsed, onCaptain: owner === "captain", reason: owner === "captain" ? "label-captain" : "label-other" };
+  return { parsed, onCaptain: captain || inferred, reason: captain ? "captain-step" : inferred ? "waiting-row" : "no-captain-owner" };
 }
 
 export function permissionPreview(request: PermissionLike | undefined): string {

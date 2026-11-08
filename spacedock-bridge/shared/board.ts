@@ -1,8 +1,9 @@
 import { gateKey } from "./gate-identity";
 import type { PaseoApi } from "@getpaseo/client";
-import { type PermissionLike, permissionPreview, lastReply, nextStepIsCaptains, replyPreview } from "./preview";
+import { type PermissionLike, permissionPreview, lastReply, replyPreview, nextStepText, questionOwnership } from "./preview";
 import type { AwaitingGate } from "./tasks";
 import type { SourceState } from "./board-empty";
+import { readTimeline } from "./timeline";
 
 export const ROLE_LABEL = "role";
 export const ROLE_FO = "fo";
@@ -37,6 +38,7 @@ export interface BoardRow {
   permission: string;
   next: string;
   hasNextOwner: boolean;
+  nextOwner?: string;
   workflowDir: string;
   gates: AwaitingGate[];
   offline: boolean;
@@ -80,6 +82,7 @@ export function toRow(agent: BoardAgent): BoardRow {
     permission: permissionPreview(agent.pendingPermissions?.[0]),
     next: agent.labels?.[NEXT_LABEL] ?? "",
     hasNextOwner: Boolean(agent.labels?.[NEXT_OWNER_LABEL]),
+    nextOwner: agent.labels?.[NEXT_OWNER_LABEL] || undefined,
     workflowDir: (agent.labels?.["workflow-dir"] ?? "").startsWith("/") ? agent.labels!["workflow-dir"] : "",
     gates: [],
     offline: Boolean(agent.archivedAt) || agent.status === "closed",
@@ -102,6 +105,9 @@ export interface ReplyFact {
   onCaptain: boolean;
   messageId?: string;
   since?: string;
+  nextStep?: string;
+  ownership?: ReturnType<typeof questionOwnership>;
+  projection?: { epoch: string; seqStart: number; seqEnd: number };
 }
 
 function byGroupThenTitle(a: BoardRow, b: BoardRow): number {
@@ -115,17 +121,35 @@ export function toRows(agents: Iterable<BoardAgent>): BoardRow[] {
   return [...agents].filter(isFo).map(toRow).sort(byGroupThenTitle);
 }
 
+export const captainOwnsQuestion = (owner: string | undefined, inferred: boolean, step = "") => questionOwnership(owner, step, inferred).onCaptain;
+
 export function withReplies(
   rows: readonly BoardRow[],
   facts: Readonly<Record<string, ReplyFact>>,
 ): BoardRow[] {
   return rows
-    .map((row): BoardRow =>
-      row.status === "new reply" && facts[row.id]?.onCaptain
-        ? { ...row, status: "waiting on Kent" }
-        : row,
-    )
+    .map((row): BoardRow => {
+      const fact = facts[row.id];
+      const decision = questionOwnership(row.nextOwner, fact?.nextStep ?? fact?.preview ?? row.next, Boolean(fact?.onCaptain));
+      if (row.status === "new reply" && decision.onCaptain) return { ...row, status: "waiting on Kent" };
+      if (row.status === "waiting on Kent" && decision.parsed === "self" && !row.permission && !row.gates.length) return { ...row, status: "new reply" };
+      return row;
+    })
     .sort(byGroupThenTitle);
+}
+
+export const needsQuestion = (row: BoardRow) => captainOwnsQuestion(row.nextOwner, true) && (row.status === "new reply" || row.status === "waiting on Kent" && !row.permission);
+export async function readQuestion(paseo: PaseoApi, agentId: string, nextOwner?: string): Promise<ReplyFact> {
+  const page = await readTimeline((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId, { direction: "tail", limit: 30 });
+  const reply = lastReply(page.entries.map(entry => entry.item));
+  const preview = replyPreview(reply), step = nextStepText(reply), ownership = questionOwnership(nextOwner, step);
+  const current = page.entries.slice(page.entries.findLastIndex(entry => entry.item.type === "user_message") + 1);
+  const message = current.findLast(entry => entry.item.type === "assistant_message" && replyPreview(entry.item.text) === preview && (!step || nextStepText(entry.item.text) === step));
+  const nativeId = message?.item.type === "assistant_message" ? message.item.messageId : undefined;
+  const identity = nativeId ? [message?.provider, "message", nativeId] : message?.turnId ? [message.provider, "turn", message.turnId] : null;
+  return { preview, onCaptain: ownership.onCaptain, nextStep: step, ownership,
+    ...(message ? { since: message.timestamp, projection: { epoch: page.epoch, seqStart: message.seqStart, seqEnd: message.seqEnd } } : {}),
+    ...(identity ? { messageId: JSON.stringify(identity) } : {}) };
 }
 
 export async function observeBoard(
@@ -134,30 +158,21 @@ export async function observeBoard(
   onError?: (error: unknown) => void,
 ): Promise<() => void> {
   const known = new Map<string, BoardAgent>();
-  const fetched = new Map<string, { at: string; promise: Promise<ReplyFact> }>();
+  const fetched = new Map<string, { at: string; owner?: string; next: string; promise: Promise<ReplyFact> }>();
   let active = true;
   let generation = 0;
   const emit = () => {
     if (!active) return;
     const current = ++generation;
     const rows = toRows(known.values());
-    const questions = rows.filter((row) => row.status === "new reply" && !row.hasNextOwner);
+    const questions = rows.filter(needsQuestion);
     onRows(rows, {}, questions.length ? "loading" : "loaded");
     if (!questions.length) return;
     const reads = questions.map((row) => {
       const cached = fetched.get(row.id);
-      if (cached?.at === row.lastActivityAt) return cached.promise;
-      const promise = Promise.resolve().then(async () => {
-        const { entries } = await paseo.agents.ref(row.id).timeline.refetch({ direction: "tail", limit: 30, projection: "projected" });
-        const reply = lastReply(entries.map((entry) => entry.item));
-        const message = [...entries].reverse().find(entry => entry.item.type === "assistant_message" && entry.item.text);
-        return {
-          preview: replyPreview(reply), onCaptain: nextStepIsCaptains(reply),
-          ...(message?.seqStart != null ? { messageId: String(message.seqStart) } : {}),
-          ...(message?.timestamp ? { since: message.timestamp } : {}),
-        };
-      });
-      fetched.set(row.id, { at: row.lastActivityAt, promise });
+      if (cached?.at === row.lastActivityAt && cached.owner === row.nextOwner && cached.next === row.next) return cached.promise;
+      const promise = readQuestion(paseo, row.id, row.nextOwner);
+      fetched.set(row.id, { at: row.lastActivityAt, owner: row.nextOwner, next: row.next, promise });
       void promise.catch(() => { if (fetched.get(row.id)?.promise === promise) fetched.delete(row.id); });
       return promise;
     });

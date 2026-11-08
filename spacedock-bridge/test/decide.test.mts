@@ -43,7 +43,7 @@ test("要求修改 and 暫緩 refuse an empty reason before claiming or sending 
   }
 });
 
-test("准 goes through with an empty box, via the comms officer", async () => {
+test("准 goes through with an empty box, via the chief of staff", async () => {
   const { p, log } = ports();
   assert.equal(await decideGate(p, ctx, "准", ""), null);
   assert.deepEqual(log.claims, [{ words: "准", decision: "approve" }]);
@@ -57,7 +57,7 @@ test("a decision chip sends the typed text as the reason", async () => {
   assert.deepEqual(log.claims, [{ words: "要求修改，先補 CI", decision: "revise" }]);
   assert.match(log.sent[0][1], /Decision: revise\nMy words: 「要求修改，先補 CI」/);
   assert.match(log.sent[0][1], /put d-abc123 in the reason/);
-  assert.deepEqual(log.marked, ["要求修改，先補 CI (d-abc123, via comms officer)"]);
+  assert.deepEqual(log.marked, ["要求修改，先補 CI (d-abc123, via chief of staff)"]);
 });
 
 test("a second decision on the same briefing is refused and sends nothing", async () => {

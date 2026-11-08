@@ -54,6 +54,9 @@ test("a removed workflow does not hide another workflow's gates or tasks", async
     id: String(index), cwd: root, status: "idle", updatedAt: "2026-10-25T00:00:00Z",
     labels: { role: "fo", "workflow-dir": workflowDir, ...(withTask ? { task: "gate" } : {}) },
   } })) }) } }) as unknown as PaseoApi;
-  await assert.rejects(fleetSnapshot(api(true), "fixture-host"), { message: `Could not check tasks for ${removed}` });
-  await assert.rejects(fleetSnapshot(api(false), "fixture-host"), { message: `Could not check gates for ${removed}` });
+  for (const withTask of [true, false]) {
+    const snapshot = await fleetSnapshot(api(withTask));
+    assert.equal(snapshot.complete, false);
+    assert.equal(snapshot.total, "?");
+  }
 });

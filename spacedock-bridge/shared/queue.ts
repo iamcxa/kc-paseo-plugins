@@ -1,5 +1,5 @@
-import type { BoardRow, ReplyFact } from "./board";
-import { replyPreview } from "./preview";
+import { type BoardRow, type ReplyFact } from "./board";
+import { replyPreview, questionOwnership } from "./preview";
 import { type ReviewRequestData, reviewOwner, reviewRef } from "./reviews";
 import type { AwaitingGate } from "./tasks";
 import { gateKey } from "./gate-identity";
@@ -35,7 +35,8 @@ export function buildQueue(
   replies: Readonly<Record<string, ReplyFact>> = {},
 ): QueueItem[] {
   const items: QueueItem[] = [];
-  const asking = new Set(questionRows.filter((row) => row.status === "waiting on Kent" && !row.permission).map((row) => row.id));
+  const decision = (row: QueueRow) => questionOwnership(row.nextOwner, replies[row.id]?.nextStep ?? replies[row.id]?.preview ?? row.next, replies[row.id]?.onCaptain ?? true);
+  const asking = new Set(questionRows.filter((row) => row.status === "waiting on Kent" && !row.permission && (decision(row).onCaptain || decision(row).parsed === "mixed")).map((row) => row.id));
   for (const row of rows) {
     const since = row.attentionAt || row.lastActivityAt;
     if (row.permission)
@@ -60,14 +61,14 @@ export function buildQueue(
     );
     const reply = replies[row.id];
     const addQuestion = (title: string, ownReply?: ReplyFact) => items.push({
-      key: JSON.stringify(["q", row.id, ownReply?.messageId ?? null, ownReply?.since ?? row.attentionAt ?? null, title]),
+      key: JSON.stringify(["q", row.id, ownReply?.messageId ?? null, ownReply?.messageId ? null : ownReply?.since ?? row.attentionAt ?? null, title]),
       kind: "ask", title, detail: "", since: ownReply?.since || since, fo: row,
     });
     if (asking.has(row.id) && (row.gates.length === 0 || (next && !restatesGate))) {
-      const title = row.next || reply?.preview || "Has a question for you";
+      const title = decision(row).parsed === "mixed" ? reply?.preview || row.next : row.next || reply?.preview || "Has a question for you";
       addQuestion(title, reply && replyPreview(title) === reply.preview ? reply : undefined);
     }
-    if (reply?.onCaptain && reply.preview) {
+    if (reply?.preview && (decision(row).onCaptain || decision(row).parsed === "mixed")) {
       const represented = items.some((item) => item.fo?.id === row.id && item.kind === "ask" && replyPreview(item.title) === reply.preview);
       if (!represented)
         addQuestion(reply.preview, reply);

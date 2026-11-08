@@ -1,9 +1,8 @@
-import { readTimeline } from "../shared/timeline";
 import { usePaseo } from "@getpaseo/plugin/client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { SourceState } from "../shared/board-empty";
 import { toLines } from "../shared/chat-lines";
-import { commanderReplies, COMMANDER_ENTRY_LIMIT } from "../shared/commander-replies";
+import { readCommanderConversation } from "../shared/commander-replies";
 import { nextStepIsCaptains, replyPreview } from "../shared/preview";
 
 export function useCoAsk(coId: string): { ask: string | null; since: string | null; state: SourceState; retry(): void } {
@@ -40,14 +39,13 @@ export function useCoAsk(coId: string): { ask: string | null; since: string | nu
       try {
         await subscription.ready;
         if (cancelled || current !== request) return;
-        const page = await readTimeline((_id, options) => handle.timeline.refetch(options), coId, { direction: "tail", limit: COMMANDER_ENTRY_LIMIT });
+        const { replies, coverage } = await readCommanderConversation((_id, options) => handle.timeline.refetch(options), coId);
         if (cancelled || current !== request) return;
-        const status = page.agent?.status ?? handle.status;
+        const status = handle.status;
         working = status === "running" || status === "initializing";
-        const replies = commanderReplies(page, coId);
-        if (!replies) throw new Error("Commander timeline unavailable");
         const visible = replies.flatMap(r => toLines([r])).at(-1);
         const last = replies.find(r => String(r.seqStart) === visible?.key);
+        if (coverage === "older-unavailable" && last?.provenance === "unknown") throw new Error("Older history unavailable; question ownership unknown");
         const reply = last?.item.type === "assistant_message" && last.provenance === "ordinary" ? last.item.text : "";
         const since = last?.timestamp ?? null;
         setResult({ id: coId, since, state: "loaded", ask: !working && nextStepIsCaptains(reply) ? replyPreview(reply) : null });

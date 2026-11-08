@@ -40,10 +40,7 @@ test("By FO keeps every FO and each assigned review reachable", async (t) => {
   const { Board } = createRequire(import.meta.url)("../client/board");
   restore.mock.restore();
   await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation: {} })));
-  const byFo = [...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith("By FO"))!;
-  await act(async () => (byFo as HTMLElement).click());
   assert.match(container.textContent!, /Board · 1/);
-  assert.match(container.textContent!, /Review owner FO\s*· 1 waiting/);
   const review = container.querySelector('[aria-label="Review the pending adapter — Review owner FO"]');
   assert.ok(review, "the assigned review must be reachable before expanding idle rows");
   assert.match(container.textContent!, /Unoccupied FO/);

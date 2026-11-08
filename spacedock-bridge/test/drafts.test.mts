@@ -17,7 +17,7 @@ test("drafts survive remount reads, isolated by agent, gate and stage", () => {
   writeDraft(key, "");
 });
 
-test("a comms officer seed fills an empty draft and preserves non-empty text", () => {
+test("a chief of staff seed fills an empty draft and preserves non-empty text", () => {
   const key = draftKey("seed-co");
   assert.equal(seedDraft(key, "Suggested question"), "Suggested question");
   writeDraft(key, "My unfinished question");

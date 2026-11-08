@@ -70,8 +70,6 @@ test("failed board sources reuse guarded reads; FO rows count and open each wait
   await act(async () => { pending.gates.at(-1)!.resolve({ gates, failedWorkflowDirs: [] }); pending.tasks.at(-1)!.resolve({ tasks: {}, failedWorkflowDirs: [] }); });
   await act(async () => { pending.gates[2].reject(Error("stale")); pending.tasks[2].reject(Error("stale")); });
   assert.doesNotMatch(container.textContent!, /Check again · gates|Check again · tasks/);
-  await click([...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith("By FO"))!.textContent!);
-  assert.match(container.textContent!, /5 waiting/);
   const destinationRows = [...container.querySelectorAll("[aria-label]")].filter((e) => e.getAttribute("aria-label")?.endsWith("— Bridge FO"));
   assert.equal(destinationRows.length, 5);
   assert.equal([...container.querySelectorAll("[role=button]")].filter((e) => e.textContent!.includes("Choose the release window")).length, 2, "identical text from comms and FO remains separately attributed");

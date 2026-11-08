@@ -33,7 +33,7 @@ test("both board views share unread-question rows and counts across waiting-item
       } }] }),
       release: () => {},
     } }),
-    ref: () => ({ timeline: { refetch: async () => ({ entries: [{ item: { type: "assistant_message", text: "The two release windows are ready.\nNext: Choose the release window (you)" } }] }) } }),
+    ref: () => ({ timeline: { refetch: async () => ({ agentId:"question-fo",epoch:"epoch",projection:"projected",reset:false,gap:false,staleCursor:false,error:null,entries: [{ seqStart:1,seqEnd:1,sourceSeqRanges:[{startSeq:1,endSeq:1}],collapsed:[],item: { type: "assistant_message", text: "The two release windows are ready.\nNext: Choose the release window (you)" } }] }) } }),
   } };
   const readReviews = async () => ({ requests: scenario.review ? [{ url: "https://github.com/example/bridge/pull/12", owner: "example", repo: "bridge", number: 12, title: "Review the adapter", author: "fixture", firstSeenAt: Date.now() }] : [], checkedAt: Date.now(), error: null, nextCheckAt: null });
   const readGates = async () => ({ gates: scenario.gate ? [{ workflowDir: "/workflow", slug: "gate-task", title: "Approve the adapter", stage: "validation" }] : [], failedWorkflowDirs: [] });
@@ -59,14 +59,11 @@ test("both board views share unread-question rows and counts across waiting-item
     const root = createRoot(container);
     caseTest.after(async () => { await act(() => root.unmount()); dom.window.close(); });
     await act(async () => root.render(createElement(Board, { theme: { colors: {} }, layout: { compact: true }, navigation: {} })));
-    for (const view of ["decision", "FO"]) {
-      const tab = [...container.querySelectorAll("[role=tab]")].find((e) => e.textContent!.startsWith(`By ${view}`))!;
-      await act(async () => (tab as HTMLElement).click());
+    for (const view of ["timeline"]) {
       const titleCount = (title: string) => [...container.querySelectorAll("div")].filter((e) => e.childElementCount === 0 && e.textContent === title).length;
       assert.equal(titleCount(preview), 1, `${view}: show the actual unread question exactly once`);
       assert.doesNotMatch(container.textContent!, /Has a question for you/);
-      if (view === "FO") assert.match(container.textContent!, new RegExp(`Question FO\\s*· ${item.count} waiting`));
-      else assert.equal(tab.textContent, `By decision · ${item.count}`);
+      assert.match(container.textContent!,new RegExp(`Board · ${item.count}`));
       const next = [...container.querySelectorAll('[role="button"]')].find((e) => e.textContent!.startsWith("NEXT ·"));
       assert.equal(container.querySelectorAll('[aria-label$="— Question FO"]').length + (next ? 1 : 0), item.count, `${view}: count equals displayed rows including the next card`);
       if (item.gate) assert.equal(titleCount("Approve the adapter"), 1);

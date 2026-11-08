@@ -39,7 +39,7 @@ test("a permission shows what it asks for", () => {
 
 test("the next step is the Captain's when it names 你 or you", () => {
   assert.equal(nextStepIsCaptains("下一步: 決定 #675 是否交付（你）"), true);
-  assert.equal(nextStepIsCaptains("Next: merge it (you); then sync (me)"), true);
+  assert.equal(nextStepIsCaptains("Next: merge it (you); then sync (me)"), false);
   assert.equal(nextStepIsCaptains("下一步: 等 Web FO 回覆（我）"), false);
   assert.equal(nextStepIsCaptains("No status block here."), false);
 });
