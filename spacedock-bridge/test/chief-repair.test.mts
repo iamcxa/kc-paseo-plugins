@@ -10,7 +10,7 @@ import { mountBridge } from "./helpers/bridge-host.mjs";
 
 const at = "2026-11-06T10:00:00Z";
 const page = (id: string, entries: any[] = [], epoch = "epoch"): any => ({ agentId:id,epoch,projection:"projected",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder:false,hasNewer:false });
-const entry = (seq: number, type: string, text: string): any => ({seqStart:seq,seqEnd:seq,sourceSeqRanges:[{startSeq:seq,endSeq:seq}],collapsed:[],timestamp:at,item:{type,text}});
+const entry = (seq: number, type: string, text: string): any => ({provider:"fixture",seqStart:seq,seqEnd:seq,sourceSeqRanges:[{startSeq:seq,endSeq:seq}],collapsed:[],timestamp:at,item:{type,text,...(type==="assistant_message"?{messageId:`fictional-${seq}`}:{})}});
 const event = {key:"fictional-gate",version:"v1",kind:"gate" as const,title:"Fictional gate",since:at,agentId:"a",target:"fictional-gate"};
 const batch = {id:"fictional-batch",events:[event],reason:"exception" as const,score:4,checkedAt:at};
 const focus = {batchId:batch.id,targetKey:event.key,sentence:"Fictional gate awaits your choice."};
@@ -57,11 +57,12 @@ for(const labeled of [false,true])test(`server question opens its exact Board de
  const api:any={agents:{list:async({filter}:any)=>({entries:filter.labels.role==="fo"?[{agent:{...a,labels:{...a.labels,"workflow-dir":""}}}]:[]}),ref:(id:string)=>({timeline:{refetch:async()=>page(id,[msg],epoch)}})}};
  const reviews=async()=>({requests:[],checkedAt:1,error:null,nextCheckAt:null});
  const first=await chiefBoard(api,reviews);const key=first.events[0].key;
- assert.equal(JSON.parse(key)[2],"epoch:7:9");
+ assert.deepEqual(JSON.parse(JSON.parse(key)[2]),["fixture","message","fictional-7"]);
  const state:any={agentId:"co",total:"1",phase:"calling",batch:{...batch,id:"question"},focus:{batchId:"question",targetKey:key,sentence:"Choose fictional release"},entered:true,soundAttempted:true,error:null};
  h.rpc["chief.read"]=async()=>state;await h.publishAgents();await h.poll();await h.click("Bridge");await h.click("開啟幕僚長的焦點");
  assert.ok(h.find("Message A FO"),"server identity must open actual question");
- epoch="epoch-2";a.updatedAt="2026-11-06T10:01:00Z";const next=await chiefBoard(api,reviews);assert.notEqual(next.events[0].key,key);
+ epoch="epoch-2";a.updatedAt="2026-11-06T10:01:00Z";const next=await chiefBoard(api,reviews);assert.equal(next.events[0].key,key);
+ msg.item.messageId="fictional-new-message";a.updatedAt="2026-11-06T10:02:00Z";assert.notEqual((await chiefBoard(api,reviews)).events[0].key,key);
  await h.publishAgents();await h.click("Chief of staff");await h.click("開啟幕僚長的焦點");
  assert.match(h.text(),/no longer available|無法確認|已變更/i,"stale focus must explain why it cannot open");
  assert.ok(h.find("Message Chief of staff"));assert.equal(h.sent.length,0);

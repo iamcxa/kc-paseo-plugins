@@ -58,12 +58,12 @@ for (const changed of ["message", "timestamp"] as const) {
     const firstAt = new Date(Date.now() - 900_000).toISOString();
     const secondAt = new Date(Date.now() - 180_000).toISOString();
     const question = "Choose the window (you)";
-    h.timeline.set("a", [{ ...(changed === "message" ? { seqStart: 10 } : {}), timestamp: firstAt, item: { type: "assistant_message", text: `Next: ${question}` } }]);
+    h.timeline.set("a", [{ ...(changed === "message" ? { seqStart: 10 } : {}), timestamp: firstAt, item: { type: "assistant_message", text: `Next: ${question}`, ...(changed === "message" ? {messageId:"fictional-first"} : {}) } }]);
     await h.publishAgents(); await h.click(`${question} — A FO`);
     const original = h.find("Message A FO");
     await h.type("Message A FO", "Repeated question draft"); await h.click("Back to Chief of staff");
     agent.updatedAt = new Date().toISOString();
-    h.timeline.set("a", [{ ...(changed === "message" ? { seqStart: 11 } : {}), timestamp: changed === "message" ? firstAt : secondAt, item: { type: "assistant_message", text: `Next: ${question}` } }]);
+    h.timeline.set("a", [{ ...(changed === "message" ? { seqStart: 11 } : {}), timestamp: changed === "message" ? firstAt : secondAt, item: { type: "assistant_message", text: `Next: ${question}`, ...(changed === "message" ? {messageId:"fictional-second"} : {}) } }]);
     await h.publishAgents(); await h.click(`${question} — A FO`);
     assert.ok(h.find("Message A FO") !== original);
     assert.match(detail(h), changed === "message" ? /waiting 15m/ : /waiting 3m/);

@@ -49,7 +49,7 @@ export async function chiefBoard(api: PaseoApi, readReviewSource = readReviewsHa
       if (item.gate?.briefingId && (await readDecisionHandler({ briefingId: item.gate.briefingId })).record) continue;
     } else if (item.kind === "ask") {
       const fact = item.fo && facts[item.fo.id];
-      if (fact && captainOwnsQuestion(item.fo?.nextOwner, fact.onCaptain) && fact.messageId && replyPreview(item.title) === fact.preview) { since = fact.since ?? ""; identity = JSON.stringify(["question", item.fo!.id, fact.messageId]); }
+      if (fact && captainOwnsQuestion(item.fo?.nextOwner, fact.onCaptain, fact.nextStep ?? fact.preview) && fact.messageId && replyPreview(item.title) === fact.preview) { since = fact.since ?? ""; identity = JSON.stringify(["question", item.fo!.id, fact.messageId]); }
     } else if (item.kind === "permission") {
       const agent = agents.find(agent => agent.id === item.fo?.id);
       const permissions = agent?.pendingPermissions as readonly { id?: string }[] | undefined;
@@ -58,9 +58,9 @@ export async function chiefBoard(api: PaseoApi, readReviewSource = readReviewsHa
       }
     }
     if (!Number.isFinite(Date.parse(since))) continue;
-    events.push({ key: item.key, version: hash([identity, item.gate?.briefingId ?? null, item.title, since]), kind: item.kind, title: item.title, waiter: item.fo?.title ?? null, since, agentId: item.fo?.id ?? null, target: item.link?.url ?? item.key });
+    events.push({ key: item.key, version: hash([identity, item.gate?.briefingId ?? null, item.title, item.kind === "ask" ? null : since]), kind: item.kind, title: item.title, waiter: item.fo?.title ?? null, since, agentId: item.fo?.id ?? null, target: item.link?.url ?? item.key });
   }
-  return { events, total: complete ? String(new Set(queue.map(item => item.key)).size + chiefQuestions) : "?", complete, rows: grouped, queue: queue.map(item => ({ ...item, waitingSince: events.find(event => event.key === item.key)?.since ?? null })) };
+  return { events, facts, total: complete ? String(new Set(queue.map(item => item.key)).size + chiefQuestions) : "?", complete, rows: grouped, queue: queue.map(item => ({ ...item, waitingSince: events.find(event => event.key === item.key)?.since ?? null })) };
 }
 
 export const PREPARE_TOOL = "prepare_batch";
@@ -109,6 +109,7 @@ export class ChiefObserver {
   }
   private async update(api: PaseoApi) {
     try {
+      const observationStarted = Date.now();
       const snapshot = await this.board(api);
       this.state.total = snapshot.total;
       const { entries } = await api.agents.list({ filter: { labels: { role: ROLE_COORDINATOR } } });
@@ -120,7 +121,7 @@ export class ChiefObserver {
         if (restored) this.state = { ...this.state, ...restored, phase: "calling", entered: true, soundAttempted: true };
       }
       this.state.error = snapshot.complete ? null : "Board sources cannot be confirmed";
-      const qualified = this.tracker.observe(snapshot.events, Date.now(), snapshot.complete);
+      const qualified = this.tracker.observe(snapshot.events, Date.now(), snapshot.complete, observationStarted);
       if (snapshot.complete && this.state.phase === "calling" && this.state.focus && !snapshot.events.some(event => event.key === this.state.focus!.targetKey && this.state.batch?.events.some(old => eventVersion(old) === eventVersion(event)))) {
         this.terminal.add(`${chief.id}:${this.state.batch!.id}`);
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total };

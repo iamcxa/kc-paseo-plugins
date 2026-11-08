@@ -8,7 +8,7 @@ import {readCommanderConversation} from "../shared/commander-replies";
 import {COORDINATOR_VERSION} from "../shared/coordinator";
 import {mountBridge} from "./helpers/bridge-host.mjs";
 const at="2026-11-06T10:00:00Z";
-const entry=(seq:number,item:any,turnId?:string):any=>({provider:"fixture",turnId,seqStart:seq,seqEnd:seq,sourceSeqRanges:[{startSeq:seq,endSeq:seq}],collapsed:[],timestamp:at,item});
+const entry=(seq:number,item:any,turnId?:string):any=>({provider:"fixture",turnId,seqStart:seq,seqEnd:seq,sourceSeqRanges:[{startSeq:seq,endSeq:seq}],collapsed:[],timestamp:at,item:item.type==="assistant_message"?{messageId:`fictional-${seq}`,...item}:item});
 const page=(id:string,entries:any[],hasOlder=false):any=>({agentId:id,epoch:"fixture",projection:"projected",reset:false,gap:false,staleCursor:false,error:null,entries,hasOlder,hasNewer:false});
 const fo=(id:string,owner?:string):any=>({id,title:`Fictional ${id}`,cwd:"/fictional",status:"idle",updatedAt:at,requiresAttention:true,attentionReason:"finished",labels:{role:"fo",...(owner?{"next-owner":owner}:{})}});
 const reviews=async()=>({requests:[],checkedAt:1,error:null,nextCheckAt:null});
@@ -20,7 +20,7 @@ const apiFor=(read:(id:string,options:any)=>Promise<any>,agents:any[]=[])=>({age
 
 for(const owner of ["fo","captain",undefined,"unsupported"])for(const text of ["Next: Choose direction (you)","Next: Continue research (me)","Fictional plain question"])test(`explicit FO ownership at admission/consumption: ${owner??"absent"}, ${text}`,async()=>{
  const agent=fo("a",owner),api=apiFor(async id=>page(id,id==="co"?[]:[entry(1,{type:"assistant_message",text})]),[agent]);
- const expected=owner==="captain"||!owner&&text.includes("(you)");const row=toRows([agent])[0];
+ const expected=!text.includes("(me)")&&(owner==="captain"||!owner&&text.includes("(you)"));const row=toRows([agent])[0];
  const fact=await (readQuestion as any)(api,"a",owner);
  assert.equal(fact.onCaptain,expected);assert.equal(needsQuestion(row),owner!=="fo"&&owner!=="unsupported");
  const stale={preview:"Choose direction (you)",onCaptain:true,messageId:"fixture:1:1",since:at};
@@ -43,7 +43,7 @@ test("observeBoard re-evaluates ownership changes without a new message/activity
  const api:any={agents:{list:async()=>({subscription:{subscribe:(value:any)=>{listener=value;},release(){}}}),ref:(id:string)=>({timeline:{refetch:async()=>{reads++;return page(id,[entry(1,{type:"assistant_message",text:"Next: Continue research (me)"})]);}}})}};
  const stop=await observeBoard(api,(rows,facts,state)=>{latest={rows,facts,state};});
  const publish=async()=>{listener.snapshot({entries:[{agent}]});await new Promise(setImmediate);};
- await publish();assert.equal(latest.facts.a.onCaptain,true);agent.labels["next-owner"]="fo";await publish();assert.equal(latest.state,"loaded");assert.equal(buildQueue(withReplies(latest.rows,latest.facts),[],latest.rows,latest.facts).length,0);
+ await publish();assert.equal(latest.facts.a.onCaptain,false);agent.labels["next-owner"]="fo";await publish();assert.equal(latest.state,"loaded");assert.equal(buildQueue(withReplies(latest.rows,latest.facts),[],latest.rows,latest.facts).length,0);
  delete agent.labels["next-owner"];await publish();assert.equal(latest.facts.a.onCaptain,false);assert.equal(reads,2);stop();
 });
 
