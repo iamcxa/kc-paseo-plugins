@@ -72,6 +72,12 @@ Asked: 幕僚長可以再多修一輪嗎？兩輪修正已經用完，還剩三�
 Supersedes: none
 Design: "one more repair cycle, for roborev 1578 findings 10-12 only; after the Claude limit is confirmed reset, one real Opus and Terra batch with restart read-back; then visual acceptance and his trial; stop and report if the real result does not match, with no further cycle opened automatically" (beyond the seed's Budget line of two repair cycles)
 
+### Amendment 2 — 2026-11-08, chat
+Captain: 「好」 (to the FO's step-back answer, 2026-11-07, which he had asked for: 「退後一步思考一下到底該怎麼做，上次你建議我跳過直接驗收，結果根本不能用，後來才引出這次我想改的方式」)
+Asked: 要先跑影子模式嗎？ (the FO's proposal just before: run the trigger read-only on his real board for a few hours, no model, no sound, no switch, no FO touched; record each time she would have called him with the batch's titles, kept local; he reads the list to judge the threshold and weights; the three small findings wait)
+Supersedes: none
+Design: "Before any further repair or trial: run the candidate's trigger in shadow mode on the Captain's real board for a few hours — read-only, no model, no sound, no comms-officer switch, no FO touched — recording each time she would have called him with the batch's item titles, kept on his machine only and out of the public branch; he reads that list to judge whether the threshold and weights fit; roborev 1581 findings 13-15 wait until he has read it."
+
 ## FO alignment
 
 Alignment: not needed: the Captain accepted the design (d4-chief-of-staff), the trigger and the starting point on 2026-11-06.
