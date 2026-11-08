@@ -455,3 +455,11 @@ FO ran roborev on a02f53c4ca741b5b4f905ed48c9500fc1be5fdd6 (base 7a4dbc057803d79
 14. index.server.ts: a matching Captain response is consumed only when the officer's turn ends, so a sent response leaves the call active until her reply finishes.
 15. client/board.tsx: named navigation requires every gate and review source to load, so an unrelated GitHub failure blocks opening a verified permission or officer conversation from her focus (the board row still opens it).
 Taken to the Captain.
+
+## Shadow run
+
+- Start time: 2026-11-08T01:53:46.436Z (2026-11-08 09:53:46 Asia/Taipei).
+- PID: 94070.
+- Poll interval: 60 seconds.
+- End time: scheduled 2026-11-08T05:53:46.436Z (2026-11-08 13:53:46 Asia/Taipei); exits automatically after four hours.
+- Counts so far: 2 polls, 2 successful, 0 failed; 0 observed trigger calls; latest poll 14 timed events and 9 excluded items without a trusted waiting time (18 exclusions across polls, not distinct items); startup all-current eligibility 1 exception, with the actual first-poll trigger quiet because it establishes the baseline.
