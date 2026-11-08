@@ -463,3 +463,7 @@ Taken to the Captain.
 - Poll interval: 60 seconds.
 - End time: scheduled 2026-11-08T05:53:46.436Z (2026-11-08 13:53:46 Asia/Taipei); exits automatically after four hours.
 - Counts so far: 2 polls, 2 successful, 0 failed; 0 observed trigger calls; latest poll 14 timed events and 9 excluded items without a trusted waiting time (18 exclusions across polls, not distinct items); startup all-current eligibility 1 exception, with the actual first-poll trigger quiet because it establishes the baseline.
+
+## Shadow run result (FO summary, counts only)
+
+Run 2026-11-08 09:53–13:53 Taipei, PID 94070, 240 polls, 0 failed, read-only on the live board (titles kept only in the local /tmp log). Seven would-call moments: 4 threshold batches (scores 27, 13, 14, 21) and 3 single-gate 30-minute exceptions (two of them a minute apart for two different gates). Of 12 distinct question items in those batches, 4 were the FO's own next step written "(我)", not the Captain's — counted as waiting on him. One threshold batch was made entirely of question items that had been waiting 1–3 days. Ten of about twenty board items were excluded every poll for unknown waiting time.
