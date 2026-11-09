@@ -126,7 +126,7 @@ Design finding 4: declined: the task's Scope lists "renaming or migrating existi
 Design finding 5: declined: no screen word or layout changes; the changed result (typed, connected, test, list, and now an all-spaces name) is pictured at 1280 and 400 px; the earlier-saved and no-spaces cases at 1280 only, and no state in the light theme; recorded as a limit of the design.
 Decline check: design/declines-1.yaml
 
-Both declines were upheld (`design/declines-1.yaml`). The review's limitations are covered as follows. The agent's variables and the lookup by the trimmed name are shown by a run, not a picture: clauses 3 and 5 print `STRIPE_KEY=filled`. Dark theme only is a stated limit below.
+Both declines were upheld (`design/declines-1.yaml`). The review's limitations are covered as follows. The agent's variables and the lookup by the trimmed name are shown by a run, not a picture: clauses 3 and 5 print `STRIPE_KEY=filled`. Dark theme only is a stated limit below. The four `proposed-*-1280.png` pictures of the spaced case were taken again at 08:28 UTC, after the review, by the same steps; the only change was that `repro.sh` also prints the token row (`evidence/runs/proposed-spaced.txt`).
 
 ### Acceptance evidence plan
 
@@ -144,7 +144,7 @@ Both declines were upheld (`design/declines-1.yaml`). The review's limitations a
 
 ### Needs decision
 
-None.
+None. Past rulings checked: ADRs 0001 and 0002, which the design director read, set no rule for the service account name, and `git -C docs/dev2/.spacedock-state grep -n 'Override:'` finds only archived prose about other areas.
 
 ### Batch overlap
 
