@@ -32,3 +32,7 @@ test("an archive failure retains the exact replacement IDs and a confirmed retry
   assert.equal(creates, 1); assert.equal(archives, 2);
 });
 
+
+test("widget previews also require exact destinations and messages as plain reply text for Bridge", () => {
+  assert.ok(COORDINATOR_PROMPT.includes("Whenever you show a what-will-be-sent preview in a widget, also write the same complete preview as plain text in your reply, including each item's destination FO/agent id and exact proposed message, so it is readable in Bridge's conversation."));
+});
