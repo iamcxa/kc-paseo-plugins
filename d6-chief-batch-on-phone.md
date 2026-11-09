@@ -5,6 +5,17 @@ profile: poc
 merge: pr
 id: d6-chief-batch-on-phone
 status: backlog
+gates:
+    version: 1
+    records:
+        - id: gate:d6-chief-batch-on-phone:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:d6-chief-batch-on-phone-backlog-1
+              briefing:
+                id: briefing:d6-chief-batch-on-phone:backlog:attempt-1:revision-1
+                digest: sha256:29fbf4c9b6acfca52fd7c624323cfd251c027957769302768daeb0c6b91f7e93
+                room-ref: ./d6-chief-batch-on-phone/review/backlog/briefing-1
 ---
 
 Design, before any code, how the Captain clears a batch the chief of staff called him about from her one conversation on his phone: she lays out the batch's items, he answers each there, and she relays his answers to each FO, so he never switches between FO sessions.
