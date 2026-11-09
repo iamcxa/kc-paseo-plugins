@@ -199,7 +199,7 @@ Both halves of AC-1 implemented in secrets.ts with fakes logging only `OP_` vari
 ## Stage Report: validation
 
 - DONE: Validate PR #81 at its exact head against AC-1 and its evidence clauses: with Connect and other `OP_` variables in the daemon environment every `op` call runs without them and with the configured token; a read that finishes after a cache clear is returned but not cached, for the Test/settings path and the token-save path.
-  Candidate 889b7329d844 = PR #81 headRefOid, base e4acaec1 = origin/main (fetched 2026-11-09). All four `op` calls (`vault list`, `item list`, `item get`, `read`) go through `opEnv`; Test handler and settings subscription in `contribute.ts` call `clearCache()`, `storeToken` now does too. AC-1 met.
+  Candidate 889b7329d844 = PR #81 headRefOid, base e4acaec1 = origin/main (fetched 2026-11-09). The only process spawn in project-env is `run` in `secrets.ts` (grep outside tests); all four `op` calls (`vault list`, `item list`, `item get`, `read`) go through `opEnv`; Test handler and settings subscription in `contribute.ts` call `clearCache()`, `storeToken` now does too. AC-1 met.
 - DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` at the candidate; reproduce that each new test fails with `secrets.ts` from main.
   `npm test` 339/339 pass, `tsc` exit 0. Throwaway copy, one change each: main `secrets.ts` fails all 3 new cases (identity saw `OP_CONNECT_*`/`OP_SESSION_my`; both clear cases got 'old' not 'new'), control passes; generation check removed fails both clear cases; `storeToken` back to `cache.clear()` fails only the token case; strip only the two Connect names fails identity; token dropped fails all.
 - DONE: Check the PR body's known limit (inherited `OP_INCLUDE_ARCHIVE` no longer reaches `op`) against the code, and whether any OVERVIEW.md sentence becomes untrue.
@@ -213,7 +213,7 @@ Both halves of AC-1 implemented in secrets.ts with fakes logging only `OP_` vari
 
 ### Acceptance script
 
-No visible change; these commands show the behaviour through the tests. Paste into a terminal (zsh is fine); needs the worktree below with `node_modules` installed. About 1 minute.
+No visible change; these commands show the behaviour through the tests. Paste them into one terminal, in order (zsh is fine; steps 2-5 rely on step 1's `cd`); needs the worktree below with `node_modules` installed. About 1 minute.
 
 1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-op-auth-and-cache/project-env && git rev-parse HEAD` — prints `889b7329d844d41972c44142ce8df4fd9980d570`.
 2. `node --test test/op-identity.test.ts test/cache-after-clear.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"` — `pass 4`, `fail 0`.
