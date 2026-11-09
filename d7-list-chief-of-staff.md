@@ -272,3 +272,11 @@ Checks / documents — comment-ratio.log: 138 code / 0 comment lines, 0%, maximu
 ### Summary
 
 The three authorized repairs and the preparation-shortcut removal are committed/pushed, with 499 passing tests and successful native two-restart list/preview/three-relay proof. The prior native preparation HOLD is resolved within the tested boundary; transient widget persistence is explicitly outside the observed result. This is the last worker repair cycle: hand back to FO for exact-head roborev, independent validation and Captain presentation, without ready/merge/installation authority.
+
+## Investigation: roborev 1642
+
+Cycle 3 at 970d9cdaab655aadd489a9cda5393610d5f0cb23: 499 tests; the real run with two daemon restarts kept the list and preview, relayed nothing before confirmation, then relayed the question and both gates exactly once with the permission untouched; transient GenUI display entries do not survive a restart, the preview content does. Repair budget spent.
+FO ran roborev on 970d9cdaab655aadd489a9cda5393610d5f0cb23 (base f40c340e8204f4b7dddef238f215aea3f3a6eaab): exit 1, evidence=roborev:1642, two Medium.
+5. shared/coordinator.ts prompt prefers render_ui for the preview, but Bridge's conversation renderer shows a tool call by name only, so in Bridge a widget-only preview reads "↳ render_ui" and the Captain cannot see destinations or messages there (the native conversation renders it).
+6. shared/commander-replies.ts gives every list a synthetic focus on its first item; if that item resolves during preparation while others remain, the whole update is rejected and an older list or failure is restored, and restart can read it differently.
+Taken to the Captain.
