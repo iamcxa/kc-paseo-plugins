@@ -16,6 +16,17 @@ gates:
                 id: briefing:d6-chief-batch-on-phone:backlog:attempt-1:revision-1
                 digest: sha256:29fbf4c9b6acfca52fd7c624323cfd251c027957769302768daeb0c6b91f7e93
                 room-ref: ./d6-chief-batch-on-phone/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d6-chief-batch-on-phone:backlog:1
+                briefing: briefing:d6-chief-batch-on-phone:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-09T03:10:58.487235Z"
+                decision: approve
+                reason: Captain chat 2026-11-09, asked 「要先做這輪手機優先的設計嗎？」 with two parts (push to a locked phone; handling the whole batch in her conversation), answered 「1 這個手機不用煩惱，paseo 會推播，只是我沒辦放每次都一則一則去回，所以才需要她」 — part 1 dropped (Paseo pushes), part 2 is this task.
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Design, before any code, how the Captain clears a batch the chief of staff called him about from her one conversation on his phone: she lays out the batch's items, he answers each there, and she relays his answers to each FO, so he never switches between FO sessions.
