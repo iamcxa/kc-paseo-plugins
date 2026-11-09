@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d7-list-chief-of-staff
-status: backlog
+status: implementation
 gates:
     version: 1
     records:
@@ -26,7 +26,7 @@ gates:
                 reason: 'Captain chat 2026-11-09, asked 「要開這個任務嗎？」 (the list chief of staff on PR #77''s backend, card UI removed, her prompt rewritten, render_ui allowed, one real call after the limit resets), answered 「好」.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Rebuild the chief of staff as a conversation, without new screens: she keeps one accumulated list of what waits on the Captain — who raised it, her recommended decision and her reason — adds to it until he responds, then asks whether to take all her recommendations or review item by item; before sending a batch she shows him exactly what goes where, in whatever widget suits her, and sends only on his explicit confirmation.
