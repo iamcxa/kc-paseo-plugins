@@ -1,8 +1,14 @@
 {
   "id": "paseo-project-env",
-  "media": [],
+  "media": [
+    "https://raw.githubusercontent.com/iamcxa/kc-paseo-plugins/e4acaec1a454ccf39bb9aaaa48a478ac5333b561/docs/project-env/img/06-variables.png",
+    "https://raw.githubusercontent.com/iamcxa/kc-paseo-plugins/e4acaec1a454ccf39bb9aaaa48a478ac5333b561/docs/project-env/img/04-connect-1password.png",
+    "https://raw.githubusercontent.com/iamcxa/kc-paseo-plugins/e4acaec1a454ccf39bb9aaaa48a478ac5333b561/docs/project-env/img/05-field-picker.png",
+    "https://raw.githubusercontent.com/iamcxa/kc-paseo-plugins/e4acaec1a454ccf39bb9aaaa48a478ac5333b561/docs/project-env/img/07-test-result.png"
+  ],
   "requirements": {
     "paseo": ">=0.12.0"
   },
-  "name": "Project environment"
+  "name": "Project environment",
+  "description": "Fills environment variables for the agents Paseo starts in a repository from fields in one 1Password vault."
 }
