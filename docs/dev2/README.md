@@ -18,6 +18,7 @@ stages:
       initial: true
       gate: true
     - name: ideation
+      model: opus
       gate: true
       context-sections:
         - Dispatch facts
@@ -31,6 +32,7 @@ stages:
         - Affected documents
         - Number guards
     - name: validation
+      model: opus
       worktree: true
       fresh: true
       feedback-to: implementation
@@ -47,7 +49,7 @@ stages:
 ---
 
 # Development workflow
-<!-- kc-dev-flow-2 0.34.0 x-release-please-version -->
+<!-- kc-dev-flow-2 0.36.0 x-release-please-version -->
 
 This is the adopted workflow's authority for SD stages and task schema. Resolve
 its absolute directory and retain `--workflow-dir` on SD commands, including
@@ -78,14 +80,12 @@ At each next gate, wait for every member's sufficient committed evidence, then p
 
 `<package>/scripts/pr_watch.py tasks` sitting hints remain subject to this boundary; stage alone joins neither unrelated tasks nor incomplete batches. Unbatched tasks retain ordinary gates.
 
-When requested, chief-engineer reviews the complete package/process batch before briefing bindings; engineering-reviewer handles contested hard-to-reverse claims. Give committed task files/artifact links, not FO's suspicions/conclusions. Record reviewer/model/evidence; use a different family from all workers or ask the Captain. Review advises, without approval authority.
+When requested, chief-engineer reviews the complete package/process batch before briefing bindings; engineering-reviewer handles contested hard-to-reverse claims. Give committed task files/artifact links, not FO's suspicions/conclusions. Record reviewer/model/evidence; use a different family from implementation workers or ask the Captain. Review advises, without approval authority.
 
 ## Stages
 
 Stage workers follow `<package>/references/model-roster.md`; absence retains README defaults.
-`kc-dev-flow-2:chief-engineer`, `kc-dev-flow-2:engineering-reviewer` and
-`kc-dev-flow-2:observer` run on the model and reasoning their agent files declare, never
-a cheaper one. Record chief-engineer and engineering-reviewer calls under `## FO alignment` as
+`kc-dev-flow-2:chief-engineer`, `kc-dev-flow-2:engineering-reviewer`, `kc-dev-flow-2:design-director` and `kc-dev-flow-2:observer` run on its `## Model table` row, never cheaper. Record chief-engineer and engineering-reviewer calls under `## FO alignment` as
 `Reviewer: <agent> <model> <date> — <question>`; `<package>/scripts/role_triggers.py` lists calls owed.
 
 `concurrency` limits only what `status --next` proposes. A feedback-reflow repair and an
@@ -108,18 +108,12 @@ holds the dispatch and shows the Captain what the script printed. Every worker d
 land in the dispatch file the worker reads first. Those scope notes, and every follow-up
 message to a live worker, also carry ``Send your completion message to `main` (the README's Dispatch
 facts: `team-lead` is not registered here).``: the builder's completion block names `team-lead`, and a
-worker that skips the stage-definition fetch does not see the Signal fact. FO saves those scope notes, the
-checklist, the model it dispatches on and the SHA it dispatches from as
-`<task>/dispatch/<stage>-<cycle>.md` in the state checkout (for validation a
-`Candidate: <full head SHA>` line per head validated),
-committed with that dispatch's `spacedock state commit <slug> --workflow-dir <dir>`, so
-the instruction a worker followed outlives the session that wrote it; FO runs
-`python3 <package>/scripts/dispatch_records.py <task folder>` before committing and fixes each part it lists. A follow-up
-message to a worker FO resumes is a dispatch too, with the same check and a checklist of the items that message asks, never a pointer to another record.
+worker that skips the stage-definition fetch does not see the Signal fact. FO builds each worker dispatch with `python3 <package>/scripts/dispatch_stage.py`: `dispatch build`'s flags, `--model`, and `--roster`, `--candidate` or `--symptom` where owed. It saves the checklist, scope notes, model and the SHA it dispatches from as `<task>/dispatch/<stage>-<cycle>.md`, so the instruction a worker followed outlives the session that wrote it, checks it as below, then builds; the build's commit carries the record.
+A follow-up message to a worker FO resumes is a dispatch too, saved by hand as `<stage>-<cycle>-message-<n>.md` with a checklist of the items it asks, never a pointer to another record, and committed with `spacedock state commit <slug> --workflow-dir <dir>`.
 After each worker report, before advancing or preparing its gate, FO runs
 `python3 <package>/scripts/dispatch_records.py --coverage <task> --stage <stage>`; nonzero holds that task.
 This check does not observe unrecorded messages.
-Before `dispatch build`, FO runs `python3 <package>/scripts/dispatch_records.py --names --strict <record>` on the saved record; nonzero holds dispatch. Relative script paths are allowed; bare package script names remain errors. Plain `--names` preserves existing historical verdicts and reports skipped context checks on stderr. When `status --set` refuses to leave a stage, run `spacedock status --workflow-dir
+Each record passes `python3 <package>/scripts/dispatch_records.py <task folder>` and `--names --strict <record>` before a worker reads it; nonzero holds dispatch. Relative script paths are allowed; bare package script names remain errors. Plain `--names` preserves existing historical verdicts and reports skipped context checks on stderr. When `status --set` refuses to leave a stage, run `spacedock status --workflow-dir
 <dir> --read <task> --stage <stage> --checklist`, return any line it reports as neither
 DONE nor SKIPPED to the worker with the request to append a complete new report under the same heading, ending in a Summary that supersedes the earlier one, and do not edit the worker's report. The refusal itself
 does not say why; other causes are a missing evidence line or Summary and an uncommitted
@@ -237,11 +231,9 @@ repair is dispatched under the lane in Stages.
 - **Gate content:** Show actual checks and acceptance evidence, material findings
   and limits, and the user's pending delivery decision. For a `ui` task FO runs
   `python3 <package>/scripts/design_surfaces.py check <task>` and includes its
-  output. Before the gate, FO runs the
-  stage's minimal acceptance script exactly as written in a fresh shell, then presents
-  every step in full beside its observed output, never a pointer or a shortened step.
-  A step FO cannot run (a secret, a sign-in, the Captain's own device) is marked not
-  run with the reason; an output that differs from the script returns through feedback.
+  output. Before the gate, FO runs the stage's minimal acceptance script under
+  Captain steps, names its record on the summary's `Captain steps:` line, and
+  returns an output that differs from the script through feedback.
   Before recommending delivery, FO confirms both goal sufficiency and minimal
   necessity from the same candidate's existing route evidence. Passing checks or
   approval replace neither condition; approval is not merge. When a POC report
@@ -256,6 +248,18 @@ Consuming a terminal gate approval is not completion (`spacedock merge guard --h
 a live run requires the declared delivery evidence and successful `merge guard` with
 an explicit verdict. Apply Delivery authority below; a pending PR or missing hook is
 not completion.
+
+## Captain steps
+
+Before asking the Captain to run or look at anything (an acceptance script, a
+command, a link, a sign-in, a file of steps), FO runs each step as written, in a
+fresh shell or a real browser, as far as it goes without his credentials, and
+records it in `<task>/captain-steps/<N>.md`.
+`python3 <package>/scripts/delivery_gate.py steps <record> --text-file <message>`
+prints the record's form; nonzero holds the ask. The message shows each step beside
+its observed output and names the step only he can do, and why.
+
+Each number or factual claim in a gate summary or PR body names the command that produced it and the date, or the report it repeats as `<whose> report, not run`, and is not stated as settled. In a message to the Captain, a claim carries the same source after the sentence that answers him.
 
 ## Dispatch facts
 
@@ -344,10 +348,10 @@ consequential FO quick work and rejected gates.
    waived by the Captain with the reason recorded (step 4). For an external reviewer
    that has no P1 label, its highest severity level counts as P1 (e.g. RoboRev). Rounds
    1 and 2 follow steps 1 to 4. From round 3 a finding that is neither does not start a
-   repair cycle: FO declines it in the committed gate summary, naming the finding, and
-   files it as a new backlog task with `spacedock new` whose body carries the finding
-   and the decline reason, or names the backlog task that already holds it when a later
-   round repeats it; it never enters an open task's Scope. The terminal gate lists each
+   repair cycle: FO declines it in the committed gate summary, naming the finding and
+   its reason. Only an observed failure naming who it hurts, a repeat in a later round
+   or task, or a Captain ask makes it a backlog task (`spacedock new`, or the one
+   holding it); it never enters an open task's Scope. The terminal gate lists each
    such task.
 
 Rejection routing carries evidence, classifications, authorized dispositions and assignment
@@ -380,6 +384,11 @@ When the Captain chooses differently from the recommendation, FO writes
 `Override: recommended <option>; Captain chose <option>; area: <area>` in the gate
 resolution reason, so later workers find past rulings with `git grep 'Override:'` in
 the state checkout.
+
+A revise asking for what FO did not recommend, and his approval of a recommendation
+FO revised after pushback, also owe one, on the task they concern. Otherwise the reason
+carries `Recommendation: followed`. Before `gate record --actor person:captain`, FO runs
+`python3 <package>/scripts/decision_ledger.py --reason <file>`; nonzero holds the record.
 
 ## Decision records
 
@@ -455,7 +464,7 @@ the package's `references/retained-documents.md`.
 ## Number guards
 
 Applies when the task's `Surfaces:` includes `db`, or the task lands an ADR, including one first required by a ruling in a worker report or mid-stage feedback, whose number FO reserves before the next dispatch; the POC bullet below applies to every `poc` task.
-`python3 <package>/scripts/number_guards.py --help` lists the flags and rules R1 to R6;
+`python3 <package>/scripts/number_guards.py --help` lists the flags and rules;
 `trunk:`, `migrations-path:` and `adr-path:` (default `docs/adr`) come from this README's frontmatter.
 
 - **Applied.** `check` freezes a migration in a commit recorded `Applied at:` (R2).
@@ -496,8 +505,8 @@ Applies when the task's `Surfaces:` includes `db`, or the task lands an ADR, inc
 - **POC marker.** FO presents the `boundary-crossed: persistent-state` marker at the
   validation gate. Without `migrations-path:` a db task exits 2 and a POC is not guarded;
   `none` declares no migration files.
-- **Collision.** When two tasks hold one migration number (`check` reports R3 or R5 on
-  the later candidate; nothing compares task files), the task whose migration is applied
+- **Collision.** When two tasks hold one migration number (`check` reports R3, R5 or R8 on
+  the later candidate), the task whose migration is applied
   keeps it and the other, unapplied task renumbers, so no reset is needed. A migration
   counts as applied when its task has an `Applied at:` line or it is on the base branch;
   when both tasks are applied and neither is on the base branch, the one that merges
