@@ -291,3 +291,20 @@ FO ran roborev on 970d9cdaab655aadd489a9cda5393610d5f0cb23 (base f40c340e8204f4b
 5. shared/coordinator.ts prompt prefers render_ui for the preview, but Bridge's conversation renderer shows a tool call by name only, so in Bridge a widget-only preview reads "↳ render_ui" and the Captain cannot see destinations or messages there (the native conversation renders it).
 6. shared/commander-replies.ts gives every list a synthetic focus on its first item; if that item resolves during preparation while others remain, the whole update is rejected and an older list or failure is restored, and restart can read it differently.
 Taken to the Captain.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: Captain amendment 1: change only her prompt so that whenever she shows a what-will-be-sent preview in a widget, she also writes the same preview as plain text (each item's destination FO and the exact message) in her reply, so it reads in Bridge's conversation as well; add or update one prompt test asserting the sentence; npm test and typecheck pass; commit and push to the PR #80 branch (no force push); write "## Stage Report: implementation (cycle 4)" naming the new head (AC-2)
+  3fbbdfb9845ba04935e1d703c837e3d1ab26542b normally committed/pushed to Draft PR #80: one sentence added to COORDINATOR_PROMPT and one test added to coordinator-switch.test.mts; npm test 500/500 and typecheck exit 0 (evidence/cycle-4/tests.log, typecheck.log).
+
+### Findings
+
+Captain amendment 1 only — The added sentence requires the same complete widget preview in ordinary reply text, including each destination FO/agent id and the exact proposed message, so Bridge's conversation can display it. No other prompt, product behavior or code was changed. The existing widget choice and separate-confirmation requirements remain in their prior text; no model/daemon run, installation, agent switch or PR-ready transition occurred.
+
+Prompt test / limit — prompt-red.log records the single new sentence assertion failing at 970d9cda; prompt-green.log records all three tests in that file passing after the sentence is added. Deleting or relaxing this exact requirement fails the test. This checks the Captain-requested prompt contract, not actual model adherence or Bridge visual acceptance; the previous native model/restart proof remains bound to 970d9cda and is not claimed as a new-head run. Validation and the Captain's trial are the next authorized route.
+
+Checks / scope — comment-ratio.log: 138 code / 0 comment lines against stack base f40c340e8204f4b7dddef238f215aea3f3a6eaab, 0% under 5%. doc-impact.json names no additional documents; number-guards.log and design-surfaces.log pass. Product worktree is clean. PR #77/#80's other findings remain as recorded, including the first-item-resolution race in the Captain amendment; no additional repair cycle was opened. roborev not run: prescribed exact-head review remains FO-owned because this worker cannot reach its daemon. Task report/state evidence are committed only with the dispatched scoped helper.
+
+### Summary
+
+The Captain's one-sentence prompt amendment and its one test are pushed at 3fbbdfb9845ba04935e1d703c837e3d1ab26542b, with 500 passing tests and successful typecheck. Hand back for validation and the Captain's trial; PR #80 stays Draft, with no model proof, installation or other repair performed in this dispatch.
