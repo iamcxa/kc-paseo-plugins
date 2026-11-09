@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-registry-listing:ideation:attempt-1:revision-1",
+  "question": "設計關（送審前修正 3/3）：我建議准，授權條款用 MIT（跟你另一個公開外掛 repo 一樣），放在 repo 根目錄。只改外掛設定檔（加一句介紹和 4 張截圖連結）和說明檔（補上值可能傳到 agent 的模型供應商、修正「登入鑰匙圈」說法），另附一份合規檢查紀錄。限制：Paseo 0.12 這個最低版本是用型別檢查推的，沒在 0.12 實跑。准了就照這個設計、用 MIT 進實作，排在最後。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-registry-listing:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9e2382dd75359bb583998fb127e0ff4f2db78bb7/project-env-registry-listing.md",
+      "rev": "sha256:5ce51a39070c8283f152a244b232cc1eb6447c9aa341ff87ccfcd8e0c750d05c",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: manifest description and four screenshot URLs, overview data-flow and Keychain wording, compliance record; licence MIT recommended. FO recommendation: approve with MIT."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-registry-listing:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/9e2382dd75359bb583998fb127e0ff4f2db78bb7/project-env-registry-listing/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:9b5af1b2a3ae577a677f2f0cbbbc07a799f81609850ac7df64951cce36f0f250"
+    }
+  ]
+}
