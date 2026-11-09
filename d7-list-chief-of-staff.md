@@ -63,10 +63,19 @@ Verified by: no chief-of-staff cards, badge pulse or sound remain; the backend t
 UI proposal: no new Bridge screens; the list and the what-will-be-sent view live in her conversation, as text or a render_ui widget of her choosing; the d4 chief-of-staff cards and badge are removed.
 Preview: d4-chief-of-staff/mockups/review.html
 
+## Captain amendments
+
+### Amendment 1 — 2026-11-09, chat
+Captain: 「加一句指令後給我試 (Recommended)」
+Asked: 清單版幕僚長最後一輪修好了：499 個測試都過，真模型加兩次重開也沒問題（重開後清單和預覽還在、確認前不送、確認後每件只送一次）。自動審查又抓到兩個問題。一個影響你試用：她用卡片給你看「即將送出」時，在 Paseo 原生對話看得到，在 Bridge 裡卻只顯示「↳ render_ui」幾個字，看不到要送什麼。另一個很少發生：清單第一件剛好在她分析的那幾十秒內被解決，這次更新會整個作廢。修正預算已用完，怎麼辦？ (options: 「加一句指令後給我試 (Recommended)」 — "只改她的指令：用卡片時也寫一份文字版預覽，在 Bridge 也看得到。不再跑修正循環，直接驗證、裝給你試；第二個問題記成已知。代價：她的回覆會變長一點。"; 「什麼都不改，直接給我試」)
+Supersedes: none
+Design: "只改她的指令：用卡片時也寫一份文字版預覽，在 Bridge 也看得到。不再跑修正循環，直接驗證、裝給你試；第二個問題記成已知。代價：她的回覆會變長一點。"
+
 ## FO alignment
 
 Alignment: not needed: the Captain set the model and approved this task on 2026-11-09 (quoted in the seed).
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-09: Captain amendment 1 supersedes no acceptance criterion; it adds one prompt sentence (a text preview beside any widget).
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-09 — with one repair cycle left and the conversation fold failing across tasks, repair the fold or switch the list's truth to the board?
 Surfaces: ui
 Visible change: the chief-of-staff cards, red pulsing badge and sound are removed; her conversation shows the accumulated list and, before a batch is sent, a what-will-be-sent view in the widget she chooses.
@@ -115,6 +124,8 @@ Read-only investigation of item 2 dispatched as implementation-1-followup-1 befo
 - 2026-11-09: chief-engineer (Codex gpt-6-astra xhigh, agent 97c9aed7) recommends the last repair cycle on the current fold, limited to peer-reply isolation (roborev 1634 item 3), predecessor retirement with resolved items (item 4) and recognizing the native prepare result; the board-truth list is not equivalent as stated (old questions, exact-preview confirmation, re-presenting a confirmed but unrecorded decision) and would need the Captain to change acceptance. FO follows it.
 
 ### FO declines
+
+- roborev 1642 item 6 on 970d9cdaab655aadd489a9cda5393610d5f0cb23 — a list's synthetic focus on its first item makes a whole update fail if that item resolves during preparation. Declined as a known issue by the Captain's ruling 2026-11-09 (Amendment 1, 「加一句指令後給我試 (Recommended)」, whose option text records it as known). Would become Material: if in his trial a list update is dropped or an older list returns after an item resolved.
 
 - roborev 1629 item 1 on cd1a6b95ad53202ae0962bd1f63a8ebee883799c — the list carries every pending item and consumes them, so a later gate does not raise its own call. Declined because the Captain's model is one accumulated list that grows until he responds (「如果一直有就一直加，直到我回應」); the item is in that list. Would become Material: if a new item added to an unanswered list never reaches him through a push, or he reports missing an item that was in the list.
 
