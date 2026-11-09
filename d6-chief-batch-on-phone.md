@@ -107,3 +107,7 @@ Design director (Codex gpt-6.1-sol high, agent 544638aa, design-director's decla
 ### Summary
 
 Corrected the unsupported assumption that a native push opens actionable Bridge content: the checked route opens the native chief agent, then existing menu and Bridge actions reach the same chief conversation in the plugin. Entry is separately budgeted at three taps, with eight in-place taps and two optional reason-focus taps; the old existing-path count is corrected to nineteen from the Bridge press. Only the two design documents and this append-only report changed; no Step B or approval claimed.
+
+## Design director review: step A pass 2
+
+Design director (same agent 544638aa): NOT SATISFIED. The entry and counts are fixed (AC-1, AC-2, AC-3 satisfied as words), but the model choice omits answering in her native conversation where the push lands: the plugin SDK provides addTimelineTransformer and addTimelineRenderer (client contracts), and the installed app loads them in native conversations with agent identity, mobile layout, send and plugin RPC context — so the batch could likely be cleared there, entry 1 tap instead of 3, keeping per-item explicit send, named gate Confirm and the permission exception. Blocks step B. The task's budget of two director passes per step is spent; taken to the Captain.
