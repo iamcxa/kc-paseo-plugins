@@ -176,3 +176,7 @@ Design director (same agent 544638aa), all 32 PNGs at 0bc294e8: NOT SATISFIED, t
 ### Summary
 
 Closed the two authored mockup gaps by showing gate delivery before recording and preserving one batch's exact progress across fallback navigation; adopted the one-line progress and first-send simplification. Re-captured only the affected states, retained untouched image bytes with their original source bindings, and regenerated both offline review surfaces. This is a committed revision for the design director's second Step B pass, not a design verdict, native-phone capability pass or product delivery.
+
+## Design director review: step B pass 2
+
+Design director (same agent 544638aa) at ebda7445: SATISFIED for showing the Captain — gate sent and relayed states with his words, named gate and version, repeat Confirm disabled; one batch at 2 of 4 sent and 1 recorded across unsupported, fallback-menu and fallback-bridge; one progress line, and the first phone screen reaches the full answer and send controls. The phone capability check is still to run before code.
