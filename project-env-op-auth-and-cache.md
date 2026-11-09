@@ -1,7 +1,7 @@
 ---
 id:
 title: The plugin always signs in to 1Password with its own service account and never serves a value read before a token change
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
