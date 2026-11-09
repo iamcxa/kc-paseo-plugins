@@ -1,0 +1,19 @@
+step 1: candidate commit 7035292f (expect 7035292)
+step 2: unit test
+▶ service account name
+✔ service account name (529.446875ms)
+ℹ pass 5
+ℹ fail 0
+step 3: name typed as ' sa-a '
+connection line: Connected · sa-a · Dev Change 
+saved serviceAccount: 'sa-a' vault: 'Dev'
+Test: All 1 set 
+new agent 64064d7b session_open: reason=create STRIPE_KEY=filled
+step 4: name saved earlier as ' sa-a '
+saved serviceAccount: ' sa-a '
+connection line: Connected · sa-a · Dev Change 
+Test: All 1 set 
+new agent b3bc2e6a session_open: reason=create STRIPE_KEY=filled
+step 5: cleanup
+removed /tmp/pe-trim/s-acc
+pictures: /tmp/pe-trim-acc.flxyBM
