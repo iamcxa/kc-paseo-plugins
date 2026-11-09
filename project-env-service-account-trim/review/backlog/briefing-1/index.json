@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-service-account-trim:backlog:attempt-1:revision-1",
+  "question": "我建議：開一批「送審前修正」3 個任務，修上面第 1 到第 3 項，並補齊第 4 項的資料；做完再跑送審合規檢查。這一版會變成 v0.3.2。真正送出 Paseo 的申請之前，我還會再問你一次，因為那是對外的動作。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-service-account-trim:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/a5b131cdf854f3ab5bbb1b63e1b34bc917461652/project-env-service-account-trim.md",
+      "rev": "sha256:d18666636531eadb5ab79a5a1761b46a472dac853c004d9f20898c25b1e1593b",
+      "mediaType": "text/markdown",
+      "summary": "Batch public-release-prep member: one service account name everywhere so a name typed with spaces still gets its variables. FO recommendation: open."
+    }
+  ]
+}
