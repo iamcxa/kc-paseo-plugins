@@ -6,7 +6,7 @@ variant: kc-dev-flow-2
 profile: pilot
 merge: pr
 worktree: .worktrees/spacedock-ensign-project-env-registry-listing
-pr:
+pr: 82
 gates:
     version: 1
     records:
