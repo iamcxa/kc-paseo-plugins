@@ -16,6 +16,17 @@ gates:
                 id: briefing:d7-list-chief-of-staff:backlog:attempt-1:revision-1
                 digest: sha256:458519a80718e4ec9c36a566e66b576069d5a94ebfe3f66a31ac069bb1c33594
                 room-ref: ./d7-list-chief-of-staff/review/backlog/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d7-list-chief-of-staff:backlog:1
+                briefing: briefing:d7-list-chief-of-staff:backlog:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-09T07:29:43.534362Z"
+                decision: approve
+                reason: 'Captain chat 2026-11-09, asked 「要開這個任務嗎？」 (the list chief of staff on PR #77''s backend, card UI removed, her prompt rewritten, render_ui allowed, one real call after the limit resets), answered 「好」.'
+              application:
+                target-stage: implementation
+                state: pending
 ---
 
 Rebuild the chief of staff as a conversation, without new screens: she keeps one accumulated list of what waits on the Captain — who raised it, her recommended decision and her reason — adds to it until he responds, then asks whether to take all her recommendations or review item by item; before sending a batch she shows him exactly what goes where, in whatever widget suits her, and sends only on his explicit confirmation.
