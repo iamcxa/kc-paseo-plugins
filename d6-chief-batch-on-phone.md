@@ -71,3 +71,20 @@ Alignment: not needed: the Captain named the problem and the purpose on 2026-11-
 Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
 Visible change: a called batch shown and answered item by item inside the chief of staff's conversation, with delivery states, on the phone.
+
+## Stage Report: implementation
+
+- DONE: Step A in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone/design/DESIGN.md, words only, covering every bullet of the task's Step A scope; first count the interaction models for "clear a four-item batch from the phone" and pick the simplest; read-only sources: the accepted d4-chief-of-staff design and mockups, the d5-chief-of-staff-build candidate at f40c340e8204f4b7dddef238f215aea3f3a6eaab (worktree /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build: the chief conversation, the existing relay of Captain words to an FO, DecisionCard's named gate Confirm, the permission rule), and the d5 shadow run 2 counts in the d5 task file (AC-1, AC-2)
+  DESIGN.md compares four models and selects inline per-item answers: two questions/two gates budget 9 taps, zero FO target switches; EVIDENCE.md binds exact d5 source paths/bytes, per-kind delivery evidence, permission exception and partial-batch behavior. Counts are proposed walkthroughs, not device measurements or accepted AC verdicts.
+- DONE: Detail and evidence in d6-chief-batch-on-phone/design/EVIDENCE.md; finish with a short stage report and stop for the design director's review; do not start step B (AC-3)
+  EVIDENCE.md separates Captain words, existing behavior and proposals; Step B mockups/review pages not created, no product branch/PR/action/model/daemon change. Stop here for FO to route the design director's Step A review.
+- DONE: Exercise the existing semantics the design relies on.
+  evidence/capability-probe.json: six pure-function checks pass at f40c340e8204f4b7dddef238f215aea3f3a6eaab. Auto-send on choose/cancel, no-reason revise/hold, changed-briefing or duplicate transmission, lost conditional words, or marking mismatched/overdue delivery recorded would fail these assertions; no new UI or native-phone proof claimed.
+- DONE: Run the recorded-profile checks and retain exact inputs and limits.
+  evidence/package-checks.json: comment-ratio/doc-impact/number-guards/design-surfaces exit 0; product base=HEAD=91625588dff1b3e5737f6f6f8843b90d69468f32, 0 code/comment lines, 0 affected product documents, no migration path; surface check follows the existing d4 preview and is not d6 mockup acceptance.
+- SKIPPED: RoboRev and a product pull request.
+  Authorized design-only task, no code candidate/change and no PR opened; no code branch push. First tsx CLI probe hit a sandbox IPC denial; preserved separately, then the same dependency's no-listener Node import passed without escalation.
+
+### Summary
+
+Proposed one chief conversation containing the whole batch, exact explicitly requested question relays and existing named gate Confirm; permissions retain the native FO exception. The current batch-level response marker cannot stand for per-item completion, so the design retains unanswered items in the original conversation and shows sent/relayed/recorded separately without new storage or authority. Step A is ready for the design director; AC acceptance, Step B and product/device delivery remain unclaimed.

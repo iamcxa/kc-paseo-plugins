@@ -1,0 +1,55 @@
+{
+  "code_base": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+  "code_head": "91625588dff1b3e5737f6f6f8843b90d69468f32",
+  "checks": [
+    {
+      "name": "comment-ratio",
+      "argv": [
+        "python3",
+        "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/comment_ratio.py",
+        "91625588dff1b3e5737f6f6f8843b90d69468f32",
+        "HEAD",
+        "--workflow-dir",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+      ],
+      "exit": 0,
+      "output": "code lines 0, comment lines 0, 0.0%\nmaximum 5% (package default) not enforced: 0 code lines added, fewer than 20\n"
+    },
+    {
+      "name": "doc-impact",
+      "argv": [
+        "python3",
+        "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/doc_impact.py",
+        "91625588dff1b3e5737f6f6f8843b90d69468f32",
+        "HEAD"
+      ],
+      "exit": 0,
+      "output": "0 document(s) mention what changed; each needs 'updated' or 'unaffected: <reason>'\n"
+    },
+    {
+      "name": "number-guards",
+      "argv": [
+        "python3",
+        "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/number_guards.py",
+        "check",
+        "--workflow-dir",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+        "--task",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone.md"
+      ],
+      "exit": 0,
+      "output": "migration guard skipped: no migrations-path declared\nPASS: no findings\nbase e4fc72b5d876 head 91625588dff1 merge-base 91625588dff1\n"
+    },
+    {
+      "name": "design-surfaces",
+      "argv": [
+        "python3",
+        "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/design_surfaces.py",
+        "check",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone.md"
+      ],
+      "exit": 0,
+      "output": "d6-chief-batch-on-phone.md: design surfaces presentable\nscope check not run: stage is implementation, not ideation\n"
+    }
+  ]
+}

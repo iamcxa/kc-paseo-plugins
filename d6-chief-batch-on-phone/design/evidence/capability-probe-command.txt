@@ -1,0 +1,19 @@
+Working directory: /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge
+Requires the candidate package dependencies declared in package.json.
+Invocation: node --import tsx --input-type=module --eval <source below>
+
+import assert from 'node:assert/strict';
+import {gateDecisionMessage,deliveryState,needsReason} from './shared/relay.ts';
+import {decisionComposerHandlers} from './shared/decision-composer.ts';
+import {decideGate} from './shared/decide.ts';
+const checks=[];
+const check=(name,fn)=>{fn();checks.push({name,status:'passed'})};
+check('exact conditional words and named identity retained',()=>{const t=gateDecisionMessage({foTitle:'範例 FO',foId:'fictional-fo',slug:'fictional-task',stage:'validation',briefingId:'fictional-v1',digest:'sha256:fictional'},'准','先確認範例環境','fictional-d');assert.ok(t.includes('My words: 「准，先確認範例環境」'));assert.ok(t.includes('fictional-v1'));assert.ok(t.includes('fictional-d'));});
+check('revise and hold require reasons; approve does not',()=>{assert.equal(needsReason('要求修改'),true);assert.equal(needsReason('暫緩'),true);assert.equal(needsReason('准'),false);});
+let calls=0,error='';const h=decisionComposerHandlers('fictional-key','fictional-target',{draft:()=>'',setDraft:()=>{},setError:e=>{error=e},sending:()=>false,setSending:()=>{},sendToAgent:async()=>{calls++},onChip:async()=>{calls++;return null}});
+h.choose('准');assert.equal(calls,0);h.cancel();assert.equal(calls,0);h.choose('要求修改');await h.confirm();assert.equal(calls,0);assert.ok(error.includes('reason'));h.setReason('保留範例條件');await h.confirm();assert.equal(calls,1);checks.push({name:'choose/cancel send nothing; reason required; explicit confirm sends once',status:'passed'});
+check('sent relayed recorded mismatched and overdue states distinct',()=>{const c={sentAt:0,now:1,relayed:false,recordedReason:null,decisionId:'fictional-d',words:'准，範例條件'};assert.equal(deliveryState(c),'sent');assert.equal(deliveryState({...c,relayed:true}),'relayed');assert.equal(deliveryState({...c,recordedReason:'fictional-d 准，範例條件'}),'recorded');assert.equal(deliveryState({...c,recordedReason:'fictional-d 准'}),'recorded-elsewhere');assert.equal(deliveryState({...c,recordedReason:'准，範例條件'}),'recorded-elsewhere');assert.equal(deliveryState({...c,now:600001}),'check');});
+let transmitted=0;const ctx={gate:{slug:'fictional-task'},briefing:{briefingId:'fictional-v1'},fo:{id:'fictional-fo',title:'範例 FO'}};const same={decisionId:'fictional-existing',briefingId:'fictional-v1',foId:'fictional-fo',slug:'fictional-task',decision:'approve',words:'准',at:1};const ports={beforeSend:async()=>null,claim:async()=>({claimed:false,record:same}),setClaim:()=>{},openCoordinator:async()=>{throw new Error('must not open')},sendToCoordinator:async()=>{transmitted++},release:async()=>{},markSent:()=>{}};
+assert.equal(await decideGate({...ports,beforeSend:async()=>'briefing changed',claim:async()=>{throw new Error('must not claim')}},ctx,'准',''),'briefing changed');assert.equal(transmitted,0);checks.push({name:'changed briefing prevents claim and send',status:'passed'});
+assert.ok((await decideGate(ports,ctx,'准','')).includes('already sent'));assert.equal(transmitted,0);checks.push({name:'duplicate claim does not send',status:'passed'});
+console.log(JSON.stringify({candidate:'f40c340e8204f4b7dddef238f215aea3f3a6eaab',scope:'existing pure functions only; fictional ports; no daemon/model/outward action',checks},null,2));

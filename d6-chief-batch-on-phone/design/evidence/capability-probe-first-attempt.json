@@ -1,0 +1,5 @@
+{
+  "exit": 1,
+  "stdout": "",
+  "stderr": "node:net:1987\n      const error = new UVExceptionWithHostPort(rval, 'listen', address, port);\n                    ^\n\nError: listen EPERM: operation not permitted /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/tsx-502/79922.pipe\n    at Server.setupListenHandle [as _listen2] (node:net:1987:21)\n    at listenInCluster (node:net:2066:12)\n    at Server.listen (node:net:2188:5)\n    at file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/tsx/dist/cli.mjs:53:32174\n    at new Promise (<anonymous>)\n    at createIpcServer (file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/tsx/dist/cli.mjs:53:32152)\n    at async file:///Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build/spacedock-bridge/node_modules/tsx/dist/cli.mjs:55:542 {\n  code: 'EPERM',\n  errno: -1,\n  syscall: 'listen',\n  address: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/tsx-502/79922.pipe',\n  port: -1\n}\n\nNode.js v24.18.0\n"
+}
