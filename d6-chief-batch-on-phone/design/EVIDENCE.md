@@ -58,20 +58,59 @@
 
 結論：這是既有外掛組合與既有明示轉達授權上的新呈現，未見必需的新 SDK（外掛開發介面）能力或通訊官權力。因此可交文字方向供審；不宣稱新呈現已實作或獲實機驗證。未知：真機鍵盤／捲動、不同裝置草稿、宿主推播送達及題目回執關聯。若要求新增宿主能力、直接記錄關卡、代批權限或無明示的群發才能成立，立即停止並交回艦長，不自行補權限。
 
+## 推播入口修訂（設計總監第一輪後）
+
+第一輪 AC-1 未滿足的原因成立：原稿把「點原生推播」直接當成可操作 Bridge 對話，少了入口證據。這一節取代原稿對入口的一次點按假設，先前階段報告原樣保留；不是改動推播或擴大權限。
+
+### 查到的落點與既有路徑
+
+只讀對象是本機 `/Applications/Paseo.app` 0.15.3（Info.plist 的版本），不是 Kent 手機安裝版本或即時 daemon；既有外掛仍只讀指定 d5 候選 `f40c340e8204f4b7dddef238f215aea3f3a6eaab`，其開發介面套件是 0.12.0。沒有啟動 App、瀏覽器、通知或代理回合。
+
+1. 已安裝 `app.asar` 內 `node_modules/@getpaseo/protocol/dist/agent-attention-notification.js:133–138` 的代理通知 data 含 serverId／workspaceId／agentId／reason（主機／工作區／代理身份／提醒原因），不含 pluginId 或 screenId。`node_modules/@getpaseo/server/dist/server/server/push/push-service.js:18–21` 將同一 data 交給 Expo（原生推播傳送服務），沒有把代理通知改成外掛頁面。
+2. 已安裝 `app-dist/_expo/static/js/web/index-803dd72b3aeeefd8a0cf2c30209668d4.js` 的共用模組 4937，`parseNotificationOpenTarget` 遇 serverId＋agentId 回傳 agent 目標；`createNotificationOpenRouter` 收到點按便呼叫 openAgent，沒有選 Bridge 的分支。模組 4972 的呼叫端把 openAgent 接到 `navigateToAgent({...target, pin:true})`。因此本案以**先進原生幕僚長對話**為入口，不能把共用路由當成能直接進外掛的證據；也不把桌面包中的共用來源冒作手機通知實測。
+3. 同一 bundle 的選單控制使用 `shell.menu.open`／`shell.menu.close` 標籤；compact（窄螢幕）分支的 `toggleAgentListForLayout` 在 agent 與 agent-list（對話與側欄清單）間切換。這是從原生對話開側欄的一次選單操作來源，不是新外掛按鈕。
+4. d5 `index.client.tsx:20–25` 已登記名為 Bridge 的側欄入口及 board 螢幕；`client/sidebar-waiting.tsx:9–10,30–35` 的 `enter` 呼叫 `openScreen(waitingDestination("comms"))`，帶 `screenId:"board", params:{item:"comms",request:...}`。`client/board.tsx:349–357,404–407` 收到 comms 直接顯示幕僚長；所以點 Bridge 後不必先進清單再找她。
+5. 候選 `node_modules/@getpaseo/plugin/dist/client/contracts.d.ts:44–62,112–114` 已有 sidebar 的 openScreen 與 addScreen／addSidebarHeaderItem；[Paseo 正式外掛文件的螢幕與側欄章節](https://paseo.sh/docs/plugins/reference#screens-and-sidebar-items)也說明側欄元件開外掛螢幕。新批次仍放在該 Bridge 的 CoChat（幕僚長對話元件）呈現，沿同一 chief agentId 讀／寫，並非宣稱原生代理對話已支援本案問題欄和關卡 Confirm。
+
+可用路徑是：點推播 → 她的原生對話 → 開側欄 → 點 Bridge → 她在 Bridge 的對話與提案批次。入口三次（推播、選單、Bridge），**無一次是授權送出**，也未開任何 FO 對話。這條路用現有宿主導覽與候選已用的外掛介面，不需要新 SDK 能力。原生推播直接開外掛、在原生聊天新增可操作四題卡、原生回話自動等同具名 Confirm，均未獲證明且本提案不依賴；若將「推播一按直入可操作批次」變成必要要求，就不能用本輪資料宣稱達成，須交回艦長，不暗補宿主功能。
+
+前提與失敗：Bridge 在該主機已安裝／側欄顯示、主機在線且選對。入口列被使用者隱藏或停用時，不能宣稱三次可達，不自行改 Settings（應用設定）；若需主機選擇或捲動，把實際操作另列。推播失敗、來源不明、冷啟動未連線都不算已進入；沿用 Paseo 原生連線與推播，不建新提醒管道。本輪沒有查 Kent 的裝置設定。
+
+### 有執行的限定探針與來源身份
+
+用 Node 的 vm（隔離執行一段程式的標準模組）**只載入上述 bundle 模組 4937**，以虛構主機、工作區及幕僚長身份測試：通知 data 解析為 agent；一次虛構點按只呼叫 `openAgent({serverId:"fictional-host",agentId:"fictional-chief"})`，而非 host／terminal／外掛路由；完成後 acknowledge（確認已處理這次點按）一次。三個斷言通過，沒有執行完整 App、沒有發推播或訊息，沒有偽裝原生手機事件。若代理通知被改成外掛目標或無法到指定代理，此探針會失敗。它證明所查路由函式的行為，不證明真機抵達、側欄可見或完整點按旅程。
+
+重現只需 Node 及同一已安裝 bundle：以換行 `__d(` 分隔模組，取包含 `e.createNotificationOpenRouter=function` 的定義，加回 `__d(`，用 vm 執行並提供擷取 factory 的 `__d`；只替換依賴 `buildHostRootRoute` 及 source／導覽埠為虛構函式，不載入其他模組。依序呼叫 `parseNotificationOpenTarget`、`router.start()` 及擷取的 subscribe 回呼，等待微任務後檢查 openAgent 參數與 acknowledge 次數。此限定檢查需 App 安裝檔，非外掛新機器隱含依賴，也不是日後外掛驗收必備工具。
+
+內容指紋 SHA-256（核對實際檢查的位元組）：
+
+| 來源 | SHA-256 |
+| --- | --- |
+| 上述已安裝 index bundle | `5059c0952e69bd13319b9e0b6c7e78cfd48c13878ebb5744ed10ec4a44505cf4` |
+| 抽出的共用通知模組 4937 | `3c9ed2bf8cf5a8e9463d67addbd6eb6e1a2d6ea34fd47b617e7b85377be324a1` |
+| ASAR 內 agent-attention-notification.js | `2bf44f8b2e21a2c7b0dd9b1de40d9540c1c635fbcd3c4291e6cff5df39e90f1b` |
+| ASAR 內 push-service.js | `526aa321eadf4a3db0fd74c2e7eee747de0ae4f0291a2db2c4fffebf7799db00` |
+| d5 index.client.tsx | `c61b344ee3a26e60de96e6ed1136ae30d28de6a03b8df9c8ed5f0c3d49d3d6e3` |
+| d5 client/sidebar-waiting.tsx | `c2b642389b0fb2bc6c36f1cdd222a2a41343bb73ea47cd23eebdb8e15633e607` |
+| d5 client/board.tsx | `f5977c37a4464b630afb0d4e5b2b77df9990f3a6d8b917426fbbe8dea97ef25e` |
+| SDK 0.12.0 client/contracts.d.ts | `5a163ba92685cdd59916d9224675cee5bf94c18589c24c8519b5a0714df1ed69` |
+
+正式文件於 2026-11-09 唯讀查閱；依 Paseo 說明技能先取 [llms.txt](https://paseo.sh/llms.txt) 及 [外掛參考 Markdown](https://paseo.sh/docs/plugins/reference.md)，網頁工具都回 unsupported text/markdown，shell 網路另有 DNS 拒絕，因此使用成功回傳的[正式 HTML 參考](https://paseo.sh/docs/plugins/reference)。文件只支持側欄開螢幕，不拿文件未說的通知落點補成事實；目前線上文件含比候選 SDK 新的 API，本案僅採已在候選型別與程式中出現的介面。
+
 ## 四種互動模型與算式
 
-共同計數邊界：假設 Paseo 已送原生推播，一次點入她的對話；四件都在同一批、來源可讀，兩問題需要打字、兩關卡選准且無理由，最後回她這裡看進度。只計點按，閱讀、字元鍵入、捲動手勢、網路及模型等待另列未知；推播外的開鎖／App 啟動步驟不計。這是設計走查的操作預算，不是真機測量。
+共同計數邊界（第一輪審查後修正）：四件都在同一批、來源可讀，兩問題需要打字、兩關卡選准且無理由，最後在她的 Bridge 對話看進度。入口單獨算 3 次：點代理推播開原生幕僚長對話、開側欄、點 Bridge。前提是同一主機已連線、Bridge 已安裝且側欄可見並選對主機；開鎖／App 冷啟動、主機切換、捲動、閱讀、字元鍵入、網路及模型等待另列未知。這是設計走查預算，不是真機測量。
 
 | 模型 | 點按預算 | 離開她的對話 | 為何採／不採 |
 | --- | --- | --- | --- |
-| 現有逐件開目標 | 1 入場＋1 開 Board＋4 開目標＋4 返回＋2 問題聚焦＋2 問題送出＋2 選決定＋2 Confirm＝18 | 四次，八次進出 | 原生／外掛 FO 目標都需逐件切內容，保留為對照 |
-| 共享輸入框先指定事項 | 1 入場＋4 指定事項＋2 問題聚焦＋2 問題送出＋2 選決定＋2 Confirm＝13 | 0 | 輸入短，但換收件者是額外操作；錯選可能答錯題 |
-| 逐件原位回答（建議） | 1 入場＋2 問題聚焦＋2 原文轉達＋2 選決定＋2 Confirm＝9 | 0 | 綁定收件者與原問題，每件獨立明示，無總確認 |
-| 一則話拆整批 | 1 入場＋1 聚焦＋1 問題合併送出＋2 選決定＋2 Confirm＝7，歧義核對另計 | 0 | 原始點按少，但要自行標兩題與收件者、再拆字句；不採自動拆裁定，不宣稱 7 次必能清完 |
+| 現有逐件開目標 | Bridge 後：1 開 Board＋4 開目標＋4 返回清單＋2 問題聚焦＋2 問題送出＋2 選決定＋2 Confirm＋1 回幕僚長＝18；入口 3，從推播起 21 | 四次，八次進出 | 從側欄點 Bridge 起為 1＋18＝19，原 18 漏了最後回幕僚長；原生／外掛 FO 目標都需逐件切內容 |
+| 共享輸入框先指定事項 | 原位 4 指定事項＋2 問題聚焦＋2 問題送出＋2 選決定＋2 Confirm＝12；入口 3，合計 15 | 0 | 輸入短，但換收件者是額外操作；錯選可能答錯題 |
+| 逐件原位回答（建議） | 原位 2 問題聚焦＋2 原文轉達＋2 選決定＋2 Confirm＝8；入口 3，合計 11 | 0 | 綁定收件者與原問題，每件獨立明示，無總確認 |
+| 一則話拆整批 | 原位 1 聚焦＋1 問題合併送出＋2 選決定＋2 Confirm＝6；入口 3，合計 9，歧義核對另計 | 0 | 原始點按少，但要自行標兩題與收件者、再拆字句；不採自動拆裁定，不宣稱 9 次必能清完 |
 
-- 建議模型的 9 次中有 4 次各別授權（兩送出、兩 Confirm），不增加第二次總送出。假如問題有歧義，必須在她對話中澄清，9 次不再適用。
-- 兩個關卡都要求修改：各加 1 次理由欄聚焦，9＋2＝11；理由字元另計。可附條件的准也按實際聚焦次數增加。
-- 將第四件關卡替換為權限：1 入場＋兩問題 4＋一關卡 2＋開原生 FO 1＋由既有入口回來 1＝9，外加原生權限頁實際操作，數量未知。一次 FO 切出／返回，不能沿用「0 次」或稱四件皆原位完成。若宿主返回需多點，照實增加。
+- 建議模型原位 8 次中有 4 次各別授權（兩送出、兩 Confirm），不增加第二次總送出。入口 3 次不是授權；假如問題有歧義，必須在她對話中澄清，11 次總數不再適用。
+- 兩個關卡都要求修改：原位 8＋2 次理由欄聚焦＝10；加入口 3 為 13。理由字元另計；可附條件的准也按實際聚焦次數增加。
+- 將第四件關卡替換為權限：入口 3＋兩問題 4＋一關卡 2＋開原生 FO 1＋返回她的 Bridge 對話 2（開側欄、點 Bridge）＝12，外加原生權限頁實際操作，數量未知。一次 FO 切出／返回，不能沿用「0 次」或稱四件皆原位完成。側欄本來開著可少 1 次；需切主機或再捲動則另加，不承諾宿主沒有的返回鍵。
 - 三個 30 分鐘單件例外不能硬併成一個四件批；本案只降低每批收到後的回答切換，不調整 d4 提醒門檻或把未知時點當新事件。
 
 ## 走查案例與反例
@@ -98,6 +137,6 @@
 
 ## 待設計總監審查與未證明部分
 
-AC-1：文字給出四種模型、採用理由、9 次走查算式、權限例外與半批情境；等待設計總監檢查。AC-2：追到現有明示轉達及 Confirm、各類 sent／relayed／recorded 的證據門檻；原位呈現仍是待實作提案。AC-3：DESIGN.md 是單頁文字閱讀入口；Step B 的 360／1440 圖稿、review.html、內嵌圖 review-phone.html 全未開始，艦長尚無本輪方向逐字回答。
+AC-1：第一輪審查未滿足，現修正推播原生落點、側欄 Bridge 路徑及分開的入口 3／原位 8 次預算；保留四種模型、權限例外與半批情境，等待設計總監第二輪，不自行判定通過。AC-2／AC-3：第一輪設計總監判文字滿足，轉達／Confirm 語義不變；原位呈現仍是待實作提案。Step B 的 360／1440 圖稿、review.html、內嵌圖 review-phone.html 全未開始，艦長尚無本輪方向逐字回答。
 
 代價與未知只記在設計，不藉此擴案：更多縱向閱讀、每題仍須艦長明示、原生權限仍切出去；實體手機鍵盤、回來後的位置／草稿、跨重開逐題恢復、回執完整性、真推播及解除等待時間皆未驗證。未新增通知、排程、儲存或自動重試；未跑 RoboRev（程式審查工具），因無程式候選或程式變更。此任務的完成是交付 Step A，非產品交付或任務關閉。
