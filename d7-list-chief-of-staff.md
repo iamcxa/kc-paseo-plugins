@@ -29,6 +29,7 @@ gates:
                 state: consumed
 started: 2026-11-09T07:30:24Z
 worktree: .worktrees/spacedock-ensign-d7-list-chief-of-staff
+pr: 80
 ---
 
 Rebuild the chief of staff as a conversation, without new screens: she keeps one accumulated list of what waits on the Captain — who raised it, her recommended decision and her reason — adds to it until he responds, then asks whether to take all her recommendations or review item by item; before sending a batch she shows him exactly what goes where, in whatever widget suits her, and sends only on his explicit confirmation.
