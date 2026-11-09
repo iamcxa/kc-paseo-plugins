@@ -99,3 +99,16 @@ Checks / documents — comment-ratio.log: 60 code / 0 comment lines, 0%, maximum
 ### Summary
 
 The conversation-list implementation is committed and delivered as Draft PR #80 with the removed UI, retained backend checks and real preview/confirmed-gate relay proof. Delivery remains HOLD for the unproved question relay and FO-run independent review/validation; this report does not approve a gate or authorize installation.
+
+## Investigation: roborev 1629 and the real run
+
+The real model run on an isolated daemon (implementation report): one trigger posted four fictional items; 「全照建議」 produced a render_ui preview and zero relays; a separate explicit confirmation delivered the two previewed gate messages exactly once, each with both Captain messages and its recommendation and reason; the permission got nothing. The question relay was not shown: the fictional question gave no basis for a recommendation and she withheld it — a fixture gap, not a product failure.
+
+FO ran roborev on cd1a6b95ad53202ae0962bd1f63a8ebee883799c (base f40c340e8204f4b7dddef238f215aea3f3a6eaab): exit 1, evidence=roborev:1629, two Medium.
+1. server/chief.ts: the list includes every pending event, not only the trigger's qualified events, and consumes them, so a newer gate cannot call again at its own deadline. FO reading: including every pending item is the Captain's list model (「如果一直有就一直加，直到我回應」); see FO declines.
+2. shared/commander-replies.ts: a replacement list deletes the previous unanswered list at once; if the replacement's turn later errors, both are lost, and after restart the earlier list stays consumed though he never answered it.
+Read-only investigation of item 2 dispatched as implementation-1-followup-1 before any fix.
+
+### FO declines
+
+- roborev 1629 item 1 on cd1a6b95ad53202ae0962bd1f63a8ebee883799c — the list carries every pending item and consumes them, so a later gate does not raise its own call. Declined because the Captain's model is one accumulated list that grows until he responds (「如果一直有就一直加，直到我回應」); the item is in that list. Would become Material: if a new item added to an unanswered list never reaches him through a push, or he reports missing an item that was in the list.
