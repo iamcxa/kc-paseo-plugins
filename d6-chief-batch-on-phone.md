@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d6-chief-batch-on-phone
-status: implementation
+status: validation
 gates:
     version: 1
     records:
