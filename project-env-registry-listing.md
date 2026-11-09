@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-registry-listing:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-registry-listing-validation-1
+              briefing:
+                id: briefing:project-env-registry-listing:validation:attempt-1:revision-1
+                digest: sha256:14833d77bd064f3d2625ad0f1badeaef567f298eef32db3464ca9c1f6fdc9ca5
+                room-ref: ./project-env-registry-listing/review/validation/briefing-1
 started: 2026-11-09T07:41:37Z
 ---
 

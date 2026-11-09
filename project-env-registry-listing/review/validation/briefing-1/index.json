@@ -1,0 +1,38 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-registry-listing:validation:attempt-1:revision-1",
+  "question": "我建議把「送審資料」這份（PR #82，提交 41e981017104e2c7359d4c3b954587e6eb06c89f）退回一次小修，只改說明檔：把驗證列出的 3 處不精確寫準，並把「預設鑰匙圈」改回「login Keychain（Mac 的預設鑰匙圈）」，跟文件網站和設定畫面一致。退回後由原工作者修、再驗證一次，之後再給你看；其他 4 個檔案不動。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-registry-listing:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/9b8efb71e4e79f5113af311efade62ec6bc961fe/project-env-registry-listing.md",
+      "rev": "sha256:e58073dd04a3cba53b2ddf183517b145542083bd4a76a4e3de5ba25c324277c7",
+      "mediaType": "text/markdown",
+      "summary": "Merge ask: none yet; FO recommends revise for PR #82 at 41e981017104e2c7359d4c3b954587e6eb06c89f before merge.\nSufficiency: validation-1 PASSED at 41e98101 with no Material finding (validator report, not run by FO); FO reran the validation stage report's acceptance script, run by FO in a fresh shell on 2026-11-09, and every step printed the expected output (captain-steps/1-output.txt).\nNecessity: the overview is the public listing page; validation F7-F9 found three imprecise sentences in it, and its new \"default keychain\" wording disagrees with docs/project-env pages and the shared/token.ts screen hint (F1-F5).\nCaptain steps: project-env-registry-listing/captain-steps/1.md\nReviews: external review rounds: 1 — Codex summary:6736391987 clean on 41e981017 (codex_review.py, 2026-11-09).\nExternal rounds: 1\nsecond reviewer: not triggered\nDeclined: Polish, F6 ADR 0001 and ADR 0005 say login Keychain (decision records, no change).\nDeclined: Deferred risk, F10 opening the field list reads every item's JSON, which may carry field values in plugin memory (discarded by the plugin, unverified without a real op, would become Material if values were kept or logged).\nDeclined: Polish, F11 the approved E4 clause omits turning plugins on in the isolated config (validation corrected it in the acceptance script).\nDeclined: Deferred risk, F12 the overview line that op contacts 1Password is true only after #81 merges (merge order #83, #81, #82).\nDeclined: Polish, F1 docs/project-env/index.md step 2 says login Keychain and that the token goes only to op (fix in the revise round, the overview returns to the login Keychain wording so this page agrees).\nDeclined: Polish, F2 index.md limits paragraph says login Keychain (fix in the revise round, the overview returns to the login Keychain wording).\nDeclined: Polish, F3 prepare-1password.md says login Keychain (fix in the revise round, the overview returns to the login Keychain wording).\nDeclined: Polish, F4 the shared/token.ts locked hint says login Keychain (fix in the revise round, the overview returns to the login Keychain wording).\nDeclined: Polish, F5 the journey map irreversible line says login Keychain entry (fix in the revise round, the overview returns to the login Keychain wording).\nDeclined: Polish, F7 the overview says when an agent starts where resume, refresh and import also run (fix in the revise round, the overview sentence is made exact).\nDeclined: Polish, F8 the Logs bullet omits the reportFailure line (fix in the revise round, the overview bullet is made complete).\nDeclined: Polish, F9 the notice goes only to agents whose repository has a variable (fix in the revise round, the overview sentence is made exact)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-registry-listing:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/9b8efb71e4e79f5113af311efade62ec6bc961fe/project-env-registry-listing/gate-validation.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:e59a622fe55c5ceaa9b9319dddcf278247b0d5d481a7eabd15c4539b30a92de3"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-registry-listing:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/9b8efb71e4e79f5113af311efade62ec6bc961fe/project-env-registry-listing/delivery-gate-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:b375fbd59e068eb97ab6d383e04bde12f8587db94c6df44b6f554b8eb45fcb67"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-registry-listing:validation:attempt-1:revision-1:item-4",
+      "uri": "git-root://state/9b8efb71e4e79f5113af311efade62ec6bc961fe/project-env-registry-listing/captain-steps/1.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:0252386016fb694d153e581969d0410fda6af11e35a8af684705bfe579b8c36e"
+    }
+  ]
+}
