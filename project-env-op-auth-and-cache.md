@@ -54,3 +54,108 @@ Direction alignment with the Captain: done — he answered 「開，幫我合併
 Result: the batch question and this Scope.
 Release review: not needed: hardening with no journey release goal change.
 Map footprints: not needed: no map answer is recorded by this task.
+
+## Design
+
+Profile: pilot. Surfaces: none, so the PRFAQ and Mermaid below are the whole artifact.
+
+### PRFAQ
+
+**The plugin reads 1Password only as the service account you connected, and a value read before a change is never reused after it.** Every time the plugin calls the 1Password CLI (`op`), it hands `op` the token of the project's service account and nothing else from 1Password's own settings, so a Mac whose Paseo was started with 1Password Connect settings still reads through the service account you chose. When you save a new token, change settings or press Test, any read already under way still answers the agent that asked for it, but its value is not kept, so the next agent gets a fresh read.
+
+- *Why does a Connect setting matter?* 1Password says Connect wins over a service account token when both are present (quote below), so on such a Mac the plugin would check and read with a different identity than the one shown on its settings screen.
+- *Which 1Password settings are removed?* Every environment variable whose name starts with `OP_` (`OP_CONNECT_HOST`, `OP_CONNECT_TOKEN`, `OP_SESSION…`, `OP_ACCOUNT`, `OP_CONFIG_DIR`, `OP_CACHE`, `OP_DEBUG`, `OP_FORMAT`, `OP_INCLUDE_ARCHIVE` and others), then `OP_SERVICE_ACCOUNT_TOKEN` is set. The rest of the daemon environment (`HOME`, `PATH`, …) still passes. A prefix strip is the one rule that covers `OP_SESSION_<account>` names, which vary by account. Nothing in project-env reads or sets another `OP_` name (`grep -rn "OP_" project-env/server project-env/shared`, 2026-11-09: only `OP_SERVICE_ACCOUNT_TOKEN`). What gets worse: someone who relied on an inherited `OP_INCLUDE_ARCHIVE=true` to read archived items through the plugin loses that; no such use is known.
+- *Does the agent that asked during the change get the old value?* Yes, as the criterion says: the read is returned, only not cached. It started under the old settings and that agent's session is already opening.
+- *What does not change?* The 15-minute cache lifetime, the field reference format, the `security` and `git` calls, and every other release-review finding (Scope non-goals).
+
+### 1Password's precedence rule (checked 2026-11-09)
+
+Source: https://developer.1password.com/docs/service-accounts/use-with-1password-cli/, which redirects (301) to https://www.1password.dev/service-accounts/use-with-1password-cli, fetched with `curl -sSL` on 2026-11-09. Quote: "If you have 1Password CLI configured to work with 1Password Connect, the OP_CONNECT_HOST and OP_CONNECT_TOKEN environment variables take precedence over OP_SERVICE_ACCOUNT_TOKEN. Clear the Connect environment variables to configure a service account instead." Corroborated by https://www.1password.dev/connect/cli: "The presence of these environment variables tells 1Password CLI to use the Connect server to fetch secrets." The full `OP_` list comes from https://www.1password.dev/cli/environment-variables. Verdict: the reviewer's claim (codex.md P1 "Wrong authentication identity") is correct.
+
+### Every `op` call and how it runs
+
+All four go through `opEnv(token)` in `project-env/server/secrets.ts`, so one change there covers them:
+
+| Call | Caller | Reached from |
+| --- | --- | --- |
+| `op vault list --format json` | `checkToken` | `tokenStatus` (settings screen), `storeToken` (paste a token) |
+| `op item list --vault <v> --format json` | `listRefs` | Browse vault / field picker |
+| `op item get <id> --vault <v> --format json` | `listRefs` → `readItem` | Browse vault / field picker |
+| `op read --no-newline <ref>` | `readVariable` | `resolveProject`: agent session open, Test |
+
+Change 1: `opEnv` builds the environment from `process.env` without any key starting with `OP_`, then adds `OP_SERVICE_ACCOUNT_TOKEN: token`.
+
+### Keeping a read started before a clear out of the cache
+
+Change 2: `createSecrets` holds a `generation` number. `clearCache()` empties the cache and adds one to it. `readVariable` records the generation on entry, before it awaits the token, and calls `cache.set` only if the generation is still the same after the `op` value read returns; the value is returned either way. `storeToken` calls `cache.clear()` directly today, so it changes to call `clearCache()`; without that, the token-change case the reviewer named first stays broken. The two other triggers already call `clearCache()`: the settings subscription and the Test handler in `project-env/server/contribute.ts`. Recording on entry is safe because `resolveProject` starts the Keychain read and every `readVariable` in the same synchronous step.
+
+```mermaid
+sequenceDiagram
+    participant Trigger as Session open or Test
+    participant Change as Token save, settings change or Test
+    participant Secrets as secrets.ts
+    participant Cache
+    participant Op as op CLI
+    Trigger->>Secrets: resolveProject
+    Secrets->>Secrets: readVariable records generation g
+    alt cached value from generation g still fresh
+        Cache-->>Secrets: value
+        Secrets-->>Trigger: value
+    else no fresh cached value
+        Secrets->>Op: value read, environment without OP_ names plus OP_SERVICE_ACCOUNT_TOKEN
+        opt a change arrives while op runs
+            Change->>Secrets: clearCache
+            Secrets->>Cache: empty it
+            Secrets->>Secrets: generation becomes g+1
+        end
+        Op-->>Secrets: value
+        alt generation still g
+            Secrets->>Cache: keep value for 15 minutes
+        else generation moved on
+            Secrets->>Secrets: do not keep it
+        end
+        Secrets-->>Trigger: value
+    end
+```
+
+The other three `op` calls (`vault list`, `item list`, `item get`) take the same environment and never touch the cache.
+
+### Existing-code check
+
+Skipped by its own rule: this repairs two seams already named by the release review, not a new or removed capability. Observation on main e4acaec1, 2026-11-09, with a throwaway script outside the repository that imported `createSecrets` and `test/world.ts`: (1) a fake `op` logging only the names of `OP_` variables it received saw `OP_CONNECT_HOST`, `OP_CONNECT_TOKEN`, `OP_SERVICE_ACCOUNT_TOKEN` on `checkToken`; (2) with the value read delayed 800 ms, `clearCache()` during the read and 1Password's value changed afterwards, the next `resolveProject` returned the old value with one value read in total. Both defects reproduce.
+
+### AC-1 evidence clauses (rerunnable)
+
+Run from `project-env/` on the candidate. Each new test must fail on main e4acaec1 and pass on the candidate.
+
+1. Fake support: `test/fakes/op.mjs` adds `opVars` (the sorted names, never values, of environment variables starting with `OP_`) to each logged call; `test/world.ts` adds `opVars?: string[]` to `Call`. Existing tests stay green because none compares a non-empty call record whole (the three `deepEqual(world.calls(), [])` in `paste-token.test.ts` compare empty lists) and none sets an `OP_` variable.
+2. `node --test test/op-identity.test.ts`: with `OP_CONNECT_HOST`, `OP_CONNECT_TOKEN` and an `OP_SESSION_` variable set to fake strings in the test process (restored in `afterEach`), drive `tokenStatus`, `storeToken`, `listRefs` and `resolveProject` against fake account `x`; assert the logged `op` commands cover `vault list`, `item list`, `item get` and `read`, and every one has `opVars` equal to `["OP_SERVICE_ACCOUNT_TOKEN"]` and `account` equal to `x`. Fails if `opEnv` spreads `process.env` unfiltered (main), or drops the token (account becomes null).
+3. `node --test test/cache-after-clear.test.ts`, case "Test or settings change": delay the value read for the ref (`delayMs`), poll `world.calls()` until the `read` call is logged, call `clearCache()`, rewrite `scenario.json` so the ref holds a new value, await the first `resolveProject` (returns the old value), then resolve again: it returns the new value and two `read` calls are logged. Fails on main (old value, one call) and if the generation check is removed.
+4. Same file, case "token change": as 3, but the clear comes from `storeToken` with a valid token while the read is in flight. Fails on main and if `storeToken` keeps calling `cache.clear()` without moving the generation.
+5. `npm test` passes in full. Main baseline, e4acaec1, 2026-11-09: 335 tests, 335 pass, 0 fail (`npm test` in `project-env/`).
+
+No isolated Paseo run is owed: both halves sit inside `secrets.ts` and are reached through the same `resolveProject`, `checkToken` and `listRefs` the daemon hooks call; the fakes are the `op` and `security` stand-ins the existing tests already use, and there is no visible change.
+
+### Batch overlap
+
+- project-env-service-account-trim: may touch `project-env/server/secrets.ts` (its Scope includes the Keychain lookup name, used by `lookupToken` and `resolveProject`), while this task changes `opEnv`, `readVariable`, `storeToken` and `clearCache` in the same file; different functions, a textual rebase at most. Both add tests under `project-env/test/` with distinct new file names. Both PRs feed the release-please `project-env/CHANGELOG.md` (generated from PR titles, not edited by hand).
+- project-env-registry-listing: changes `project-env/OVERVIEW.md` and `paseo-plugin.json`, and checks every overview claim against the code. The overview sentence "A value read from 1Password is kept in memory and reused for up to 15 minutes, then read again. Saving settings and pressing Test read again." stays true after this task. If its overview says which identity `op` uses, that claim should be checked against this task's merged behaviour.
+- Recommended order: this task and project-env-service-account-trim in either order; project-env-registry-listing last, so its overview is checked against both fixes.
+
+## Stage Report: ideation
+
+- DONE: Read 1Password's own documentation for how `op` chooses between Connect credentials and `OP_SERVICE_ACCOUNT_TOKEN`, and record the page and quote; if the precedence claim is wrong, say so.
+  Design § "1Password's precedence rule": service-accounts/use-with-1password-cli (301 to www.1password.dev), quoted verbatim, corroborated by connect/cli; the claim is correct.
+- DONE: List every `op` call the plugin makes and propose how each runs with only the configured token; propose how a read started before `clearCache` is kept out of the cache.
+  Four calls, all through `opEnv` (table); Change 1 strips every `OP_` name then sets the token; Change 2 is a generation number checked before `cache.set`, with `storeToken` routed through `clearCache()`.
+- DONE: Write the PRFAQ, Mermaid and AC-1 evidence clauses a reviewer can rerun.
+  Design § PRFAQ, sequence diagram (both clear triggers, the in-flight read, keep or drop branch), § "AC-1 evidence clauses" 1-5 with one falsifier each.
+- DONE: Every project-env change you propose names how `npm test` in project-env stays green; run `npm test` on main once and record the result.
+  Evidence clause 1 names why existing tests survive the fake change; `npm test` on main e4acaec1, 2026-11-09: 335 pass, 0 fail.
+- DONE: AC-1 — not yet verified (no candidate exists); both defects reproduced on main e4acaec1 by a throwaway probe (design § "Existing-code check"); proof plan is evidence clauses 2-5.
+- DONE: design_surfaces check
+  `design_surfaces.py check` on this file, 2026-11-09: "design surfaces presentable", exit 0.
+
+### Summary
+
+Confirmed from 1Password's own page that Connect variables win over a service account token, so the reviewer's identity finding stands. Proposed two changes inside `project-env/server/secrets.ts`: `op` gets the daemon environment minus every `OP_` name plus the service account token, and a cache generation number keeps any read that started before a clear (settings change, Test, or `storeToken`, which today bypasses `clearCache()`) from being cached. Both defects were reproduced on main with fakes; no Captain decision is open — stripping all `OP_` names rather than only the two Connect names is a recommendation (it covers `OP_SESSION_<account>` and costs only inherited `OP_` behaviour no one is known to use). No ADR owed; past rulings checked: ADRs 0001-0009 name no op-environment or cache behaviour, and `Override:` lines appear only in archived tasks about other areas.
