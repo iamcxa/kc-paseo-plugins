@@ -1,7 +1,7 @@
 ---
 id:
 title: project-env carries what Paseo's plugin registry needs to list it
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-11-09, answering 「設計關（送審前修正 3/3）：我建議准，授權條款用 MIT（跟你另一個公開外掛 repo 一樣），放在 repo 根目錄。只改外掛設定檔（加一句介紹和 4 張截圖連結）和說明檔（補上值可能傳到 agent 的模型供應商、修正「登入鑰匙圈」說法），另附一份合規檢查紀錄。限制：Paseo 0.12 這個最低版本是用型別檢查推的，沒在 0.12 實跑。准了就照這個設計、用 MIT 進實作，排在最後。」 (the three public-release-prep ideation gates presented together). Recommendation: followed.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-11-09T07:41:37Z
 ---
 
