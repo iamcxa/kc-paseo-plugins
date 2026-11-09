@@ -297,14 +297,13 @@ export function createSecrets(tools: Tools) {
     const { deadline } = options;
     const remaining = () =>
       deadline === undefined ? CALL_TIMEOUT_MS : Math.max(1, deadline - Date.now());
-    const token = project.serviceAccount
-      ? readToken(project.serviceAccount, remaining())
-      : Promise.resolve(null);
+    const account = project.serviceAccount.trim();
+    const token = account ? readToken(account, remaining()) : Promise.resolve(null);
     const outcomes = await Promise.all(
       project.variables.map(({ name, ref }) =>
         isReservedName(name)
           ? null
-          : untilDeadline(readVariable(project.serviceAccount, project.vault, ref, token, remaining), deadline),
+          : untilDeadline(readVariable(account, project.vault, ref, token, remaining), deadline),
       ),
     );
     const env: Record<string, string> = {};
