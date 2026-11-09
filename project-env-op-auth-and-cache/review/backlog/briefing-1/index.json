@@ -1,0 +1,15 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-op-auth-and-cache:backlog:attempt-1:revision-1",
+  "question": "我建議：開一批「送審前修正」3 個任務，修上面第 1 到第 3 項，並補齊第 4 項的資料；做完再跑送審合規檢查。這一版會變成 v0.3.2。真正送出 Paseo 的申請之前，我還會再問你一次，因為那是對外的動作。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-op-auth-and-cache:backlog:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/e9c1d3fae98c1b8bf2ce1ff71f0f5a9ceeb1642b/project-env-op-auth-and-cache.md",
+      "rev": "sha256:962a4a8d2d48ff572ea08b2904d7df8baf4d0dd67e72ee873c2a89aad3418256",
+      "mediaType": "text/markdown",
+      "summary": "Batch public-release-prep member: op ignores inherited Connect credentials and a read started before a cache clear is not cached. FO recommendation: open."
+    }
+  ]
+}
