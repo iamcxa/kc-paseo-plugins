@@ -1,0 +1,285 @@
+{
+  "scope": "Step B static native-conversation mockups, Captain amendment 1; fictional only; no native-phone capability claim",
+  "artifacts": [
+    {
+      "file": "ASSUMPTIONS.md",
+      "bytes": 3072,
+      "sha256": "cea3ceec93f8115df8d2123df7f5cc2ba16d1ffd36015a8855bb02b8c6d7c8a8"
+    },
+    {
+      "file": "REVIEW.md",
+      "bytes": 9883,
+      "sha256": "c6a5b6070fa6d18ac6c9c552fd896b61e6395746fb4328ae6c59133d9f087c9e"
+    },
+    {
+      "file": "capture.log",
+      "bytes": 145,
+      "sha256": "8a69aaeea0dacea5776a1fd41b1a54bdfd381cec10c1d0c6b82f0cc6c0492d9f"
+    },
+    {
+      "file": "capture.mjs",
+      "bytes": 24781,
+      "sha256": "bc49364289737436b0b0c5735275ba5c24fa041dace15b89c058c23cfaf8cabb"
+    },
+    {
+      "file": "checks/baselines.json",
+      "bytes": 797,
+      "sha256": "d1c6b13941aca4c436f7e1d533eb962a5138491c8b85209ac38d1abd16b77ac9"
+    },
+    {
+      "file": "checks/capture-evidence.json",
+      "bytes": 138136,
+      "sha256": "008eebbcdb0ad0970af8ea98f1ada449695c051a4c0cec33afaedce35b7549ee"
+    },
+    {
+      "file": "checks/capture-first-pass.json",
+      "bytes": 132290,
+      "sha256": "c8a50ed8f73804fff6f494d409f90d36103ead6a57299c5cac09f3b1bdfafc2e"
+    },
+    {
+      "file": "checks/capture-first-pass.log",
+      "bytes": 777,
+      "sha256": "124e786bfebe268e323bfdd5ac256365ca3d5b47417126c9a7d0794b512b8d12"
+    },
+    {
+      "file": "checks/capture-source-1.html",
+      "bytes": 29226,
+      "sha256": "9f9b36ec7374b2f02da067db98c29e2616144f2dcfdb56affe3be24361ab70a4"
+    },
+    {
+      "file": "checks/comment-ratio.log",
+      "bytes": 113,
+      "sha256": "579d683e520ae9ee58990146907419c5cab6b69ac8ffd2e3c0748b4ba2ce19ec"
+    },
+    {
+      "file": "checks/design-surfaces.log",
+      "bytes": 115,
+      "sha256": "5396cd4bb20dadd8ab8a06f0bce7b78dd4c156f10256444f1883bbaa2c349984"
+    },
+    {
+      "file": "checks/doc-impact.log",
+      "bytes": 83,
+      "sha256": "0593d4bec00fb143acac15d430a1407f0fb1497ada4b1a4dda16262948204e1a"
+    },
+    {
+      "file": "checks/first-attempt-cleanup.json",
+      "bytes": 196,
+      "sha256": "0d2ee6c173d092eaedf28ebd2b269ea0d4a90603e7ef72b4f41a1456a86398bd"
+    },
+    {
+      "file": "checks/number-guards.log",
+      "bytes": 131,
+      "sha256": "12f6f530db99b4fdf2b97bbded05db032463f7cd69a994655c7021d00edbb5e3"
+    },
+    {
+      "file": "checks/ownership.json",
+      "bytes": 873,
+      "sha256": "c3e34795a5705fd754e6bf2b05c7cecd3e78e973afec83fca9bcaf35e6adeb48"
+    },
+    {
+      "file": "checks/package-checks.json",
+      "bytes": 2091,
+      "sha256": "d968f02b9a6b05e980930df299d3fa82f72993a8bc02d0dc83b7c0fc72d7b25f"
+    },
+    {
+      "file": "checks/preview-attempt1.log",
+      "bytes": 1236,
+      "sha256": "7f24226563a48b6ccb12d63671f5b6395f7b5b1ee44980d5dca15909ca961318"
+    },
+    {
+      "file": "checks/runtime.json",
+      "bytes": 221,
+      "sha256": "7fbe94d0c4b637b5cb2ba2eb10d15139f32b247b78c80d8bdc4435bfb9fb7ad3"
+    },
+    {
+      "file": "checks/tests-first-pass.json",
+      "bytes": 1686,
+      "sha256": "b5edb56c239ba36636bb33b23bf4fede9fbe7529adf27cafe7c96174354bd1af"
+    },
+    {
+      "file": "checks/tests.json",
+      "bytes": 1710,
+      "sha256": "9dc12c3a9f8970780a8649a43868624511e3ea9a8a50f3d4dcb75506553a5c4b"
+    },
+    {
+      "file": "index.html",
+      "bytes": 30020,
+      "sha256": "320827f29c25069df51044054511a423132d2ad37366d913d27eb9b84d0919be"
+    },
+    {
+      "file": "review-phone.html",
+      "bytes": 1359762,
+      "sha256": "8b54c5710335ab4feef80015083525b07b22d54ffdc0fd728be5f24a3762cf9b"
+    },
+    {
+      "file": "review.html",
+      "bytes": 7898,
+      "sha256": "55e6b3bcca88e1baa5b8156eee0d09b9587acb46987f9690ecb335d664e67543"
+    },
+    {
+      "file": "screenshots/1440-chosen.png",
+      "bytes": 109592,
+      "sha256": "ea325208f3eea2619d611d8f64512a74581733b2e768c399010748c8c2f1da56"
+    },
+    {
+      "file": "screenshots/1440-fallback-bridge.png",
+      "bytes": 119626,
+      "sha256": "4a23e61ed9002f40210b696bdb1e2abe2192311fe68510dbc106669edcac3fc8"
+    },
+    {
+      "file": "screenshots/1440-fallback-menu.png",
+      "bytes": 105854,
+      "sha256": "2ffd63dffa132ce7307f753021a8c4a8b028d2b0a3a404b2b0644b65c2d12430"
+    },
+    {
+      "file": "screenshots/1440-gate.png",
+      "bytes": 112654,
+      "sha256": "812ee1b11fb0376184bb23b8375e7735d8f94d07d204a4b8acadd01333dcaaec"
+    },
+    {
+      "file": "screenshots/1440-half.png",
+      "bytes": 118487,
+      "sha256": "ea4b5a1fe9255c5bf9dac128cb8e48bf816aec63b937c50159dcc212b85215f8"
+    },
+    {
+      "file": "screenshots/1440-keyboard.png",
+      "bytes": 109754,
+      "sha256": "ffe83ca61c5d6afdf64ebf6206ef699bd2278d7ab3dbc6e13ae3030dcb55d1aa"
+    },
+    {
+      "file": "screenshots/1440-landing.png",
+      "bytes": 117470,
+      "sha256": "65c418a12d28eea15e0d0ce7fa9c249a6a523031e187fd82f93091465ed6bd3f"
+    },
+    {
+      "file": "screenshots/1440-permission.png",
+      "bytes": 83204,
+      "sha256": "73976b5979c9944133b055df3bf94408a75cf3acb25192399ea7db585f9218be"
+    },
+    {
+      "file": "screenshots/1440-question.png",
+      "bytes": 109754,
+      "sha256": "ffe83ca61c5d6afdf64ebf6206ef699bd2278d7ab3dbc6e13ae3030dcb55d1aa"
+    },
+    {
+      "file": "screenshots/1440-reason-typed.png",
+      "bytes": 111241,
+      "sha256": "d92d0d3a05bb37ff66d3df75981874ad63ba1249634c99fed2e7962f2c5ba3d1"
+    },
+    {
+      "file": "screenshots/1440-reason.png",
+      "bytes": 109886,
+      "sha256": "b8398259eca78c15a5da19d770513fd5a143290422832fa041bf1b0f77ddd9e1"
+    },
+    {
+      "file": "screenshots/1440-recorded.png",
+      "bytes": 118002,
+      "sha256": "804da119b2ab28e2d3675af048a0aa82dd13099dffe03c88d8f8399e8029d031"
+    },
+    {
+      "file": "screenshots/1440-relayed.png",
+      "bytes": 115683,
+      "sha256": "b324cfc149b0a9c591ff2db260aa82f3964f26ace2d310b2e4dab269ff2c6081"
+    },
+    {
+      "file": "screenshots/1440-sent.png",
+      "bytes": 113278,
+      "sha256": "415049ef8c787a518ad6f1aceff9c8ca47d6230b355e7a672a921877221da73d"
+    },
+    {
+      "file": "screenshots/1440-stale.png",
+      "bytes": 109719,
+      "sha256": "b80dc2b2b86565aab9e0518a16413df0362bc759b614c1500267bc77882b1673"
+    },
+    {
+      "file": "screenshots/1440-unsupported.png",
+      "bytes": 105854,
+      "sha256": "2ffd63dffa132ce7307f753021a8c4a8b028d2b0a3a404b2b0644b65c2d12430"
+    },
+    {
+      "file": "screenshots/360-chosen.png",
+      "bytes": 59858,
+      "sha256": "fe652e6acc465e080690df6e94109de8418133ead21bba4eb584066a7cac4afd"
+    },
+    {
+      "file": "screenshots/360-fallback-bridge.png",
+      "bytes": 75448,
+      "sha256": "d605445dfb684691191da2609a00829233b1953e658d0bc103c1346a2d19c5d3"
+    },
+    {
+      "file": "screenshots/360-fallback-menu.png",
+      "bytes": 22531,
+      "sha256": "a752da33f5e846e91e64f25113971306209e9330c17ce118095048a7a5b5cfca"
+    },
+    {
+      "file": "screenshots/360-gate.png",
+      "bytes": 67539,
+      "sha256": "ca946404015d2fc89c0f65c3945ad882bff25e5ee368edc730aa698e59503be1"
+    },
+    {
+      "file": "screenshots/360-half.png",
+      "bytes": 75411,
+      "sha256": "4d5540e35d4310684c519cdbdfda044d0a6800b743334a94e974814c33157f58"
+    },
+    {
+      "file": "screenshots/360-keyboard.png",
+      "bytes": 61150,
+      "sha256": "8af341802a4d7eae8a48dd4ca09ba184b04f1fba1837465559a2bbf79dfc5a51"
+    },
+    {
+      "file": "screenshots/360-landing.png",
+      "bytes": 75963,
+      "sha256": "81ce20a12c07c9298db9a14cc8da912aa0b5e79357f75540ce8496f6c0284b0e"
+    },
+    {
+      "file": "screenshots/360-permission.png",
+      "bytes": 54452,
+      "sha256": "93418943aa9e45851dd61646e84f64a800c02e820d9981059466a4a99d72641a"
+    },
+    {
+      "file": "screenshots/360-question.png",
+      "bytes": 66301,
+      "sha256": "c97e246556909e8e0b8bdc8f231864543ebf6bca164be73f82316542217f83ea"
+    },
+    {
+      "file": "screenshots/360-reason-typed.png",
+      "bytes": 61450,
+      "sha256": "658bcbd13a7efb8d10fa4f758c60102d82771f3a5e17716d174929408fc0d143"
+    },
+    {
+      "file": "screenshots/360-reason.png",
+      "bytes": 59978,
+      "sha256": "865ca47c8ec3409d3bd958f46a2523c24eaafd23494d44b3ac3f019425313673"
+    },
+    {
+      "file": "screenshots/360-recorded.png",
+      "bytes": 67645,
+      "sha256": "7752530b285392010769e29e09dd6735bc2818a1b19f86184eb535dde0be9eb7"
+    },
+    {
+      "file": "screenshots/360-relayed.png",
+      "bytes": 66870,
+      "sha256": "dec676f490b355b4b2edc409a09074262f34d8ca8942c2215289bb6c5894082a"
+    },
+    {
+      "file": "screenshots/360-sent.png",
+      "bytes": 64674,
+      "sha256": "71a5600b577c872c95c07e1d10b86b8295be5ff63f9e88daf8a178760ad69c87"
+    },
+    {
+      "file": "screenshots/360-stale.png",
+      "bytes": 65589,
+      "sha256": "ca51046fa26f269d7404ed1e49d7b9d8da8ac7198ed9c9d2f38e2c7f237591c8"
+    },
+    {
+      "file": "screenshots/360-unsupported.png",
+      "bytes": 70844,
+      "sha256": "4bd88c333ce3425927c204fd13eb75f7ecb339af226777aba655e92c350b34e4"
+    },
+    {
+      "file": "states.json",
+      "bytes": 2560,
+      "sha256": "e0be8d995bc7c5365cac9539cad6b63d46fbe9169488625a40dd4863a2fe830d"
+    }
+  ]
+}

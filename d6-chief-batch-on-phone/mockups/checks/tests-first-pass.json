@@ -1,0 +1,32 @@
+[
+  {
+    "name": "360: native batch screenshot states",
+    "status": "passed",
+    "detail": "Exact PNG dimensions, no outer overflow, four-item overview, native vs fallback chrome, 44px controls, per-item states and simulated phone keyboard geometry; no native-device claim."
+  },
+  {
+    "name": "1440: native batch screenshot states",
+    "status": "passed",
+    "detail": "Exact PNG dimensions, no outer overflow, four-item overview, native vs fallback chrome, 44px controls, per-item states and simulated phone keyboard geometry; no native-device claim."
+  },
+  {
+    "name": "360: mock interaction boundaries",
+    "status": "passed",
+    "detail": "Typing/choosing/cancelling send nothing; exact question recipient/words and named Confirm reason are retained; stale Confirm disabled; permission only navigates; Bridge fallback preserves answered states without resend. These are offline mock interactions."
+  },
+  {
+    "name": "1440: mock interaction boundaries",
+    "status": "passed",
+    "detail": "Typing/choosing/cancelling send nothing; exact question recipient/words and named Confirm reason are retained; stale Confirm disabled; permission only navigates; Bridge fallback preserves answered states without resend. These are offline mock interactions."
+  },
+  {
+    "name": "Review page: one direction question and 32 PNGs",
+    "status": "passed",
+    "detail": "All state images load; arrow navigation and phone/desktop modes exercised over file://."
+  },
+  {
+    "name": "Standalone phone review: 16 embedded images",
+    "status": "passed",
+    "detail": "Every 360 PNG loads with this HTML alone in an otherwise empty folder; no sibling assets or network."
+  }
+]

@@ -1,0 +1,5318 @@
+{
+  "policy": {
+    "transport": "remote-debugging-pipe; no listener",
+    "blockedURLs": [
+      "http://*",
+      "https://*",
+      "ws://*",
+      "wss://*"
+    ],
+    "freshProfilePerCapture": true,
+    "oneBrowserAtATime": true,
+    "audioPlayed": false
+  },
+  "captures": [
+    {
+      "state": "landing",
+      "viewport": "360x780",
+      "file": "screenshots/360-landing.png",
+      "sha256": "81ce20a12c07c9298db9a14cc8da912aa0b5e79357f75540ce8496f6c0284b0e",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 726.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 772.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1078.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 1122.109375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1078.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 1122.109375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1078.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 1122.109375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 1394.828125,
+            "width": 310,
+            "height": 46,
+            "bottom": 1440.828125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1673.546875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1717.546875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1673.546875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1717.546875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1673.546875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1717.546875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "landing",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "question",
+      "viewport": "360x780",
+      "file": "screenshots/360-question.png",
+      "sha256": "c97e246556909e8e0b8bdc8f231864543ebf6bca164be73f82316542217f83ea",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 12,
+          "y": 136.1875,
+          "width": 336,
+          "height": 304.71875,
+          "bottom": 440.90625,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 176.1875,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 204.234375,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 212.234375,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.921875,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 351.65625,
+          "width": 310,
+          "height": 46,
+          "bottom": 397.65625,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 351.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 397.65625,
+            "right": 335,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 703.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 747.109375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 703.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 747.109375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 703.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 747.109375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 1019.828125,
+            "width": 310,
+            "height": 46,
+            "bottom": 1065.828125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1298.546875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1342.546875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1298.546875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1342.546875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1298.546875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1342.546875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "question",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "sent",
+      "viewport": "360x780",
+      "file": "screenshots/360-sent.png",
+      "sha256": "71a5600b577c872c95c07e1d10b86b8295be5ff63f9e88daf8a178760ad69c87",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 1／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 12,
+          "y": 136.1875,
+          "width": 336,
+          "height": 269.46875,
+          "bottom": 405.65625,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 176.1875,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 204.234375,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 212.234375,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.921875,
+          "right": 335
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 667.859375,
+            "width": 36,
+            "height": 44,
+            "bottom": 711.859375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 667.859375,
+            "width": 72,
+            "height": 44,
+            "bottom": 711.859375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 667.859375,
+            "width": 48,
+            "height": 44,
+            "bottom": 711.859375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 984.578125,
+            "width": 310,
+            "height": 46,
+            "bottom": 1030.578125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1263.296875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1307.296875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1263.296875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1307.296875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1263.296875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1307.296875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "sent",
+          "qstatus": "sent",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "relayed",
+      "viewport": "360x780",
+      "file": "screenshots/360-relayed.png",
+      "sha256": "dec676f490b355b4b2edc409a09074262f34d8ca8942c2215289bb6c5894082a",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 1／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 12,
+          "y": 136.1875,
+          "width": 336,
+          "height": 269.46875,
+          "bottom": 405.65625,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 176.1875,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 204.234375,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 212.234375,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.921875,
+          "right": 335
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 667.859375,
+            "width": 36,
+            "height": 44,
+            "bottom": 711.859375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 667.859375,
+            "width": 72,
+            "height": 44,
+            "bottom": 711.859375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 667.859375,
+            "width": 48,
+            "height": 44,
+            "bottom": 711.859375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 984.578125,
+            "width": 310,
+            "height": 46,
+            "bottom": 1030.578125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1263.296875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1307.296875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1263.296875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1307.296875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1263.296875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1307.296875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "relayed",
+          "qstatus": "relayed",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "gate",
+      "viewport": "360x780",
+      "file": "screenshots/360-gate.png",
+      "sha256": "ca946404015d2fc89c0f65c3945ad882bff25e5ee368edc730aa698e59503be1",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 12,
+          "y": 135.90625,
+          "width": 336,
+          "height": 335.453125,
+          "bottom": 471.359375,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 175.90625,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 203.953125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 211.953125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.640625,
+          "right": 335
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 32.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 78.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 384.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 384.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 384.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 700.828125,
+            "width": 310,
+            "height": 46,
+            "bottom": 746.828125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 979.546875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1023.546875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 979.546875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1023.546875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 979.546875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1023.546875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "gate",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "chosen",
+      "viewport": "360x780",
+      "file": "screenshots/360-chosen.png",
+      "sha256": "fe652e6acc465e080690df6e94109de8418133ead21bba4eb584066a7cac4afd",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 12,
+          "y": 135.90625,
+          "width": 336,
+          "height": 516.203125,
+          "bottom": 652.109375,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 175.90625,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 203.953125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 211.953125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.640625,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 547.109375,
+          "width": 310,
+          "height": 46,
+          "bottom": 593.109375,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 32.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 78.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 384.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 384.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 384.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "Confirm 准 · 範例試用",
+            "x": 25,
+            "y": 547.109375,
+            "width": 310,
+            "height": 46,
+            "bottom": 593.109375,
+            "right": 335,
+            "disabled": false
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 25,
+            "y": 593.109375,
+            "width": 92,
+            "height": 44,
+            "bottom": 637.109375,
+            "right": 117,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 881.578125,
+            "width": 310,
+            "height": 46,
+            "bottom": 927.578125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1160.296875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1160.296875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1160.296875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "chosen",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "准",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "reason",
+      "viewport": "360x780",
+      "file": "screenshots/360-reason.png",
+      "sha256": "865ca47c8ec3409d3bd958f46a2523c24eaafd23494d44b3ac3f019425313673",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 12,
+          "y": 135.90625,
+          "width": 336,
+          "height": 516.203125,
+          "bottom": 652.109375,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 175.90625,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 203.953125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 211.953125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.640625,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 547.109375,
+          "width": 310,
+          "height": 46,
+          "bottom": 593.109375,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 32.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 78.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 384.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 384.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 384.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "Confirm 要求修改 · 範例試用",
+            "x": 25,
+            "y": 547.109375,
+            "width": 310,
+            "height": 46,
+            "bottom": 593.109375,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 25,
+            "y": 593.109375,
+            "width": 92,
+            "height": 44,
+            "bottom": 637.109375,
+            "right": 117,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 881.578125,
+            "width": 310,
+            "height": 46,
+            "bottom": 927.578125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1160.296875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1160.296875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1160.296875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "reason",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "要求修改",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "reason-typed",
+      "viewport": "360x780",
+      "file": "screenshots/360-reason-typed.png",
+      "sha256": "658bcbd13a7efb8d10fa4f758c60102d82771f3a5e17716d174929408fc0d143",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 12,
+          "y": 135.90625,
+          "width": 336,
+          "height": 516.203125,
+          "bottom": 652.109375,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 175.90625,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 203.953125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 211.953125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.640625,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 547.109375,
+          "width": 310,
+          "height": 46,
+          "bottom": 593.109375,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 32.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 78.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 384.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 384.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 384.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "Confirm 要求修改 · 範例試用",
+            "x": 25,
+            "y": 547.109375,
+            "width": 310,
+            "height": 46,
+            "bottom": 593.109375,
+            "right": 335,
+            "disabled": false
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 25,
+            "y": 593.109375,
+            "width": 92,
+            "height": 44,
+            "bottom": 637.109375,
+            "right": 117,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 881.578125,
+            "width": 310,
+            "height": 46,
+            "bottom": 927.578125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1160.296875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1160.296875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1160.296875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1204.296875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "reason-typed",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "要求修改",
+          "reason": "先補上範例資料的回復步驟。",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "recorded",
+      "viewport": "360x780",
+      "file": "screenshots/360-recorded.png",
+      "sha256": "7752530b285392010769e29e09dd6735bc2818a1b19f86184eb535dde0be9eb7",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 1／4其中 1 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 12,
+          "y": 135.90625,
+          "width": 336,
+          "height": 542.71875,
+          "bottom": 678.625,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 175.90625,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 203.953125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 211.953125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.640625,
+          "right": 335
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 32.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 78.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 908.09375,
+            "width": 310,
+            "height": 46,
+            "bottom": 954.09375,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1186.8125,
+            "width": 36,
+            "height": 44,
+            "bottom": 1230.8125,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1186.8125,
+            "width": 72,
+            "height": 44,
+            "bottom": 1230.8125,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1186.8125,
+            "width": 48,
+            "height": 44,
+            "bottom": 1230.8125,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "recorded",
+          "qstatus": "",
+          "gstatus": "recorded",
+          "chosen": "准",
+          "reason": "僅範例環境。",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "permission",
+      "viewport": "360x780",
+      "file": "screenshots/360-permission.png",
+      "sha256": "1c4bb1d38da90c03f8a1fdeff95f0c5999062f3c20fec52caf99bf8d86194de0",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "permission",
+        "item": {
+          "x": 12,
+          "y": 369.078125,
+          "width": 336,
+          "height": 275.328125,
+          "bottom": 644.40625,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 409.078125,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 437.125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 445.125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 463.8125,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 535.90625,
+          "width": 310,
+          "height": 46,
+          "bottom": 581.90625,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": -402.34375,
+            "width": 310,
+            "height": 46,
+            "bottom": -356.34375,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": -50.890625,
+            "width": 36,
+            "height": 44,
+            "bottom": -6.890625,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": -50.890625,
+            "width": 72,
+            "height": 44,
+            "bottom": -6.890625,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": -50.890625,
+            "width": 48,
+            "height": 44,
+            "bottom": -6.890625,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 265.828125,
+            "width": 310,
+            "height": 46,
+            "bottom": 311.828125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "到範例 FO 戊處理",
+            "x": 25,
+            "y": 535.90625,
+            "width": 310,
+            "height": 46,
+            "bottom": 581.90625,
+            "right": 335,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "permission",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "half",
+      "viewport": "360x780",
+      "file": "screenshots/360-half.png",
+      "sha256": "4d5540e35d4310684c519cdbdfda044d0a6800b743334a94e974814c33157f58",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 2／4其中 1 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 1490.0625,
+            "width": 310,
+            "height": 46,
+            "bottom": 1536.0625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1768.78125,
+            "width": 36,
+            "height": 44,
+            "bottom": 1812.78125,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1768.78125,
+            "width": 72,
+            "height": 44,
+            "bottom": 1812.78125,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1768.78125,
+            "width": 48,
+            "height": 44,
+            "bottom": 1812.78125,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "half",
+          "qstatus": "relayed",
+          "gstatus": "recorded",
+          "chosen": "准",
+          "reason": "僅範例環境。",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "stale",
+      "viewport": "360x780",
+      "file": "screenshots/360-stale.png",
+      "sha256": "01be0f70e149ec62f4765d9901a458d90551f84877de52cb1143978594b8c588",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 12,
+          "y": 135.90625,
+          "width": 336,
+          "height": 653.390625,
+          "bottom": 789.296875,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 175.90625,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 203.953125,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 211.953125,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 230.640625,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 547.109375,
+          "width": 310,
+          "height": 46,
+          "bottom": 593.109375,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 32.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 78.65625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 384.109375,
+            "width": 36,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 61,
+            "disabled": true
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 384.109375,
+            "width": 72,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 139,
+            "disabled": true
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 384.109375,
+            "width": 48,
+            "height": 44,
+            "bottom": 428.109375,
+            "right": 193,
+            "disabled": true
+          },
+          {
+            "text": "Confirm 要求修改 · 範例試用",
+            "x": 25,
+            "y": 547.109375,
+            "width": 310,
+            "height": 46,
+            "bottom": 593.109375,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 25,
+            "y": 593.109375,
+            "width": 92,
+            "height": 44,
+            "bottom": 637.109375,
+            "right": 117,
+            "disabled": false
+          },
+          {
+            "text": "讀取新版簡報",
+            "x": 25,
+            "y": 728.296875,
+            "width": 310,
+            "height": 46,
+            "bottom": 774.296875,
+            "right": 335,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 1018.765625,
+            "width": 310,
+            "height": 46,
+            "bottom": 1064.765625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1297.484375,
+            "width": 36,
+            "height": 44,
+            "bottom": 1341.484375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1297.484375,
+            "width": 72,
+            "height": 44,
+            "bottom": 1341.484375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1297.484375,
+            "width": 48,
+            "height": 44,
+            "bottom": 1341.484375,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "stale",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "要求修改",
+          "reason": "先補上範例資料的回復步驟。",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": true,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "unsupported",
+      "viewport": "360x780",
+      "file": "screenshots/360-unsupported.png",
+      "sha256": "4bd88c333ce3425927c204fd13eb75f7ecb339af226777aba655e92c350b34e4",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "unsupported",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "fallback-menu",
+      "viewport": "360x780",
+      "file": "screenshots/360-fallback-menu.png",
+      "sha256": "a752da33f5e846e91e64f25113971306209e9330c17ce118095048a7a5b5cfca",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 780,
+          "bottom": 780,
+          "right": 320
+        },
+        "timeline": {
+          "x": 0,
+          "y": 136,
+          "width": 360,
+          "height": 543.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "fallback-menu",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": true,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "fallback-bridge",
+      "viewport": "360x780",
+      "file": "screenshots/360-fallback-bridge.png",
+      "sha256": "d605445dfb684691191da2609a00829233b1953e658d0bc103c1346a2d19c5d3",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "Bridge範例主機 · 幕僚長的同一批",
+        "surface": "bridge",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 174,
+          "width": 360,
+          "height": 505.609375,
+          "bottom": 679.609375,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 2／4其中 1 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 1528.0625,
+            "width": 310,
+            "height": 46,
+            "bottom": 1574.0625,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1806.78125,
+            "width": 36,
+            "height": 44,
+            "bottom": 1850.78125,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1806.78125,
+            "width": 72,
+            "height": 44,
+            "bottom": 1850.78125,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1806.78125,
+            "width": 48,
+            "height": 44,
+            "bottom": 1850.78125,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "fallback-bridge",
+          "qstatus": "relayed",
+          "gstatus": "recorded",
+          "chosen": "准",
+          "reason": "僅範例環境。",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "bridge"
+        }
+      }
+    },
+    {
+      "state": "keyboard",
+      "viewport": "360x780",
+      "file": "screenshots/360-keyboard.png",
+      "sha256": "8af341802a4d7eae8a48dd4ca09ba184b04f1fba1837465559a2bbf79dfc5a51",
+      "geometry": {
+        "width": 360,
+        "height": 780,
+        "documentWidth": 360,
+        "documentHeight": 780,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "timeline": {
+          "x": 0,
+          "y": 132,
+          "width": 360,
+          "height": 408,
+          "bottom": 540,
+          "right": 360
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 540,
+          "width": 360,
+          "height": 240,
+          "bottom": 780,
+          "right": 360
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 12,
+          "y": 132.1875,
+          "width": 336,
+          "height": 276.46875,
+          "bottom": 408.65625,
+          "right": 348
+        },
+        "title": {
+          "x": 25,
+          "y": 172.1875,
+          "width": 310,
+          "height": 28.046875,
+          "bottom": 200.234375,
+          "right": 335
+        },
+        "recipient": {
+          "x": 25,
+          "y": 208.234375,
+          "width": 310,
+          "height": 18.6875,
+          "bottom": 226.921875,
+          "right": 335
+        },
+        "send": {
+          "x": 25,
+          "y": 347.65625,
+          "width": 310,
+          "height": 46,
+          "bottom": 393.65625,
+          "right": 335
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 8,
+            "y": 4.5,
+            "width": 44,
+            "height": 44,
+            "bottom": 48.5,
+            "right": 52,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 25,
+            "y": 347.65625,
+            "width": 310,
+            "height": 46,
+            "bottom": 393.65625,
+            "right": 335,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 656.859375,
+            "width": 36,
+            "height": 44,
+            "bottom": 700.859375,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 656.859375,
+            "width": 72,
+            "height": 44,
+            "bottom": 700.859375,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 656.859375,
+            "width": 48,
+            "height": 44,
+            "bottom": 700.859375,
+            "right": 193,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 25,
+            "y": 931.328125,
+            "width": 310,
+            "height": 46,
+            "bottom": 977.328125,
+            "right": 335,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 25,
+            "y": 1167.796875,
+            "width": 36,
+            "height": 44,
+            "bottom": 1211.796875,
+            "right": 61,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 67,
+            "y": 1167.796875,
+            "width": 72,
+            "height": 44,
+            "bottom": 1211.796875,
+            "right": 139,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 145,
+            "y": 1167.796875,
+            "width": 48,
+            "height": 44,
+            "bottom": 1211.796875,
+            "right": 193,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "keyboard",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "landing",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-landing.png",
+      "sha256": "65c418a12d28eea15e0d0ce7fa9c249a6a523031e187fd82f93091465ed6bd3f",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 764.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 810.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1107.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 1151.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1107.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 1151.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1107.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 1151.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1442.09375,
+            "width": 722,
+            "height": 46,
+            "bottom": 1488.09375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1739.890625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1783.890625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1739.890625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1783.890625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1739.890625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1783.890625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "landing",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "question",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-question.png",
+      "sha256": "ffe83ca61c5d6afdf64ebf6206ef699bd2278d7ab3dbc6e13ae3030dcb55d1aa",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 500,
+          "y": 153.234375,
+          "width": 760,
+          "height": 320.65625,
+          "bottom": 473.890625,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.828125,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.515625,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.515625,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.90625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 380.640625,
+          "width": 722,
+          "height": 46,
+          "bottom": 426.640625,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 380.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 426.640625,
+            "right": 1241,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 723.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 767.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 723.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 767.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 723.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 767.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1058.09375,
+            "width": 722,
+            "height": 46,
+            "bottom": 1104.09375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1355.890625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1399.890625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1355.890625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1399.890625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1355.890625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1399.890625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "question",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "sent",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-sent.png",
+      "sha256": "415049ef8c787a518ad6f1aceff9c8ca47d6230b355e7a672a921877221da73d",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 1／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 500,
+          "y": 153.234375,
+          "width": 760,
+          "height": 283.40625,
+          "bottom": 436.640625,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.828125,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.515625,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.515625,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.90625,
+          "right": 1241
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 686.1875,
+            "width": 41,
+            "height": 44,
+            "bottom": 730.1875,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 686.1875,
+            "width": 80,
+            "height": 44,
+            "bottom": 730.1875,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 686.1875,
+            "width": 54,
+            "height": 44,
+            "bottom": 730.1875,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1020.84375,
+            "width": 722,
+            "height": 46,
+            "bottom": 1066.84375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1318.640625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1362.640625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1318.640625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1362.640625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1318.640625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1362.640625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "sent",
+          "qstatus": "sent",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "relayed",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-relayed.png",
+      "sha256": "b324cfc149b0a9c591ff2db260aa82f3964f26ace2d310b2e4dab269ff2c6081",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 1／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 500,
+          "y": 153.234375,
+          "width": 760,
+          "height": 283.40625,
+          "bottom": 436.640625,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.828125,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.515625,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.515625,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.90625,
+          "right": 1241
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 686.1875,
+            "width": 41,
+            "height": 44,
+            "bottom": 730.1875,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 686.1875,
+            "width": 80,
+            "height": 44,
+            "bottom": 730.1875,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 686.1875,
+            "width": 54,
+            "height": 44,
+            "bottom": 730.1875,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1020.84375,
+            "width": 722,
+            "height": 46,
+            "bottom": 1066.84375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1318.640625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1362.640625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1318.640625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1362.640625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1318.640625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1362.640625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "relayed",
+          "qstatus": "relayed",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "gate",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-gate.png",
+      "sha256": "812ee1b11fb0376184bb23b8375e7735d8f94d07d204a4b8acadd01333dcaaec",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 500,
+          "y": 152.890625,
+          "width": 760,
+          "height": 324.796875,
+          "bottom": 477.6875,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.484375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.171875,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.171875,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.5625,
+          "right": 1241
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 43.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 89.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 386.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 386.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 386.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 721.09375,
+            "width": 722,
+            "height": 46,
+            "bottom": 767.09375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1018.890625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1062.890625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1018.890625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1062.890625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1018.890625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1062.890625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "gate",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "chosen",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-chosen.png",
+      "sha256": "ea325208f3eea2619d611d8f64512a74581733b2e768c399010748c8c2f1da56",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 500,
+          "y": 152.890625,
+          "width": 760,
+          "height": 505.546875,
+          "bottom": 658.4375,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.484375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.171875,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.171875,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.5625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 549.4375,
+          "width": 722,
+          "height": 46,
+          "bottom": 595.4375,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 43.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 89.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 386.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 386.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 386.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "Confirm 准 · 範例試用",
+            "x": 519,
+            "y": 549.4375,
+            "width": 722,
+            "height": 46,
+            "bottom": 595.4375,
+            "right": 1241,
+            "disabled": false
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 519,
+            "y": 595.4375,
+            "width": 92,
+            "height": 44,
+            "bottom": 639.4375,
+            "right": 611,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 901.84375,
+            "width": 722,
+            "height": 46,
+            "bottom": 947.84375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1199.640625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1199.640625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1199.640625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "chosen",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "准",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "reason",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-reason.png",
+      "sha256": "b8398259eca78c15a5da19d770513fd5a143290422832fa041bf1b0f77ddd9e1",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 500,
+          "y": 152.890625,
+          "width": 760,
+          "height": 505.546875,
+          "bottom": 658.4375,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.484375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.171875,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.171875,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.5625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 549.4375,
+          "width": 722,
+          "height": 46,
+          "bottom": 595.4375,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 43.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 89.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 386.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 386.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 386.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "Confirm 要求修改 · 範例試用",
+            "x": 519,
+            "y": 549.4375,
+            "width": 722,
+            "height": 46,
+            "bottom": 595.4375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 519,
+            "y": 595.4375,
+            "width": 92,
+            "height": 44,
+            "bottom": 639.4375,
+            "right": 611,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 901.84375,
+            "width": 722,
+            "height": 46,
+            "bottom": 947.84375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1199.640625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1199.640625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1199.640625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "reason",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "要求修改",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "reason-typed",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-reason-typed.png",
+      "sha256": "d92d0d3a05bb37ff66d3df75981874ad63ba1249634c99fed2e7962f2c5ba3d1",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 500,
+          "y": 152.890625,
+          "width": 760,
+          "height": 505.546875,
+          "bottom": 658.4375,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.484375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.171875,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.171875,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.5625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 549.4375,
+          "width": 722,
+          "height": 46,
+          "bottom": 595.4375,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 43.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 89.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 386.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 386.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 386.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "Confirm 要求修改 · 範例試用",
+            "x": 519,
+            "y": 549.4375,
+            "width": 722,
+            "height": 46,
+            "bottom": 595.4375,
+            "right": 1241,
+            "disabled": false
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 519,
+            "y": 595.4375,
+            "width": 92,
+            "height": 44,
+            "bottom": 639.4375,
+            "right": 611,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 901.84375,
+            "width": 722,
+            "height": 46,
+            "bottom": 947.84375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1199.640625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1199.640625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1199.640625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1243.640625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "reason-typed",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "要求修改",
+          "reason": "先補上範例資料的回復步驟。",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "recorded",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-recorded.png",
+      "sha256": "804da119b2ab28e2d3675af048a0aa82dd13099dffe03c88d8f8399e8029d031",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 1／4其中 1 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 500,
+          "y": 152.890625,
+          "width": 760,
+          "height": 532.0625,
+          "bottom": 684.953125,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.484375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.171875,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.171875,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.5625,
+          "right": 1241
+        },
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 43.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 89.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 928.359375,
+            "width": 722,
+            "height": 46,
+            "bottom": 974.359375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1226.15625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1270.15625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1226.15625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1270.15625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1226.15625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1270.15625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "recorded",
+          "qstatus": "",
+          "gstatus": "recorded",
+          "chosen": "准",
+          "reason": "僅範例環境。",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "permission",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-permission.png",
+      "sha256": "397b45346b47be3be7debedbd7ea35faa9fa792ff4a40c85759e8591da9610d9",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "permission",
+        "item": {
+          "x": 500,
+          "y": 590.34375,
+          "width": 760,
+          "height": 249.109375,
+          "bottom": 839.453125,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 636.9375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 666.625,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 674.625,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 695.015625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 746.203125,
+          "width": 722,
+          "height": 46,
+          "bottom": 792.203125,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": -196.359375,
+            "width": 722,
+            "height": 46,
+            "bottom": -150.359375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 146.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 190.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 146.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 190.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 146.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 190.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 481.09375,
+            "width": 722,
+            "height": 46,
+            "bottom": 527.09375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "到範例 FO 戊處理",
+            "x": 519,
+            "y": 746.203125,
+            "width": 722,
+            "height": 46,
+            "bottom": 792.203125,
+            "right": 1241,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "permission",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "half",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-half.png",
+      "sha256": "ea4b5a1fe9255c5bf9dac128cb8e48bf816aec63b937c50159dcc212b85215f8",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 2／4其中 1 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1535.328125,
+            "width": 722,
+            "height": 46,
+            "bottom": 1581.328125,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1833.125,
+            "width": 41,
+            "height": 44,
+            "bottom": 1877.125,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1833.125,
+            "width": 80,
+            "height": 44,
+            "bottom": 1877.125,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1833.125,
+            "width": 54,
+            "height": 44,
+            "bottom": 1877.125,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "half",
+          "qstatus": "relayed",
+          "gstatus": "recorded",
+          "chosen": "准",
+          "reason": "僅範例環境。",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "stale",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-stale.png",
+      "sha256": "51c7bd88236bbfc50e077d070adcbb5edfd1488416520a0bf5959571001fcb9e",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "g1",
+        "item": {
+          "x": 500,
+          "y": 152.890625,
+          "width": 760,
+          "height": 642.734375,
+          "bottom": 795.625,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.484375,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.171875,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.171875,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.5625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 549.4375,
+          "width": 722,
+          "height": 46,
+          "bottom": 595.4375,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 43.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 89.640625,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 386.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 560,
+            "disabled": true
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 386.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 648,
+            "disabled": true
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 386.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 430.4375,
+            "right": 710,
+            "disabled": true
+          },
+          {
+            "text": "Confirm 要求修改 · 範例試用",
+            "x": 519,
+            "y": 549.4375,
+            "width": 722,
+            "height": 46,
+            "bottom": 595.4375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "取消這次選擇",
+            "x": 519,
+            "y": 595.4375,
+            "width": 92,
+            "height": 44,
+            "bottom": 639.4375,
+            "right": 611,
+            "disabled": false
+          },
+          {
+            "text": "讀取新版簡報",
+            "x": 519,
+            "y": 730.625,
+            "width": 722,
+            "height": 46,
+            "bottom": 776.625,
+            "right": 1241,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1039.03125,
+            "width": 722,
+            "height": 46,
+            "bottom": 1085.03125,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1336.828125,
+            "width": 41,
+            "height": 44,
+            "bottom": 1380.828125,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1336.828125,
+            "width": 80,
+            "height": 44,
+            "bottom": 1380.828125,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1336.828125,
+            "width": 54,
+            "height": 44,
+            "bottom": 1380.828125,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "stale",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "要求修改",
+          "reason": "先補上範例資料的回復步驟。",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": true,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "unsupported",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-unsupported.png",
+      "sha256": "2ffd63dffa132ce7307f753021a8c4a8b028d2b0a3a404b2b0644b65c2d12430",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "unsupported",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "fallback-menu",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-fallback-menu.png",
+      "sha256": "2ffd63dffa132ce7307f753021a8c4a8b028d2b0a3a404b2b0644b65c2d12430",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "fallback-menu",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": true,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    },
+    {
+      "state": "fallback-bridge",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-fallback-bridge.png",
+      "sha256": "4a23e61ed9002f40210b696bdb1e2abe2192311fe68510dbc106669edcac3fc8",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "Bridge範例主機 · 幕僚長的同一批",
+        "surface": "bridge",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 192.59375,
+          "width": 1120,
+          "height": 695.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 2／4其中 1 件已記錄",
+        "item": null,
+        "title": null,
+        "recipient": null,
+        "send": null,
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1575.328125,
+            "width": 722,
+            "height": 46,
+            "bottom": 1621.328125,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1873.125,
+            "width": 41,
+            "height": 44,
+            "bottom": 1917.125,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1873.125,
+            "width": 80,
+            "height": 44,
+            "bottom": 1917.125,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1873.125,
+            "width": 54,
+            "height": 44,
+            "bottom": 1917.125,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "fallback-bridge",
+          "qstatus": "relayed",
+          "gstatus": "recorded",
+          "chosen": "准",
+          "reason": "僅範例環境。",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "bridge"
+        }
+      }
+    },
+    {
+      "state": "keyboard",
+      "viewport": "1440x1000",
+      "file": "screenshots/1440-keyboard.png",
+      "sha256": "ffe83ca61c5d6afdf64ebf6206ef699bd2278d7ab3dbc6e13ae3030dcb55d1aa",
+      "geometry": {
+        "width": 1440,
+        "height": 1000,
+        "documentWidth": 1440,
+        "documentHeight": 1000,
+        "header": "幕僚長範例主機 · 原生對話",
+        "surface": "native",
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "bottom": 1000,
+          "right": 320
+        },
+        "timeline": {
+          "x": 320,
+          "y": 152.59375,
+          "width": 1120,
+          "height": 735.40625,
+          "bottom": 888,
+          "right": 1440
+        },
+        "keyboard": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "bottom": 0,
+          "right": 0
+        },
+        "overviewCount": 4,
+        "progress": "已送出 0／4其中 0 件已記錄",
+        "active": "q1",
+        "item": {
+          "x": 500,
+          "y": 153.234375,
+          "width": 760,
+          "height": 320.65625,
+          "bottom": 473.890625,
+          "right": 1260
+        },
+        "title": {
+          "x": 519,
+          "y": 199.828125,
+          "width": 722,
+          "height": 29.6875,
+          "bottom": 229.515625,
+          "right": 1241
+        },
+        "recipient": {
+          "x": 519,
+          "y": 237.515625,
+          "width": 722,
+          "height": 20.390625,
+          "bottom": 257.90625,
+          "right": 1241
+        },
+        "send": {
+          "x": 519,
+          "y": 380.640625,
+          "width": 722,
+          "height": 46,
+          "bottom": 426.640625,
+          "right": 1241
+        },
+        "actions": [
+          {
+            "text": "",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "bottom": 0,
+            "right": 0,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 乙",
+            "x": 519,
+            "y": 380.640625,
+            "width": 722,
+            "height": 46,
+            "bottom": 426.640625,
+            "right": 1241,
+            "disabled": false
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 723.4375,
+            "width": 41,
+            "height": 44,
+            "bottom": 767.4375,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 723.4375,
+            "width": 80,
+            "height": 44,
+            "bottom": 767.4375,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 723.4375,
+            "width": 54,
+            "height": 44,
+            "bottom": 767.4375,
+            "right": 710,
+            "disabled": false
+          },
+          {
+            "text": "原文轉達給 範例 FO 丁",
+            "x": 519,
+            "y": 1058.09375,
+            "width": 722,
+            "height": 46,
+            "bottom": 1104.09375,
+            "right": 1241,
+            "disabled": true
+          },
+          {
+            "text": "准",
+            "x": 519,
+            "y": 1355.890625,
+            "width": 41,
+            "height": 44,
+            "bottom": 1399.890625,
+            "right": 560,
+            "disabled": false
+          },
+          {
+            "text": "要求修改",
+            "x": 568,
+            "y": 1355.890625,
+            "width": 80,
+            "height": 44,
+            "bottom": 1399.890625,
+            "right": 648,
+            "disabled": false
+          },
+          {
+            "text": "暫緩",
+            "x": 656,
+            "y": 1355.890625,
+            "width": 54,
+            "height": 44,
+            "bottom": 1399.890625,
+            "right": 710,
+            "disabled": false
+          }
+        ],
+        "snapshot": {
+          "scene": "keyboard",
+          "qstatus": "",
+          "gstatus": "",
+          "chosen": "",
+          "reason": "",
+          "qDraft": "日期請用 YYYY-MM-DD。",
+          "ordinaryDraft": "",
+          "stale": false,
+          "drawer": false,
+          "events": [],
+          "gateVersion": 1,
+          "q2done": false,
+          "g2done": false,
+          "surface": "native"
+        }
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    },
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 0,
+      "requestedOnlyFiles": true
+    }
+  ],
+  "standaloneRemoved": true,
+  "limits": [
+    "No live daemon, agent prompt, notification, model or plugin RPC",
+    "Keyboard is a 240px static illustration, not an OS keyboard",
+    "No physical-phone capability or product delivery proof"
+  ]
+}

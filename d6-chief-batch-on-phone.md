@@ -63,7 +63,7 @@ Verified by: DESIGN.md names the relay path and the sent / relayed / recorded st
 Verified by: one page for step A and review-phone.html for step B; his answers recorded verbatim.
 
 UI proposal: her batch as a list of answerable items inside her conversation, each answered in place, at 360 first.
-Preview: d4-chief-of-staff/mockups/review.html
+Preview: d6-chief-batch-on-phone/mockups/review.html
 
 ## Captain amendments
 
@@ -138,3 +138,20 @@ Applied Captain amendment 1 without rewriting AC text or earlier reports: the pr
 ## Design director review: step A pass 3
 
 Design director (same agent 544638aa), on dc971645 under the Captain's amendment 1: SATISFIED — native entry 1 tap plus 8 in place (10 with reasons); per item kind a named path (question: SDK agent send into her user line, then the existing relay; gate: gate.briefing recheck, named Confirm, decideGate, claim and relay, recorded by the FO; permission: Bridge-named route to the native FO, no approve or deny call); a read-only chief.batch lookup binding the batch to its source; the fallback stays in the untransformed batch message; one phone check named before code (a physical phone on an isolated host with a fictional timeline and no-model echo RPC and test decision handler). No gap blocks step B; the phone check is not yet run.
+
+## Stage Report: implementation (cycle 4)
+
+- DONE: Step B for the passed step A: static HTML + PNG mockups at 360 (primary) and 1440 under d6-chief-batch-on-phone/mockups/, drawn as her native Paseo conversation (not the Bridge screen), using the d4 mockups and the round 9 captures as the visual baseline; states: push landing on her call with a four-item batch; answering a question in place and its sent / relayed states; a gate expanded with choose and Confirm, a reason required, and recorded; a permission item with "go to the FO"; a half-answered batch; a stale gate version refused; the fallback when a component is not supported (with the Bridge entry); keyboard up on 360 with the item, recipient and send visible (AC-1, AC-2)
+  mockups/ has 16 fictional states, 32 PNGs (360x780/1440x1000), native-chief chrome with Bridge only in its fallback; states.json/REVIEW.md map every required state. All 16 phone views and selected desktop views were visually inspected; stale/permission were refined and re-captured at both widths so refusal/draft/disabled Confirm and the named permission route fit.
+- DONE: review.html (CSP img-src 'self' file: data:, one direction question at the top) and review-phone.html with every phone PNG embedded; ASSUMPTIONS.md before drawing, REVIEW.md after; captures one at a time in a fresh profile over file:// with localhost blocked; add "## Stage Report: implementation (cycle 4)" and stop for the design director's review (AC-3)
+  review.html loads all 32 images; review-phone.html embeds all 16 phone PNGs and passed standalone-folder loading. ASSUMPTIONS precedes drawing, REVIEW follows checks, task Preview now points to this round. CDP pipe, all HTTP/HTTPS/WS/WSS blocked, file/data-only page requests, 44 successful fresh-profile sessions cumulatively closed/removed; no profile/temp directory remains.
+- DONE: Exercise the bounded offline design and retain source identity.
+  checks/tests-first-pass.json and checks/tests.json each pass six groups: 44px/overflow/keyboard geometry; exact per-question words/recipient; no typing/choose/cancel send; reason/Confirm; stale/new-version refusal; independent four-item sends; navigation-only permission; no-resend fallback and review portability. Violating any named boundary fails its assertion; this proves mock behavior only, not native RPC/phone delivery.
+- DONE: Preserve exact artifact provenance and check the unchanged product boundary.
+  artifacts.json hashes every deliverable; capture-evidence.json binds each PNG to its exact HTML source (28 unchanged images use frozen capture-source-1.html; four refined images use index.html). Hashes rechecked. Four package checks exit 0, product base=HEAD=91625588dff1b3e5737f6f6f8843b90d69468f32; 0 product code/comment lines, 0 affected product documents, no migration findings. Main/task/d5 source branches and clean status retained in ownership evidence.
+- SKIPPED: Phone capability check, RoboRev, product implementation, pull request and activation.
+  Explicitly outside this Step B dispatch: no live daemon/model/prompt/notification/RPC/permission/gate action. Keyboard is a 240px static illustration. Initial sandbox Chrome pipe failure is retained with cleanup evidence; the authorized same file-only runner succeeded without enabling network or reusing a user profile.
+
+### Summary
+
+Delivered the native-conversation, phone-first mockup package with a four-item batch, individually explicit question relays and named gate Confirm, permission exception, partial/stale states, readable unsupported-component fallback and a visible keyboard layout. Both review surfaces work offline, source/image provenance is retained, and the task Preview now leads to this round. Stop for the design director's Step B review; no phone capability, product delivery or Captain acceptance is claimed.

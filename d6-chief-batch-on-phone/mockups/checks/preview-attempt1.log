@@ -1,0 +1,22 @@
+node:events:487
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: This socket has been ended by the other party
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at Socket.writeAfterFIN [as write] (node:net:582:14)
+    at file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone/mockups/capture.mjs:52:20
+    at new Promise (<anonymous>)
+    at call (file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone/mockups/capture.mjs:46:52)
+    at freshBrowser (file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone/mockups/capture.mjs:97:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone/mockups/capture.mjs:119:3
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EPIPE'
+}
+
+Node.js v24.18.0
