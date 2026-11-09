@@ -1,25 +1,25 @@
 {
-  "scope": "Step B static native-conversation mockups, Captain amendment 1; fictional only; no native-phone capability claim",
+  "scope": "Step B revision after director pass 1: gate in-flight, stable fallback, compact first screens; fictional static design only",
   "artifacts": [
     {
       "file": "ASSUMPTIONS.md",
-      "bytes": 3072,
-      "sha256": "cea3ceec93f8115df8d2123df7f5cc2ba16d1ffd36015a8855bb02b8c6d7c8a8"
+      "bytes": 4102,
+      "sha256": "2f61e6d006425e55744afc8711afaf7f9002553cf3412eb329761eabe0dea389"
     },
     {
       "file": "REVIEW.md",
-      "bytes": 9883,
-      "sha256": "c6a5b6070fa6d18ac6c9c552fd896b61e6395746fb4328ae6c59133d9f087c9e"
+      "bytes": 10277,
+      "sha256": "a46ead05a2e39d8e49355841782d9117277c01aa065ffbbf915add14f9f77ff1"
     },
     {
       "file": "capture.log",
-      "bytes": 145,
-      "sha256": "8a69aaeea0dacea5776a1fd41b1a54bdfd381cec10c1d0c6b82f0cc6c0492d9f"
+      "bytes": 402,
+      "sha256": "59be39d7cbf5732c4bab0596f3b26cb0c6e378efdf548db5a5b82c7d661b01c0"
     },
     {
       "file": "capture.mjs",
-      "bytes": 24781,
-      "sha256": "bc49364289737436b0b0c5735275ba5c24fa041dace15b89c058c23cfaf8cabb"
+      "bytes": 27768,
+      "sha256": "55fbc4b895708182576ce0abf239cfe36e27ed576c188aa3f4b4a03645376a52"
     },
     {
       "file": "checks/baselines.json",
@@ -28,8 +28,8 @@
     },
     {
       "file": "checks/capture-evidence.json",
-      "bytes": 138136,
-      "sha256": "008eebbcdb0ad0970af8ea98f1ada449695c051a4c0cec33afaedce35b7549ee"
+      "bytes": 158874,
+      "sha256": "c3c0069b36615a641decad7b62300f01a69badddd4d75bad9b308d9dba70664f"
     },
     {
       "file": "checks/capture-first-pass.json",
@@ -50,6 +50,36 @@
       "file": "checks/comment-ratio.log",
       "bytes": 113,
       "sha256": "579d683e520ae9ee58990146907419c5cab6b69ac8ffd2e3c0748b4ba2ce19ec"
+    },
+    {
+      "file": "checks/cycle4-capture.log",
+      "bytes": 145,
+      "sha256": "8a69aaeea0dacea5776a1fd41b1a54bdfd381cec10c1d0c6b82f0cc6c0492d9f"
+    },
+    {
+      "file": "checks/cycle4-captures.json",
+      "bytes": 138136,
+      "sha256": "008eebbcdb0ad0970af8ea98f1ada449695c051a4c0cec33afaedce35b7549ee"
+    },
+    {
+      "file": "checks/cycle4-review.md",
+      "bytes": 9883,
+      "sha256": "c6a5b6070fa6d18ac6c9c552fd896b61e6395746fb4328ae6c59133d9f087c9e"
+    },
+    {
+      "file": "checks/cycle4-source.html",
+      "bytes": 30020,
+      "sha256": "320827f29c25069df51044054511a423132d2ad37366d913d27eb9b84d0919be"
+    },
+    {
+      "file": "checks/cycle4-tests.json",
+      "bytes": 1710,
+      "sha256": "9dc12c3a9f8970780a8649a43868624511e3ea9a8a50f3d4dcb75506553a5c4b"
+    },
+    {
+      "file": "checks/cycle5-preview.log",
+      "bytes": 143,
+      "sha256": "7c92d20213f45df506a3b0b29e7ac7e506d4c54e9493550853b2f45e0c4c5ccd"
     },
     {
       "file": "checks/design-surfaces.log",
@@ -78,8 +108,8 @@
     },
     {
       "file": "checks/package-checks.json",
-      "bytes": 2091,
-      "sha256": "d968f02b9a6b05e980930df299d3fa82f72993a8bc02d0dc83b7c0fc72d7b25f"
+      "bytes": 2134,
+      "sha256": "9a5603056f1c393faf8690e431c91c1b6d96198de1b5284b23ac896fb09499f1"
     },
     {
       "file": "checks/preview-attempt1.log",
@@ -98,23 +128,23 @@
     },
     {
       "file": "checks/tests.json",
-      "bytes": 1710,
-      "sha256": "9dc12c3a9f8970780a8649a43868624511e3ea9a8a50f3d4dcb75506553a5c4b"
+      "bytes": 2376,
+      "sha256": "f78fee90c84d9110c6f29544b82fe41f7f9c00c9379a551cca4aed1719ae353f"
     },
     {
       "file": "index.html",
-      "bytes": 30020,
-      "sha256": "320827f29c25069df51044054511a423132d2ad37366d913d27eb9b84d0919be"
+      "bytes": 32578,
+      "sha256": "bd191953ec04450cb91d1b514ca6212e37542773dec12eae670cf8f6bf235611"
     },
     {
       "file": "review-phone.html",
-      "bytes": 1359762,
-      "sha256": "8b54c5710335ab4feef80015083525b07b22d54ffdc0fd728be5f24a3762cf9b"
+      "bytes": 1495827,
+      "sha256": "83d7341daa85833b16afdf5e4fce1868aeaaf532b7ad19dd83ca8ddf4caf3554"
     },
     {
       "file": "review.html",
-      "bytes": 7898,
-      "sha256": "55e6b3bcca88e1baa5b8156eee0d09b9587acb46987f9690ecb335d664e67543"
+      "bytes": 8333,
+      "sha256": "e480db773694af5c0d817a8ba45231edaef34a9d334ebac63d18b3545ac0b860"
     },
     {
       "file": "screenshots/1440-chosen.png",
@@ -123,13 +153,23 @@
     },
     {
       "file": "screenshots/1440-fallback-bridge.png",
-      "bytes": 119626,
-      "sha256": "4a23e61ed9002f40210b696bdb1e2abe2192311fe68510dbc106669edcac3fc8"
+      "bytes": 110055,
+      "sha256": "624e36c02807a08c55ecb1723c65be838e1d06669278fccdfc642655e50a981a"
     },
     {
       "file": "screenshots/1440-fallback-menu.png",
-      "bytes": 105854,
-      "sha256": "2ffd63dffa132ce7307f753021a8c4a8b028d2b0a3a404b2b0644b65c2d12430"
+      "bytes": 106069,
+      "sha256": "ba5b5be3dd8b748c4f6309da87ca9a622b15bc01bdfef33cf2120f8e30b87fcf"
+    },
+    {
+      "file": "screenshots/1440-gate-relayed.png",
+      "bytes": 115105,
+      "sha256": "720eb939759b549b17c328f3482077bc0ea8d0fa55cb9aafd8d687f4191752ca"
+    },
+    {
+      "file": "screenshots/1440-gate-sent.png",
+      "bytes": 113754,
+      "sha256": "1d31920c0b0bdf61380d5e121304eba950a59d3347a243d074dba89368803336"
     },
     {
       "file": "screenshots/1440-gate.png",
@@ -138,8 +178,8 @@
     },
     {
       "file": "screenshots/1440-half.png",
-      "bytes": 118487,
-      "sha256": "ea4b5a1fe9255c5bf9dac128cb8e48bf816aec63b937c50159dcc212b85215f8"
+      "bytes": 107443,
+      "sha256": "7f4b032d1de5e864b9a163ed1e79a4797848e54394b11bd2eebecb6516546705"
     },
     {
       "file": "screenshots/1440-keyboard.png",
@@ -148,8 +188,8 @@
     },
     {
       "file": "screenshots/1440-landing.png",
-      "bytes": 117470,
-      "sha256": "65c418a12d28eea15e0d0ce7fa9c249a6a523031e187fd82f93091465ed6bd3f"
+      "bytes": 109138,
+      "sha256": "08d1a63271bdbe44cb847b2def0f90bb661d827cb8d9ec422d9c0826fe7f7253"
     },
     {
       "file": "screenshots/1440-permission.png",
@@ -193,8 +233,8 @@
     },
     {
       "file": "screenshots/1440-unsupported.png",
-      "bytes": 105854,
-      "sha256": "2ffd63dffa132ce7307f753021a8c4a8b028d2b0a3a404b2b0644b65c2d12430"
+      "bytes": 106069,
+      "sha256": "ba5b5be3dd8b748c4f6309da87ca9a622b15bc01bdfef33cf2120f8e30b87fcf"
     },
     {
       "file": "screenshots/360-chosen.png",
@@ -203,13 +243,23 @@
     },
     {
       "file": "screenshots/360-fallback-bridge.png",
-      "bytes": 75448,
-      "sha256": "d605445dfb684691191da2609a00829233b1953e658d0bc103c1346a2d19c5d3"
+      "bytes": 62056,
+      "sha256": "3b88724f270fdc53c3304cb861146062b672c18808cfe23c25e7664195149466"
     },
     {
       "file": "screenshots/360-fallback-menu.png",
-      "bytes": 22531,
-      "sha256": "a752da33f5e846e91e64f25113971306209e9330c17ce118095048a7a5b5cfca"
+      "bytes": 22529,
+      "sha256": "0c5f24ef8de69e9489e6b2aa8ffd855ee789f69dbe3d17b21144f7e8a19df0f6"
+    },
+    {
+      "file": "screenshots/360-gate-relayed.png",
+      "bytes": 69044,
+      "sha256": "e42c4d59df60688d3746c170a72f5e88e9e0d15799602ffbb8f7325ae3cfc2ea"
+    },
+    {
+      "file": "screenshots/360-gate-sent.png",
+      "bytes": 67990,
+      "sha256": "a32a007550210c2608c3dc26ac3c215aee8ab18b82df57a140e0b074d9d16db4"
     },
     {
       "file": "screenshots/360-gate.png",
@@ -218,8 +268,8 @@
     },
     {
       "file": "screenshots/360-half.png",
-      "bytes": 75411,
-      "sha256": "4d5540e35d4310684c519cdbdfda044d0a6800b743334a94e974814c33157f58"
+      "bytes": 63286,
+      "sha256": "2dce44c68cc9b518167306276af48fc8d33503f6972814a80c510c9839b2002c"
     },
     {
       "file": "screenshots/360-keyboard.png",
@@ -228,8 +278,8 @@
     },
     {
       "file": "screenshots/360-landing.png",
-      "bytes": 75963,
-      "sha256": "81ce20a12c07c9298db9a14cc8da912aa0b5e79357f75540ce8496f6c0284b0e"
+      "bytes": 65637,
+      "sha256": "1f343132567f126abbe224c76bd2d1033acc76debbc745a7c97f648d5b7fc245"
     },
     {
       "file": "screenshots/360-permission.png",
@@ -273,13 +323,13 @@
     },
     {
       "file": "screenshots/360-unsupported.png",
-      "bytes": 70844,
-      "sha256": "4bd88c333ce3425927c204fd13eb75f7ecb339af226777aba655e92c350b34e4"
+      "bytes": 71334,
+      "sha256": "285d7f2f6c6791b8f1058cce222c151001a854480ceb61e5cc66562b0c013738"
     },
     {
       "file": "states.json",
-      "bytes": 2560,
-      "sha256": "e0be8d995bc7c5365cac9539cad6b63d46fbe9169488625a40dd4863a2fe830d"
+      "bytes": 3031,
+      "sha256": "29e6d975c4f303792068434ec0045c5eaf85bd739c95145cfafc217037261ba8"
     }
   ]
 }

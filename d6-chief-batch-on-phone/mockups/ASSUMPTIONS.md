@@ -13,3 +13,11 @@
 - review.html 頂端只問一個方向問題，提供逐態手機／桌面圖；CSP 圖片允許 self/file/data。review-phone.html 內嵌每張手機 PNG，移到單獨資料夾仍可看。
 - 每張截圖一次一個 fresh headless Chrome profile，file://、CDP pipe（不開監聽埠），封鎖全部 HTTP／HTTPS／WS／WSS（含 localhost／127.0.0.1）；不用既有登入 profile。只移除本次自建空白 profile。
 - 沒有模型、外掛 RPC、真代理傳訊、通知、音效、即時 daemon、權限動作或關卡記錄；HTML 的狀態互動只是離線示意。手機能力檢查留給後續隔離真機驗證，本輪不做。
+
+
+## Step B 第一輪後，修圖前補記
+
+- 關卡增加「已送給幕僚長，尚未轉達」與「已轉達，等待記錄」兩態，同一個具名關卡、第1版、決定編號及艦長原話，重複 Confirm 停用。按 Confirm 的離線示意先到已送，不再直接跳已記錄；recorded 只是有對應記錄後的獨立虛構快照。
+- unsupported／fallback-menu／fallback-bridge 使用同一批 demo-batch-01：問題一已轉達、關卡一已記錄，其餘兩件未答。只開側欄／Bridge 不改進度、不製造送達；原訊息與卡片可核對同樣狀態。
+- landing／half／fallback-bridge 刪除重複開場與四件摘要，僅留一行批次進度。已答兩件以可展開收據收起，後面就是未答題及送出；不是隱去原話或清掉事項。
+- 只拍這五個改動狀態及兩個新增關卡狀態，兩尺寸共14張；其餘22張保持原位元組。前輪來源、逐圖證據與審查記錄先凍結於 checks/cycle4-*，不將未重拍圖宣稱為新HTML擷取。

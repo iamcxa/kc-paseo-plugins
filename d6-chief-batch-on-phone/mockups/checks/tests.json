@@ -1,32 +1,37 @@
 [
   {
-    "name": "360: refined stale/permission screenshot states",
+    "name": "360: refined landing/half/unsupported/fallback-menu/fallback-bridge/gate-sent/gate-relayed screenshot states",
     "status": "passed",
-    "detail": "Exact PNG dimensions, no outer overflow, four-item overview, native vs fallback chrome, 44px controls, per-item states and simulated phone keyboard geometry; no native-device claim."
+    "detail": "Exact PNG dimensions, no outer overflow, one progress line/first-send visibility on compact states, native vs fallback chrome, 44px controls, per-item states and simulated phone keyboard geometry; no native-device claim."
   },
   {
-    "name": "1440: refined stale/permission screenshot states",
+    "name": "1440: refined landing/half/unsupported/fallback-menu/fallback-bridge/gate-sent/gate-relayed screenshot states",
     "status": "passed",
-    "detail": "Exact PNG dimensions, no outer overflow, four-item overview, native vs fallback chrome, 44px controls, per-item states and simulated phone keyboard geometry; no native-device claim."
+    "detail": "Exact PNG dimensions, no outer overflow, one progress line/first-send visibility on compact states, native vs fallback chrome, 44px controls, per-item states and simulated phone keyboard geometry; no native-device claim."
   },
   {
     "name": "360: mock interaction boundaries",
     "status": "passed",
-    "detail": "Typing/choosing/cancelling send nothing; exact question recipient/words and named Confirm reason are retained; stale Confirm disabled; permission only navigates; Bridge fallback preserves answered states without resend. These are offline mock interactions."
+    "detail": "Gate sent/relayed snapshots retain words/version and block repeat Confirm; fallback navigation preserves every per-item status; typing/choosing/cancelling send nothing; exact question recipient/words and named Confirm reason are retained; stale Confirm disabled; permission only navigates; Bridge fallback preserves answered states without resend. These are offline mock interactions."
   },
   {
     "name": "1440: mock interaction boundaries",
     "status": "passed",
-    "detail": "Typing/choosing/cancelling send nothing; exact question recipient/words and named Confirm reason are retained; stale Confirm disabled; permission only navigates; Bridge fallback preserves answered states without resend. These are offline mock interactions."
+    "detail": "Gate sent/relayed snapshots retain words/version and block repeat Confirm; fallback navigation preserves every per-item status; typing/choosing/cancelling send nothing; exact question recipient/words and named Confirm reason are retained; stale Confirm disabled; permission only navigates; Bridge fallback preserves answered states without resend. These are offline mock interactions."
   },
   {
-    "name": "Review page: one direction question and 32 PNGs",
+    "name": "Review page: one direction question and 36 PNGs",
     "status": "passed",
     "detail": "All state images load; arrow navigation and phone/desktop modes exercised over file://."
   },
   {
-    "name": "Standalone phone review: 16 embedded images",
+    "name": "Standalone phone review: 18 embedded images",
     "status": "passed",
     "detail": "Every 360 PNG loads with this HTML alone in an otherwise empty folder; no sibling assets or network."
+  },
+  {
+    "name": "Only changed states recaptured",
+    "status": "passed",
+    "detail": "22 retained PNGs remain byte-identical and retain their original HTML source hashes; 14 changed/new PNGs captured."
   }
 ]
