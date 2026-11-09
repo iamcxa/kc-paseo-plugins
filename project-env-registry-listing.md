@@ -245,3 +245,36 @@ Recommended order: this task last of the batch, so the compliance record and the
 ### Summary
 
 Ideation for registry listing. Two files change in implementation, `project-env/paseo-plugin.json` (description plus four commit-pinned screenshot URLs) and `project-env/OVERVIEW.md` (complete data-flow disclosure including the agent's model provider; "login Keychain" corrected). There is no code change. One decision is open for the Captain: the licence. The recommendation is MIT at the repository root, added in this task's PR, which would also cover spacedock-bridge. The design recommends running this task last in the batch so the compliance record checks the v0.3.2 candidate.
+
+## Compliance record
+
+Candidate commit 41e981017104e2c7359d4c3b954587e6eb06c89f on branch spacedock-ensign/project-env-registry-listing (base e4acaec1a454ccf39bb9aaaa48a478ac5333b561), checked 2026-11-09 from the worktree root. Saved documents in `research/2026-11-09-public-release-review/`: `paseo-publishing.md` (G) sha256 `4d9d5119618f75079b0e9196051513d9bc126c8c8e03c9b6d9e9fcf1ba71c27b`, `paseo-registry-REVIEW.md` (R) sha256 `179fd96e7882a35b0a6394a15269b3c00f6398b03135a5b97a36cf38f6dbaf45`. The validator re-checks each row (an ensign wrote this record, so the status column is unvalidated).
+
+| ID | Requirement (source, section) | Applies to a public GitHub folder | Status at candidate | Evidence |
+| --- | --- | --- | --- | --- |
+| G1 | `OVERVIEW.md` beside `paseo-plugin.json` (G "Your listing page"; R "Overview") | yes | met | `project-env/OVERVIEW.md` and `paseo-plugin.json` both under `project-env/` |
+| G2 | Order: what it does, how, setup (settings, accounts, tokens, tools, OS, Paseo versions), then capabilities, data access, permissions, limits (G "Your listing page") | yes | met | headings: intro, How it works, Setup, What it reads and sends, Limits worth knowing; Setup ends "Paseo 0.12 or later ... (macOS only) ... `op`" |
+| G3 | Describe where data goes, including prompts and tool results sent to agent providers (G "Your listing page") | yes | met | OVERVIEW "What it reads and sends": bullets Keychain, 1Password, Git, Paseo, The agent's model provider, The agent's environment, The conversation and Logs |
+| G4 | Runtime download or install explained, with confirmation (G "Your listing page"; R "Security review") | yes | not applicable | plugin installs nothing; OVERVIEW Setup says "The plugin downloads and installs nothing." |
+| G5 | Plain factual sentence case; no marketing, badges, changelog, contributing, licence sections (G; R "Overview") | yes | met | read through OVERVIEW.md; no such sections |
+| G6 | No `paseo plugin add`, `npm install`, `npm i` in the overview (G "Your listing page") | yes | met | E3: `grep -nE 'paseo plugin add\|npm install\|npm i( \|$)' project-env/OVERVIEW.md` printed nothing, exit 1 |
+| G7 | One-sentence description, manifest `description` for Git (G; R "Concrete acceptance requirements") | yes | met | E1 exit 0, printed "Fills environment variables for the agents Paseo starts in a repository from fields in one 1Password vault." |
+| G8 | Visual plugin: at least one image of the current interface, sample data (G "Icons and screenshots"; R "Images and media") | yes | met | four images in `media`; E7 below; sample data `shop-api`, `agent-shop-api-dev` |
+| G9 | Media: HTTPS URLs, png/jpg/jpeg/webp/gif, HTTP 200 with image content type, no SVG (G; R "Images and media") | yes | met | E2 exit 0; `curl -sSIL` on all four URLs printed `200 image/png` x4 |
+| G10 | Metadata fields need Paseo 0.11.0+ (G) | yes | met | `requirements.paseo` is `>=0.12.0` |
+| G11 | Public GitHub repository with manifest, runtime entries, imported files, listing assets (G "Share through GitHub or Git") | yes | met | design check: repository PUBLIC; media URLs resolve at the pinned commit on origin |
+| G12 | Runtime npm dependencies need a committed lock and `build` command (G; R) | yes | not applicable | runtime imports only host-provided modules and `node:` built-ins (design, grep 2026-11-09) |
+| G13 | English default name, description, overview (G "Other languages"; R "Translated listings") | yes | met | all three in English; translations are a non-goal |
+| R1 | Reviewer pins an exact commit; author tag optional (R "From submission to review") | yes | not an author obligation | candidate merge commit to be recorded at merge |
+| R2 | Accurate overview: every claim true of the artifact (R "Overview") | yes | met | E5 below; "login Keychain" claims replaced by O1, O4, O5 |
+| R3 | Security review inputs inspectable (R "Security review") | yes | met | plain TypeScript; `execFile` from `node:child_process` in `server/secrets.ts`; no network library import; every flow disclosed by O3 |
+
+E-clauses at the candidate: E1 exit 0. E2 exit 0, four URLs `200 image/png`. E3 exit 1 (nothing printed). E4: `docs/project-env/capture/setup.sh` on an empty dir and a random port ran, but its config sets `"pluginsEnabled": false`, so `paseo plugin ls` first showed `paseo-project-env  disabled  yes`; after setting `pluginsEnabled` to `true` in the isolated `config.json` only and restarting that isolated daemon, `paseo plugin ls --home <dir>/home` showed `paseo-project-env  running  yes ... (empty ERROR)` and `paseo plugin logs` ended "Plugin ready"; the isolated daemon was stopped with `paseo daemon stop --home` and the directory removed. E5: every symbol of the design's claims table was found at the candidate (`writeToken`, `lookupToken`, `opEnv`, `readVariable` in `server/secrets.ts`; `openSession` and `HOOK_BUDGET_MS` in `server/session-open.ts`; `agent.session_open`, `withNotice`, `timeline.append`, `failureLine`, `testProject`, `clearCache` in `server/contribute.ts` or `server/cause.ts`; `agentNotice` in `server/agent-notice.ts`; `CACHE_MS`, `rev-parse`, `worktree` in `server/secrets.ts`; `listRefs`; settings schema `projectEnv` in `shared/config.ts`); no `fetch` or HTTP import in `client/`, `server/`, `shared/` (the only `refetch` hits are TanStack Query calls). The Paseo-contract claims (open-time env launch-only, notice saved with the agent) rest on the design's hooks-doc citation, not re-fetched here. E6: `npm test` 335 tests, 335 pass, 0 fail, exit 0; `tsc --noEmit` exit 0. E7: `Connected`, `+ Add`, `so the agent`, `Save token to Keychain`, `Stored in this Mac's Keychain`, `Add a variable` found in `client/settings-screen.tsx`; `Search fields, or type a name`, `Type a reference` in `client/field-picker.tsx`; `summaryText` in `shared/test-marks.ts` with its ` · ` join; `failed` in `client/failure-mark.tsx`. All four images kept.
+
+Flagged by the release reviews, required by neither document:
+
+| Item | Source | Status |
+| --- | --- | --- |
+| Licence file | codex.md P2, gemini.md P1 | added: MIT `LICENSE` at the repository root, same holder line as iamcxa/kc-claude-plugins; Captain 「准」 2026-11-09 |
+| `repository`, `author`, `private: true` in `package.json` | release reviews | not done: npm-only, a non-goal |
+| "login Keychain" in `docs/project-env/index.md`, `prepare-1password.md` and `shared/token.ts` | design "Not changed here" | not changed: outside this task's files; follow-up for FO |
