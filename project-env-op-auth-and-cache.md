@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-op-auth-and-cache:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-op-auth-and-cache-validation-1
+              briefing:
+                id: briefing:project-env-op-auth-and-cache:validation:attempt-1:revision-1
+                digest: sha256:b5e497d468528f936d9411d490fe70bf2a757f616765cb1b1aa83774a6eecc0d
+                room-ref: ./project-env-op-auth-and-cache/review/validation/briefing-1
 started: 2026-11-09T07:41:25Z
 ---
 

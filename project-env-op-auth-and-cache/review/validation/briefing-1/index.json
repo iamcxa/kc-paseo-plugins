@@ -1,0 +1,38 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-op-auth-and-cache:validation:attempt-1:revision-1",
+  "question": "我建議准「1Password 登入方式和快取」這份（PR #81，提交 889b7329d844d41972c44142ce8df4fd9980d570），並婉拒下面列的小問題。op 一律用我們的服務帳號，換 token 時進行中的讀取不再存進快取。准了也包括同一個 PR 之後的外部審查回合、照合併前檢查通過的那個提交合併，並在合併後刪掉它乾淨且已推送的工作目錄；合併後依 ADR 0007 第二類重載外掛，除非你說你自己合併或先不要。 它排在 #83 之後合併。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-op-auth-and-cache:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/f0d1aafdf27ac5b0755a67788b3da490385a3e53/project-env-op-auth-and-cache.md",
+      "rev": "sha256:dff9f8ad571e16fb8ab313cd07b00c87857ccdca58278f1d0ad9c75ce581110f",
+      "mediaType": "text/markdown",
+      "summary": "Merge ask: PR #81 at 889b7329d844d41972c44142ce8df4fd9980d570 runs every op call with the daemon environment minus every OP_ variable plus the service account token, and keeps a read that started before a cache clear out of the cache, including the token-save path.\nSufficiency: validation-1 PASSED at 889b7329 with no Material or Needs decision finding (validator report, not run by FO); FO reran the validation stage report's acceptance script, run by FO in a fresh shell on 2026-11-09: new tests 4 pass, 3 fail with main's secrets.ts, 339/339 overall, tsc_exit=0 (captain-steps/1-output.txt).\nNecessity: the PR changes opEnv, readVariable, clearCache and storeToken in secrets.ts and adds two test files; without it Connect credentials in the daemon environment override the service account and a stale value can be served for 15 minutes after a token change.\nCaptain steps: project-env-op-auth-and-cache/captain-steps/1.md\nReviews: external review rounds: 1 — Codex summary:6736237538 clean on 889b7329d (codex_review.py, 2026-11-09).\nExternal rounds: 1\nsecond reviewer: not triggered\nDeclined: Polish, F1 doc_impact.py lists ADR 0005 without an updated or unaffected line (the validator read it as unaffected, this diff does not touch the Keychain lookup it cites).\nDeclined: Deferred risk, F2 the prefix strip drops every inherited OP_ variable, not only OP_INCLUDE_ARCHIVE (the approved design intends it, would become Material if someone relied on OP_CONFIG_DIR)."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-op-auth-and-cache:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/f0d1aafdf27ac5b0755a67788b3da490385a3e53/project-env-op-auth-and-cache/gate-validation.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:a5f9aa6723ac6505494f529a78a1d4e108b4f5674e3b23a727a6b0cb77abf687"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-op-auth-and-cache:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/f0d1aafdf27ac5b0755a67788b3da490385a3e53/project-env-op-auth-and-cache/delivery-gate-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:a65067e5ae38b886bc55f74101ee7f6acf09c14b9786c956d966766ecf425030"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:project-env-op-auth-and-cache:validation:attempt-1:revision-1:item-4",
+      "uri": "git-root://state/f0d1aafdf27ac5b0755a67788b3da490385a3e53/project-env-op-auth-and-cache/captain-steps/1.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:06f09d46e52714fbef5e62548f9c02d3688ced329b236ca2710b620d4285a844"
+    }
+  ]
+}
