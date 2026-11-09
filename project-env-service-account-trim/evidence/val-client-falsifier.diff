@@ -1,0 +1,13 @@
+diff --git b/project-env/client/settings-screen.tsx a/project-env/client/settings-screen.tsx
+index cbc623b5..a43052ae 100644
+--- b/project-env/client/settings-screen.tsx
++++ a/project-env/client/settings-screen.tsx
+@@ -840,7 +840,7 @@ function ProjectEditor({
+             hint="Keychain item name holding its token, e.g. relay-dev-read"
+             initialValue={draft.serviceAccount}
+             onChangeText={(serviceAccount) => {
+-              patch({ serviceAccount: serviceAccount.trim() });
++              patch({ serviceAccount });
+               clearTokenMessages();
+             }}
+           />

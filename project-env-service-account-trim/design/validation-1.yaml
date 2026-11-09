@@ -1,0 +1,20 @@
+design_review:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  preview: design/built-1.png
+  findings:
+    - severity: MINOR
+      dimension: theme-size
+      where: design/built-1.png, all panels
+      seen: Every panel is dark theme; no light-theme panel is shown, and the name-of-only-spaces state appears only at 400 px, not at 1280 px.
+      fix: Add a light-theme capture of the typed-spaced and only-spaces states, and a 1280 px capture of the only-spaces state, or accept that this change adds no words or layout and leave theme and size as today.
+  limitations:
+    - A screenshot cannot show that the field still holds ` sa-a ` with its spaces; in the 1280 and 400 px typed panels the text reads "sa-a" with a caret just after it and an apparent small inset before it, which fits but does not prove leading and trailing spaces. The same applies to the only-spaces panel, whose field simply looks empty.
+    - The picture cannot show that the stored name is trimmed. The "saved earlier as ' sa-a '" panel after Test reads "Connected · sa-a · Dev" and "All 1 set", the same as an unspaced name, which fits AC-1 for Test but is not proof of the stored value.
+    - AC-1's other half, that a new agent gets its mapped variables at session open, is shown by a run, not a picture; no panel shows an agent session or its environment.
+    - Check and Save token appear dimmed in the only-spaces panel; whether they are truly disabled (not clickable) cannot be told from a still image.
+    - The "Not checked for sa-a yet" row (clause 7) is present in the typed panels at both sizes; that it is the only cue that the spaces are dropped is the stated design, and the picture cannot show whether a person notices it.
+    - After Save token the name field is replaced by the "Connected · sa-a · Dev" card, so clause 7's "field still holds ` sa-a `" can be checked only in the typed panels, not after saving.
+    - The bottom of every 400 px panel is cut off by the capture height, and the sticky "unsaved changes" bar sits over the Variables list in the typed and only-spaces panels; this is the existing layout and was not judged as a change finding.
+    - Only one project, one variable (STRIPE_KEY) and one vault (Dev) are shown; long names, a failed Check, and many variables are not in the set.
+    - Dark theme on isolated Paseo 0.15.3 only; no light theme, no real vault, no resize between sizes.

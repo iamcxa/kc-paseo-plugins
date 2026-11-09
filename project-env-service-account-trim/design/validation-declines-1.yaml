@@ -1,0 +1,9 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+    - docs/adr/0003-release-1-supports-paseo-on-the-same-mac.md (Accepted)
+  rulings:
+    - finding: 1
+      ruling: upheld
+      evidence: The 1280 px capture val-blank-1280.png shows the only-spaces state with the name field empty, "No service account named yet / Name it above, then press Check", and Check and Save token dimmed, which is the same layout and wording as the 400 px only-spaces panel in built-1.png, so the size half is pictured. The picture adds no word, colour or layout element that a light theme could break (the typed state's "Not checked for sa-a yet" row is the existing row), so the dark-only limit leaves a person nothing to act on wrongly.
+      change: none

@@ -209,3 +209,42 @@ roborev gate: exit 0, `clean on 7035292f7; evidence=roborev:1639`.
 
 ### Summary
 Two trims make the saved name, Check, Test and agent start use one value; no screen word changed. The only limit is the fake `security` (exact-name matching); a real Keychain was not probed. Isolated daemons and browser sessions I started are stopped; `/tmp/pe-trim/install` remains.
+
+## Stage Report: validation
+
+- DONE: Validate PR #83 at its exact head against AC-1: on an isolated Paseo at the newest release with fake `op` and `security`, a service account name typed with leading or trailing spaces passes the connection check and a new agent gets its mapped variables; a name saved earlier with spaces also works; a name without spaces behaves as today; pictures at 1280 and 400 px.
+  Candidate 7035292f (PR head, Draft, base main e4acaec1); Paseo 0.15.3 = npm `latest` on 2026-11-09. Typed ` sa-a `: saved `'sa-a'`, `Connected · sa-a · Dev`, Test `All 1 set`, agent `STRIPE_KEY=filled` at 1280 and 400 (`evidence/val/val-spaced-*.txt`). Saved earlier as `' sa-a '`: not rewritten, `All 1 set`, `filled` at both sizes (`val-saved-*.txt`). `sa-a`: unchanged, `filled` (`val-plain-1280.txt`). Only spaces: "No service account named yet", Check and Save token disabled (`val-blank.txt`). Main source on the same harness: Test "No token stored for this service account.", `STRIPE_KEY=blank` (`val-main-spaced-1280.txt`).
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` at the candidate; reproduce that the new unit test fails without the server trim, and rerun the client-half falsifier the implementation did not rerun (design clause 4).
+  336/336 pass, tsc exit 0 (`evidence/val/npm-test.txt`). Server falsifier: `resolveProject` trim dropped in a throwaway copy, the new test fails with `cause: 'no-token'`. Client falsifier (`evidence/val-client-falsifier.diff`): saves `' sa-a '` and the list hint shows `·  sa-a ` while the agent stays `filled`, so the saved line is what catches it (`val-falsify-client-1280.txt`).
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell; do not push, mark ready or merge.
+  `evidence/val/acceptance.sh`, ran under `env -i` in 1m28s (`evidence/val/acceptance-run.txt`). Nothing pushed, marked ready or merged.
+
+Built screen review: design/validation-1.yaml
+Built screen finding 1: declined: no screen word, layout or theme-dependent element changes, so the light theme shows today's screen; the 1280 px all-spaces state is pictured in `evidence/val/val-blank-1280.png`
+Built screen decline check: design/validation-declines-1.yaml
+
+### Verdict
+
+PASSED (recommended). Goal sufficiency: AC-1 holds for all three cases on the real seam (settings file, fake Keychain, `agent.session_open`), and main fails at that seam. Minimal necessity: each trim has a falsifier that catches its removal (unit test for the server, saved name for the client); the diff adds 14 code lines, 0 comments.
+
+### Checks
+
+- `comment_ratio.py e4acaec1 7035292f`: 0 comment lines of 14, exit 0. `adr_lint.py docs/adr --since e4acaec1`: 9 files, exit 0. `dispatch_records.py`: 3 complete, exit 0; requirements trace to AC-1 and workflow obligations. Number guards: no section, not run.
+- `doc_impact.py e4acaec1 7035292f` lists `docs/adr/0005-…` (mentions `server/secrets.ts`): see F1.
+- `design_surfaces.py check project-env-service-account-trim.md`: exit 0, "design surfaces presentable", built screen review 1 finding, 1 upheld decline.
+- Docs: walked the Install and Prepare 1Password words for the screens this change touches (4a name, Check, Save token, Connected line; 4c Test). They match the candidate screen; no picture shows a spaced name. See F2.
+
+### Findings
+
+- F1 Polish: the implementation report records no `updated`/`unaffected` for ADR 0005, which `doc_impact.py` lists. Unaffected: its item 4 says the token is looked up in the Keychain by the service account name, and the trimmed name still is that one string.
+- F2 Polish: `docs/project-env/prepare-1password.md` step 4c says the summary reads "All 1 set" when every variable can be read, in a walkthrough with four variables (it would read "All 4 set"). The same text is on main; this change does not cause it.
+- F3 Deferred risk: a real macOS `security find-generic-password -s` was not probed; the fake matches names exactly. It becomes material if the real Keychain matches differently.
+- F4 Deferred risk: a Keychain item named by hand with surrounding spaces stops working (the stated design limit). It becomes material if anyone reports such an item; the plugin never writes one.
+
+### Acceptance script (Captain)
+
+Run `bash /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-service-account-trim/evidence/val/acceptance.sh` (needs the PR worktree at 7035292f, npm, agent-browser; installs Paseo 0.15.3 into `/tmp/pe-trim/install` if missing). Expect: (1) commit `7035292f`; (2) `ℹ pass 5`, `ℹ fail 0`; (3) `saved serviceAccount: 'sa-a'`, `Connected · sa-a · Dev`, `Test: All 1 set`, `STRIPE_KEY=filled`; (4) `saved serviceAccount: ' sa-a '`, `Test: All 1 set`, `STRIPE_KEY=filled`; (5) `removed /tmp/pe-trim/s-acc`. Not covered: the 400 px and no-space cases, the all-spaces name, the falsifiers, a real Keychain or 1Password account, light theme.
+
+### Summary
+
+PASSED at 7035292f: a spaced name typed now or saved earlier gives Test "All 1 set" and agents their variable; the no-space case is unchanged; both trims are shown to be necessary. Two Polish findings and two deferred risks, none blocking. Daemons and browser sessions I started are stopped and closed; `/tmp/pe-trim/install` is left for reruns.
