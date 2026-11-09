@@ -88,3 +88,7 @@ Visible change: a called batch shown and answered item by item inside the chief 
 ### Summary
 
 Proposed one chief conversation containing the whole batch, exact explicitly requested question relays and existing named gate Confirm; permissions retain the native FO exception. The current batch-level response marker cannot stand for per-item completion, so the design retains unanswered items in the original conversation and shows sent/relayed/recorded separately without new storage or authority. Step A is ready for the design director; AC acceptance, Step B and product/device delivery remain unclaimed.
+
+## Design director review: step A pass 1
+
+Design director (Codex gpt-6.1-sol high, agent 544638aa, design-director's declared sonnet mapped per the Captain's 「注意用 sol high 取代 sonnet，用 astra xhigh 取代 opus」): NOT SATISFIED on AC-1, SATISFIED on AC-2 and AC-3; the in-place model is the simplest of those compared and widens nothing. Blocking: the design assumes one tap on Paseo's push lands in an actionable chief-of-staff Bridge view; nothing shows the native push opens the Bridge screen (the existing entry is the sidebar navigation); state the actual path from push to Bridge and count entry separately from the 8 in-place taps (plus 2 for reasons). Nonblocking: the existing per-item path is 19 taps, not 18 (the return lands on the queue, one more tap to the chief of staff).
