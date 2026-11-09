@@ -134,3 +134,7 @@ Design director (same agent 544638aa): NOT SATISFIED. The entry and counts are f
 ### Summary
 
 Applied Captain amendment 1 without rewriting AC text or earlier reports: the primary batch stays in the native chief conversation where the push lands, while the three-tap Bridge entry becomes its approved fallback. The design names per-kind calls, original source binding and unsupported-component behavior, including a phone check that cannot be replaced by desktop or mocked-context evidence. This is the design deliverable for the extra review round, not a phone-capability pass, product implementation or Step B authorization.
+
+## Design director review: step A pass 3
+
+Design director (same agent 544638aa), on dc971645 under the Captain's amendment 1: SATISFIED — native entry 1 tap plus 8 in place (10 with reasons); per item kind a named path (question: SDK agent send into her user line, then the existing relay; gate: gate.briefing recheck, named Confirm, decideGate, claim and relay, recorded by the FO; permission: Bridge-named route to the native FO, no approve or deny call); a read-only chief.batch lookup binding the batch to its source; the fallback stays in the untransformed batch message; one phone check named before code (a physical phone on an isolated host with a fictional timeline and no-model echo RPC and test decision handler). No gap blocks step B; the phone check is not yet run.
