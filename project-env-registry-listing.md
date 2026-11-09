@@ -48,7 +48,7 @@ Verified by: the compliance record checked line by line against both saved docum
 - E1 description: `node -e 'const m=require("./project-env/paseo-plugin.json"); const d=(m.description||"").trim(); if(!d||/[.!?]\s+\S/.test(d)) process.exit(1); console.log(d)'` exits 0 and prints one sentence.
 - E2 media: `node -e 'const m=require("./project-env/paseo-plugin.json"); const u=(m.media||[]).filter(x=>/^https:\/\/\S+\.(png|jpe?g|webp|gif)$/i.test(x)); if(!u.length||u.length!==m.media.length) process.exit(1); console.log(u.join("\n"))'` exits 0, then for each printed URL `curl -sSIL -o /dev/null -w '%{http_code} %{content_type}\n' <url>` prints `200 image/png` (a HEAD request that follows redirects, as the registry's `checkMediaUrls` does).
 - E3 forbidden commands: `grep -nE 'paseo plugin add|npm install|npm i( |$)' project-env/OVERVIEW.md` prints nothing and exits 1.
-- E4 manifest loads in Paseo: `docs/project-env/capture/setup.sh <empty-dir> <free-port>` (isolated Paseo home and port, fake `op`, `security` and `git`; it copies the candidate `paseo-plugin.json`), then `paseo plugin ls --home <dir>/home` shows `paseo-project-env` `running` with no error; `docs/project-env/capture/teardown.sh <dir>` stops only that daemon and removes the directory.
+- E4 manifest loads in Paseo: `docs/project-env/capture/setup.sh <empty-dir> <free-port>` (isolated Paseo home and port, fake `op`, `security` and `git`; it copies the candidate `paseo-plugin.json`), then `paseo plugin ls --home <dir>/home` shows `paseo-project-env` `running` with no error; then `paseo daemon stop --home <dir>/home` and `rm -rf <dir>` stop only that daemon and remove the directory (not `teardown.sh`, which also closes a shared browser session by name).
 - E5 overview claims: every row of the design's overview claims table is re-read at the candidate against the named symbol; a claim with no supporting symbol fails.
 - E6 tests: `npm test` in `project-env/` exits 0 with `fail 0`.
 - E7 images current: for each media image, the strings listed for it in the design are found by `grep -rlF '<string>' project-env/client project-env/shared`.
@@ -86,8 +86,8 @@ flowchart TD
   E -- no --> A
   E -- yes --> F[Captain UAT: reads overview and the four images]
   F -- revise --> A
-  F -- accept --> G[PR merged by the Captain's route]
-  G --> H([Stop: registry submission is the Captain's outward step, outside this task])
+  F -- accept --> G[PR merged by the route the Captain set]
+  G --> H([Stop - registry submission is an outward step for the Captain, outside this task])
   L[Captain rules licence at the ideation gate] -.-> A
 ```
 
