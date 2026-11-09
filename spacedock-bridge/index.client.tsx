@@ -20,7 +20,7 @@ export default function contribute(client: PluginClientContext) {
   client.addSidebarHeaderItem({
     id: "board",
     title: "Bridge",
-    Component: props => <BoardItem {...props} playAudio={audio => client.playAudio(audio)} />,
+    Component: BoardItem,
   });
   client.addWorkspacePanel({
     id: PANEL_ID,

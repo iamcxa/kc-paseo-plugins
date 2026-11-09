@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import type { PaseoApi } from "@getpaseo/client";
 import { FO_FILTER, ROLE_COORDINATOR, toRows, attachGates, withReplies, needsQuestion, readQuestion, captainOwnsQuestion, type BoardAgent, type ReplyFact } from "../shared/board";
 import { buildQueue } from "../shared/queue";
-import { BATCH_MARKER, BatchTracker, eventVersion, focusSchema, type ChiefBatch, type ChiefEvent, type ChiefState } from "../shared/chief";
+import { BATCH_MARKER, BatchTracker, accumulatedList, eventVersion, focusSchema, type ChiefBatch, type ChiefEvent, type ChiefState } from "../shared/chief";
 import { COORDINATOR_VERSION } from "../shared/coordinator";
 import { readTimeline } from "../shared/timeline";
 import { readCommanderConversation } from "../shared/commander-replies";
@@ -122,13 +122,14 @@ export class ChiefObserver {
       }
       this.state.error = snapshot.complete ? null : "Board sources cannot be confirmed";
       const qualified = this.tracker.observe(snapshot.events, Date.now(), snapshot.complete, observationStarted);
-      if (snapshot.complete && this.state.phase === "calling" && this.state.focus && !snapshot.events.some(event => event.key === this.state.focus!.targetKey && this.state.batch?.events.some(old => eventVersion(old) === eventVersion(event)))) {
+      if (snapshot.complete && this.state.phase === "calling" && this.state.focus && !snapshot.events.some(event => (this.state.batch?.outputMode === "list" || event.key === this.state.focus!.targetKey) && this.state.batch?.events.some(old => eventVersion(old) === eventVersion(event)))) {
         this.terminal.add(`${chief.id}:${this.state.batch!.id}`);
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total };
       }
       if (!this.historyComplete && !this.state.batch) this.state = { ...this.state, phase: "unknown", error: "Older history unavailable; earlier batch outcomes cannot be confirmed. No automatic call." };
-      if (this.historyComplete && !this.running && this.state.phase !== "calling" && qualified && chief.status === "idle") {
-        const batch: ChiefBatch = { ...qualified, id: hash(qualified.events.map(eventVersion)), checkedAt: new Date().toISOString() };
+      if (this.historyComplete && !this.running && (this.state.phase !== "calling" || this.state.batch?.outputMode === "list") && qualified && chief.status === "idle") {
+        const events = accumulatedList(this.state.batch?.outputMode === "list" ? this.state.batch.events : [], this.tracker.pendingEvents(), snapshot.events);
+        const batch: ChiefBatch = { ...qualified, events, outputMode: "list", id: hash(events.map(eventVersion)), checkedAt: new Date().toISOString() };
         this.tracker.consume(batch.events); this.running = true;
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total, phase: "preparing", batch };
         void this.analyze(api, chief.id, chief.cwd, batch).finally(() => { this.running = false; });
@@ -144,7 +145,8 @@ export class ChiefObserver {
     preparation = { batch, api, cwd, used: false, succeeded: false };
     try {
       const handle = api.agents.ref(id);
-      await handle.run(`${BATCH_MARKER}${JSON.stringify(batch)}\nAutomated batch request, not the Captain. Call prepare_batch ONCE with this batchId before choosing a focus. If it fails, report preparation failed and make no call, no retry. After successful preparation, choose ONE supplied unresolved target, without external actions. Return ONLY JSON {"batchId":"${batch.id}","targetKey":"exact supplied key","sentence":"one concise Traditional Chinese opening naming the item, its explicit waiter, known waiting time and action"}. No inferred urgency, approval, message to an FO, or tools besides prepare_batch.`, { timeoutMs: 240_000 });
+      await handle.run(`${BATCH_MARKER}${JSON.stringify(batch)}
+Automated list update, not the Captain. Call prepare_batch ONCE with this batchId. If it fails, report preparation failed and stop without retry. After successful preparation, post the full updated accumulated list in readable Traditional Chinese text: every supplied item, who raised it, known wait, your recommendation and grounded reason. No focus JSON or new Bridge cards. This turn only updates the list; no outward actions, relay, gate decision or permission response. Keep unresolved items visible until the Captain responds.`, { timeoutMs: 240_000 });
       if (!preparation.succeeded || handle.status !== "idle" || handle.lastError) throw new Error("Batch could not be prepared; no retry");
       const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id, batch.id);
       const result = conversation.unresolved.find(result => result.batch.id === batch.id);

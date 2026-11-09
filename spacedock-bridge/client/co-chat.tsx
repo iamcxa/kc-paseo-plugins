@@ -1,4 +1,4 @@
-import { type ChiefFocus } from "../shared/chief";
+import { batchResponseId, type ChiefFocus } from "../shared/chief";
 import { AUTOMATED_MARKER } from "../shared/reviews";
 import { readTimeline } from "../shared/timeline";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
@@ -25,7 +25,6 @@ type Props = Pick<PluginScreenProps, "theme" | "layout" | "navigation"> & {
   agentId: string;
   readOnly?: boolean;
   commander?: boolean;
-  highlightedBatchId?: string;
   headerExtra?: import("react").ReactNode;
   gate?: GateIdentityFields | null;
   title?: string;
@@ -56,7 +55,6 @@ function Chat({
   navigation,
   agentId,
   commander = false,
-  highlightedBatchId,
   readOnly,
   headerExtra,
   gate,
@@ -262,7 +260,7 @@ function Chat({
         const { replies, coverage } = await readCommanderConversation((id, options) => paseo.agents.ref(id).timeline.refetch(options), agentId);
         if (request !== readRequest.current) return;
         setHistoryUnavailable(coverage === "older-unavailable");
-        setCaptainResponses(new Set(replies.filter(r => r.responseId).map(r => String(r.seqStart))));
+        setCaptainResponses(new Set(replies.filter(r => r.responseId && r.item.type === "user_message" && batchResponseId(r.item.text)).map(r => String(r.seqStart))));
         setBatchFocuses(new Map(replies.filter(r => r.focus).map(r => [String(r.seqStart), r.focus!])));
         setLines(replies.slice(-COMMANDER_ENTRY_LIMIT).flatMap(r => toLines([r])));
       } else {
@@ -464,7 +462,7 @@ function Chat({
                 <Text style={styles.text} selectable>{ownWords(line)}</Text>
               </View>
             </View>
-          ) : focusFor(line)?.batchId === highlightedBatchId && highlightedBatchId ? null : (
+          ) : (
             <View key={line.key} style={styles.assistant}>
               {<MarkdownView theme={theme}
                 source={focusFor(line)?.sentence ?? line.text}

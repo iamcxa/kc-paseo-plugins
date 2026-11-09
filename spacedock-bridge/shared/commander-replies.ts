@@ -50,7 +50,9 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
       if (current) { attempts.set(current.id, current); bindTurn(current.id, entry.turnId); }
       else if (provenance === "ordinary") {
         const candidate = batchResponseId(item.text);
-        responseId = candidate && attempts.has(candidate) ? candidate : null;
+        const latest = [...unresolved.values()].at(-1)?.batch;
+        responseId = candidate && attempts.has(candidate) ? candidate
+          : !item.text.startsWith("[Bridge batch response:") && latest?.outputMode === "list" ? latest.id : null;
         if (responseId) { responses.add(responseId); unresolved.delete(responseId); uncertain.delete(responseId); }
       }
     } else if (item.type === "error") {
@@ -67,15 +69,21 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
         }
       }
     } else if (current && item.type === "assistant_message" && !responses.has(current.id) && !failed.has(current.id)) {
-      try {
-        const candidate = focusSchema.parse(JSON.parse(item.text));
-        if (candidate.batchId === current.id && current.events.some(event => event.key === candidate.targetKey)) {
-          if (bindTurn(current.id, entry.turnId) && prepared && !uncertain.has(current.id)) { focus = candidate; unresolved.set(current.id, { batch: current, focus }); }
-          else invalidate(current.id, false);
-        }
-      } catch {}
+      let candidate: ChiefFocus | null = null;
+      try { candidate = focusSchema.parse(JSON.parse(item.text)); } catch {
+        if (current.outputMode === "list" && prepared && item.text.trim() && current.events.length) candidate = {
+          batchId: current.id, targetKey: current.events[0].key, sentence: current.events[0].title.slice(0, 800),
+        };
+      }
+      if (candidate?.batchId === current.id && current.events.some(event => event.key === candidate!.targetKey)) {
+        if (bindTurn(current.id, entry.turnId) && prepared && !uncertain.has(current.id)) {
+          focus = candidate;
+          if (current.outputMode === "list") for (const [id, value] of unresolved) if (value.batch.outputMode === "list") unresolved.delete(id);
+          unresolved.set(current.id, { batch: current, focus });
+        } else invalidate(current.id, false);
+      }
     }
-    replies.push({ ...entry, item: { ...item }, provenance, batchId: current?.id ?? null, responseId, focus });
+    replies.push({ ...entry, item: { ...item }, provenance, batchId: current?.id ?? null, responseId, focus: current?.outputMode === "list" ? null : focus });
   }
   return { replies: replies.map(reply => reply.batchId && (failed.has(reply.batchId) || uncertain.has(reply.batchId)) ? { ...reply, focus: null } : reply), attempts: [...attempts.values()], unresolved: [...unresolved.values()], responses, uncertain, failed };
 }

@@ -108,7 +108,7 @@ export async function mountBridge(t: TestContext, compact = false, prepare?: (rp
   const props = { ...(identity ? { host: { id: "fixture-host", label: "Fictional" } } : {}), theme: { colors }, layout: { compact, platform: "web" }, navigation: { openAgent(value: any) { opened.push(value); } } };
   const openScreen = (input: any) => { screens.push(input); route = input; Popover = null; draw(); };
   const draw = () => root.render(sidebar ? createElement("div", null,
-    createElement(BoardItem, { ...props, playAudio: async (value:any)=>{audio.push(value);}, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
+    createElement(BoardItem, { ...props, currentScreen: route, openScreen, openPopover: (content: any) => { Popover = content; draw(); } }),
     Popover ? createElement(Popover, { ...props, close() {}, openScreen }) : null,
     route ? createElement(Bridge, { ...props, params: route.params }) : null,
   ) : createElement(surface === "fleet" ? Board : Bridge, { ...props, params: route?.params }));

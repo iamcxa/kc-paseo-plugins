@@ -32,14 +32,6 @@ for(const surface of ["bridge","fleet"] as const)for(const compact of [false,tru
  else {assert.ok(h.find("Message A FO"),h.text());if(kind==="gate")assert.ok(h.find("Choose 准"));await h.click("Back to list");assert.ok(h.find("Conversation with A FO"));if(surface==="bridge"){if(!compact)assert.match(h.text(),/Choose an item/);await h.click(compact?"Back to Chief of staff":"Chief of staff");assert.ok(h.find("Message Chief of staff"));}}
  assert.equal(h.sent.length,0);assert.equal(h.claims.size,0);assert.equal(h.audio.length,0);
 });
-for(const interruption of ["quiet","new batch","unavailable","new seed","send-time quiet"] as const)test(`stale batch selection never wraps ordinary words: ${interruption}`,async t=>{
- let current=state();let unavailable=false;
- const h=await mountBridge(t,false,rpc=>{rpc["chief.read"]=async()=>{if(unavailable)throw Error("Unavailable");return current;};rpc["reviews.read"]=async()=>({requests:[{owner:"fictional",repo:"unowned",number:1,url:"https://github.com/fictional/unowned/pull/1",title:"Seeded review",author:"peer",firstSeenAt:1}],checkedAt:1,error:null});},true);
- await h.click("Bridge");await h.click("回應這一批");
- if(interruption==="new seed"){await h.click("Board");await h.click("Seeded review — no FO");}
- else {if(interruption==="unavailable")unavailable=true;else if(interruption==="new batch")current={...current,batch:{...batch,id:"batch-B"},focus:{...focus,batchId:"batch-B"}};else current={...current,phase:"quiet",batch:null,focus:null};if(interruption!=="send-time quiet")await h.poll();}
- await h.type("Message Chief of staff","Ordinary fictional words");await h.click("Send to Chief of staff");assert.deepEqual(h.sent,[{id:"co",text:"Ordinary fictional words"}]);
-});
 for(const kind of ["agent-message","agent-notification"])test(`one conversation fold preserves ${kind} across pages and restart without new runs`,async t=>{
  const messages=[entry(1,"user_message",BATCH_MARKER+JSON.stringify(batch)),prepared(),entry(3,"user_message",envelope(kind)),entry(4,"assistant_message",JSON.stringify(focus))];
  const api:any={agents:{list:async({filter}:any)=>({entries:filter.labels.role==="fo"?[]:[{agent:{id:"co",cwd:"/fictional",status:"idle",labels:{role:"comms-officer","coordinator-version":COORDINATOR_VERSION}}}]}),ref:(id:string)=>({status:"idle",timeline:{refetch:async(options:any)=>options.direction==="before"?page(id,messages.slice(0,2)):page(id,messages.slice(2),true)},run:async()=>assert.fail("recovery must run no model")})}};
@@ -54,19 +46,6 @@ for(const mutation of ["no preparation","failed preparation","ordinary boundary"
  if(mutation.includes("response"))messages.push(entry(5,"user_message",mutation==="quoted response"?envelope("agent-message",batchResponse(batch.id,"quoted")):mutation==="malformed response"?`[Bridge batch response: ${batch.id}] no newline`:batchResponse(mutation==="matching response"?batch.id:"other","Answer")));
  const api:any={agents:{list:async()=>({entries:[{agent:{id:"co",status:"running",labels:{role:"comms-officer","coordinator-version":COORDINATOR_VERSION}}}]}),ref:(id:string)=>({timeline:{refetch:async()=>page(id,messages)},run:async()=>assert.fail("no models")})}};
  const observer=new ChiefObserver(async()=>({events:[event],total:"1",complete:true,rows:[]}));const result=await observer.read(api);if(["unrelated response","quoted response","malformed response"].includes(mutation))assert.equal(result.phase,"calling");else assert.notEqual(result.phase,"calling");
-});
-
-test("reply mode is recipient-bound; failed sends keep drafts and delayed checks never rebind to B",async t=>{
- const {act}=await import("react");let current=state();
- const h=await mountBridge(t,false,rpc=>{rpc["chief.read"]=async()=>current;rpc["coordinator.open"]=async()=>({agentId:"co",needsSwitch:true});rpc["coordinator.switch"]=async()=>({agentId:"co-2",previousAgentId:"co"});},true,{},true);
- await h.click("Bridge");await h.click("回應這一批");await h.type("Message Chief of staff","Selected answer");
- h.sendOverrides.set("co",async()=>{throw Error("fictional send failure");});await h.click("Send to Chief of staff");
- assert.equal(h.sent[0].text,batchResponse(batch.id,"Selected answer"));assert.equal((h.find("Message Chief of staff") as HTMLTextAreaElement).value,"Selected answer");h.sendOverrides.clear();
- let release!:(value:any)=>void;h.rpc["chief.read"]=()=>new Promise(resolve=>{release=resolve;});await h.click("Send to Chief of staff");
- current={...current,batch:{...batch,id:"batch-B"},focus:{...focus,batchId:"batch-B"}};h.rpc["chief.read"]=async()=>current;await h.poll();await act(async()=>release(state()));
- assert.equal(h.sent.at(-1)?.text,"Selected answer");
- current=state();await h.poll();await h.click("回應這一批");await h.click("換用新的通訊官");await h.click("確認換用並封存舊官");
- await h.type("Message Chief of staff","New chief ordinary words");await h.click("Send to Chief of staff");assert.deepEqual(h.sent.at(-1),{id:"co-2",text:"New chief ordinary words"});
 });
 
 test("the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve",async t=>{
@@ -92,13 +71,6 @@ test("an owning response during the one model-stub turn prevents late completion
  const api:any={agents:{list:async()=>({entries:[{agent:{id:"co",cwd:"/fictional",status:"idle",labels:{role:"comms-officer","coordinator-version":COORDINATOR_VERSION}}}]}),create:async()=>({id:"helper",status:"idle",lastUsage:{outputTokens:1},refresh:async()=>{},run:async()=>{helpers++;}}),ref:(id:string)=>({status:"idle",lastError:null,timeline:{refetch:async()=>page(id,id==="co"?messages:[entry(1,"assistant_message","Facts")])},run:async(text:string)=>{runs++;messages.push(entry(1,"user_message",text));const request=JSON.parse(text.slice(BATCH_MARKER.length).split("\n")[0]);await prepareBatch(request.id);started();await wait;messages.push(entry(5,"assistant_message",JSON.stringify({...focus,batchId:request.id,targetKey:request.events[0].key})));}})}};
  const observer=new ChiefObserver(async()=>({events,total:String(events.length),complete:true,rows:[]}));await observer.read(api);events=[{...event,since:"2000-01-01T00:00:00Z"}];await observer.read(api);await ready;
  const id=observer.state.batch!.id;messages.push(entry(4,"user_message",batchResponse(id,"Answer elsewhere")));observer.responded(id,"co");assert.equal(observer.state.phase,"quiet");release();await new Promise(setImmediate);assert.equal(observer.state.phase,"quiet");assert.equal(observer.state.focus,null);await observer.read(api);assert.deepEqual([runs,helpers],[1,1]);
-});
-
-for(const compact of [false,true])test(`permission focus opens native FO once and queue/chief entries remain separate (${compact?360:1440})`,async t=>{
- const current={...state(),focus:{...focus,targetKey:"p:a"}};let entries=0;
- const h=await mountBridge(t,compact,rpc=>{rpc["chief.read"]=async()=>current;rpc["chief.mark"]=async({action}:any)=>{if(action==="entered")entries++;return {accepted:true};};},true);
- Object.assign(h.agents[0],{requiresAttention:true,attentionReason:"permission",pendingPermissions:[{id:"permission-1",name:"Fictional permission"}]});await h.publishAgents();await h.click("Bridge");assert.ok(entries>0);await h.click("開啟幕僚長的焦點");assert.deepEqual(h.opened,[{agentId:"a"}]);assert.ok(h.find("Message Chief of staff"));
- const before=entries;await h.navigate({item:"queue",request:"queue"});assert.equal(entries,before);assert.ok(h.find("Conversation with A FO"));await h.navigate({item:"comms",request:"chief"});assert.ok(entries>before);assert.ok(h.find("Message Chief of staff"));assert.equal(h.audio.length,0);assert.equal(h.sent.length,0);
 });
 
 test("named requests wait for source identity, then fail visibly instead of substituting after change",async t=>{
