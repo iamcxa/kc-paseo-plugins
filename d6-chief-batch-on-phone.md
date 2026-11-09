@@ -96,6 +96,10 @@ Release review: not needed: spacedock-bridge has no journey map yet.
 Surfaces: ui
 Visible change: a called batch shown and answered item by item inside the chief of staff's conversation, with delivery states, on the phone.
 
+### FO notes
+
+- 2026-11-09: Captain rulings after the revise. Asked 「「全照建議」包不包括關卡？」 (FO recommendation: yes; she lists each gate's recommendation and reason; on 「全照建議」 each FO gets his words plus that item's recommendation and records it as his decision; permissions stay excluded), answered 「算，但是這裡我希望可以跳出一個特殊 UI 讓我 double check，或是你提更好的做法」. Asked 「要先用文字確認版嗎？」 (a text 'about to send' list confirmed by a second reply, widgets later), answered 「我覺得不用這樣麻煩，就是寫成讓幕僚長自己找到最合適的 ui widget 使用即可，只要寫上目的，讓她自己判斷？」.
+
 ## Stage Report: implementation
 
 - DONE: Step A in /Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d6-chief-batch-on-phone/design/DESIGN.md, words only, covering every bullet of the task's Step A scope; first count the interaction models for "clear a four-item batch from the phone" and pick the simplest; read-only sources: the accepted d4-chief-of-staff design and mockups, the d5-chief-of-staff-build candidate at f40c340e8204f4b7dddef238f215aea3f3a6eaab (worktree /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d5-chief-of-staff-build: the chief conversation, the existing relay of Captain words to an FO, DecisionCard's named gate Confirm, the permission rule), and the d5 shadow run 2 counts in the d5 task file (AC-1, AC-2)
