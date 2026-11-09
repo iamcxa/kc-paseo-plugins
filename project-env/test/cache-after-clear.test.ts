@@ -33,7 +33,10 @@ function setup() {
     writeFileSync(join(world.dir, "scenario.json"), JSON.stringify(scenario));
   };
   const readStarted = async () => {
-    while (reads().length === 0) await sleep(10);
+    for (let waited = 0; reads().length === 0; waited += 10) {
+      assert.ok(waited < 5000, "the value read never started");
+      await sleep(10);
+    }
   };
   return { secrets: createSecrets(world.tools), reads, changeTo, readStarted };
 }
