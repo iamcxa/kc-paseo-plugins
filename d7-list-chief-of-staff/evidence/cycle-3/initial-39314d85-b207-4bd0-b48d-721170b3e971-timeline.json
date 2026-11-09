@@ -1,0 +1,104 @@
+{
+  "requestId": "3925f784-893a-47c8-b2bc-cc7165102479",
+  "agentId": "39314d85-b207-4bd0-b48d-721170b3e971",
+  "agent": {
+    "id": "39314d85-b207-4bd0-b48d-721170b3e971",
+    "provider": "claude",
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle3-o8qvit3n/fictional",
+    "workspaceId": "wks_692fd77a8ad4474d",
+    "model": "claude-opus-5-5",
+    "thinkingOptionId": null,
+    "effectiveThinkingOptionId": null,
+    "runtimeInfo": {
+      "provider": "claude",
+      "sessionId": null,
+      "model": null,
+      "modeId": "default"
+    },
+    "createdAt": "2026-11-09T09:32:27.878Z",
+    "updatedAt": "2026-11-09T09:32:27.879Z",
+    "lastUserMessageAt": null,
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": true,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": true,
+      "supportsRewindBoth": true
+    },
+    "currentModeId": "default",
+    "availableModes": [
+      {
+        "id": "plan",
+        "label": "Plan Mode",
+        "description": "Analyze the codebase without executing tools or edits"
+      },
+      {
+        "id": "default",
+        "label": "Always Ask",
+        "description": "Prompts for permission the first time a tool is used"
+      },
+      {
+        "id": "acceptEdits",
+        "label": "Accept File Edits",
+        "description": "Automatically approves edit-focused tools without prompting"
+      },
+      {
+        "id": "auto",
+        "label": "Auto mode",
+        "description": "Uses a model classifier to review permission prompts automatically"
+      },
+      {
+        "id": "bypassPermissions",
+        "label": "Bypass",
+        "description": "Skip all permission prompts (use with caution)"
+      }
+    ],
+    "features": [
+      {
+        "type": "toggle",
+        "id": "fast_mode",
+        "label": "Fast",
+        "description": "Lower latency Opus responses at higher token cost",
+        "tooltip": "Toggle fast mode",
+        "icon": "zap",
+        "value": false
+      }
+    ],
+    "pendingPermissions": [],
+    "persistence": null,
+    "title": "Fictional list FO 2",
+    "labels": {
+      "role": "fo",
+      "repo": "fictional-list",
+      "task": "fictional-2"
+    },
+    "archivedAt": null,
+    "requiresAttention": false,
+    "attentionReason": null,
+    "attentionTimestamp": null
+  },
+  "direction": "tail",
+  "projection": "projected",
+  "epoch": "ad6aeef8-9733-4268-a7f2-bc4cc56b021c",
+  "reset": false,
+  "staleCursor": false,
+  "gap": false,
+  "window": {
+    "minSeq": 0,
+    "maxSeq": 0,
+    "nextSeq": 1
+  },
+  "startCursor": null,
+  "endCursor": null,
+  "hasOlder": false,
+  "hasNewer": false,
+  "entries": [],
+  "error": null
+}

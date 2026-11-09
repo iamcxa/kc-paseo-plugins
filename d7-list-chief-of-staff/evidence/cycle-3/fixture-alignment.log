@@ -1,0 +1,96 @@
+gates.read #1 start dirs=0
+gates.read #1 done 2ms
+✔ list input applies the shared ownership rule and excludes newly discovered old questions (22.644875ms)
+✔ accumulated list adds admitted items, refreshes facts and drops resolved items without importing the whole board (0.147625ms)
+✔ real list prose survives preparation/restart; a native Captain reply consumes it, a peer envelope does not (10.277708ms)
+✔ a second trigger posts the grown list through the real observer path with one preparation per update (12.350542ms)
+✔ semantic destination permission by row at 1440 (bridge) (148.586875ms)
+✔ semantic destination gate by row at 1440 (bridge) (82.450666ms)
+✔ semantic destination question by row at 1440 (bridge) (58.425791ms)
+✔ semantic destination owned review by row at 1440 (bridge) (67.302542ms)
+✔ semantic destination ownerless review by row at 1440 (bridge) (37.67575ms)
+✔ semantic destination status by row at 1440 (bridge) (47.803834ms)
+✔ semantic destination permission by named at 1440 (bridge) (20.768625ms)
+✔ semantic destination gate by named at 1440 (bridge) (40.862375ms)
+✔ semantic destination question by named at 1440 (bridge) (28.1365ms)
+✔ semantic destination owned review by named at 1440 (bridge) (27.760917ms)
+✔ semantic destination ownerless review by named at 1440 (bridge) (17.732708ms)
+✔ semantic destination status by named at 1440 (bridge) (25.205709ms)
+✔ semantic destination permission by row at 360 (bridge) (14.857125ms)
+✔ semantic destination gate by row at 360 (bridge) (31.288708ms)
+✔ semantic destination question by row at 360 (bridge) (28.680583ms)
+✔ semantic destination owned review by row at 360 (bridge) (30.295958ms)
+✔ semantic destination ownerless review by row at 360 (bridge) (15.34225ms)
+✔ semantic destination status by row at 360 (bridge) (23.517125ms)
+✔ semantic destination permission by named at 360 (bridge) (14.606458ms)
+✔ semantic destination gate by named at 360 (bridge) (25.266ms)
+✔ semantic destination question by named at 360 (bridge) (30.673375ms)
+✔ semantic destination owned review by named at 360 (bridge) (28.968167ms)
+✔ semantic destination ownerless review by named at 360 (bridge) (16.309291ms)
+✔ semantic destination status by named at 360 (bridge) (23.861834ms)
+✔ semantic destination permission by row at 1440 (fleet) (9.220792ms)
+✔ semantic destination gate by row at 1440 (fleet) (16.801958ms)
+✔ semantic destination question by row at 1440 (fleet) (14.057ms)
+✔ semantic destination owned review by row at 1440 (fleet) (13.8205ms)
+✔ semantic destination ownerless review by row at 1440 (fleet) (8.066208ms)
+✔ semantic destination status by row at 1440 (fleet) (11.216042ms)
+✔ semantic destination permission by named at 1440 (fleet) (8.859208ms)
+✔ semantic destination gate by named at 1440 (fleet) (14.219708ms)
+✔ semantic destination question by named at 1440 (fleet) (13.450916ms)
+✔ semantic destination owned review by named at 1440 (fleet) (17.523625ms)
+✔ semantic destination ownerless review by named at 1440 (fleet) (9.249792ms)
+✔ semantic destination status by named at 1440 (fleet) (11.522292ms)
+✔ semantic destination permission by row at 360 (fleet) (8.405209ms)
+✔ semantic destination gate by row at 360 (fleet) (15.119333ms)
+✔ semantic destination question by row at 360 (fleet) (22.987625ms)
+✔ semantic destination owned review by row at 360 (fleet) (37.460541ms)
+✔ semantic destination ownerless review by row at 360 (fleet) (20.186791ms)
+✔ semantic destination status by row at 360 (fleet) (29.243542ms)
+✔ semantic destination permission by named at 360 (fleet) (16.152ms)
+✔ semantic destination gate by named at 360 (fleet) (44.715417ms)
+✔ semantic destination question by named at 360 (fleet) (39.2145ms)
+✔ semantic destination owned review by named at 360 (fleet) (38.585708ms)
+✔ semantic destination ownerless review by named at 360 (fleet) (19.965833ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✔ semantic destination status by named at 360 (fleet) (15.461125ms)
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ one conversation fold preserves agent-message across pages and restart without new runs (15.774333ms)
+✔ one conversation fold preserves agent-notification across pages and restart without new runs (10.2725ms)
+✔ history provenance: no preparation (0.554041ms)
+✔ history provenance: failed preparation (0.114583ms)
+✔ history provenance: ordinary boundary (0.179792ms)
+✔ history provenance: wrong batch (0.095167ms)
+✔ history provenance: wrong target (0.083459ms)
+✔ history provenance: matching response (0.142125ms)
+✔ history provenance: unrelated response (0.106042ms)
+✔ history provenance: quoted response (0.109292ms)
+✔ history provenance: malformed response (0.112208ms)
+✔ the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve (6.806375ms)
+✔ an owning response during the one model-stub turn prevents late completion from resurrecting a call (2.026625ms)
+✔ named requests wait for source identity, then fail visibly instead of substituting after change (29.688375ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ threshold needs five minutes, three further distinct matters and strictly more than eight points (8.754959ms)
+✔ frequency counts distinct current items only and expires with the window (0.132625ms)
+✔ only a confirmed gate or permission strictly over thirty minutes gets the exception (0.151334ms)
+✔ unknown time is excluded without guessing; source incompleteness blocks normal batches (0.096959ms)
+✔ baseline, restart and duplicates are quiet; answered or removed events cannot fill X (0.356458ms)
+✔ projected reader keeps merged ranges and rejects gaps, stale cursors, wrong epochs and overlapping ranges (0.452625ms)
+✔ automated batch and its assistant response never become a Captain question (2.037958ms)
+✔ the sidebar total includes an ordinary chief question but her automated output cannot trigger herself (15.456459ms)
+✔ one qualifying batch persists its request before one Terra pass and one Opus choice; unchanged and restarted observers run nothing (11.531167ms)
+✔ a provider refusal before preparation makes no call and never retries the unchanged exception (0.826834ms)
+✔ publishing rechecks the named source version and never substitutes another target (0.193417ms)
+✔ restart reads before the tail window to consume earlier attempted batches (2.564083ms)
+ℹ tests 78
+ℹ suites 0
+ℹ pass 78
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2535.553375

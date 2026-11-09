@@ -1,0 +1,11 @@
+import fs from "node:fs";import assert from "node:assert/strict";
+import {DaemonClient} from "../@getpaseo/client/dist/daemon-client.js";import {createPaseoApi} from "../@getpaseo/client/dist/index.js";
+import {readCommanderConversation} from "./candidate/shared/commander-replies";import {ChiefObserver} from "./candidate/server/chief";
+const output="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-3/",initial=JSON.parse(fs.readFileSync(output+"real-list-run.json","utf8")),source=JSON.parse(fs.readFileSync(new URL("sources.json",import.meta.url),"utf8"));
+const client=new DaemonClient({clientId:"d7-final-state",url:"ws://127.0.0.1:55529/ws",reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);
+try{const live:any=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});const p=await api.agents.ref(initial.chief.agentId).timeline.refetch({projection:"projected",limit:120});const fold=await readCommanderConversation(async()=>p,initial.chief.agentId,source);let calls=0;
+ const local:any={agents:{list:async()=>({entries:[{agent:{id:initial.chief.agentId,cwd:"/fictional",status:"idle",labels:{role:"comms-officer","coordinator-version":"chief-of-staff-list-v2"}}}]}),ref:()=>({timeline:{refetch:async()=>p},run:async()=>{calls++;throw Error("No model in replay");}})}};const fresh=new ChiefObserver(async()=>source);const replay=await fresh.read(local);
+ assert.equal(live.phase,"quiet");assert.equal(replay.phase,"quiet");assert.equal(calls,0);assert.equal(fold.unresolved.length,0);assert.equal(fold.uncertain.size,0);assert.equal(fold.failed.size,0);assert(fold.responses.has(initial.initial.batch.id));
+ const peer=fold.replies.filter((x:any)=>x.item.type==="tool_call"&&x.item.agentMessage);assert(peer.length);assert(peer.every(x=>x.batchId===null));
+ const result={live,replayedFreshObserver:replay,localModelCalls:calls,unresolved:fold.unresolved.length,uncertain:[...fold.uncertain],failed:[...fold.failed],responses:[...fold.responses],nativePeerEntries:peer.length,peerProvenanceIsolated:true};fs.writeFileSync(output+"final-recovery.json",JSON.stringify(result,null,2),{flag:"wx"});console.log(JSON.stringify(result));
+}finally{await api.dispose();await client.close();}

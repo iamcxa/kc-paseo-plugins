@@ -1,0 +1,253 @@
+{
+  "startedAt": "2026-11-09T09:32:24.611Z",
+  "port": 55529,
+  "fleetPort": 55530,
+  "modelRetries": 0,
+  "fictionalSources": true,
+  "agents": [
+    {
+      "id": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+      "role": "comms-officer",
+      "title": "幕僚長 / Chief of staff",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": {
+        "inputTokens": 8,
+        "cachedInputTokens": 133620,
+        "outputTokens": 1396,
+        "totalCostUsd": 0.374572,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 60081
+      },
+      "lastError": null
+    },
+    {
+      "id": "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+      "role": "fo",
+      "title": "Fictional list FO 1",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "39314d85-b207-4bd0-b48d-721170b3e971",
+      "role": "fo",
+      "title": "Fictional list FO 2",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "d784fcf4-99d8-4526-befd-5474386bfabc",
+      "role": "fo",
+      "title": "Fictional list FO 3",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "7a59e234-f260-48fc-bc13-9e49cbc76a70",
+      "role": "fo",
+      "title": "Fictional list FO 4",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "cbc27b3f-8cc1-43af-bf6e-19adbacfb73f",
+      "role": "chief-assistant",
+      "title": "Chief of staff · Terra assistant",
+      "provider": "codex",
+      "status": "idle",
+      "lastUsage": {
+        "inputTokens": 32050,
+        "cachedInputTokens": 0,
+        "outputTokens": 382,
+        "contextWindowMaxTokens": 475000,
+        "contextWindowUsedTokens": 32432
+      },
+      "lastError": null
+    }
+  ],
+  "chief": {
+    "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+    "workspaceId": "wks_5195051f90fb7abe",
+    "created": true,
+    "needsSwitch": false,
+    "previousAgentId": null
+  },
+  "targets": [
+    "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+    "39314d85-b207-4bd0-b48d-721170b3e971",
+    "d784fcf4-99d8-4526-befd-5474386bfabc",
+    "7a59e234-f260-48fc-bc13-9e49cbc76a70"
+  ],
+  "events": [
+    {
+      "key": "fictional-item-1",
+      "version": "fictional-version-1",
+      "kind": "ask",
+      "title": "Next: 本輪需求只接受 CSV；甲支援 CSV、乙僅支援 XLSX，兩案測試通過且其他條件相同。請選甲或乙（你）",
+      "waiter": "Fictional list FO 1",
+      "since": "2026-11-09T09:32:29.417Z",
+      "agentId": "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+      "target": "fictional-item-1"
+    },
+    {
+      "key": "fictional-item-2",
+      "version": "fictional-version-2",
+      "kind": "gate",
+      "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+      "waiter": "Fictional list FO 2",
+      "since": "2026-11-09T09:00:49.417Z",
+      "agentId": "39314d85-b207-4bd0-b48d-721170b3e971",
+      "target": "fictional-item-2"
+    },
+    {
+      "key": "fictional-item-3",
+      "version": "fictional-version-3",
+      "kind": "gate",
+      "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+      "waiter": "Fictional list FO 3",
+      "since": "2026-11-09T09:00:49.417Z",
+      "agentId": "d784fcf4-99d8-4526-befd-5474386bfabc",
+      "target": "fictional-item-3"
+    },
+    {
+      "key": "fictional-item-4",
+      "version": "fictional-version-4",
+      "kind": "permission",
+      "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+      "waiter": "Fictional list FO 4",
+      "since": "2026-11-09T09:00:49.417Z",
+      "agentId": "7a59e234-f260-48fc-bc13-9e49cbc76a70",
+      "target": "fictional-item-4"
+    }
+  ],
+  "triggeredAt": "2026-11-09T09:32:29.417Z",
+  "initial": {
+    "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+    "total": "4",
+    "phase": "preparing",
+    "batch": {
+      "id": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "events": [
+        {
+          "key": "fictional-item-1",
+          "version": "fictional-version-1",
+          "kind": "ask",
+          "title": "Next: 本輪需求只接受 CSV；甲支援 CSV、乙僅支援 XLSX，兩案測試通過且其他條件相同。請選甲或乙（你）",
+          "waiter": "Fictional list FO 1",
+          "since": "2026-11-09T09:32:29.417Z",
+          "agentId": "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+          "target": "fictional-item-1"
+        },
+        {
+          "key": "fictional-item-2",
+          "version": "fictional-version-2",
+          "kind": "gate",
+          "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+          "waiter": "Fictional list FO 2",
+          "since": "2026-11-09T09:00:49.417Z",
+          "agentId": "39314d85-b207-4bd0-b48d-721170b3e971",
+          "target": "fictional-item-2"
+        },
+        {
+          "key": "fictional-item-3",
+          "version": "fictional-version-3",
+          "kind": "gate",
+          "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+          "waiter": "Fictional list FO 3",
+          "since": "2026-11-09T09:00:49.417Z",
+          "agentId": "d784fcf4-99d8-4526-befd-5474386bfabc",
+          "target": "fictional-item-3"
+        },
+        {
+          "key": "fictional-item-4",
+          "version": "fictional-version-4",
+          "kind": "permission",
+          "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+          "waiter": "Fictional list FO 4",
+          "since": "2026-11-09T09:00:49.417Z",
+          "agentId": "7a59e234-f260-48fc-bc13-9e49cbc76a70",
+          "target": "fictional-item-4"
+        }
+      ],
+      "reason": "exception",
+      "checkedAt": "2026-11-09T09:32:29.423Z",
+      "score": 12,
+      "outputMode": "list"
+    },
+    "focus": null,
+    "entered": false,
+    "soundAttempted": true,
+    "error": null
+  },
+  "last": {
+    "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+    "total": "4",
+    "phase": "calling",
+    "batch": {
+      "id": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "events": [
+        {
+          "key": "fictional-item-1",
+          "version": "fictional-version-1",
+          "kind": "ask",
+          "title": "Next: 本輪需求只接受 CSV；甲支援 CSV、乙僅支援 XLSX，兩案測試通過且其他條件相同。請選甲或乙（你）",
+          "waiter": "Fictional list FO 1",
+          "since": "2026-11-09T09:32:29.417Z",
+          "agentId": "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+          "target": "fictional-item-1"
+        },
+        {
+          "key": "fictional-item-2",
+          "version": "fictional-version-2",
+          "kind": "gate",
+          "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+          "waiter": "Fictional list FO 2",
+          "since": "2026-11-09T09:00:49.417Z",
+          "agentId": "39314d85-b207-4bd0-b48d-721170b3e971",
+          "target": "fictional-item-2"
+        },
+        {
+          "key": "fictional-item-3",
+          "version": "fictional-version-3",
+          "kind": "gate",
+          "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+          "waiter": "Fictional list FO 3",
+          "since": "2026-11-09T09:00:49.417Z",
+          "agentId": "d784fcf4-99d8-4526-befd-5474386bfabc",
+          "target": "fictional-item-3"
+        },
+        {
+          "key": "fictional-item-4",
+          "version": "fictional-version-4",
+          "kind": "permission",
+          "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+          "waiter": "Fictional list FO 4",
+          "since": "2026-11-09T09:00:49.417Z",
+          "agentId": "7a59e234-f260-48fc-bc13-9e49cbc76a70",
+          "target": "fictional-item-4"
+        }
+      ],
+      "reason": "exception",
+      "checkedAt": "2026-11-09T09:32:29.423Z",
+      "score": 12,
+      "outputMode": "list"
+    },
+    "focus": {
+      "batchId": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "targetKey": "fictional-item-1",
+      "sentence": "Next: 本輪需求只接受 CSV；甲支援 CSV、乙僅支援 XLSX，兩案測試通過且其他條件相同。請選甲或乙（你）"
+    },
+    "entered": false,
+    "soundAttempted": false,
+    "error": null
+  },
+  "completedAt": "2026-11-09T09:33:20.594Z"
+}

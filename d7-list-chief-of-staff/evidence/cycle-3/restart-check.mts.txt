@@ -1,0 +1,16 @@
+import fs from "node:fs";
+import assert from "node:assert/strict";
+import {DaemonClient} from "../@getpaseo/client/dist/daemon-client.js";
+import {createPaseoApi} from "../@getpaseo/client/dist/index.js";
+const output="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-3/",stage=process.argv[2];assert(["after-list","after-preview"].includes(stage));const initial=JSON.parse(fs.readFileSync(output+"real-list-run.json","utf8"));
+const client=new DaemonClient({clientId:"d7-restart-"+stage,url:"ws://127.0.0.1:55529/ws",reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);const events:any[]=[],subs:any[]=[];
+try{
+ for(const id of initial.agents.map((x:any)=>x.id)){const sub=api.agents.ref(id).timeline.subscribe(x=>events.push(x));await sub.ready;subs.push(sub);}
+ const state:any=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});await new Promise(r=>setTimeout(r,2000));
+ const chief=api.agents.ref(initial.chief.agentId);await chief.refresh();const page=await chief.timeline.refetch({projection:"projected",limit:120});const targets=[];
+ for(const id of initial.targets){const h=api.agents.ref(id);await h.refresh();const p=await h.timeline.refetch({projection:"projected",limit:120});targets.push({id,status:h.status,received:p.entries.filter((x:any)=>x.item.agentMessage?.event==="message").length});}
+ const tools=page.entries.filter((x:any)=>x.item.type==="tool_call").map((x:any)=>x.item);const batches=page.entries.filter((x:any)=>x.item.type==="user_message"&&x.item.text.startsWith("[Bridge plugin, automated — not the Captain]"));
+ const result={stage,observedAt:new Date().toISOString(),state,chiefStatus:chief.status,targets,newTurns:events.filter(x=>x.event.type==="turn_started"),automatedBatches:batches.length,renderUiCalls:tools.filter(x=>x.name==="mcp__paseo__render_ui"&&x.status==="completed").length,relayCalls:tools.filter(x=>x.name==="mcp__paseo__send_agent_prompt").length,permissionCalls:tools.filter(x=>x.name==="mcp__paseo__respond_to_permission").length};
+ fs.writeFileSync(output+"restart-"+stage+"-timeline.json",JSON.stringify(page,null,2),{flag:"wx"});fs.writeFileSync(output+"restart-"+stage+".json",JSON.stringify(result,null,2),{flag:"wx"});
+ assert.equal(state.phase,stage==="after-list"?"calling":"quiet");if(stage==="after-list")assert.equal(state.batch.id,initial.initial.batch.id);assert.equal(chief.status,"idle");assert.equal(result.automatedBatches,1);assert.equal(result.renderUiCalls,stage==="after-list"?0:1);assert.equal(result.relayCalls,0);assert.equal(result.permissionCalls,0);assert.equal(result.newTurns.length,0);assert.deepEqual(targets.map(x=>x.received),[0,0,0,0]);console.log(JSON.stringify(result));
+}finally{for(const sub of subs)await sub();await api.dispose();await client.close();}

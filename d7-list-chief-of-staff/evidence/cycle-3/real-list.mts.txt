@@ -1,0 +1,25 @@
+import fs from "node:fs";
+import {DaemonClient} from "../@getpaseo/client/dist/daemon-client.js";
+import {createPaseoApi} from "../@getpaseo/client/dist/index.js";
+const root=new URL(".",import.meta.url).pathname;
+const output="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-3/";
+const client=new DaemonClient({clientId:"d7-real-list",url:"ws://127.0.0.1:55529/ws",reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);
+const subs:any[]=[],seen=new Set<string>();const record:any={startedAt:new Date().toISOString(),port:55529,fleetPort:55530,modelRetries:0,fictionalSources:true,agents:[]};
+const save=()=>fs.writeFileSync(output+"real-list-run.json",JSON.stringify(record,null,2));
+const watch=async(agent:any)=>{if(seen.has(agent.id))return;seen.add(agent.id);record.agents.push({id:agent.id,role:agent.labels.role,title:agent.title,provider:agent.provider});save();const sub=api.agents.ref(agent.id).timeline.subscribe(event=>fs.appendFileSync(output+`real-${agent.id}-events.jsonl`,JSON.stringify({receivedAt:new Date().toISOString(),...event})+"\n"));subs.push(sub);await sub.ready;};
+try{
+ const listing=await api.agents.list({subscribe:{}});listing.subscription.subscribe({snapshot:({entries}:any)=>{for(const {agent} of entries)if(["comms-officer","chief-assistant","fo"].includes(agent.labels.role))void watch(agent);},update:(message:any)=>{if(message.type==="agent_update"&&message.payload.kind==="upsert"&&["comms-officer","chief-assistant","fo"].includes(message.payload.agent.labels.role))void watch(message.payload.agent);}});subs.push(()=>listing.subscription.release());
+ const chief:any=await client.invokePluginRpc("paseo-spacedock-bridge","coordinator.open",{});record.chief=chief;save();
+ await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});
+ const targets=[];
+ for(let n=0;n<4;n++){const agent=await api.agents.create({config:{provider:"claude/claude-opus-5-5",systemPrompt:"You are a fictional FO receipt sink in an isolated experiment. Never execute work, use tools, send messages, read files or modify anything. If sent a Captain decision, acknowledge its exact item and words in one sentence only. Do not infer permission authority.",options:{allowedTools:[],settings:{permissions:{deny:["Bash","Read","Write","Edit","Agent","Task","mcp__paseo__send_agent_prompt","mcp__paseo__respond_to_permission"]}}}},cwd:root+"fictional",title:`Fictional list FO ${n+1}`,labels:{role:"fo",repo:"fictional-list",task:`fictional-${n+1}`}});targets.push(agent.id);}
+ record.targets=targets;
+ const titles=["Next: 本輪需求只接受 CSV；甲支援 CSV、乙僅支援 XLSX，兩案測試通過且其他條件相同。請選甲或乙（你）", "範例 Alpha 關卡：檢查已通過，是否准予通過？", "範例 Beta 關卡：缺少測試證據，是否要求補測？", "範例權限：要求執行虛構刪除命令，僅艦長能處理。"];
+ const kinds=["ask","gate","gate","permission"];
+ const events=targets.map((agentId,n)=>({key:`fictional-item-${n+1}`,version:`fictional-version-${n+1}`,kind:kinds[n],title:titles[n],waiter:`Fictional list FO ${n+1}`,since:new Date(Date.now()-(n===0?0:1900000)).toISOString(),agentId,target:`fictional-item-${n+1}`}));
+ fs.writeFileSync(root+"sources.json",JSON.stringify({events,total:"4",complete:true,rows:[],queue:events,facts:{}}));record.events=events;record.triggeredAt=new Date().toISOString();save();
+ record.initial=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});save();
+ for(let i=0;i<110;i++){await new Promise(resolve=>setTimeout(resolve,3000));record.last=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});save();if(["calling","failed","unknown"].includes(record.last.phase))break;}
+ for(const item of record.agents){const h=api.agents.ref(item.id);await h.refresh();const timeline=await h.timeline.refetch({projection:"projected",limit:120});fs.writeFileSync(output+`initial-${item.id}-timeline.json`,JSON.stringify(timeline,null,2),{flag:"wx"});Object.assign(item,{status:h.status,lastUsage:h.lastUsage,lastError:h.lastError});}
+ record.completedAt=new Date().toISOString();save();console.log(JSON.stringify({phase:record.last?.phase,error:record.last?.error,chief:record.chief,agents:record.agents}));
+}finally{for(const sub of subs)await sub();await api.dispose();await client.close();}

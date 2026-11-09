@@ -1,0 +1,17 @@
+import fs from "node:fs";
+import {DaemonClient} from "../@getpaseo/client/dist/daemon-client.js";
+import {createPaseoApi} from "../@getpaseo/client/dist/index.js";
+const output="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-3/";
+const initial=JSON.parse(fs.readFileSync(output+"real-list-run.json","utf8"));const stage=process.argv[2];const text=process.argv[3];if(!["preview","confirmed"].includes(stage)||!text)throw Error("Explicit stage and words required");
+if(fs.existsSync(output+stage+"-run.json"))throw Error("No repeated proof turn");
+const client=new DaemonClient({clientId:"d7-real-"+stage,url:"ws://127.0.0.1:55529/ws",reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);
+const chief=api.agents.ref(initial.chief.agentId);const sub=chief.timeline.subscribe(event=>fs.appendFileSync(output+stage+"-events.jsonl",JSON.stringify({receivedAt:new Date().toISOString(),...event})+"\n"));await sub.ready;
+const extra:any[]=[];
+if(stage==="confirmed")for(const id of initial.targets){const watch=api.agents.ref(id).timeline.subscribe(event=>fs.appendFileSync(output+stage+"-events.jsonl",JSON.stringify({receivedAt:new Date().toISOString(),...event})+"\n"));await watch.ready;extra.push(watch);}
+const record:any={startedAt:new Date().toISOString(),text,chiefId:chief.id,stage};fs.writeFileSync(output+stage+"-run.json",JSON.stringify(record,null,2),{flag:"wx"});
+try{record.result=await chief.run(text,{timeoutMs:240000});await chief.refresh();Object.assign(record,{completedAt:new Date().toISOString(),lastUsage:chief.lastUsage,status:chief.status,lastError:chief.lastError});
+ if(stage==="confirmed"){let stable=0;for(let n=0;n<70;n++){const refs=[chief,...initial.targets.map((id:string)=>api.agents.ref(id))];await Promise.all(refs.map(h=>h.refresh()));stable=refs.every(h=>h.status==="idle")?stable+1:0;if(stable>=3)break;await new Promise(r=>setTimeout(r,2500));}await chief.refresh();record.afterReceipts={status:chief.status,lastUsage:chief.lastUsage,lastError:chief.lastError};}
+ const timeline=await chief.timeline.refetch({projection:"projected",limit:120});fs.writeFileSync(output+stage+"-chief-timeline.json",JSON.stringify(timeline,null,2),{flag:"wx"});
+ record.targets=[];for(const id of initial.targets){const h=api.agents.ref(id);const page=await h.timeline.refetch({projection:"projected",limit:120});await h.refresh();fs.writeFileSync(output+stage+"-"+id+"-timeline.json",JSON.stringify(page,null,2),{flag:"wx"});record.targets.push({id,status:h.status,lastUsage:h.lastUsage,userMessages:page.entries.filter(e=>(e.item as any).agentMessage?.event==="message").map(e=>((e.item as any).agentMessage?.text??(e.item as any).text))});}
+ fs.writeFileSync(output+stage+"-run.json",JSON.stringify(record,null,2));console.log(JSON.stringify({stage,status:record.status,targets:record.targets.map((t:any)=>({id:t.id,userMessages:t.userMessages.length})),lastUsage:record.lastUsage}));
+}finally{for(const watch of extra)await watch();await sub();await api.dispose();await client.close();}

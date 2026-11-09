@@ -1,0 +1,24 @@
+Trusting plugin code: server code and preparation commands run unsandboxed on the daemon host; client code runs inside Paseo. Dependencies and future updates are part of the codebase you trust.
+{
+  "id": "genui",
+  "path": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle3-o8qvit3n/home/plugins/genui/8c9fc9b3-29ba-4f6d-a1fb-9ce2fab7840a/node_modules/paseo-plugin-genui",
+  "enabled": true,
+  "status": "running",
+  "name": "Generative UI",
+  "description": "Agents answer with charts, diagrams, maps, plans and forms rendered inline in the chat.",
+  "icon": "assets/icon.png",
+  "media": [
+    "assets/screenshot-map.png",
+    "assets/screenshot-chat.png",
+    "assets/screenshot-gallery.png",
+    "assets/screenshot-playground.png"
+  ],
+  "installation": {
+    "identity": {
+      "kind": "npm",
+      "packageName": "paseo-plugin-genui",
+      "pluginPath": "."
+    },
+    "currentRevision": "0.3.3"
+  }
+}

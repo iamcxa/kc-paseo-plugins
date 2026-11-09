@@ -1,0 +1,58 @@
+{
+  "head": "970d9cdaab655aadd489a9cda5393610d5f0cb23",
+  "result": "passed for fictional native list/restart/preview/relay proof",
+  "triggerCount": 1,
+  "terraPasses": 1,
+  "restartAfterList": "calling same list; zero new turns; zero relay",
+  "restartAfterPreview": "quiet genuine-response state; persisted list and exact preview; zero new turns; zero relay",
+  "previewRenderUi": "completed",
+  "previewIncomingCounts": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "receipts": [
+    {
+      "item": 1,
+      "recipient": "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+      "count": 1,
+      "messageId": "7af017ab-63d6-4f44-975a-bab808138cde",
+      "receivedAt": "2026-11-09T09:38:23.617Z",
+      "matchesExactConfirmedPreview": true
+    },
+    {
+      "item": 2,
+      "recipient": "39314d85-b207-4bd0-b48d-721170b3e971",
+      "count": 1,
+      "messageId": "406d5781-4a8e-420b-b2b0-f3a84d53fd7c",
+      "receivedAt": "2026-11-09T09:38:24.917Z",
+      "matchesExactConfirmedPreview": true
+    },
+    {
+      "item": 3,
+      "recipient": "d784fcf4-99d8-4526-befd-5474386bfabc",
+      "count": 1,
+      "messageId": "f7052390-6248-4649-b5e9-0f28741592ad",
+      "receivedAt": "2026-11-09T09:38:28.083Z",
+      "matchesExactConfirmedPreview": true
+    },
+    {
+      "item": 4,
+      "recipient": "7a59e234-f260-48fc-bc13-9e49cbc76a70",
+      "count": 0,
+      "permissionActionCount": 0
+    }
+  ],
+  "captainReplies": [
+    "全照建議",
+    "確認發送以上預覽"
+  ],
+  "noPermissionAction": true,
+  "limits": [
+    "Only chiefBoard input is fictional; shared source ownership tested separately.",
+    "Permission is a fictional source event, not a native permission prompt.",
+    "Two transient GenUI plugin display entries do not survive restart; exact preview persists in completed native tool input. No visual widget persistence claim.",
+    "Real providers/native SDK tools/message receipts are observed, not actual workflow gate recording or live installation."
+  ]
+}

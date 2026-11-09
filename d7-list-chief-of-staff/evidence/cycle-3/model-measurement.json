@@ -1,0 +1,150 @@
+{
+  "turns": [
+    {
+      "daemonGeneration": 1,
+      "stage": "initial",
+      "agentId": "cbc27b3f-8cc1-43af-bf6e-19adbacfb73f",
+      "provider": "codex",
+      "turnId": "codex-turn-0",
+      "startedAt": "2026-11-09T09:32:52.454Z",
+      "completedAt": "2026-11-09T09:33:05.960Z",
+      "seconds": 13.506,
+      "usage": {
+        "inputTokens": 32050,
+        "cachedInputTokens": 0,
+        "outputTokens": 382,
+        "contextWindowMaxTokens": 475000,
+        "contextWindowUsedTokens": 32432
+      }
+    },
+    {
+      "daemonGeneration": 1,
+      "stage": "initial",
+      "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T09:32:31.875Z",
+      "completedAt": "2026-11-09T09:33:19.937Z",
+      "seconds": 48.062,
+      "usage": {
+        "inputTokens": 8,
+        "cachedInputTokens": 133620,
+        "outputTokens": 1396,
+        "totalCostUsd": 0.374572,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 60081
+      }
+    },
+    {
+      "daemonGeneration": 2,
+      "stage": "preview",
+      "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T09:34:38.025Z",
+      "completedAt": "2026-11-09T09:35:13.255Z",
+      "seconds": 35.23,
+      "usage": {
+        "inputTokens": 12,
+        "cachedInputTokens": 242238,
+        "outputTokens": 2247,
+        "totalCostUsd": 0.5051036,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 63605
+      }
+    },
+    {
+      "daemonGeneration": 3,
+      "stage": "confirmed",
+      "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T09:38:04.288Z",
+      "completedAt": "2026-11-09T09:38:31.042Z",
+      "seconds": 26.754,
+      "usage": {
+        "inputTokens": 10,
+        "cachedInputTokens": 191385,
+        "outputTokens": 2056,
+        "totalCostUsd": 0.6042206,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 66708
+      }
+    },
+    {
+      "daemonGeneration": 3,
+      "stage": "confirmed",
+      "agentId": "39314d85-b207-4bd0-b48d-721170b3e971",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T09:38:24.916Z",
+      "completedAt": "2026-11-09T09:38:36.559Z",
+      "seconds": 11.643,
+      "usage": {
+        "inputTokens": 2,
+        "cachedInputTokens": 22039,
+        "outputTokens": 225,
+        "totalCostUsd": 0.36825179999999996,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 67183
+      }
+    },
+    {
+      "daemonGeneration": 3,
+      "stage": "confirmed",
+      "agentId": "d784fcf4-99d8-4526-befd-5474386bfabc",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T09:38:28.082Z",
+      "completedAt": "2026-11-09T09:38:37.599Z",
+      "seconds": 9.517,
+      "usage": {
+        "inputTokens": 2,
+        "cachedInputTokens": 22039,
+        "outputTokens": 297,
+        "totalCostUsd": 0.3696838,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 67254
+      }
+    },
+    {
+      "daemonGeneration": 3,
+      "stage": "confirmed",
+      "agentId": "e3766fbd-9fc7-45b2-80a3-b9b389a62dc8",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T09:38:23.615Z",
+      "completedAt": "2026-11-09T09:38:38.951Z",
+      "seconds": 15.336,
+      "usage": {
+        "inputTokens": 2,
+        "cachedInputTokens": 22039,
+        "outputTokens": 338,
+        "totalCostUsd": 0.37065580000000004,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 67314
+      }
+    },
+    {
+      "daemonGeneration": 3,
+      "stage": "confirmed",
+      "agentId": "f83b3f49-6645-4ec1-832b-c018afa283d6",
+      "provider": "claude",
+      "turnId": "foreground-turn-2",
+      "startedAt": "2026-11-09T09:38:40.952Z",
+      "completedAt": "2026-11-09T09:38:49.667Z",
+      "seconds": 8.715,
+      "usage": {
+        "inputTokens": 4,
+        "cachedInputTokens": 65988,
+        "outputTokens": 682,
+        "totalCostUsd": 0.6446822,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 68375
+      }
+    }
+  ],
+  "identity": "daemonGeneration + agentId + turnId; foreground turn ids restart at 1 after daemon restart",
+  "providerReportedUsage": true,
+  "note": "All eight turns recorded: Terra, list, preview, confirmation, three fictional receiver acknowledgements and one automatic chief acknowledgement. Restarts cause zero model turns. Cached counts are separate provider fields, not inferred billing totals."
+}

@@ -1,0 +1,534 @@
+✖ peer-owned agent-message acknowledgement cannot invalidate a published list, split=false (6.292ms)
+✖ peer-owned agent-message acknowledgement cannot invalidate a published list, split=true (0.62625ms)
+✖ peer-owned agent-notification acknowledgement cannot invalidate a published list, split=false (1.026792ms)
+✖ peer-owned agent-notification acknowledgement cannot invalidate a published list, split=true (0.310167ms)
+✖ peer-owned native message acknowledgement cannot invalidate a published list, split=false (0.262333ms)
+✖ peer-owned native message acknowledgement cannot invalidate a published list, split=true (0.238125ms)
+✖ peer-owned native finished acknowledgement cannot invalidate a published list, split=false (0.20275ms)
+✖ peer-owned native finished acknowledgement cannot invalidate a published list, split=true (0.227459ms)
+✖ peer-owned agent-message preparation and quoted response cannot affect batch proof (0.41175ms)
+✖ peer-owned native message preparation and quoted response cannot affect batch proof (2.837958ms)
+✖ an interleaved peer turn cannot erase a legitimate in-flight batch result or mask its late failure (0.955541ms)
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=false, split=false (6.609541ms)
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=false, split=true (0.715833ms)
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=true, split=false (0.548833ms)
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=true, split=true (0.935833ms)
+✔ subset cannot retire a still-current unanswered predecessor, complete=false (0.345667ms)
+✔ subset cannot retire a still-current unanswered predecessor, complete=true (0.126708ms)
+✔ incomplete source cannot infer that a missing predecessor obligation was resolved (0.991083ms)
+✖ persisted preparation native proves the same list without a live shortcut (0.469625ms)
+✔ persisted preparation direct proves the same list without a live shortcut (0.482541ms)
+✔ persisted preparation string proves the same list without a live shortcut (0.34275ms)
+✔ persisted preparation content proves the same list without a live shortcut (2.230708ms)
+✔ native persisted preparation holds on outer error (0.798459ms)
+✔ native persisted preparation holds on inner error (0.195167ms)
+✔ native persisted preparation holds on wrong batch (0.130458ms)
+✔ native persisted preparation holds on wrong facts (0.16025ms)
+✔ native persisted preparation holds on empty preparation (0.118ms)
+✔ native persisted preparation holds on failed (0.11275ms)
+✔ native persisted preparation holds on canceled (0.093959ms)
+✔ native persisted preparation holds on duplicate (0.128417ms)
+✔ native persisted preparation holds on late error (0.138708ms)
+✔ native persisted preparation holds on wrong turn (0.119ms)
+✖ turn-ended receive before analyze returns cannot terminalize a valid native preparation (35.119ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 16
+ℹ fail 17
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 937.681083
+
+✖ failing tests:
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned agent-message acknowledgement cannot invalidate a published list, split=false (6.292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned agent-message acknowledgement cannot invalidate a published list, split=true (0.62625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned agent-notification acknowledgement cannot invalidate a published list, split=false (1.026792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned agent-notification acknowledgement cannot invalidate a published list, split=true (0.310167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned native message acknowledgement cannot invalidate a published list, split=false (0.262333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned native message acknowledgement cannot invalidate a published list, split=true (0.238125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned native finished acknowledgement cannot invalidate a published list, split=false (0.20275ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:3289
+✖ peer-owned native finished acknowledgement cannot invalidate a published list, split=true (0.227459ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:27:79)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:4188
+✖ peer-owned agent-message preparation and quoted response cannot affect batch proof (0.41175ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:33:68)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:4188
+✖ peer-owned native message preparation and quoted response cannot affect batch proof (2.837958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:33:68)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:4755
+✖ an interleaved peer turn cannot erase a legitimate in-flight batch result or mask its late failure (0.955541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:37:66)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:5432
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=false, split=false (6.609541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     batch: {
+  +       checkedAt: '2026-11-09T10:00:00Z',
+  +       events: [
+  +         {
+  +           agentId: 'fo-a',
+  +           key: 'a',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'a',
+  +           title: 'Fictional a',
+  +           version: 'a',
+  +           waiter: 'FO'
+  +         },
+  +         {
+  +           agentId: 'fo-b',
+  +           key: 'b',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'b',
+  +           title: 'Fictional b',
+  +           version: 'b',
+  +           waiter: 'FO'
+  +         }
+  +       ],
+  +       id: 'A',
+  +       outputMode: 'list',
+  +       reason: 'exception',
+  +       score: 8
+  +     },
+  +     focus: {
+  +       batchId: 'A',
+  +       sentence: 'Fictional a',
+  +       targetKey: 'a'
+  +     }
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:43:107)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { batch: [Object], focus: [Object] } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:5432
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=false, split=true (0.715833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     batch: {
+  +       checkedAt: '2026-11-09T10:00:00Z',
+  +       events: [
+  +         {
+  +           agentId: 'fo-a',
+  +           key: 'a',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'a',
+  +           title: 'Fictional a',
+  +           version: 'a',
+  +           waiter: 'FO'
+  +         },
+  +         {
+  +           agentId: 'fo-b',
+  +           key: 'b',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'b',
+  +           title: 'Fictional b',
+  +           version: 'b',
+  +           waiter: 'FO'
+  +         }
+  +       ],
+  +       id: 'A',
+  +       outputMode: 'list',
+  +       reason: 'exception',
+  +       score: 8
+  +     },
+  +     focus: {
+  +       batchId: 'A',
+  +       sentence: 'Fictional a',
+  +       targetKey: 'a'
+  +     }
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:43:107)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { batch: [Object], focus: [Object] } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:5432
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=true, split=false (0.548833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     batch: {
+  +       checkedAt: '2026-11-09T10:00:00Z',
+  +       events: [
+  +         {
+  +           agentId: 'fo-a',
+  +           key: 'a',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'a',
+  +           title: 'Fictional a',
+  +           version: 'a',
+  +           waiter: 'FO'
+  +         },
+  +         {
+  +           agentId: 'fo-b',
+  +           key: 'b',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'b',
+  +           title: 'Fictional b',
+  +           version: 'b',
+  +           waiter: 'FO'
+  +         }
+  +       ],
+  +       id: 'A',
+  +       outputMode: 'list',
+  +       reason: 'exception',
+  +       score: 8
+  +     },
+  +     focus: {
+  +       batchId: 'A',
+  +       sentence: 'Fictional a',
+  +       targetKey: 'a'
+  +     }
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:43:107)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { batch: [Object], focus: [Object] } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:5432
+✖ resolved predecessor and answered successor never resurrect on restart, explicit=true, split=true (0.935833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     batch: {
+  +       checkedAt: '2026-11-09T10:00:00Z',
+  +       events: [
+  +         {
+  +           agentId: 'fo-a',
+  +           key: 'a',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'a',
+  +           title: 'Fictional a',
+  +           version: 'a',
+  +           waiter: 'FO'
+  +         },
+  +         {
+  +           agentId: 'fo-b',
+  +           key: 'b',
+  +           kind: 'gate',
+  +           since: '2000-01-01T00:00:00Z',
+  +           target: 'b',
+  +           title: 'Fictional b',
+  +           version: 'b',
+  +           waiter: 'FO'
+  +         }
+  +       ],
+  +       id: 'A',
+  +       outputMode: 'list',
+  +       reason: 'exception',
+  +       score: 8
+  +     },
+  +     focus: {
+  +       batchId: 'A',
+  +       sentence: 'Fictional a',
+  +       targetKey: 'a'
+  +     }
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:43:107)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { batch: [Object], focus: [Object] } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:7241
+✖ persisted preparation native proves the same list without a live shortcut (0.469625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:55:81)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-persisted-list.test.mts:1:9263
+✖ turn-ended receive before analyze returns cannot terminalize a valid native preparation (35.119ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failed'
+  - 'calling'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-persisted-list.test.mts:70:204)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed',
+    expected: 'calling',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
