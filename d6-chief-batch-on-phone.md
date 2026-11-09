@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d6-chief-batch-on-phone
-status: backlog
+status: implementation
 gates:
     version: 1
     records:
@@ -26,7 +26,7 @@ gates:
                 reason: Captain chat 2026-11-09, asked 「要先做這輪手機優先的設計嗎？」 with two parts (push to a locked phone; handling the whole batch in her conversation), answered 「1 這個手機不用煩惱，paseo 會推播，只是我沒辦放每次都一則一則去回，所以才需要她」 — part 1 dropped (Paseo pushes), part 2 is this task.
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 ---
 
 Design, before any code, how the Captain clears a batch the chief of staff called him about from her one conversation on his phone: she lays out the batch's items, he answers each there, and she relays his answers to each FO, so he never switches between FO sessions.
