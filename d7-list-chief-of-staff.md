@@ -5,6 +5,17 @@ profile: poc
 merge: pr
 id: d7-list-chief-of-staff
 status: backlog
+gates:
+    version: 1
+    records:
+        - id: gate:d7-list-chief-of-staff:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:d7-list-chief-of-staff-backlog-1
+              briefing:
+                id: briefing:d7-list-chief-of-staff:backlog:attempt-1:revision-1
+                digest: sha256:458519a80718e4ec9c36a566e66b576069d5a94ebfe3f66a31ac069bb1c33594
+                room-ref: ./d7-list-chief-of-staff/review/backlog/briefing-1
 ---
 
 Rebuild the chief of staff as a conversation, without new screens: she keeps one accumulated list of what waits on the Captain — who raised it, her recommended decision and her reason — adds to it until he responds, then asks whether to take all her recommendations or review item by item; before sending a batch she shows him exactly what goes where, in whatever widget suits her, and sends only on his explicit confirmation.
