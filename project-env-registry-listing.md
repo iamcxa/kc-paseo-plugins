@@ -1,7 +1,7 @@
 ---
 id:
 title: project-env carries what Paseo's plugin registry needs to list it
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
