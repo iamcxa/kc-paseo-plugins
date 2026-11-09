@@ -155,3 +155,7 @@ Design director (same agent 544638aa), on dc971645 under the Captain's amendment
 ### Summary
 
 Delivered the native-conversation, phone-first mockup package with a four-item batch, individually explicit question relays and named gate Confirm, permission exception, partial/stale states, readable unsupported-component fallback and a visible keyboard layout. Both review surfaces work offline, source/image provenance is retained, and the task Preview now leads to this round. Stop for the design director's Step B review; no phone capability, product delivery or Captain acceptance is claimed.
+
+## Design director review: step B pass 1
+
+Design director (same agent 544638aa), all 32 PNGs at 0bc294e8: NOT SATISFIED, two blocking gaps. (1) Gates have no in-flight delivery states: sent.png and relayed.png show only a question; add a gate "sent to the chief of staff, not yet relayed" and "relayed, waiting for the record", keeping his words, the named gate and version, with repeat Confirm disabled (AC-2). (2) Progress jumps across the fallback: unsupported.png and fallback-menu.png show 0 of 4 sent, fallback-bridge.png shows 2 of 4 and 1 recorded with only navigation between them; keep one batch with the same per-item progress, or label a snapshot as delivery unknown (AC-1, AC-2). Nonblocking: landing.png, half.png and fallback-bridge.png repeat the batch count, intro and four summaries before the answer cards; keep one progress line so the first screen reaches a send control.
