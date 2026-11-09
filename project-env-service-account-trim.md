@@ -1,7 +1,7 @@
 ---
 id:
 title: A service account name with surrounding spaces still gets its variables
-status: ideation
+status: implementation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
@@ -47,7 +47,7 @@ gates:
                 reason: '「准」 — Captain in FO chat, 2026-11-09, answering 「設計關（送審前修正 1/3）：我建議准。服務帳號名稱存檔時去掉前後空白，伺服器查 token 前也去掉空白，畫面文字不變；已存了空白的舊專案也會好。在 Paseo 0.15.3 上重現了問題，修正後 Test 全過、agent 拿得到變數，測試 336 個全過。限制：只用假的鑰匙圈工具驗證過，真的 macOS 鑰匙圈比對沒測。准了就照這個設計進實作。」 (the three public-release-prep ideation gates presented together). Recommendation: followed.'
               application:
                 target-stage: implementation
-                state: pending
+                state: consumed
 started: 2026-11-09T07:41:12Z
 ---
 
