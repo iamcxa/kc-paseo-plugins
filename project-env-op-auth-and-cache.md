@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-op-auth-and-cache:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-op-auth-and-cache-ideation-1
+              briefing:
+                id: briefing:project-env-op-auth-and-cache:ideation:attempt-1:revision-1
+                digest: sha256:8c5f9f81e5c0bdb11e7f1e33a59d6be020c6a16b59525a21aebe467385f30663
+                room-ref: ./project-env-op-auth-and-cache/review/ideation/briefing-1
 started: 2026-11-09T07:41:25Z
 ---
 

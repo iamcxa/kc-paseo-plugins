@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-op-auth-and-cache:ideation:attempt-1:revision-1",
+  "question": "設計關（送審前修正 2/3）：我建議准。呼叫 op 前拿掉所有 OP_ 開頭的環境變數，再放入我們的服務帳號 token（1Password 官方文件證實 Connect 變數會優先）；清快取時加一個編號，清之前開始的讀取不再存進快取，存新 token 也改走同一個清快取函式。兩個問題都在 main 上重現了。准了就照這個設計進實作，排在服務帳號那份之後。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-op-auth-and-cache:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/752fa017e762dc5ff1b699d6c546dcdf4842242c/project-env-op-auth-and-cache.md",
+      "rev": "sha256:08910b5c7dfaceed4d8ae1d20fd60b8f7c5146b950c44a6bf7fcf19ddace5d89",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: op runs with every OP_ variable removed plus the service account token; cache generation guards writes; storeToken routed through clearCache. FO recommendation: approve."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-op-auth-and-cache:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/752fa017e762dc5ff1b699d6c546dcdf4842242c/project-env-op-auth-and-cache/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:9ad3056e4d5a079036d59774e6af1fcf7637e9b3923242add5f7d9903ebee97b"
+    }
+  ]
+}
