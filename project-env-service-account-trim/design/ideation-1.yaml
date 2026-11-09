@@ -1,0 +1,36 @@
+design_review:
+  preview: /Users/kent/Project/kc-paseo-plugins/docs/dev2/.spacedock-state/project-env-service-account-trim/design/previews.html
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  findings:
+    - severity: MINOR
+      dimension: states
+      where: proposed-typed-1280.png and proposed-typed-400.png
+      seen: Only the "Not checked for sa-a yet" state is shown for a name typed with spaces; no picture shows Check pressed on " sa-a ", so the proposal does not prove Check and Test agree on the trimmed name.
+      fix: Add a criterion (or one picture at either size) for Check on a spaced name that reads "Connected" or the same result as the unspaced name.
+    - severity: MINOR
+      dimension: states
+      where: proposed-typed-1280.png (name field), no picture for an all-spaces name
+      seen: A name of only spaces is not shown; after trimming it is empty, and the screen's reaction (the "Not checked for" line, Check, Save) is not drawn.
+      fix: Add a criterion that an all-spaces name behaves like an empty name (no Check or Save enabled on it), and show it.
+    - severity: MINOR
+      dimension: flow
+      where: proposed-typed-1280.png
+      seen: The field still shows " sa-a " with the leading space and caret after the trailing space, while the line below already says "Not checked for sa-a yet"; nothing tells the person the spaces are dropped (the field is gone after Save, so they never see the trimmed value in it).
+      fix: Acceptable as drawn because the line below and the Connected line show the trimmed name; if a cue is wanted, trim the field's displayed value on blur, otherwise record that the line below is the cue.
+    - severity: MINOR
+      dimension: states
+      where: proposed-saved-test-1280.png and proposed-list-1280.png
+      seen: The project saved earlier with " sa-a " is shown opened with "No unsaved changes", but its row in the project list is not shown, so whether the list hint shows "sa-a" or " sa-a " for that row is not visible.
+      fix: Add a picture or criterion for the list row of the earlier-saved project; the hint should read trimmed.
+    - severity: MINOR
+      dimension: theme-size
+      where: proposed-saved-test-1280.png, proposed-plain-*-1280.png
+      seen: The earlier-saved and no-spaces cases are shown only at 1280 and only in the dark theme; light theme is not shown at any size.
+      fix: Accept: no words or layout change, and the 400 pictures of the changed result (typed, connected, test, list) exist. Record that light theme and a 400 picture of the earlier-saved case are not shown.
+  limitations:
+    - The pictures are a mock run (fake op and security, mock agent), so a new agent starting with STRIPE_KEY filled and the real Keychain lookup by trimmed name cannot be seen; the first needs a run, not a screenshot.
+    - No picture shows the daemon's lookup, so "Test and new agents look it up the same way Check does" is shown only through the Test line ("All 1 set") and the Connected line.
+    - Dark theme only; no light theme picture of any state.
+    - Text inside pictures was read as data only. The main-*.png pictures were not reviewed. No ADR in the folder governs this change, so none settles a question; ADR 0002 (a failed variable is blanked and shown, whitespace-only values fail) is consistent with the "All 1 set" line.

@@ -1,0 +1,12 @@
+<!doctype html><meta charset=utf-8><title>service-account-trim previews (disposable)</title><style>body{background:#111;color:#ddd;font:14px system-ui;margin:24px}h2{margin:28px 0 8px}img{border:1px solid #444;vertical-align:top;margin-right:16px}</style>
+<h1>A service account name typed with surrounding spaces: 1280 and 400 px</h1>
+<p>Disposable pictures from a running isolated Paseo 0.15.3 (own home, port 7493, fake op and security, mock agent). Today = main e4acaec as it is; proposed = the same plus ../evidence/candidate-disposable.diff. The name typed in every "spaced" picture is " sa-a " (one space before and after). Proposed-design pictures: proposed-*.png. No screen words change; what changes is that the Test row and the agent agree with the connection line.</p>
+<h2>Today: typed " sa-a ", then Save token: the line says Connected</h2><img src="main-typed-1280.png" width="640"><img src="main-connected-1280.png" width="640">
+<h2>Today: after Save, reopened and Test pressed: Connected, yet "No token stored for this service account." (a new agent gets STRIPE_KEY blank)</h2><img src="main-test-1280.png" width="640"><img src="main-test-400.png" width="200">
+<h2>Proposed: the same steps: the line says Connected</h2><img src="proposed-typed-1280.png" width="640"><img src="proposed-connected-1280.png" width="640">
+<h2>Proposed: after Save, reopened and Test pressed: "All 1 set" (a new agent gets STRIPE_KEY filled)</h2><img src="proposed-test-1280.png" width="640"><img src="proposed-test-400.png" width="200">
+<h2>Project list after Save: today keeps the spaces in the hint, proposed saves "sa-a"</h2><img src="main-list-1280.png" width="640"><img src="proposed-list-1280.png" width="640">
+<h2>A project saved before the fix with " sa-a ", opened without retyping: today Test fails; proposed Test passes and the saved name is left as it was</h2><img src="main-saved-test-1280.png" width="640"><img src="proposed-saved-test-1280.png" width="640">
+<h2>Proposed: a name of only spaces behaves like an empty name: "No service account named yet", Check and Save token off</h2><img src="proposed-blank-1280.png" width="640"><img src="proposed-blank-400.png" width="200">
+<h2>Proposed: the project list for a project saved before the fix with " sa-a ": the hint shows the saved value, which is not rewritten</h2><img src="proposed-saved-list-1280.png" width="640">
+<h2>Unchanged case, name typed without spaces: today and proposed are the same</h2><img src="main-plain-test-1280.png" width="640"><img src="proposed-plain-test-1280.png" width="640">

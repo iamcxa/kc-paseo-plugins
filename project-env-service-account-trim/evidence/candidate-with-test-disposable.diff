@@ -1,0 +1,51 @@
+diff -ru a/project-env/client/settings-screen.tsx b/project-env/client/settings-screen.tsx
+--- a/project-env/client/settings-screen.tsx	2026-11-09 15:36:02
++++ b/project-env/client/settings-screen.tsx	2026-11-09 16:02:56
+@@ -840,7 +840,7 @@
+             hint="Keychain item name holding its token, e.g. relay-dev-read"
+             initialValue={draft.serviceAccount}
+             onChangeText={(serviceAccount) => {
+-              patch({ serviceAccount });
++              patch({ serviceAccount: serviceAccount.trim() });
+               clearTokenMessages();
+             }}
+           />
+diff -ru a/project-env/server/secrets.ts b/project-env/server/secrets.ts
+--- a/project-env/server/secrets.ts	2026-11-09 15:36:02
++++ b/project-env/server/secrets.ts	2026-11-09 16:02:56
+@@ -297,14 +297,13 @@
+     const { deadline } = options;
+     const remaining = () =>
+       deadline === undefined ? CALL_TIMEOUT_MS : Math.max(1, deadline - Date.now());
+-    const token = project.serviceAccount
+-      ? readToken(project.serviceAccount, remaining())
+-      : Promise.resolve(null);
++    const account = project.serviceAccount.trim();
++    const token = account ? readToken(account, remaining()) : Promise.resolve(null);
+     const outcomes = await Promise.all(
+       project.variables.map(({ name, ref }) =>
+         isReservedName(name)
+           ? null
+-          : untilDeadline(readVariable(project.serviceAccount, project.vault, ref, token, remaining), deadline),
++          : untilDeadline(readVariable(account, project.vault, ref, token, remaining), deadline),
+       ),
+     );
+     const env: Record<string, string> = {};
+diff -ru a/project-env/test/secrets.test.ts b/project-env/test/secrets.test.ts
+--- a/project-env/test/secrets.test.ts	2026-11-09 15:36:02
++++ b/project-env/test/secrets.test.ts	2026-11-09 16:03:14
+@@ -61,3 +61,14 @@
+     assert.equal(isReservedName("DATABASE_URL"), false);
+   });
+ });
++
++describe("service account name", () => {
++  it("a saved name with surrounding spaces reads the token stored under the trimmed name", async () => {
++    const world = makeWorld({ keychain: { "sa-x": "x" }, op: { accounts: { x: { refs: { "op://Dev/stripe/STRIPE_KEY": "v" } } } } });
++    cleanups.push(world.cleanup);
++    const project = { root: "/r", serviceAccount: " sa-x ", vault: "Dev", variables: [{ name: "STRIPE_KEY", ref: "op://Dev/stripe/STRIPE_KEY" }] };
++    const { env, results } = await createSecrets(world.tools).resolveProject(project);
++    assert.deepEqual(results, [{ name: "STRIPE_KEY", ok: true }]);
++    assert.equal(env.STRIPE_KEY, "v");
++  });
++});

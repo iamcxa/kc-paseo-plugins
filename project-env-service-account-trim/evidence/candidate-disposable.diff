@@ -1,0 +1,33 @@
+diff -ru a/project-env/client/settings-screen.tsx b/project-env/client/settings-screen.tsx
+--- a/project-env/client/settings-screen.tsx	2026-11-09 15:36:02
++++ b/project-env/client/settings-screen.tsx	2026-11-09 16:02:56
+@@ -840,7 +840,7 @@
+             hint="Keychain item name holding its token, e.g. relay-dev-read"
+             initialValue={draft.serviceAccount}
+             onChangeText={(serviceAccount) => {
+-              patch({ serviceAccount });
++              patch({ serviceAccount: serviceAccount.trim() });
+               clearTokenMessages();
+             }}
+           />
+diff -ru a/project-env/server/secrets.ts b/project-env/server/secrets.ts
+--- a/project-env/server/secrets.ts	2026-11-09 15:36:02
++++ b/project-env/server/secrets.ts	2026-11-09 16:02:56
+@@ -297,14 +297,13 @@
+     const { deadline } = options;
+     const remaining = () =>
+       deadline === undefined ? CALL_TIMEOUT_MS : Math.max(1, deadline - Date.now());
+-    const token = project.serviceAccount
+-      ? readToken(project.serviceAccount, remaining())
+-      : Promise.resolve(null);
++    const account = project.serviceAccount.trim();
++    const token = account ? readToken(account, remaining()) : Promise.resolve(null);
+     const outcomes = await Promise.all(
+       project.variables.map(({ name, ref }) =>
+         isReservedName(name)
+           ? null
+-          : untilDeadline(readVariable(project.serviceAccount, project.vault, ref, token, remaining), deadline),
++          : untilDeadline(readVariable(account, project.vault, ref, token, remaining), deadline),
+       ),
+     );
+     const env: Record<string, string> = {};

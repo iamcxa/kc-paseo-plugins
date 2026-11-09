@@ -1,0 +1,12 @@
+# Throwaway copies under /tmp/pe-trim/cand (git archive e4acaec project-env), node_modules linked from the main checkout, 2026-11-09.
+# a = main + the test in candidate-with-test-disposable.diff; b = main + the whole of candidate-with-test-disposable.diff.
+== a (main + test only)
+  ✖ a saved name with surrounding spaces reads the token stored under the trimmed name
+ℹ tests 336
+ℹ pass 335
+ℹ fail 1
+== b (candidate + test)
+ℹ tests 336
+ℹ pass 336
+ℹ fail 0
+== b: npm run typecheck (tsc --noEmit): exit 0

@@ -1,0 +1,13 @@
+design_decline_check:
+  adrs_read:
+    - docs/adr/0001-agents-receive-secrets-as-environment-from-one-vault.md (Accepted)
+    - docs/adr/0002-an-unresolved-variable-is-blanked-and-shown.md (Accepted)
+  rulings:
+    - finding: 4
+      ruling: upheld
+      evidence: proposed-saved-list-1280.png shows the earlier-saved row as "1 variables ·  sa-a" with one extra space before the name, and proposed-saved-test-1280.png shows the same project opened with "Connected · sa-a · Dev" and "All 1 set", so a person is not misled, blocked or put at risk by the stray space in the hint.
+      change: none
+    - finding: 5
+      ruling: upheld
+      evidence: proposed-list-1280.png, proposed-plain-test-1280.png and proposed-saved-test-1280.png show no new words or layout (the rows read the same as the no-spaces case), and proposed-blank-1280.png and proposed-blank-400.png show the all-spaces name as an empty field with "No service account named yet" and Check disabled, so the changed result is pictured at both sizes and no light-theme picture exists, which a person would not act on wrongly.
+      change: none
