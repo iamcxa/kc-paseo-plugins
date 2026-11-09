@@ -1,7 +1,7 @@
 ---
 id:
 title: A service account name with surrounding spaces still gets its variables
-status: implementation
+status: validation
 variant: kc-dev-flow-2
 profile: pilot
 merge: pr
