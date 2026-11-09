@@ -27,6 +27,8 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+started: 2026-11-09T03:11:21Z
+worktree: .worktrees/spacedock-ensign-d6-chief-batch-on-phone
 ---
 
 Design, before any code, how the Captain clears a batch the chief of staff called him about from her one conversation on his phone: she lays out the batch's items, he answers each there, and she relays his answers to each FO, so he never switches between FO sessions.
