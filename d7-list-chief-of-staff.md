@@ -180,3 +180,9 @@ Checks / documents — comment-ratio.log: 111 added code / 0 comment lines, 0%, 
 ### Summary
 
 The authorized list-loss repair is committed/pushed and its regressions pass, including failure fallback, restart membership and stale receive guards. The previously missing question-plus-two-gates real relay proof now passes with the permission untouched. Overall delivery remains HOLD for the preexisting native preparation-wrapper provenance issue and FO-run exact-head review/validation; no ready/merge/installation action was taken.
+
+## Investigation: roborev 1634 and the native HOLD
+
+Cycle 2 at 9718e7f0512e0a22f614668cd0294b639ad7306f: the list-loss repair passes (466 tests) and the real rerun relayed the question and both gates exactly once after confirmation, permission untouched (Opus turns 43 s, 40 s, 30 s; Terra 11 s). Worker HOLD: the native prepare tool's persisted result (detail.output.output) is not recognized, so the real batch's observer ended failed instead of calling, and a restart cannot resolve the list (predates the repair).
+FO ran roborev on 9718e7f0512e0a22f614668cd0294b639ad7306f: exit 1, evidence=roborev:1634. Item 1 repeats the FO-declined list membership. New, both in the conversation fold: (3) a peer message followed by her ordinary acknowledgment is read as another list response and invalidates the list; (4) predecessor retirement needs coverage of resolved items, so a restart can resurrect an answered list.
+The conversation-fold lifecycle (supersession, coverage, restart recovery) has produced findings in d3, d5 and now d7. FO calls chief-engineer before the last repair cycle.
