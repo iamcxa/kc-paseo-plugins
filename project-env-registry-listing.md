@@ -26,7 +26,7 @@ Verified by: the compliance record checked line by line against both saved docum
 ## FO alignment
 
 Surfaces: docs
-Visible change: The plugin's listing page in Paseo shows a description, a picture of its settings screen and an overview that says where its data goes.
+Visible change: none
 Direction alignment with the Captain: done — he answered 「開，幫我合併 78」 on 2026-11-09 to FO's proposed batch naming the listing work.
 Result: the batch question and this Scope.
 Release review: not needed: packaging for the registry with no journey release goal change.
