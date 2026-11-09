@@ -4,7 +4,8 @@ const { scenario, argv, log, fail } = boot("op");
 const token = process.env.OP_SERVICE_ACCOUNT_TOKEN ?? "";
 const account = token.startsWith(TOKEN_PREFIX) ? token.slice(TOKEN_PREFIX.length) : null;
 const known = account !== null && scenario.op?.accounts?.[account] !== undefined;
-log({ account: known ? account : null });
+const opVars = Object.keys(process.env).filter((name) => name.startsWith("OP_")).sort();
+log({ account: known ? account : null, opVars });
 
 if (!known) fail("[ERROR] 401 Authentication: invalid service account token");
 

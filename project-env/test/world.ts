@@ -31,6 +31,7 @@ export interface Call {
   tool: "op" | "security" | "git";
   argv: string[];
   account?: string | null;
+  opVars?: string[];
   commands?: string[];
   pid: number;
 }
