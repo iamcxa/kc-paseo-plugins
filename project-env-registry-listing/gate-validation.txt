@@ -1,0 +1,20 @@
+我建議把「送審資料」這份（PR #82，提交 41e981017104e2c7359d4c3b954587e6eb06c89f）退回一次小修，只改說明檔：把驗證列出的 3 處不精確寫準，並把「預設鑰匙圈」改回「login Keychain（Mac 的預設鑰匙圈）」，跟文件網站和設定畫面一致。退回後由原工作者修、再驗證一次，之後再給你看；其他 4 個檔案不動。
+Merge ask: none yet; FO recommends revise for PR #82 at 41e981017104e2c7359d4c3b954587e6eb06c89f before merge.
+Sufficiency: validation-1 PASSED at 41e98101 with no Material finding (validator report, not run by FO); FO reran the validation stage report's acceptance script, run by FO in a fresh shell on 2026-11-09, and every step printed the expected output (captain-steps/1-output.txt).
+Necessity: the overview is the public listing page; validation F7-F9 found three imprecise sentences in it, and its new "default keychain" wording disagrees with docs/project-env pages and the shared/token.ts screen hint (F1-F5).
+Captain steps: project-env-registry-listing/captain-steps/1.md
+Reviews: external review rounds: 1 — Codex summary:6736391987 clean on 41e981017 (codex_review.py, 2026-11-09).
+External rounds: 1
+second reviewer: not triggered
+Declined: Polish, F6 ADR 0001 and ADR 0005 say login Keychain (decision records, no change).
+Declined: Deferred risk, F10 opening the field list reads every item's JSON, which may carry field values in plugin memory (discarded by the plugin, unverified without a real op, would become Material if values were kept or logged).
+Declined: Polish, F11 the approved E4 clause omits turning plugins on in the isolated config (validation corrected it in the acceptance script).
+Declined: Deferred risk, F12 the overview line that op contacts 1Password is true only after #81 merges (merge order #83, #81, #82).
+Declined: Polish, F1 docs/project-env/index.md step 2 says login Keychain and that the token goes only to op (fix in the revise round, the overview returns to the login Keychain wording so this page agrees).
+Declined: Polish, F2 index.md limits paragraph says login Keychain (fix in the revise round, the overview returns to the login Keychain wording).
+Declined: Polish, F3 prepare-1password.md says login Keychain (fix in the revise round, the overview returns to the login Keychain wording).
+Declined: Polish, F4 the shared/token.ts locked hint says login Keychain (fix in the revise round, the overview returns to the login Keychain wording).
+Declined: Polish, F5 the journey map irreversible line says login Keychain entry (fix in the revise round, the overview returns to the login Keychain wording).
+Declined: Polish, F7 the overview says when an agent starts where resume, refresh and import also run (fix in the revise round, the overview sentence is made exact).
+Declined: Polish, F8 the Logs bullet omits the reportFailure line (fix in the revise round, the overview bullet is made complete).
+Declined: Polish, F9 the notice goes only to agents whose repository has a variable (fix in the revise round, the overview sentence is made exact).
