@@ -840,7 +840,7 @@ function ProjectEditor({
             hint="Keychain item name holding its token, e.g. relay-dev-read"
             initialValue={draft.serviceAccount}
             onChangeText={(serviceAccount) => {
-              patch({ serviceAccount });
+              patch({ serviceAccount: serviceAccount.trim() });
               clearTokenMessages();
             }}
           />

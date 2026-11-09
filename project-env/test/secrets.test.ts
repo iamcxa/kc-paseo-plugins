@@ -61,3 +61,14 @@ describe("reserved names", () => {
     assert.equal(isReservedName("DATABASE_URL"), false);
   });
 });
+
+describe("service account name", () => {
+  it("a saved name with surrounding spaces reads the token stored under the trimmed name", async () => {
+    const world = makeWorld({ keychain: { "sa-x": "x" }, op: { accounts: { x: { refs: { "op://Dev/stripe/STRIPE_KEY": "v" } } } } });
+    cleanups.push(world.cleanup);
+    const project = { root: "/r", serviceAccount: " sa-x ", vault: "Dev", variables: [{ name: "STRIPE_KEY", ref: "op://Dev/stripe/STRIPE_KEY" }] };
+    const { env, results } = await createSecrets(world.tools).resolveProject(project);
+    assert.deepEqual(results, [{ name: "STRIPE_KEY", ok: true }]);
+    assert.equal(env.STRIPE_KEY, "v");
+  });
+});
