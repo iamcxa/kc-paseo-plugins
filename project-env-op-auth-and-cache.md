@@ -178,3 +178,20 @@ No isolated Paseo run is owed: both halves sit inside `secrets.ts` and are reach
 ### Summary
 
 Confirmed from 1Password's own page that Connect variables win over a service account token, so the reviewer's identity finding stands. Proposed two changes inside `project-env/server/secrets.ts`: `op` gets the daemon environment minus every `OP_` name plus the service account token, and a cache generation number keeps any read that started before a clear (settings change, Test, or `storeToken`, which today bypasses `clearCache()`) from being cached. Both defects were reproduced on main with fakes; no Captain decision is open — stripping all `OP_` names rather than only the two Connect names is a recommendation (it covers `OP_SESSION_<account>` and costs only inherited `OP_` behaviour no one is known to use). No ADR owed; past rulings checked: ADRs 0001-0009 name no op-environment or cache behaviour, and `Override:` lines appear only in archived tasks about other areas.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design in `project-env/server/secrets.ts`
+  `opEnv` strips `OP_*` then sets the token; `generation` counter in `clearCache`/`readVariable`; `storeToken` calls `clearCache()`. Commit cac21317.
+- DONE: Add `test/op-identity.test.ts` and `test/cache-after-clear.test.ts` (both clear paths) and show each fails on main
+  With secrets.ts reverted: op-identity fails (saw OP_CONNECT_HOST/TOKEN/SESSION beside the token); both clear-path cases fail (actual 'old', expected 'new'). Control case (no clear -> one read) passes on both, so the fail is the generation check, not the fixture.
+- DONE: Run `npm test` and `npx tsc --noEmit` and save both outputs; count added comment lines
+  339 tests/339 pass/0 fail (main 335); tsc clean; outputs /tmp/opac/npm-test.txt, /tmp/opac/tsc.txt; comment lines added: 0.
+- DONE: Commit, push, open Draft PR
+  https://github.com/iamcxa/kc-paseo-plugins/pull/81 (draft, not merged).
+- DONE: roborev gate
+  evidence=roborev:1637 (clean on 889b7329d; first run roborev:1635 had one Low finding, unbounded wait in test, fixed in 889b7329).
+
+### Summary
+
+Both halves of AC-1 implemented in secrets.ts with fakes logging only `OP_` variable names. Tests were shown to fail on main and pass on the candidate. No isolated Paseo run, per the design.
