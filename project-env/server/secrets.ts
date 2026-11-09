@@ -44,11 +44,13 @@ export class RunFailure extends Error {
 }
 
 function opEnv(token: string): NodeJS.ProcessEnv {
-  return { ...process.env, OP_SERVICE_ACCOUNT_TOKEN: token };
+  const inherited = Object.entries(process.env).filter(([name]) => !name.startsWith("OP_"));
+  return { ...Object.fromEntries(inherited), OP_SERVICE_ACCOUNT_TOKEN: token };
 }
 
 export function createSecrets(tools: Tools) {
   const cache = new Map<string, { value: string; at: number }>();
+  let generation = 0;
 
   function run(
     file: string,
@@ -174,7 +176,7 @@ export function createSecrets(tools: Tools) {
     const checked = await checkToken(token);
     if (checked.state !== "ok") return { stored: false, ...checked, vaults: [], vaultIds: [] };
     await writeToken(serviceAccount, token);
-    cache.clear();
+    clearCache();
     return { stored: true, ...(await tokenStatus(serviceAccount)) };
   }
 
@@ -260,6 +262,7 @@ export function createSecrets(tools: Tools) {
   ): Promise<Outcome> {
     if (isOutsideVault(ref, vault)) return { ok: false, cause: "outside-vault" };
     try {
+      const startedIn = generation;
       const secret = await token;
       if (!secret) return { ok: false, cause: "no-token" };
       if (!parseRef(ref)) return { ok: false, cause: "missing-field" };
@@ -271,7 +274,7 @@ export function createSecrets(tools: Tools) {
         timeout: timeout(),
       });
       if (value.trim() === "") return { ok: false, cause: "empty" };
-      cache.set(key, { value, at: Date.now() });
+      if (generation === startedIn) cache.set(key, { value, at: Date.now() });
       return { ok: true, value };
     } catch (error) {
       return {
@@ -319,6 +322,7 @@ export function createSecrets(tools: Tools) {
 
   function clearCache() {
     cache.clear();
+    generation++;
   }
 
   return { mainCheckout, projectForCwd, tokenStatus, checkToken, storeToken, writeToken, listRefs, resolveProject, clearCache };
