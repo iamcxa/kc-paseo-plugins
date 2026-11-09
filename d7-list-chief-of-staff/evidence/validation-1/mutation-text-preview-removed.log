@@ -1,0 +1,30 @@
+✖ widget previews also require exact destinations and messages as plain reply text for Bridge (6.5595ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 311.120583
+
+✖ failing tests:
+
+test at test/coordinator-switch.test.mts:1:2509
+✖ widget previews also require exact destinations and messages as plain reply text for Bridge (6.5595ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(COORDINATOR_PROMPT.includes("Whenever you show a what-will-be-sent preview in a widget, also write the same complete preview as plain text in your reply, including each item's destination FO/agent id and exact proposed message, so it is readable in Bridge's conversation."))
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-validation-ek31ltdv/test/coordinator-switch.test.mts:37:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

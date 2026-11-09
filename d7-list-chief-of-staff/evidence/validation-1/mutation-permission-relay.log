@@ -1,0 +1,14 @@
+test_permission_never_relayed_or_decided (__main__.EvidenceChecks.test_permission_never_relayed_or_decided) ... FAIL
+
+======================================================================
+FAIL: test_permission_never_relayed_or_decided (__main__.EvidenceChecks.test_permission_never_relayed_or_decided)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/validation-1/audit_evidence.py", line 78, in test_permission_never_relayed_or_decided
+    self.assertNotIn(permission, [payload(e)['agentId'] for e in calls(self.confirmed, 'mcp__paseo__send_agent_prompt')])
+AssertionError: '7a59e234-f260-48fc-bc13-9e49cbc76a70' unexpectedly found in ['e3766fbd-9fc7-45b2-80a3-b9b389a62dc8', '39314d85-b207-4bd0-b48d-721170b3e971', 'd784fcf4-99d8-4526-befd-5474386bfabc', '7a59e234-f260-48fc-bc13-9e49cbc76a70']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

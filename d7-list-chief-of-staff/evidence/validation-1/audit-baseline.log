@@ -1,0 +1,12 @@
+test_exact_preview_recipient_payload_and_one_native_receipt_per_item (__main__.EvidenceChecks.test_exact_preview_recipient_payload_and_one_native_receipt_per_item) ... ok
+test_measurements_match_native_start_end_and_usage (__main__.EvidenceChecks.test_measurements_match_native_start_end_and_usage) ... ok
+test_no_relay_on_all_recommendations_before_separate_confirmation (__main__.EvidenceChecks.test_no_relay_on_all_recommendations_before_separate_confirmation) ... ok
+test_permission_never_relayed_or_decided (__main__.EvidenceChecks.test_permission_never_relayed_or_decided) ... ok
+test_runtime_manifest_candidate_hashes_and_exact_head_delta (__main__.EvidenceChecks.test_runtime_manifest_candidate_hashes_and_exact_head_delta) ... ok
+test_two_restarts_preserve_content_without_turns_or_relays (__main__.EvidenceChecks.test_two_restarts_preserve_content_without_turns_or_relays) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 7.365s
+
+OK
+MANIFEST AUDIT [{"cycle": "cycle-2", "head": "9718e7f0512e0a22f614668cd0294b639ad7306f", "files": 98, "overlay": ["server/chief.ts"]}, {"cycle": "cycle-3", "head": "970d9cdaab655aadd489a9cda5393610d5f0cb23", "files": 100, "overlay": ["server/chief.ts"]}] runtime overlay bytes deleted; recorded runtime hash alone cannot authenticate overlay contents

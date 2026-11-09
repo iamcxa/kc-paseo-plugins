@@ -1,0 +1,80 @@
+{
+  "head": "3fbbdfb9845ba04935e1d703c837e3d1ab26542b",
+  "results": [
+    {
+      "name": "native-replay",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "--test",
+        "native-replay.test.mts"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "name": "mutation-source-control",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "--test",
+        "test/chief-list.test.mts",
+        "test/coordinator-switch.test.mts"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "name": "mutation-old-admitted",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "--test",
+        "--test-name-pattern=list input applies",
+        "test/chief-list.test.mts"
+      ],
+      "exit": 1,
+      "expected": 1
+    },
+    {
+      "name": "mutation-text-preview-removed",
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "--test",
+        "--test-name-pattern=widget previews",
+        "test/coordinator-switch.test.mts"
+      ],
+      "exit": 1,
+      "expected": 1
+    },
+    {
+      "name": "mutation-early-relay",
+      "command": [
+        "python3",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/validation-1/audit_evidence.py",
+        "early-relay",
+        "EvidenceChecks.test_no_relay_on_all_recommendations_before_separate_confirmation"
+      ],
+      "exit": 1,
+      "expected": 1
+    },
+    {
+      "name": "mutation-permission-relay",
+      "command": [
+        "python3",
+        "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/validation-1/audit_evidence.py",
+        "permission-relay",
+        "EvidenceChecks.test_permission_never_relayed_or_decided"
+      ],
+      "exit": 1,
+      "expected": 1
+    }
+  ],
+  "scratchDeleted": true,
+  "limit": "Old admission and text preview mutate candidate source. Early/permission relays mutate saved native traces to falsify offline acceptance checks, not model behavior or a code-enforced relay guard."
+}

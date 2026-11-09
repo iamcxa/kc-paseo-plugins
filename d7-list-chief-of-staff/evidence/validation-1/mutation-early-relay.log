@@ -1,0 +1,20 @@
+test_no_relay_on_all_recommendations_before_separate_confirmation (__main__.EvidenceChecks.test_no_relay_on_all_recommendations_before_separate_confirmation) ... FAIL
+
+======================================================================
+FAIL: test_no_relay_on_all_recommendations_before_separate_confirmation (__main__.EvidenceChecks.test_no_relay_on_all_recommendations_before_separate_confirmation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/validation-1/audit_evidence.py", line 69, in test_no_relay_on_all_recommendations_before_separate_confirmation
+    self.assertEqual(calls(self.preview, 'mcp__paseo__send_agent_prompt'), [])
+AssertionError: Lists differ: [{'provider': 'claude', 'item': {'type': '[1637 chars]e']}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'provider': 'claude', 'item': {'type': 'tool_call', 'callId': 'toolu_01FZv96Nd1U8XugSxHcprNcS', 'name': 'mcp__paseo__send_agent_prompt', 'detail': {'type': 'unknown', 'input': {'agentId': 'e3766fbd-9fc7-45b2-80a3-b9b389a62dc8', 'prompt': "Captain's decision on fictional-item-1 (version fictional-version-1): choose 甲. Reason: this round only accepts CSV; 甲 supports CSV, 乙 only XLSX; both pass tests and are otherwise equal. Captain's route words: 「全照建議」. Captain's confirmation: 「確認發送以上預覽」. Verify the Captain's [User] words with get_agent_activity on agent f83b3f49-6645-4ec1-832b-c018afa283d6 (Chief of staff), then record this decision through your existing workflow. From now on, at the end of every turn, set your own labels with update_agent on your own agent id: `next-owner` is `captain` when your next step needs the Captain and `fo` otherwise; `next` is that next step in one short line; `task` is the slug of the task you work on; `workflow-dir` is the absolute path you pass to spacedock as --workflow-dir."}, 'output': {'output': {'success': True, 'deliveryStatus': 'queued', 'messageId': '7af017ab-63d6-4f44-975a-bab808138cde', 'status': 'idle', 'guidance': 'Queued for delivery after two quiet seconds. You will get notified when the prompted agent finishes, errors, or needs permission. Do not poll for status; continue with other work until the notification arrives.', 'serverId': 'srv_CJAV17iiu2Bm'}}}, 'status': 'completed', 'error': None}, 'timestamp': '2026-11-09T09:38:16.423Z', 'seqStart': 19, 'seqEnd': 23, 'sourceSeqRanges': [{'startSeq': 19, 'endSeq': 21}, {'startSeq': 23, 'endSeq': 23}], 'turnId': 'foreground-turn-1', 'collapsed': ['tool_lifecycle']}
+
+Diff is 3859 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)

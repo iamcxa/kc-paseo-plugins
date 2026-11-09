@@ -1,0 +1,17 @@
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✔ list input applies the shared ownership rule and excludes newly discovered old questions (22.978041ms)
+✔ accumulated list adds admitted items, refreshes facts and drops resolved items without importing the whole board (0.138542ms)
+✔ real list prose survives preparation/restart; a native Captain reply consumes it, a peer envelope does not (3.874875ms)
+✔ a second trigger posts the grown list through the real observer path with one preparation per update (8.773ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (2.396417ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.3935ms)
+✔ widget previews also require exact destinations and messages as plain reply text for Bridge (0.094917ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 337.44025
