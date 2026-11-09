@@ -37,6 +37,17 @@ gates:
                 id: briefing:project-env-op-auth-and-cache:ideation:attempt-1:revision-1
                 digest: sha256:8c5f9f81e5c0bdb11e7f1e33a59d6be020c6a16b59525a21aebe467385f30663
                 room-ref: ./project-env-op-auth-and-cache/review/ideation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:project-env-op-auth-and-cache:ideation:1
+                briefing: briefing:project-env-op-auth-and-cache:ideation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-09T08:47:45.944568Z"
+                decision: approve
+                reason: '「准」 — Captain in FO chat, 2026-11-09, answering 「設計關（送審前修正 2/3）：我建議准。呼叫 op 前拿掉所有 OP_ 開頭的環境變數，再放入我們的服務帳號 token（1Password 官方文件證實 Connect 變數會優先）；清快取時加一個編號，清之前開始的讀取不再存進快取，存新 token 也改走同一個清快取函式。兩個問題都在 main 上重現了。准了就照這個設計進實作，排在服務帳號那份之後。」 (the three public-release-prep ideation gates presented together). Recommendation: followed.'
+              application:
+                target-stage: implementation
+                state: pending
 started: 2026-11-09T07:41:25Z
 ---
 
