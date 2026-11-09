@@ -125,6 +125,8 @@ Read-only investigation of item 2 dispatched as implementation-1-followup-1 befo
 
 ### FO declines
 
+- validation-1 F2 and F3 (roborev 1647 items 7 and 8) on 3fbbdfb9845ba04935e1d703c837e3d1ab26542b — an answered item can be asked again; a title-edited gate drops out of her list after a restart. Declined as known issues for the trial by the Captain's ruling 2026-11-09, asked 「清單版幕僚長驗證沒有完全通過。你最在意的部分是過的：你說「全照建議」後只給預覽、確認後每件只送一次、權限不碰。但驗證重現了兩個會誤導你的狀況：① 偶爾已經回過的事會再問你一次；② 關卡改過標題又遇到 Paseo 重開，那個關卡會從她的清單消失（board 上還在）。這類「從她的對話紀錄推算清單狀態」的問題已經修了三個版本都沒收斂。下一步怎麼走？」, answered 「先裝給我試，帶著這兩個已知問題 (Recommended)」. Would become Material: if in his trial he is asked again about something he answered, or misses a gate the board still shows.
+
 - roborev 1642 item 6 on 970d9cdaab655aadd489a9cda5393610d5f0cb23 — a list's synthetic focus on its first item makes a whole update fail if that item resolves during preparation. Declined as a known issue by the Captain's ruling 2026-11-09 (Amendment 1, 「加一句指令後給我試 (Recommended)」, whose option text records it as known). Would become Material: if in his trial a list update is dropped or an older list returns after an item resolved.
 
 - roborev 1629 item 1 on cd1a6b95ad53202ae0962bd1f63a8ebee883799c — the list carries every pending item and consumes them, so a later gate does not raise its own call. Declined because the Captain's model is one accumulated list that grows until he responds (「如果一直有就一直加，直到我回應」); the item is in that list. Would become Material: if a new item added to an unanswered list never reaches him through a push, or he reports missing an item that was in the list.
