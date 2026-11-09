@@ -1,7 +1,7 @@
 import { parseEnvelope } from "./preview";
 import { healthyTimeline, readTimeline, TIMELINE_ENTRY_LIMIT, type TimelinePage, type TimelineEntry, type TimelineReader } from "./timeline";
 import { AUTOMATED_MARKER } from "./reviews";
-import { batchRequest, batchResponseId, focusSchema, eventSchema, type ChiefBatch, type ChiefFocus } from "./chief";
+import { batchRequest, batchResponseId, focusSchema, eventSchema, eventVersion, type ChiefBatch, type ChiefEvent, type ChiefFocus } from "./chief";
 
 export const COMMANDER_ENTRY_LIMIT = TIMELINE_ENTRY_LIMIT;
 export type CommanderReply = Pick<TimelineEntry, "seqStart" | "seqEnd" | "timestamp" | "item" | "turnId"> & {
@@ -19,6 +19,7 @@ function preparedBy(item: TimelineEntry["item"], batch: ChiefBatch): boolean {
     return input?.batchId === batch.id && output?.batchId === batch.id && typeof output.preparation === "string" && Boolean(output.preparation.trim()) && JSON.stringify(eventSchema.array().parse(output.facts)) === JSON.stringify(batch.events);
   } catch { return false; }
 }
+const covers = (next: ChiefBatch, prior: ChiefBatch) => prior.events.every(old => next.events.some(event => event.key === old.key));
 function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: string) {
   let provenance: CommanderReply["provenance"] = "unknown";
   let current: ChiefBatch | null = null;
@@ -26,6 +27,7 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
   const replies: CommanderReply[] = [], attempts = new Map<string, ChiefBatch>();
   const unresolved = new Map<string, { batch: ChiefBatch; focus: ChiefFocus }>();
   const responses = new Set<string>(), uncertain = new Set<string>(), failed = new Set<string>();
+  const outstanding = new Map<string, ChiefEvent>(), answeredVersions = new Set<string>();
   const batchTurns = new Map<string, string>(), turnBatches = new Map<string, string>();
   const invalidate = (id: string, failure: boolean) => {
     unresolved.delete(id);
@@ -47,13 +49,25 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
       current = batchRequest(item.text);
       provenance = item.text.startsWith(AUTOMATED_MARKER) ? "automated" : "ordinary";
       prepared = Boolean(current && current.id === livePreparedBatchId); preparationCalls = 0;
-      if (current) { attempts.set(current.id, current); bindTurn(current.id, entry.turnId); }
+      if (current) {
+        attempts.set(current.id, current); bindTurn(current.id, entry.turnId);
+        if (current.outputMode === "list") for (const event of current.events) if (!answeredVersions.has(eventVersion(event))) outstanding.set(event.key, event);
+      }
       else if (provenance === "ordinary") {
         const candidate = batchResponseId(item.text);
         const latest = [...unresolved.values()].at(-1)?.batch;
         responseId = candidate && attempts.has(candidate) ? candidate
           : !item.text.startsWith("[Bridge batch response:") && latest?.outputMode === "list" ? latest.id : null;
-        if (responseId) { responses.add(responseId); unresolved.delete(responseId); uncertain.delete(responseId); }
+        if (responseId) {
+          const answered = attempts.get(responseId)!;
+          for (const attempt of attempts.values()) if (attempt.id === responseId || answered.outputMode === "list" && attempt.outputMode === "list" && covers(answered, attempt)) {
+            responses.add(attempt.id); unresolved.delete(attempt.id); uncertain.delete(attempt.id);
+            if (attempt.outputMode === "list") for (const event of attempt.events) {
+              answeredVersions.add(eventVersion(event));
+              if (outstanding.has(event.key) && eventVersion(outstanding.get(event.key)!) === eventVersion(event)) outstanding.delete(event.key);
+            }
+          }
+        }
       }
     } else if (item.type === "error") {
       const attributed = entry.turnId ? turnBatches.get(entry.turnId) : undefined;
@@ -78,14 +92,13 @@ function interpret(entries: readonly TimelineEntry[], livePreparedBatchId?: stri
       if (candidate?.batchId === current.id && current.events.some(event => event.key === candidate!.targetKey)) {
         if (bindTurn(current.id, entry.turnId) && prepared && !uncertain.has(current.id)) {
           focus = candidate;
-          if (current.outputMode === "list") for (const [id, value] of unresolved) if (value.batch.outputMode === "list") unresolved.delete(id);
           unresolved.set(current.id, { batch: current, focus });
         } else invalidate(current.id, false);
       }
     }
     replies.push({ ...entry, item: { ...item }, provenance, batchId: current?.id ?? null, responseId, focus: current?.outputMode === "list" ? null : focus });
   }
-  return { replies: replies.map(reply => reply.batchId && (failed.has(reply.batchId) || uncertain.has(reply.batchId)) ? { ...reply, focus: null } : reply), attempts: [...attempts.values()], unresolved: [...unresolved.values()], responses, uncertain, failed };
+  return { replies: replies.map(reply => reply.batchId && (failed.has(reply.batchId) || uncertain.has(reply.batchId)) ? { ...reply, focus: null } : reply), attempts: [...attempts.values()], unresolved: [...unresolved.values()].filter((value, index, all) => value.batch.outputMode !== "list" || !all.slice(index + 1).some(next => next.batch.outputMode === "list" && covers(next.batch, value.batch))), outstanding: [...outstanding.values()], responses, uncertain, failed };
 }
 export function commanderReplies(page: TimelinePage, agentId: string, epoch?: string): CommanderReply[] | null {
   if (!healthyTimeline(page, agentId, epoch)) return null;
