@@ -192,3 +192,20 @@ None. Past rulings checked: ADRs 0001 and 0002, which the design director read, 
 
 ### Summary
 The fix is two trims: one where the name field writes the draft, and one where `resolveProject` looks up the token. With them, the saved value, the comparisons, Check, Test and agent start all use the same name. No screen word changes, and nothing needs a Captain decision. Ideation wrote no repository file, branch or commit. Live probes ran only on an isolated Paseo 0.15.3 with fake `op` and `security`. The daemons and browser sessions I started are stopped and closed, and the npm install in `/tmp/pe-trim/install` is left for the validation rerun.
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design (trim the service account name on save and before every token lookup, for Test and agent start; no screen word changes) and the unit test that fails on main.
+  Commit 7035292f on `spacedock-ensign/project-env-service-account-trim`: name field trims into the draft, `resolveProject` trims before lookup and cache key. Test "a saved name with surrounding spaces reads the token stored under the trimmed name" asserts the variable is `ok` and `env.STRIPE_KEY` is `v`; with the `resolveProject` trim reverted it fails with `cause: 'no-token'`.
+- DONE: Reproduce AC-1 on the candidate on an isolated Paseo at the newest release with fake `op` and `security`.
+  Paseo 0.15.3 (newest on npm 2026-11-09). ` sa-a ` typed: saved `'sa-a'`, `Connected · sa-a · Dev`, Test `All 1 set`, agent `STRIPE_KEY=filled`, at 1280 and 400 px; name saved earlier as `' sa-a '`: not rewritten, `All 1 set`, `filled`; `sa-a`: unchanged, `filled`. Files: `project-env-service-account-trim/evidence/impl/impl-*.txt`, pictures in `evidence/impl/pics/`. The client-half falsifier (clause 4) was not rerun.
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` and save both outputs; count the comment lines your diff adds.
+  336 of 336 pass; tsc exit 0 (`evidence/impl/npm-test.txt`, `tsc.txt`). Comment lines added: 0.
+- DONE: Commit with a conventional title scoped to the plugin, push, open a Draft PR on iamcxa/kc-paseo-plugins with the evidence; do not mark it ready or merge.
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/83, not marked ready.
+
+Docs: no change. `docs/project-env/capture/` on this branch and on `origin/main` (Paseo 0.15.3, isolated home): six of seven pictures identical, `02-actions-menu` differs in a 34x20 px box; committed pictures differ from both because of Paseo version drift, not this change. No sentence in `install.md`, `prepare-1password.md` or `OVERVIEW.md` changes.
+roborev gate: exit 0, `clean on 7035292f7; evidence=roborev:1639`.
+
+### Summary
+Two trims make the saved name, Check, Test and agent start use one value; no screen word changed. The only limit is the fake `security` (exact-name matching); a real Keychain was not probed. Isolated daemons and browser sessions I started are stopped; `/tmp/pe-trim/install` remains.
