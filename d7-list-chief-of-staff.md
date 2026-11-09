@@ -349,3 +349,10 @@ Scope / handback — PR #80 was read back OPEN/Draft at exactly 3fbbdfb9845ba049
 ### Summary
 
 Independent local checks and the historical native confirmation/receipt audit pass, with four effective negative probes and exact-head replays of all three known state defects. Full acceptance is not established: known stale/missing-list behavior, new-head model/visual proof and the profile boundary above remain explicit. Hand back to FO for the already authorized trial and gate disposition, without another repair cycle or merge authority.
+
+## Investigation: Captain trial 1
+
+Captain 2026-11-09, first step of captain-steps/1.md on the live install at 3fbbdfb9845ba04935e1d703c837e3d1ab26542b: a phone screenshot showing "DaemonRpcError: Request failed: Officer transition cannot be confirmed requestType=plugin.rpc.invoke.request code=handler_error".
+FO read-only diagnosis: coordinator-switch.json named the d3 officer as current and the original officer as previous; every role=comms-officer agent was archived (the original and the d3 officer at 2026-11-06T04:15Z, a later "Comms officer" created 2026-11-06T14:25Z by an older build and archived 2026-11-09T04:30Z), none by FO or worker action. switchTransition throws when the record's current officer is archived, so Bridge cannot open any officer.
+17. A switch record whose current officer was archived outside Bridge leaves the Bridge with no way forward; it should be treated as stale and offer a new chief of staff. Not repaired here.
+Containment, with the Captain's 「准」 to the FO's question (rename the record to a backup so Bridge creates a new chief of staff; reversible): the FO renamed coordinator-switch.json to coordinator-switch.json.bak (2026-11-09). No agent was created, archived or prompted by the FO.
