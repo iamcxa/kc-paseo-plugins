@@ -1,0 +1,8 @@
+next: each number or factual claim in this text and the PR body names the command and date that produced it, or says `<whose> report, not run`.
+PR head 889b7329d844d41972c44142ce8df4fd9980d570 equals dispatched candidate 889b7329d844d41972c44142ce8df4fd9980d570; no second reviewer outcome is missing
+point: deferred: '- F2 Deferred risk: the PR'
+point: deferred: 'Declined: Polish, F1 doc_impact.py lists ADR'
+point: deferred: 'Declined: Deferred risk, F2 the prefix'
+class: other (verdict ask)
+record: project-env-op-auth-and-cache/merge/ask-1.json
+next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.

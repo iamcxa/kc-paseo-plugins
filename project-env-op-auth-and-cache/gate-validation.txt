@@ -1,0 +1,10 @@
+我建議准「1Password 登入方式和快取」這份（PR #81，提交 889b7329d844d41972c44142ce8df4fd9980d570），並婉拒下面列的小問題。op 一律用我們的服務帳號，換 token 時進行中的讀取不再存進快取。准了也包括同一個 PR 之後的外部審查回合、照合併前檢查通過的那個提交合併，並在合併後刪掉它乾淨且已推送的工作目錄；合併後依 ADR 0007 第二類重載外掛，除非你說你自己合併或先不要。 它排在 #83 之後合併。
+Merge ask: PR #81 at 889b7329d844d41972c44142ce8df4fd9980d570 runs every op call with the daemon environment minus every OP_ variable plus the service account token, and keeps a read that started before a cache clear out of the cache, including the token-save path.
+Sufficiency: validation-1 PASSED at 889b7329 with no Material or Needs decision finding (validator report, not run by FO); FO reran the validation stage report's acceptance script, run by FO in a fresh shell on 2026-11-09: new tests 4 pass, 3 fail with main's secrets.ts, 339/339 overall, tsc_exit=0 (captain-steps/1-output.txt).
+Necessity: the PR changes opEnv, readVariable, clearCache and storeToken in secrets.ts and adds two test files; without it Connect credentials in the daemon environment override the service account and a stale value can be served for 15 minutes after a token change.
+Captain steps: project-env-op-auth-and-cache/captain-steps/1.md
+Reviews: external review rounds: 1 — Codex summary:6736237538 clean on 889b7329d (codex_review.py, 2026-11-09).
+External rounds: 1
+second reviewer: not triggered
+Declined: Polish, F1 doc_impact.py lists ADR 0005 without an updated or unaffected line (the validator read it as unaffected, this diff does not touch the Keychain lookup it cites).
+Declined: Deferred risk, F2 the prefix strip drops every inherited OP_ variable, not only OP_INCLUDE_ARCHIVE (the approved design intends it, would become Material if someone relied on OP_CONFIG_DIR).

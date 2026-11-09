@@ -1,0 +1,16 @@
+{
+  "class": "other",
+  "head": "889b7329d844d41972c44142ce8df4fd9980d570",
+  "model": "not run",
+  "necessity": "the PR changes opEnv, readVariable, clearCache and storeToken in secrets.ts and adds two test files; without it Connect credentials in the daemon environment override the service account and a stale v",
+  "next": "next: merge this head if the approved question named the merge and he did not say he merges or holds, else ask for merge with this text. Every other PR, the Release PR included, is asked one at a time.",
+  "points": [
+    "point: deferred: '- F2 Deferred risk: the PR'",
+    "point: deferred: 'Declined: Polish, F1 doc_impact.py lists ADR'",
+    "point: deferred: 'Declined: Deferred risk, F2 the prefix'"
+  ],
+  "pr": "iamcxa/kc-paseo-plugins#81",
+  "sufficiency": "validation-1 PASSED at 889b7329 with no Material or Needs decision finding (validator report, not run by FO); FO reran the validation stage report's acceptance script, run by FO in a fresh shell on 20",
+  "time": "2026-11-09T09:48:00Z",
+  "verdict": "ask"
+}
