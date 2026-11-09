@@ -1,0 +1,31 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:d6-chief-batch-on-phone:validation:attempt-1:revision-1",
+  "question": "照這個方向做，還是有哪裡要改？（點推播進她的原生對話，整批逐件回答：問題原話轉達、關卡選擇加確認、權限去該 FO；做之前先用你的手機確認元件能送出和確認）",
+  "artifacts": [
+    {
+      "id": "artifact:d6-chief-batch-on-phone:validation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/6542307f5e8c27e8cda4503b7a0ca3af4263e8dd/d6-chief-batch-on-phone.md",
+      "rev": "sha256:eb585ce6464c067752629dfed71104649b57d9c2e4ab89c204bb991a0464a22e",
+      "mediaType": "text/markdown",
+      "summary": "Step A passed the design director on pass 3 after the Captain's amendment 1 (native conversation); step B passed on pass 2 (gate in-flight states; one batch progress across the fallback; one progress line). The phone capability check (native timeline components sending and confirming) runs before any code; failure falls back to the Bridge entry."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:d6-chief-batch-on-phone:validation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/6542307f5e8c27e8cda4503b7a0ca3af4263e8dd/d6-chief-batch-on-phone/design/DESIGN.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:56820eb3bc867e23d3b1c733612d1e9edfd80cea26202f1524df650029873da4"
+    },
+    {
+      "type": "Reference",
+      "id": "reference:d6-chief-batch-on-phone:validation:attempt-1:revision-1:item-3",
+      "uri": "git-root://state/6542307f5e8c27e8cda4503b7a0ca3af4263e8dd/d6-chief-batch-on-phone/mockups/REVIEW.md",
+      "mediaType": "text/markdown",
+      "rev": "sha256:a46ead05a2e39d8e49355841782d9117277c01aa065ffbbf915add14f9f77ff1"
+    }
+  ]
+}

@@ -27,6 +27,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:d6-chief-batch-on-phone:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:d6-chief-batch-on-phone-validation-1
+              briefing:
+                id: briefing:d6-chief-batch-on-phone:validation:attempt-1:revision-1
+                digest: sha256:61211e83bd5b69856e4c3ee045e32d88d449f7804ccfde12066c7f9442cb6309
+                room-ref: ./d6-chief-batch-on-phone/review/validation/briefing-1
 started: 2026-11-09T03:11:21Z
 worktree: .worktrees/spacedock-ensign-d6-chief-batch-on-phone
 ---
