@@ -67,6 +67,7 @@ Preview: d4-chief-of-staff/mockups/review.html
 
 Alignment: not needed: the Captain set the model and approved this task on 2026-11-09 (quoted in the seed).
 Release review: not needed: spacedock-bridge has no journey map yet.
+Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-09 — with one repair cycle left and the conversation fold failing across tasks, repair the fold or switch the list's truth to the board?
 Surfaces: ui
 Visible change: the chief-of-staff cards, red pulsing badge and sound are removed; her conversation shows the accumulated list and, before a batch is sent, a what-will-be-sent view in the widget she chooses.
 
@@ -108,6 +109,10 @@ FO ran roborev on cd1a6b95ad53202ae0962bd1f63a8ebee883799c (base f40c340e8204f4b
 1. server/chief.ts: the list includes every pending event, not only the trigger's qualified events, and consumes them, so a newer gate cannot call again at its own deadline. FO reading: including every pending item is the Captain's list model (「如果一直有就一直加，直到我回應」); see FO declines.
 2. shared/commander-replies.ts: a replacement list deletes the previous unanswered list at once; if the replacement's turn later errors, both are lost, and after restart the earlier list stays consumed though he never answered it.
 Read-only investigation of item 2 dispatched as implementation-1-followup-1 before any fix.
+
+### FO notes
+
+- 2026-11-09: chief-engineer (Codex gpt-6-astra xhigh, agent 97c9aed7) recommends the last repair cycle on the current fold, limited to peer-reply isolation (roborev 1634 item 3), predecessor retirement with resolved items (item 4) and recognizing the native prepare result; the board-truth list is not equivalent as stated (old questions, exact-preview confirmation, re-presenting a confirmed but unrecorded decision) and would need the Captain to change acceptance. FO follows it.
 
 ### FO declines
 
