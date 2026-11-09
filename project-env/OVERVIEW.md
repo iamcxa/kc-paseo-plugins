@@ -4,7 +4,7 @@ If a variable is blank, go to [When a variable is blank](#when-a-variable-is-bla
 
 ## How it works
 
-You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the login Keychain of the Mac that runs Paseo. When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
+You connect a repository to one 1Password vault through a read-only service account. The plugin keeps that service account's token in the Keychain of the Mac that runs Paseo (the default keychain, which is the login Keychain unless you changed it). When an agent starts, the plugin reads each mapped field with the 1Password CLI (`op`), puts the value in the agent's environment, and adds a short notice to the agent's instructions. The notice says the variables come from this plugin, that the agent must not ask for or print a token, and where to look when one is blank. It names no variable and carries no value.
 
 A variable that cannot be read is set to an empty value and the agent still starts. A line in the conversation, "Started without N project variables" for a new agent or "Resumed without N project variables" when a paused agent resumes, names each one and the reason.
 
@@ -15,19 +15,24 @@ A variable that cannot be read is set to an empty value and the agent still star
 3. Choose **Add** to map a variable name to a field in the vault.
 4. Choose **Test**, then **Save**.
 
-It needs Paseo 0.12 or later running on your own Mac, the macOS login Keychain, and the 1Password CLI (`op`).
+It needs Paseo 0.12 or later running on your own Mac (macOS only) and the 1Password CLI (`op`), which you install yourself. The plugin downloads and installs nothing.
 
 ## What it reads and sends
 
-- It reads the service account token from the Keychain and the mapped fields from 1Password. It passes the token only to `op`.
-- It stores your mapping, which is variable names and field references and never values, in Paseo's plugin settings.
+- **Keychain.** It reads the service account token with macOS's `security` tool when an agent starts, when the settings screen checks a connection, when you press Test and when you open the field list, and writes it when you choose **Save token**. It passes the token only to `security` and `op`.
+- **1Password.** It runs `op` with the token. `op` contacts 1Password to list the service account's vaults, to list every item and field of the chosen vault when you open the field list, and to read each mapped field. The plugin makes no other network request.
+- **Git.** When an agent starts, it runs `git` read-only in the agent's working directory to find which connected repository or worktree that is.
+- **Paseo.** Paseo's plugin settings on the Mac hold each repository's path, service account name, vault, variable names and field references, never a token or value. The settings screen reads Paseo's project list to offer repositories. A token you paste reaches the plugin over Paseo's connection from whichever Paseo app you paste it in.
+- **The agent's model provider.** The notice is added to the instructions of each new agent in a connected repository. Paseo saves it with the agent, and the agent's model provider receives it as part of those instructions. It names no variable and carries no value.
+- **The agent's environment.** Values are set for that agent's launch only and Paseo does not save them. The agent program and every command it runs can read them. If the agent or a command prints a value, that output goes to the agent's model provider with the conversation. The notice tells the agent never to; the plugin cannot prevent it.
+- **The conversation and Logs.** The "Started without" and "Resumed without" lines name each blank variable and its reason; they are kept in the conversation history and show in every Paseo app connected to this Mac. The plugin's Logs hold one line per failed variable with the repository path, variable name and reason class.
 - A value read from 1Password is kept in memory and reused for up to 15 minutes, then read again. Saving settings and pressing Test read again.
-- It never shows, logs or sends a secret value. What an agent does with a value it received is outside that promise.
+- Apart from putting values in an agent's environment, it never shows, logs or sends a secret value.
 
 ## Limits worth knowing
 
 - An agent can read and print its own environment, so any variable you map can be seen by that agent.
-- Any program running as you on the Mac can read the token in the login Keychain, and so every secret the service account can reach. Keep the vault narrow.
+- Any program running as you on the Mac can read the token in the Keychain, and so every secret the service account can reach. Keep the vault narrow.
 - Another Mac, a phone or a headless Paseo daemon is not supported.
 - A terminal you open in Paseo does not get the project variables; only agents do.
 - A vault renamed in 1Password after you saved it by name stays broken until you choose its new name under **Change**.
@@ -44,7 +49,7 @@ Each reason below is written as the screen shows it.
 
 ### No token stored for this service account
 
-The plugin found no token in the login Keychain under that service account name. Paste the token again under **Change**. The same reason appears when the login Keychain is locked: unlock it and start a new agent.
+The plugin found no token in the Keychain under that service account name. Paste the token again under **Change**. The same reason appears when that Keychain is locked: unlock it and start a new agent.
 
 ### 1Password rejected the token
 
