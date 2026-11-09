@@ -1,0 +1,12 @@
+我建議准「服務帳號名稱的空白」這份（PR #83，提交 7035292f7ebbd9ef12c7a9f6f664ef21d4a3645d），並婉拒下面列的小問題。名稱前後有空白也能拿到變數，以前存了空白的專案也好了。准了也包括同一個 PR 之後的外部審查回合、照合併前檢查通過的那個提交合併，並在合併後刪掉它乾淨且已推送的工作目錄；合併後依 ADR 0007 第二類重載外掛，除非你說你自己合併或先不要。 它排第一個合併。
+Merge ask: PR #83 at 7035292f7ebbd9ef12c7a9f6f664ef21d4a3645d trims the service account name when it is saved and before every token lookup, so a name typed with surrounding spaces passes the check and gives agents their variables.
+Sufficiency: validation-1 PASSED at 7035292f with no Material or Needs decision finding (validator report, not run by FO); FO reran the validation stage report's acceptance script, run by FO in a fresh shell on 2026-11-09, and every step printed the expected output (captain-steps/1-output.txt).
+Necessity: the PR changes the name field's draft value, resolveProject's lookup name and one unit test; without it a name typed with spaces reads as connected while every agent gets blank variables.
+Captain steps: project-env-service-account-trim/captain-steps/1.md
+Reviews: external review rounds: 1 — Codex summary:6736509513 clean on 7035292f7 (codex_review.py, 2026-11-09).
+External rounds: 1
+second reviewer: not triggered
+Declined: Polish, F1 doc_impact.py lists ADR 0005 without an updated or unaffected line (the validator read it as unaffected, the token is still looked up by the service account name).
+Declined: Polish, F2 prepare-1password.md step 4c says All 1 set in a four-variable walkthrough (the same text is on main and this change did not cause it).
+Declined: Deferred risk, F3 a real macOS Keychain lookup was not tested (the fake matches names exactly, would become Material if the real Keychain matched names differently).
+Declined: Deferred risk, F4 a Keychain item named by hand with surrounding spaces stops working (the limit the approved design states).
