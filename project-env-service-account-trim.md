@@ -48,6 +48,14 @@ gates:
               application:
                 target-stage: implementation
                 state: consumed
+        - id: gate:project-env-service-account-trim:validation
+          stage: validation
+          attempts:
+            - id: gate-attempt:project-env-service-account-trim-validation-1
+              briefing:
+                id: briefing:project-env-service-account-trim:validation:attempt-1:revision-1
+                digest: sha256:77c5a4aa8da4466b79d8c9850f7a3c0f08a2ef1d516fe8ebc5832f8c25e3c3a6
+                room-ref: ./project-env-service-account-trim/review/validation/briefing-1
 started: 2026-11-09T07:41:12Z
 ---
 
