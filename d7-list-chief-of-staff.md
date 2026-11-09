@@ -35,9 +35,12 @@ Verified by: the same real run — 「全照建議」 produces a what-will-be-se
 **AC-3**: The removed UI is gone and the kept backend still works.
 Verified by: no chief-of-staff cards, badge pulse or sound remain; the backend tests from PR #77 still pass.
 
+UI proposal: no new Bridge screens; the list and the what-will-be-sent view live in her conversation, as text or a render_ui widget of her choosing; the d4 chief-of-staff cards and badge are removed.
+Preview: d4-chief-of-staff/mockups/review.html
+
 ## FO alignment
 
 Alignment: not needed: the Captain set the model and approved this task on 2026-11-09 (quoted in the seed).
 Release review: not needed: spacedock-bridge has no journey map yet.
-Surfaces: none
-Visible change: none
+Surfaces: ui
+Visible change: the chief-of-staff cards, red pulsing badge and sound are removed; her conversation shows the accumulated list and, before a batch is sent, a what-will-be-sent view in the widget she chooses.
