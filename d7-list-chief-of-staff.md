@@ -308,3 +308,7 @@ Checks / scope — comment-ratio.log: 138 code / 0 comment lines against stack b
 ### Summary
 
 The Captain's one-sentence prompt amendment and its one test are pushed at 3fbbdfb9845ba04935e1d703c837e3d1ab26542b, with 500 passing tests and successful typecheck. Hand back for validation and the Captain's trial; PR #80 stays Draft, with no model proof, installation or other repair performed in this dispatch.
+
+## Investigation: roborev 1647
+
+FO ran roborev on 3fbbdfb9845ba04935e1d703c837e3d1ab26542b (a prompt sentence and its test over 970d9cd): exit 1, evidence=roborev:1647, three Medium, all in the same conversation-fold code the prompt change did not touch. Item 3 repeats the Captain-ruled known issue (synthetic focus). New: (7) server/chief.ts discards a response read when the state object changes, so an answered item can return in a later list; (8) shared/commander-replies.ts treats a gate's version change (for example a title edit) as its removal on restart, dropping a still-waiting gate. Under the Captain's amendment 1 no repair cycle opens; validation records them and his trial shows whether they bite.
