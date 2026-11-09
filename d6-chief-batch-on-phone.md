@@ -65,6 +65,14 @@ Verified by: one page for step A and review-phone.html for step B; his answers r
 UI proposal: her batch as a list of answerable items inside her conversation, each answered in place, at 360 first.
 Preview: d4-chief-of-staff/mockups/review.html
 
+## Captain amendments
+
+### Amendment 1 — 2026-11-09, chat
+Captain: 「改成在原生對話裡處理 (Recommended)」
+Asked: 設計總監二審提出一個更簡單的做法：點推播會打開她在 Paseo 的原生對話，而 Paseo 外掛其實可以在原生對話裡插入自訂的訊息元件。所以整批可以直接在推播打開的地方逐件回答：進入從 3 下變 1 下，清完 4 件共 9 下，規則不變（你的原話、逐件明示送出、關卡按確認、權限另開 FO）。這個任務的兩輪審查已經用完。要怎麼做？ (options: 「改成在原生對話裡處理 (Recommended)」 — "再開一輪設計：先確認原生對話的自訂元件在手機上真的能送出和按確認，做不到就退回 Bridge 的 3 下入口。代價：又延一輪設計。"; 「維持 Bridge，3 下入口就好」)
+Supersedes: none
+Design: "The batch is answered in the chief of staff's native Paseo conversation where the push lands, through plugin timeline components (addTimelineTransformer, addTimelineRenderer), keeping his words, per-item explicit send, the named gate Confirm and the permission exception; first confirm on the phone that those components can send and confirm; if they cannot, fall back to the Bridge entry of three taps. One more design round; the director's pass budget for step A is extended by this one round."
+
 ## FO alignment
 
 Alignment: not needed: the Captain named the problem and the purpose on 2026-11-09; this task designs it before code.
