@@ -102,8 +102,8 @@ export class ChiefObserver {
     this.reading ??= this.update(api).finally(() => { this.reading = null; });
     return this.reading;
   }
-  private async history(api: PaseoApi, id: string) {
-    const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id);
+  private async history(api: PaseoApi, id: string, snapshot: { events: ChiefEvent[]; complete: boolean }) {
+    const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id, snapshot);
     this.historyComplete = conversation.coverage === "complete";
     this.carry = conversation.outstanding;
     conversation.attempts.forEach(batch => this.tracker.consume(batch.events));
@@ -120,7 +120,7 @@ export class ChiefObserver {
       if (!chief) { this.agentId = ""; this.active = null; this.carry = []; this.state = { ...quiet(), total: snapshot.total }; return this.state; }
       if (this.agentId !== chief.id) {
         this.tracker.reset(); this.active = null; this.carry = []; this.state = { ...quiet(), agentId: chief.id, total: snapshot.total };
-        const restored = await this.history(api, chief.id); this.agentId = chief.id;
+        const restored = await this.history(api, chief.id, snapshot); this.agentId = chief.id;
         if (restored) { this.active = restored; this.state = { ...this.state, ...restored, phase: "calling", entered: true, soundAttempted: true }; }
       }
       if (snapshot.complete) this.carry = accumulatedList(this.carry, [], snapshot.events);
@@ -152,7 +152,7 @@ export class ChiefObserver {
       await handle.run(`${BATCH_MARKER}${JSON.stringify(batch)}
 Automated list update, not the Captain. Call prepare_batch ONCE with this batchId. If it fails, report preparation failed and stop without retry. After successful preparation, post the full updated accumulated list in readable Traditional Chinese text: every supplied item, who raised it, known wait, your recommendation and grounded reason. No focus JSON or new Bridge cards. This turn only updates the list; no outward actions, relay, gate decision or permission response. Keep unresolved items visible until the Captain responds.`, { timeoutMs: 240_000 });
       if (!preparation.succeeded || handle.status !== "idle" || handle.lastError) throw new Error("Batch could not be prepared; no retry");
-      const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id, batch.id);
+      const conversation = await readCommanderConversation((agentId, options) => api.agents.ref(agentId).timeline.refetch(options), id);
       const result = conversation.unresolved.find(result => result.batch.id === batch.id);
       if (!result || conversation.responses.has(batch.id)) throw new Error("Batch result provenance could not be confirmed");
       const focus = result.focus;
@@ -197,7 +197,8 @@ Automated list update, not the Captain. Call prepare_batch ONCE with this batchI
     const observed = this.state;
     const batchId = this.state.batch.id;
     try {
-      const conversation = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), agentId);
+      const snapshot = await this.board(api);
+      const conversation = await readCommanderConversation((id, options) => api.agents.ref(id).timeline.refetch(options), agentId, snapshot);
       if (this.state !== observed) return;
       this.carry = conversation.outstanding;
       const priorAnswered = this.active && conversation.responses.has(this.active.batch.id);

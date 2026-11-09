@@ -48,7 +48,8 @@ test("a second trigger posts the grown list through the real observer path with 
  const entries:any[]=[],inputs:any[]=[];
  const api:any={agents:{list:async()=>({entries:[{agent:{id:"co",cwd:"/fictional",status:"idle",labels:{role:"comms-officer","coordinator-version":COORDINATOR_VERSION}}}]}),create:async()=>({id:"helper",status:"idle",lastUsage:{outputTokens:1},refresh:async()=>{},run:async()=>{helpers++;}}),ref:(id:string)=>({status:"idle",lastError:null,timeline:{refetch:async()=>page(id,id==="co"?entries:[entry(1,"assistant_message","Supplied facts")])},run:async(text:string)=>{
   runs++;const batch=JSON.parse(text.slice(BATCH_MARKER.length).split("\n")[0]);inputs.push(batch);
-  entries.push({...entry(entries.length+1,"user_message",text),turnId:`turn-${runs}`});await prepareBatch(batch.id);
+  entries.push({...entry(entries.length+1,"user_message",text),turnId:`turn-${runs}`});const preparation=await prepareBatch(batch.id);
+  entries.push({...entry(entries.length+1,"tool_call",""),turnId:`turn-${runs}`,item:{type:"tool_call",name:"mcp__fleet__prepare_batch",status:"completed",error:null,callId:`prep-${runs}`,detail:{type:"unknown",input:{batchId:batch.id},output:{output:preparation}}}});
   entries.push({...entry(entries.length+1,"assistant_message",batch.events.map((e:ChiefEvent)=>`${e.title} — ${e.waiter}；建議暫緩，等待證據。`).join("\n")),turnId:`turn-${runs}`});
  }})}};
  const observer=new ChiefObserver(async()=>({events,total:String(events.length),complete:true,rows:[]}));
