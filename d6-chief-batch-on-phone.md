@@ -35,6 +35,14 @@ gates:
                 id: briefing:d6-chief-batch-on-phone:validation:attempt-1:revision-1
                 digest: sha256:61211e83bd5b69856e4c3ee045e32d88d449f7804ccfde12066c7f9442cb6309
                 room-ref: ./d6-chief-batch-on-phone/review/validation/briefing-1
+              resolution:
+                type: Resolution
+                id: resolution:spacedock:d6-chief-batch-on-phone:validation:1
+                briefing: briefing:d6-chief-batch-on-phone:validation:attempt-1:revision-1
+                by: person:captain
+                at: "2026-11-09T07:10:23.652225Z"
+                decision: revise
+                reason: 'Captain chat 2026-11-09, asked 「照這個方向做，還是有哪裡要改？」, answered: 「我覺得方向對，但是太複雜了，是不是先不要套 ＵＩ先這樣：幕僚長維護一個 list，這個清單就是累積的問題，誰提的，與幕僚長的的建議決策及理由（這個你也做過，其他 fo 也做過），如果一直有就一直加，直到我回應，那這時候幕僚長就問是要全照建議，還是一題題開始審？這時候再考慮納入 UI 做最佳化解讀，因為有些人有裝 paseo genui plugin (例如我）可以做更好的視覺化呈現，但是一開始用那種卡片形式我覺得反而不好，因為我不能一次總覽全部，再一題題深入探討，但有些時候不必深入，就按建議就好，也可能擠提建議幾題探討」 — revise: no UI first; a text list in her conversation.'
 started: 2026-11-09T03:11:21Z
 worktree: .worktrees/spacedock-ensign-d6-chief-batch-on-phone
 ---
