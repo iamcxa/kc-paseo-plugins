@@ -25,7 +25,7 @@ Verified by: the compliance record checked line by line against both saved docum
 
 ## FO alignment
 
-Surfaces: docs
+Surfaces: none
 Visible change: none
 Direction alignment with the Captain: done — he answered 「開，幫我合併 78」 on 2026-11-09 to FO's proposed batch naming the listing work.
 Result: the batch question and this Scope.
