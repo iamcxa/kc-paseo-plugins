@@ -278,3 +278,20 @@ Flagged by the release reviews, required by neither document:
 | Licence file | codex.md P2, gemini.md P1 | added: MIT `LICENSE` at the repository root, same holder line as iamcxa/kc-claude-plugins; Captain 「准」 2026-11-09 |
 | `repository`, `author`, `private: true` in `package.json` | release reviews | not done: npm-only, a non-goal |
 | "login Keychain" in `docs/project-env/index.md`, `prepare-1password.md` and `shared/token.ts` | design "Not changed here" | not changed: outside this task's files; follow-up for FO |
+
+## Stage Report: implementation
+
+- DONE: Implement the approved design: `project-env/paseo-plugin.json` description and the four commit-pinned screenshot URLs; `project-env/OVERVIEW.md` changes O1-O5; an MIT `LICENSE` at the repository root with the same copyright holder line as iamcxa/kc-claude-plugins.
+  Commit 41e98101 on spacedock-ensign/project-env-registry-listing; LICENSE copied from iamcxa/kc-claude-plugins ("Copyright (c) 2026 Kent Chen"); O3 text verbatim from the design.
+- DONE: Write the compliance record in the approved format and location, checking each requirement against the saved publishing guide and REVIEW.md at the candidate; confirm every media URL returns HTTP 200 with an image content type.
+  `## Compliance record` above (G1-G13, R1-R3, flagged-items table, digests); four URLs `200 image/png`. E4 needed `pluginsEnabled` set true in the isolated config (harness default is false, plugin showed `disabled` first); then `running`.
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` and save both outputs; count the comment lines your diff adds.
+  335 tests, 335 pass, 0 fail, exit 0 (/tmp/re-npm-test.txt); tsc exit 0 (/tmp/re-tsc.txt); 0 comment lines added. Falsifiable by: the troubleshooting-notes suite in test/agent-notice.test.ts fails if a `### <reason>` heading changes (none did).
+- DONE: Commit with a conventional title scoped to the plugin, push, open a Draft PR on iamcxa/kc-paseo-plugins with the evidence; do not mark it ready or merge.
+  Draft PR https://github.com/iamcxa/kc-paseo-plugins/pull/82.
+- DONE: roborev gate.
+  `clean on 41e981017; evidence=roborev:1636`, exit 0.
+
+### Summary
+
+Two project-env files and a root MIT LICENSE changed; no code. Compliance record is in this task file for the validator to re-check. Notes: PR text overlaps op-auth-and-cache if it edits OVERVIEW.md "What it reads and sends"; media URLs pin e4acaec1, so they stay valid regardless of merge order.
