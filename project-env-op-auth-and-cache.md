@@ -195,3 +195,34 @@ Confirmed from 1Password's own page that Connect variables win over a service ac
 ### Summary
 
 Both halves of AC-1 implemented in secrets.ts with fakes logging only `OP_` variable names. Tests were shown to fail on main and pass on the candidate. No isolated Paseo run, per the design.
+
+## Stage Report: validation
+
+- DONE: Validate PR #81 at its exact head against AC-1 and its evidence clauses: with Connect and other `OP_` variables in the daemon environment every `op` call runs without them and with the configured token; a read that finishes after a cache clear is returned but not cached, for the Test/settings path and the token-save path.
+  Candidate 889b7329d844 = PR #81 headRefOid, base e4acaec1 = origin/main (fetched 2026-11-09). All four `op` calls (`vault list`, `item list`, `item get`, `read`) go through `opEnv`; Test handler and settings subscription in `contribute.ts` call `clearCache()`, `storeToken` now does too. AC-1 met.
+- DONE: Run `npm test` and `npx tsc --noEmit` in `project-env` at the candidate; reproduce that each new test fails with `secrets.ts` from main.
+  `npm test` 339/339 pass, `tsc` exit 0. Throwaway copy, one change each: main `secrets.ts` fails all 3 new cases (identity saw `OP_CONNECT_*`/`OP_SESSION_my`; both clear cases got 'old' not 'new'), control passes; generation check removed fails both clear cases; `storeToken` back to `cache.clear()` fails only the token case; strip only the two Connect names fails identity; token dropped fails all.
+- DONE: Check the PR body's known limit (inherited `OP_INCLUDE_ARCHIVE` no longer reaches `op`) against the code, and whether any OVERVIEW.md sentence becomes untrue.
+  True: probe with `OP_INCLUDE_ARCHIVE` and `OP_CONFIG_DIR` added to the identity test still sees only `OP_SERVICE_ACCOUNT_TOKEN`. OVERVIEW lines on the token going only to `op` and "Saving settings and pressing Test read again" stay true; PR #82's new overview ("It runs `op` with the token") agrees. Limit undercounted: see F2.
+- DONE: Write the minimal acceptance script FO will rerun in a fresh shell; do not push, mark ready or merge.
+  Below; run as written from `zsh -f` in an empty environment, 2026-11-09, outputs matched. Nothing pushed.
+- DONE: Package checks
+  `comment_ratio.py e4acaec1 889b7329`: 0 comment lines of 128, exit 0. `adr_lint.py docs/adr --since e4acaec1`: 9 checked, exit 0. `dispatch_records.py`: 3 complete, exit 0; every checklist line traces to AC-1 or the ideation design. `doc_impact.py`: lists ADR 0005 (F1). Number guards: no section, not owed. Surfaces none: no screenshot or design check owed. #81 merges cleanly onto #83 (`git merge-tree`).
+- F1 Polish: `doc_impact.py` lists `docs/adr/0005-…` for `secrets.ts` and the implementation report carries no `updated`/`unaffected` for it (its dispatch did not ask). Validator reading: unaffected, since ADR 0005 cites `secrets.ts` only for the Keychain `find-generic-password -s <service account>` lookup, which this diff does not touch.
+- F2 Deferred risk: the PR body names only `OP_INCLUDE_ARCHIVE` as lost; the prefix strip also drops `OP_CONFIG_DIR`, `OP_CACHE`, `OP_ACCOUNT`, `OP_FORMAT`, `OP_DEBUG`, `OP_ISO_TIMESTAMPS`, `OP_BIOMETRIC_UNLOCK_ENABLED`, `OP_RUN_NO_MASKING`, `OP_SESSION_*` (1Password's env-var page, fetched 2026-11-09), as the design intends. Only `OP_CONFIG_DIR` could change how these four commands run; no use is known. Material if a daemon whose default `op` config dir is unusable reports reads failing.
+
+### Acceptance script
+
+No visible change; these commands show the behaviour through the tests. Paste into a terminal (zsh is fine); needs the worktree below with `node_modules` installed. About 1 minute.
+
+1. `cd /Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-project-env-op-auth-and-cache/project-env && git rev-parse HEAD` — prints `889b7329d844d41972c44142ce8df4fd9980d570`.
+2. `node --test test/op-identity.test.ts test/cache-after-clear.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"` — `pass 4`, `fail 0`.
+3. `bash -c 'S=$PWD; T=$(mktemp -d); rsync -a --exclude node_modules "$S/" "$T/"; ln -s "$S/node_modules" "$T/node_modules"; git -C "$S" show e4acaec1:project-env/server/secrets.ts > "$T/server/secrets.ts"; cd "$T" && node --test test/op-identity.test.ts test/cache-after-clear.test.ts 2>&1 | grep -E "^ℹ (pass|fail)"; rm -rf "$T"'` — with main's `secrets.ts` in a scratch copy: `pass 1`, `fail 3`.
+4. `npm test 2>&1 | grep -E "^ℹ (tests|pass|fail)"` — `tests 339`, `pass 339`, `fail 0`.
+5. `npx tsc --noEmit; echo tsc_exit=$?` — `tsc_exit=0`.
+
+Not covered: a real `op` binary with real Connect settings (fakes record only which `OP_` names arrive; the precedence rule rests on 1Password's documentation quoted in Design), and no isolated Paseo run (the design ruled none owed).
+
+### Summary
+
+Recommend PASSED for PR #81 at 889b7329. Both halves of AC-1 hold, and each new test was shown to detect its defect: main's file and four one-line breakages each fail the expected cases. Two non-blocking findings: a missing affected-document record (ADR 0005, which the validator reads as unaffected) and a PR-body known limit that names one of several dropped `OP_` names. Delivery (ready, merge after #83) stays the Captain's.
