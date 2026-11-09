@@ -1,0 +1,43 @@
+{
+  "candidate": "cd1a6b95ad53202ae0962bd1f63a8ebee883799c",
+  "tests": {
+    "passed": 422,
+    "failed": 0,
+    "typecheckExit": 0,
+    "parentSidebarCounterexampleExit": 1
+  },
+  "realProof": {
+    "preConfirmationRelays": 0,
+    "renderUiCompleted": 1,
+    "postConfirmationRelays": 2,
+    "deliveries": [
+      {
+        "item": "fictional-item-1",
+        "agentId": "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+        "receivedMessages": 0,
+        "captainWordsAndRecommendationPresent": null
+      },
+      {
+        "item": "fictional-item-2",
+        "agentId": "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+        "receivedMessages": 1,
+        "captainWordsAndRecommendationPresent": true
+      },
+      {
+        "item": "fictional-item-3",
+        "agentId": "64af311e-8a73-498e-8826-7e472b2112e8",
+        "receivedMessages": 1,
+        "captainWordsAndRecommendationPresent": true
+      },
+      {
+        "item": "fictional-item-4",
+        "agentId": "3645e20a-6d04-43ac-a6e6-b7020f954676",
+        "receivedMessages": 0,
+        "captainWordsAndRecommendationPresent": null
+      }
+    ],
+    "permissionActions": 0,
+    "questionRelay": "not demonstrated: fixture supplied no basis for a blue/green recommendation; chief retained it for the Captain"
+  },
+  "verdict": "HOLD: required three non-permission relays not fully demonstrated; two confirmed gates and permission exclusion passed."
+}

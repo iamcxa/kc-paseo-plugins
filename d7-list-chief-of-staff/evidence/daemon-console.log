@@ -1,0 +1,11 @@
+[1109/153445.358242:ERROR:electron/shell/common/mac/codesign_util.cc:79] task_name_for_pid: (os/kern) failure (5)
+[1109/153446.078074:ERROR:electron/shell/common/mac/codesign_util.cc:79] task_name_for_pid: (os/kern) failure (5)
+[DaemonRunner] Starting daemon worker (IPC restart and crash restart enabled)
+[DaemonRunner] supervisor_received_SIGTERM. Stopping worker...
+[1109/153446.276738:ERROR:electron/shell/common/mac/codesign_util.cc:79] task_name_for_pid: (os/kern) failure (5)
+(node:23989) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `Paseo Helper --trace-deprecation ...` to show where the warning was created)
+{"level":30,"time":1794209687821,"pid":23989,"hostname":"MacBookPro.localdomain","daemonVersion":"0.15.3","signal":"Supervisor shutdown request","reason":"supervisor_received_SIGTERM","keepTerminals":false,"pid":23989,"ppid":23976,"uptimeSeconds":1.544,"memory":{"rss":308887552,"heapTotal":164806656,"heapUsed":115819584,"external":17786006,"arrayBuffers":0},"msg":"Supervisor shutdown request received, shutting down gracefully..."}
+{"level":50,"time":1794209687821,"pid":23989,"hostname":"MacBookPro.localdomain","daemonVersion":"0.15.3","msg":"Shutdown requested before daemon initialization completed"}
+[DaemonRunner] Worker exited (code 1). Supervisor shutting down.
+Error: A system error occurred: uv_uptime returned EPERM (operation not permitted)

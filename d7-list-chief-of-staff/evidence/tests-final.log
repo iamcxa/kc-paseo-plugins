@@ -1,0 +1,622 @@
+npm warn Unknown user config "minimum-release-age". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> paseo-spacedock-bridge@0.0.0 test
+> tsx --test test/*.test.mts
+
+✔ only checked, empty sources can claim nothing is waiting and a zero count (1.011166ms)
+✔ a source failure makes both the empty text and the count incomplete until success (0.219042ms)
+✔ gate failures name only the failed workflows while successful gates stay counted (0.089916ms)
+▶ both board views share unread-question rows and counts across waiting-item combinations
+  ✔ unlabelled alone (1513.475083ms)
+  ✔ unlabelled with gate (831.137375ms)
+  ✔ unlabelled with review (561.571666ms)
+  ✔ label represents the same reply (616.38775ms)
+  ✔ different labelled question (477.220084ms)
+  ✔ unlabelled with gate and review (691.832583ms)
+  ✔ same reply label with gate (279.256083ms)
+  ✔ different label with gate (602.088958ms)
+  ✔ same reply label with review (987.41625ms)
+  ✔ different label with review (321.915709ms)
+  ✔ same reply label with gate and review (663.490375ms)
+  ✔ different label with gate and review (559.473958ms)
+✔ both board views share unread-question rows and counts across waiting-item combinations (9485.782333ms)
+✔ failed board sources reuse guarded reads; FO rows count and open each waiting destination (5705.114958ms)
+✔ By FO keeps every FO and each assigned review reachable (2588.044666ms)
+✔ queue rows keep visible repository and number with icon-only sibling actions inside symmetric clipped bounds (3421.978167ms)
+✔ a sent item never appears under a waiting-on-you claim (1440, timeline) (4070.756875ms)
+✔ a relayed item never appears under a waiting-on-you claim (1440, timeline) (1708.21125ms)
+✔ an FO with nothing waiting opens only its conversation (1440) (1509.758125ms)
+✔ a sent item never appears under a waiting-on-you claim (360, timeline) (1934.40775ms)
+✔ a relayed item never appears under a waiting-on-you claim (360, timeline) (1747.371083ms)
+✔ an FO with nothing waiting opens only its conversation (360) (1618.738166ms)
+✔ all known tabs false marks an idle or error FO Tab closed without moving or hiding it (1.124875ms)
+✔ an FO with no tab labels is not Tab closed (0.134292ms)
+✔ one true tab keeps an FO open across clients (0.083792ms)
+✔ a running FO is not Tab closed even when every tab is false (0.072958ms)
+✔ archived and lifecycle-closed FOs retain the offline path without a Tab closed badge (0.130208ms)
+✔ an unknown tab value does not count as explicitly false (0.080041ms)
+✔ a pending permission is waiting on Kent even when requiresAttention is false (0.059375ms)
+✔ Paseo's own permission attention is waiting on Kent (0.0565ms)
+✔ running without a prompt is busy, a read idle agent is idle (0.080708ms)
+✔ an unread finished reply is a new reply until its next step names Kent (0.108917ms)
+✔ a new reply whose next step is the Captain's moves to waiting (98.475417ms)
+✔ only role=fo agents are rows, grouped waiting, error, new reply, busy, idle, then by title (0.208833ms)
+✔ a next-owner label decides the group without reading the reply (0.086667ms)
+✔ an FO that is running again is busy even with an unread earlier reply (0.050875ms)
+✔ an FO's spacedock gates sit under it and make it wait on the Captain (0.187875ms)
+✔ an archived or closed FO is offline, and its gates still show under it (0.106541ms)
+✔ an offline FO with no gate waiting is left off the board (0.061209ms)
+✔ an idle FO whose next step is the Captain's waits on him even after its reply is read (0.042416ms)
+✔ a gate keeps the time it started waiting when it is attached to its FO (0.069083ms)
+✔ reopen keeps the confirmed choice and reason (5088.268083ms)
+✔ sent and relayed progress survives a comms detour (2383.281875ms)
+✔ a recorded item never becomes actionable again (1862.058292ms)
+✔ switching items keeps separate drafts and rejects stale actions (1551.593625ms)
+✔ errors and progress stay with their own source and owner (1822.578875ms)
+✔ every drill-down returns to the commander in one step keeping drafts and progress (4652.587958ms)
+✔ an FO with nothing waiting is reachable from By FO (1464.028166ms)
+✔ a recorded item reopens to its result and reason this session and is never actionable (1270.6295ms)
+✔ an ordinary message never consumes the gate decision controls (874.045084ms)
+✔ desktop Board and chief destinations remain distinct while retaining the chief draft (1317.87175ms)
+✔ the label line is kind, stage and repo, and a gate-less card is a question (0.598917ms)
+✔ the FO line drops the model name but keeps a title that is only a model name (0.350834ms)
+✔ waiting time reads in seconds, minutes and hours (0.169416ms)
+✔ collapsed, the discussion starts at the FO's latest message and counts the messages before it (0.567334ms)
+✔ one message has nothing earlier, and no FO message falls back to the last message (0.135541ms)
+✔ displayed replies join adjacent chunks but a visible tool separates them (0.953625ms)
+✔ hidden agent_message tools do not split a displayed reply; trailing visible tools do (0.178125ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 1ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 45ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 1ms
+✔ explicit FO ownership at admission/consumption: fo, Next: Choose direction (you) (40.943083ms)
+✔ explicit FO ownership at admission/consumption: fo, Next: Continue research (me) (0.342625ms)
+✔ explicit FO ownership at admission/consumption: fo, Fictional plain question (20.05525ms)
+✔ explicit FO ownership at admission/consumption: captain, Next: Choose direction (you) (75.356166ms)
+✔ explicit FO ownership at admission/consumption: captain, Next: Continue research (me) (0.414041ms)
+✔ explicit FO ownership at admission/consumption: captain, Fictional plain question (0.266709ms)
+✔ explicit FO ownership at admission/consumption: absent, Next: Choose direction (you) (0.267333ms)
+✔ explicit FO ownership at admission/consumption: absent, Next: Continue research (me) (48.7395ms)
+✔ explicit FO ownership at admission/consumption: absent, Fictional plain question (9.480083ms)
+✔ explicit FO ownership at admission/consumption: unsupported, Next: Choose direction (you) (68.991208ms)
+✔ explicit FO ownership at admission/consumption: unsupported, Next: Continue research (me) (43.189083ms)
+✔ explicit FO ownership at admission/consumption: unsupported, Fictional plain question (11.522042ms)
+✔ four explicitly FO-owned replies never qualify; independent permissions/gates/reviews remain (42.178541ms)
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+✔ observeBoard re-evaluates ownership changes without a new message/activity timestamp (25.804125ms)
+✔ one terminal attempt outcome across fold/restart: success (24.443875ms)
+✔ one terminal attempt outcome across fold/restart: error before focus (0.26075ms)
+✔ one terminal attempt outcome across fold/restart: error after focus (0.212708ms)
+✔ one terminal attempt outcome across fold/restart: delayed matching error (0.300167ms)
+✔ one terminal attempt outcome across fold/restart: different turn error (0.225125ms)
+✔ one terminal attempt outcome across fold/restart: missing id error (0.163ms)
+✔ one terminal attempt outcome across fold/restart: ordinary later error (0.137833ms)
+✔ one terminal attempt outcome across fold/restart: failed preparation after focus (2.084166ms)
+✔ one terminal attempt outcome across fold/restart: canceled preparation after focus (0.228458ms)
+✔ one terminal attempt outcome across fold/restart: focus turn mismatch (0.228625ms)
+✔ one terminal attempt outcome across fold/restart: focus after failure (0.138791ms)
+✔ one terminal attempt outcome across fold/restart: response (0.183666ms)
+✔ terminal failure is consumed by the owning hook read and cannot be republished (0.709542ms)
+✔ bounded read retains healthy recent entries at 12000 (372.560375ms)
+✔ bounded read retains healthy recent entries at 12001 (83.81625ms)
+✔ partial history lifecycle stays bounded: known successful batch (289.509417ms)
+✔ partial history lifecycle stays bounded: failed batch (329.867042ms)
+✔ partial history lifecycle stays bounded: origin outside window (17.049625ms)
+✔ partial history lifecycle stays bounded: ordinary recent response (120.429375ms)
+✔ real Bridge keeps recent long conversation/question with an explicit coverage notice (1440) (2797.3245ms)
+gates.read #16 start dirs=0
+gates.read #16 done 1ms
+✔ real Bridge keeps recent long conversation/question with an explicit coverage notice (360) (1225.303125ms)
+✔ unknown truncated prefix never becomes a known chief question, and fresh events do not run a model (79.917375ms)
+✔ coverage metadata never masks gap corruption (0.1725ms)
+✔ coverage metadata never masks epoch corruption (0.080542ms)
+✔ coverage metadata never masks nonadvancing corruption (0.093292ms)
+✔ a failed attempt cannot hide a later independent successful batch (0.401041ms)
+✔ live extraction rejects a persisted same-turn error even when the handle is now idle (3.150584ms)
+✔ a recent known response still resolves within partial history; an origin outside it does not (582.19275ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+✔ list input applies the shared ownership rule and excludes newly discovered old questions (500.127375ms)
+✔ accumulated list adds admitted items, refreshes facts and drops resolved items without importing the whole board (0.14925ms)
+✔ real list prose survives preparation/restart; a native Captain reply consumes it, a peer envelope does not (6.498083ms)
+✔ a second trigger posts the grown list through the real observer path with one preparation per update (153.747333ms)
+✔ semantic destination permission by row at 1440 (bridge) (1916.2555ms)
+✔ semantic destination gate by row at 1440 (bridge) (1609.878208ms)
+✔ semantic destination question by row at 1440 (bridge) (1312.069584ms)
+✔ semantic destination owned review by row at 1440 (bridge) (1153.669791ms)
+✔ semantic destination ownerless review by row at 1440 (bridge) (842.33925ms)
+✔ semantic destination status by row at 1440 (bridge) (1019.125666ms)
+✔ semantic destination permission by named at 1440 (bridge) (246.588625ms)
+✔ semantic destination gate by named at 1440 (bridge) (895.356792ms)
+✔ semantic destination question by named at 1440 (bridge) (1336.630375ms)
+✔ semantic destination owned review by named at 1440 (bridge) (1386.825291ms)
+✔ semantic destination ownerless review by named at 1440 (bridge) (985.125208ms)
+✔ semantic destination status by named at 1440 (bridge) (1974.885625ms)
+✔ semantic destination permission by row at 360 (bridge) (965.385125ms)
+✔ semantic destination gate by row at 360 (bridge) (1096.013083ms)
+✔ semantic destination question by row at 360 (bridge) (1140.992833ms)
+✔ semantic destination owned review by row at 360 (bridge) (1465.564541ms)
+✔ semantic destination ownerless review by row at 360 (bridge) (563.162375ms)
+✔ semantic destination status by row at 360 (bridge) (1110.354625ms)
+✔ semantic destination permission by named at 360 (bridge) (620.334959ms)
+✔ semantic destination gate by named at 360 (bridge) (918.201333ms)
+✔ semantic destination question by named at 360 (bridge) (1663.604708ms)
+✔ semantic destination owned review by named at 360 (bridge) (1159.748208ms)
+✔ semantic destination ownerless review by named at 360 (bridge) (872.546083ms)
+✔ semantic destination status by named at 360 (bridge) (773.292917ms)
+✔ semantic destination permission by row at 1440 (fleet) (396.447083ms)
+✔ semantic destination gate by row at 1440 (fleet) (392.792042ms)
+✔ semantic destination question by row at 1440 (fleet) (578.571083ms)
+✔ semantic destination owned review by row at 1440 (fleet) (567.762584ms)
+✔ semantic destination ownerless review by row at 1440 (fleet) (323.265917ms)
+✔ semantic destination status by row at 1440 (fleet) (537.93625ms)
+✔ semantic destination permission by named at 1440 (fleet) (361.593834ms)
+✔ semantic destination gate by named at 1440 (fleet) (637.874125ms)
+✔ semantic destination question by named at 1440 (fleet) (699.009ms)
+✔ semantic destination owned review by named at 1440 (fleet) (473.621625ms)
+✔ semantic destination ownerless review by named at 1440 (fleet) (555.081041ms)
+✔ semantic destination status by named at 1440 (fleet) (335.271416ms)
+✔ semantic destination permission by row at 360 (fleet) (237.113917ms)
+✔ semantic destination gate by row at 360 (fleet) (438.519833ms)
+✔ semantic destination question by row at 360 (fleet) (515.804833ms)
+✔ semantic destination owned review by row at 360 (fleet) (684.037875ms)
+✔ semantic destination ownerless review by row at 360 (fleet) (162.37175ms)
+✔ semantic destination status by row at 360 (fleet) (1095.086833ms)
+✔ semantic destination permission by named at 360 (fleet) (437.557875ms)
+✔ semantic destination gate by named at 360 (fleet) (728.916958ms)
+✔ semantic destination question by named at 360 (fleet) (923.662542ms)
+✔ semantic destination owned review by named at 360 (fleet) (866.646334ms)
+✔ semantic destination ownerless review by named at 360 (fleet) (321.829958ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✔ semantic destination status by named at 360 (fleet) (632.218625ms)
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ one conversation fold preserves agent-message across pages and restart without new runs (679.374292ms)
+✔ one conversation fold preserves agent-notification across pages and restart without new runs (508.694ms)
+✔ history provenance: no preparation (24.254791ms)
+✔ history provenance: failed preparation (0.140958ms)
+✔ history provenance: ordinary boundary (0.184167ms)
+✔ history provenance: wrong batch (0.094208ms)
+✔ history provenance: wrong target (0.084208ms)
+✔ history provenance: matching response (0.16325ms)
+✔ history provenance: unrelated response (0.105459ms)
+✔ history provenance: quoted response (0.103125ms)
+✔ history provenance: malformed response (0.079917ms)
+✔ the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve (39.394292ms)
+✔ an owning response during the one model-stub turn prevents late completion from resurrecting a call (9.160791ms)
+✔ named requests wait for source identity, then fail visibly instead of substituting after change (1628.349583ms)
+✔ completed two-key switch advances once only after confirmation and archive retry reuses the new chief (86.436333ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+✔ server question opens its exact Board destination, including merged range and epoch changes (false) (3010.223917ms)
+gates.read #4 start dirs=0
+gates.read #4 done 7ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ server question opens its exact Board destination, including merged range and epoch changes (true) (1495.983917ms)
+✔ source partial retains call/marks, healthy disappearance alone resolves it (93.173834ms)
+✔ source throw retains call/marks, healthy disappearance alone resolves it (0.23525ms)
+✔ incomplete observation cannot remove pending items or replay old ones across a gap (0.196ms)
+✔ restart restores only a successful unresolved batch, never sound or models (none) (1.514417ms)
+✔ restart restores only a successful unresolved batch, never sound or models (unrelated) (0.343958ms)
+✔ restart restores only a successful unresolved batch, never sound or models (matching) (46.07075ms)
+✔ restart restores only a successful unresolved batch, never sound or models (failed) (10.087ms)
+✔ restart restores only a successful unresolved batch, never sound or models (gap) (10.949667ms)
+✔ fleet response preserves unknown-time board matters separately from trigger eligibility (50.002291ms)
+gates.read #1 start dirs=0
+gates.read #1 done 6ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+✔ a self-only （我） step vetoes a stale captain label at the full board boundary (26.26425ms)
+✔ a self-only (me) step vetoes a stale captain label at the full board boundary (0.456583ms)
+✔ a self-only (I) step vetoes a stale captain label at the full board boundary (0.2175ms)
+✔ a self-only (FO) step vetoes a stale captain label at the full board boundary (0.184375ms)
+✔ mixed ownership stays visible without an automatic event (captain label) (0.353833ms)
+✔ mixed ownership stays visible without an automatic event (absent label) (0.188459ms)
+✔ a single parenthesis with both owners is held too (0.211375ms)
+✔ self-only questions do not remove independent gates or permissions (0.661167ms)
+✔ an actual reply ownership veto also beats a stale positive next label (34.747916ms)
+✔ a genuine Captain question still counts and FO ownership still vetoes it (0.410791ms)
+gates.read #11 start dirs=0
+gates.read #11 done 3ms
+gates.read #12 start dirs=0
+gates.read #12 done 9ms
+gates.read #13 start dirs=0
+gates.read #13 done 14ms
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+✔ a next-label change with identical activity invalidates cached ownership (88.977667ms)
+✔ question identity survives projection/range/time reconstruction with a provider message (43.566292ms)
+✔ question identity survives projection/range/time reconstruction with a provider turn (16.901125ms)
+✔ a question without a provable source identity is visible but cannot trigger (0.185125ms)
+✔ real question details survive reprojection but a genuinely new provider message retains a distinct detail (4675.143916ms)
+✔ seven old questions do not become arrivals after a projection rebuild (0.488042ms)
+✔ old questions first appearing or changing ownership after startup do not fill X (0.104958ms)
+✔ consumed old questions cannot replay after disappearance and a new projection (0.226208ms)
+✔ timestamp/source changes of a continuously waiting question are not new arrivals (0.084333ms)
+✔ new verified questions still wait five minutes, and a later resolved/reasked batch can qualify (0.164208ms)
+✔ unknown identity/time and an incomplete-read recovery cannot manufacture a question arrival (0.065666ms)
+✔ same-minute exceptions close together, sum existing weights and consume together (0.135708ms)
+✔ a poll between two same-minute deadlines cannot split or call early (0.044917ms)
+✔ gate and permission share a deadline cohort, while unknown/future times stay excluded (0.054791ms)
+✔ a true singleton waits at most one extra minute and exactly thirty minutes never qualifies (0.040458ms)
+✔ separate deadline minutes remain separate and resolved cohort members disappear (0.107459ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ threshold needs five minutes, three further distinct matters and strictly more than eight points (29.075875ms)
+✔ frequency counts distinct current items only and expires with the window (0.136ms)
+✔ only a confirmed gate or permission strictly over thirty minutes gets the exception (0.162084ms)
+✔ unknown time is excluded without guessing; source incompleteness blocks normal batches (0.094541ms)
+✔ baseline, restart and duplicates are quiet; answered or removed events cannot fill X (0.3445ms)
+✔ projected reader keeps merged ranges and rejects gaps, stale cursors, wrong epochs and overlapping ranges (0.462583ms)
+✔ automated batch and its assistant response never become a Captain question (1.991833ms)
+✔ the sidebar total includes an ordinary chief question but her automated output cannot trigger herself (8.665209ms)
+✔ one qualifying batch persists its request before one Terra pass and one Opus choice; unchanged and restarted observers run nothing (60.519708ms)
+✔ a provider refusal before preparation makes no call and never retries the unchanged exception (2.095459ms)
+✔ publishing rechecks the named source version and never substitutes another target (0.551833ms)
+✔ restart reads before the tail window to consume earlier attempted batches (0.928833ms)
+✔ a reconnect detects the last displayed Captain question after earlier FO work (508.927417ms)
+✔ manual comms reads retain timestamp, expose pending/failure and drop stale overlapping responses (22.567542ms)
+✔ Check again restores an errored subscription and waits for live readiness plus history before later questions appear (445.918375ms)
+✔ manual reconnection reads after readiness and a cancelled attempt cannot read or publish on late readiness (76.390041ms)
+✔ switching coordinators clears the previous question and timestamp while the new connection is pending (31.982708ms)
+✔ native composer follows a keyboard already visible at mount (500.242959ms)
+✔ native composer follows a keyboard frame changes without a show event (144.258875ms)
+✔ mounted native layout follows keyboard height, replaces Android clearance, and removes listeners (106.329375ms)
+✔ message and reason share a shrinkable scroll area inside keyboard padding (2772.797833ms)
+✔ Enter sends the typed text to the FO and clears the box (1.024458ms)
+✔ the round send button path sends the same text, with the footer, to the FO (0.117375ms)
+✔ Shift+Enter and an IME confirm do not send; an empty box sends nothing (0.094792ms)
+✔ a refusal from beforeSend keeps the draft and shows the refusal (0.088791ms)
+✔ a decision chip passes the typed text to onChip, not to the FO, and clears the box on success (0.13075ms)
+✔ a chip refusal keeps the draft (0.088583ms)
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (1.4165ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.426125ms)
+✔ 要求修改 and 暫緩 refuse an empty reason before claiming or sending anything (1.176166ms)
+✔ 准 goes through with an empty box, via the chief of staff (0.337583ms)
+✔ a decision chip sends the typed text as the reason (0.151834ms)
+✔ a second decision on the same briefing is refused and sends nothing (0.112792ms)
+✔ a failed send releases the claim and rethrows (1.140125ms)
+✔ a changed briefing refuses before claiming (0.155334ms)
+✔ an unloaded briefing refuses (0.077916ms)
+✔ polling a newer open briefing ignores the older briefing's resolution (3363.819ms)
+✔ message never decides (10.314708ms)
+✔ decision uses only its reason (25.170625ms)
+✔ both actions keep the other draft (13.390125ms)
+✔ a changed briefing or officer cannot receive a stale action (0.878875ms)
+✔ pending, failure and duplicate presses keep existing behavior (6.515291ms)
+✔ draft subscriptions notify only their target and stop after unsubscribe (0.913583ms)
+✔ mounted composers follow store updates, target changes and unsubscription (1410.171208ms)
+✔ mounted composer reflects delayed send: clear (533.655334ms)
+✔ mounted composer reflects delayed send: edit (375.586958ms)
+✔ mounted composer reflects delayed send: refuse (291.165709ms)
+✔ mounted composer reflects delayed decision: clear (73.82625ms)
+✔ mounted composer reflects delayed decision: edit (31.1985ms)
+✔ mounted composer reflects delayed decision: refuse (31.256959ms)
+✔ reopening a pending send blocks button and Enter until success (329.893833ms)
+✔ reopening a pending send blocks button and Enter until failure (481.780416ms)
+✔ drafts survive remount reads, isolated by agent, gate and stage (74.23425ms)
+✔ a chief of staff seed fills an empty draft and preserves non-empty text (14.059ms)
+✔ stored draft clears after successful send (46.103917ms)
+✔ stored draft survives refused send (0.132ms)
+✔ stored draft clears after successful decision (0.15075ms)
+✔ stored draft survives refused decision (0.071125ms)
+✔ a delayed send keeps a newer remounted draft: New reply after remount (0.505834ms)
+✔ a delayed send keeps a newer remounted draft: Original reply (0.175375ms)
+✔ a delayed decision keeps a newer remounted draft: New reply after remount (0.181625ms)
+✔ a delayed decision keeps a newer remounted draft: Original reply (0.136375ms)
+✔ the FO source stays loading until every question read settles (373.800417ms)
+✔ a failed FO question read marks the source incomplete and keeps successful questions (1.419375ms)
+✔ a recorded gate does not suppress a new implementation attempt of the same task (5342.698ms)
+✔ a recorded gate does not suppress a new validation attempt of the same task (2368.25075ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (throw) (1218.802125ms)
+✔ a failed first briefing read retries on reopen and keeps its draft (answer) (1362.873667ms)
+✔ a retained active attempt never adopts its replacement's briefing (1397.903167ms)
+✔ a late failure from the first read cannot overwrite a successful reopen (364.421041ms)
+✔ identical slugs in two workflows keep separate recipients (4496.573458ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (workflow) (2313.112625ms)
+✔ two retained gates sharing officer, slug and stage keep separate drafts, choices and sending state (briefing) (1861.808583ms)
+gates.read #1 start dirs=2
+gates.read #1 done 1686ms
+gates.read #2 start dirs=2
+gates.read #2 done 2238ms
+gates.read #3 start dirs=2
+gates.read #3 done 1173ms
+✔ each active briefing identity survives the server, RPC schema, attachment and queue (5901.213959ms)
+gates.read #1 start dirs=1
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-Qo0rYE: Error: Command failed: spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-Qo0rYE --fields slug,status,title,gate-readiness --json
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:509:28)
+    at maybeClose (node:internal/child_process:1124:16)
+    at Socket.<anonymous> (node:internal/child_process:481:11)
+    at Socket.emit (node:events:509:28)
+    at Pipe.<anonymous> (node:net:351:12) {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'spacedock status --workflow-dir /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-gate-source-Qo0rYE --fields slug,status,title,gate-readiness --json',
+  stdout: '',
+  stderr: ''
+}
+gates.read #1 done 974ms
+gates.read #2 start dirs=1
+gates.read #2 done 573ms
+gates.read #3 start dirs=1
+gates.read #3 done 265ms
+gates.read #4 start dirs=1
+gates.read #4 done 602ms
+gates.read #5 start dirs=1
+gates.read #5 done 0ms
+✔ gate read failures reach the board, and a return refresh replaces the existing snapshot (2793.480166ms)
+gates.read #6 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:131:12)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/gate-sources.test.mts:44:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+}
+gates.read #6 done 610ms
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:105:19)
+    at async readTasksHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:116:45)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/gate-sources.test.mts:48:17)
+    at async Test.run (node:internal/test_runner/test:1332:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+}
+gates.read #7 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:131:12)
+    at async chiefBoard (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/chief.ts:38:17)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/fleet-mcp.ts:37:17)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/gate-sources.test.mts:58:22) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+}
+gates.read #7 done 61ms
+gates.read #8 start dirs=2
+spacedock status /var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed: Error: ENOENT: no such file or directory, open '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1290:14)
+    at async fetchEntities (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:67:18)
+    at async Promise.allSettled (index 1)
+    at async readWorkflows (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:105:19)
+    at async readGatesInner (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:138:45)
+    at async readGatesHandler (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/tasks.ts:131:12)
+    at async chiefBoard (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/chief.ts:38:17)
+    at async fleetSnapshot (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/server/fleet-mcp.ts:37:17)
+    at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/gate-sources.test.mts:58:22) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/folders/tm/dk0m7pgx4h3gxqv_v2v8nds00000gp/T/bridge-workflow-source-ISNqiJ/removed/README.md'
+}
+gates.read #8 done 56ms
+✔ a removed workflow does not hide another workflow's gates or tasks (1300.033833ms)
+✔ the open attempt is the latest one neither withdrawn nor resolved, for that stage (0.828291ms)
+✔ a resolution is found by the briefing it answered (0.101375ms)
+✔ opening a closed gate without a briefing ID returns its latest stage resolution (698.459ms)
+✔ a git-root state URI gives the commit and path (0.303666ms)
+✔ status priority covers every waiting kind in LIST-AND-DETAIL (1.094667ms)
+✔ counts retain pending progress, exclude finished items and distinguish incomplete from zero (2.437458ms)
+✔ bold and inline code are split out of a line (2.655292ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.474125ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.1915ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.174667ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.09575ms)
+✔ the last reply joins assistant text after the last user message (0.507583ms)
+✔ a status block's next step is the preview (0.275ms)
+✔ without a next step the first line is the preview, clipped (0.119417ms)
+✔ a permission shows what it asks for (0.08325ms)
+✔ the next step is the Captain's when it names 你 or you (0.410417ms)
+✔ a Paseo agent envelope is read as its sender, kind and body (40.330916ms)
+✔ a user-message envelope or an unclosed one is not shown as coming from an agent (0.338708ms)
+✔ projected first is a healthy page without fabricated singleton sequences (1.330416ms)
+✔ projected empty new agent is a healthy page without fabricated singleton sequences (0.09275ms)
+✔ projected empty end is a healthy page without fabricated singleton sequences (0.065833ms)
+✔ projected merged tool is a healthy page without fabricated singleton sequences (0.234ms)
+✔ projected distinct assistant entries is a healthy page without fabricated singleton sequences (0.111333ms)
+✔ projected 120 display rows is a healthy page without fabricated singleton sequences (0.4685ms)
+✔ real-shaped merged discussion loads Chief of staff, board questions and old history (false) (1835.789459ms)
+✔ real-shaped merged discussion loads Chief of staff, board questions and old history (true) (1055.98575ms)
+✔ healthy empty projected Chief of staff and question read settle without a failure (350.083584ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 1440) (3634.556041ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (label, 360) (3141.201666ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 1440) (1766.474333ms)
+✔ one officer asks two questions in turn, keeping recipient and draft (reply, 360) (3269.672833ms)
+✔ an identical repeated question gets its own identity and time from its message (654.681625ms)
+✔ an identical repeated question gets its own identity and time from its timestamp (1071.040917ms)
+✔ a repeated label question uses its new attention timestamp (1735.212792ms)
+✔ an unrelated officer activity update keeps the same question detail (label) (1074.829458ms)
+✔ an unrelated officer activity update keeps the same question detail (reply) (1269.213333ms)
+✔ items sort by kind first, then oldest first; one FO can own several items (61.505875ms)
+✔ a review with no FO has none (0.667375ms)
+✔ the next card is the first queue item and the sections keep the queue order (0.349959ms)
+✔ an empty queue has no next card and one item has no rows (0.116042ms)
+✔ each review item carries its own repo#number and URL, and opening it passes that URL (0.404125ms)
+✔ a gate or question has no link to open (0.111375ms)
+✔ a captain question survives alongside the same FO's gate (4.252125ms)
+✔ a gate alone or its repeated label does not add an empty or duplicate question (46.259208ms)
+✔ attaching a gate does not promote an FO-owned next step into a Captain question (26.461833ms)
+✔ a chip becomes a relay order carrying the decision and the Captain's exact words (1.881333ms)
+✔ text already typed joins the chip word as the Captain's words (0.338916ms)
+✔ a decision id is d- and six base-36 characters (0.172917ms)
+✔ delivery moves sent, relayed, recorded, and asks for a check after ten minutes (0.109625ms)
+✔ revise and hold need a typed reason; approve does not (0.076833ms)
+✔ retained surface table: gate briefing × identity changed upstream (3693.177334ms)
+✔ retained surface table: gate briefing × failed read then reactivate (1465.638125ms)
+✔ retained surface table: gate briefing × failed read then retry control (553.532ms)
+✔ retained surface table: gate conversation × identity changed upstream (1322.055125ms)
+✔ retained surface table: gate conversation × failed read then reactivate (1164.136417ms)
+✔ retained surface table: gate conversation × failed read then retry control (946.07ms)
+✔ retained surface table: assigned review conversation × identity changed upstream (1125.321417ms)
+✔ retained surface table: assigned review conversation × failed read then reactivate (868.746666ms)
+✔ retained surface table: assigned review conversation × failed read then retry control (639.341417ms)
+✔ retained surface table: FO conversation × identity changed upstream (622.767208ms)
+✔ retained surface table: FO conversation × failed read then reactivate (679.1865ms)
+✔ retained surface table: FO conversation × failed read then retry control (865.383166ms)
+✔ retained surface table: commander conversation × identity changed upstream (1838.3425ms)
+✔ retained surface table: commander conversation × failed read then reactivate (914.429417ms)
+✔ retained surface table: commander conversation × failed read then retry control (686.534042ms)
+✔ retained surface table: decision record × identity changed upstream (893.79675ms)
+✔ retained surface table: decision record × failed read then reactivate (1620.993333ms)
+✔ retained surface table: decision record × failed read then retry control (1279.200333ms)
+✔ retained surface table: relay status × identity changed upstream (2150.8875ms)
+✔ retained surface table: relay status × failed read then reactivate (1690.8445ms)
+✔ retained surface table: relay status × failed read then retry control (859.305334ms)
+✔ retained surface table: commander question × identity changed upstream (1122.615417ms)
+✔ retained surface table: commander question × failed read then reactivate (1352.220042ms)
+✔ retained surface table: commander question × failed read then retry control (752.556959ms)
+✔ a gate uses its own source workflow even when first opened under another officer workflow (1225.009541ms)
+✔ retained surface table: gate briefing × unresolved read then reactivate (982.649458ms)
+✔ retained surface table: gate conversation × unresolved read then reactivate (1183.649958ms)
+✔ retained surface table: assigned review conversation × unresolved read then reactivate (926.439917ms)
+✔ retained surface table: FO conversation × unresolved read then reactivate (752.006834ms)
+✔ retained surface table: commander conversation × unresolved read then reactivate (1242.912292ms)
+✔ retained surface table: decision record × unresolved read then reactivate (1356.4245ms)
+✔ retained surface table: relay status × unresolved read then reactivate (982.973041ms)
+✔ retained surface table: commander question × unresolved read then reactivate (1500.247917ms)
+✔ retained subscription: gate × ready failure recovers with draft (1455.303667ms)
+✔ retained subscription: gate × event failure recovers with draft (1167.705417ms)
+✔ retained subscription: fo × ready failure recovers with draft (624.791833ms)
+✔ retained subscription: fo × event failure recovers with draft (1875.118625ms)
+✔ retained subscription: commander × ready failure recovers with draft (954.793625ms)
+✔ retained subscription: commander × event failure recovers with draft (1109.410542ms)
+✔ commander connection reader × failed read then reactivate (1132.393958ms)
+✔ commander connection reader × failed read then retry control (898.732417ms)
+✔ retained phone board: gates × failed read then reactivate (1220.635666ms)
+✔ retained phone board: gates × failed read then retry control (373.215875ms)
+✔ retained phone board: tasks × failed read then reactivate (834.2745ms)
+✔ retained phone board: tasks × failed read then retry control (576.465625ms)
+✔ retained phone board: review source × failed read then reactivate (578.8515ms)
+✔ retained phone board: review source × failed read then retry control (725.672708ms)
+✔ retained phone board: gates × unresolved read then reactivate (746.175166ms)
+✔ retained phone board: gates × unresolved read then retry control (1015.87475ms)
+✔ retained phone board: tasks × unresolved read then reactivate (833.341208ms)
+✔ retained phone board: tasks × unresolved read then retry control (1347.62025ms)
+✔ retained phone board: review source × unresolved read then reactivate (889.130292ms)
+✔ retained phone board: review source × unresolved read then retry control (790.690875ms)
+✔ retained phone board: FO question reader × failed read then reactivate (669.54275ms)
+✔ retained phone board: FO question reader × failed read then retry control (942.075ms)
+✔ retained surface table: gate briefing × loaded value changes then reactivate (718.133333ms)
+✔ retained surface table: gate conversation × loaded value changes then reactivate (604.406667ms)
+✔ retained surface table: assigned review conversation × loaded value changes then reactivate (631.876083ms)
+✔ retained surface table: FO conversation × loaded value changes then reactivate (709.707ms)
+✔ retained surface table: commander conversation × loaded value changes then reactivate (958.714834ms)
+✔ retained surface table: decision record × loaded value changes then reactivate (1284.255125ms)
+✔ retained surface table: relay status × loaded value changes then reactivate (2085.668666ms)
+✔ retained surface table: commander question × loaded value changes then reactivate (1490.562333ms)
+✔ retained surface table: claim released by another client then reopen (2138.465167ms)
+✔ retained surface table: refresh read overlaps a local send (null); the local send wins (1988.519958ms)
+✔ retained surface table: refresh read overlaps a local send (old claim); the local send wins (1965.752833ms)
+✔ reactivation refreshes gate closure and recorded results without reviving recorded actions (1811.183208ms)
+✔ retained phone board: gates × loaded value changes then reactivate (1445.243333ms)
+✔ retained phone board: tasks × loaded value changes then reactivate (658.214ms)
+✔ retained phone board: review source × loaded value changes then reactivate (1446.4865ms)
+✔ retained surface table: briefing refresh overlaps a local send (closed) (1078.959542ms)
+✔ retained surface table: briefing refresh overlaps a local send (recorded) (2351.814208ms)
+✔ an authoritative released claim clears cached local sent progress on reopen (1461.140625ms)
+✔ review reader exposes the existing poller's scheduled first check and clears it on stop (1333.10625ms)
+✔ gh search output becomes review requests, dropping incomplete rows (0.907958ms)
+✔ only requests not seen before are new (0.11625ms)
+✔ the wake message is marked as automated data and names each pull request (7.472083ms)
+✔ a title and an author with prompt-like text, newlines and quotes never reach the wake message (0.274125ms)
+✔ a well-formed request is exactly one routable line (89.408167ms)
+✔ a malformed owner, repo, number or url is left out of the wake and the rest still go (61.389458ms)
+✔ a review goes to the FO whose next step names it, else to the FO whose repo label lists it (0.21575ms)
+✔ a review ref is repo#number, with the owner only when another request shares the repo name under a different owner (0.097167ms)
+✔ sidebar stays neutral with no focus controls, pulse or sound (1440) (2706.02375ms)
+✔ sidebar stays neutral with no focus controls, pulse or sound (360) (313.762959ms)
+✔ unknown and zero are displayed as totals without model calls (56.011083ms)
+✔ a spacedock status answer gives the task's title and stage (0.888292ms)
+✔ no matching task or unreadable output gives nothing (0.12175ms)
+✔ only a commissioned workflow README counts as a workflow directory (0.148167ms)
+✔ only tasks whose gate readiness is awaiting-captain are gates waiting on the Captain (0.127834ms)
+ℹ tests 422
+ℹ suites 0
+ℹ pass 422
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118634.450792

@@ -1,0 +1,253 @@
+{
+  "startedAt": "2026-11-09T07:49:37.824Z",
+  "port": 55489,
+  "fleetPort": 55490,
+  "modelRetries": 0,
+  "fictionalSources": true,
+  "agents": [
+    {
+      "id": "b6965313-91b3-4474-b809-fac9731fcd92",
+      "role": "comms-officer",
+      "title": "幕僚長 / Chief of staff",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": {
+        "inputTokens": 8,
+        "cachedInputTokens": 121256,
+        "outputTokens": 1496,
+        "totalCostUsd": 0.44807520000000006,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 59094
+      },
+      "lastError": null
+    },
+    {
+      "id": "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+      "role": "fo",
+      "title": "Fictional list FO 1",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+      "role": "fo",
+      "title": "Fictional list FO 2",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "64af311e-8a73-498e-8826-7e472b2112e8",
+      "role": "fo",
+      "title": "Fictional list FO 3",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "3645e20a-6d04-43ac-a6e6-b7020f954676",
+      "role": "fo",
+      "title": "Fictional list FO 4",
+      "provider": "claude",
+      "status": "idle",
+      "lastUsage": null,
+      "lastError": null
+    },
+    {
+      "id": "553e8403-bd7d-496b-acc4-ef69cabd66b8",
+      "role": "chief-assistant",
+      "title": "Chief of staff · Terra assistant",
+      "provider": "codex",
+      "status": "idle",
+      "lastUsage": {
+        "inputTokens": 32728,
+        "cachedInputTokens": 0,
+        "outputTokens": 359,
+        "contextWindowMaxTokens": 475000,
+        "contextWindowUsedTokens": 33087
+      },
+      "lastError": null
+    }
+  ],
+  "chief": {
+    "agentId": "b6965313-91b3-4474-b809-fac9731fcd92",
+    "workspaceId": "wks_fb3c0fbe1fb355ae",
+    "created": true,
+    "needsSwitch": false,
+    "previousAgentId": null
+  },
+  "targets": [
+    "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+    "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+    "64af311e-8a73-498e-8826-7e472b2112e8",
+    "3645e20a-6d04-43ac-a6e6-b7020f954676"
+  ],
+  "events": [
+    {
+      "key": "fictional-item-1",
+      "version": "fictional-version-1",
+      "kind": "ask",
+      "title": "範例問題：介面有藍與綠兩種方向，請艦長選一種。",
+      "waiter": "Fictional list FO 1",
+      "since": "2026-11-09T07:49:46.360Z",
+      "agentId": "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+      "target": "fictional-item-1"
+    },
+    {
+      "key": "fictional-item-2",
+      "version": "fictional-version-2",
+      "kind": "gate",
+      "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+      "waiter": "Fictional list FO 2",
+      "since": "2026-11-09T07:18:06.360Z",
+      "agentId": "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+      "target": "fictional-item-2"
+    },
+    {
+      "key": "fictional-item-3",
+      "version": "fictional-version-3",
+      "kind": "gate",
+      "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+      "waiter": "Fictional list FO 3",
+      "since": "2026-11-09T07:18:06.360Z",
+      "agentId": "64af311e-8a73-498e-8826-7e472b2112e8",
+      "target": "fictional-item-3"
+    },
+    {
+      "key": "fictional-item-4",
+      "version": "fictional-version-4",
+      "kind": "permission",
+      "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+      "waiter": "Fictional list FO 4",
+      "since": "2026-11-09T07:18:06.360Z",
+      "agentId": "3645e20a-6d04-43ac-a6e6-b7020f954676",
+      "target": "fictional-item-4"
+    }
+  ],
+  "triggeredAt": "2026-11-09T07:49:46.360Z",
+  "initial": {
+    "agentId": "b6965313-91b3-4474-b809-fac9731fcd92",
+    "total": "4",
+    "phase": "preparing",
+    "batch": {
+      "id": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "events": [
+        {
+          "key": "fictional-item-1",
+          "version": "fictional-version-1",
+          "kind": "ask",
+          "title": "範例問題：介面有藍與綠兩種方向，請艦長選一種。",
+          "waiter": "Fictional list FO 1",
+          "since": "2026-11-09T07:49:46.360Z",
+          "agentId": "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+          "target": "fictional-item-1"
+        },
+        {
+          "key": "fictional-item-2",
+          "version": "fictional-version-2",
+          "kind": "gate",
+          "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+          "waiter": "Fictional list FO 2",
+          "since": "2026-11-09T07:18:06.360Z",
+          "agentId": "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+          "target": "fictional-item-2"
+        },
+        {
+          "key": "fictional-item-3",
+          "version": "fictional-version-3",
+          "kind": "gate",
+          "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+          "waiter": "Fictional list FO 3",
+          "since": "2026-11-09T07:18:06.360Z",
+          "agentId": "64af311e-8a73-498e-8826-7e472b2112e8",
+          "target": "fictional-item-3"
+        },
+        {
+          "key": "fictional-item-4",
+          "version": "fictional-version-4",
+          "kind": "permission",
+          "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+          "waiter": "Fictional list FO 4",
+          "since": "2026-11-09T07:18:06.360Z",
+          "agentId": "3645e20a-6d04-43ac-a6e6-b7020f954676",
+          "target": "fictional-item-4"
+        }
+      ],
+      "reason": "exception",
+      "checkedAt": "2026-11-09T07:49:46.394Z",
+      "score": 12,
+      "outputMode": "list"
+    },
+    "focus": null,
+    "entered": false,
+    "soundAttempted": true,
+    "error": null
+  },
+  "last": {
+    "agentId": "b6965313-91b3-4474-b809-fac9731fcd92",
+    "total": "4",
+    "phase": "calling",
+    "batch": {
+      "id": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "events": [
+        {
+          "key": "fictional-item-1",
+          "version": "fictional-version-1",
+          "kind": "ask",
+          "title": "範例問題：介面有藍與綠兩種方向，請艦長選一種。",
+          "waiter": "Fictional list FO 1",
+          "since": "2026-11-09T07:49:46.360Z",
+          "agentId": "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+          "target": "fictional-item-1"
+        },
+        {
+          "key": "fictional-item-2",
+          "version": "fictional-version-2",
+          "kind": "gate",
+          "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+          "waiter": "Fictional list FO 2",
+          "since": "2026-11-09T07:18:06.360Z",
+          "agentId": "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+          "target": "fictional-item-2"
+        },
+        {
+          "key": "fictional-item-3",
+          "version": "fictional-version-3",
+          "kind": "gate",
+          "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+          "waiter": "Fictional list FO 3",
+          "since": "2026-11-09T07:18:06.360Z",
+          "agentId": "64af311e-8a73-498e-8826-7e472b2112e8",
+          "target": "fictional-item-3"
+        },
+        {
+          "key": "fictional-item-4",
+          "version": "fictional-version-4",
+          "kind": "permission",
+          "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+          "waiter": "Fictional list FO 4",
+          "since": "2026-11-09T07:18:06.360Z",
+          "agentId": "3645e20a-6d04-43ac-a6e6-b7020f954676",
+          "target": "fictional-item-4"
+        }
+      ],
+      "reason": "exception",
+      "checkedAt": "2026-11-09T07:49:46.394Z",
+      "score": 12,
+      "outputMode": "list"
+    },
+    "focus": {
+      "batchId": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "targetKey": "fictional-item-1",
+      "sentence": "範例問題：介面有藍與綠兩種方向，請艦長選一種。"
+    },
+    "entered": false,
+    "soundAttempted": false,
+    "error": null
+  },
+  "completedAt": "2026-11-09T07:51:35.318Z"
+}

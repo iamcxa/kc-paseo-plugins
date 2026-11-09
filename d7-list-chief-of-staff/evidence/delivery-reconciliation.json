@@ -1,0 +1,67 @@
+{
+  "observedAt": "2026-11-09T07:57:00.017Z",
+  "targets": [
+    {
+      "id": "ca55427d-6d5c-4be4-aadd-d6a9ae30759f",
+      "status": "idle",
+      "lastUsage": null,
+      "entries": 0,
+      "messages": [],
+      "assistant": []
+    },
+    {
+      "id": "d74f4fbd-8fa6-4c2c-b52c-7a2b1cedd560",
+      "status": "idle",
+      "lastUsage": {
+        "inputTokens": 2,
+        "cachedInputTokens": 13166,
+        "outputTokens": 255,
+        "totalCostUsd": 0.4389572,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 67325
+      },
+      "entries": 2,
+      "messages": [],
+      "assistant": [
+        "已收到：項目 `fictional-item-2`（版本 `fictional-version-2`）的關卡「範例 Alpha 關卡：檢查已通過，是否准予通過？」決定為 **approve — pass the gate**，船長原話為「全照建議」與「確認發送以上預覽」。"
+      ]
+    },
+    {
+      "id": "64af311e-8a73-498e-8826-7e472b2112e8",
+      "status": "idle",
+      "lastUsage": {
+        "inputTokens": 2,
+        "cachedInputTokens": 22039,
+        "outputTokens": 233,
+        "totalCostUsd": 0.3690918,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 67276
+      },
+      "entries": 2,
+      "messages": [],
+      "assistant": [
+        "已收到 `fictional-item-3`（版本 `fictional-version-3`）的關卡決定：**require the missing tests before the gate passes**，Captain 原話為「全照建議」與「確認發送以上預覽」。"
+      ]
+    },
+    {
+      "id": "3645e20a-6d04-43ac-a6e6-b7020f954676",
+      "status": "idle",
+      "lastUsage": null,
+      "entries": 0,
+      "messages": [],
+      "assistant": []
+    }
+  ],
+  "chief": {
+    "status": "idle",
+    "lastUsage": {
+      "inputTokens": 4,
+      "cachedInputTokens": 65416,
+      "outputTokens": 629,
+      "totalCostUsd": 0.7156431999999999,
+      "contextWindowMaxTokens": 1000000,
+      "contextWindowUsedTokens": 67177
+    },
+    "lastError": null
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "candidate": "cd1a6b95ad53202ae0962bd1f63a8ebee883799c",
+  "turns": [
+    {
+      "agentId": "553e8403-bd7d-496b-acc4-ef69cabd66b8",
+      "provider": "codex",
+      "turnId": "codex-turn-0",
+      "startedAt": "2026-11-09T07:50:58.573Z",
+      "completedAt": "2026-11-09T07:51:19.294Z",
+      "seconds": 20.721,
+      "usage": {
+        "inputTokens": 32728,
+        "cachedInputTokens": 0,
+        "outputTokens": 359,
+        "contextWindowMaxTokens": 475000,
+        "contextWindowUsedTokens": 33087
+      }
+    },
+    {
+      "agentId": "b6965313-91b3-4474-b809-fac9731fcd92",
+      "provider": "claude",
+      "turnId": "foreground-turn-1",
+      "startedAt": "2026-11-09T07:50:01.573Z",
+      "completedAt": "2026-11-09T07:51:34.947Z",
+      "seconds": 93.374,
+      "usage": {
+        "inputTokens": 8,
+        "cachedInputTokens": 121256,
+        "outputTokens": 1496,
+        "totalCostUsd": 0.44807520000000006,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 59094
+      }
+    },
+    {
+      "agentId": "b6965313-91b3-4474-b809-fac9731fcd92",
+      "provider": "claude",
+      "turnId": "foreground-turn-2",
+      "startedAt": "2026-11-09T07:52:58.345Z",
+      "completedAt": "2026-11-09T07:53:27.617Z",
+      "seconds": 29.272,
+      "usage": {
+        "inputTokens": 12,
+        "cachedInputTokens": 238842,
+        "outputTokens": 2701,
+        "totalCostUsd": 0.5942875999999999,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 63450
+      }
+    },
+    {
+      "agentId": "b6965313-91b3-4474-b809-fac9731fcd92",
+      "provider": "claude",
+      "turnId": "foreground-turn-3",
+      "startedAt": "2026-11-09T07:54:35.212Z",
+      "completedAt": "2026-11-09T07:54:50.967Z",
+      "seconds": 15.755,
+      "usage": {
+        "inputTokens": 10,
+        "cachedInputTokens": 190882,
+        "outputTokens": 1597,
+        "totalCostUsd": 0.6809399999999999,
+        "contextWindowMaxTokens": 1000000,
+        "contextWindowUsedTokens": 65914
+      }
+    }
+  ],
+  "scope": "One initial triggered Opus list with one Terra pass, then one preview and one confirmation Opus turn. Receiver acknowledgements are real isolated FO turns, outside the chief/prepare measurements."
+}

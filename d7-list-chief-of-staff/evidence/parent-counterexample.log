@@ -1,0 +1,47 @@
+✖ sidebar stays neutral with no focus controls, pulse or sound (1440) (452.579ms)
+✖ sidebar stays neutral with no focus controls, pulse or sound (360) (16.625666ms)
+✔ unknown and zero are displayed as totals without model calls (9.658083ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1455.172209
+
+✖ failing tests:
+
+test at test/sidebar-waiting.test.mts:6:35
+✖ sidebar stays neutral with no focus controls, pulse or sound (1440) (452.579ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-3d2rohsz/baseline/spacedock-bridge/test/sidebar-waiting.test.mts:15:24)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/sidebar-waiting.test.mts:6:35
+✖ sidebar stays neutral with no focus controls, pulse or sound (360) (16.625666ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-3d2rohsz/baseline/spacedock-bridge/test/sidebar-waiting.test.mts:15:24)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

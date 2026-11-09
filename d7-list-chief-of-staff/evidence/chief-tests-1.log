@@ -1,0 +1,253 @@
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+✔ explicit FO ownership at admission/consumption: fo, Next: Choose direction (you) (2.831125ms)
+✔ explicit FO ownership at admission/consumption: fo, Next: Continue research (me) (0.36375ms)
+✔ explicit FO ownership at admission/consumption: fo, Fictional plain question (0.281958ms)
+✔ explicit FO ownership at admission/consumption: captain, Next: Choose direction (you) (0.511042ms)
+✔ explicit FO ownership at admission/consumption: captain, Next: Continue research (me) (0.402916ms)
+✔ explicit FO ownership at admission/consumption: captain, Fictional plain question (0.298209ms)
+✔ explicit FO ownership at admission/consumption: absent, Next: Choose direction (you) (0.277625ms)
+✔ explicit FO ownership at admission/consumption: absent, Next: Continue research (me) (0.252875ms)
+✔ explicit FO ownership at admission/consumption: absent, Fictional plain question (0.227333ms)
+✔ explicit FO ownership at admission/consumption: unsupported, Next: Choose direction (you) (34.088875ms)
+✔ explicit FO ownership at admission/consumption: unsupported, Next: Continue research (me) (56.324417ms)
+✔ explicit FO ownership at admission/consumption: unsupported, Fictional plain question (0.265916ms)
+✔ four explicitly FO-owned replies never qualify; independent permissions/gates/reviews remain (41.142167ms)
+gates.read #14 start dirs=0
+gates.read #14 done 0ms
+gates.read #15 start dirs=0
+gates.read #15 done 18ms
+✔ observeBoard re-evaluates ownership changes without a new message/activity timestamp (234.600208ms)
+✔ one terminal attempt outcome across fold/restart: success (9.669167ms)
+✔ one terminal attempt outcome across fold/restart: error before focus (109.256875ms)
+✔ one terminal attempt outcome across fold/restart: error after focus (0.51375ms)
+✔ one terminal attempt outcome across fold/restart: delayed matching error (0.431416ms)
+✔ one terminal attempt outcome across fold/restart: different turn error (6.940083ms)
+✔ one terminal attempt outcome across fold/restart: missing id error (0.271583ms)
+✔ one terminal attempt outcome across fold/restart: ordinary later error (0.923167ms)
+✔ one terminal attempt outcome across fold/restart: failed preparation after focus (0.672458ms)
+✔ one terminal attempt outcome across fold/restart: canceled preparation after focus (0.341334ms)
+✔ one terminal attempt outcome across fold/restart: focus turn mismatch (0.21775ms)
+✔ one terminal attempt outcome across fold/restart: focus after failure (0.118875ms)
+✔ one terminal attempt outcome across fold/restart: response (0.173583ms)
+✔ terminal failure is consumed by the owning hook read and cannot be republished (1.059792ms)
+✔ bounded read retains healthy recent entries at 12000 (295.3275ms)
+✔ bounded read retains healthy recent entries at 12001 (95.980875ms)
+✔ partial history lifecycle stays bounded: known successful batch (331.324542ms)
+✔ partial history lifecycle stays bounded: failed batch (404.207334ms)
+✔ partial history lifecycle stays bounded: origin outside window (11.161292ms)
+✔ partial history lifecycle stays bounded: ordinary recent response (71.099583ms)
+✔ real Bridge keeps recent long conversation/question with an explicit coverage notice (1440) (8039.391792ms)
+gates.read #16 start dirs=0
+gates.read #16 done 0ms
+✔ real Bridge keeps recent long conversation/question with an explicit coverage notice (360) (1644.464625ms)
+✔ unknown truncated prefix never becomes a known chief question, and fresh events do not run a model (508.460042ms)
+✔ coverage metadata never masks gap corruption (0.921375ms)
+✔ coverage metadata never masks epoch corruption (0.15825ms)
+✔ coverage metadata never masks nonadvancing corruption (0.058417ms)
+✔ a failed attempt cannot hide a later independent successful batch (0.508917ms)
+✔ live extraction rejects a persisted same-turn error even when the handle is now idle (10.1915ms)
+✔ a recent known response still resolves within partial history; an origin outside it does not (258.053541ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✔ list input applies the shared ownership rule and excludes newly discovered old questions (42.873417ms)
+✔ accumulated list adds admitted items, refreshes facts and drops resolved items without importing the whole board (0.211166ms)
+✔ real list prose survives preparation/restart; a native Captain reply consumes it, a peer envelope does not (14.897875ms)
+✔ a second trigger posts the grown list through the real observer path with one preparation per update (222.695583ms)
+✔ semantic destination permission by row at 1440 (bridge) (5091.408875ms)
+✔ semantic destination gate by row at 1440 (bridge) (4497.285292ms)
+✔ semantic destination question by row at 1440 (bridge) (2108.844459ms)
+✔ semantic destination owned review by row at 1440 (bridge) (2208.371041ms)
+✔ semantic destination ownerless review by row at 1440 (bridge) (1208.199083ms)
+✔ semantic destination status by row at 1440 (bridge) (1086.966625ms)
+✔ semantic destination permission by named at 1440 (bridge) (800.990708ms)
+✔ semantic destination gate by named at 1440 (bridge) (1477.719375ms)
+✔ semantic destination question by named at 1440 (bridge) (1706.253542ms)
+✔ semantic destination owned review by named at 1440 (bridge) (1504.818959ms)
+✔ semantic destination ownerless review by named at 1440 (bridge) (1406.65075ms)
+✔ semantic destination status by named at 1440 (bridge) (1536.47925ms)
+✔ semantic destination permission by row at 360 (bridge) (953.924083ms)
+✔ semantic destination gate by row at 360 (bridge) (1832.812917ms)
+✔ semantic destination question by row at 360 (bridge) (2316.163584ms)
+✔ semantic destination owned review by row at 360 (bridge) (2599.754ms)
+✔ semantic destination ownerless review by row at 360 (bridge) (1220.396417ms)
+✔ semantic destination status by row at 360 (bridge) (1231.168917ms)
+✔ semantic destination permission by named at 360 (bridge) (396.2895ms)
+✔ semantic destination gate by named at 360 (bridge) (2386.846416ms)
+✔ semantic destination question by named at 360 (bridge) (1670.721459ms)
+✔ semantic destination owned review by named at 360 (bridge) (1782.714083ms)
+✔ semantic destination ownerless review by named at 360 (bridge) (1063.925584ms)
+✔ semantic destination status by named at 360 (bridge) (1563.805417ms)
+✔ semantic destination permission by row at 1440 (fleet) (96.953292ms)
+✔ semantic destination gate by row at 1440 (fleet) (1089.677542ms)
+✔ semantic destination question by row at 1440 (fleet) (153.913375ms)
+✔ semantic destination owned review by row at 1440 (fleet) (682.475042ms)
+✔ semantic destination ownerless review by row at 1440 (fleet) (407.442583ms)
+✔ semantic destination status by row at 1440 (fleet) (275.69825ms)
+✔ semantic destination permission by named at 1440 (fleet) (88.368291ms)
+✔ semantic destination gate by named at 1440 (fleet) (681.699125ms)
+✔ semantic destination question by named at 1440 (fleet) (726.556375ms)
+✔ semantic destination owned review by named at 1440 (fleet) (436.542417ms)
+✔ semantic destination ownerless review by named at 1440 (fleet) (674.297208ms)
+✔ semantic destination status by named at 1440 (fleet) (905.761667ms)
+✔ semantic destination permission by row at 360 (fleet) (275.95ms)
+✔ semantic destination gate by row at 360 (fleet) (1285.792375ms)
+✔ semantic destination question by row at 360 (fleet) (932.483875ms)
+✔ semantic destination owned review by row at 360 (fleet) (870.130542ms)
+✔ semantic destination ownerless review by row at 360 (fleet) (243.454417ms)
+✔ semantic destination status by row at 360 (fleet) (463.885791ms)
+✔ semantic destination permission by named at 360 (fleet) (357.739333ms)
+✔ semantic destination gate by named at 360 (fleet) (1330.829875ms)
+✔ semantic destination question by named at 360 (fleet) (1529.914916ms)
+✔ semantic destination owned review by named at 360 (fleet) (1401.432666ms)
+✔ semantic destination ownerless review by named at 360 (fleet) (56.751542ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+✔ semantic destination status by named at 360 (fleet) (1560.891875ms)
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ one conversation fold preserves agent-message across pages and restart without new runs (306.274208ms)
+✔ one conversation fold preserves agent-notification across pages and restart without new runs (604.503167ms)
+✔ history provenance: no preparation (0.534708ms)
+✔ history provenance: failed preparation (0.09775ms)
+✔ history provenance: ordinary boundary (0.165042ms)
+✔ history provenance: wrong batch (0.086917ms)
+✔ history provenance: wrong target (0.089083ms)
+✔ history provenance: matching response (0.159833ms)
+✔ history provenance: unrelated response (0.112584ms)
+✔ history provenance: quoted response (0.104791ms)
+✔ history provenance: malformed response (0.088667ms)
+✔ the registered response hook reads only the owning chief; peer envelopes and foreign markers cannot resolve (260.280708ms)
+✔ an owning response during the one model-stub turn prevents late completion from resurrecting a call (19.480166ms)
+✔ named requests wait for source identity, then fail visibly instead of substituting after change (1634.593125ms)
+✔ completed two-key switch advances once only after confirmation and archive retry reuses the new chief (910.197167ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+✔ server question opens its exact Board destination, including merged range and epoch changes (false) (9742.738917ms)
+gates.read #4 start dirs=0
+gates.read #4 done 1ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+✔ server question opens its exact Board destination, including merged range and epoch changes (true) (1976.401541ms)
+✔ source partial retains call/marks, healthy disappearance alone resolves it (1.779416ms)
+✔ source throw retains call/marks, healthy disappearance alone resolves it (0.175625ms)
+✔ incomplete observation cannot remove pending items or replay old ones across a gap (0.186208ms)
+✔ restart restores only a successful unresolved batch, never sound or models (none) (1.513875ms)
+✔ restart restores only a successful unresolved batch, never sound or models (unrelated) (0.358041ms)
+✔ restart restores only a successful unresolved batch, never sound or models (matching) (0.203ms)
+✔ restart restores only a successful unresolved batch, never sound or models (failed) (0.148209ms)
+✔ restart restores only a successful unresolved batch, never sound or models (gap) (0.116625ms)
+✔ fleet response preserves unknown-time board matters separately from trigger eligibility (7.911208ms)
+gates.read #1 start dirs=0
+gates.read #1 done 1ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+gates.read #3 start dirs=0
+gates.read #3 done 0ms
+gates.read #4 start dirs=0
+gates.read #4 done 0ms
+gates.read #5 start dirs=0
+gates.read #5 done 0ms
+gates.read #6 start dirs=0
+gates.read #6 done 0ms
+gates.read #7 start dirs=0
+gates.read #7 done 0ms
+gates.read #8 start dirs=0
+gates.read #8 done 0ms
+gates.read #9 start dirs=0
+gates.read #9 done 0ms
+gates.read #10 start dirs=0
+gates.read #10 done 0ms
+✔ a self-only （我） step vetoes a stale captain label at the full board boundary (21.412083ms)
+✔ a self-only (me) step vetoes a stale captain label at the full board boundary (0.487375ms)
+✔ a self-only (I) step vetoes a stale captain label at the full board boundary (0.227917ms)
+✔ a self-only (FO) step vetoes a stale captain label at the full board boundary (0.178792ms)
+✔ mixed ownership stays visible without an automatic event (captain label) (0.366333ms)
+✔ mixed ownership stays visible without an automatic event (absent label) (0.203792ms)
+✔ a single parenthesis with both owners is held too (0.228958ms)
+✔ self-only questions do not remove independent gates or permissions (5.385625ms)
+✔ an actual reply ownership veto also beats a stale positive next label (0.373042ms)
+✔ a genuine Captain question still counts and FO ownership still vetoes it (0.416292ms)
+gates.read #11 start dirs=0
+gates.read #11 done 0ms
+gates.read #12 start dirs=0
+gates.read #12 done 0ms
+gates.read #13 start dirs=0
+gates.read #13 done 0ms
+gates.read #14 start dirs=0
+gates.read #14 done 3ms
+gates.read #15 start dirs=0
+gates.read #15 done 0ms
+✔ a next-label change with identical activity invalidates cached ownership (598.27025ms)
+✔ question identity survives projection/range/time reconstruction with a provider message (16.61975ms)
+✔ question identity survives projection/range/time reconstruction with a provider turn (28.075041ms)
+✔ a question without a provable source identity is visible but cannot trigger (14.154792ms)
+✔ real question details survive reprojection but a genuinely new provider message retains a distinct detail (10143.988333ms)
+✔ seven old questions do not become arrivals after a projection rebuild (32.596166ms)
+✔ old questions first appearing or changing ownership after startup do not fill X (0.122458ms)
+✔ consumed old questions cannot replay after disappearance and a new projection (0.221291ms)
+✔ timestamp/source changes of a continuously waiting question are not new arrivals (0.089125ms)
+✔ new verified questions still wait five minutes, and a later resolved/reasked batch can qualify (0.166625ms)
+✔ unknown identity/time and an incomplete-read recovery cannot manufacture a question arrival (0.067167ms)
+✔ same-minute exceptions close together, sum existing weights and consume together (0.132833ms)
+✔ a poll between two same-minute deadlines cannot split or call early (0.046625ms)
+✔ gate and permission share a deadline cohort, while unknown/future times stay excluded (0.064083ms)
+✔ a true singleton waits at most one extra minute and exactly thirty minutes never qualifies (0.043708ms)
+✔ separate deadline minutes remain separate and resolved cohort members disappear (0.105625ms)
+gates.read #1 start dirs=0
+gates.read #1 done 0ms
+gates.read #2 start dirs=0
+gates.read #2 done 0ms
+✔ threshold needs five minutes, three further distinct matters and strictly more than eight points (265.982417ms)
+✔ frequency counts distinct current items only and expires with the window (0.141375ms)
+✔ only a confirmed gate or permission strictly over thirty minutes gets the exception (0.15375ms)
+✔ unknown time is excluded without guessing; source incompleteness blocks normal batches (0.088958ms)
+✔ baseline, restart and duplicates are quiet; answered or removed events cannot fill X (40.1715ms)
+✔ projected reader keeps merged ranges and rejects gaps, stale cursors, wrong epochs and overlapping ranges (0.517959ms)
+✔ automated batch and its assistant response never become a Captain question (1.91ms)
+✔ the sidebar total includes an ordinary chief question but her automated output cannot trigger herself (2.053875ms)
+✔ one qualifying batch persists its request before one Terra pass and one Opus choice; unchanged and restarted observers run nothing (284.393708ms)
+✔ a provider refusal before preparation makes no call and never retries the unchanged exception (49.130167ms)
+✔ publishing rechecks the named source version and never substitutes another target (0.268208ms)
+✔ restart reads before the tail window to consume earlier attempted batches (0.740875ms)
+✔ sidebar stays neutral with no focus controls, pulse or sound (1440) (2901.782417ms)
+✔ sidebar stays neutral with no focus controls, pulse or sound (360) (577.471666ms)
+✔ unknown and zero are displayed as totals without model calls (301.406958ms)
+ℹ tests 161
+ℹ suites 0
+ℹ pass 161
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 73405.99825
