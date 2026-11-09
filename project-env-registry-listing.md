@@ -7,6 +7,17 @@ profile: pilot
 merge: pr
 worktree:
 pr:
+gates:
+    version: 1
+    records:
+        - id: gate:project-env-registry-listing:backlog
+          stage: backlog
+          attempts:
+            - id: gate-attempt:project-env-registry-listing-backlog-1
+              briefing:
+                id: briefing:project-env-registry-listing:backlog:attempt-1:revision-1
+                digest: sha256:de9c508ee26456d4afbe77415ffaea90c988eeb6dc39754c54e9171183fcc447
+                room-ref: ./project-env-registry-listing/review/backlog/briefing-1
 ---
 
 Batch: public-release-prep, approved by the Captain on 2026-11-09 (「開，幫我合併 78」, answering FO's 「…開一批「送審前修正」3 個任務…回「開」就開這批 3 個任務」) with three members: project-env-service-account-trim, project-env-op-auth-and-cache, project-env-registry-listing. Source: the Codex and Gemini release reviews of origin/main 2026-11-09 saved in research/2026-11-09-public-release-review/ (codex.md, gemini.md). Paseo's publishing guide (https://paseo.sh/docs/plugins/publishing.md, saved there as paseo-publishing.md) and the registry review policy (getpaseo/plugins REVIEW.md, saved as paseo-registry-REVIEW.md) ask for a one-sentence description (the manifest's `description` for a Git source), an overview beside `paseo-plugin.json` that says where data goes including to agent providers, and at least one image for a plugin with its own interface. On main e4acaec `project-env/paseo-plugin.json` has no `description` and `"media": []`, the repository has no licence file (`gh repo view` licenseInfo null, 2026-11-09), and the plugin has a settings screen. Its runtime imports are only host-provided modules (`@getpaseo/plugin`, react, react-native, @tanstack/react-query, zod) and `node:` built-ins (grep of imports, 2026-11-09), so no runtime lock is owed for a Git source.
