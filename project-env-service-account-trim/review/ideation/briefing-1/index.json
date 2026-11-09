@@ -1,0 +1,24 @@
+{
+  "type": "Briefing",
+  "version": "1",
+  "id": "briefing:project-env-service-account-trim:ideation:attempt-1:revision-1",
+  "question": "設計關（送審前修正 1/3）：我建議准。服務帳號名稱存檔時去掉前後空白，伺服器查 token 前也去掉空白，畫面文字不變；已存了空白的舊專案也會好。在 Paseo 0.15.3 上重現了問題，修正後 Test 全過、agent 拿得到變數，測試 336 個全過。限制：只用假的鑰匙圈工具驗證過，真的 macOS 鑰匙圈比對沒測。准了就照這個設計進實作。",
+  "artifacts": [
+    {
+      "id": "artifact:project-env-service-account-trim:ideation:attempt-1:revision-1:item-1",
+      "uri": "git-root://state/6c4f880df7d80d4cf076648e582dad1e73964691/project-env-service-account-trim.md",
+      "rev": "sha256:919b32c7eeaee38d5aece37c5f2471b0596d0ced0de8dd8ef693c27a756bafbe",
+      "mediaType": "text/markdown",
+      "summary": "Ideation: trim the service account name on save and before every token lookup; reproduced on Paseo 0.15.3; 336/336 with the fix. FO recommendation: approve."
+    }
+  ],
+  "context": [
+    {
+      "type": "Reference",
+      "id": "reference:project-env-service-account-trim:ideation:attempt-1:revision-1:item-2",
+      "uri": "git-root://state/6c4f880df7d80d4cf076648e582dad1e73964691/project-env-service-account-trim/design/design-surfaces-check.txt",
+      "mediaType": "text/plain",
+      "rev": "sha256:2398dd23bdba5b4735fadaf3a22fe4b9ef7360ac889da9f8c60cc8dbc2ffdfa3"
+    }
+  ]
+}

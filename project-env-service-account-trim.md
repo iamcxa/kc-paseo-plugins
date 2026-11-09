@@ -29,6 +29,14 @@ gates:
               application:
                 target-stage: ideation
                 state: consumed
+        - id: gate:project-env-service-account-trim:ideation
+          stage: ideation
+          attempts:
+            - id: gate-attempt:project-env-service-account-trim-ideation-1
+              briefing:
+                id: briefing:project-env-service-account-trim:ideation:attempt-1:revision-1
+                digest: sha256:d3badb5c71fab5a55c6fd290862d66a3b311d142c05b5facf2cccc90edd6cdf9
+                room-ref: ./project-env-service-account-trim/review/ideation/briefing-1
 started: 2026-11-09T07:41:12Z
 ---
 
