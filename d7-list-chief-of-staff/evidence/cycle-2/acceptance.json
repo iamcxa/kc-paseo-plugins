@@ -1,0 +1,47 @@
+{
+  "head": "9718e7f0512e0a22f614668cd0294b639ad7306f",
+  "questionAndGateRelayProof": "passed",
+  "initialItems": 4,
+  "initialQuestionRecommendation": "甲 supports CSV; 乙 only XLSX",
+  "preview": "completed render_ui; zero relays",
+  "receipts": [
+    {
+      "item": 1,
+      "recipient": "28023386-2401-484c-b1f6-a425ddc3a8f0",
+      "count": 1,
+      "messageId": "fa187038-28c1-47a8-8dd1-acf4e38f9d33",
+      "receivedAt": "2026-11-09T08:37:59.050Z",
+      "exactToolPayloadDelivered": true
+    },
+    {
+      "item": 2,
+      "recipient": "cd3bbe7d-76c6-46c4-b0a8-49fdbaacd569",
+      "count": 1,
+      "messageId": "7ef7ad1e-9f6b-462f-bf4b-04d139242e9c",
+      "receivedAt": "2026-11-09T08:38:04.554Z",
+      "exactToolPayloadDelivered": true
+    },
+    {
+      "item": 3,
+      "recipient": "00bc564d-f7e5-41e7-add2-9b7544b3cbef",
+      "count": 1,
+      "messageId": "b341f885-bc55-4ff2-9541-1b128e8d22a0",
+      "receivedAt": "2026-11-09T08:38:10.713Z",
+      "exactToolPayloadDelivered": true
+    },
+    {
+      "item": 4,
+      "recipient": "8344e3fe-8dac-47ea-b487-8156731c1a3e",
+      "count": 0,
+      "permissionUndecided": true
+    }
+  ],
+  "triggerCount": 1,
+  "terraPreparations": 1,
+  "captainTexts": [
+    "全照建議",
+    "確認發送以上預覽"
+  ],
+  "backendLifecycle": "HOLD: native prepare tool output is nested under output; both original and repaired persisted fold report uncertain. Live prepared fold resolves it. No unrelated parser edit.",
+  "scopeLimit": "Fictional chiefBoard source seam; real providers/tool/relay, no live-board or native permission-prompt proof"
+}

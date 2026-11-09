@@ -1,0 +1,78 @@
+{
+  "persisted": {
+    "coverage": "complete",
+    "unresolved": [],
+    "uncertain": [
+      "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e"
+    ],
+    "failed": [],
+    "outstanding": [
+      "fictional-item-1",
+      "fictional-item-2",
+      "fictional-item-3",
+      "fictional-item-4"
+    ]
+  },
+  "livePrepared": {
+    "coverage": "complete",
+    "unresolved": [
+      "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e"
+    ],
+    "uncertain": [],
+    "failed": [],
+    "outstanding": [
+      "fictional-item-1",
+      "fictional-item-2",
+      "fictional-item-3",
+      "fictional-item-4"
+    ]
+  },
+  "output": {
+    "output": {
+      "batchId": "891cd15bc2668768b924631d4d0e630dec4370693fe06e4837ba784e44b5241e",
+      "facts": [
+        {
+          "key": "fictional-item-1",
+          "version": "fictional-version-1",
+          "kind": "ask",
+          "title": "Next: 本輪需求只接受 CSV；甲支援 CSV、乙僅支援 XLSX，兩案測試通過且其他條件相同。請選甲或乙（你）",
+          "waiter": "Fictional list FO 1",
+          "since": "2026-11-09T08:34:22.683Z",
+          "agentId": "28023386-2401-484c-b1f6-a425ddc3a8f0",
+          "target": "fictional-item-1"
+        },
+        {
+          "key": "fictional-item-2",
+          "version": "fictional-version-2",
+          "kind": "gate",
+          "title": "範例 Alpha 關卡：檢查已通過，是否准予通過？",
+          "waiter": "Fictional list FO 2",
+          "since": "2026-11-09T08:02:42.683Z",
+          "agentId": "cd3bbe7d-76c6-46c4-b0a8-49fdbaacd569",
+          "target": "fictional-item-2"
+        },
+        {
+          "key": "fictional-item-3",
+          "version": "fictional-version-3",
+          "kind": "gate",
+          "title": "範例 Beta 關卡：缺少測試證據，是否要求補測？",
+          "waiter": "Fictional list FO 3",
+          "since": "2026-11-09T08:02:42.683Z",
+          "agentId": "00bc564d-f7e5-41e7-add2-9b7544b3cbef",
+          "target": "fictional-item-3"
+        },
+        {
+          "key": "fictional-item-4",
+          "version": "fictional-version-4",
+          "kind": "permission",
+          "title": "範例權限：要求執行虛構刪除命令，僅艦長能處理。",
+          "waiter": "Fictional list FO 4",
+          "since": "2026-11-09T08:02:42.683Z",
+          "agentId": "8344e3fe-8dac-47ea-b487-8156731c1a3e",
+          "target": "fictional-item-4"
+        }
+      ],
+      "preparation": "以下是四個項目的已知資料；等待時間以檢查時間為準。\n\n```ui\nCard(\"看板項目\", [\n  List([\n    {title: \"fictional-item-1｜提問\", detail: \"等待者：Fictional list FO 1｜已等待：約 0 秒｜目標：fictional-item-1｜未知：實際需求及選項內容是否已驗證\"},\n    {title: \"fictional-item-2｜關卡\", detail: \"等待者：Fictional list FO 2｜已等待：約 31 分 40 秒｜目標：fictional-item-2｜未知：檢查內容與結果證據\"},\n    {title: \"fictional-item-3｜關卡\", detail: \"等待者：Fictional list FO 3｜已等待：約 31 分 40 秒｜目標：fictional-item-3｜未知：缺少哪些測試證據\"},\n    {title: \"fictional-item-4｜權限\", detail: \"等待者：Fictional list FO 4｜已等待：約 31 分 40 秒｜目標：fictional-item-4｜未知：命令內容及實際權限範圍\"}\n  ])\n])\n```\n\n```text\n剩餘: 未提供各項的進一步事實\n下一步: 未指定\n可收線: 未確認\n```"
+    }
+  }
+}

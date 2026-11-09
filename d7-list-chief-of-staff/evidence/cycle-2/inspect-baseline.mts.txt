@@ -1,0 +1,6 @@
+import fs from "node:fs";
+import {readCommanderConversation} from "./baseline/shared/commander-replies";
+const e="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-2/";const d=JSON.parse(fs.readFileSync(e+"real-list-run.json","utf8"));const p=JSON.parse(fs.readFileSync(e+"initial-"+d.chief.agentId+"-timeline.json","utf8"));
+const persisted=await readCommanderConversation(async()=>p,d.chief.agentId);const live=await readCommanderConversation(async()=>p,d.chief.agentId,d.initial.batch.id);
+const summarize=(x:any)=>({coverage:x.coverage,unresolved:x.unresolved.map((v:any)=>v.batch.id),uncertain:[...x.uncertain],failed:[...x.failed],outstanding:(x.outstanding??[]).map((v:any)=>v.key)});
+fs.writeFileSync(e+"baseline-output-shape.json",JSON.stringify({persisted:summarize(persisted),livePrepared:summarize(live),output:p.entries.find((x:any)=>x.item.name==="mcp__fleet__prepare_batch").item.detail.output},null,2),{flag:"wx"});console.log(JSON.stringify({persisted:summarize(persisted),livePrepared:summarize(live)}));

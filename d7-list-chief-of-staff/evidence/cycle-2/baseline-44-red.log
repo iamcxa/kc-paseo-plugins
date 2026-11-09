@@ -1,0 +1,494 @@
+✔ retained list request only, multipage=false (4.3625ms)
+✔ retained list request only, multipage=true (0.655ms)
+✔ retained list failed preparation, multipage=false (0.591042ms)
+✔ retained list failed preparation, multipage=true (0.208125ms)
+✔ retained list canceled preparation, multipage=false (0.358791ms)
+✔ retained list canceled preparation, multipage=true (0.176041ms)
+✔ retained list prose before preparation, multipage=false (0.254375ms)
+✔ retained list prose before preparation, multipage=true (0.170625ms)
+✔ retained list successful covering replacement, multipage=false (0.197ms)
+✔ retained list successful covering replacement, multipage=true (0.1965ms)
+✖ retained list same-turn error after prose, multipage=false (1.002792ms)
+✖ retained list same-turn error after prose, multipage=true (0.307ms)
+✖ retained list failed preparation after prose, multipage=false (0.189583ms)
+✖ retained list failed preparation after prose, multipage=true (0.16175ms)
+✖ retained list canceled preparation after prose, multipage=false (0.156083ms)
+✖ retained list canceled preparation after prose, multipage=true (0.409042ms)
+✖ retained list turn identity conflict after prose, multipage=false (0.173042ms)
+✖ retained list turn identity conflict after prose, multipage=true (0.169875ms)
+✔ retained list unrelated error, multipage=false (0.102083ms)
+✔ retained list unrelated error, multipage=true (0.230875ms)
+✔ retained list real response before late failure, multipage=false (0.584042ms)
+✔ retained list real response before late failure, multipage=true (0.194625ms)
+✖ retained list peer envelope before late failure, multipage=false (0.70775ms)
+✖ retained list peer envelope before late failure, multipage=true (0.373291ms)
+✖ retained list failed third list retains the second, multipage=false (0.224084ms)
+✖ retained list failed third list retains the second, multipage=true (0.194708ms)
+✖ retained list subset cannot supersede uncovered items, multipage=false (0.168083ms)
+✖ retained list subset cannot supersede uncovered items, multipage=true (0.245875ms)
+✔ retained list answered original never resurrects, multipage=false (0.1275ms)
+✔ retained list answered original never resurrects, multipage=true (0.105666ms)
+✖ restart retains the last published list and all admitted items after pending replacement (13.447959ms)
+✖ restart retains the last published list and all admitted items after failed replacement (0.500958ms)
+✖ restart retains the last published list and all admitted items after uncertain replacement (0.320958ms)
+✖ a live failed replacement restores the prior list and keeps admitted items for a later trigger (1.658541ms)
+✖ a delayed published-turn failure restores the prior list through the owning receive hook (0.63575ms)
+✖ publication rejects a subset of a still-waiting unanswered list (1.056125ms)
+✔ a real response covers predecessor lists and clears their carry even if the replacement later fails (2.658667ms)
+✖ authoritative removal prunes carried items before an independent trigger (0.789042ms)
+✖ a response to the retained list cancels a pending replacement without reintroducing answered items (0.541833ms)
+✔ an incomplete source cannot discard the retained list or run a replacement (0.215834ms)
+✔ a new officer never inherits the previous officer's unanswered carry (0.911416ms)
+✔ a delayed failure of the retained turn cannot be resurrected by a failing pending replacement (0.768542ms)
+✔ an older receive read cannot overwrite carry after new officer (0.934958ms)
+✔ an older receive read cannot overwrite carry after failed replacement (0.776792ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 22
+ℹ fail 22
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 559.166416
+
+✖ failing tests:
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list same-turn error after prose, multipage=false (1.002792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list same-turn error after prose, multipage=true (0.307ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list failed preparation after prose, multipage=false (0.189583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list failed preparation after prose, multipage=true (0.16175ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list canceled preparation after prose, multipage=false (0.156083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list canceled preparation after prose, multipage=true (0.409042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list turn identity conflict after prose, multipage=false (0.173042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list turn identity conflict after prose, multipage=true (0.169875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list peer envelope before late failure, multipage=false (0.70775ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list peer envelope before late failure, multipage=true (0.373291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'A'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'A' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list failed third list retains the second, multipage=false (0.224084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'B'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'B' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list failed third list retains the second, multipage=true (0.194708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'B'
+  - ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'B' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list subset cannot supersede uncovered items, multipage=false (0.168083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   'A',
+      'subset'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'subset' ],
+    expected: [ 'A', 'subset' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:38:69
+✖ retained list subset cannot supersede uncovered items, multipage=true (0.245875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   'A',
+      'subset'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:40:65)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'subset' ],
+    expected: [ 'A', 'subset' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:51:62
+✖ restart retains the last published list and all admitted items after pending replacement (13.447959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'a',
+  -   'b',
+      'c'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:56:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'a', 'c' ],
+    expected: [ 'a', 'b', 'c' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:51:62
+✖ restart retains the last published list and all admitted items after failed replacement (0.500958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 'A'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:53:59)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'A',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:51:62
+✖ restart retains the last published list and all admitted items after uncertain replacement (0.320958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 'A'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:53:59)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'A',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:58:1
+✖ a live failed replacement restores the prior list and keeps admitted items for a later trigger (1.658541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '0989088bfeacff3f5108f24273ab1cf424627eb6f8ee5c9563593d0839b81513'
+  - 'A'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:61:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '0989088bfeacff3f5108f24273ab1cf424627eb6f8ee5c9563593d0839b81513',
+    expected: 'A',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:65:1
+✖ a delayed published-turn failure restores the prior list through the owning receive hook (0.63575ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'B' !== 'A'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:68:9)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'B',
+    expected: 'A',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:70:1
+✖ publication rejects a subset of a still-waiting unanswered list (1.056125ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:72:35)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /unanswered|cover|omit/i,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:80:1
+✖ authoritative removal prunes carried items before an independent trigger (0.789042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   'b',
+      'c'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:82:87)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'c' ],
+    expected: [ 'b', 'c' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/chief-list-retention.test.mts:85:1
+✖ a response to the retained list cancels a pending replacement without reintroducing answered items (0.541833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'preparing'
+  - 'quiet'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle2-ha7o0gwk/baseline/test/chief-list-retention.test.mts:92:44)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'preparing',
+    expected: 'quiet',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
