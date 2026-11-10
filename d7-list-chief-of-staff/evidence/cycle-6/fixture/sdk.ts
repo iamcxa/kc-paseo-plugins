@@ -1,0 +1,14 @@
+import {z} from "zod";z.config({jitless:true});
+import messages from "./messages.json";
+const stage=new URLSearchParams(location.search).get("stage")==="preview"?"preview":"list";
+const entry=messages[stage].entry;
+const chief="fixture-chief";const now="2026-11-10T01:00:00Z";
+const agents=["gate","question"].map((s,n)=>({id:s,title:`Fictional ${s} FO`,cwd:"/fictional",status:"idle",updatedAt:now,labels:{role:"fo",repo:"fictional",task:s}}));
+const page=(id:string)=>({agentId:id,epoch:"fixture",projection:"projected",entries:id===chief?[entry]:[],hasOlder:false,hasNewer:false,reset:false,gap:false,staleCursor:false,error:null});
+const handles=new Map();const ref=(id:string)=>{if(!handles.has(id))handles.set(id,{status:"idle",refresh:async()=>{},subscribe:()=>()=>{},send:async()=>{window.fixture.sends++;throw Error("Read-only capture");},timeline:{refetch:async()=>page(id),subscribe:()=>Object.assign(()=>{},{ready:Promise.resolve()})}});return handles.get(id);};
+const paseo={agents:{ref,list:async({filter}:any={})=>({entries:[],subscription:{subscribe:(h:any)=>h.snapshot({entries:(filter?.labels?.role==="comms-officer"?[{id:chief,title:"Chief of staff",status:"idle",cwd:"/fictional",updatedAt:now,labels:{role:"comms-officer"}}]:agents).map(agent=>({agent}))}),release(){}}})}};
+window.fixture={stage,sourceSha:messages[stage].sha256,sends:0,rpcs:[],networkCalls:0};
+export const usePaseo=()=>paseo;
+const calls=new Map();export const useRpc=(rpc:any)=>{if(!calls.has(rpc.name))calls.set(rpc.name,async()=>{window.fixture.rpcs.push(rpc.name);switch(rpc.name){case "coordinator.open":return {agentId:chief};case "chief.read":return {agentId:chief,total:"2",phase:"quiet",batch:null,focus:null,entered:false,soundAttempted:true,error:null};case "tasks.read":return {tasks:{},failedWorkflowDirs:[]};case "gates.read":return {gates:[],failedWorkflowDirs:[]};case "reviews.read":return {requests:[],checkedAt:1,nextCheckAt:null,error:null};default:throw Error("Capture forbids mutation RPC "+rpc.name);}});return calls.get(rpc.name);};
+export const openExternalUrl=()=>{throw Error("External navigation forbidden")};
+export const defineRpc=(value:any)=>value;

@@ -1,0 +1,83 @@
+✖ table cells retain inline formatting and switch from columns to wrapping labelled phone rows (70.965458ms)
+✔ bold and inline code are split out of a line (0.963042ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.362167ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.160666ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.146834ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.081709ms)
+✖ GitHub pipe tables parse headers, alignment and rows with inline formatting and escaped pipes (1.923291ms)
+✖ tables allow optional edge pipes and normalize missing or excess cells (0.291584ms)
+✔ ordinary pipes, malformed separators and fenced pipe text stay unchanged (0.15775ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 6
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 506.619958
+
+✖ failing tests:
+
+test at test/markdown-table-view.test.mts:1:332
+✖ table cells retain inline formatting and switch from columns to wrapping labelled phone rows (70.965458ms)
+  AssertionError [ERR_ASSERTION]: a table must render instead of the raw pipe paragraph
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/markdown-table-view.test.mts:29:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/markdown.test.mts:1:1948
+✖ GitHub pipe tables parse headers, alignment and rows with inline formatting and escaped pipes (1.923291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'paragraph',
+  -   'table',
+      'paragraph',
+  +   'paragraph'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/markdown.test.mts:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'paragraph', 'paragraph', 'paragraph' ],
+    expected: [ 'paragraph', 'table', 'paragraph' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/markdown.test.mts:1:2631
+✖ tables allow optional edge pipes and normalize missing or excess cells (0.291584ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'paragraph'
+  - 'table'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/markdown.test.mts:60:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'paragraph',
+    expected: 'table',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

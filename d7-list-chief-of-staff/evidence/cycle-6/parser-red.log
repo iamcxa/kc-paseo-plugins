@@ -1,0 +1,68 @@
+✔ bold and inline code are split out of a line (1.26675ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.392375ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (1.02825ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.535917ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.12ms)
+✖ GitHub pipe tables parse headers, alignment and rows with inline formatting and escaped pipes (5.41375ms)
+✖ tables allow optional edge pipes and normalize missing or excess cells (0.784042ms)
+✔ ordinary pipes, malformed separators and fenced pipe text stay unchanged (0.495458ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 6
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 238.696583
+
+✖ failing tests:
+
+test at test/markdown.test.mts:1:1948
+✖ GitHub pipe tables parse headers, alignment and rows with inline formatting and escaped pipes (5.41375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'paragraph',
+  -   'table',
+      'paragraph',
+  +   'paragraph'
+    ]
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/markdown.test.mts:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'paragraph', 'paragraph', 'paragraph' ],
+    expected: [ 'paragraph', 'table', 'paragraph' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/markdown.test.mts:1:2631
+✖ tables allow optional edge pipes and normalize missing or excess cells (0.784042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'paragraph'
+  - 'table'
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/markdown.test.mts:60:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'paragraph',
+    expected: 'table',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,78 @@
+[
+  {
+    "name": "adr-lint",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/adr_lint.py",
+      "docs/adr",
+      "--since",
+      "f40c340e8204f4b7dddef238f215aea3f3a6eaab"
+    ]
+  },
+  {
+    "name": "comment-ratio",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/comment_ratio.py",
+      "f40c340e8204f4b7dddef238f215aea3f3a6eaab",
+      "2296cb683b5d56579983251f74eceb5f986b498d",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc"
+    ]
+  },
+  {
+    "name": "doc-impact",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/doc_impact.py",
+      "d4306c25366ca150c68af46c77eb4f8aa6a5419f",
+      "2296cb683b5d56579983251f74eceb5f986b498d",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff",
+      "--json"
+    ]
+  },
+  {
+    "name": "number-guards",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/number_guards.py",
+      "check",
+      "--repo",
+      "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff",
+      "--workflow-dir",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc",
+      "--base",
+      "f40c340e8204f4b7dddef238f215aea3f3a6eaab",
+      "--head",
+      "2296cb683b5d56579983251f74eceb5f986b498d",
+      "--task",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff.md"
+    ]
+  },
+  {
+    "name": "design-surfaces",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/design_surfaces.py",
+      "check",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff.md"
+    ]
+  },
+  {
+    "name": "dispatch-records",
+    "exit": 0,
+    "command": [
+      "python3",
+      "/Users/kent/.claude/plugins/cache/kc-claude-plugins/kc-dev-flow-2/0.35.0/scripts/dispatch_records.py",
+      "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff.md"
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+✔ bold and inline code are split out of a line (1.1935ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.731375ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.235125ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.159959ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.079292ms)
+✔ GitHub pipe tables parse headers, alignment and rows with inline formatting and escaped pipes (0.284917ms)
+✔ tables allow optional edge pipes and normalize missing or excess cells (0.106042ms)
+✔ ordinary pipes, malformed separators and fenced pipe text stay unchanged (0.126833ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 170.015084

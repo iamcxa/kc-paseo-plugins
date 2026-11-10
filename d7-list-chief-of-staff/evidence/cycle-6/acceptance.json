@@ -1,0 +1,78 @@
+{
+  "head": "2296cb683b5d56579983251f74eceb5f986b498d",
+  "checks": [
+    {
+      "name": "four ordered captures",
+      "status": "passed"
+    },
+    {
+      "name": "four clean, isolated browser sessions",
+      "status": "passed"
+    },
+    {
+      "name": "no owned profile remains",
+      "status": "passed"
+    },
+    {
+      "name": "bundle bytes match recorded source manifest",
+      "status": "passed"
+    },
+    {
+      "name": "list message bytes match native cycle-5 artifact",
+      "status": "passed"
+    },
+    {
+      "name": "preview message bytes match native cycle-5 artifact",
+      "status": "passed"
+    },
+    {
+      "name": "1440-list screenshot bytes",
+      "status": "passed"
+    },
+    {
+      "name": "1440-list no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "1440-list exact saved source and zero sends",
+      "status": "passed"
+    },
+    {
+      "name": "1440-preview screenshot bytes",
+      "status": "passed"
+    },
+    {
+      "name": "1440-preview no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "1440-preview exact saved source and zero sends",
+      "status": "passed"
+    },
+    {
+      "name": "360-list screenshot bytes",
+      "status": "passed"
+    },
+    {
+      "name": "360-list no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "360-list exact saved source and zero sends",
+      "status": "passed"
+    },
+    {
+      "name": "360-preview screenshot bytes",
+      "status": "passed"
+    },
+    {
+      "name": "360-preview no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "360-preview exact saved source and zero sends",
+      "status": "passed"
+    }
+  ],
+  "scope": "Actual Bridge components in offline SDK/RN DOM fixture, not native-device or live-daemon acceptance; no model turn."
+}

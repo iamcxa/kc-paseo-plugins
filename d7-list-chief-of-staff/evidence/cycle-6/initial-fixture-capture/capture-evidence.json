@@ -1,0 +1,56 @@
+{
+  "captures": [
+    {
+      "stage": "list",
+      "width": 1440,
+      "height": 16808,
+      "file": "screenshots/1440-list.png",
+      "sha256": "84736dd20e75eb8c244de8a17c891d8ad7d3a4a83670eebc2c73fe4deb7af0ec",
+      "metrics": {
+        "width": 1440,
+        "height": 16808,
+        "documentWidth": 1440,
+        "table": {
+          "left": 495,
+          "right": 1275,
+          "width": 780,
+          "height": 13296
+        },
+        "maxCellOverflow": 0,
+        "maxScrollOverflow": 0,
+        "headers": [
+          "#",
+          "事項",
+          "穩定識別",
+          "提出者（agent id）",
+          "已等候",
+          "建議",
+          "理由（依據我實際讀到的資料）"
+        ],
+        "text": "#\n事項\n穩定識別\n提出者（agent id）\n已等候\n建議\n理由（依據我實際讀到的資料）\n1\nFictional CSV validation gate（驗證關卡）\n[\"g\",\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional\",\"gate\",\"validation\",\"briefing:fictional-csv:1\"]\nFictional gate FO（c60e3156-6765-4665-b98c-4295b8d26dfc）\n自 2026-11-09 00:00 UTC 起，約 25 小時\n核准 Alpha；不採用 Beta\n我讀了關卡簡報 briefing:fictional-csv:1（digest sha256:fictional-csv，內容完整）。驗收條件只接受 CSV。Alpha 輸出 CSV，12 項檢查全過，回滾也驗證通過。Beta 只能輸出 XLSX。兩者成本相同，也都沒有未解的阻礙。\n2\n虛構 CSV 匯出選擇（問題）\n[\"q\",\"0bf1a6fa-f9e6-4357-9a2b-8ec5c57b6063\",\"[\\\"claude\\\",\\\"message\\\",\\\"a097575e-35fa-4388-ae42-46f12f3733a0\\\"]\",null,\"虛構 CSV 匯出選擇：需求只接受 CSV；甲方案支援 CSV、乙方案僅支援 XLSX，兩者測試通過且其他條件相同。下一步：請選甲或乙（你）\"]\nFictional question FO（0bf1a6fa-f9e6-4357-9a2b-8ec5c57b6063）\n自 2026-11-10 00:58:36 UTC 起，剛提出\n選甲\n我讀了這位 FO 唯一的一則訊息：「需求只接受 CSV；甲方案支援 CSV、乙方案僅支援 XLSX，兩者測試通過且其他條件相同」。只有甲符合需求。這個結論只依據 FO 自己的說法，我沒有獨立的驗證結果。",
+        "fixture": {
+          "stage": "list",
+          "sourceSha": "0dcb27fb53a90416acc09fae7e5de966ec79895a5489342632aaeaf8524aec61",
+          "sends": 0,
+          "rpcs": [
+            "reviews.read",
+            "coordinator.open"
+          ],
+          "networkCalls": 0
+        }
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "freshProfile": true,
+      "browserStopped": true,
+      "ownEmptyProfileRemoved": true,
+      "scriptExceptions": 0,
+      "policyViolations": 1,
+      "requestedOnlyFiles": true
+    }
+  ],
+  "method": "Actual Bridge, CoChat, MarkdownView and parser with a fixture SDK + RN DOM adapter; saved cycle-5 assistant text unchanged. Each capture uses its own fresh profile, CDP pipe, all http/https/ws/wss blocked including localhost; no daemon, model or server.",
+  "runtimeSourceHead": "working tree candidate"
+}

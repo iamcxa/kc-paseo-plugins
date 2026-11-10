@@ -1,0 +1,17 @@
+✔ table cells retain inline formatting and switch from columns to wrapping labelled phone rows (73.03025ms)
+✔ bold and inline code are split out of a line (0.947166ms)
+✔ a reply becomes paragraphs, list items and a fenced status block (0.479667ms)
+✔ a status block is recognised by its Remaining or 剩餘 line (0.165166ms)
+✔ quoted lines become one quote block that keeps its line breaks (0.13975ms)
+✔ Enter sends, but not while an input method is composing or with Shift (0.081084ms)
+✔ GitHub pipe tables parse headers, alignment and rows with inline formatting and escaped pipes (0.343833ms)
+✔ tables allow optional edge pipes and normalize missing or excess cells (0.113416ms)
+✔ ordinary pipes, malformed separators and fenced pipe text stay unchanged (0.132625ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 759.641375
