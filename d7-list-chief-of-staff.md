@@ -77,12 +77,19 @@ Asked: 要先做這一步嗎？ (the FO's proposal just before, after the Captai
 Supersedes: none
 Design: "She reads each gate's prepared briefing through a read-only fleet tool and each FO's recent messages read-only before recommending, never prompting an FO; her lists and previews are standard markdown tables, and choices are answered by replying a number or keyword instead of widget buttons; Compass is not connected in this step."
 
+### Amendment 3 — 2026-11-10, chat
+Captain: 「操作還可以。但我想關閉讓他主動找我的機制，我要再想想這件事我到底想達成什麼目標，你也可以給我建議」
+Asked: (his own instruction after trying the briefing-reading chief of staff; not an answer to an FO question)
+Supersedes: none
+Design: "Her automatic calls are switched off: the trigger no longer starts an analysis or posts a list by itself; she answers only when the Captain talks to her, reading the board, briefings and FO messages then; the trigger code stays in place behind an off-by-default switch while he reconsiders the goal."
+
 ## FO alignment
 
 Alignment: not needed: the Captain set the model and approved this task on 2026-11-09 (quoted in the seed).
 Release review: not needed: spacedock-bridge has no journey map yet.
 Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-09: Captain amendment 1 supersedes no acceptance criterion; it adds one prompt sentence (a text preview beside any widget).
 Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-10: Captain amendment 2 supersedes no acceptance criterion; it adds read-only inputs for her recommendations and changes her output format.
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-10: Captain amendment 3 supersedes no acceptance criterion; it switches the automatic trigger off by default and removes nothing.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-09 — with one repair cycle left and the conversation fold failing across tasks, repair the fold or switch the list's truth to the board?
 Surfaces: ui
 Visible change: the chief-of-staff cards, red pulsing badge and sound are removed; her conversation shows the accumulated list and, before a batch is sent, a what-will-be-sent view in the widget she chooses.
