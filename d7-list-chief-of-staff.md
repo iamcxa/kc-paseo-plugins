@@ -146,7 +146,7 @@ Read-only investigation of item 2 dispatched as implementation-1-followup-1 befo
 - roborev 1642 item 6 on 970d9cdaab655aadd489a9cda5393610d5f0cb23 — a list's synthetic focus on its first item makes a whole update fail if that item resolves during preparation. Declined as a known issue by the Captain's ruling 2026-11-09 (Amendment 1, 「加一句指令後給我試 (Recommended)」, whose option text records it as known). Would become Material: if in his trial a list update is dropped or an older list returns after an item resolved.
 
 - roborev 1629 item 1 on cd1a6b95ad53202ae0962bd1f63a8ebee883799c — the list carries every pending item and consumes them, so a later gate does not raise its own call. Declined because the Captain's model is one accumulated list that grows until he responds (「如果一直有就一直加，直到我回應」); the item is in that list. Would become Material: if a new item added to an unanswered list never reaches him through a push, or he reports missing an item that was in the list.
-
+- 2026-11-10: Captain amendment 3 built at 28d9ed792253ceee43f5f6166068af98a277c641 (automatic calls off unless BRIDGE_CHIEF_AUTOCALL=on; 509 tests); FO roborev clean (roborev:1692, base 2296cb6); installed on the live Bridge. The Captain is reconsidering the goal; FO advice given: he asks, she reads and recommends; Compass next for session health.
 
 ## Investigation result: roborev 1629
 
