@@ -1,5 +1,5 @@
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Platform, Text, View } from "react-native";
 import { type Block, type Inline, isStatusBlock, parseMarkdown } from "../shared/markdown";
 
@@ -15,8 +15,31 @@ export function useMarkdownStyles(theme: Theme) {
       codeBlock: { padding: 10, borderRadius: 6, backgroundColor: colors.surface2 },
       item: { flexDirection: "row" as const, gap: 6 },
       quote: { borderLeftWidth: 3, borderLeftColor: colors.border, paddingLeft: 10 },
+      table: { minWidth: 0, maxWidth: "100%" as const, borderWidth: 1, borderColor: colors.border, borderRadius: 6 },
+      tableRow: { borderTopWidth: 1, borderTopColor: colors.border },
+      tableCell: { flexBasis: 0, flexGrow: 1, minWidth: 0, padding: 8 },
+      tableText: { color: colors.foreground, fontSize: 14, lineHeight: 22, flexShrink: 1, ...(Platform.OS === "web" ? { overflowWrap: "anywhere" as const } : {}) },
     }),
     [colors, mono],
+  );
+}
+
+function MarkdownTable({ table, theme, inline }: { table: Extract<Block, { kind: "table" }>; theme: Theme; inline: (parts: Inline[]) => React.ReactNode }) {
+  const styles = useMarkdownStyles(theme);
+  const [width, setWidth] = useState(0);
+  const stacked = width > 0 && width < 480;
+  return (
+    <View accessibilityLabel="Markdown table" style={styles.table} onLayout={event => setWidth(event.nativeEvent.layout.width)}>
+      {!stacked && <View style={{ flexDirection: "row", backgroundColor: theme.colors.surface2 }}>
+        {table.header.map((cell, column) => <View key={column} style={styles.tableCell}><Text accessibilityRole="header" style={[styles.tableText, { fontWeight: "600", textAlign: table.align[column] }]} selectable>{inline(cell)}</Text></View>)}
+      </View>}
+      {table.rows.map((row, index) => <View key={index} style={[styles.tableRow, { flexDirection: stacked ? "column" : "row" }]}>
+        {row.map((cell, column) => <View key={column} style={[styles.tableCell, stacked ? { flexBasis: "auto" } : null]}>
+          {stacked && <Text accessibilityRole="header" style={[styles.tableText, { fontWeight: "600" }]}>{inline(table.header[column])}</Text>}
+          <Text style={[styles.tableText, { textAlign: stacked ? "left" : table.align[column] }]} selectable>{inline(cell)}</Text>
+        </View>)}
+      </View>)}
+    </View>
   );
 }
 
@@ -74,6 +97,7 @@ export function MarkdownView({
           </Text>
         </View>
       );
+    if (b.kind === "table") return <MarkdownTable key={index} table={b} theme={theme} inline={inline} />;
     return (
       <Text
         key={index}
@@ -85,5 +109,5 @@ export function MarkdownView({
     );
   };
 
-  return <View style={{ gap: 8 }}>{blocks.map(block)}</View>;
+  return <View style={{ gap: 8, minWidth: 0, maxWidth: "100%" }}>{blocks.map(block)}</View>;
 }
