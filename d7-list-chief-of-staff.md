@@ -4,7 +4,7 @@ variant: kc-dev-flow-2
 profile: poc
 merge: pr
 id: d7-list-chief-of-staff
-status: validation
+status: implementation
 gates:
     version: 1
     records:
@@ -71,11 +71,18 @@ Asked: 清單版幕僚長最後一輪修好了：499 個測試都過，真模型
 Supersedes: none
 Design: "只改她的指令：用卡片時也寫一份文字版預覽，在 Bridge 也看得到。不再跑修正循環，直接驗證、裝給你試；第二個問題記成已知。代價：她的回覆會變長一點。"
 
+### Amendment 2 — 2026-11-10, chat
+Captain: 「好」 (after 「似乎可以了，但幾個問題，用特殊 ui 反而造成 bridge 這裡看不到東西，如果都用標準 mardown table 會比較好嗎？以及，我想再次回退思考這件事的本質 … 他一定要問 FO 才能得到最新內容嗎？我覺得這樣比較難知道到底怎麼了。此外，我在想幕僚長是否可以從 https://github.com/spacedock-dev/compass  compass 得到 session 現況的一些 insight？」)
+Asked: 要先做這一步嗎？ (the FO's proposal just before, after the Captain asked whether she must ask FOs for the latest and whether Compass could give session insight: give her a read-only tool for gate briefings and let her read FOs' recent messages read-only (never prompting them), and use standard markdown tables instead of widgets with numbered or keyword replies; Compass later)
+Supersedes: none
+Design: "She reads each gate's prepared briefing through a read-only fleet tool and each FO's recent messages read-only before recommending, never prompting an FO; her lists and previews are standard markdown tables, and choices are answered by replying a number or keyword instead of widget buttons; Compass is not connected in this step."
+
 ## FO alignment
 
 Alignment: not needed: the Captain set the model and approved this task on 2026-11-09 (quoted in the seed).
 Release review: not needed: spacedock-bridge has no journey map yet.
 Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-09: Captain amendment 1 supersedes no acceptance criterion; it adds one prompt sentence (a text preview beside any widget).
+Reviewer: kc-dev-flow-2:engineering-reviewer not run 2026-11-10: Captain amendment 2 supersedes no acceptance criterion; it adds read-only inputs for her recommendations and changes her output format.
 Reviewer: kc-dev-flow-2:chief-engineer codex/gpt-6-astra:xhigh 2026-11-09 — with one repair cycle left and the conversation fold failing across tasks, repair the fold or switch the list's truth to the board?
 Surfaces: ui
 Visible change: the chief-of-staff cards, red pulsing badge and sound are removed; her conversation shows the accumulated list and, before a batch is sent, a what-will-be-sent view in the widget she chooses.
