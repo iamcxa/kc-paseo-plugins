@@ -132,6 +132,8 @@ Read-only investigation of item 2 dispatched as implementation-1-followup-1 befo
 
 ### FO declines
 
+- roborev 1679 on 2296cb683b5d56579983251f74eceb5f986b498d — a table body row without a leading pipe ends the table; a header-only table vanishes below 480 px. Declined: her prompt writes full pipe rows with at least one body row, and the cycle-6 captures of her real saved list and preview render correctly. Would become Material: if any of her lists or previews in his trial shows table rows as a paragraph or an empty table.
+
 - validation-1 F2 and F3 (roborev 1647 items 7 and 8) on 3fbbdfb9845ba04935e1d703c837e3d1ab26542b — an answered item can be asked again; a title-edited gate drops out of her list after a restart. Declined as known issues for the trial by the Captain's ruling 2026-11-09, asked 「清單版幕僚長驗證沒有完全通過。你最在意的部分是過的：你說「全照建議」後只給預覽、確認後每件只送一次、權限不碰。但驗證重現了兩個會誤導你的狀況：① 偶爾已經回過的事會再問你一次；② 關卡改過標題又遇到 Paseo 重開，那個關卡會從她的清單消失（board 上還在）。這類「從她的對話紀錄推算清單狀態」的問題已經修了三個版本都沒收斂。下一步怎麼走？」, answered 「先裝給我試，帶著這兩個已知問題 (Recommended)」. Would become Material: if in his trial he is asked again about something he answered, or misses a gate the board still shows.
 
 - roborev 1642 item 6 on 970d9cdaab655aadd489a9cda5393610d5f0cb23 — a list's synthetic focus on its first item makes a whole update fail if that item resolves during preparation. Declined as a known issue by the Captain's ruling 2026-11-09 (Amendment 1, 「加一句指令後給我試 (Recommended)」, whose option text records it as known). Would become Material: if in his trial a list update is dropped or an older list returns after an item resolved.
@@ -475,3 +477,7 @@ Handback — Four path-scoped product files committed and pushed, worktree clean
 ### Summary
 
 Bridge now renders amendment 2's saved markdown-table list and exact-message preview, with labelled wrapping rows on a 360-wide phone. The old source fails the regressions; final types/507 tests and four isolated saved-message captures pass at 2296cb683b5d56579983251f74eceb5f986b498d. Hand back to FO for its prescribed review; no new model or live-host acceptance is claimed.
+
+## Investigation: roborev 1679
+
+FO ran roborev on 2296cb683b5d56579983251f74eceb5f986b498d (base d4306c25366ca150c68af46c77eb4f8aa6a5419f, table rendering only): exit 1, evidence=roborev:1679, one Medium (a body row written without its leading pipe ends the table) and one Low (a header-only table vanishes below 480 px). FO checked the cycle-6 captures: her saved list and preview render as tables at 1440 and as stacked labelled rows at 360. Both findings are FO declines below; the head is installed for the Captain's continued trial.
