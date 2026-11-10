@@ -1,3 +1,4 @@
+process.env.BRIDGE_CHIEF_AUTOCALL = "on";
 import assert from "node:assert/strict";
 import {test} from "node:test";
 import {ChiefObserver} from "../server/chief";

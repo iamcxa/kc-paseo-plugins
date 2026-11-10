@@ -131,7 +131,7 @@ export class ChiefObserver {
         this.state = { ...quiet(), agentId: chief.id, total: snapshot.total };
       }
       if (!this.historyComplete && !this.state.batch) this.state = { ...this.state, phase: "unknown", error: "Older history unavailable; earlier batch outcomes cannot be confirmed. No automatic call." };
-      if (this.historyComplete && !this.running && (this.state.phase !== "calling" || this.state.batch?.outputMode === "list") && qualified && chief.status === "idle") {
+      if (process.env.BRIDGE_CHIEF_AUTOCALL === "on" && this.historyComplete && !this.running && (this.state.phase !== "calling" || this.state.batch?.outputMode === "list") && qualified && chief.status === "idle") {
         const events = accumulatedList(this.carry, this.tracker.pendingEvents(), snapshot.events);
         const batch: ChiefBatch = { ...qualified, events, outputMode: "list", id: hash(events.map(eventVersion)), checkedAt: new Date().toISOString() };
         this.carry = events; this.tracker.consume(batch.events); this.running = true;
