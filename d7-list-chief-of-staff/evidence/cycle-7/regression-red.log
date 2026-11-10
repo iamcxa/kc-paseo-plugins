@@ -1,0 +1,39 @@
+✖ automatic calls default off: absent and every non-on switch keep a qualifying batch silent and its plain total (13.242041ms)
+✔ only explicit on preserves one automatic batch message, one chief run and one preparation (3.782333ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 450.732959
+
+✖ failing tests:
+
+test at test/chief-autocall.test.mts:1:2713
+✖ automatic calls default off: absent and every non-on switch keep a qualifying batch silent and its plain total (13.242041ms)
+  AssertionError [ERR_ASSERTION]: switch undefined must not post an automated message or run models
+  + actual - expected
+  
+    {
+  +   chiefRuns: 1,
+  +   creates: 1,
+  +   helperRuns: 1,
+  +   messages: 1
+  -   chiefRuns: 0,
+  -   creates: 0,
+  -   helperRuns: 0,
+  -   messages: 0
+    }
+  
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/chief-autocall.test.mts:40:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { chiefRuns: 1, helperRuns: 1, creates: 1, messages: 1 },
+    expected: { chiefRuns: 0, helperRuns: 0, creates: 0, messages: 0 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

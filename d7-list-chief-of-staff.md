@@ -488,3 +488,24 @@ Bridge now renders amendment 2's saved markdown-table list and exact-message pre
 ## Investigation: roborev 1679
 
 FO ran roborev on 2296cb683b5d56579983251f74eceb5f986b498d (base d4306c25366ca150c68af46c77eb4f8aa6a5419f, table rendering only): exit 1, evidence=roborev:1679, one Medium (a body row written without its leading pipe ends the table) and one Low (a header-only table vanishes below 480 px). FO checked the cycle-6 captures: her saved list and preview render as tables at 1440 and as stacked labelled rows at 360. Both findings are FO declines below; the head is installed for the Captain's continued trial.
+
+
+## Stage Report: implementation (cycle 7)
+
+Captain amendment 3 implemented at 28d9ed792253ceee43f5f6166068af98a277c641, pushed normally to spacedock-ensign/d7-list-chief-of-staff. PR #80 is OPEN/Draft on the original d5 base. Evidence is d7-list-chief-of-staff/evidence/cycle-7/ in the state checkout.
+
+### Findings
+
+Off-by-default switch (AC-1) — server/chief.ts now enters the automatic batch-analysis branch only when the backend process environment has BRIDGE_CHIEF_AUTOCALL exactly equal to "on". Absent, empty, "off", "ON", "true", "1" and "on " do not opt in. The qualifying trigger code, pending-event tracking, source reads and board total calculation remain in place; no trigger is removed. With the switch off this entry cannot write an automated batch request, start its chief run or register/run its Terra preparation. The existing sidebar uses only state.total and neutral styling, so it continues to show the plain board total (or its existing unknown marker), not a new calling badge.
+
+Captain conversation unchanged — The only product diff is that one condition at the automatic entry. CoChat's ordinary Captain send/reply path, coordinator prompt/tools, fleet readers, permissions and confirmed-relay rules are unchanged. This gates new automatic starts; no model cancellation, new UI switch, extra storage, transport repair or unrelated state repair is introduced.
+
+Two tests — chief-autocall.test.mts has exactly two new cases. Off loops through the seven absent/non-on values above: an empty baseline followed by a qualifying old gate and repeated reads produces zero automated messages, zero chief/helper runs and zero helper creates; total remains "1", phase quiet and batch null. On follows the actual observer/preparation path through mocked API handles: one automated request, one chief run, one Terra preparation, one calling result, no repeat on the unchanged source. These are mock runs, not provider/model turns. Six existing automatic-behavior test files each add only an explicit "on" fixture setting, keeping their prior assertions meaningful under the new default; no additional tests or product behavior were added there.
+
+Falsifier and checks — Before the condition, the new off test fails because the absent switch produces one message/chief run/helper run/create; the on control passes (regression-red.log). After the change both pass (regression-green.log). npm run typecheck and ordinary npm test both exit 0, with 509 tests / zero failures (typecheck.log, tests.log); the full-suite command does not globally opt in. All six absolute-path checks from dispatched package 0.35.0 exit 0 (package-checks.json): ADR lint, comment ratio, document impact, number guards, design surfaces and dispatch records. No dependency, ADR, migration or added comment. roborev not run: FO owns it under package gap 5, against the instructed 2296cb683b5d56579983251f74eceb5f986b498d base.
+
+Scope and handback — No real model turn, agent prompt/create/archive, daemon operation, live-state write or installation. Product commit/push is path-scoped; the product worktree is clean and PR stays Draft. Task frontmatter is untouched; FO owns review, state transition and any later live installation. Earlier findings and the Captain's reconsideration of the goal are not resolved or expanded by this switch.
+
+### Summary
+
+Automatic chief analysis/list posting now requires explicit BRIDGE_CHIEF_AUTOCALL="on"; default and every other value leave it off while preserving board counts and the ordinary Captain conversation path. The two added regression cases, types and 509 tests pass at 28d9ed792253ceee43f5f6166068af98a277c641, without a model run. Hand back to FO for the prescribed review and any subsequent installation; no live switch state is claimed.
