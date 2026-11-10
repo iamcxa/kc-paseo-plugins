@@ -442,3 +442,7 @@ Cleanup and handback — The captured-PID-only cleanup verifies no owned process
 ### Summary
 
 Amendment 2's read-only evidence sources and markdown-table prompt are implemented and pushed at d4306c25366ca150c68af46c77eb4f8aa6a5419f. Local types/502 tests and the corrected native model list/preview proof pass, with the isolated setup failure, all six model turns and retained fixture-history limit explicitly recorded. Hand back to FO for its prescribed review and any subsequent Captain trial; PR remains Draft and no live installation or acceptance beyond this cycle is claimed.
+
+## Investigation: roborev 1678
+
+FO ran roborev on d4306c25366ca150c68af46c77eb4f8aa6a5419f (base 3fbbdfb9845ba04935e1d703c837e3d1ab26542b, amendment 2 only): exit 1, evidence=roborev:1678, one Medium. 19. Bridge's own markdown renderer (shared/markdown.ts parseMarkdown, client/markdown-view.tsx MarkdownView) has no table support, so the markdown tables amendment 2 requires collapse into one paragraph in Bridge; the plugin SDK ships no markdown renderer. The FO's earlier statement to the Captain that Bridge renders markdown tables was wrong: the rendered table in his second screenshot was Paseo's native conversation. Amendment 2's purpose (lists and previews readable in Bridge) is not met until the renderer supports tables; dispatched as implementation-1-followup-8 within amendment 2.
