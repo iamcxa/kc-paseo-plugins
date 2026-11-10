@@ -59,11 +59,11 @@ for(const labeled of [false,true])test(`server question opens its exact Board de
  const first=await chiefBoard(api,reviews);const key=first.events[0].key;
  assert.deepEqual(JSON.parse(JSON.parse(key)[2]),["fixture","message","fictional-7"]);
  const state:any={agentId:"co",total:"1",phase:"calling",batch:{...batch,id:"question"},focus:{batchId:"question",targetKey:key,sentence:"Choose fictional release"},entered:true,soundAttempted:true,error:null};
- h.rpc["chief.read"]=async()=>state;await h.publishAgents();await h.poll();await h.click("Bridge");await h.click("開啟幕僚長的焦點");
+ h.rpc["chief.read"]=async()=>state;await h.publishAgents();await h.poll();await h.click("Bridge");await h.navigate({item:key,request:`named:${epoch}`});
  assert.ok(h.find("Message A FO"),"server identity must open actual question");
  epoch="epoch-2";a.updatedAt="2026-11-06T10:01:00Z";const next=await chiefBoard(api,reviews);assert.equal(next.events[0].key,key);
  msg.item.messageId="fictional-new-message";a.updatedAt="2026-11-06T10:02:00Z";assert.notEqual((await chiefBoard(api,reviews)).events[0].key,key);
- await h.publishAgents();await h.click("Chief of staff");await h.click("開啟幕僚長的焦點");
+ await h.publishAgents();await h.click("Chief of staff");await h.navigate({item:key,request:`named:${epoch}`});
  assert.match(h.text(),/no longer available|無法確認|已變更/i,"stale focus must explain why it cannot open");
  assert.ok(h.find("Message Chief of staff"));assert.equal(h.sent.length,0);
 });
@@ -92,19 +92,6 @@ for(const response of ["none","unrelated","matching","failed","gap"])test(`resta
  const state=await observer.read(api);
  assert.equal(state.phase,response==="gap"?"unknown":["matching","failed"].includes(response)?"quiet":"calling");
  if(state.phase==="calling"){assert.equal(state.focus?.targetKey,event.key);assert.equal(state.entered,true);assert.equal(state.soundAttempted,true);}
-});
-
-for(const compact of [false,true])test(`new sidebar intent wins after focus without losing draft (${compact})`,async t=>{
- const state:any={agentId:"co",total:"2",phase:"calling",batch,focus:{...focus,targetKey:'["g","/workflow-a","a","validation","brief-a"]'},entered:true,soundAttempted:true,error:null};
- const h=await mountBridge(t,compact,rpc=>{rpc["chief.read"]=async()=>state;},true);
- await h.click("Bridge");await h.type("Message Chief of staff","Fictional draft");await h.click("開啟幕僚長的焦點");assert.ok(h.find("Choose 准"));
- await new Promise(resolve=>setTimeout(resolve,2));await h.click("Bridge");
- assert.ok(h.find("Message Chief of staff"));assert.equal((h.find("Message Chief of staff") as HTMLTextAreaElement).value,"Fictional draft");
- state.focus.targetKey='["g","/workflow-b","b","validation","brief-b"]';await h.poll();await h.click("開啟幕僚長的焦點");assert.ok(h.find("Message B FO"));
- await new Promise(resolve=>setTimeout(resolve,2));await h.click("Bridge");assert.ok(h.find("Message Chief of staff"));
- await h.click("開啟幕僚長的焦點");await h.navigate({item:"queue",request:"external-queue"});
- if(compact)assert.ok(h.find("Conversation with A FO"));
- await h.navigate({item:"comms",request:"external-comms"});assert.ok(h.find("Message Chief of staff"));assert.equal(h.audio.length,0);assert.equal(h.sent.length,0);
 });
 
 test("fleet response preserves unknown-time board matters separately from trigger eligibility",async t=>{

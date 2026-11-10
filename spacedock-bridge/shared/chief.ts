@@ -9,7 +9,7 @@ export const eventSchema = z.object({
   title: z.string(), waiter: z.string().nullable().optional(), since: z.string(), agentId: z.string().nullable(), target: z.string(),
 });
 export type ChiefEvent = z.infer<typeof eventSchema>;
-export const batchSchema = z.object({ id: z.string(), events: z.array(eventSchema), reason: z.enum(["threshold", "exception"]), checkedAt: z.string(), score: z.number() });
+export const batchSchema = z.object({ id: z.string(), events: z.array(eventSchema), reason: z.enum(["threshold", "exception"]), checkedAt: z.string(), score: z.number(), outputMode: z.literal("list").optional() });
 export type ChiefBatch = z.infer<typeof batchSchema>;
 export const focusSchema = z.object({ batchId: z.string(), targetKey: z.string(), sentence: z.string().min(1).max(800) });
 export type ChiefFocus = z.infer<typeof focusSchema>;
@@ -46,6 +46,7 @@ export class BatchTracker {
   private observedAt = 0;
   observations: { key: string; reason: string; previousVersion?: string }[] = [];
   private questionKey(event: ChiefEvent) { return JSON.stringify([event.agentId, event.title.trim().replace(/\s+/g, " ")]); }
+  pendingEvents() { return [...this.pending.values()]; }
   consume(events: readonly ChiefEvent[]) { events.forEach(event => { this.consumed.add(eventVersion(event)); this.pending.delete(event.key); }); }
   reset() { this.baseline = null; this.pending.clear(); this.questions.clear(); this.observedAt = 0; }
   observe(events: readonly ChiefEvent[], now: number, complete: boolean, observationStarted = now) {
@@ -78,6 +79,11 @@ export class BatchTracker {
     this.questions = questions; this.observedAt = Math.max(this.observedAt, observationStarted);
     return eligibleBatch([...this.pending.values()], now, complete);
   }
+}
+
+export function accumulatedList(previous: readonly ChiefEvent[], pending: readonly ChiefEvent[], current: readonly ChiefEvent[]) {
+  const keys = new Set([...previous, ...pending].map(event => event.key));
+  return current.filter(event => keys.has(event.key));
 }
 
 export function batchRequest(text: string): ChiefBatch | null {

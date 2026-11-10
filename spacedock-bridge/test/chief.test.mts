@@ -1,3 +1,4 @@
+process.env.BRIDGE_CHIEF_AUTOCALL = "on";
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BatchTracker, eligibleBatch, BATCH_MARKER, batchResponse, type ChiefEvent } from "../shared/chief";
@@ -77,8 +78,9 @@ test("one qualifying batch persists its request before one Terra pass and one Op
     ref:(id:string)=>({status:"idle",lastError:null,timeline:{refetch:async()=>page(id,id==="co"?messages:[entry(1,"assistant_message","Supplied board facts only")])},run:async(text:string)=>{
       chiefRuns++;messages.push(entry(1,"user_message",text));
       const batch=JSON.parse(text.slice(BATCH_MARKER.length).split("\n")[0]);
-      await prepareBatch(batch.id);await assert.rejects(prepareBatch(batch.id),/unused Terra pass/);
-      messages.push(entry(2,"assistant_message",JSON.stringify({batchId:batch.id,targetKey:batch.events[0].key,sentence:"範例關卡仍在等你，請開啟確認。"})));
+      const preparation=await prepareBatch(batch.id);await assert.rejects(prepareBatch(batch.id),/unused Terra pass/);
+      messages.push({...entry(2,"tool_call",""),item:{type:"tool_call",name:"mcp__fleet__prepare_batch",callId:"prep",status:"completed",error:null,detail:{type:"unknown",input:{batchId:batch.id},output:{output:preparation}}}});
+      messages.push(entry(3,"assistant_message",JSON.stringify({batchId:batch.id,targetKey:batch.events[0].key,sentence:"範例關卡仍在等你，請開啟確認。"})));
     }}),
   }};
   const board=async()=>({events,total:String(events.length),complete:true,rows:[]});

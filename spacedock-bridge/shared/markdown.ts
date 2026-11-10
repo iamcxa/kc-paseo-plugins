@@ -5,7 +5,8 @@ export type Block =
   | { kind: "paragraph"; inline: Inline[] }
   | { kind: "item"; marker: string; inline: Inline[] }
   | { kind: "code"; text: string }
-  | { kind: "quote"; text: string };
+  | { kind: "quote"; text: string }
+  | { kind: "table"; header: Inline[][]; align: ("left" | "center" | "right")[]; rows: Inline[][][] };
 
 const INLINE = /(\*\*[^*]+\*\*|`[^`]+`)/g;
 
@@ -24,6 +25,23 @@ export function parseInline(text: string): Inline[] {
 
 const ITEM = /^(\s*)([-*]|\d+\.)\s+(.*)$/;
 const HEADING = /^#{1,6}\s+(.*)$/;
+
+function tableCells(line: string): string[] | null {
+  const cells: string[] = [];
+  let cell = "", pipes = 0, slashes = 0;
+  for (const char of line.trim()) {
+    if (char === "|" && slashes % 2 === 0) {
+      cells.push(cell.trim()); cell = ""; pipes++;
+    } else if (char === "|") cell = cell.slice(0, -1) + char;
+    else cell += char;
+    slashes = char === "\\" ? slashes + 1 : 0;
+  }
+  if (!pipes) return null;
+  cells.push(cell.trim());
+  if (!cells[0]) cells.shift();
+  if (!cells.at(-1)) cells.pop();
+  return cells;
+}
 
 export function parseMarkdown(source: string): Block[] {
   const blocks: Block[] = [];
@@ -49,6 +67,22 @@ export function parseMarkdown(source: string): Block[] {
         quote.push(lines[i].trimStart().replace(/^>\s?/, ""));
       i--;
       blocks.push({ kind: "quote", text: quote.join("\n") });
+      continue;
+    }
+    const header = tableCells(line), separator = tableCells(lines[i + 1] ?? "");
+    if (header?.length && separator?.length === header.length && separator.every(cell => /^:?-+:?$/.test(cell))) {
+      flush();
+      const cellInline = (text: string) => parseInline(text).map(part => part.code ? part : { ...part, text: part.text.replace(/<br\s*\/?\s*>/gi, "\n") });
+      const align = separator.map(cell => cell.startsWith(":") && cell.endsWith(":") ? "center" as const : cell.endsWith(":") ? "right" as const : "left" as const);
+      const rows: Inline[][][] = [];
+      i += 2;
+      for (; i < lines.length; i++) {
+        const row = tableCells(lines[i]);
+        if (!row || !lines[i].trim() || HEADING.test(lines[i]) || ITEM.test(lines[i]) || /^\s*(>|```)/.test(lines[i])) break;
+        rows.push(header.map((_, column) => cellInline(row[column] ?? "")));
+      }
+      i--;
+      blocks.push({ kind: "table", header: header.map(cellInline), align, rows });
       continue;
     }
     const heading = HEADING.exec(line);

@@ -57,10 +57,9 @@ export function Board({
   commsState = "loaded",
   onRetryComms,
   onAskCo,
-  onEnterChief,
   comms,
   renderLayout,
-}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; onEnterChief?: () => void; comms?: (active: boolean, openFO: (agentId: string) => boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
+}: BoardProps & { coAsk?: CoAsk | null; commsState?: SourceState; onRetryComms?: () => void; onAskCo?: (text: string) => void; comms?: (active: boolean, openFO: (agentId: string) => boolean) => ReactNode; renderLayout?: (list: ReactNode, detail: ReactNode, selected: boolean) => ReactNode }) {
   const paseo = usePaseo();
   const [rows, setRows] = useState<BoardRow[]>([]);
   const [replies, setReplies] = useState<Record<string, ReplyFact>>({});
@@ -214,9 +213,6 @@ export function Board({
 
   const [open, setOpen] = useState<string | null>(comms ? "comms" : null);
   const enterChief = () => dispatch("comms");
-  const chiefVisible = Boolean(comms && open === "comms");
-  const enterChiefRef = useRef(onEnterChief); enterChiefRef.current = onEnterChief;
-  useEffect(() => { if (chiefVisible) enterChiefRef.current?.(); }, [chiefVisible]);
   const [visited, setVisited] = useState<Record<string, QueueItem>>({});
   const [progress, setProgress] = useState<Record<string, ItemProgress>>({});
   const reportProgress = useCallback((key: string, next: ItemProgress) => {
@@ -404,7 +400,7 @@ export function Board({
   function dispatch(destination: "queue" | "comms" | QueueItem) {
     setMessage("");
     if (destination === "queue") { setOpen(null); return; }
-    if (destination === "comms") { if (open === "comms") enterChiefRef.current?.(); setOpen("comms"); return; }
+    if (destination === "comms") { setOpen("comms"); return; }
     const item = destination;
     if (item.kind === "permission") {
       if (!item.fo || !navigation?.openAgent) { setMessage("This permission's native conversation is unavailable."); return; }

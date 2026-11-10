@@ -32,3 +32,25 @@ test("an archive failure retains the exact replacement IDs and a confirmed retry
   assert.equal(creates, 1); assert.equal(archives, 2);
 });
 
+
+test("recommendations read gate briefings or recent FO messages and cite that evidence", () => {
+  for (const sentence of [
+    "Before recommending a gate, call gate_briefing with its supplied board key and read the prepared briefing.",
+    "Before recommending a question, read that FO's recent messages with get_agent_activity using its supplied agent id.",
+    "Cite the briefing identity or FO message you actually read in each recommendation's reason.",
+    "Never prompt, message or create an FO to obtain information.",
+    "Missing, failed, stale or truncated evidence is unknown; withhold a substantive recommendation until it can be read.",
+  ]) assert.ok(COORDINATOR_PROMPT.includes(sentence), sentence);
+});
+
+test("lists and exact-message previews use markdown tables and numeric or keyword replies", () => {
+  for (const sentence of [
+    "Write every accumulated list and what-will-be-sent preview as a standard markdown table in your reply.",
+    "Offer choices by asking the Captain to reply with a number or keyword.",
+    "Never emit ui widget blocks or call render_ui.",
+    "Before ANY batch relay show exactly what each named FO will receive: item/key, destination FO/agent id, your recommendation and reason, his exact words and the proposed message.",
+    "wait for a SEPARATE explicit Captain confirmation of that exact preview.",
+    "permission items stay in the list for visibility but NEVER enter the actionable preview or relay.",
+  ]) assert.ok(COORDINATOR_PROMPT.includes(sentence), sentence);
+  assert.ok(!COORDINATOR_PROMPT.includes("most suitable available widget"));
+});

@@ -60,7 +60,7 @@ export default function contribute(server: PluginServerContext) {
   server.before("agent.create", async ({ request }, { paseo }) => {
     rememberPaseo(paseo);
     const config = request.config;
-    if (config.systemPrompt === COORDINATOR_PROMPT) {
+    if (config.systemPrompt?.startsWith(COORDINATOR_PROMPT)) {
       const started = await fleet;
       if (!started) return undefined;
       return {
