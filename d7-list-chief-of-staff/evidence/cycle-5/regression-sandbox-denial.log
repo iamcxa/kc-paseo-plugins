@@ -1,0 +1,38 @@
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (1.438917ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.508834ms)
+✔ recommendations read gate briefings or recent FO messages and cite that evidence (0.106792ms)
+✔ lists and exact-message previews use markdown tables and numeric or keyword replies (0.073875ms)
+gates.read #1 start dirs=1
+gates.read #1 done 148ms
+gates.read #2 start dirs=1
+gates.read #2 done 45ms
+gates.read #3 start dirs=1
+gates.read #3 done 55ms
+gates.read #4 start dirs=1
+gates.read #4 done 4ms
+gates.read #5 start dirs=1
+gates.read #5 done 89ms
+✖ fleet gate briefing reads the board's exact open attempt only, with bounded output and no writes (595.784375ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1164.152
+
+✖ failing tests:
+
+test at test/fleet-briefing.test.mts:1:440
+✖ fleet gate briefing reads the board's exact open attempt only, with bounded output and no writes (595.784375ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1987:21)
+      at listenInCluster (node:net:2066:12)
+      at node:net:2275:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }

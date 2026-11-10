@@ -1,0 +1,6 @@
+import fs from "node:fs";
+import { DaemonClient } from "../@getpaseo/client/dist/daemon-client.js";
+import { createPaseoApi } from "../@getpaseo/client/dist/index.js";
+const output="/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-5/";const D=JSON.parse(fs.readFileSync(output+"runtime.json","utf8"));
+const client=new DaemonClient({clientId:"d7-cycle5-final-read",url:`ws://127.0.0.1:${D.daemonPort}/ws`,reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);
+try {const {entries}=await api.agents.list({filter:{includeArchived:true}});const result=[];for(const {agent}of entries){const h=api.agents.ref(agent.id);await h.refresh();const p=await h.timeline.refetch({projection:"projected",limit:120});result.push({id:agent.id,role:agent.labels.role,status:h.status,lastError:h.lastError,lastUsage:h.lastUsage,userMessages:p.entries.filter(e=>e.item.type==="user_message").length,assistantMessages:p.entries.filter(e=>e.item.type==="assistant_message").length});}fs.writeFileSync(output+"final-agents.json",JSON.stringify(result,null,2),{flag:"wx"});console.log(JSON.stringify(result.filter(x=>x.role==="fo")));}finally{await api.dispose();await client.close();}

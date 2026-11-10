@@ -1,0 +1,105 @@
+{
+  "requestId": "d4a01fd7-d3b8-40a6-ae7d-3c3674c59093",
+  "agentId": "c60e3156-6765-4665-b98c-4295b8d26dfc",
+  "agent": {
+    "id": "c60e3156-6765-4665-b98c-4295b8d26dfc",
+    "provider": "claude",
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional",
+    "workspaceId": "wks_59fdbf45bf8be089",
+    "model": "claude-opus-5-5",
+    "thinkingOptionId": null,
+    "effectiveThinkingOptionId": null,
+    "runtimeInfo": {
+      "provider": "claude",
+      "sessionId": null,
+      "model": null,
+      "modeId": "default"
+    },
+    "createdAt": "2026-11-10T00:59:34.555Z",
+    "updatedAt": "2026-11-10T00:59:34.556Z",
+    "lastUserMessageAt": null,
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": true,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": true,
+      "supportsRewindBoth": true
+    },
+    "currentModeId": "default",
+    "availableModes": [
+      {
+        "id": "plan",
+        "label": "Plan Mode",
+        "description": "Analyze the codebase without executing tools or edits"
+      },
+      {
+        "id": "default",
+        "label": "Always Ask",
+        "description": "Prompts for permission the first time a tool is used"
+      },
+      {
+        "id": "acceptEdits",
+        "label": "Accept File Edits",
+        "description": "Automatically approves edit-focused tools without prompting"
+      },
+      {
+        "id": "auto",
+        "label": "Auto mode",
+        "description": "Uses a model classifier to review permission prompts automatically"
+      },
+      {
+        "id": "bypassPermissions",
+        "label": "Bypass",
+        "description": "Skip all permission prompts (use with caution)"
+      }
+    ],
+    "features": [
+      {
+        "type": "toggle",
+        "id": "fast_mode",
+        "label": "Fast",
+        "description": "Lower latency Opus responses at higher token cost",
+        "tooltip": "Toggle fast mode",
+        "icon": "zap",
+        "value": false
+      }
+    ],
+    "pendingPermissions": [],
+    "persistence": null,
+    "title": "Fictional gate FO",
+    "labels": {
+      "role": "fo",
+      "repo": "fictional",
+      "workflow-dir": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional",
+      "task": "gate"
+    },
+    "archivedAt": null,
+    "requiresAttention": false,
+    "attentionReason": null,
+    "attentionTimestamp": null
+  },
+  "direction": "tail",
+  "projection": "projected",
+  "epoch": "d56886f7-89f4-4093-9790-097e68d13e6a",
+  "reset": false,
+  "staleCursor": false,
+  "gap": false,
+  "window": {
+    "minSeq": 0,
+    "maxSeq": 0,
+    "nextSeq": 1
+  },
+  "startCursor": null,
+  "endCursor": null,
+  "hasOlder": false,
+  "hasNewer": false,
+  "entries": [],
+  "error": null
+}

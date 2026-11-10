@@ -1,0 +1,138 @@
+{
+  "requestId": "7f244ec4-05c0-454e-9d04-c3cec9cd2610",
+  "agentId": "0bf1a6fa-f9e6-4357-9a2b-8ec5c57b6063",
+  "agent": {
+    "id": "0bf1a6fa-f9e6-4357-9a2b-8ec5c57b6063",
+    "provider": "claude",
+    "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional",
+    "workspaceId": "wks_d879d7c426131329",
+    "model": "claude-opus-5-5",
+    "thinkingOptionId": null,
+    "effectiveThinkingOptionId": null,
+    "runtimeInfo": {
+      "provider": "claude",
+      "sessionId": "434c4bfd-b019-448f-9a6b-62971ae5bb94",
+      "model": null,
+      "modeId": "default"
+    },
+    "createdAt": "2026-11-10T00:50:59.029Z",
+    "updatedAt": "2026-11-10T00:55:15.646Z",
+    "lastUserMessageAt": null,
+    "status": "idle",
+    "activeTurn": null,
+    "capabilities": {
+      "supportsStreaming": true,
+      "supportsSessionPersistence": true,
+      "supportsSessionListing": true,
+      "supportsDynamicModes": true,
+      "supportsMcpServers": true,
+      "supportsReasoningStream": true,
+      "supportsToolInvocations": true,
+      "supportsRewindConversation": true,
+      "supportsRewindFiles": true,
+      "supportsRewindBoth": true
+    },
+    "currentModeId": "default",
+    "availableModes": [
+      {
+        "id": "plan",
+        "label": "Plan Mode",
+        "description": "Analyze the codebase without executing tools or edits"
+      },
+      {
+        "id": "default",
+        "label": "Always Ask",
+        "description": "Prompts for permission the first time a tool is used"
+      },
+      {
+        "id": "acceptEdits",
+        "label": "Accept File Edits",
+        "description": "Automatically approves edit-focused tools without prompting"
+      },
+      {
+        "id": "auto",
+        "label": "Auto mode",
+        "description": "Uses a model classifier to review permission prompts automatically"
+      },
+      {
+        "id": "bypassPermissions",
+        "label": "Bypass",
+        "description": "Skip all permission prompts (use with caution)"
+      }
+    ],
+    "features": [
+      {
+        "type": "toggle",
+        "id": "fast_mode",
+        "label": "Fast",
+        "description": "Lower latency Opus responses at higher token cost",
+        "tooltip": "Toggle fast mode",
+        "icon": "zap",
+        "value": false
+      }
+    ],
+    "pendingPermissions": [],
+    "persistence": {
+      "provider": "claude",
+      "sessionId": "434c4bfd-b019-448f-9a6b-62971ae5bb94",
+      "nativeHandle": "434c4bfd-b019-448f-9a6b-62971ae5bb94",
+      "metadata": {
+        "cwd": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional"
+      }
+    },
+    "title": "Fictional question FO",
+    "labels": {
+      "role": "fo",
+      "repo": "fictional",
+      "workflow-dir": "/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional",
+      "task": "question",
+      "next-owner": "captain"
+    },
+    "archivedAt": null,
+    "requiresAttention": false,
+    "attentionReason": null,
+    "attentionTimestamp": null
+  },
+  "direction": "tail",
+  "projection": "projected",
+  "epoch": "4d712e81-96ba-40f3-a677-fa9f909a7be4",
+  "reset": false,
+  "staleCursor": false,
+  "gap": false,
+  "window": {
+    "minSeq": 1,
+    "maxSeq": 1,
+    "nextSeq": 2
+  },
+  "startCursor": {
+    "epoch": "4d712e81-96ba-40f3-a677-fa9f909a7be4",
+    "seq": 1
+  },
+  "endCursor": {
+    "epoch": "4d712e81-96ba-40f3-a677-fa9f909a7be4",
+    "seq": 1
+  },
+  "hasOlder": false,
+  "hasNewer": false,
+  "entries": [
+    {
+      "provider": "claude",
+      "item": {
+        "type": "assistant_message",
+        "text": "虛構 CSV 匯出選擇：需求只接受 CSV；甲方案支援 CSV、乙方案僅支援 XLSX，兩者測試通過且其他條件相同。下一步：請選甲或乙（你）",
+        "messageId": "a097575e-35fa-4388-ae42-46f12f3733a0"
+      },
+      "timestamp": "2026-11-10T00:55:15.644Z",
+      "seqStart": 1,
+      "seqEnd": 1,
+      "sourceSeqRanges": [
+        {
+          "startSeq": 1,
+          "endSeq": 1
+        }
+      ],
+      "collapsed": []
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,26 @@
+import fs from "node:fs";
+import assert from "node:assert/strict";
+import { DaemonClient } from "../@getpaseo/client/dist/daemon-client.js";
+import { createPaseoApi } from "../@getpaseo/client/dist/index.js";
+const output = "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-5/";const D=JSON.parse(fs.readFileSync(output+"runtime.json","utf8"));const A=JSON.parse(fs.readFileSync(output+"agents-created.json","utf8"));const fixture=JSON.parse(fs.readFileSync(output+"fixture.json","utf8"));
+const client=new DaemonClient({clientId:"d7-cycle5-real-proof",url:`ws://127.0.0.1:${D.daemonPort}/ws`,reconnect:{enabled:false}});await client.connect();const api=createPaseoApi(client);const subs:any[]=[];const seen=new Set<string>();
+const record:any={startedAt:new Date().toISOString(),chiefId:A.chief.agentId,modelRetries:0,fictionalSources:true,targets:A.targets,phases:[]};const save=()=>fs.writeFileSync(output+"real-proof.json",JSON.stringify(record,null,2));save();
+const watch=async(id:string)=>{if(seen.has(id))return;seen.add(id);const sub=api.agents.ref(id).timeline.subscribe(event=>fs.appendFileSync(output+`events-${id}.jsonl`,JSON.stringify({receivedAt:new Date().toISOString(),...event})+"\n"));subs.push(sub);await sub.ready;};
+async function snapshot(stage:string){const list=await api.agents.list({filter:{includeArchived:true}});record.agents=list.entries.map(({agent}:any)=>({id:agent.id,role:agent.labels.role,status:agent.status,lastUsage:agent.lastUsage}));for(const {agent} of list.entries){const h=api.agents.ref(agent.id);const page=await h.timeline.refetch({projection:"projected",limit:120});fs.writeFileSync(output+`${stage}-${agent.id}-timeline.json`,JSON.stringify(page,null,2));}save();}
+try{
+ await watch(A.chief.agentId);
+ record.baseline=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});save();assert.equal(record.baseline.phase,"quiet");assert.equal(record.baseline.total,"0");
+ const transcript=`${D.root}/fictional-claude/projects/fixture/${fixture.sessionId}.jsonl`;
+ const entry=JSON.parse(fs.readFileSync(transcript,"utf8"));entry.timestamp=new Date().toISOString();fs.writeFileSync(transcript,JSON.stringify(entry)+"\n");record.seedTimestamp=entry.timestamp;
+ await client.updateAgent(fixture.questionFo,{labels:{role:"fo",repo:"fictional",task:"question","workflow-dir":D.root+"/fictional","next-owner":"captain"}});
+ const questionPage=await api.agents.ref(fixture.questionFo).timeline.refetch({projection:"projected",limit:30});fs.writeFileSync(output+"seed-fo-timeline.json",JSON.stringify(questionPage,null,2));assert.ok(questionPage.entries.some(e=>e.item.type==="assistant_message"&&e.item.text.includes("CSV")),"native fixture history must be readable before any model turn");
+ fs.writeFileSync(D.root+"/fixture-status.json",JSON.stringify({entities:[{slug:"gate",title:"Fictional CSV validation gate",status:"validation","gate-readiness":"awaiting-captain"}]}));
+ await client.invokePluginRpc("paseo-spacedock-bridge","gates.read",{workflowDirs:[D.root+"/fictional"],fresh:true});
+ const listing=await api.agents.list({subscribe:{}});listing.subscription.subscribe({snapshot:({entries}:any)=>{for(const {agent}of entries)void watch(agent.id);},update:(m:any)=>{if(m.type==="agent_update"&&m.payload.kind==="upsert")void watch(m.payload.agent.id);}});subs.push(()=>listing.subscription.release());
+ record.triggeredAt=new Date().toISOString();record.initial=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});save();
+ for(let n=0;n<110;n++){await new Promise(r=>setTimeout(r,3000));record.last=await client.invokePluginRpc("paseo-spacedock-bridge","chief.read",{});save();if(["calling","failed","unknown"].includes(record.last.phase))break;}
+ await snapshot("list");record.listCompletedAt=new Date().toISOString();save();assert.equal(record.last.phase,"calling",JSON.stringify(record.last));
+ const chief=api.agents.ref(A.chief.agentId);record.previewStartedAt=new Date().toISOString();save();record.previewResult=await chief.run("全照建議",{timeoutMs:240000});await chief.refresh();record.previewCompletedAt=new Date().toISOString();record.previewUsage=chief.lastUsage;record.previewError=chief.lastError;save();await snapshot("preview");
+ console.log(JSON.stringify({phase:record.last.phase,previewStatus:chief.status,previewError:chief.lastError}));
+}catch(e){record.error=String(e);save();console.error(e);process.exitCode=1;}
+finally{for(const sub of subs)await sub();await api.dispose();await client.close();}

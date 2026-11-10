@@ -1,0 +1,23 @@
+{
+  "files": {
+    "fictional/README.md": "---\ncommissioned-by: spacedock@0.27.3\nstate: .spacedock-state\n---\n",
+    "fictional/.spacedock-state/gate.md": "---\ntitle: Fictional CSV validation gate\nstatus: validation\ngates:\n  records:\n    - stage: validation\n      attempts:\n        - briefing:\n            id: briefing:fictional-csv:1\n            digest: sha256:fictional-csv\n            room-ref: ./gate/review/validation/briefing-1\n---\n",
+    "fictional/.spacedock-state/gate/review/validation/briefing-1/index.json": "{\"question\": \"Approve Alpha for the fictional CSV-only export gate?\", \"artifacts\": [{\"summary\": \"CSV evidence: 12 checks and rollback passed; no blockers\", \"uri\": \"git-root://state/f657d3ea86563d07109a86c399f9a1ff5e6a3333/evidence.md\"}]}",
+    "fictional/.spacedock-state/evidence.md": "# Fictional CSV validation briefing\n\nAcceptance: export must be CSV. Alpha outputs CSV, passed all 12 checks and passed rollback verification. Beta outputs XLSX only. Both have equal cost and no unresolved blocker.\n\nRecommendation: approve Alpha; reject Beta for this CSV-only requirement.\n",
+    "fictional-claude/projects/fixture/434c4bfd-b019-448f-9a6b-62971ae5bb94.jsonl": "{\"type\":\"assistant\",\"uuid\":\"a097575e-35fa-4388-ae42-46f12f3733a0\",\"sessionId\":\"434c4bfd-b019-448f-9a6b-62971ae5bb94\",\"timestamp\":\"2026-11-10T00:58:36.862Z\",\"message\":{\"id\":\"fictional-fo-message\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-opus-5-5\",\"content\":[{\"type\":\"text\",\"text\":\"虛構 CSV 匯出選擇：需求只接受 CSV；甲方案支援 CSV、乙方案僅支援 XLSX，兩者測試通過且其他條件相同。下一步：請選甲或乙（你）\"}],\"stop_reason\":\"end_turn\",\"usage\":{\"input_tokens\":0,\"output_tokens\":0}}}\n",
+    "history-fixture/index.server.ts": "export default function(server) { return server.before(\"agent.session_open\", ({request}) => request.agentId === \"0bf1a6fa-f9e6-4357-9a2b-8ec5c57b6063\" ? {...request, env:{...request.env, CLAUDE_CONFIG_DIR:\"/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fictional-claude\"}} : undefined); }",
+    "bin/spacedock": "#!/usr/bin/env python3\nfrom pathlib import Path\nprint(Path('/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/node_modules/.d7-proof-cycle5-1wi23p_1/fixture-status.json').read_text())\n"
+  },
+  "isolatedConfig": {
+    "daemon": {
+      "listen": "127.0.0.1:<owned-port>",
+      "mcp": {
+        "enabled": true,
+        "injectIntoAgents": true
+      }
+    },
+    "pluginsEnabled": true
+  },
+  "offlineSeedOnly": true,
+  "noCredentialFilesReadOrCopied": true
+}

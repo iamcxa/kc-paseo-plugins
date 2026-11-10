@@ -1,0 +1,58 @@
+✔ comms switch does nothing without confirm, persists IDs before archive, keeps old timeline readable (1.979541ms)
+✔ an archive failure retains the exact replacement IDs and a confirmed retry does not create another officer (0.725375ms)
+✖ recommendations read gate briefings or recent FO messages and cite that evidence (2.5455ms)
+✖ lists and exact-message previews use markdown tables and numeric or keyword replies (0.363208ms)
+✖ fleet gate briefing reads the board's exact open attempt only, with bounded output and no writes (290.1105ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 2
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1111.106625
+
+✖ failing tests:
+
+test at test/coordinator-switch.test.mts:1:2509
+✖ recommendations read gate briefings or recent FO messages and cite that evidence (2.5455ms)
+  AssertionError [ERR_ASSERTION]: Before recommending a gate, call gate_briefing with its supplied board key and read the prepared briefing.
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/coordinator-switch.test.mts:43:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/coordinator-switch.test.mts:1:3188
+✖ lists and exact-message previews use markdown tables and numeric or keyword replies (0.363208ms)
+  AssertionError [ERR_ASSERTION]: Write every accumulated list and what-will-be-sent preview as a standard markdown table in your reply.
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/coordinator-switch.test.mts:54:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/fleet-briefing.test.mts:1:440
+✖ fleet gate briefing reads the board's exact open attempt only, with bounded output and no writes (290.1105ms)
+  TypeError: fleetGateBriefing is not a function
+      at TestContext.<anonymous> (/Users/kent/Project/kc-paseo-plugins/.worktrees/spacedock-ensign-d7-list-chief-of-staff/spacedock-bridge/test/fleet-briefing.test.mts:49:24)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)

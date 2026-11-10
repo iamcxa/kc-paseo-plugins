@@ -1,0 +1,18 @@
+import fs from "node:fs";
+import { DaemonClient } from "../@getpaseo/client/dist/daemon-client.js";
+import { createPaseoApi } from "../@getpaseo/client/dist/index.js";
+const root = new URL(".", import.meta.url).pathname;
+const output = "/Users/kent/Project/kc-paseo-plugins/docs/dev2-poc/.spacedock-state/d7-list-chief-of-staff/evidence/cycle-5/";
+const runtime = JSON.parse(fs.readFileSync(output+"runtime.json", "utf8"));
+const client = new DaemonClient({clientId:"d7-cycle5-setup",url:`ws://127.0.0.1:${runtime.daemonPort}/ws`,reconnect:{enabled:false}});
+await client.connect(); const api=createPaseoApi(client);
+try {
+ const chief=await client.invokePluginRpc("paseo-spacedock-bridge","coordinator.open",{});
+ const targets=[];
+ for (const [title, task] of [["Fictional gate FO", "gate"], ["Fictional question FO", "question"]]) {
+  const agent=await api.agents.create({config:{provider:"claude/claude-opus-5-5",systemPrompt:"Fictional receipt-only FO. No work or tools.",options:{allowedTools:[]}},cwd:root+"fictional",title,labels:{role:"fo",repo:"fictional","workflow-dir":root+"fictional",task}});
+  targets.push({id:agent.id,title,task});
+ }
+ fs.writeFileSync(output+"agents-created.json",JSON.stringify({chief,targets,modelsPrompted:0},null,2),{flag:"wx"});
+ console.log(JSON.stringify({chief:chief.agentId,targets:targets.map(x=>x.id),modelsPrompted:0}));
+} finally {await api.dispose();await client.close();}

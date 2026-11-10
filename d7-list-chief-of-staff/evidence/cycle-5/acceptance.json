@@ -1,0 +1,74 @@
+{
+  "checks": [
+    {
+      "name": "observer reaches calling with one admitted gate and one question",
+      "status": "passed"
+    },
+    {
+      "name": "list is a markdown table",
+      "status": "passed"
+    },
+    {
+      "name": "list has no ui/app blocks",
+      "status": "passed"
+    },
+    {
+      "name": "preview is a markdown table",
+      "status": "passed"
+    },
+    {
+      "name": "preview has no ui/app blocks",
+      "status": "passed"
+    },
+    {
+      "name": "exact admitted gate briefing is read",
+      "status": "passed"
+    },
+    {
+      "name": "gate recommendation cites briefing evidence",
+      "status": "passed"
+    },
+    {
+      "name": "native recent FO activity is read",
+      "status": "passed"
+    },
+    {
+      "name": "question recommendation cites actual message",
+      "status": "passed"
+    },
+    {
+      "name": "all recommendations is only the separate preview user turn",
+      "status": "passed"
+    },
+    {
+      "name": "preview includes every exact destination and proposed message",
+      "status": "passed"
+    },
+    {
+      "name": "numeric or keyword choices",
+      "status": "passed"
+    },
+    {
+      "name": "one preparation call and zero outward/model-permission tools",
+      "status": "passed"
+    },
+    {
+      "name": "no prompt, relay or model turn for Fictional gate FO",
+      "status": "passed"
+    },
+    {
+      "name": "no prompt, relay or model turn for Fictional question FO",
+      "status": "passed"
+    },
+    {
+      "name": "no failed or incomplete candidate source match",
+      "status": "passed"
+    },
+    {
+      "name": "corrected proof has three native measured model turns",
+      "status": "passed"
+    }
+  ],
+  "candidate": "d4306c25366ca150c68af46c77eb4f8aa6a5419f",
+  "scope": "Gate briefing + FO recent read + table list + no-relay preview only; no explicit-confirmation send, permission decision or live installation tested."
+}

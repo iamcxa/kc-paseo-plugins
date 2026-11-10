@@ -1,0 +1,108 @@
+[
+  {
+    "scenario": "misconfigured isolated rehearsal",
+    "daemonGeneration": 2,
+    "agentId": "488df596-94b8-4986-bbe0-0e1f21d31d63",
+    "turnId": "codex-turn-0",
+    "startedAt": "2026-11-10T00:55:42.189Z",
+    "completedAt": "2026-11-10T00:55:50.497Z",
+    "elapsedSeconds": 8.308,
+    "providerReportedUsage": {
+      "inputTokens": 28494,
+      "cachedInputTokens": 0,
+      "outputTokens": 186,
+      "contextWindowMaxTokens": 475000,
+      "contextWindowUsedTokens": 28680
+    },
+    "note": "Provider-reported token counts and cost only; no inferred billing. Codex turn IDs restart after daemon restart; generation and timestamps disambiguate."
+  },
+  {
+    "scenario": "misconfigured isolated rehearsal",
+    "daemonGeneration": 2,
+    "agentId": "fdc43ca6-10c3-4cbd-9066-29cecf9e804d",
+    "turnId": "foreground-turn-1",
+    "startedAt": "2026-11-10T00:55:18.320Z",
+    "completedAt": "2026-11-10T00:56:17.418Z",
+    "elapsedSeconds": 59.098,
+    "providerReportedUsage": {
+      "inputTokens": 10,
+      "cachedInputTokens": 163366,
+      "outputTokens": 1532,
+      "totalCostUsd": 0.42221719999999996,
+      "contextWindowMaxTokens": 1000000,
+      "contextWindowUsedTokens": 54369
+    },
+    "note": "Provider-reported token counts and cost only; no inferred billing. Codex turn IDs restart after daemon restart; generation and timestamps disambiguate."
+  },
+  {
+    "scenario": "misconfigured isolated rehearsal",
+    "daemonGeneration": 2,
+    "agentId": "fdc43ca6-10c3-4cbd-9066-29cecf9e804d",
+    "turnId": "foreground-turn-2",
+    "startedAt": "2026-11-10T00:56:19.263Z",
+    "completedAt": "2026-11-10T00:56:48.701Z",
+    "elapsedSeconds": 29.438,
+    "providerReportedUsage": {
+      "inputTokens": 4,
+      "cachedInputTokens": 53431,
+      "outputTokens": 2118,
+      "totalCostUsd": 0.48281539999999995,
+      "contextWindowMaxTokens": 1000000,
+      "contextWindowUsedTokens": 56495
+    },
+    "note": "Provider-reported token counts and cost only; no inferred billing. Codex turn IDs restart after daemon restart; generation and timestamps disambiguate."
+  },
+  {
+    "scenario": "corrected native-tool proof",
+    "daemonGeneration": 3,
+    "agentId": "488df596-94b8-4986-bbe0-0e1f21d31d63",
+    "turnId": "codex-turn-0",
+    "startedAt": "2026-11-10T00:58:56.879Z",
+    "completedAt": "2026-11-10T00:59:08.370Z",
+    "elapsedSeconds": 11.491,
+    "providerReportedUsage": {
+      "inputTokens": 29445,
+      "cachedInputTokens": 28544,
+      "outputTokens": 171,
+      "contextWindowMaxTokens": 475000,
+      "contextWindowUsedTokens": 29616
+    },
+    "note": "Provider-reported token counts and cost only; no inferred billing. Codex turn IDs restart after daemon restart; generation and timestamps disambiguate."
+  },
+  {
+    "scenario": "corrected native-tool proof",
+    "daemonGeneration": 3,
+    "agentId": "f7577f90-0c6d-48c8-8b0e-aa410abc08d8",
+    "turnId": "foreground-turn-1",
+    "startedAt": "2026-11-10T00:58:40.071Z",
+    "completedAt": "2026-11-10T00:59:32.023Z",
+    "elapsedSeconds": 51.952,
+    "providerReportedUsage": {
+      "inputTokens": 10,
+      "cachedInputTokens": 167664,
+      "outputTokens": 1908,
+      "totalCostUsd": 0.40840479999999996,
+      "contextWindowMaxTokens": 1000000,
+      "contextWindowUsedTokens": 55478
+    },
+    "note": "Provider-reported token counts and cost only; no inferred billing. Codex turn IDs restart after daemon restart; generation and timestamps disambiguate."
+  },
+  {
+    "scenario": "corrected native-tool proof",
+    "daemonGeneration": 3,
+    "agentId": "f7577f90-0c6d-48c8-8b0e-aa410abc08d8",
+    "turnId": "foreground-turn-2",
+    "startedAt": "2026-11-10T00:59:34.562Z",
+    "completedAt": "2026-11-10T01:00:02.611Z",
+    "elapsedSeconds": 28.049,
+    "providerReportedUsage": {
+      "inputTokens": 10,
+      "cachedInputTokens": 166127,
+      "outputTokens": 2601,
+      "totalCostUsd": 0.5203382,
+      "contextWindowMaxTokens": 1000000,
+      "contextWindowUsedTokens": 59408
+    },
+    "note": "Provider-reported token counts and cost only; no inferred billing. Codex turn IDs restart after daemon restart; generation and timestamps disambiguate."
+  }
+]
