@@ -4,4 +4,6 @@ The plugin creates one comms officer agent. It only starts FOs and passes messag
 
 Setup: Paseo 0.12.0 or later, and the `spacedock` command on your PATH. FOs are agents labelled `role=fo`. Task and gate data come from running `spacedock` against each FO's workflow directory.
 
+A neutral Tab closed badge beside an FO's name means it has known Paseo tab labels, all are false, and it is not running. It stays visible when opening a decision card. Missing tab labels or any open client tab leave it unbadged. The badge preserves the FO's group and actions; archived or lifecycle-closed agents keep the existing offline behavior.
+
 What it keeps and sends: decisions, review requests and a fleet token are stored under `~/.local/share/paseo-fo-coordinator`. The fleet MCP server listens on `127.0.0.1:6787`, so a second copy of the plugin on the same machine cannot start it. A review poller runs inside the daemon and wakes the FO that a pull request belongs to.

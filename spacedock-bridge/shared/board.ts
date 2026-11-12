@@ -38,6 +38,7 @@ export interface BoardRow {
   workflowDir: string;
   gates: AwaitingGate[];
   offline: boolean;
+  tabClosed: boolean;
   attentionAt?: string | null;
 }
 
@@ -59,6 +60,13 @@ export function isFo(agent: BoardAgent): boolean {
   return agent.labels?.[ROLE_LABEL] === ROLE_FO;
 }
 
+export function isTabClosed(agent: BoardAgent): boolean {
+  if (agent.archivedAt || agent.status === "closed" || agent.status === "running") return false;
+  const tabs = Object.entries(agent.labels ?? {})
+    .filter(([key]) => key.startsWith("paseo.open-agent-tab."));
+  return tabs.length > 0 && tabs.every(([, value]) => value === "false");
+}
+
 export function toRow(agent: BoardAgent): BoardRow {
   return {
     id: agent.id,
@@ -73,6 +81,7 @@ export function toRow(agent: BoardAgent): BoardRow {
     workflowDir: (agent.labels?.["workflow-dir"] ?? "").startsWith("/") ? agent.labels!["workflow-dir"] : "",
     gates: [],
     offline: Boolean(agent.archivedAt) || agent.status === "closed",
+    tabClosed: isTabClosed(agent),
     attentionAt: agent.attentionTimestamp ?? null,
   };
 }
